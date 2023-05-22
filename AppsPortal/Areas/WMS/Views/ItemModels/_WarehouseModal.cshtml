@@ -1,0 +1,45 @@
+﻿@model codeItemModelWarehouse
+@using (Html.BeginForm("ItemModelWarehouse", "ItemModels", new { Area = "WMS" }, FormMethod.Post, new { id = "ItemModelWarehouseForm" }))
+{
+    string ModalTitle = Model.ItemModelWarehouseGUID.ToString() == Guid.Empty.ToString() ? "New Model Warehouse" : "Edit Model Warehouse";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ItemModelWarehouseGUID)
+        @Html.HiddenFor(model => model.WarehouseItemModelGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.WarehouseGUID)
+            @Html.DropDownListFor(model => model.WarehouseGUID, new DropDownList().Warehouses(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LowestAmountAllowed)
+            @Html.EditorFor(model => model.LowestAmountAllowed, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReOrderedLimit)
+            @Html.EditorFor(model => model.ReOrderedLimit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+ 
+
+   
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ItemModelWarehouseGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ItemModel.Create, Apps.WMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ItemModel.Update, Apps.WMS)
+                @Html.DeleteSwitchButton(Permissions.ItemModel.Delete, Apps.WMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ItemModel.Delete, Apps.WMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

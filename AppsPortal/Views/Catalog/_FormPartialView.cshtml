@@ -1,0 +1,106 @@
+﻿@model Test
+@using (Html.BeginForm("SaveChanges", "Catalog", FormMethod.Post, new { id = "TestForm" }))
+{
+    string ModalTitle = Model.IndividualID.ToString() == Guid.Empty.ToString() ? "New Individual Details" : "Edit Individual Details";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.TestRowVersion)
+    @Html.HiddenFor(model => model.IndividualID)
+    @Html.HiddenFor(model => model.Active)
+
+    <div class="modal-body">
+        <div class="form-group">
+            @Html.LabelFor(model => model.GivenName)
+            @Html.EditorFor(model => model.GivenName, new { htmlAttributes = new { required = true, @class = "form-control", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.GivenName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateOfBirth)
+            @Html.EditorFor(model => model.DateOfBirth)
+            @Html.ValidationMessageFor(model => model.DateOfBirth)
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.sexcode)
+            @Html.DropDownListFor(model => model.sexcode, new SelectList(ViewBag.List, "ValueGUID", "ValueDescription"), new { @class = "form-control selectpicker select2-basic-single", style = "width:100%" })
+            @Html.ValidationMessageFor(model => model.sexcode)
+        </div>
+        @*<div style="display:block; height:1000px;">
+                .... some more controls ....
+            </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.OriginCountryCode)
+            @Html.EditorFor(model => model.OriginCountryCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            <a class="fa fa-question-circle helpbox" data-content="Here is some tips for users!"></a>
+            @Html.ValidationMessageFor(model => model.OriginCountryCode)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegistrationDate)
+            @Html.EditorFor(model => model.RegistrationDate, new { @class = "form-control datetime-picker", autocomplete = "off" })
+            @Html.ValidationMessageFor(model => model.RegistrationDate)
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="button" id="testAmer" value="test" class="btn btn-default" />
+        @if (Model.Active)
+        {
+            @*EDIT Exists Record*@
+            <input type="submit"
+                   id="btnEdit"
+                   value="@resxUIControls.SaveChanges"
+                   class="btn btn-primary SLAME"
+                   data-refreshdatatable="@DataTableNames.TestDataTable"
+                   data-loadpartialview='{"url": "", "container": ""}'
+                   data-submittype=@SubmitTypes.Update
+                   onclick='SubmitForm(this);'
+                   disabled />
+
+                @*DELETE Handler*@
+                <a id="btnDeleteHandler" class="btn btn-default ConfirmOnModal pull-right">
+                    <span class="fa fa-trash-o" style="color:black;"></span>
+                </a>
+                @*DELETE Exists Record*@
+                <input type="submit"
+                       id="btnDelete"
+                       value="@resxUIControls.ConfirmDelete"
+                       class="btn btn-danger SLAME"
+                       data-refreshdatatable="@DataTableNames.TestDataTable"
+                       data-loadpartialview='{"url": "", "container": ""}'
+                       data-submittype=@SubmitTypes.Delete
+                       onclick='SubmitForm(this);'
+                       style="display:none;"/>
+                <input type="button" id="btnCancel" class="btn btn-default CancelConfirmOnModal" value="@resxUIControls.Cancel" style="display:none;"/>
+
+
+        }
+        else
+        {
+            if (Model.IndividualID == Guid.Empty)
+            {
+                @*CREATE New Record*@
+                <input type="submit"
+                       id="btnCreate"
+                       value="@resxUIControls.SaveChanges"
+                       class="btn btn-primary SLAME"
+                       data-refreshdatatable="@DataTableNames.TestDataTable"
+                       data-loadpartialview='{"url": "")", "container": ""}'
+                       data-submittype=@SubmitTypes.Create
+                       onclick='SubmitForm(this);'
+                       disabled />
+            }
+            else
+            {
+                @*RESOTRE Exists Record*@
+                <input type="submit"
+                       id="btnRestore"
+                       value="@resxUIControls.Restore"
+                       class="btn btn-warning SLAME"
+                       data-refreshdatatable="@DataTableNames.TestDataTable"
+                       data-loadpartialview='{"url": "", "container": ""}'
+                       data-submittype=@SubmitTypes.Restore
+                       onclick="SubmitForm(this);" />
+            }
+        }
+        <input type="button" id="btnClose" class="btn btn-default" data-dismiss="modal" value="@resxUIControls.Close" />
+
+    </div>
+}

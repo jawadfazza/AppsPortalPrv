@@ -1,0 +1,25 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxDbFields.DispatchDetailGUID</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.DispatchDetailDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.DispatchDetailDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.DispatchDetailDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.DispatchDetailDataTable)
+                @Html.FieldDataTableCreate(Permissions.PMDDispatch.Create, Apps.PMD, Url.Action("DispatchDetailCreate", "Dispatch", new { FK = Model.ParentGUID }))
+                <button type="button" title="Dispatch Bluk Items" class="btnCreate Modal-Link btn pull-right btn-primary" data-url="@Url.Action("DispatchBlukItems", "Dispatch", new { FK = Model.ParentGUID })"><i class="fa fa-plus-circle "></i></button>
+                @Html.FieldDataTableDelete(Permissions.PMDDispatch.Delete, Apps.PMD, DataTableNames.DispatchDetailDataTable)
+                @Html.FieldDataTableRestore(Permissions.PMDDispatch.Restore, Apps.PMD, DataTableNames.DispatchDetailDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.DispatchDetailDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.DispatchDetailDataTable, FormController = "Dispatch", Area = "PMD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

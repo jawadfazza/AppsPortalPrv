@@ -1,0 +1,414 @@
+﻿@model  FileTrackingOverviewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("276bed1f-fd5b-414c-8c91-165b1ee168b9")
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<link href="~/Assets/Plugin/CustomDashboard/layout.min.css" rel="stylesheet" />
+@*<link href="~/Areas/WMS/Temp/layout.min.css" rel="stylesheet" />*@
+<div class="page--content">
+    <br />
+    <br />
+    <div data-ng-app="myApp">
+        <div data-ng-controller="MyCtrl">
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box bg-red">
+                            <span class="info-box-icon"><i class="fa fa-flag-o"></i></span>
+                            <div class="pull-right">    </div>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Delay in return file(s)</span>
+                                {{OverviewDatamodel.TotalCasesDelay}}
+                                <div class="progress">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box bg-aqua">
+                            <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+                            <div class="pull-right"> </div>
+                            <div class="info-box-content">
+                                <span class="info-box-text">All Files (Pending Confirmation)</span>
+                                {{OverviewDatamodel.TotalCasesPendingConfirmation}}
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box bg-blue">
+                            <span class="info-box-icon"><i class="fa fa-files-o"></i></span>
+                            <div class="pull-right"> </div>
+                            <div class="info-box-content">
+                                <span class="info-box-text">My Files (Pending Confirmation)</span>
+                                {{OverviewDatamodel.TotalCasesConfirmed}}
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box bg-green">
+                            <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+                            <div class="pull-right">   </div>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Cases Requested</span>
+                                {{OverviewDatamodel.TotalCasesRequested}}
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        
+                <br />
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 ">
+
+
+                        <div class="panel-group" id="accordion">
+                        
+                                <div class="panel-heading" role="tab" id="heading01" data-toggle="collapse" data-parent="#accordion" href="#" aria-expanded="true" style="background-color:#ddd;">
+                                    <span class="panel-title " >
+                                        <b>Filters</b>
+                                    </span>
+                                </div>
+                                <div id="Tab01" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading01">
+                                    <div class="panel-body" style="padding:0;" id="allFiltersId">
+
+                                        <div class="layered-heading module-title"><h2></h2></div> <div class="layered">
+                                            <div class="list-group">
+                                                <div class="filter-attribute-container">
+
+                                                    <div class="panel-group">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading">
+                                                                <a ng-click="" data-toggle="collapse" href="#Section1" class="clear-filter1">
+                                                                    <span class="icon--right icon--xsmall width-100 block border-box icon-chevron-right">Unit<span style="color:orangered">
+                                                                        @*(@Model.TotalCasesHoldByAllUnits)*@
+                                                                              </span></span>
+                                                                </a>
+
+                                                            </div>
+                                                            <div id="Section1" class="panel-collapse collapse" style="display:block;overflow:scroll;height:300px;">
+                                                                <ul class="list-group">
+                                                                    @foreach (var item in Model.unitCasesDistModel)
+                                                                    {
+                                                                        <li class="list-group-item">
+                                                                            <label class="container">
+                                                                                @*<input type="checkbox" onclick="clicked($event)" id="@item.DestinationUnitGUID" name=" @item.DestinationUnitGUID">*@
+                                                                                @*<input type="checkbox" onclick="clicked($event)" id="@item.DestinationUnitGUID" name="@item.DestinationUnitGUID" ng-model="DestinationUnitGUID">*@
+                                                                                <input class="chkHead" type="checkbox" id="@item.DestinationUnitGUID" name="@item.DestinationUnitGUID" ng-model="DestinationUnitGUID">
+                                                                                <span class="checkmark">  </span>
+                                                                                @item.UnitName<span style="color:brown">(@item.TotalCases)</span>
+
+
+                                                                            </label>
+                                                                        </li>
+
+                                                                    }
+
+
+
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="layered-heading module-title"><h2></h2></div> <div class="layered">
+                                            <div class="list-group">
+                                                <div class="filter-attribute-container">
+
+                                                    <div class="panel-group">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading">
+
+                                                                <a ng-click="" data-toggle="collapse" href="#Section2" class="clear-filter2">
+                                                                    <span class="icon--right icon--xsmall width-100 block border-box icon-chevron-right">Staff <span style="color:orangered">(@Model.TotalCasesHoldByAllStaff)</span></span>
+                                                                </a>
+
+                                                            </div>
+                                                            <div id="Section2" class="panel-collapse collapse" style="display:block;overflow:scroll;height:300px;">
+                                                                <ul class="list-group">
+                                                                    @foreach (var item in Model.staffCustodyMoedl)
+                                                                    {
+                                                                        <li class="list-group-item">
+                                                                            <label class="container">
+
+                                                                                <input class="chkHead" type="checkbox" id="@item.UserGUID" name="@item.UserGUID" ng-model="UserGUID">
+                                                                                <span class="checkmark">  </span>
+                                                                                @item.StaffName<span style="color:brown"> (@item.TotalCases)</span>
+
+
+                                                                            </label>
+                                                                        </li>
+
+                                                                    }
+
+
+
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item filter-clear-all">
+
+                                            <button class="clear-filter btn btn-danger " ng-click="Clearfilter();">Clear all</button>
+                                        </div>
+                                    </div>
+                                </div>
+                       
+                        </div>
+
+                    </div>
+                    <div class="col-lg-9 col-md-8">
+                        <table id="caseInfotable" data-url="@Url.Action("InitCaseFlowIndex", "FileTrackingOverview")" class="table dt-right" cellspacing="0" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th><input name="select_all" value="1" id="select-all" type="checkbox" class="chkHead" /> </th>
+                                    <th>File Number</th>
+
+                                    <th>Transfer To</th>
+                                    <th>Transfer From</th>
+                                    <th>Delivery Status</th>
+
+
+                                </tr>
+                            </thead>
+
+                        </table>
+
+                    </div>
+        
+
+            </div>
+
+        </div>
+</div>
+    </div>
+
+
+    <script>
+        var columnDefs = [
+            {
+                "targets": 0,
+                "data": "FileGUID",
+                "render": function (data, type, full, meta) {
+                    return "<input type='checkbox' name='CaseCheck' class='CaseCheck' hidden='true' value='" + data + "'>";
+                }
+            },
+            {
+                "targets": 1,
+                "data": "FileNumber",
+                "render": function (data, type, full, meta) {
+                    return "<a  href='#' class='modal-link1'>" + data + "</a>  ";
+                    //return "<a type='text' name='ReferralInfocheck' class='ReferralInfocheck' value='" + data + "'>";
+                }
+
+            },
+            //{
+            //    "targets": 3,
+            //    "data": "CreateDate",
+            //    "render": function (data, type, full, meta) {
+            //        if ((data != null) && (data != "")) {
+
+                  
+            //            var dtStart = new Date(parseInt(data.substr(6)));
+                   
+            //            var dtStartWrapper = moment(dtStart);
+
+            //            return dtStartWrapper.format("MM/DD/YYYY");
+            //        }
+                
+            //    }
+            //},
+
+        ];
+
+
+        var ColumnsData = [
+            { "data": "FileGUID", "orderable": false },
+            { "data": "FileNumber", "orderable": true },
+            { "data": "LastCustodianTypeName", "orderable": true },
+            { "data": "LastTransferFromName", "orderable": true },
+            { "data": "LastFlowStatusName", "orderable": true },
+          
+
+        ];
+
+        var table = {
+            "tableId": "caseInfotable",
+            "seraching": true,
+            "ordering": true,
+            "pagingType": "full_numbers",
+            "processing": true,
+            "serverSide": true,
+            "ColumnsData": ColumnsData,
+            "columnDefs": columnDefs
+        };
+        var tables = [];
+         tables.push(table);
+        function InitDataTable() {
+         
+      
+            for (var i = 0; i < tables.length; i++) {
+        
+        
+
+                $('#caseInfotable').DataTable({
+                    "searching": tables[i]["seraching"],
+                    "ordering": tables[i]["ordering"],
+                    "processing": tables[i]["processing"],
+                    "serverSide": tables[i]["serverSide"],
+                    "ajax": {
+                        "url": "/DAS/FileTrackingOverview/InitCaseFlowIndex",
+                        "type": "POST",
+                        "data": {
+                            method: "datatables",
+                            filters: function () {
+                              
+                            }
+                        }
+                    },
+                    "columns": tables[i]["ColumnsData"],
+                    "columnDefs": tables[i]["columnDefs"],
+
+                });
+
+
+            }
+        }
+        InitDataTable();
+    var myApp = angular.module('myApp', []);
+
+    //Controller
+    myApp.controller('MyCtrl',
+        [
+            '$scope', '$http', '$timeout', '$window', '$interval',
+            function($scope, $http, $timeout, $window, $interval) {
+                $scope.idstaffs = [];
+                $('select').select2();
+                $('#itemLoader').hide();
+
+                $scope.ids = [];
+
+                $scope.Clearfilter = function () {
+                
+                    $scope.ids = [];
+                    $scope.idstaffs = [];             
+                 
+                    $('.chkHead', "#allFiltersId").iCheck('uncheck');
+                    $('input.chkHead', '#allFiltersId').iCheck('uncheck');       
+                  
+                    $scope.SearchInDataTable();
+                    $scope.InitDashboardData();
+
+
+                };
+
+                $scope.InitDashboardData = function() {
+
+                    $http({
+                        method: 'Post',
+                        url: "@Url.Action("InitDashboardData", "FileTrackingOverview")",
+                        data: {
+                            DestinationUnitGUIDs: $scope.ids,
+
+                        }
+
+                    }).success(function(data) {
+                
+                        $scope.OverviewDatamodel = data.model;
+                      
+                        $('select').select2();
+                        //$('#itemsTable select').css('width', '100%');
+
+                    });
+                }
+                $scope.InitDashboardData();
+                $(document).on('ifChecked ifUnchecked', '.chkHead', function (event) {
+                    $scope.btnName = event.target.name;
+                    $scope.checked = event.target.checked;
+
+                    var DataTable = $(this).closest('li, .checkboxes-container');
+                    
+                    if (event.type == 'ifChecked') {
+                   
+                        $scope.ids.push($scope.btnName);
+                        $('.chkNode', DataTable).iCheck('check');
+                      
+                    } else {
+                         for (var i = 0; i < $scope.ids.length; i++) {
+                            if ($scope.ids[i] == $scope.btnName) {
+                                $('.chkNode', DataTable).iCheck('uncheck');
+                                $scope.ids.splice(i, 1);
+                            }
+                        }
+                      
+                      
+                     
+                    }
+                    $scope.InitDashboardData();
+                    $scope.SearchInDataTable();
+                });
+
+                 $scope.SearchInDataTable = function () {
+                    var table = $('#caseInfotable').DataTable();
+                    //  var table = $('#ReferralInfo').DataTable();
+                    table.destroy();
+                    for (var i = 0; i < tables.length; i++) {
+                        $('#' + tables[i]["tableId"]).DataTable({
+                            "searching": tables[i]["seraching"],
+                            "ordering": tables[i]["ordering"],
+                            "pagingType": tables[i]["pagingType"],
+                            "processing": tables[i]["processing"],
+                            "serverSide": tables[i]["serverSide"],
+                            "ajax": {
+                                "url": '/DAS/FileTrackingOverview/InitCaseFlowIndex/',
+                                "type": "POST",
+                                data: {
+                                    DestinationUnitGUIDs: $scope.ids,
+                            
+                                },
+
+
+                            },
+                            "columns": tables[i]["ColumnsData"],
+                            "columnDefs": tables[i]["columnDefs"]
+                        });
+                    }
+                }
+                //$scope.InitDashboardData();
+
+            }
+        ]);
+    </script>

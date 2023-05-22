@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("6de0a18a-2aa8-426f-8c30-c2f6ac16e6e5")
+<div class="page--content">
+    <div class="page--body">
+        <div class="AccountSettings">
+            <!--Account Password-->
+            <div id="PanelForAccountPassword">
+                @{Html.RenderAction("ChangePasswordView", "AccountSettings");}
+            </div>
+            <hr />
+            <!--Permissions-->
+            <div id="PanelForPermissions">
+                @{Html.RenderAction("PermissionsView", "AccountSettings");}
+            </div>
+            <hr />
+            <!--Applications-->
+            <div id="PanelForApplications">
+                @{Html.RenderAction("ApplicationsView", "AccountSettings");}
+            </div>
+            <hr />
+            <!--Notifications-->
+            <div id="PanelForNotifications">
+                @{Html.RenderAction("NotificationsView", "AccountSettings");}
+            </div>
+            <hr />
+            <!--Connection-->
+            <div id="PanelForConnections">
+                @{Html.RenderAction("ConnectionsView", "AccountSettings");}
+            </div>
+            <hr />
+            <!--Activity Log-->
+            <div id="PanelForActivitiesLog">
+                @{Html.RenderAction("ActivitiesLogView", "AccountSettings");}
+            </div>
+            <hr />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿@*User To User*@
+<div class="row" id="SourceUser">
+    <div class="col-lg-4" style="width:30%">
+        <img id="userProfileImage" class="userProfilePhotoInPermissions " src="/Assets/Images/img.png" />
+    </div>
+    <div class="col-lg-8 HANDLER">
+        @Html.DropDownList("SourceProfileGUID", new DropDownList().Empty(), new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-ajax FlashOnEmptySelect2",
+       data_action = "RemoteFindUserCurrentProfile",
+       onchange = "GetUserDetails($(this).val(),'#SourceUser');"
+   })
+        <div style="margin: 10px 0; padding: 7px; border: solid 1px #ccc; background-color:#fff; min-height: 135px;">
+            <span class="userInfoInPermissions lblEmailAddress">Please select a user from above</span>
+            <span class="userInfoInPermissions lblOrganization"></span>
+            <span class="userInfoInPermissions lblJobTitle"></span>
+            <span class="userInfoInPermissions lblOperation"></span>
+        </div>
+    </div>
+</div>
+@*Profile To Profile*@
+<div class="row" id="SourceUser">
+    <div class="col-lg-4">
+        <img id="userProfileImage" class="userProfilePhotoInPermissions " src="/Assets/Images/img.png" />
+    </div>
+    <div class="col-lg-8 HANDLER">
+        @Html.DropDownList("UserGUID", new DropDownList().Empty(), new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-ajax FlashOnEmptySelect2",
+       data_action = "RemoteFindUserCurrentProfile",
+       onchange = "GetUserDetailsForProfileToProfile($(this).val(),'#SourceUser');"
+   })
+        <div style="margin: 10px 0; padding: 7px; border: solid 1px #ccc; background-color:#fff; min-height: 135px;">
+            <span class="userInfoInPermissions lblEmailAddress">@resxPages.SelectTheUser</span>
+            <span class="userInfoInPermissions lblOrganization"></span>
+            <span class="userInfoInPermissions lblJobTitle"></span>
+            <span class="userInfoInPermissions lblOperation"></span>
+        </div>
+    </div>
+</div>
+@*Permissions*@
+<div class="row" id="SourceUser">
+    <div class="col-lg-4">
+        <img id="userProfileImage" class="userProfilePhotoInPermissions" src="/Assets/Images/img.png" />
+    </div>
+    <div class="col-lg-8 HANDLER">
+        @Html.DropDownList("UserProfileGUID", new DropDownList().Empty(), new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-ajax FlashOnEmptySelect2",
+       data_action = "RemoteFindUserCurrentProfile",
+       onchange = "GetUserDetails($(this).val(),'#SourceUser');"
+   })
+        <div style="margin: 10px 0; padding: 7px; border: solid 1px #ccc; background-color:#fff; min-height: 135px;">
+            <span class="userInfoInPermissions lblEmailAddress">@resxPages.SelectTheUser</span>
+            <span class="userInfoInPermissions lblOrganization"></span>
+            <span class="userInfoInPermissions lblJobTitle"></span>
+            <span class="userInfoInPermissions lblOperation"></span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,700 @@
+﻿    @model StaffRAndRLeaveRequestModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.RestAndRecuperationLeaveGUID == Guid.Empty) ? "New  R&R Leave " : "Edit  R&R Leave"; }
+<style>
+    #smartwizard {
+        z-index: 3 !important;
+    }
+</style>
+@Html.PageHeader("bc314333-5728-4fed-a733-ab4bafe167cd")
+@*<link href="~/Assets/Plugin/SmartWizard/smart_wizard.min.css" rel="stylesheet" />*@
+
+
+
+
+<link href="~/Assets/Plugin/SmartWizard/smart_wizard_vertical.css" rel="stylesheet" />
+<link href="~/Assets/Plugin/SmartWizard/demo_Style.css" rel="stylesheet" />
+
+<div class="page--content">
+
+
+    <div class="row" id="mainWizardid">
+
+
+        <div id="wizard" class="swMain sw-theme-circles" style="width:100%;">
+
+            <ul class="nav nav-tabs step-anchor">
+                <li class="nav-item active"><a href="#step-1" class="nav-link">Step1<br><small>R R Information </small></a></li>
+                <li class="nav-item"><a href="#step-2" class="nav-link">Step 2<br><small>R R  Information</small></a></li>
+                <li class="nav-item"><a href="#step-3" class="nav-link">Step 3<br><small>HR Review</small></a></li>
+
+                <li class="nav-item"><a href="#step-4" class="nav-link">Step 4<br><small>Supervisor Review</small></a></li>
+                <li class="nav-item"><a href="#step-5" class="nav-link">Step 5<br><small>HR Approval</small></a></li>
+                <li class="nav-item"><a href="#step-6" class="nav-link">Step 6<br><small> Representative Approval</small></a></li>
+
+                <li class="nav-item"><a href="#step-7" class="nav-link">Step 7<br><small>Closure</small></a></li>
+            </ul>
+
+
+            <div class="sw-container tab-content" style="min-height: 100%;width:100%;">
+
+                <div id="step-1" class="tab-pane step-content" style="display: block;margin-top:10px!important;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading pull-right" style="background-color:lightyellow;color:green;">Help: Here staff has to provide his R and R and annual leaves</div>
+                        <div class="panel-body">
+                            <div clcass="col-md-12">
+                                @Html.Partial("~/Areas/AHD/Views/TempRAndRLeaveDates/_TempLeaveDatesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.RestAndRecuperationLeaveGUID, IsParentActive = Model.Active })
+                            </div>
+                            <hr />
+                                <div class="form-group">
+
+                                </div>
+                            <br /><br />
+                                <div class="col-md-12">
+                                    <div class="from-group">
+                                        @using (Html.BeginForm("StaffRAndRLeaveRequest", "StaffRAndRLeave", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffRAndRLeaveForm", @class = "main-form", enctype = "multipart/form-data" }))
+                                        {
+
+                                            @Html.AntiForgeryToken()
+
+                                            @Html.FormHiddenFields(model => model.RestAndRecuperationLeaveGUID)
+                                            <div class="col-md-8">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group HANDLER">
+                                                            @Html.LabelFor(model => model.BackupArrangementGUID)
+                                                            @Html.DropDownListFor(model => model.BackupArrangementGUID, new DropDownList().Users(true), "",
+                                                           new
+                                                                {
+                                                           @class = "form-control select2-basic-search",
+                                                           style = "width:100%",
+
+                                                                })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.ReturnDateFromLastRLeave)
+                                                            @Html.EditorFor(model => model.ReturnDateFromLastRLeave, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.ExpiryDateOfResidency)
+                                                            @Html.EditorFor(model => model.ExpiryDateOfResidency, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.Label("Destination Country")
+                                                            @Html.EditorFor(model => model.DestinationCountry, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.Label("Departure Country")
+                                                        @Html.DropDownListFor(model => model.DestCountryGUID, new DropDownList().CountriesSyriaShuttle(), "",
+                                                             new
+                                                             {
+                                                                 @class = "form-control select2-basic-search",
+                                                                 onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'StartLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);",
+                                                                 style = "width:100%"
+                                                             })
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.Label("Drop Off Country")
+                                                        @Html.DropDownListFor(model => model.CountryGUID1, new DropDownList().CountriesSyriaShuttle(), "",
+                                                                     new
+                                                                     {
+                                                                         @class = "form-control select2-basic-search",
+                                                                         onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'EndLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);",
+                                                                         style = "width:100%"
+                                                                     })
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.Label("Departure City")
+                                                        @Html.DropDownListFor(model => model.StartLocationGUID, new DropDownList().LocationOneValue(Model.StartLocationGUID), "",
+                                                                     new
+                                                                     {
+                                                                         style = "width:100%",
+                                                                         onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DeparturePointGUID', Action : 'RemoteLocationsByLocationType'}]);",
+                                                                         @class = "form-control select2-basic-search"
+                                                                     })
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                     @Html.Label("Drop Off City")
+                                                     @Html.DropDownListFor(model => model.EndLocationGUID, new DropDownList().LocationOneValue(Model.EndLocationGUID), "",
+                                                     new
+                                                     {
+                                                         style = "width:100%",
+                                                         onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DropOffPointDUID', Action : 'RemoteLocationsByLocationType'}]);",
+                                                         @class = "form-control select2-basic-search"
+                                                     })
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.Label("Departure Point")
+                                                        @Html.DropDownListFor(model => model.DeparturePointGUID, new DropDownList().LocationOneValue(Model.DeparturePointGUID), "",
+                                                                 new
+                                                                 {
+                                                                     style = "width:100%",
+                                                                     @class = "form-control select2-basic-search"
+                                                                 })
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.Label("Drop Off Point")
+                                                        @Html.DropDownListFor(model => model.DropOffPointGUID, new DropDownList().LocationOneValue(Model.DropOffPointGUID), "",
+                                                                     new
+                                                                     {
+                                                                         style = "width:100%",
+                                                                         @class = "form-control select2-basic-search"
+                                                                     })
+
+                                                    </div>
+
+
+                               
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group HANDLER" id="itemparenetId">
+                                                            @Html.LabelFor(model => model.EmployeeComments)
+                                                            @Html.EditorFor(model => model.EmployeeComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                        </div>
+
+
+                                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                    @*@Html.CreateButton(Permissions.InternationalStaffRestAndRecuperationLeave.Create, Apps.AHD)*@
+
+                                                </div>
+                                                <div class="col-md-12 ">
+                                                    <div class="form-group">
+                                                        <button onclick="StaffRAndRLeaveRequestCreate()" type="button" id="staffSubmitLeaveId" class="btn btn-labeled btn-info " style="display:none;">
+
+                                                            <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="submitToReviewLoader"></i></span> Sumbit RR Request To HR For Review
+                                                        </button>
+
+
+
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            
+                           
+
+                            
+                        </div>
+                    </div>
+                </div>
+                <div id="step-2" class="tab-pane step-content">
+                    <div class="panel panel-default">
+                        <div class="panel-heading pull-right" style="background-color:lightyellow;color:green;">Help: Here Staff has to provide his leave information</div>
+                        <div class="panel-body">
+                         
+                        </div>
+                    </div>
+
+                </div>
+                <div id="step-3" class="tab-pane step-content" style="margin-top:10px!important;">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EligibleDate)
+                            @Html.EditorFor(model => model.EligibleDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group HANDLER" id="itemparenetId">
+                            @Html.LabelFor(model => model.HRComments)
+                            @Html.EditorFor(model => model.HRComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        @*<input type="button" class="btn btn-danger hrReview" value="Return It To Staff To Review" id="pendingHRId" style="display:none" />*@
+
+                        @*<button onclick="" type="button" id="pendingHRId" class="btn btn-labeled btn-danger hrReview" style="display:none;">
+
+                                <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="pendingHRLoading"></i></span> Return  for Review
+                            </button>*@
+
+
+                        <button onclick="HRReviewApprovalCreate()" type="button" id="approveHrId" class="btn btn-labeled btn-info hrReview" style="display:none;">
+
+                            <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="approveHrIdLoading"></i></span> Approve And Send To Supervisor
+                        </button>
+
+
+
+                        <div class="form-group">
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="step-4" class="tab-pane step-content" style="margin-top:10px!important;">
+                    @*@Html.CreateButton(Permissions.InternationalStaffRestAndRecuperationLeave.Create, Apps.AHD)*@
+
+                    <button onclick="SuperVisorApprovalCreate()" type="button" id="approveSupervisorId" class="btn btn-labeled btn-info" style="display:none;">
+
+                        <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="approveSupervisorLoading"></i></span> Approve And Send To HR
+                    </button>
+
+
+                    @*<input type="button" class="btn btn-primary" value="Approve And Send To HR" id="approveSupervisorId" onclick="HRReviewApprovalCreate()" style="display:none;" />*@
+                </div>
+
+
+
+                <div id="step-5" class="tab-pane step-content" style="margin-top:10px!important;">
+
+                    <div class="col-md-12">
+                        @*@Html.CreateButton(Permissions.InternationalStaffRestAndRecuperationLeave.Create, Apps.AHD)*@
+
+                        <button onclick="HRApprovalCreate()" type="button" id="hrApprovalId" class="btn btn-labeled btn-info hrApprovalclass" style="display:none;">
+
+                            <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="hrApprovalLoading"></i></span> Approve R_R Request
+                        </button>
+
+
+
+
+                    </div>
+                    <div class="col-md-12">
+                        <a name='Print Form' class="hrApprovalclass" target="_blank" href='/AHD/Reports/InternationalRAndRLeaveReport?PK=@Model.RestAndRecuperationLeaveGUID'>Print Form</a>
+                    </div>
+                </div>
+                <div id="step-6" class="tab-pane step-content" style="margin-top:10px!important;">
+
+                    <button onclick="RepresentativeApproveRAndRLeaveCreate()" type="button" id="RepresentativeReviewId" class="btn btn-labeled btn-info" style="display:none;">
+
+                        <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="RepresentativeReviewIdLoading"></i></span> Approve Leave
+                    </button>
+
+
+
+                </div>
+                <div id="step-7" class="tab-pane step-content" style="margin-top:10px!important;">
+                    <button onclick="CloseRAndRLeaveCreate()" type="button" id="ClsoeReviewId" class="btn btn-labeled btn-info" style="display:none;">
+
+                        <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="CloseReviewIdLoading"></i></span> Close R_R Request
+                    </button>
+
+
+                    @*<input type="button" class="btn btn-primary" value="Close Leave" id="ClsoeReviewId" onclick="ClsoeRAndRLeaveCreate()" style="display:none;" />*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="backToIndexId">
+
+        @Html.BackToList(Url.Action("StaffLeavsIndex", "StaffRAndRLeave", new { Area = "AHD" }))
+    </div>
+
+</div>
+
+<script src="~/Assets/Plugin/SmartWizard/jquery.smartWizard.js"></script>
+
+<script>
+        var RestPage = function () {
+            $("#submitToReviewLoader").hide();
+            $("#pendingHRLoading").hide();
+            $("#approveHrIdLoading").hide();
+            $("#approveSupervisorLoading").hide();
+            $("#hrApprovalLoading").hide();
+            $("#CloseReviewIdLoading").hide();
+            $("#RepresentativeReviewIdLoading").hide();
+            $("#TempGUIDAdd").hide();
+        }
+        RestPage();
+        $("#backToIndexId").hide();
+
+    $('#wizard').smartWizard({
+            selected: 0,
+            theme: 'dots',
+        transitionEffect: 'fade',
+
+            transition: {
+                animation: 'slide-vertical', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+                speed: '1500', // Transion animation speed
+                easing: '' // Transition animation easing. Not supported without a jQuery easing plugin
+            },
+        });
+        $('html, body').animate({
+            scrollTop: $('#step-1').offset().top - 1000 //#DIV_ID is an example. Use the id of your destination on the page
+        }, 'slow');
+        var currentStep = '@Model.CurrentStep';
+
+    var accessLevel = '@Model.AccessLevel';
+
+
+        $("#submitToReviewLoader").hide();
+
+        if ((accessLevel == 1 || accessLevel==null)&& (currentStep == 0 || currentStep == 1)) {
+            $("#TempGUIDAdd").show();
+            $('#staffSubmitLeaveId').show();
+        }
+        else if (accessLevel == 2 && (currentStep == 2 || currentStep==1)) {
+            $('.hrReview').show();
+        }
+        else if (accessLevel == 3 && (currentStep == 3 || currentStep == 2)) {
+            $('#approveSupervisorId').show();
+        }
+        else if (accessLevel == 2 && (currentStep == 3 )) {
+            $('.hrApprovalclass').show();
+        }
+
+        else if (accessLevel == 5 && (currentStep == 4)) {
+
+            $('#RepresentativeReviewId').show();
+        }
+        else if (accessLevel == 2 && (currentStep == 5 )) {
+
+            $('#ClsoeReviewId').show();
+        }
+        var StaffRAndRLeaveRequestCreate = function () {
+
+            var table = $('#InternationalTempStaffRAndRDatesDataTable').dataTable();
+            var url = "/AHD/StaffRAndRLeave/StaffRAndRLeaveRequestCreate/";
+
+
+            if (table.fnGetData().length > 0 && currentStep == 0 || currentStep == 1) {
+
+                $("#submitToReviewLoader").show();
+                $(':button').prop('disabled', true);
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {
+                        RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+                        ReturnDateFromLastRLeave: $("#ReturnDateFromLastRLeave").val(),
+                        BackupArrangementGUID: $("#BackupArrangementGUID").val(),
+                        ExpiryDateOfResidency: $("#ExpiryDateOfResidency").val(),
+                        EmployeeComments: $("#EmployeeComments").val(),
+                        DestinationCountry: $("#DestinationCountry").val()
+
+                    },
+                    success: function (data) {
+                        $("#submitToReviewLoader").hide();
+                        $(':button').prop('disabled', false);
+                        if (data.success == 1) {
+
+
+                            Notify(NotificationType.Success, 'Request has been sent to HR for review');
+                            $('#staffSubmitLeaveId').hide();
+                            $("#backToIndexId").show();
+                            $("#mainWizardid").hide();
+                        }
+                        else if (data.success == 0) {
+
+                            return true;
+                        }
+                        else if (data.success == -2) {
+                            Notify(NotificationType.Warning, 'No Permission');
+                        }
+                    }
+                });
+            }
+            else {
+                Notify(NotificationType.Warning, 'Please Add your leave dates from prvious step');
+            }
+
+
+        }
+
+    var HRReviewApprovalCreate = function () {
+
+            if (currentStep == 1) {
+                var url = "/AHD/StaffRAndRLeave/HRReviewApprovalCreate/";
+                $(':button').prop('disabled', true);
+                $("#approveHrIdLoading").show();
+
+
+
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {
+                        RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+                        EligibleDate: $("#EligibleDate").val()
+
+
+                    },
+                    success: function (data) {
+                        $(':button').prop('disabled', false);
+                        $("#approveHrIdLoading").hide();
+                        if (data.success == 1) {
+                            Notify(NotificationType.Success, 'Request has been sent to Supervisor for review');
+                            $('#staffSubmitLeaveId').hide();
+                            $("#backToIndexId").show();
+                            $("#mainWizardid").hide();
+                            //$("#backToIndexId").show();
+                            //$("#mainWizardid").hide();
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                });
+            }
+            else {
+                Notify(NotificationType.Warning, 'No Permission');
+            }
+        }
+
+
+        var SuperVisorApprovalCreate = function () {
+            if (currentStep == 2) {
+                $(':button').prop('disabled', true);
+                $("#approveSupervisorLoading").show();
+                var url = "/AHD/StaffRAndRLeave/SuperVisorApprovalCreate/";
+
+
+
+
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {
+                        RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+
+
+                    },
+                    success: function (data) {
+                        $(':button').prop('disabled', false);
+                        $("#approveSupervisorLoading").hide();
+                        if (data.success == 1) {
+                            $('#staffSubmitLeaveId').hide();
+                            $("#backToIndexId").show();
+                            $("#mainWizardid").hide();
+                            Notify(NotificationType.Success, 'Request has been sent to HR for review');
+
+                            //$("#backToIndexId").show();
+                            //$("#mainWizardid").hide();
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                });
+            }
+            else {
+                Notify(NotificationType.Warning, 'Please Add your leave dates from prvious step');
+            }
+
+        }
+
+
+
+        var HRApprovalCreate = function () {
+            if (currentStep == 3) {
+                $(':button').prop('disabled', true);
+                $("#hrApprovalLoading").show();
+                var url = "/AHD/StaffRAndRLeave/HRApprovalCreate/";
+
+
+
+
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {
+                        RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+
+
+                    },
+                    success: function (data) {
+                        $(':button').prop('disabled', false);
+                        $("#hrApprovalLoading").hide();
+                        if (data.success == 1) {
+                            Notify(NotificationType.Success, 'Leave has been approved');
+                            $('#staffSubmitLeaveId').hide();
+                            $("#backToIndexId").show();
+                            //$("#mainWizardid").hide();
+                            $("#hrApprovalId").hide();
+                            //$("#backToIndexId").show();
+                            //$("#mainWizardid").hide();
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                });
+            }
+            else {
+                Notify(NotificationType.Warning, 'No Permission');
+            }
+        }
+
+
+    var RepresentativeApproveRAndRLeaveCreate = function () {
+        if (currentStep == 4) {
+            $(':button').prop('disabled', true);
+            $("#RepresentativeReviewIdLoading").show();
+            var url = "/AHD/StaffRAndRLeave/RepresentativeApproveRAndRLeaveCreate/";
+
+
+
+
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+
+
+                },
+                success: function (data) {
+                    $(':button').prop('disabled', false);
+                    $("#RepresentativeReviewIdLoading").hide();
+                    if (data.success == 1) {
+                        Notify(NotificationType.Success, 'Leave has been approved');
+                        $('#staffSubmitLeaveId').hide();
+                        $("#backToIndexId").show();
+                        //$("#mainWizardid").hide();
+                        $("#hrApprovalId").hide();
+                        //$("#backToIndexId").show();
+                        //$("#mainWizardid").hide();
+                    }
+                    else {
+                        return true;
+                    }
+                }
+            });
+        }
+        else {
+            Notify(NotificationType.Warning, 'No Permission');
+        }
+    }
+
+        var CloseRAndRLeaveCreate = function () {
+            $(':button').prop('disabled', true);
+            $("#CloseReviewIdLoading").show();
+
+            if (currentStep == 5) {
+                var url = "/AHD/StaffRAndRLeave/CloseRAndRLeaveCreate/";
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {
+                        RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+
+
+                    },
+                    success: function (data) {
+                        $(':button').prop('disabled', false);
+                        $("#CloseReviewIdLoading").hide();
+                        if (data.success == 1) {
+                            Notify(NotificationType.Success, 'Leave has been closed');
+                            $('#staffSubmitLeaveId').hide();
+                            $("#backToIndexId").show();
+                            $("#mainWizardid").hide();
+                            //$("#backToIndexId").show();
+                            //$("#mainWizardid").hide();
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                });
+            }
+            else {
+                Notify(NotificationType.Warning, 'No Permission');
+            }
+
+        }
+
+        $("#smartwizard").on("leaveStep",
+            function (e, anchorObject, stepNumber, stepDirection) {
+
+
+
+
+                var table = $('#InternationalTempStaffRAndRDatesDataTable').dataTable();
+
+                    if ((stepDirection === 'forward' && stepNumber == 1) && (currentStep == 0)) {
+                        Notify(NotificationType.Warning, 'No Permission');
+
+                        return false;
+
+
+                    }
+                    else {
+                        return true;
+                    }
+                if (stepDirection == 'forward' && stepNumber == 2 && currentStep == 1) {
+                    Notify(NotificationType.Warning, 'No Permission');
+                    return false;
+
+
+
+                }
+                else {
+                    return true;
+
+                }
+                if (stepDirection == 'forward' && stepNumber == 3 && currentStep==2) {
+                     Notify(NotificationType.Warning, 'No Permission');
+                     return false;
+
+
+
+                 }
+                 else {
+                     return true;
+
+                 }
+                if (stepDirection == 'forward' && stepNumber == 4 && currentStep == 3) {
+                     Notify(NotificationType.Warning, 'No Permission');
+                     return false;
+
+
+
+                }
+                else {
+                    return true;
+
+                }
+                if (stepDirection == 'forward' && stepNumber == 5 && currentStep == 4) {
+
+                     Notify(NotificationType.Warning, 'No Permission');
+
+                    return false;
+
+
+
+                }
+                else {
+                    return true;
+
+                }
+
+
+            });
+</script>

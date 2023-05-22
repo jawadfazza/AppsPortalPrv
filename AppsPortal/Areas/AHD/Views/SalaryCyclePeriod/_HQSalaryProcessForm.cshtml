@@ -1,0 +1,46 @@
+﻿
+@model SalaryCyclePeriodUpdateModel
+
+
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="panel panel-primary newPanelSettings">
+            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+            
+
+            </div>
+            <div class="panel-body">
+                
+                <div class="row">
+                    <br />
+                    <hr class="customHr" />
+                    <div class="col-md-12">
+                        <h4 style="text-decoration:underline;">Salary</h4>
+                    </div>
+                    <div class="col-md-12">
+
+                        <div id="BanksControlersFormControls">
+
+                            @Html.Partial("~/Areas/AHD/Views/SalaryCyclePeriod/_HQSalaryDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.SalaryCycleGUID, IsParentActive = Model.Active })
+                        </div>
+
+                    </div>
+
+                </div>
+                
+
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>

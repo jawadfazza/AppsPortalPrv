@@ -1,0 +1,503 @@
+﻿@model StaffMissionRequestDataTableModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.MissionRequestGUID == Guid.Empty) ? "New  Mission " : "Edit Mission"; }
+
+@Html.PageHeader("9587200a-0b18-47e4-a04d-7e44b1c2559e")
+<style>
+    body {
+        background-color: #f5f5f5;
+    }
+
+    .icon-circle {
+        border: 1px solid;
+        padding: 5px;
+        border-radius: 50%;
+        width: 25px !important;
+        height: 25px !important;
+        font-size: 15px;
+        margin-right: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.2;
+    }
+
+    .color-icon-check {
+        color: green;
+        opacity: 0.5;
+    }
+
+    .color-icon-arrow {
+        color: blue;
+        opacity: 0.7;
+    }
+
+    .row-flex {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .header {
+        background: #000084;
+        color: white;
+        margin-top: 1rem;
+        border-radius: 10px 10px 0px 0px;
+        padding: 5px;
+    }
+
+    .row-data {
+        background-color: white;
+        display: flex;
+        padding: 10px;
+        margin: 3px 0px;
+    }
+
+    .row-flex-2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 15px;
+        margin-right: 10px;
+    }
+</style>
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+
+            <div class="panel-heading" id="step1panelcreate">
+                @*Delegation Request for : @Model.StaffName in @Model.StartDate*@
+
+
+            </div>
+            <div>
+                @using (Html.BeginForm("MissionRequestCreate", "MissionRequest", new { Area = "AHD" }, FormMethod.Post, new { id = "MissionRequestWizardform", @class = "main-form", enctype = "multipart/form-data" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.FormHiddenFields(model => model.MissionRequestGUID)
+                    @Html.HiddenFor(model => model.StaffGUID)
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="step1InfoBox">
+                        <div class="panel panel-primary newPanelSettings">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+                                <h3 class="box-title" style="color:blue">Mission Request For :@ViewBag.StaffName <span class="pull-right" style="color:blue">@Html.DisplayFor(model => model.ReferenceNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })</span></h3>
+                                @*<div id="statusId" class="col-lg-offset-1" style="font-weight: bold;"></div>*@
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="form-group">
+
+
+                                        <div class="col-md-3">
+                                            <div class="form-group HANDLER" id="itemparenetId">
+                                                @Html.LabelFor(model => model.DepartureDate)
+
+
+                                                @Html.HiddenFor(model => model.DepartureDate)
+                                                <br />
+                                                @Html.DisplayFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.ReturnDate)
+
+
+                                                @Html.HiddenFor(model => model.ReturnDate)
+                                                <br />
+                                                @Html.DisplayFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group HANDLER" id="itemparenetId">
+                                                @Html.LabelFor(model => model.TypeOfTravelGUID)
+
+
+                                                @Html.HiddenFor(model => model.TypeOfTravelGUID)
+                                                <br />
+                                                @Html.DisplayFor(model => model.TypeOfTravel, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.TypeOfMissionGUID)
+
+                                                <br />
+                                                @Html.DisplayFor(model => model.TypeOfMission, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="form-group">
+
+
+
+
+
+                                    </div>
+                                    <div class="form-group">
+
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @if (Model.HasDamascusTransit == true)
+                                                {
+                                                    @Html.LabelFor(model => model.HasDamascusTransit)
+
+
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.HasDamascusTransit, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                                                }
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                @if (Model.IsMissionCombinedWithLeave == true)
+                                                {
+                                                    @Html.LabelFor(model => model.IsMissionCombinedWithLeave)
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.IsMissionCombinedWithLeave, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                                                }
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @if (Model.IsMissionCombinedWithRR == true)
+                                                {
+                                                    @Html.LabelFor(model => model.IsMissionCombinedWithRR)
+
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.IsMissionCombinedWithRR, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                                                }
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PurposeOfMission)
+
+                                                <br />
+                                                @Html.DisplayFor(model => model.PurposeOfMission, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Comments)
+
+                                                <br />
+                                                @Html.DisplayFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                            </div>
+                                        </div>
+                                        @if (Model.AdminComments != null && Model.AdminComments != "")
+                                        {
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.Label("Admin Comments")
+
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.AdminComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                                </div>
+                                            </div>
+                                        }
+
+                                        @if (Model.HeadOfUnitComments != null && Model.HeadOfUnitComments != "")
+                                        {
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.Label("HoO/U Comments")
+
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.HeadOfUnitComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                                </div>
+                                            </div>
+                                        }
+                                        </div>
+                                       
+
+
+
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.Partial("~/Areas/AHD/Views/MissionRequest/Traveler/_ROMissionRequestTravelerDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.MissionRequestGUID, IsParentActive = Model.Active })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.Partial("~/Areas/AHD/Views/MissionRequest/Itinerary/_ROMissionRequestItineraryDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.MissionRequestGUID, IsParentActive = Model.Active })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.Partial("~/Areas/AHD/Views/MissionRequest/Documents/_RODocumentDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.MissionRequestGUID, IsParentActive = Model.Active })
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="stepadmin4InfoBox">
+                        <div class="panel panel-primary ">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+                                <h3 class="box-title"> Representative/OIC  </h3>
+
+                            </div>
+                            <div class="panel-body showstep4body">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @Html.Label("Representative/OIC Comments") *
+                                            @if (Model.LastFlowStatusGUID == AHDMissionStatusFlow.Reviewed)
+                                            {
+                                                @Html.EditorFor(model => model.AuthorizedComment, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                <span style="color:red;">(*): In case of rejection , this field is mandatory</span>
+
+                                            }
+                                            else
+                                            {
+                                                <br />
+                                                @Html.DisplayFor(model => model.AuthorizedComment, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="panel-footer  showstep4body">
+
+                                @if (Model.LastFlowStatusGUID == AHDMissionStatusFlow.Reviewed && Model.StaffGUID != Model.CurrentUserGUID)
+                                {
+
+
+                                    <input type="button" onclick="ConfirmMissionRequestByOIC()" value="Approved" id="saveOICApprovalid"
+                                           class="btn btn-primary showfooterstep1" />
+
+                                    <input type="button" onclick="RejectMissionRequestByOIC()" value="Reject" id="RejectOICId"
+                                           class="btn btn-danger pull-right showfooterstep1" />
+
+
+
+                                }
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>
+
+                        @Html.Partial("~/Areas/AHD/Views/MissionRequest/MissionReview/_RequestStatus.cshtml")
+
+                    </div>
+
+                }
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+     var _stage = parseInt(@ViewBag.Stage);
+
+    var checkStatus = function () {
+        var data = _stage;
+
+
+        if (data == 0) {
+            return;
+        }
+        else {
+
+            var RequestLabel = ['Submitted', 'Verified', 'Reviewed', 'Approved'];
+
+            var body = '<div >';
+            var bodycheck = '';
+            var bodyempty = '';
+            var bodyarrow = '';
+            var check = false, empty = false;
+
+            for (var i = 0; i < RequestLabel.length; i++) {
+
+                if (i + 1 < data) {
+                    check = true;
+                    bodycheck += '<div class="row row-flex">';
+                    bodycheck += '<i class="fa fa-check icon-circle color-icon-check"></i>';
+                    bodycheck += "<div>" + RequestLabel[i] + "</div></div>";
+
+                }
+                else if (i + 1 == data) {
+
+                    bodyarrow += "<div class='row row-flex'><div class='row-flex-2'>";
+                    if (data != 1)
+                        bodyarrow += "<a data-toggle='collapse' href='#Up' aria-expanded='false' aria-controls='collapseExample'><i class='fa fa-caret-up'></i></a>";
+                    if (data != RequestLabel.length)
+                        bodyarrow += "<a data-toggle='collapse' href='#Down' aria-expanded='false' aria-controls='collapseExample' ><i class='fa fa-caret-down'></i></a>";
+                    bodyarrow += "</div > ";
+                    bodyarrow += '<i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>';
+                    bodyarrow += "<a data-toggle='collapse' href='#M' aria-expanded='false' aria-controls='collapseExample'>" + RequestLabel[i] + "</a></div>";
+
+                }
+                else {
+                    empty = true;
+                    bodyempty += '<div class="row row-flex">';
+                    bodyempty += '<i class="icon-circle"></i>';
+                    bodyempty += "<div>" + RequestLabel[i] + "</div></div>";
+                }
+            }
+
+            body += "<div class='collapse' style='margin-left: 20px;' id='Up'>" + bodycheck + "</div>";
+            body += bodyarrow;
+            body += "<div class='collapse' style='margin-left: 20px;' id='Down'>" + bodyempty + "</div>";
+
+            body += '</div>';
+
+            $('#statusId').append(body);
+        }
+    }
+    //checkStatus();
+
+    var _MissionRequestGUID = $("#MissionRequestGUID").val();
+    var ConfirmMissionRequestByOIC = function () {
+
+        var _AuthorizedComment = $("#AuthorizedComment").val();
+                       $.ajax({
+                        url: '@Url.Action("ConfirmMissionRequestByOIC", "MissionRequest")',
+                        type: 'post',
+                           data: {
+                               _MissionRequestGUID: _MissionRequestGUID,
+                               _AuthorizedComment: _AuthorizedComment,
+                        },
+                        success: function (data) {
+                            if (data.success == 1) {
+
+                                $('.showOIC').hide();
+                                $('.showstep4body').hide();
+                                $('.OICStatus').show();
+                                $('.normalStatus').hide();
+
+                                Notify(NotificationType.Success, 'Saved successfully');
+                                //  $scope.mysearchKey = null;
+
+                            }
+                            else {
+
+                                Notify(NotificationType.Warning, 'Warning');
+                            }
+
+
+
+                        }
+                    });
+
+    }
+
+    var RejectMissionRequestByOIC = function () {
+
+        var _AuthorizedComment = $("#AuthorizedComment").val();
+        if (_AuthorizedComment != null && _AuthorizedComment == '') {
+            Notify(NotificationType.Warning, 'Please indicate your comments and reason for rejection ');
+
+        }
+        else {
+            $.ajax({
+                url: '@Url.Action("RejectMissionRequestByOIC", "MissionRequest")',
+                type: 'post',
+                data: {
+                    _MissionRequestGUID: _MissionRequestGUID,
+                    _AuthorizedComment: _AuthorizedComment,
+                },
+                success: function (data) {
+                    if (data.success == 1) {
+
+                        $('.showOIC').hide();
+                        $('.showstep4body').hide();
+
+                        Notify(NotificationType.Success, 'Saved successfully');
+                        //  $scope.mysearchKey = null;
+
+                    }
+                    else {
+
+                        Notify(NotificationType.Warning, 'Warning');
+                    }
+
+
+
+                }
+            });
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+</script>

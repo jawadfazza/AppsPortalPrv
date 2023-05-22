@@ -1,0 +1,19 @@
+﻿@model DataBillUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.BillGUID == Guid.Empty) ? "New Bill" : "Edit Bill";}
+@Html.PageHeader("4c859dc7-bd2f-4305-a837-230a378f66f1")
+<div class="page--content">
+    <div id="bill-form-container" class="forms-fadeIn">
+        @Html.Partial("~/Areas/TBS/Views/BillManagement/_BillForm.cshtml")
+
+        @*<div id="LanguagesContainer">
+                @if (Model.BillGUID != Guid.Empty && Model.Active)
+                {
+                    @Html.Partial("~/Areas/CMS/Views/Codes/Actions/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ActionGUID, IsParentActive = Model.Active })
+                }
+            </div>*@
+    </div>
+</div>

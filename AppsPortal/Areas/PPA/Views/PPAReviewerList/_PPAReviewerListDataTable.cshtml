@@ -1,0 +1,25 @@
+﻿@model MasterRecordStatus
+
+<h3 class="Title">PPA Reviewer List</h3>
+@*<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">*@
+@if (Model.IsParentActive)
+{
+    <div id=@string.Format("{0}Filter", DataTableNames.PPAReviewerListDataTable) class="filter-section" style="display:none;">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_RecordStatus", DataTableNames.PPAReviewerListDataTable)
+            </div>
+        </div>
+    </div>
+    <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.PPAReviewerListDataTable)">
+        @Html.FieldDataTableFilter(DataTableNames.PPAReviewerListDataTable)
+        @Html.FieldDataTableCreate(Permissions.PPAManagement.Create, Apps.PPA, Url.Action("PPAReviewerListCreate", "Management", new { Area = "PPA", FK = Model.ParentGUID }))
+        @Html.FieldDataTableDelete(Permissions.PPAManagement.Delete, Apps.PPA, DataTableNames.PPAReviewerListDataTable)
+        @Html.FieldDataTableRestore(Permissions.PPAManagement.Restore, Apps.PPA, DataTableNames.PPAReviewerListDataTable)
+        @Html.FieldDataTableRefresh(DataTableNames.PPAReviewerListDataTable)
+    </div>
+}
+@Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.PPAReviewerListDataTable, FormController = "Management", Area = "PPA", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+@*</div>
+    </div>*@

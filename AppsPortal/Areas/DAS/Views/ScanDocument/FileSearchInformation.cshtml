@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "RefugeeScannedDocuments";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("f67ea00e-17eb-43be-b1d5-988d79216b73")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.RefugeeScannedDocumentDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.RefugeeScannedDocumentDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.RefugeeScannedDocumentDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.RefugeeScannedDocumentDataTable)
+        @Html.FieldDataTableCreate(Permissions.RefugeeScannedDocument.Create, Apps.DAS, "/DAS/RefugeeScannedDocument/SearchFile/")
+        @Html.IndexDatatableCreate(Permissions.RefugeeScannedDocument.Create, Apps.DAS, "/DAS/RefugeeScannedDocument/Create/")
+        @Html.IndexDatatableDelete(Permissions.RefugeeScannedDocument.Delete, Apps.DAS, DataTableNames.RefugeeScannedDocumentDataTable)
+        @Html.IndexDatatableRestor(Permissions.RefugeeScannedDocument.Restore, Apps.DAS, DataTableNames.RefugeeScannedDocumentDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.RefugeeScannedDocumentDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.RefugeeScannedDocumentDataTable, Area = "DAS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="527cbb48f0fb41959be766ade6256894" Name="Diagram1" ZoomLevel="106">
+        <EntityTypeShape EntityType="OSAModel.userPersonalDetailsLanguage" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="OSAModel.codeJobTitles" Width="1.5" PointX="3.75" PointY="1.375" />
+        <EntityTypeShape EntityType="OSAModel.codeJobTitlesLanguages" Width="1.5" PointX="6" PointY="1" />
+        <AssociationConnector Association="OSAModel.FK_codeJobTitlesLanguages_codeJobTitles" />
+        <EntityTypeShape EntityType="OSAModel.StaffCoreData" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="OSAModel.codeOfficeFloor" Width="1.5" PointX="7.75" PointY="5" />
+        <EntityTypeShape EntityType="OSAModel.codeOfficeFloorRoom" Width="1.5" PointX="10" PointY="5" />
+        <EntityTypeShape EntityType="OSAModel.codeOffices" Width="1.5" PointX="0.75" PointY="8.75" />
+        <AssociationConnector Association="OSAModel.FK_codeOfficeFloorRoom_codeOfficeFloor" />
+        <EntityTypeShape EntityType="OSAModel.dataOfficeStaffAttendance" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="OSAModel.dataOfficeStaffAttendanceConfirmation" Width="1.5" PointX="8.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

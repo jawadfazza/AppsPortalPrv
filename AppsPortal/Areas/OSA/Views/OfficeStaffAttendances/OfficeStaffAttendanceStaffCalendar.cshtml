@@ -1,0 +1,608 @@
+﻿@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<link href="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.js"></script>
+<style>
+    .highlighted {
+        background-color: yellow;
+    }
+</style>
+@Html.PageHeader("05ca37f3-5866-49dc-b033-b504a803ec9c")
+<div class="page--content">
+
+    @if (Request.Params["Guid"] != null && Request.Params["Date"] != null)
+    {
+        <br />
+
+        <div class="row">
+            <div class="col-lg-4 col-sm-12 col-md-3">
+
+            </div>
+            <div class="col-lg-5 col-sm-12 col-md-6 center-block">
+                <div class="alert alert-info fade in alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                    <strong>Confirm Message! </strong>Kindly confirm below staff presence (The Red Event )?<br /><br />
+
+                    <a id="ConfirmSupervisor" href="#" onclick="ConfirmSupervisor();" class="btn btn-success" title="Confirm"> <i class="fa fa-check"></i></a>
+                    <a id="ConfirmSupervisor" href="#" onclick="CancelSupervisor();" class="btn btn-warning" title="Reject"> <i class="fa fa-close"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-md-6 center-block">
+                <div class="alert alert-info fade in alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                    <strong>Notify! </strong>Kindly Note that (The Red Event ) will be flagged as attended events in case you confirm, Otherwise please click and delete the (The Red Event ) to exclude it from your confirmation.<br /><br />
+                </div>
+            </div>
+
+        </div>
+    }
+    else
+    {
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.CasesDataTable)">
+    <button type="button" title="Refresh" class="btnRefresh btn btn-primary" onclick="refreshCalendar()"><i class="fa fa-refresh"></i></button>
+
+    @if (Request.Params["Date"] != null && ViewBag.MonthConfirmed==0)
+    {
+        @Html.FieldDataTableCreateNoPermission(Url.Action("OfficeStaffAttendanceNeedConfirmCreate", "OfficeStaffAttendances"))
+        <a id="InformSupervisor" data-url="/OSA/OfficeStaffAttendances/NotifyDirectSupuervisor"  class="btn btn-primary Modal-Link"  title="Notify Your Direct Supervisor."  style="width:250px;text-align:center"> <i class="fa fa-bell-o">Notify Your Direct Supervisor.</i></a>
+    }
+
+</div>
+    }
+    <div id="DivFilter" style="width:100%;display:none;">
+
+        <div class="row" @*style="width:92%;"*@>
+            <div class="col-lg-4">
+                <h4>@resxDbFields.StaffName</h4>
+                @Html.DropDownList("StaffName", new DropDownList().CoreUsersFullNameValue(true), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search"
+   })
+            </div>
+            <div class="col-lg-4">
+                <h4>@resxDbFields.DutyStation</h4>
+                @Html.DropDownList("DutyStation", new DropDownList().SyriaStaffDutyStation(), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search"
+   })
+            </div>
+            <div class="col-lg-4">
+                <h4>@resxDbFields.Unit</h4>
+                @Html.DropDownList("Department", new DropDownList().Departments(), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search"
+   })
+            </div>
+
+        </div>
+        <br />
+        <div class="row" style="width:100%;">
+            <div class="col-lg-12 ">
+                <input type="button" value="Find" class="btnFind btn btn-success" id="btnFind" onclick="return searchOfficeStaffAttendance();">&nbsp;
+                <input type="button" value="Close" class="btnClose btn btn-default" onclick="ToggleAdvanceFilter('DivFilter','btnFilter');">&nbsp;
+                <input type="button" value="Clear Filter" class="btnClear btn btn-default" onclick="ClearFilter1()">&nbsp;
+            </div>
+        </div>
+    </div>
+    <br />
+    <div id='calendar'></div>
+    <br />
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-12">
+            <a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable" style="z-index: 0 !important; background-color: #337ab7; border-color: #337ab7 "><div class="fc-content"> <span class="fc-title">Presence Pending</span></div></a>
+            <a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable" style="z-index: 0 !important; background-color: #6aa16a; border-color: #6aa16a "><div class="fc-content"> <span class="fc-title">Presence Confirmed</span></div></a>
+            <a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable" style="z-index: 0 !important; background-color: red; border-color: red "><div class="fc-content"> <span class="fc-title">Direct Supervisor Confirmation</span></div></a>
+            @*<a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable" style="background-color:darkred;border-color:darkred"><div class="fc-content"> <span class="fc-title">To Be Confirm By Direct Supervisor</span></div></a>*@
+            <br />
+            <br />
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+
+    function ClearFilter1() {
+        $('#StaffName').val('').trigger('change');
+        $('#DutyStation').val('').trigger('change');
+        $('#Department').val('').trigger('change');
+
+        InitializeOfficeStaffAttendanceCalendar(false);
+        ToggleAdvanceFilter('DivFilter', 'btnFilter');
+    }
+
+    function ToggleAdvanceFilter(DivID, btnID) {
+        if ($('#' + btnID).hasClass('fa-exclamation-triangle')) {
+            $('#' + DivID).hide(500);
+            $('#' + btnID).removeClass('fa-exclamation-triangle');
+            $('#' + btnID).addClass('fa-filter');
+            $('#txtShuttleSearch').prop("disabled", false);
+
+        } else {
+            $('#' + DivID).show(500);
+            $('#' + btnID).addClass('fa-exclamation-triangle');
+            $('#' + btnID).removeClass('fa-filter');
+            $('#txtShuttleSearch').prop("disabled", true);
+        }
+    }
+
+
+    var Source;
+    $(document).ready(function () {
+        InitializeOfficeStaffAttendanceCalendar(true);
+    });
+
+    function searchOfficeStaffAttendance() {
+        if ($('#StaffName').val() != '' || $('#DutyStation').val() != '' || $('#Department').val() != '') {
+            refreshCalendar(Source);
+
+        } else {
+            refreshCalendar(Source);
+        }
+    }
+    function refreshCalendar(newSource) {
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('refetchEvents');
+    }
+
+
+    $(document).keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            event.preventDefault();
+            searchOfficeStaffAttendance();
+        }
+
+    });
+
+    var WorkDays = [];
+    var events = [];
+    var StartDate, EndDate;
+    var DutyStationStaffCount = 0;
+    var DutyStationGUID = '';
+    function InitializeOfficeStaffAttendanceCalendar(Refresh) {
+
+        $.ajax({
+            url: "/OSA/OfficeStaffAttendances/GetWorkingDay",
+            dataType: 'json',
+            type: "post",
+            success: function (data) {
+                $.each(data.WorkDays, function (key, value) {
+                    WorkDays.push(value.Day);
+                });
+                var url_string = window.location.href;
+                var url = new URL(url_string);
+                var Para = url.searchParams.get("Para") == null ? url.searchParams.get("Date") : url.searchParams.get("Para");
+
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    defaultDate: Para,
+
+                    height: 700,
+                    allDayText: 'Events',
+                    selectable: true,
+                    overflow: 'auto',
+                    displayEventTime: false,
+                    editable: true,
+                    defaultView: (localStorage.getItem("fcDefaultView") !== null ? localStorage.getItem("fcDefaultView") : "month"),
+                    firstDay: 0,
+                    businessHours: true,
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,list'
+                    },
+                    businessHours:
+                    {
+                        start: '8:30',
+                        end: '03:30',
+                        dow: WorkDays
+                    },
+                    //defaultView: 'list',
+                    eventLimit: true, // for all non-agenda views
+                    views: {
+                        agenda: {
+                            eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                        }
+                    }, viewRender: function (view, element) {
+                        // when the view changes, we update our localStorage value with the new view name
+                        localStorage.setItem("fcDefaultView", view.name);
+                    },
+                    events: function (start, end, timezone, callback) {
+
+                        if (($('#StaffName').val() != '' || $('#DutyStation').val() != '' || $('#Department').val() != '') /*&& (StartDate == start && EndDate == end)*/) {
+                            if (Refresh) {
+                                StartDate = start;
+                                EndDate = end;
+                                var url_string = window.location.href;
+                                var url = new URL(url_string);
+                                var Guid = url.searchParams.get("Guid");
+                                $.ajax({
+                                    url: "/OSA/OfficeStaffAttendances/GetOfficeStaffAttendanceStaffCalendarData",
+                                    dataType: 'json',
+                                    type: "post",
+                                    async: false,
+                                    data: {
+                                        // our hypothetical feed requires UNIX timestamps
+                                        start: start.format('YYYY-MM-DD HH:mm'),
+                                        end: end.format('YYYY-MM-DD HH:mm'),
+                                        Guid: Guid
+                                    },
+                                    success: function (data) {
+                                        //events = data.OfficeStaffAttendances;
+                                        DutyStationGUID = data.DutyStationGUID;
+                                        DutyStationStaffCount = data.DutyStationStaffCount;
+                                        events = Enumerable.From(data.Result).Select(function (x) {
+                                            return {
+                                                id: x.id,
+                                                start: new Date(new Date(parseInt(x.start.substr(6))).getFullYear(), new Date(parseInt(x.start.substr(6))).getMonth(), new Date(parseInt(x.start.substr(6))).getDate(), new Date(parseInt(x.start.substr(6))).getHours(), new Date(parseInt(x.start.substr(6))).getMinutes(), 0, 0),
+                                                end: x.end,
+                                                month: x.Month,
+                                                day: x.Day,
+                                                IsAttend: x.IsAttend,
+                                                title: x.title,
+                                                DutyStationGUID: x.DutyStationGUID,
+                                                DepartmentGUID: x.DepartmentGUID,
+                                                color: x.color
+                                            }
+                                        }).ToArray();
+                                        var eventsDutyStation = Enumerable.From(events).Where(function (x) { return x.DutyStationGUID == DutyStationGUID }).Select(function (x) { return x }).ToArray();
+                                        callback(eventsDutyStation);
+                                        if (para == null) {
+                                            CalStaffPresencePersentage(DutyStationStaffCount);
+                                        }
+
+                                    }
+                                });
+                            }
+                            var SearchEvents = events;
+                            if ($('#StaffName').val() != '') {
+                                SearchEvents = Enumerable.From(SearchEvents).Where(function (x) { return x.title == $('#StaffName').val() }).Select(function (x) { return x }).ToArray();
+                            }
+                            if ($('#DutyStation').val() != '') {
+                                SearchEvents = Enumerable.From(SearchEvents).Where(function (x) { return x.DutyStationGUID == $('#DutyStation').val() }).Select(function (x) { return x }).ToArray();
+                            }
+                            if ($('#Department').val() != '') {
+                                SearchEvents = Enumerable.From(SearchEvents).Where(function (x) { return x.DepartmentGUID == $('#Department').val() }).Select(function (x) { return x }).ToArray();
+                            }
+
+                            callback(SearchEvents);
+                            if (para == null) {
+                                $(".PresencePersntageConfirmed").remove();
+                                $(".PresencePersntagePending").remove();
+                            }
+                        } else {
+                            // ClearFilter1();
+                            if (Refresh || events.length == 0 || (StartDate != start && EndDate != end)) {
+                                StartDate = start;
+                                EndDate = end;
+                                var url_string = window.location.href;
+                                var url = new URL(url_string);
+                                var Guid = url.searchParams.get("Guid");
+                                $.ajax({
+                                    url: "/OSA/OfficeStaffAttendances/GetOfficeStaffAttendanceStaffCalendarData",
+                                    dataType: 'json',
+                                    type: "post",
+                                    data: {
+                                        // our hypothetical feed requires UNIX timestamps
+                                        start: start.format('YYYY-MM-DD HH:mm'),
+                                        end: end.format('YYYY-MM-DD HH:mm'),
+                                        Guid: Guid
+                                    },
+                                    success: function (data) {
+                                        //events = data.OfficeStaffAttendances;
+                                        DutyStationGUID = data.DutyStationGUID;
+                                        DutyStationStaffCount = data.DutyStationStaffCount;
+                                        events = Enumerable.From(data.Result).Select(function (x) {
+                                            return {
+                                                id: x.id,
+                                                start: new Date(new Date(parseInt(x.start.substr(6))).getFullYear(), new Date(parseInt(x.start.substr(6))).getMonth(), new Date(parseInt(x.start.substr(6))).getDate(), new Date(parseInt(x.start.substr(6))).getHours(), new Date(parseInt(x.start.substr(6))).getMinutes(), 0, 0),
+                                                end: x.end,
+                                                month: x.Month,
+                                                day: x.Day,
+                                                IsAttend: x.IsAttend,
+                                                IsConfirmed: x.IsConfirmed,
+                                                title: x.title,
+                                                DutyStationGUID: x.DutyStationGUID,
+                                                DepartmentGUID: x.DepartmentGUID,
+                                                color: x.color
+                                            }
+                                        }).ToArray();
+                                        //var eventsDutyStation = Enumerable.From(events).Where(function (x) { return x.DutyStationGUID == DutyStationGUID }).Select(function (x) { return x }).ToArray();
+                                        callback(events);
+                                        if (para == null) {
+                                            CalStaffPresencePersentage(DutyStationStaffCount);
+                                        }
+
+                                    }
+                                });
+                            }
+                            else {
+                                callback(events);
+                                if (para == null) {
+                                    CalStaffPresencePersentage(DutyStationStaffCount);
+                                }
+                            }
+                        }
+
+
+
+
+
+                    },
+                    eventDrop: function (event, delta, revertFunc) {
+                        $.ajax({
+                            type: "post",
+                            url: '/OSA/OfficeStaffAttendances/UpdateOfficeStaffAttendanceDate',
+                            dataType: 'json',
+                            type: "post",
+                            data: {
+                                PK: event.id,
+                                NewDate: event.start.format()
+                            },
+                            success: function (JsonResult, status, xhr) {
+                                if (JsonResult.Notify != null) {
+                                    ProcessNotify(JsonResult);
+                                    if (JsonResult.Notify.Type == NotificationType.Error) {
+                                        revertFunc();
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+
+                    },
+                    eventClick: function (calEvent, jsEvent, view) {
+                        var url_string = window.location.href;
+                        var url = new URL(url_string);
+                        var Guid = url.searchParams.get("Guid");
+                        var Date = url.searchParams.get("Date");
+                        if (Date != null) {
+                            if (calEvent.IsAttend || Guid != null) {
+                                $.ajax({
+                                    type: "GET",
+                                    url: '/OSA/OfficeStaffAttendances/OfficeStaffAttendanceUpdate?PK=' + calEvent.id,
+                                    success: function (data) {
+                                        $('#FormModal').modal('show');
+                                        // inject your content into the "placeholder" div
+                                        $('#Partial-Container').html(data);
+                                        $('#Loading-Container').hide();
+                                        InitPlugins($('#Partial-Container'));
+
+                                    },
+                                    error: function (err) {
+                                        console.log(err);
+                                    }
+                                });
+                            } else if (!calEvent.IsAttend && !calEvent.IsConfirmed) {
+                                $.ajax({
+                                    type: "GET",
+                                    url: '/OSA/OfficeStaffAttendances/OfficeStaffAttendanceUpdate?PK=' + calEvent.id,
+                                    success: function (data) {
+                                        $('#FormModal').modal('show');
+                                        // inject your content into the "placeholder" div
+                                        $('#Partial-Container').html(data);
+                                        $('#Loading-Container').hide();
+                                        InitPlugins($('#Partial-Container'));
+
+                                    },
+                                    error: function (err) {
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                            else {
+                                $.confirm({
+                                    title: 'Confirm Message!',
+                                    content: 'I confirm that I Attended the Office on this Day.',
+                                    buttons: {
+                                        confirm: function () {
+                                            $.ajax({
+                                                type: "Post",
+                                                dataType: 'json',
+                                                url: '/OSA/OfficeStaffAttendances/ConfirmOfficeAttendance?PK=' + calEvent.id,
+                                                success: function (result) {
+                                                    Notify(NotificationType.Success, "Update Successfully");
+                                                    refreshCalendar()
+                                                },
+                                                error: function (Result) {
+                                                    Notify(NotificationType.Error, "Error: Check Your Internet Connection!");
+                                                }
+                                            });
+                                        },
+                                        cancel: function () {
+
+                                        }
+
+                                    }
+                                });
+                            }
+                        }
+                    },
+                    dayClick: function (date, allDay, jsEvent, view) {
+                        //$(".fc-state-highlight").removeClass("fc-state-highlight");
+                        //$(jsEvent.target).addClass("fc-state-highlight");
+                        $("#OfficeStaffAttendance_Date_Time").val(date.format('MMMM DD, YYYY'));
+                        OfficeStaffAttendanceCount(date.format('MMMM DD, YYYY'), $(".OfficeStaffAttendanceTypeGUID").val());
+
+
+                    }
+                });
+
+
+            }
+        });
+        //-- ajax call to fetch calendar data from database
+        Source = $('#calendar').fullCalendar('clientEvents');
+
+    }
+
+    function OfficeStaffAttendanceCount(date, guid) {
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/OSA/OfficeStaffAttendances/OfficeStaffAttendanceCount?PK=' + guid + "&Date=" + date,
+            success: function (data) {
+                $("#countTotalOfficeStaffAttendance").text(data.Total);
+                $("#countTotalOfficeStaffAttendanceIsAttend").text(data.IsAttend);
+                $("#countTotalOfficeStaffAttendanceIsCanceled").text(data.IsCanceled);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function UpadetOfficeStaffAttendanceEvents(OfficeStaffAttendanceGUID) {
+        if ($('#calendar').length != 0) {
+            $.ajax({
+                dataType: 'json',
+                type: "post",
+                url: '/OSA/OfficeStaffAttendances/UpadetOfficeStaffAttendanceEvents?PK=' + OfficeStaffAttendanceGUID,
+                success: function (data) {
+                    var app = data.OfficeStaffAttendance[0];
+                    var event = $("#calendar").fullCalendar('clientEvents', OfficeStaffAttendanceGUID)[0];
+                    event.start = app.OfficeStaffAttendanceDateTime
+                    event.end = app.OfficeStaffAttendanceDateTime
+                    event.allDay = false;
+                    if (app.IsAttend) { event.color = '#6aa16a' }
+                    if (app.IsCanceled) { event.color = 'red' }
+                    $('#calendar').fullCalendar('updateEvent', event);
+                    $('#calendar').fullCalendar('refetchEvents');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    }
+
+    function CalStaffPresencePersentage(DutyStationStaffCount) {
+        $(".PresencePersntageConfirmed").remove();
+        $(".PresencePersntagePending").remove();
+
+        if ($('#StaffName').val() == '' || $('#DutyStation').val() == '' || $('#Department').val() == '') {
+            var str = '<span class="pull-rigth PresencePersntageConfirmed" style="font-family: -webkit-body;padding-left: 3px;padding-right: 3px;background-color:#6aa16a;color: white;">0%</span>' + '<span class="pull-rigth PresencePersntagePending" style="font-family: -webkit-body;padding-left: 3px;padding-right: 3px;MARGIN-LEFT: 3PX;background-color:#337ab7;color: white;">0%</span>'
+            $(".fc-day-top").append(str);
+            $(".PresencePersntageConfirmed").each(function (index) {
+                var d = new Date($(this).parent().data("date"));
+                var month = d.getMonth() + 1;
+                var day = d.getDate();
+                var EventPerDay = Enumerable.From(events).Where(function (x) { return x.DutyStationGUID == DutyStationGUID }).Where(function (x) { return x.month == month && x.day == day }).Select(function (x) { return x }).ToArray();
+                var EventPerDayConfirmed = Enumerable.From(EventPerDay).Where(function (x) { return x.DutyStationGUID == DutyStationGUID }).Where(function (x) { return x.IsAttend == true }).Select(function (x) { return x }).ToArray();
+
+                var persntageConfirmed = Math.round((EventPerDayConfirmed.length / DutyStationStaffCount) * 100, 1);
+                var persntagePending = Math.round((EventPerDay.length / DutyStationStaffCount) * 100, 1);
+
+                if (EventPerDay.length == 0) { $(this).next().remove(); }
+                else { $(this).next().text(persntagePending + "%"); }
+
+                if (EventPerDayConfirmed.length == 0) { $(this).remove(); }
+                else { $(this).text(persntageConfirmed + "%"); }
+            });
+        }
+        else {
+            $(".PresencePersntageConfirmed").remove();
+            $(".PresencePersntagePending").remove();
+        }
+    }
+
+    function InformSupervisor() {
+        // this.preventDefault();
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var Para = url.searchParams.get("Date");
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/OSA/OfficeStaffAttendances/InformSupervisor?reportToGUID=' + $('#ParentGUID').val()+'&Date=' + Para + '-1' ,
+            success: function (data) {
+                if (data.MailSuccess) {
+                    Notify(NotificationType.Success, 'Mail Send Successfully.');
+                    $('#FormModal').modal('hide');
+                } else {
+                    Notify(NotificationType.Warning, 'Already Confirmed By The Direct Supervisor!');
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function ConfirmSupervisor() {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var Guid = url.searchParams.get("Guid");
+        var Date = url.searchParams.get("Date");
+        // this.preventDefault();
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/OSA/OfficeStaffAttendances/ConfirmSupervisor?ConfirmedUserGUID=' + Guid + '&Date=' + Date + '-1',
+            success: function (data) {
+                if (data.MailSuccess) {
+                    Notify(NotificationType.Success, 'Confirmed Successfully.');
+
+                    setTimeout(function () {
+                        location.replace(window.location.href.split('?')[0]);
+                    }, 1000);
+
+                } else {
+                    Notify(NotificationType.Error, 'No Pending Confirmation!');
+
+                    setTimeout(function () {
+                        location.replace(window.location.href.split('?')[0]);
+                    }, 1000);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function CancelSupervisor() {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var Guid = url.searchParams.get("Guid");
+        var Date = url.searchParams.get("Date");
+        // this.preventDefault();
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/OSA/OfficeStaffAttendances/CancelSupervisor?ConfirmedUserGUID=' + Guid + '&Date=' + Date + '-1',
+            success: function (data) {
+
+                if (data.MailSuccess) {
+                    Notify(NotificationType.Success, 'Confirmed Successfully.');
+                    setTimeout(function () {
+                        location.replace(window.location.href.split('?')[0]);
+                    }, 1000);
+
+                } else {
+                    Notify(NotificationType.Error, 'No Pending Confirmation!');
+
+                    setTimeout(function () {
+                        location.replace(window.location.href.split('?')[0]);
+                    }, 1000);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+
+</script>
+

@@ -1,0 +1,402 @@
+﻿@model DelegationStaffRequestUpdateModel
+@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.BlomShuttleDelegationStaffRequestGUID == Guid.Empty) ? "New  Delegation " : "Edit Delegation"; }
+@Html.PageHeader("2668748f-d94c-4dc0-b3ad-bbde2eca187b")
+<style>
+    ul.a {
+        list-style-position: outside;
+    }
+</style>
+
+<div class="page--content">
+    <div class="panel-heading" id="step1panelcreate">
+        @*Delegation Request for : @Model.StaffName in @Model.StartDate*@
+
+
+    </div>
+    <div>
+        @using (Html.BeginForm("StaffRequestFormFirstCreate", "StaffDelegation", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffRequestFormFirstCreateform", @class = "main-form", enctype = "multipart/form-data" }))
+        {
+
+            @Html.AntiForgeryToken()
+
+            @Html.FormHiddenFields(model => model.BlomShuttleDelegationStaffRequestGUID)
+            @Html.FormHiddenFields(model => model.BlomShuttleDelegationDateGUID)
+            <div class="box box-info " id="step1InfoBox">
+                <div class="panel-heading beforstep1" style="background-color: #cbcece;border-color: #cbcece;">
+                    <h3 class="box-title"> Step-1 Delegation Information</h3>
+                    @*<input type="button" value="Show" class="btn btn-primary pull-left" onclick="EditStep1Information()" id="showEditStep1id" />*@
+                </div>
+
+                <div class="panel-heading afterstep1" style="background-color:forestgreen;color:white;font-weight:bold; display:none;">
+                    <h3 class="box-title"> Step-1 Delegation Information <i class="fas fa-check-circle pull-right spanstep1"> Completed</i></h3>
+
+                </div>
+                <div class="box-body showstep1body">
+                    <div class="col-md-3">
+                        <div class="form-group HANDLER">
+                            @Html.LabelFor(model => model.BlomShuttleDelegationTravelerGUID)
+
+                            @Html.DropDownListFor(model => model.BlomShuttleDelegationTravelerGUID, new DropDownList().BLOMShuttleTraverls((Guid)Model.BlomShuttleDelegationDateGUID), "",
+                                                              new
+                                                              {
+                                                                  style = "width:100%",
+                                                                  @class = "form-control select2-basic-search"
+                                                              })
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="form-group HANDLER">
+                                @Html.LabelFor(model => model.AmountUSD)
+
+                                @Html.EditorFor(model => model.AmountUSD, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="col-md-3">
+                        <div class="form-group HANDLER">
+                            @Html.LabelFor(model => model.AmountUSDWritten)
+
+                            @Html.EditorFor(model => model.AmountUSDWritten, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                        </div>
+                    </div>*@
+                    <div class="col-md-3">
+                        <div class="form-group HANDLER">
+                            @Html.LabelFor(model => model.NationalIDNumber)
+
+                            @Html.EditorFor(model => model.NationalIDNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group HANDLER">
+                            @Html.LabelFor(model => model.SyrianIDNumber)
+
+                            @Html.EditorFor(model => model.SyrianIDNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group HANDLER">
+                            @Html.LabelFor(model => model.AccountNumber)
+
+                            @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group HANDLER">
+                            @Html.LabelFor(model => model.BranchName)
+
+                            
+                            @Html.DropDownListFor(model => model.BankBranchGUID, new DropDownList().BLOMBankBranchNames(), "",
+                                                                  new
+                                                                  {
+                                                                      style = "width:100%",
+                                                                      @class = "form-control select2-basic-search"
+                                                                  })
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="commentid">
+                        <div class="form-group HANDLER">
+                            @Html.LabelFor(model => model.Comments)
+
+                            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                        </div>
+                    </div>
+           
+                </div>
+
+                <div class="modal-footer showstep1body ">
+                    
+                    <div class="input-group pull-left showfooterstep1">
+                        <i class="far fa-hand-point-down showfooterstep1 pull-left"></i>
+                        <br />
+                        <button id="checkMedicalBtn" onclick="MoveToStep2()"
+                                class="btn btn-primary showfooterstep1">
+                            Save and move to next step
+                            @*<i id="checkMedicalLoading" class="fa fa-refresh fa-spin"></i>*@
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-info" id="step2InfoBox">
+                <div class="panel-heading beforstep2" style="background-color: #cbcece;border-color: #cbcece;">
+                    <h3 class="box-title"> Step-2  Download file and sign </h3>
+                    <input type="button" value="Shuttle Information" class="btn btn-primary pull-left" onclick="EditStep2Information()" id="showEditStep2id" />
+                </div>
+
+                <div class="panel-heading afterstep2" style="background-color:forestgreen;color:white;font-weight:bold; display:none;">
+                    <h3 class="box-title"> Step-2 Download file and sign <i class="fas fa-check-circle pull-right spanstep1"> Completed</i></h3>
+
+                </div>
+
+                <div class="box-body showstep2body">
+                    <br />
+                    <div class="col-md-12" id="downloadfileid">
+                        <div class="box-body">
+
+                            <a id='printDelegationDocumentId' class='btn btn-info ' href='#' value="">
+                                Click to download delegation
+                            </a>
+
+                            @*<a name='Print Form' href='/AHD/Reports/PrintBLOMDelegationReport?PK="@Model.BlomShuttleDelegationStaffRequestGUID">Click to download delegation</a>*@
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer showstep2body ">
+                    <i class="far fa-hand-point-down showfooterstep2"></i>
+                    <div class="input-group">
+
+                        <button type="button" class="btn btn-primary pull-left showfooterstep2" onclick="MoveToStep3()" id="showstep2btnid">
+                            Move to next step
+                            @*<i id="showHospitalPriceLoading" class="fa fa-refresh fa-spin"></i>*@
+                        </button>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-info" id="step3InfoBox">
+                <div class="panel-heading beforstep3" style="background-color: #cbcece;border-color: #cbcece;">
+                    <h3 class="box-title"> Step-3  Upload delegation document after signing</h3>
+                    <input type="button" value="Edit Dates" class="btn btn-primary pull-left" onclick="EditStep3Information()" id="showEditStep3id" />
+                </div>
+
+                <div class="panel-heading afterstep3" style="background-color:forestgreen;color:white;font-weight:bold; display:none;">
+                    <h3 class="box-title"> Step-3  Upload delegation document after signing <i class="fas fa-check-circle pull-right spanstep1"> Completed</i></h3>
+
+                </div>
+
+                <div class="box-body showstep3body">
+                    <div class="col-md-12">
+                        <div class="box-body">
+                            <br />
+                            <span >Clieck here to upload document</span>
+                            @Html.FieldDataTableUploadIDelegationDocument( Url.Action("GetUploadDelegationdReport", "StaffDelegation", new { PK = @Model.BlomShuttleDelegationStaffRequestGUID }))
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer " id="step4checkid">
+                    <br /><br /><br />
+                    <i class="far fa-hand-point-down showfooterstep3"></i>
+                    <div class="input-group">
+
+                        <!--<button type="button" class="btn btn-primary pull-left showfooterstep3" onclick="MoveToStep4()" id="showstep3btnid">
+                            Move to next step-->
+                            @*<i id="showHospitalPriceLoading" class="fa fa-refresh fa-spin"></i>*@
+                        <!--</button>-->
+                    </div>
+
+
+                </div>
+            </div>
+
+
+       
+        }
+
+    </div>
+
+
+
+</div>
+<script>
+    var staffGUID = '@Model.StaffGUID';
+    
+    var blomShuttleDelegationStaffRequestGUID = '@Model.BlomShuttleDelegationStaffRequestGUID';
+
+    var blomShuttleDelegationDateGUID = '@Model.BlomShuttleDelegationDateGUID';
+    var restPage = function () {
+        $('#showEditStep1id').hide();
+        $('#step2InfoBox').hide();
+        $('#step3InfoBox').hide();
+        $('#step4InfoBox').hide();
+        $('#step4checkid').hide();
+        $("#submitToReviewLoader").hide();
+
+    }
+    restPage();
+
+    var EditStep1Information = function () {
+        $('.showstep1body').show();
+        $('#showEditStep1id').hide();
+        $('#step2InfoBox').hide();
+        $('#showEditStep2id').show();
+        $('#step3InfoBox').hide();
+        $('#showEditStep3id').show();
+
+    }
+    var MoveToStep2 = function () {
+        var _traveler = $("#BlomShuttleDelegationTravelerGUID").val();
+
+        //var _amountUSDWritten = $("#AmountUSDWritten").val();
+
+        var _AmountUSD = $("#AmountUSD").val();
+        var _SyrianIDNumber = $("#SyrianIDNumber").val();
+        var _AccountNumber = $("#AccountNumber").val();
+        var _BankBranchGUID = $("#BankBranchGUID").val();     
+        var _NationalIDNumber = $("#NationalIDNumber").val();   
+        var _Comments = $("#Comments").val();   
+    
+
+        if (_traveler == null || _traveler=='') {
+            Notify(NotificationType.Warning, 'Please indicate your Person to delegate');
+        }
+        else if (_AmountUSD == null || _AmountUSD=='') {
+            Notify(NotificationType.Warning, 'Please indicate Amount');
+        }
+        //else if (_amountUSDWritten == null || _amountUSDWritten=='') {
+        //    Notify(NotificationType.Warning, 'Please indicate your Amount');
+        //}
+        else if (_SyrianIDNumber == null || _SyrianIDNumber == '') {
+            Notify(NotificationType.Warning, 'Please indicate your Syrian ID Number');
+        }
+        else if (_AccountNumber == null || _AccountNumber == '') {
+            Notify(NotificationType.Warning, 'Please indicate your Account Number');
+        }
+        else if (_BankBranchGUID == null || _BankBranchGUID == '') {
+            Notify(NotificationType.Warning, 'Please indicate your Branch Number');
+        }
+        else if (_NationalIDNumber == null || _NationalIDNumber == '') {
+            Notify(NotificationType.Warning, 'Please indicate your National ID Number');
+        }
+
+        if (_traveler != '' && _AmountUSD != ''  && _SyrianIDNumber!='' ) {
+            var url = "/AHD/StaffDelegation/BlomShuttleDelegationStaffRequestCreate/";
+
+            $(':button').prop('disabled', true);
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    blomShuttleDelegationStaffRequestGUID: blomShuttleDelegationStaffRequestGUID,
+                    blomShuttleDelegationDateGUID: blomShuttleDelegationDateGUID,
+                    _traveler: _traveler,
+                    staffGUID: staffGUID,
+              
+                    _AmountUSD: _AmountUSD,
+                    //_amountUSDWritten: _amountUSDWritten,
+                    _NationalIDNumber: _NationalIDNumber,
+
+                    _SyrianIDNumber: _SyrianIDNumber,
+                    _AccountNumber: _AccountNumber,
+                    _BankBranchGUID: _BankBranchGUID,
+                    _Comments: _Comments,
+                 
+
+                },
+                success: function (data) {
+                    $("#submitToReviewLoader").hide();
+                    $(':button').prop('disabled', false);
+                    if (data.success == 1) {
+
+
+                        Notify(NotificationType.Success, 'Request has been sent to HR for review');
+
+                        $('#step2InfoBox').show();
+                        $('#showEditStep2id').hide();
+                        $('.showstep3body').hide();
+                        $('#showEditStep3id').show();
+
+                        $('html, body').animate({
+                            scrollTop: $("#commentid").offset().top
+                        }, 2000);
+                        $('.beforstep1').hide();
+                        $('.afterstep1').show();
+                        $('.showfooterstep1').hide();
+
+                        $("#printDelegationDocumentId").attr("href",
+                            "/AHD/Reports/PrintBLOMDelegationReport?PK=" + blomShuttleDelegationStaffRequestGUID);
+
+                    }
+                    else if (data.success == 0) {
+
+                        return true;
+                    }
+                    else if (data.success == -2) {
+                        Notify(NotificationType.Warning, 'No Permission');
+                    }
+                    else if (data.success == -33) {
+                        Notify(NotificationType.Warning, 'Already Exists');
+                    }
+                  
+                }
+            });
+
+
+
+        }
+
+
+
+    }
+
+
+    var EditStep2Information = function () {
+        $('.showstep1body').hide();
+        $('#showEditStep1id').show();
+
+
+        $('#step2InfoBox').show();
+        $('#showEditStep2id').hide();
+
+        $('.showstep3body').hide();
+        $('#showEditStep3id').show();
+
+    }
+
+    var MoveToStep3 = function () {
+
+      
+
+        $('#step3InfoBox').show();
+        $('.showstep3body').show();
+        $('#showEditStep3id').hide();
+
+        $('#step4checkid').hide();
+        $('html, body').animate({
+            scrollTop: $("#commentid").offset().top
+        }, 2000);
+        $('.showfooterstep2').hide();
+        $('.beforstep2').hide();
+        $('.afterstep2').show();
+    }
+
+
+
+
+
+
+</script>

@@ -1,0 +1,61 @@
+﻿@model ReferralHistoryUpdateModel
+@using (Html.BeginForm("ReferralHistory", "ReferralHistorys", new { Area = "REF" }, FormMethod.Post, new { id = "ReferralHistoryForm" }))
+{
+
+    string ModalTitle = Model.ReferralHistoryGUID.ToString() == Guid.Empty.ToString() ? "New Contact Info" : "Edit Contact nfo";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ReferralHistoryGUID)
+        @Html.HiddenFor(model => model.OrganizationInstanceGUID)
+        @Html.HiddenFor(model => model.DutyStationGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentGUID)
+            @Html.DropDownListFor(model => model.DepartmentGUID, new DropDownList().Departments(Model.OrganizationInstanceGUID.Value), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReferralStatusGUID)
+            @Html.DropDownListFor(model => model.DepartmentGUID, new DropDownList().ReferralStatus(Apps.REF), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comment)
+            @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", rows = 5 })
+            <a href="#" id="history" onclick="ShowReferralHistory();" data-content="@Html.Raw(@Model.CommentHistory)">Show History</a>
+        </div>
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ReferralHistoryGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ReferralHistory.Create, Apps.REF)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ReferralHistory.Update, Apps.REF)
+                @Html.DeleteSwitchButton(Permissions.ReferralHistory.Delete, Apps.REF)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ReferralHistory.Delete, Apps.REF)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+
+}
+<script>
+    function ShowRescheduledHistory() {
+        if ($("#Reason").val() == "") {
+            $("#Reason").val($("#history").data("content"));
+            $("#Reason").prop('disabled', true);
+            $("#history").html("Hide History");
+        } else {
+            $("#Reason").val("");
+            $("#Reason").prop('disabled', false);
+            $("#history").html("Show History");
+        }
+    }
+</script>

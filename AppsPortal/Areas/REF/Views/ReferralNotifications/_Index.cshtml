@@ -1,0 +1,20 @@
+﻿
+<div>
+    <div id=@string.Format("{0}Filter", DataTableNames.ReferralNotificationsDataTable) class="filter-section" style="display:none;">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_RecordStatus", DataTableNames.ReferralNotificationsDataTable)
+            </div>
+        </div>
+       
+    </div>
+    <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.ReferralNotificationsDataTable)">
+        @Html.FieldDataTableFilter(DataTableNames.ReferralNotificationsDataTable)
+        @Html.FieldDataTableCreate(Permissions.ReferralNotification.Create, Apps.REF, Url.Action("ReferralNotificationCreate", "ReferralNotifications", new { FK = Model.ParentGUID }))
+        @Html.FieldDataTableDelete(Permissions.ReferralNotification.Delete, Apps.REF, DataTableNames.ReferralNotificationsDataTable)
+        @Html.FieldDataTableRestore(Permissions.ReferralNotification.Restore, Apps.REF, DataTableNames.ReferralNotificationsDataTable)
+        @Html.FieldDataTableRefresh(DataTableNames.ReferralNotificationsDataTable)
+    </div>
+
+    @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ReferralNotificationsDataTable, FormController= "ReferralNotifications", Area = "REF", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+</div>

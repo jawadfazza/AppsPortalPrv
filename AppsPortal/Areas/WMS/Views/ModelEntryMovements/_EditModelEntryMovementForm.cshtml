@@ -1,0 +1,574 @@
+﻿
+@model ItemInputDetailModel
+
+    <style>
+        .ProfInfoDivs {
+            width: 18%;
+            float: left;
+            margin-right: 26px;
+        }
+
+        .newPanelSettings {
+            background-color: #f3f3f3;
+            border-color: #f3f3f3;
+        }
+
+        .customHr {
+            border-top: 2px solid #cac3c3;
+            padding-bottom: 20px;
+        }
+
+
+        .container {
+            width: 100%;
+            margin: 100px auto;
+        }
+
+        .text-msg {
+            margin: 20px 0;
+            display: block;
+            clear: both;
+            text-align: justify;
+        }
+    </style>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="panel panel-primary newPanelSettings">
+            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+            
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    @using (Html.BeginForm("WarehouseModelEntryMovements", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "ModelEditEntryDetailForm", @class = "main-form" }))
+                    {
+
+                        @Html.FormHiddenFields(model => model.ItemInputDetailGUID)
+                        @Html.AntiForgeryToken()
+
+                        @Html.HiddenFor(model => model.ItemInputGUID)
+                        @Html.HiddenFor(model => model.CreatedDate)
+                        @Html.HiddenFor(model => model.CreatedBy)
+                        @Html.HiddenFor(model => model.CreatedByGUID)
+                        @*@Html.HiddenFor(model => model.WarehouseOwnerGUID)*@
+                        @Html.HiddenFor(model => model.LastCustdianNameGUID)
+                        @*@Html.HiddenFor(model => model.LastWarehouseLocationGUID)*@
+                        @Html.HiddenFor(model => model.LastFlowTypeGUID)
+                        @Html.HiddenFor(model => model.LastCustdianGUID)
+                        @Html.HiddenFor(model => model.IsAvaliable)
+
+                        @Html.HiddenFor(model => model.LastCustodianName)
+                        @Html.HiddenFor(model => model.BarcodeNumber)
+                        @Html.HiddenFor(model => model.SerialNumber)
+                        @Html.HiddenFor(model => model.IMEI1)
+                        @Html.HiddenFor(model => model.IMEI2)
+                        @Html.HiddenFor(model => model.GSM)
+                        @Html.HiddenFor(model => model.MAC)
+                        @Html.HiddenFor(model => model.IsDeterminanted)
+                        @Html.HiddenFor(model => model.LastVerifiedDate)
+                        @Html.HiddenFor(model => model.LastVerifiedByGUID)
+                        @Html.HiddenFor(model => model.IsVerified)
+                        @Html.HiddenFor(model => model.VerificationStatusGUID)
+                        @Html.HiddenFor(model => model.SequenceNumber)
+
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div style="margin-top: 8px;float: left;margin-left: 60px;">
+                                    <img id="imgProfilePhoto" src="/Uploads/WMS/ItemImages/@Model.ItemImage" class="Model-photo" style="width: 60px; height: 60px;" />
+
+                                    <div class="photo-controls">
+                                        @Html.DisplayFor(m => m.ModelNameDetermiant)
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.Label("Item Category")
+                                            <br />
+                                            @Html.DisplayFor(model => model.ItemClassification, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.Label("Item Group")
+                                            <br />
+                                            @Html.DisplayFor(model => model.ItemSubClassification, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.Label("Brand")
+                                            <br />
+                                            @Html.DisplayFor(model => model.ItemBrand, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <br />
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        @Html.LabelFor(model => model.ItemModelWarehouseGUID)
+                                        @Html.DropDownListFor(model => model.ItemModelWarehouseGUID, new DropDownList().WarehouseItemModels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.SourceGUID)
+                                            @Html.DropDownListFor(model => model.SourceGUID, new DropDownList().WarehouseEntrySourceTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BillNumber)
+                                            @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AcquisitionDate)
+                                            @Html.EditorFor(model => model.AcquisitionDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        </div>
+                                        @*@Html.HiddenFor(model => model.ItemModelWarehouseGUID)*@
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+
+                        <br />
+                        <hr class="customHr" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 style="text-decoration:underline; padding-left:10px;">Model Location</h4>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.LocationGUID)
+                                        @Html.DropDownListFor(model => model.LastWarehouseLocationGUID, new DropDownList().WarehouseLocation(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Warehouse Owner")
+                                        @Html.DropDownListFor(model => model.WarehouseOwnerGUID, new DropDownList().Warehouses(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.LabelFor(model => model.TransferFromCountryGUID)
+
+                                    @Html.DropDownListFor(model => model.TransferFromCountryGUID, new DropDownList().CountriesCIMT(), "",
+                                           new
+                                           {
+                                               @class = "form-control select2-basic-search",
+                                               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'TransferFromDutyStationGUID', Action : 'RemoteCIMTOfficeDutyStation'}]);",
+                                               style = "width:100%"
+                                           })
+
+
+                                    @*@Html.DropDownListFor(model => model.TransferFromCountryGUID, new DropDownList().Countries(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })*@
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.LabelFor(model => model.TransferFromDutyStationGUID)
+                                    @Html.DropDownListFor(model => model.TransferFromDutyStationGUID, new DropDownList().CIMTOfficeDutyStation(Model.TransferFromCountryGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+
+
+
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    @Html.LabelFor(model => model.TransferToCountryGUID)
+
+
+
+                                    @Html.DropDownListFor(model => model.TransferToCountryGUID, new DropDownList().CountriesCIMT(), "",
+                                               new
+                                               {
+                                                   @class = "form-control select2-basic-search",
+                                                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'TransferToDutyStationGUID', Action : 'RemoteCIMTOfficeDutyStation'}]);",
+                                                   style = "width:100%"
+                                               })
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    @Html.LabelFor(model => model.TransferToDutyStationGUID)
+                                    @Html.DropDownListFor(model => model.TransferToDutyStationGUID, new DropDownList().CIMTOfficeDutyStation(Model.TransferToCountryGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.TransferDescription)
+                                        @Html.EditorFor(model => model.TransferDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+                        </div>
+                        <br />
+                        <hr class="customHr" />
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <h4 style="text-decoration:underline; padding-left:10px;">Price and Age </h4>
+                            </div>
+                            <div class="col-md-12">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PriceTypeGUID)
+                                        @Html.DropDownListFor(model => model.PriceTypeGUID, new DropDownList().PriceTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PriceValue)
+                                        @Html.EditorFor(model => model.PriceValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+                                        @Html.Label("Model Age")
+                                        @Html.EditorFor(model => model.ModelAge, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Warrantylength)
+                                        @Html.EditorFor(model => model.Warrantylength, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("STI/PPE")
+                                        @Html.DropDownListFor(model => model.InventoryStatusGUID, new DropDownList().InventoryStatus(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DepreciatedYears)
+                                        @Html.EditorFor(model => model.DepreciatedYears, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <hr class="customHr" />
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <h4 style="text-decoration:underline; padding-left:10px;">Model Status</h4>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Item Status")
+                                        @Html.DropDownListFor(model => model.ItemStatusGUID, new DropDownList().WarehouseItemStatus(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Service Status")
+                                        @Html.DropDownListFor(model => model.ItemServiceStatusGUID, new DropDownList().WarehouseItemServiceStatus(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Item Condition")
+                                        @Html.DropDownListFor(model => model.ItemConditionGUID, new DropDownList().WarehouseItemCondition(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Purpose Of Use")
+                                        @Html.DropDownListFor(model => model.PurposeofuseGUID, new DropDownList().WarehousePurposeofuse(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.LabelFor(model => model.ColorGUID)
+                                    @Html.DropDownListFor(model => model.ColorGUID, new DropDownList().ColorsNames(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+
+                                <div class="col-md-3">
+                                    @Html.LabelFor(model => model.ParentItemModelWarehouseGUID)
+                                    @Html.DropDownListFor(model => model.ParentItemModelWarehouseGUID, new DropDownList().WarehouseItemInputParentKit(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @if (Model.ItemInputDetailGUID == Guid.Empty)
+                                        {
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.ItemModelWarehouseGUID)
+
+                                                @Html.DropDownListFor(model => model.ItemModelWarehouseGUID, new DropDownList().WarehouseModels(), "", new
+                                            {
+                                                style = "width:100%",
+                                                @class = "form-control select2-basic-search",
+                                                onchange = "LoadModelDeterminats($('#ItemModelWarehouseGUID').val());"
+                                            })
+                                            </div>
+                                        }
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+                            <div class="row"></div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Comments)
+                                        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <br />
+                        <hr class="customHr" />
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <h4 style="text-decoration:underline; padding-left:10px;">Item Determinants</h4>
+                            </div>
+                            <div class="col-md-12">
+
+                                <div id="ModelDeterminant" class="form-group">
+
+                                    @Html.Partial("~/Areas/WMS/Views/ModelEntryMovements/_EntryModelModelDeterminant.cshtml")
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <hr class="customHr" />
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <h4 style="text-decoration:underline; padding-left:10px;">License and System Information</h4>
+                            </div>
+                            <div class="col-md-12">
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("License Type")
+                                            @Html.DropDownListFor(model => model.LicenseTypeGUID, new DropDownList().WarehouseLicenseTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Cost Center")
+                                            @Html.DropDownListFor(model => model.CostCenterGUID, new DropDownList().WarehouseCostCenters(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Budget Year")
+                                            @Html.EditorFor(model => model.BudgetYear, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Last Issue Date")
+                                            @Html.EditorFor(model => model.LastIssueDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Last Expiry Date")
+                                            @Html.EditorFor(model => model.LastExpiryDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <hr class="customHr" />
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <h4 style="text-decoration:underline; padding-left:10px;">Item Damaged/ Lost Section</h4>
+                            </div>
+                            <div class="col-md-12">
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Damaged By")
+                                            @Html.DropDownListFor(model => model.DamagedByGUID, new DropDownList().Users(true), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Damaged Date")
+                                            @Html.EditorFor(model => model.DamagedDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Damaged Part")
+                                            @Html.EditorFor(model => model.DamagedPart, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Damaged Comment")
+                                            @Html.EditorFor(model => model.DamagedComment, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="panel-footer">
+                            <div id="ItemModelFormControls" class="form-group form-footer">
+                                @if (Model.ItemInputDetailGUID == Guid.Empty)
+                                {
+                                    @Html.CreateButton(Permissions.WarehouseItemsEntry.Create, Apps.WMS)
+                                }
+                                else
+                                {
+                                    if (Model.Active)
+                                    {
+                                        @Html.UpdateButton(Permissions.WarehouseItemsEntry.Update, Apps.WMS)
+                                        @*@Html.DeleteSwitchButton(Permissions.WarehouseItemsEntry.Delete, Apps.WMS)*@
+                                    }
+                                    else
+                                    {
+                                        @Html.RestoreSwitchButton(Permissions.WarehouseItemsEntry.Delete, Apps.WMS)
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                    }
+                </div>
+                <hr class="customHr" />
+                <div class="row">
+                    <br />
+
+                    <div class="col-md-12">
+                        <h4 style="text-decoration:underline;">Additional Services </h4>
+                    </div>
+                    <div class="col-md-12">
+                        @*@if (Model.UserGUID != Guid.Empty && Model.Active)
+                {*@
+                        <div id="ItemServicesControlersFormControls">
+
+                            @Html.Partial("~/Areas/WMS/Views/ItemDetailFeature/_ItemDetailFeatureDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.ItemInputDetailGUID, IsParentActive = Model.Active })
+                        </div>
+                        @*}*@
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function LoadModelDeterminats(ItemModelWarehouseGUID) {
+        if (ItemModelWarehouseGUID == null) {
+
+
+            $("#ModelDeterminant").html("");
+
+        }
+        if (ItemModelWarehouseGUID != null) {
+            var URL = "/WMS/ModelMovements/GetModelDeterminats?ItemModelWarehouseGUID=" + ItemModelWarehouseGUID;
+
+            $('#ModelDeterminant').load(URL,
+                function () { });
+        }
+    };
+</script>

@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("3bfee209-7f76-4462-ad15-0e9e30c00f8d")
+<style>
+    .fas {
+        color: #0072BC;
+    }
+
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+        color: #000;
+        font-weight: bold;
+        /*background-color: #e0eef7;*/
+        border-top: #e0eef7;
+        background-color: aliceblue;
+    }
+
+    .thumbnail {
+        border: none;
+        padding: 0px;
+    }
+
+    .LiSubjectBox:hover {
+        border: 1px solid #4fb9fe;
+        box-shadow: 0px 0px 3px #ccc;
+    }
+</style>
+<div class="page--content">
+    <br />
+    <br />
+    @if (new CMS().HasAction(Permissions.BillsManagement.Create, Apps.TBS))
+    {
+        <div class="row">
+
+            <div class="col-md-6">
+                <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+                    <div class="alert alert-info" role="alert" style="text-align: center ">
+                        <h4 class="alert-heading">Mobiles</h4>
+                    </div>
+                    <li class="active LiSubjectBox ">
+                        <a class="black  " href="/TBS/BillManagement/Bills">
+                            <h4 class="list-group-item-heading">Step 1</h4>
+                            <p class="list-group-item-text">Upload Bills</p>
+                            <p class="list-group-item-text">
+                                <i class="fas fa-cogs fa-2x" aria-hidden="true"></i>
+                                <i class="fas fa-mobile-alt fa-4x" aria-hidden="true"></i>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="active LiSubjectBox">
+                        <a class='Modal-Link black ' href='#' data-url="/TBS/BillManagement/ProcessCalculation">
+                            <h4 class="list-group-item-heading">Step 2</h4>
+                            <p class="list-group-item-text">Process Bills</p>
+                            <p class="list-group-item-text">
+                                <i class="fas fa-calculator  fa-4x" aria-hidden="true"></i>
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="nav nav-pills nav-justified thumbnail setup-panel" style="text-align:center">
+                    <div class="alert alert-info" role="alert" style="text-align: center">
+                        <h4 class="alert-heading">Landline</h4>
+                    </div>
+                    <li class="active LiSubjectBox">
+                        <a class='Modal-Link black' href='#' data-url='/TBS/FTPAPI/ProcessNewCDRFiles'>
+                            <h4 class="list-group-item-heading">Step 1</h4>
+                            <p class="list-group-item-text">Get New CDR Files</p>
+                            <p class="list-group-item-text">
+                                <i class="fas fa-file-csv  fa-4x" aria-hidden="true"></i>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="active LiSubjectBox">
+                        <a class='Modal-Link black' href='#' data-url="/TBS/LandlineBills/CalculateLandLineBills">
+                            <h4 class="list-group-item-heading">Step 2</h4>
+                            <p class="list-group-item-text">Process Bills</p>
+                            <p class="list-group-item-text">
+                                <i class="fas fa-calculator  fa-4x" aria-hidden="true"></i>
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <hr style="margin-top: -10px;" />
+            </div>
+        </div>
+    }
+    <div class="row">
+        @if (new CMS().HasAction(Permissions.BillsManagement.Create, Apps.TBS))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="/TBS/Configuration/TelecomCompanies">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-building  fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Telecom Compnaies Configuration</h3>
+                            <span></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="/TBS/Configuration/StaffPhones">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fas fa-address-book  fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Phone Directory</h3>
+                            <span></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/TBS/UserBills/MyBills">
+                <div class="SubjectBox matchHeight">
+
+                    <i class="fas fa-file-invoice-dollar fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>My Phone Bills</h3>
+                        <span></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @if (new CMS().HasAction(Permissions.BillsManagement.Create, Apps.TBS))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="/TBS/PendingBills/Index">
+                    <div class="SubjectBox matchHeight">
+
+                        <i class="fas fa-file-invoice-dollar fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Pending Bills</h3>
+                            <span></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="/TBS/Configuration/FTPLocations">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fas fa-cogs fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>CDR FTP Locations Configuration</h3>
+                            <span>..............................</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="/TBS/Reports">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-bar-chart fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Reports</h3>
+                            <span>..............................</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,322 @@
+﻿@{
+    ViewBag.Title = "JobTitles";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("04388632-c06d-4c22-b633-25bb5c7ef0e7")
+<div class="page--content">
+    <br />
+    <div id="exTab1">
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a href="#1a" data-toggle="tab">Shuttles</a>
+            </li>
+            <li>
+                <a href="#2a" data-toggle="tab">Shuttle Requests</a>
+            </li>
+            <li>
+                <a href="#3a" data-toggle="tab">Shuttle Calender</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content clearfix">
+        <div class="tab-pane active" id="1a">
+            <article>
+                <div id=@string.Format("{0}Filter", DataTableNames.ShuttlesDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DepartureDateTime, DbColumnName = "DepartureDateTime", FilterForDataType = "Date" })
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ReferralStatusDescription, DbColumnName = "ReferralStatusGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().ReferralStatus(Apps.SHM), IsSearchable = true })
+                        </div>
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStationDescription, DbColumnName = "DutyStationGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().DutyStationsByProfile(), IsSearchable = true })
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                        </div>
+
+                    </div>
+                    <div class="form-group filter-actions">
+                        @Html.DatatableFilterControls(DataTableNames.ShuttlesDataTable)
+                    </div>
+                </div>
+                <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.ShuttlesDataTable)">
+                    @Html.IndexDatatableFilter(DataTableNames.ShuttlesDataTable)
+                    @Html.IndexDatatableCreate(Permissions.Shuttle.Create, Apps.SHM, "/SHM/Shuttles/Create")
+                    @Html.IndexDatatableDelete(Permissions.Shuttle.Delete, Apps.SHM, DataTableNames.ShuttlesDataTable)
+                    @Html.IndexDatatableRestor(Permissions.Shuttle.Restore, Apps.SHM, DataTableNames.ShuttlesDataTable)
+                    @Html.IndexDatatableRefresh(DataTableNames.ShuttlesDataTable)
+                </div>
+                <div class="page--body">
+                    @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ShuttlesDataTable, Area = "SHM", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+                </div>
+
+            </article>
+        </div>
+        <div class="tab-pane" id="2a">
+            <article>
+
+                <div id=@string.Format("{0}Filter", DataTableNames.ShuttleRequestAdminDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DepartureDate, DbColumnName = "DepartureDate", FilterForDataType = "Date" })
+
+                        </div>
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                        </div>
+                    </div>
+                    <div class="form-group filter-actions">
+                        @Html.DatatableFilterControls(DataTableNames.ShuttleRequestAdminDataTable)
+                    </div>
+                </div>
+                <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.ShuttleRequestAdminDataTable)">
+                    @Html.IndexDatatableFilter(DataTableNames.ShuttleRequestAdminDataTable)
+                    @Html.IndexDatatableSubmit(Permissions.Shuttle.Create, Apps.SHM, DataTableNames.ShuttleRequestAdminDataTable)
+                    @Html.IndexDatatableRefresh(DataTableNames.ShuttleRequestAdminDataTable)
+                </div>
+                <div class="page--body">
+                    @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ShuttleRequestAdminDataTable, FormController = "Shuttles", Area = "SHM", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+                </div>
+
+            </article>
+        </div>
+        <div class="tab-pane" id="3a">
+            <br />
+
+            <div id='calendar'></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InitializShuttlesCalendar();
+    });
+    function InitializShuttlesCalendar() {
+        $('#calendar').fullCalendar('destroy');
+        $('#calendar').fullCalendar({
+            height: 700,
+            allDayText: 'Events',
+            selectable: true,
+            overflow: 'auto',
+            editable: true,
+            firstDay: 0,
+            businessHours: true,
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,basicWeek,basicDay,list'
+            },
+
+            defaultView: 'month',
+            eventLimit: true, // for all non-agenda views
+            views: {
+                agenda: {
+                    eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                }
+            },
+            events: function (start, end, timezone, callback) {
+                $.ajax({
+                    url: "/SHM/Shuttles/GetShuttlesCalendarData",
+                    dataType: 'json',
+                    type: "post",
+                    data: {
+                        // our hypothetical feed requires UNIX timestamps
+                        start: start.format('YYYY-MM-DD HH:mm'),
+                        end: end.format('YYYY-MM-DD HH:mm')
+                    },
+                    success: function (data) {
+                        var events = [];
+                        $.map(data.CalendarEvents, function (item, i) {
+                            var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                            var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                            var event = new Object();
+                            event.id = item.EventId;
+                            event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                            event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                            event.title = item.Title;
+                            event.allDay = false;
+                            if (item.ReferralStatus == '9ea61a3f-ea90-4f4b-b573-0fe3660dcc72') { event.color = 'green' }
+                            //if (item.ReferralStatus == 'a73e5015-896a-42cd-8845-d5fce5b80e15') { event.color = 'Blue' }
+                            if (item.ReferralStatus == '4adbdc93-b118-4d23-acf8-cae98cfc959b') { event.color = 'red' }
+                            events.push(event)
+                        });
+                        callback(events);
+                    }
+                });
+            },
+            //eventDrop: function (event, delta, revertFunc) {
+            //    $.ajax({
+            //        type: "post",
+            //        url: '/AMS/Appointments/UpdateAppointmentDate',
+            //        dataType: 'json',
+            //        type: "post",
+            //        data: {
+            //            PK: event.id,
+            //            NewDate: event.start.format()
+            //        },
+            //        success: function (JsonResult, status, xhr) {
+            //            if (JsonResult.Notify != null) {
+            //                ProcessNotify(JsonResult);
+            //                if (JsonResult.Notify.Type == NotificationType.Error) {
+            //                    revertFunc();
+            //                }
+            //            }
+            //        },
+            //        error: function (err) {
+            //            console.log(err);
+            //        }
+            //    });
+
+            //},
+            eventClick: function (calEvent, jsEvent, view) {
+                window.location = '/SHM/Shuttles/Update/' + calEvent.id;
+            },
+            //dayClick: function (date, allDay, jsEvent, view) {
+            //    //$(".fc-state-highlight").removeClass("fc-state-highlight");
+            //    //$(jsEvent.target).addClass("fc-state-highlight");
+            //    $("#Appointment_Date_Time").val(date.format('MMMM DD, YYYY'));
+            //    AppointmentCount(date.format('MMMM DD, YYYY'), $(".AppointmentTypeGUID").val());
+            //}
+        });
+        //-- ajax call to fetch calendar data from database
+
+
+    }
+    //Shuttle Request Admin DataTable
+    function ShuttleRequestMoreDetails(Link) {
+        var table = $('#ShuttleRequestAdminDataTable').DataTable();
+        var tr = $(Link).parent().closest('tr');
+        var row = table.row(tr);
+        console.log(row.data());
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('ExpandedLoginDetails');
+        }
+        else {
+            // Open this row
+            ShuttleRequestMoreDetailsTemplate(row.data(), row)
+            tr.addClass('ExpandedLoginDetails');
+        }
+    }
+    function ShuttleRequestMoreDetailsTemplate(d, row) {
+
+        $.ajax({
+            method: 'get',
+            datatype: 'JSON',
+            url: "/SHM/Shuttles/LoadingShuttleRequest/" + d.ShuttleRequestGUID,
+            success: function (JsonResult) {
+               
+                var strHTML =
+                    '<div class="row LoginMoreDetails">' +
+
+                    '<div class="col-lg-8 col-xs-8">' +
+                    '<div class="row">' +
+                    '<label class="col-lg-3">Admin Comment:</label>' +
+                    '<div class="col-lg-9">' + JsonResult["ShuttleRequest"].AdminComment + '</div>' +
+                    '</div>' +
+                    '<div class="row">' +
+                    '<label class="col-lg-3">Staff Comment:</label>' +
+                    '<div class="col-lg-9">' + JsonResult["ShuttleRequest"].StaffComment + '</div>' +
+                    '</div>';
+                
+                strHTML = strHTML + '<div class="row">' +
+                    '<label class="col-lg-4">Passenger Names:</label>' +
+                    '<div class="col-lg-8">';
+                if (JsonResult["ShuttleRequestStaff"].length != 0) {
+                    JsonResult["ShuttleRequestStaff"].forEach(function (row) {
+                        strHTML = strHTML + row.FullName + ", "
+                    });
+                } 
+                    strHTML = strHTML +'</div>' +
+                        '</div>'; +'</div>' +
+                        '</div>';
+                    row.child(strHTML).show();
+                    // return strHTML;
+                
+            },
+            error: function (ex) {
+                Notify(NotificationType.Error, "There was an error Loading Photo");
+                console.log("ex", ex);
+                console.log('Error: ' + ex.responseText);
+            }
+        });
+        return "";
+    }
+    //Shuttles DataTable
+    function ShuttleMoreDetails(Link) {
+        var table = $('#ShuttlesDataTable').DataTable();
+        var tr = $(Link).parent().closest('tr');
+        var row = table.row(tr);
+        console.log(row.data());
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('ExpandedLoginDetails');
+        }
+        else {
+            // Open this row
+            ShuttleMoreDetailsTemplate(row.data(), row)
+            tr.addClass('ExpandedLoginDetails');
+        }
+    }
+    function ShuttleMoreDetailsTemplate(d, row) {
+
+        $.ajax({
+            method: 'get',
+            datatype: 'JSON',
+            url: "/SHM/Shuttles/LoadingShuttle/" + d.ShuttleGUID,
+            success: function (JsonResult) {
+
+                var strHTML =
+                    '<hr/><div class="row LoginMoreDetails">' +
+
+                    '<div class="col-lg-8 col-xs-8">';
+
+
+                strHTML = strHTML + '<div class="row">' +
+                    '<label class="col-lg-2">Passengers:</label>' +
+                    '<div class="col-lg-10">';
+                if (JsonResult["ShuttleStaff"].length != 0) {
+                    JsonResult["ShuttleStaff"].forEach(function (row) {
+                        strHTML = strHTML + row.FullName + ", "
+                    });
+                }
+                strHTML = strHTML + '</div>' + '</div><hr/>';
+
+                strHTML = strHTML + '<div class="row">' +
+                    '<label class="col-lg-2">Shuttle Route:</label>' +
+                    '<div class="col-lg-10">';
+                if (JsonResult["ShuttleRoute"].length != 0) {
+                    JsonResult["ShuttleRoute"].forEach(function (row) {
+                        strHTML = strHTML + row.StartLocation + "-" + row.EndLocation + " <br/> ";
+                    });
+                }
+                strHTML = strHTML + '</div>' + '</div><hr/>';
+
+                strHTML = strHTML + '<div class="row">' +
+                    '<label class="col-lg-2">Shuttle Vehicle:</label>' +
+                    '<div class="col-lg-10">';
+                if (JsonResult["ShuttleVehicle"].length != 0) {
+                    JsonResult["ShuttleVehicle"].forEach(function (row) {
+                        strHTML = strHTML + "<b> Driver Name:</b> " + row.FullName + ",<b> Vehicle Number:</b> " + row.VehicleNumber + ", <b>Phone Number: </b>" + row.PhoneNumber + " <br/>";
+                    });
+                }
+                strHTML = strHTML + '</div>' + '</div><hr/>';
+
+                strHTML = strHTML +  '</div>' + '</div>'; 
+                row.child(strHTML).show();
+                // return strHTML;
+
+            },
+            error: function (ex) {
+                Notify(NotificationType.Error, "There was an error Loading Photo");
+                console.log("ex", ex);
+                console.log('Error: ' + ex.responseText);
+            }
+        });
+        return "";
+    }
+
+</script>

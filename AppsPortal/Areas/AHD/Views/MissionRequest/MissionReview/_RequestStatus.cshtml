@@ -1,0 +1,259 @@
+﻿<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+    <div class="panel panel-primary ">
+        <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+            <h3 class="box-title"> Request Status </h3>
+
+        </div>
+        <div class="panel-body ">
+            <div id="statuscheck"></div>
+            <div class="col-md-12 normalStatus">
+                <div class="col-md-3">
+
+
+                    <i class="fa fa-check icon-circle color-icon-check"></i>
+                    <br />
+                    Submitted By<br /> @Model.StaffName
+                </div>
+                <div class="col-md-3">
+
+                    @if (Model.RequestStage > 2)
+                    {
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                        <br />
+                        <div>Verified By<br /> @Model.AdminApprovedBy</div>
+                    }
+                    else
+                    {
+                        if (Model.LastFlowStatusGUID == AHDMissionStatusFlow.Submitted)
+                        {
+                            <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-arrow-right icon-circle .color-icon-arrow-gray"></i>
+                        }
+
+                        <br />
+                        <div>Verified By</div>
+
+                    }
+                </div>
+                <div class="col-md-3">
+
+                    @if (Model.RequestStage > 3)
+                    {
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                        <br />
+                        <div>Reviewed By<br /> @Model.HeadOfUnitApprovedName</div>
+                    }
+                    else
+                    {
+                        if (Model.LastFlowStatusGUID == AHDMissionStatusFlow.Verified)
+                        {
+                            <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-arrow-right icon-circle .color-icon-arrow-gray"></i>
+                        }
+                        <br />
+                        <div>Reviewed By </div>
+
+                    }
+                </div>
+                <div class="col-md-3">
+                    @if (Model.RequestStage > 4)
+                    {
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                        <br />
+                        <div>Approved By <br />@Model.AuthByDeputyRepresentativeName</div>
+                    }
+                    else
+                    {
+                        if (Model.LastFlowStatusGUID == AHDMissionStatusFlow.Reviewed)
+                        {
+                            <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-arrow-right icon-circle .color-icon-arrow-gray"></i>
+                        }
+
+
+                        <br />
+                        <div>Approved by </div>
+
+                    }
+                </div>
+            </div>
+
+
+            @*<div class="col-md-12 adminAfterApproval" style="display:none;">
+                <div class="col-md-3">
+
+
+                    <i class="fa fa-check icon-circle color-icon-check"></i>
+                    <br />
+                    Submitted By<br /> @Model.StaffName
+                </div>
+                <div class="col-md-3">
+
+                   
+                        
+                        <br />
+                        <div>Verified By<br /> @Model.AdminApprovedBy</div>
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                    
+
+                </div>
+                <div class="col-md-3">
+
+                    @if (Model.RequestStage > 3)
+                    {
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                        <br />
+                        <div>Reviewed By<br /> @Model.HeadOfUnitApprovedName</div>
+                        <i class="fa fa-arrow-right icon-circle .color-icon-arrow-gray"></i>
+                    }
+                    
+                </div>
+                <div class="col-md-3">
+                    @if (Model.RequestStage > 4)
+                    {
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                        <br />
+                        <div>Approved By <br />@Model.AuthByDeputyRepresentativeName</div>
+                    }
+                    else
+                    {
+                        if (Model.LastFlowStatusGUID == AHDMissionStatusFlow.Reviewed)
+                        {
+                            <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-arrow-right icon-circle .color-icon-arrow-gray"></i>
+                        }
+
+
+                        <br />
+                        <div>Approved by </div>
+
+                    }
+                </div>
+            </div>
+
+
+            <div class="col-md-12 HOUnitAfterApproval" style="display:none;">
+                <div class="col-md-3">
+
+
+                    <i class="fa fa-check icon-circle color-icon-check"></i>
+                    <br />
+                    Submitted By<br /> @Model.StaffName
+                </div>
+                <div class="col-md-3">
+
+                    @if (Model.RequestStage > 2)
+                    {
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                        <br />
+                        <div>Verified By<br /> @Model.AdminApprovedBy</div>
+                        <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                    }
+
+                </div>
+                <div class="col-md-3">
+
+                    @if (Model.RequestStage > 3)
+                    {
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                        <br />
+                        <div>Reviewed By<br /> @Model.HeadOfUnitApprovedName</div>
+                        <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                    }
+
+                </div>
+                <div class="col-md-3">
+                    @if (Model.RequestStage > 4)
+                    {
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                        <br />
+                        <div>Approved By <br />@Model.AuthByDeputyRepresentativeName</div>
+                    }
+                    else
+                    {
+                        if (Model.LastFlowStatusGUID == AHDMissionStatusFlow.Reviewed)
+                        {
+                            <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-arrow-right icon-circle .color-icon-arrow-gray"></i>
+                        }
+
+
+                        <br />
+                        <div>Approved by </div>
+
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-12 OICStatus" style="display:none;">
+                <div class="col-md-3">
+
+
+                    <i class="fa fa-check icon-circle color-icon-check"></i>
+                    <br />
+                    Submitted By<br /> @Model.StaffName
+                </div>
+                <div class="col-md-3">
+
+                    @if (Model.RequestStage > 2)
+                    {
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                        <br />
+                        <div>Verified By<br /> @Model.AdminApprovedBy</div>
+                        <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                    }
+
+                </div>
+                <div class="col-md-3">
+
+                    @if (Model.RequestStage > 3)
+                    {
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                        <br />
+                        <div>Reviewed By<br /> @Model.HeadOfUnitApprovedName</div>
+                        <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                    }
+
+                </div>
+                <div class="col-md-3">
+                    @if (Model.RequestStage > 4)
+                    {
+                        <i class="fa fa-check icon-circle color-icon-check"></i>
+                        <br />
+                        <div>Approved By <br />@Model.AuthByDeputyRepresentativeName</div>
+                        <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                    }
+                    
+                </div>
+            </div>*@
+
+
+
+        </div>
+        <div class="panel-footer  showstep4body">
+
+
+
+
+
+
+        </div>
+
+    </div>
+</div>

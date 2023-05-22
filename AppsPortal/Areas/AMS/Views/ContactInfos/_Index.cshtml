@@ -1,0 +1,22 @@
+﻿@model MasterRecordStatus
+
+@if (Model.IsParentActive)
+{ 
+    <div>
+        <div id=@string.Format("{0}Filter", DataTableNames.ContactInfosDataTable) class="filter-section" style="display:none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_RecordStatus", DataTableNames.ContactInfosDataTable)
+                </div>
+            </div>
+        </div>
+        <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.ContactInfosDataTable)">
+            @Html.FieldDataTableFilter(DataTableNames.ContactInfosDataTable)
+            @Html.FieldDataTableCreate(Permissions.ContactInfo.Create, Apps.AMS, Url.Action("ContactInfoCreate", "ContactInfos", new { FK = Model.ParentGUID }))
+            @Html.FieldDataTableDelete(Permissions.ContactInfo.Delete, Apps.AMS, DataTableNames.ContactInfosDataTable)
+            @Html.FieldDataTableRestore(Permissions.ContactInfo.Restore, Apps.AMS, DataTableNames.ContactInfosDataTable)
+            @Html.FieldDataTableRefresh(DataTableNames.ContactInfosDataTable)
+        </div>
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ContactInfosDataTable, FormController = "ContactInfos", Area = "AMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+}

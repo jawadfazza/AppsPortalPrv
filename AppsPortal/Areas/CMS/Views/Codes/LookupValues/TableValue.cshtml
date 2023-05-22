@@ -1,0 +1,17 @@
+﻿@model TableValuesUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader(Model.DetailsSitemapGUID.ToString())
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/LookupValues/_TableValueForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.ValueGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/LookupValues/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ValueGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

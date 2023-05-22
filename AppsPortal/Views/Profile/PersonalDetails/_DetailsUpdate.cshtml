@@ -1,0 +1,75 @@
+﻿@model PersonalDetailsUpdateModel
+<div class="forms-fadeIn">
+    @using (Html.BeginForm("PersonalDetails", "Profile", FormMethod.Post, new { id = "PersonalDetailsForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.UserGUID)
+        <div class="row section EditSection">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 text-right pull-right col-nopadding-left">
+                <div class="panel-action">
+                    @Html.DoneLink()
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-8 col-sm-8 col-xs-8">
+                <img id="imgProfilePhoto" src="@Model.MediaPath" class="profile-photo" />
+                <div class="photo-controls">
+                    <a href="#" class="Modal-Link" data-url="/Profile/Photo/">@resxPages.ChangePhoto</a> |
+                    <a href="#" class="Confirm" data-mode="Single" data-submittype="ProfilePhotoDelete" data-url="/Profile/Photo/">@resxPages.Remove</a>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.FirstName, new { @class = "SubTitle" })
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control group-control", autocomplete = "off" } })
+                        </div>
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.FatherName, new { @class = "SubTitle" })
+                            @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control group-control", autocomplete = "off" } })
+                        </div>
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.GrandFatherName, new { @class = "SubTitle" })
+                            @Html.EditorFor(model => model.GrandFatherName, new { htmlAttributes = new { @class = "form-control group-control", autocomplete = "off" } })
+                        </div>
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.Surname, new { @class = "SubTitle" })
+                            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control group-control", autocomplete = "off" } })
+                        </div>
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.CountryGUID, new { @class = "SubTitle" })
+                            @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().Nationalities(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.PreferedLanguageID, new { @class = "SubTitle" })
+                            @Html.DropDownListFor(model => model.PreferedLanguageID, new DropDownList().Languages(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.GenderGUID, new { @class = "SubTitle" })
+                            @Html.DropDownListFor(model => model.GenderGUID, new DropDownList().Genders(Model.UserGUID), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.DateOfBirth, new { @class = "SubTitle" })
+                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control group-control", autocomplete = "off", style = "width:150px!important" } })
+                        </div>
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.BloodGroup, new { @class = "SubTitle" })
+                            @Html.DropDownListFor(model => model.BloodGroup, new DropDownList().BloodGroup(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <h5 class="SubTitle">@resxPages.NameLanguages</h5>
+            <div id="LanguagesContainer">
+                @Html.Partial("~/Views/Profile/PersonalDetails/_NamesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.UserGUID, IsParentActive = true })
+            </div>
+        </div>
+    </div>
+    <br />
+</div>

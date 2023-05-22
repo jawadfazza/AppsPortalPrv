@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{740E7437-10BE-4B27-B70B-59FAC17A8F1B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EMT_DAL</RootNamespace>
+    <AssemblyName>EMT_DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\OVS_DAL\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\CalaculateDetailClosingBalanceEMT_Result.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountries.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountriesLanguages.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeMedicalGenericName.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeMedicalGenericNameLanguage.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeMedicalItem.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeMedicalManufacturer.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeMedicalManufacturerLanguage.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeMedicalPharmacy.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeMedicalPharmacyLanguage.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizations.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsInstances.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsInstancesLanguages.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsLanguages.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValues.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValuesLanguages.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataItemQuantityThreshold.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalBeneficiary.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalBeneficiaryItemOut.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalBeneficiaryItemOutDetail.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalDiscrepancy.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalDiscrepancyDetail.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalDistributionRestriction.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalItemInput.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalItemInputDetail.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalItemInputSupply.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalItemInputSupplyDetail.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalItemTransfer.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMedicalItemTransferDetail.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataVendorPerformanceForm.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EMTModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EMTModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EMTModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EMTModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EMTModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RP_BeneficiaryDetails_Result.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RP_ConsumptionMedicineByBeneficiariesTypeHeatMap_Result.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RP_ConsumptionMedicine_Result.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RP_DiscrepancyMedicine_Result.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RP_DispatchedMedicine_Result.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RP_PrescriptionsDispensed_Result.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RP_TransferMedicine_Result.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\spAuditHistoryOld_Result.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\spAuditHistory_Result.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\spMedicalItem_Result.cs">
+      <DependentUpon>EMTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Model\EMTModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EMTModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Model\EMTModel.edmx.diagram">
+      <DependentUpon>EMTModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\EMTModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EMTModel.Context.cs</LastGenOutput>
+      <DependentUpon>EMTModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\EMTModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EMTModel.edmx</DependentUpon>
+      <LastGenOutput>EMTModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Portal_BL\Portal_BL.csproj">
+      <Project>{1bc38177-4b12-460f-bf33-0c50ac0905cc}</Project>
+      <Name>Portal_BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RES_Repo\RES_Repo.csproj">
+      <Project>{a12aa199-2e39-4fac-afe3-83a718aa5d40}</Project>
+      <Name>RES_Repo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

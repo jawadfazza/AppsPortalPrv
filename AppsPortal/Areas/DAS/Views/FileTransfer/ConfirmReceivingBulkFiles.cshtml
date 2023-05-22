@@ -1,0 +1,147 @@
+﻿@model IEnumerable<ConfirmReceivingFileModel>
+@{
+    ViewBag.Title = "Verify Email";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+<div class="page--header">
+    <div class="page--banner">
+        <h2>Confirm receipt File(s)</h2>
+        <div class="row">
+
+        </div>
+    </div>
+</div>
+
+<div class="page--content">
+
+    <div class="page--body" id="myItemBeforUpdateId">
+        @if (Model.Any())
+        {
+
+            using (Html.BeginForm("ConfirmReceivingBulkModelsEmail", "ScanDocument", FormMethod.Post))
+            {
+                 <div class="row">
+                    <div class="col-lg-12" style="color: red; margin: 10px 0;">
+                        @ViewBag.ErrorSummary
+                    </div>
+                    <div class="col-md-12">
+                        @*<h4>Kindly Confirm Receiving the following items:</h4>*@
+                        <br />
+                        <table class="table table-striped table-bordered  hover " id="myItems">
+                            <thead>
+                                <tr>
+                                    <th class="chkHead" style="width: 10px;"></th>
+                                    <td>File Number</td>
+                                   
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="panel-primary">
+                                        <td>
+                                            @*@Html.CheckBoxFor(m => @item.Validation.Value, new { @onchange = "is_selected(item.ItemOutputDetailGUID)" })*@
+                                            @*@Html.CheckBoxFor(m=> @item.Validation.Value, new { id = item.ItemInputDetailGUID, @class = "amounteditor" })*@
+
+
+                                            <input type="checkbox" data="@item.FileGUID"
+                                                   id="itemCheckId"
+                                                   value="@item.Validation.Value" />
+
+                                            @*@Html.CheckBoxFor(modelItem => @item.Validation.Value, new {onchange = "CheckItemValue(item)"})*@
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => @item.FileNumber)
+
+                                        </td>
+                                       
+
+
+
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
+
+
+
+
+                    </div>
+                    @*<div class="col-md-12">
+                            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseModelReleaseMovementsDataTable, FormController = "ItemModels", Area = "WMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ItemInputDetailGUID, OrderBy = 1 })
+                        </div>*@
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+
+                        <div class="col-md-6 col-sm-6 col-xs-6 nopadding">
+
+
+                            <input type="button" value="Click to confirm" class="btn btn-success" id="confirmId" onclick="ConfirmSave()" />
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <h3>Items been confimed </h3>
+        }
+    </div>
+
+    <div id="myItemAfterUpdateId">
+        <h5>Thank you for confirming  </h5>
+        <br />
+        <a href="/Account/Logout" title="Logout">Logout</a>
+    </div>
+
+
+</div>
+
+<script>
+    var listGuids = [];
+    $("#myItemAfterUpdateId").hide();
+    $('input').on('ifChecked', function (event) {
+        var checkboxID = $(event.target).attr('data');
+        listGuids.push(checkboxID);
+
+    });
+
+    $('input').on('ifUnchecked', function (event) {
+        var checkboxID = $(event.target).attr('data');
+        listGuids.splice(checkboxID);
+
+    });
+
+
+
+    //var ConfirmSave = function () {
+    //    alert(JSON.stringify(listGuids, null, 2));
+    //    alert(listGuids.length());
+    //}
+    function ConfirmSave() {
+        if (listGuids.length > 0) {
+            $.ajax({
+                dataType: 'json',
+                type: "post",
+                url: '/DAS/ScanDocument/ConfirmReceivingBulkModelsEmail',
+                data: { guids: listGuids },
+                success: function (data) {
+
+                    $("#myItemAfterUpdateId").show();
+                    $("#myItemBeforUpdateId").hide();
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        } else {
+            Notify(NotificationType.Error,
+                'Kindly select file(s) need to verify ');
+        }
+    }
+
+
+</script>

@@ -1,0 +1,8 @@
+﻿@using AppsPortal.Extensions;
+
+@model DateTime?
+
+@{ 
+    IFormatProvider formatProvider = new System.Globalization.CultureInfo(Languages.CurrentCulture());
+    <span>@(Model.HasValue ? Localization.NumberFormat(Model.Value.ToString(Localization.DateTime())) : "")</span>
+}

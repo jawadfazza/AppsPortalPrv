@@ -1,0 +1,23 @@
+﻿@model CardIndividualInfoUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.CardIndividualInfoGUID == Guid.Empty) ? "New Card Individual Info" : "Edit Card Individual Info"; }
+
+@Html.PageHeader("2ac09b21-f2fe-42e5-a902-9edb782d326f")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+            @Html.Partial("~/Areas/IDC/Views/CardIndividualInfos/_CardIndividualInfoForm.cshtml")
+            <div id="CardIssuedsContainer">
+                @if (Model.CardIndividualInfoGUID != Guid.Empty && Model.Active)
+                {
+                    
+                    @Html.Partial("~/Areas/IDC/Views/CardIndividualInfos/_CardIssuedsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.CardIndividualInfoGUID, IsParentActive = Model.Active })
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

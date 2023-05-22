@@ -1,0 +1,109 @@
+﻿@model CaseUpdateModel
+<div id="Test">
+
+    @using (Html.BeginForm("Case", "Cases", new { Area = "AMS" }, FormMethod.Post, new { id = "CaseForm", @class = "main-form" }))
+    {
+
+        <div class="col-md-6">
+            <h3>@resxPages.Details</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    @Html.FormHiddenFields(model => model.CaseGUID)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.DutyStationGUID)
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FileNumber)
+                        <div class="input-group">
+                            @if (Model.ProcessStatusName == "A")
+                            {
+                                @Html.EditorFor(model => model.FileNumber, new { htmlAttributes = new { @class = "form-control  label-success", autocomplete = "off" } })
+                            }
+                            @if (Model.ProcessStatusName == "I")
+                            {
+                                @Html.EditorFor(model => model.FileNumber, new { htmlAttributes = new { @class = "form-control  label-warning", autocomplete = "off" } })
+
+                            }
+                            @if (Model.ProcessStatusName == "C")
+                            {
+                                @Html.EditorFor(model => model.FileNumber, new { htmlAttributes = new { @class = "form-control  label-danger", autocomplete = "off" } })
+                            }
+                            @if (Model.ProcessStatusName == null)
+                            {
+                                @Html.EditorFor(model => model.FileNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            }
+
+                            @if (Model.CaseGUID == Guid.Empty)
+                            {
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" id="testtest" onclick="LoadUrl('Test', '../Cases/LoadPrgresCase?FileNumber=' + $('#FileNumber').val() , function () { $('.ActionControl').prop('disabled', false)}); " data-submittype="Import" type="button">Import !</button>
+                                </span>
+                            }
+
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.HouseHold)
+                        @Html.EditorFor(model => model.HouseHold, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>*@
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ICNameEN)
+                        @Html.EditorFor(model => model.ICNameEN, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ICNameOtherLanguages)
+                        @Html.EditorFor(model => model.ICNameOtherLanguages, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CaseSize)
+                        @Html.EditorFor(model => model.CaseSize, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CountryGUID)
+                        @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().Countries(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Comments)
+                        @Html.TextAreaFor(model => model.Comments, new { @class = "form-control", rows = 5 })
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="col-md-6">
+                    <div id="CaseFormControls" class="form-group form-footer ">
+                        @if (Model.CaseGUID == Guid.Empty)
+                {
+                            @Html.CreateButton(Permissions.Case.Create, Apps.AMS)
+                        }
+                        else
+                        {
+                            if (Model.Active)
+                            {
+                                @Html.UpdateButton(Permissions.Case.Update, Apps.AMS)
+                                @Html.CreateNewButton(Permissions.Case.Create, Apps.AMS, Url.Action("/Create", new { Area = "AMS" }))
+                                @Html.DeleteButton(Permissions.Case.Delete, Apps.AMS)
+                            }
+                            else
+                            {
+                                @Html.RestoreButton(Permissions.Case.Restore, Apps.AMS)
+                            }
+                        }
+                        @Html.BackToList(Url.Action("Index", "Cases", new { Area = "AMS" }))
+                    </div>
+                </div>
+              }
+</div>
+
+
+

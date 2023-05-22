@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("92c0682b-947b-436f-acc0-93416577ad4f")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+
+        @if (new CMS().HasAction(Permissions.ReferralConfigManagement.Access, Apps.REF))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "Referrals", new { Area = "REF" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-bullhorn fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Referral</h3>
+                            <span>Referrals Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+        @if (new CMS().HasAction(Permissions.ReferralStep.Access, Apps.REF))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "ReferralSteps", new { Area = "REF" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-bullhorn fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Referral Step</h3>
+                            <span>Referral Step Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+        @if (new CMS().HasAction(Permissions.ReferralStatus.Access, Apps.REF))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "ReferralStatus", new { Area = "REF" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-code fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Referral Status</h3>
+                            <span>Referral Status Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.FocalPointsManagement.Access, Apps.REF))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "FocalPoints", new { Area = "REF" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-address-card fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Focal Points</h3>
+                            <span>Focal Points Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

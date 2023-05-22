@@ -1,0 +1,69 @@
+﻿
+@model TemplateTypeDocumentModel
+@using (Html.BeginForm("TemplateTypeDocument", "TemplateConfiguration", new { Area = "DAS" }, FormMethod.Post, new { id = "DocumentTemplateForm", @class = "main-form" }))
+{
+    <h3>Template Details</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.TemplateTypeDocumentGUID)
+    @Html.HiddenFor(model => model.TemplateTypeGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.DocumentName)
+                @Html.EditorFor(model => model.DocumentName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.DocumentCode)
+                @Html.EditorFor(model => model.DocumentCode, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.HasConfidentialData)
+
+                @Html.CheckBoxFor(model => model.HasConfidentialData, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.Description)
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+
+            @*<div class="form-group HANDLER">
+             @Html.LabelFor(model => model.ItemRelationTypeGUID)
+             @Html.DropDownListFor(model => model.ItemRelationTypeGUID, new DropDownList().WarehouseItemRelationTypes(), "", new
+        {
+            style = "width:100%",
+            @class = "form-control select2-basic-search",
+            onchange = "CheckRelationType($(this).val())"
+
+        })
+         </div>
+
+         <div class="form-group HANDLER" id="itemparenetId">
+             @Html.LabelFor(model => model.ParentWarehouseItemGUID)
+             @Html.DropDownListFor(model => model.ParentWarehouseItemGUID, new DropDownList().WarehouseKitItems(), "", new {style = "width:100%", @class = "form-control select2-basic-search"})
+         </div>*@
+
+            <div id="ItemModelFormControls" class="form-group form-footer">
+                @if (Model.TemplateTypeDocumentGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.DASConfiguration.Create, Apps.DAS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.DASConfiguration.Update, Apps.DAS)
+                        @*@Html.CreateNewButton(Permissions.DASConfiguration.Create, Apps.DAS, Url.Action("/Create", new { Area = "DAS" }))*@
+                        @Html.DeleteButton(Permissions.DASConfiguration.Delete, Apps.DAS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.DASConfiguration.Restore, Apps.DAS)
+                    }
+                }
+                @*<a class="black" href="/DAS/ItemClassifications">Back</a>*@
+                @*@Html.BackToList(Url.Action("ItemClassifications", "TemplateConfiguration", new { Area = "DAS" }))*@
+            </div>
+        </div>
+    </div>
+}

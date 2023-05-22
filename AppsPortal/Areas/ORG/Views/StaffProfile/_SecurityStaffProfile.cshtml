@@ -1,0 +1,352 @@
+﻿@model StaffProfileUpdateModel
+<style>
+    .ProfInfoDivs {
+        width: 18%;
+        float: left;
+        margin-right: 26px;
+    }
+
+    .newPanelSettings {
+        background-color: #f3f3f3;
+        border-color: #f3f3f3;
+    }
+
+    .customHr {
+        border-top: 2px solid #cac3c3;
+        padding-bottom: 20px;
+    }
+</style>
+@using (Html.BeginForm("StaffProfileSecuritySection", "StaffProfile", new { Area = "ORG" }, FormMethod.Post, new { id = "StaffProfileFormSecurity", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.UserGUID)
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary newPanelSettings">
+                <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+     
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div style="margin-top: 8px;float: left;margin-left: 60px;">
+                                <img id="imgProfilePhoto" src="@Model.MediaPath" class="profile-photo" />
+                                <div class="photo-controls">
+
+
+                                </div>
+                                <div class="photo-controls">
+                                    @Html.DisplayFor(m => m.FirstNameEN) @Html.DisplayFor(m => m.SurnameEN)
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstNameEN)
+                                        <br />
+                                        @Html.DisplayFor(model => model.FirstNameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SurnameEN)
+                                        <br />
+                                        @Html.DisplayFor(model => model.SurnameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstNameAR)
+                                        <br />
+                                        @Html.DisplayFor(model => model.FirstNameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SurnameAR)
+                                        <br />
+                                        @Html.DisplayFor(model => model.SurnameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FatherNameEN)
+                                        <br />
+                                        @Html.DisplayFor(model => model.FatherNameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FatherNameAR)
+                                        <br />
+                                        @Html.DisplayFor(model => model.FatherNameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MotherNameEN)
+                                        <br />
+                                        @Html.DisplayFor(model => model.MotherNameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MotherNameAR)
+                                        <br />
+                                        @Html.DisplayFor(model => model.MotherNameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.StaffEOD)
+                                        <br />
+                                        @Html.DisplayFor(model => model.StaffEOD, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ContractEndDate)
+                                        <br />
+                                        @Html.DisplayFor(model => model.ContractEndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.EmailAddress)
+                                        <br />
+                                        @Html.DisplayFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.EmploymentID)
+                                        <br />
+                                        @Html.DisplayFor(model => model.EmploymentID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.JobTitle)
+                                        <br />
+                                        @Html.DisplayFor(model => model.JobTitle, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Department)
+                                        <br />
+                                        @Html.DisplayFor(model => model.Department, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DutyStation)
+                                        <br />
+                                        @Html.DisplayFor(model => model.DutyStation, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br />
+                    <hr class="customHr" />
+                    <div class="row">
+                        <br />
+
+                        <div class="col-md-12">
+                            <h4 style="text-decoration:underline;">Contacts Information</h4>
+                        </div>
+                        <div class="col-md-12">
+
+
+
+
+                            <div class="col-md-3">
+                                @Html.Label("Email Address")
+                                <br />
+                                @Html.DisplayFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("Blood Group")
+                                    @Html.DropDownListFor(model => model.BloodGroup, new DropDownList().BloodGroup(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("UNHCR ID Number")
+                                    @Html.EditorFor(model => model.UNHCRIDNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("Permanent Address (English)")
+                                    @Html.EditorFor(model => model.PermanentAddressEn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Permanent Address (Arabic)")
+                                        @Html.EditorFor(model => model.PermanentAddressAr, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Current Address (English)")
+                                        @Html.EditorFor(model => model.CurrentAddressEn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Private Mobile")
+                                        <br />
+                                        @Html.DisplayFor(model => model.HomeTelephoneNumberMobile, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Home Phone")
+                                        <br />
+                                        @Html.DisplayFor(model => model.HomeTelephoneNumberLandline, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Official Mobile Number")
+                                        <br />
+                                        @Html.DisplayFor(model => model.OfficialMobileNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.OfficeRoomNumberBuilding)
+                                        @Html.EditorFor(model => model.OfficeRoomNumberBuilding, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Call Sign")
+                                        @Html.EditorFor(model => model.CallSign, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="panel-footer">
+                        <div id="StaffProfileFormControls" class="form-group form-footer">
+                            @if (Model.UserGUID == Guid.Empty)
+                            {
+                                @Html.CreateButton(Permissions.StaffProfileSecuritySection.Access, Apps.ORG)
+                            }
+                            else
+                            {
+                                if (Model.Active)
+                                {
+                                    @Html.UpdateButton(Permissions.StaffProfileSecuritySection.Update, Apps.ORG)
+
+                                }
+                                else
+                                {
+                                    @*@Html.RestoreButton(Permissions.StaffProfile.Restore, Apps.ORG)*@
+                                }
+                            }
+                            @Html.BackToList(Url.Action("StaffProfileIndex", "StaffProfile", new { Area = "ORG" }))
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br />
+                        <hr class="customHr" />
+                        <div class="col-md-12">
+                            <h4 style="text-decoration:underline;">
+                                Online Training
+                            </h4>
+                        </div>
+                        <div class="col-md-12">
+
+                            <div id="STIControlersFormControls">
+
+                                @Html.Partial("~/Areas/ORG/Views/StaffProfile/_OnlineTrainingDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.UserGUID, IsParentActive = Model.Active })
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <br />
+                        <hr class="customHr" />
+                        <div class="col-md-12">
+                            <h4 style="text-decoration:underline;">Staff Documents</h4>
+                        </div>
+                        <div class="col-md-12">
+
+                            <div id="STIControlersFormControls">
+
+                                @Html.Partial("~/Areas/ORG/Views/StaffProfile/_DocumentDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.UserGUID, IsParentActive = Model.Active })
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+}
+
+

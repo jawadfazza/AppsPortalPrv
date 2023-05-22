@@ -1,0 +1,18 @@
+﻿@model ActionVerbUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ActionVerbGUID == Guid.Empty) ? "New Action Verb" : "Edit Action Verb";}
+@Html.PageHeader("6bf25758-32f9-490b-bdc3-b137aa11fb6b")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/ActionsVerbs/_ActionVerbForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.ActionVerbGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/ActionsVerbs/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ActionVerbGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

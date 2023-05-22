@@ -1,0 +1,20 @@
+﻿@model MedicalItemUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.MedicalItemGUID == Guid.Empty) ? "Medical Item Type" : "Medical Item Type"; }
+
+@Html.PageHeader("d751c566-6d0c-4609-be78-84a8cce0dcbe")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/EMT/Views/MedicalItems/_MedicalItemForm.cshtml")
+        <div id="ItemQuantityThresholdsContainer">
+            @if (Model.MedicalItemGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/EMT/Views/MedicalItems/_ItemQuantityThresholdsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MedicalItemGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

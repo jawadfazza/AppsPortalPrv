@@ -1,0 +1,144 @@
+﻿@model MedicalBeneficiaryItemOutUpdateModel
+@using (Html.BeginForm("MedicalBeneficiaryItemOut", "MedicalBeneficiaryItemOuts", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalBeneficiaryItemOutForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.MedicalBeneficiaryItemOutGUID)
+    @Html.HiddenFor(model => model.Cost)
+    @Html.HiddenFor(model => model.DiagnosisClientGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedicalBeneficiaryGUID)
+                @Html.DropDownListFor(model => model.MedicalBeneficiaryGUID, new DropDownList().MedicalBeneficiary(Model.MedicalBeneficiaryGUID),
+               new
+                    {
+                   style = "width:100%",
+                   @class = "form-control s-data-example-ajax",
+                   onchange = "GetBeneficiaryDetails($(this).val(),'#SourceBeneficiary');"
+               })
+            </div>
+
+            <div style="margin: 10px 0; padding: 7px; border: solid 1px #ccc; background-color:#fff; min-height: 135px;" id="SourceBeneficiary">
+                <span class="userInfoInPermissions">Please select a Beneficiary from above</span>
+                <span class="userInfoInPermissions lblFullName"></span>
+                <span class="userInfoInPermissions lblNationality"></span>
+                <span class="userInfoInPermissions lblBrithday"></span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DeliveryDate)
+                @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.MedicalPharmacyGUID)
+                @Html.DropDownListFor(model => model.MedicalPharmacyGUID, new DropDownList().MedicalPharmacyMain(false), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.DiseaseTypeGUID)
+                @Html.DropDownListFor(model => model.DiseaseTypeGUID, new DropDownList().DiseaseType(), "", new
+                {
+               style = "width:100%",
+               @class = "form-control select2-basic-search"
+               })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.DiagnosisGUID)
+
+                @Html.DropDownListFor(model => model.DiagnosisGUID, new DropDownList().LookupValues(LookupTables.Diagnosis),
+                               new { multiple = "multiple", @class = "form-control select2-basic-multiple", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Cost)
+                @Html.DisplayFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled" } })
+            </div>
+            <div class="form-group">
+                @if (new CMS().HasAction(Permissions.MedicalBeneficiaryItemOut.Confirm, Apps.EMT))
+                {
+                    @Html.CheckBoxFor(model => model.DeliveryStatus, new { @class = "chkNode-accordion" })
+                    @Html.LabelFor(model => model.DeliveryStatus)
+                }
+                else
+                {
+                    @Html.HiddenFor(model => model.DeliveryStatus)
+                }
+
+
+            </div>
+            <div class="form-group">
+                @Html.Label(resxDbFields.CreatedBy)
+                @Html.DisplayFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                - @Html.Label(resxDbFields.CreatedOn)
+                @Html.DisplayFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div id="MedicalBeneficiaryItemOutFormControls" class="form-group form-footer">
+                @if (Model.MedicalBeneficiaryItemOutGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.MedicalBeneficiaryItemOut.Create, Apps.EMT)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.MedicalBeneficiaryItemOut.Update, Apps.EMT)
+                        @Html.CreateNewButton(Permissions.MedicalBeneficiaryItemOut.Create, Apps.EMT, Url.Action("/Create", new { Area = "EMT" }))
+                        @Html.DeleteButton(Permissions.MedicalBeneficiaryItemOut.Delete, Apps.EMT)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.MedicalBeneficiaryItemOut.Restore, Apps.EMT)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "MedicalBeneficiaryItemOuts", new { Area = "EMT" }))
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $('#MedicalBeneficiaryGUID').select2({
+        minimumInputLength: 2,
+        ajax: {
+            url: function () {
+                return '/DropDownList/RemoteFindBeneficiaryBy'
+            },
+            delay: 250,
+            data: function (params) {
+                var query = {
+                    SearchKey: params.term
+                }
+                // Query parameters will be ?search=[term]&type=public
+                return query;
+            },
+            processResults: function (data) {
+                var res = data.items.map(function (item) {
+                    return { id: item.id, text: item.Text };
+                });
+                return {
+                    results: res
+                };
+            }
+        }
+    });
+
+    function GetBeneficiaryDetails(ID, Container) {
+        $.ajax({
+            url: '/MedicalBeneficiarys/GetBeneficiaryDetails/',
+            data: { ID: ID },
+            type: 'GET',
+            success: function (Result) {
+                var data = Result["Result"];
+                $('.lblFullName', Container).text("Refugee Full Name: " + data.RefugeeFullName);
+                $('.lblNationality', Container).text("Nationality: " + data.NationalityCode);
+                $('.lblBrithday', Container).text("Brithday: " + moment(data.Brithday).format('LL'));
+
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#DiagnosisGUID').val($('#DiagnosisClientGUID').val().split(",")).trigger('change');
+    })
+</script>

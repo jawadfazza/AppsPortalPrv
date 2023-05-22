@@ -1,0 +1,20 @@
+﻿@model DamagedLostDistributionUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.DamagedLostDistributionGUID == Guid.Empty) ? "New Damaged Lost Distribution" : "Edit Damaged Lost Distribution"; }
+
+@Html.PageHeader("74a4d60c-0bbb-4ce9-928e-86b082f5eff4")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/PMD/Views/DamagedLostDistribution/_DamagedLostDistributionForm.cshtml")
+        <div id="DamagedLostDistributionDetailContainer">
+            @if (Model.DamagedLostDistributionGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/PMD/Views/DamagedLostDistribution/_DamagedLostDistributionDetailDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.DamagedLostDistributionGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

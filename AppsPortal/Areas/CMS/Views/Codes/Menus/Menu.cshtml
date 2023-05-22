@@ -1,0 +1,18 @@
+﻿@model MenuUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("de5c19d9-cb6b-400f-891a-96cf67025f4e")
+@{string PageTitle = (Model.MenuGUID == Guid.Empty) ? "New Menu" : "Edit Menu";}
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/Menus/_MenuForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.ApplicationGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/Menus/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MenuGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

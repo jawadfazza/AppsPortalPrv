@@ -1,0 +1,31 @@
+﻿@model UsersUpdateModel
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@{string PageTitle = (Model.UserGUID == Guid.Empty) ? "New User" : "Edit User";}
+@Html.PageHeader("9da47e62-9565-4ac2-976e-38472dcbe37b")
+<link href="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.js"></script>
+<link type="text/css" rel="stylesheet" href="~/Assets/Plugin/jQueryLoading/waitMe.css">
+<script src="~/Assets/Plugin/jQueryLoading/waitMe.min.js"></script>
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Views/Users/_UserForm.cshtml")
+    </div>
+</div>
+
+<script>
+
+    function run_waitMe(effect) {
+        $('.page--content').waitMe({
+            effect: effect,
+            text: 'Please waiting...',
+            bg: 'rgba(255,255,255,0.7)',
+            color: '#000'
+        });
+    }
+</script>
+

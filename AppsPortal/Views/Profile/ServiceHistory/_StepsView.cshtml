@@ -1,0 +1,21 @@
+﻿@model ICollection<userStepsHistory>
+@if (Model.Where(x => x.Active).Count() == 0)
+{
+    <div class="col-xs-12" style="color:#ccc;">@resxPages.JobStepNotFound</div>
+}
+else
+{
+    foreach (var step in Model.Where(x => x.Active).OrderBy(s => s.FromDate))
+    {
+        <div class="col-xs-12 shRecord">
+            <div class="col-sm-6 col-xs-12">
+                <span class="factsheet-label">
+                    <a class='Modal-Link' href='#' data-url='/Profile/StepUpdate/@step.UserStepsHistoryGUID'>Step @step.Step</a>
+                </span>
+            </div>
+            <div class="col-sm-6 col-xs-12 text-right">
+                <span>@Html.DisplayFor(x => step.FromDate)</span>
+            </div>
+        </div>
+    }
+}

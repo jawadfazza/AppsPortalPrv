@@ -1,0 +1,208 @@
+﻿@model ShuttleUpdateModel
+@using (Html.BeginForm("Shuttle", "Shuttles", new { Area = "SHM" }, FormMethod.Post, new { id = "ShuttleForm", @class = "main-form" }))
+{
+
+    @Html.Partial("_ModalHeader", "New Shuttle")
+
+    <div class="modal-body">
+
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ShuttleGUID)
+        @Html.HiddenFor(model => model.OrganizationInstanceGUID)
+        @Html.HiddenFor(model => model.DutyStationGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartureDateTime)
+            @Html.EditorFor(model => model.DepartureDateTime, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReturnDateTime)
+            @Html.EditorFor(model => model.ReturnDateTime, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="border-right:solid;">
+
+                    @Html.Label("Departure Country")
+                    @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().CountriesSyriaShuttle(), "",
+    new
+    {
+     @class = "form-control select2-basic-search ",
+     onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'StartLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);",
+     style = "width:100%"
+    })
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    @Html.Label("Drop Off Country")
+                    @Html.DropDownListFor(model => model.CountryGUID1, new DropDownList().CountriesSyriaShuttle(), "",
+    new
+    {
+     @class = "form-control select2-basic-search",
+     onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'EndLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);",
+     style = "width:100%"
+    })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="border-right:solid;">
+                    <div class="input-group">
+                        @Html.Label("Departure City")
+                        @Html.DropDownListFor(model => model.StartLocationGUID, new DropDownList().LocationsByCountryType(Model.CountryGUID.ToString().Split(','), Guid.Parse("C970DDF5-31E5-47A1-BE76-AF15833D4E6A")), "",
+        new
+        {
+            style = "width:100%",
+            onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DeparturePointGUID', Action : 'RemoteLocationsByLocationType'}]);",
+            @class = "form-control select2-basic-search "
+        })
+                        <span class="input-group-btn">
+                            <i class="fa fa-plus-square fa-3x NewLocation DepartureCity" title="New City" style="margin-top:17px;margin-left: 1px;margin-right: 0px;cursor: pointer;"></i>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group">
+                        @Html.Label("Drop Off City")
+                        @Html.DropDownListFor(model => model.EndLocationGUID, new DropDownList().LocationsByCountryType(Model.CountryGUID1.ToString().Split(','), Guid.Parse("C970DDF5-31E5-47A1-BE76-AF15833D4E6A")), "",
+        new
+        {
+         style = "width:100%",
+         onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DropOffPointGUID', Action : 'RemoteLocationsByLocationType'}]);",
+         @class = "form-control select2-basic-search "
+        })
+                        <span class="input-group-btn">
+                            <i class="fa fa-plus-square fa-3x NewLocation DropOffCity" title="New City" style="margin-top:17px;margin-left: 1px;margin-right: 0px;cursor: pointer;"></i>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="border-right:solid;">
+                    <div class="input-group">
+                        @Html.Label("Departure Point")
+                        @Html.DropDownListFor(model => model.DeparturePointGUID, Model.StartLocationGUID == null?new DropDownList().Empty(): new DropDownList().LocationsByLocationType(Model.StartLocationGUID.Value, Guid.Parse("FCF6CDE3-329A-42A2-82A2-D99909949F82")), "",
+        new
+        {
+         style = "width:100%",
+         @class = "form-control select2-basic-search "
+        })
+
+                        <span class="input-group-btn">
+                            <i class="fa fa-plus-square fa-3x NewLocation DepartureLocation" title="New Location" style="margin-top:17px;margin-left: 1px;margin-right: 0px;cursor: pointer;"></i>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group">
+                        @Html.Label("Drop Off Point")
+                        @Html.DropDownListFor(model => model.DropOffPointGUID, Model.EndLocationGUID == null ? new DropDownList().Empty() : new DropDownList().LocationsByLocationType(Model.EndLocationGUID.Value, Guid.Parse("FCF6CDE3-329A-42A2-82A2-D99909949F82")), "",
+        new
+        {
+            style = "width:100%",
+            @class = "form-control select2-basic-search "
+        })
+
+                        <span class="input-group-btn">
+                            <i class="fa fa-plus-square fa-3x NewLocation DropOffLocation" title="New Location" style="margin-top:17px;margin-left: 1px;margin-right: 0px;cursor: pointer;"></i>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="border-right:solid;">
+                    <div class="input-group">
+                        @Html.LabelFor(model => model.DeparturePointFreeText)
+                        @Html.EditorFor(model => model.DeparturePointFreeText, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group">
+                        @Html.LabelFor(model => model.DropOffPointFreeText)
+                        @Html.EditorFor(model => model.DropOffPointFreeText, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PassByLocations)
+            @Html.EditorFor(model => model.PassByLocations, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.OrganizationInstanceGUID)
+            @Html.DropDownListFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstancesByProfile(), "",
+          new
+          {
+              @class = "form-control select2-basic-search",
+              onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DutyStationGUID', Action : 'RemoteOrganizationInstanceDutyStation'}]);",
+              style = "width:100%"
+          })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DutyStationGUID)
+            @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStationsOneValue(Model.DutyStationGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>*@
+        @*<div class="form-group">
+            @Html.Label("Share With Me Only")
+
+            @Html.CheckBox("ShareWithMe", new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>*@
+    </div>
+
+    <div class="modal-footer form-footer">
+        @if (Model.ShuttleGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.Shuttle.Create, Apps.SHM)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.Shuttle.Update, Apps.SHM)
+                @Html.DeleteSwitchButton(Permissions.Shuttle.Delete, Apps.SHM)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.Shuttle.Delete, Apps.SHM)
+            }
+        }
+        @*<a class="btn btn-default pull-right" onclick="ShuttleSendMessage('@Model.ShuttleGUID')"><span class="fa fa-share-alt" style="color:#333;" title="Share Shuttle"></span></a>*@
+        @Html.CloseModalButton()
+    </div>
+}
+
+
+<script>
+    //Check Shuttle eVehicle
+    function ShuttleSendMessage(ShuttleGUID) {
+        var bool = false;
+        $.ajax({
+            url: "/SHM/Shuttles/ShuttleSend?ShuttleGUID=" + ShuttleGUID + "&ShareWithMe=" + $("#ShareWithMe").is(":checked"),
+            dataType: 'json',
+            type: "post",
+            success: function (result) {
+                if (result["Message"] != "") {
+                    Notify(NotificationType.Success, result["Message"]);
+                    CalendarRefresh();
+                }
+
+            }
+        });
+        return bool;
+    }
+</script>
+
+

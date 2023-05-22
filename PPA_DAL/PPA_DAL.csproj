@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{17AE3C21-34FF-4D05-BA40-B92ECD13DCB6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PPA_DAL</RootNamespace>
+    <AssemblyName>PPA_DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\OVS_DAL\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Portal_BL">
+      <HintPath>..\Portal_BL\bin\Debug\Portal_BL.dll</HintPath>
+    </Reference>
+    <Reference Include="RES_Repo">
+      <HintPath>..\RES_Repo\bin\Debug\RES_Repo.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\codeActions.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeActionsCategories.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeActionsCategoriesFactors.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeActionsCategoriesLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeActionsEntities.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeActionsEntitiesLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeActionsLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeActionsVerbs.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeActionsVerbsLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeApplications.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeApplicationsLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAppointmentType.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAppointmentTypeLanguage.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCallCost.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeConditionType.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeConditionTypeLanguage.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeConnections.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountries.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountriesConfigurations.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountriesLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartments.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartmentsConfigurations.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartmentsLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStations.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStationsConfigurations.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStationsLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeElectionCorrespondenceType.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeElectionCorrespondenceTypeLanguage.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeFactors.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeFactorsLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeIntervalType.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeIntervalTypeLanguage.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeJobTitles.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeJobTitlesLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeLocations.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeLocationsLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeMenus.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeMenusLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeNotificationLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeNotifications.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOffices.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOfficesConfigurations.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOfficesLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOperations.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOperationsLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizations.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsInstances.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsInstancesLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePrinters.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeReferralStatus.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeReferralStatusLanguage.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeSitemaps.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeSitemapsLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTables.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValues.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValuesConfigurations.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValuesLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTelecomCompany.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTelecomCompanyLanguages.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTelecomCompanyOperation.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeWorkingDaysConfigurations.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\configFocalPoint.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\configFocalPointStaff.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\configTelecomCompanyOperation.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAuditActions.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAuditFields.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAuditLogins.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAuditPermissions.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PPADependantList.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PPADistributionList.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PPAFileAccess.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PPAFileVersion.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PPAFileVersionStatusHistory.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PPAModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PPAModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PPAModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PPAModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PPAModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PPAOriginalFile.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PPAPredefinedSteps.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PPAReviewerList.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ProjectPartnershipAgreement.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sysDataTablesProperties.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Test.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TestLookUp.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userAccounts.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userApplicationToken.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userConnections.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userContactDetails.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userHomeAddress.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userHomeAddressLanguage.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userManagersHistory.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userMenuShortcut.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userNotificationControls.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userNotificationLogs.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPasswords.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPermissions.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetails.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetailsLanguage.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userProfiles.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userRegistrationQueue.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userServiceHistory.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userStepsHistory.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userWorkAddress.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userWorkAddressLanguage.cs">
+      <DependentUpon>PPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EntityDeploy Include="Model\PPAModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PPAModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Model\PPAModel.edmx.diagram">
+      <DependentUpon>PPAModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\PPAModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PPAModel.Context.cs</LastGenOutput>
+      <DependentUpon>PPAModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\PPAModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PPAModel.edmx</DependentUpon>
+      <LastGenOutput>PPAModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

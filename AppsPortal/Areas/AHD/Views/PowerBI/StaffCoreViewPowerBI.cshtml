@@ -1,0 +1,38 @@
+﻿@model List<v_staffCoreDataOverview>
+@{
+    Layout = null;
+}
+<table border="1">
+    <thead >
+        <tr>
+            <td>FullName</td>
+            <td>EmailAddress</td>
+            <td>DutyStation</td>
+            <td>JobTitle</td>
+            <td>DepartmentDescription</td>
+            <td>StaffStatus</td>
+            <td>ContractEndDate</td>
+            <td>StaffEOD</td>
+            <td>Status</td>
+
+        </tr>
+    </thead>
+    @for (var i = 0; i < Model.Count; i++)
+    {
+<tbody>
+
+    <tr>
+        <td>@Html.DisplayFor(model => model[i].FullName)</td>
+        <td>@Html.DisplayFor(model => model[i].EmailAddress)</td>
+        <td>@Html.DisplayFor(model => model[i].DutyStation)</td>
+        <td>@Html.DisplayFor(model => model[i].JobTitle)</td>
+        <td>@Html.DisplayFor(model => model[i].DepartmentDescription)</td>
+        <td>@Html.DisplayFor(model => model[i].StaffStatus)</td>
+        <td>@Html.Raw(Model[i].ContractEndDate != null ? Model[i].ContractEndDate.Value.ToString("dd/MM/yyyyy") : "")</td>
+        <td>@Html.Raw(Model[i].StaffEOD != null ? Model[i].StaffEOD.Value.ToString("dd/MM/yyyyy") : "") </td>
+        <td>@Html.Raw((DateTime.Now - Model[i].StaffEOD).Value.Days <= 30 ? (Model[i].StaffStatus.StartsWith("End") ? "Newly Departed" : "Newly Arrived") : "")</td>
+    </tr>
+</tbody>
+    }
+
+</table>

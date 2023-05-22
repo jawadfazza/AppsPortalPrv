@@ -1,0 +1,16 @@
+﻿
+@model OidUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.OidGUID == Guid.Empty) ? "New Oid" : "Edit Oid"; }
+
+@Html.PageHeader("ac07414e-f1cf-4c2b-98f9-9c51815feba2")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/RMS/Views/Oids/_OidForm.cshtml")
+
+    </div>
+</div>
+

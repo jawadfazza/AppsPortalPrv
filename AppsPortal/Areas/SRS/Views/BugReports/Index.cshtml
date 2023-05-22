@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Bug Reports";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("70094869-2196-4b85-91f4-2c125a0e47c2")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter",DataTableNames.BugReportsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        @*<div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PPATypeGUID, DbColumnName = "PPATypeGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().PPATypes() })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ImplementationAreaGUID, DbColumnName = "ImplementationAreaGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().PPAAreasOfImplementations() })
+
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PPADescription, DbColumnName = "PPADescription", FilterForDataType = FilterDataTypes.Text })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationInstanceGUID, DbColumnName = "OrganizationInstanceGUID", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = false, DataList = new DropDownList().PartnersList() })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+
+                </div>
+            </div>*@
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.BugReportsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer",DataTableNames.BugReportsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.BugReportsDataTable)
+        @Html.IndexDatatableCreateNoPermission(Url.Action("/Create/", "BugReports", new { Area = "SRS" }))
+        @Html.IndexDatatableDeleteNoPermission(DataTableNames.BugReportsDataTable)
+        @Html.IndexDatatableRestorNoPermission(DataTableNames.BugReportsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.BugReportsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.BugReportsDataTable, FormController = "BugReports", Area = "SRS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>

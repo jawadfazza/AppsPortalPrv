@@ -1,0 +1,1090 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="COVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="codeCovIndicator">
+          <Key>
+            <PropertyRef Name="IndicatorGUID" />
+          </Key>
+          <Property Name="IndicatorGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OutputGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndicatorDescription" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CovIndicatorUnit" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CovIndicatorTechnicalUnit" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="codeCovIndicatorRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="codeCovIndicatorTechnicalUnit">
+          <Key>
+            <PropertyRef Name="CovIndicatorTechnicalUnitGUID" />
+          </Key>
+          <Property Name="CovIndicatorTechnicalUnitGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndicatorTechnicalUnitDescription" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="codeCovIndicatorTechnicalUnitRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="codeCovIndicatorTechnicalUnitMap">
+          <Key>
+            <PropertyRef Name="CovIndicatorTechnicalUnitMapGUID" />
+          </Key>
+          <Property Name="CovIndicatorTechnicalUnitMapGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndicatorGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndicatorTechnicalUnitGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="codeCovIndicatorTechnicalUnitMapRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="codeCovObjective">
+          <Key>
+            <PropertyRef Name="ObjectiveGUID" />
+          </Key>
+          <Property Name="ObjectiveGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ObjectiveDescription" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="codeCovObjectiveRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="codeCovOutput">
+          <Key>
+            <PropertyRef Name="OutputGUID" />
+          </Key>
+          <Property Name="OutputGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ObjectiveGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OutputDescription" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="codeCovOutputRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="codeCovUnit">
+          <Key>
+            <PropertyRef Name="CovUnitGUID" />
+          </Key>
+          <Property Name="CovUnitGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CovUnitItems" Type="nvarchar" MaxLength="300" />
+          <Property Name="CovUnitDescription" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CovUnitCost" Type="float" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="codeCovUnitRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalDB.code.codeOchaLocation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="codeOchaLocation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="admin0Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin0Name_ar" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin0Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin1Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin1Name_ar" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin1Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="GovernorateGUID" Type="uniqueidentifier" />
+          <Property Name="admin2Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin2Name_ar" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin2Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin3Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin3Name_ar" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin3Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin4Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin4Name_ar" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin4Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin5Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin5Name_ar" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin5Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Latitude_y" Type="float" />
+          <Property Name="Longitude_x" Type="float" />
+        </EntityType>
+        <EntityType Name="codeTables">
+          <Key>
+            <PropertyRef Name="TableGUID" />
+          </Key>
+          <Property Name="TableGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TableName" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="IndexSitemapGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DetailsSitemapGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SortID" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TableGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesConfigurations">
+          <Key>
+            <PropertyRef Name="TableValueConfigurationGUID" />
+          </Key>
+          <Property Name="TableValueConfigurationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesConfigurationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ValueDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataCovidUNHCRResponseStrategy">
+          <Key>
+            <PropertyRef Name="CovidUNHCRResponseStrategyGUID" />
+          </Key>
+          <Property Name="CovidUNHCRResponseStrategyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateOfReport" Type="datetime" Nullable="false" />
+          <Property Name="CovStatus" Type="nvarchar" MaxLength="100" />
+          <Property Name="GovernorateGUID" Type="uniqueidentifier" />
+          <Property Name="Governorate" Type="nvarchar" MaxLength="200" />
+          <Property Name="District" Type="nvarchar" MaxLength="300" />
+          <Property Name="SubDistrict" Type="nvarchar" MaxLength="300" />
+          <Property Name="CommunityName" Type="nvarchar" MaxLength="300" />
+          <Property Name="Neighborhood" Type="nvarchar" MaxLength="300" />
+          <Property Name="Location" Type="nvarchar" MaxLength="300" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="ObjectiveGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OutputGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndicatorGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CovIndicatorTechnicalUnitGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Measure_Achievments" Type="nvarchar(max)" />
+          <Property Name="UNHCRStrategy" Type="int" />
+          <Property Name="DirectActivities" Type="bit" />
+          <Property Name="Associated" Type="bit" />
+          <Property Name="ImplementingPartner" Type="nvarchar" MaxLength="200" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="CovUnitGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UnitCost" Type="float" />
+          <Property Name="Month" Type="int" />
+          <Property Name="CostEstimationThreeMonthes" Type="float" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="Feedback" Type="nvarchar(max)" />
+          <Property Name="IsVerified" Type="bit" Nullable="false" />
+          <Property Name="VerifiedBy" Type="uniqueidentifier" />
+          <Property Name="VerifiedOn" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="dataCovidUNHCRResponseStrategyRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalDB.COV.v_dataCovidUNHCRResponseStrategyDataTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_dataCovidUNHCRResponseStrategyDataTable">
+          <Key>
+            <PropertyRef Name="EDMXID" />
+            <PropertyRef Name="CovidUNHCRResponseStrategyGUID" />
+            <PropertyRef Name="DateOfReport" />
+            <PropertyRef Name="ObjectiveGUID" />
+            <PropertyRef Name="ObjectiveDescription" />
+            <PropertyRef Name="OutputGUID" />
+            <PropertyRef Name="OutputDescription" />
+            <PropertyRef Name="IndicatorGUID" />
+            <PropertyRef Name="IndicatorDescription" />
+            <PropertyRef Name="CovIndicatorTechnicalUnitGUID" />
+            <PropertyRef Name="CovIndicatorTechnicalUnit" />
+            <PropertyRef Name="CovUnitGUID" />
+            <PropertyRef Name="CreatedBy" />
+            <PropertyRef Name="CreatedOn" />
+            <PropertyRef Name="IsVerified" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="dataCovidUNHCRResponseStrategyRowVersion" />
+          </Key>
+          <Property Name="EDMXID" Type="int" Nullable="false" />
+          <Property Name="CovidUNHCRResponseStrategyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateOfReport" Type="datetime" Nullable="false" />
+          <Property Name="CovStatus" Type="nvarchar" MaxLength="100" />
+          <Property Name="GovernorateGUID" Type="uniqueidentifier" />
+          <Property Name="Governorate" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin1Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="District" Type="nvarchar" MaxLength="300" />
+          <Property Name="admin2Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="SubDistrict" Type="nvarchar" MaxLength="300" />
+          <Property Name="admin3Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="CommunityName" Type="nvarchar" MaxLength="300" />
+          <Property Name="admin4Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="Neighborhood" Type="nvarchar" MaxLength="300" />
+          <Property Name="Location" Type="nvarchar" MaxLength="300" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="ObjectiveGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ObjectiveDescription" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="OutputGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OutputDescription" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="IndicatorGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndicatorDescription" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CovIndicatorTechnicalUnitGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CovIndicatorTechnicalUnit" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Measure_Achievments" Type="nvarchar(max)" />
+          <Property Name="UNHCRStrategy" Type="int" />
+          <Property Name="DirectActivities" Type="bit" />
+          <Property Name="Associated" Type="bit" />
+          <Property Name="ImplementingPartner" Type="nvarchar" MaxLength="200" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="CovUnitGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UnitCost" Type="float" />
+          <Property Name="Month" Type="int" />
+          <Property Name="CostEstimationThreeMonthes" Type="float" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="Feedback" Type="nvarchar(max)" />
+          <Property Name="IsVerified" Type="bit" Nullable="false" />
+          <Property Name="VerifiedBy" Type="uniqueidentifier" />
+          <Property Name="VerifiedOn" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="dataCovidUNHCRResponseStrategyRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_codeCovIndicator_codeCovOutput">
+          <End Role="codeCovOutput" Type="Self.codeCovOutput" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeCovIndicator" Type="Self.codeCovIndicator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCovOutput">
+              <PropertyRef Name="OutputGUID" />
+            </Principal>
+            <Dependent Role="codeCovIndicator">
+              <PropertyRef Name="OutputGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeCovOutput_codeCovObjective">
+          <End Role="codeCovObjective" Type="Self.codeCovObjective" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeCovOutput" Type="Self.codeCovOutput" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCovObjective">
+              <PropertyRef Name="ObjectiveGUID" />
+            </Principal>
+            <Dependent Role="codeCovOutput">
+              <PropertyRef Name="ObjectiveGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValues_codeTables">
+          <End Role="codeTables" Type="Self.codeTables" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeTablesValues" Type="Self.codeTablesValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTables">
+              <PropertyRef Name="TableGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValues">
+              <PropertyRef Name="TableGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Role="codeTablesValues" Type="Self.codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeTablesValuesLanguages" Type="Self.codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesOperations_codeTablesValues">
+          <End Role="codeTablesValues" Type="Self.codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeTablesValuesConfigurations" Type="Self.codeTablesValuesConfigurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesConfigurations">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="COVModelStoreContainer">
+          <EntitySet Name="codeCovIndicator" EntityType="Self.codeCovIndicator" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeCovIndicatorTechnicalUnit" EntityType="Self.codeCovIndicatorTechnicalUnit" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeCovIndicatorTechnicalUnitMap" EntityType="Self.codeCovIndicatorTechnicalUnitMap" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeCovObjective" EntityType="Self.codeCovObjective" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeCovOutput" EntityType="Self.codeCovOutput" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeCovUnit" EntityType="Self.codeCovUnit" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTables" EntityType="Self.codeTables" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValues" EntityType="Self.codeTablesValues" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValuesConfigurations" EntityType="Self.codeTablesValuesConfigurations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="Self.codeTablesValuesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="dataCovidUNHCRResponseStrategy" EntityType="Self.dataCovidUNHCRResponseStrategy" Schema="COV" store:Type="Tables" />
+          <EntitySet Name="codeOchaLocation" EntityType="Self.codeOchaLocation" store:Type="Tables" store:Schema="code">
+            <DefiningQuery>SELECT 
+    [codeOchaLocation].[ID] AS [ID], 
+    [codeOchaLocation].[admin0Name_en] AS [admin0Name_en], 
+    [codeOchaLocation].[admin0Name_ar] AS [admin0Name_ar], 
+    [codeOchaLocation].[admin0Pcode] AS [admin0Pcode], 
+    [codeOchaLocation].[admin1Name_en] AS [admin1Name_en], 
+    [codeOchaLocation].[admin1Name_ar] AS [admin1Name_ar], 
+    [codeOchaLocation].[admin1Pcode] AS [admin1Pcode], 
+    [codeOchaLocation].[GovernorateGUID] AS [GovernorateGUID], 
+    [codeOchaLocation].[admin2Name_en] AS [admin2Name_en], 
+    [codeOchaLocation].[admin2Name_ar] AS [admin2Name_ar], 
+    [codeOchaLocation].[admin2Pcode] AS [admin2Pcode], 
+    [codeOchaLocation].[admin3Name_en] AS [admin3Name_en], 
+    [codeOchaLocation].[admin3Name_ar] AS [admin3Name_ar], 
+    [codeOchaLocation].[admin3Pcode] AS [admin3Pcode], 
+    [codeOchaLocation].[admin4Name_en] AS [admin4Name_en], 
+    [codeOchaLocation].[admin4Name_ar] AS [admin4Name_ar], 
+    [codeOchaLocation].[admin4Pcode] AS [admin4Pcode], 
+    [codeOchaLocation].[admin5Name_en] AS [admin5Name_en], 
+    [codeOchaLocation].[admin5Name_ar] AS [admin5Name_ar], 
+    [codeOchaLocation].[admin5Pcode] AS [admin5Pcode], 
+    [codeOchaLocation].[Latitude_y] AS [Latitude_y], 
+    [codeOchaLocation].[Longitude_x] AS [Longitude_x]
+    FROM [code].[codeOchaLocation] AS [codeOchaLocation]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="v_dataCovidUNHCRResponseStrategyDataTable" EntityType="Self.v_dataCovidUNHCRResponseStrategyDataTable" store:Type="Views" store:Schema="COV">
+            <DefiningQuery>SELECT 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[EDMXID] AS [EDMXID], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[CovidUNHCRResponseStrategyGUID] AS [CovidUNHCRResponseStrategyGUID], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[DateOfReport] AS [DateOfReport], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[CovStatus] AS [CovStatus], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[GovernorateGUID] AS [GovernorateGUID], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[Governorate] AS [Governorate], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[admin1Name_en] AS [admin1Name_en], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[District] AS [District], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[admin2Name_en] AS [admin2Name_en], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[SubDistrict] AS [SubDistrict], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[admin3Name_en] AS [admin3Name_en], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[CommunityName] AS [CommunityName], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[admin4Name_en] AS [admin4Name_en], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[Neighborhood] AS [Neighborhood], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[Location] AS [Location], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[Longitude] AS [Longitude], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[Latitude] AS [Latitude], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[ObjectiveGUID] AS [ObjectiveGUID], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[ObjectiveDescription] AS [ObjectiveDescription], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[OutputGUID] AS [OutputGUID], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[OutputDescription] AS [OutputDescription], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[IndicatorGUID] AS [IndicatorGUID], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[IndicatorDescription] AS [IndicatorDescription], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[CovIndicatorTechnicalUnitGUID] AS [CovIndicatorTechnicalUnitGUID], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[CovIndicatorTechnicalUnit] AS [CovIndicatorTechnicalUnit], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[Measure_Achievments] AS [Measure_Achievments], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[UNHCRStrategy] AS [UNHCRStrategy], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[DirectActivities] AS [DirectActivities], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[Associated] AS [Associated], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[ImplementingPartner] AS [ImplementingPartner], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[Quantity] AS [Quantity], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[CovUnitGUID] AS [CovUnitGUID], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[UnitCost] AS [UnitCost], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[Month] AS [Month], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[CostEstimationThreeMonthes] AS [CostEstimationThreeMonthes], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[CreatedBy] AS [CreatedBy], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[CreatedOn] AS [CreatedOn], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[UpdatedBy] AS [UpdatedBy], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[UpdatedOn] AS [UpdatedOn], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[Feedback] AS [Feedback], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[IsVerified] AS [IsVerified], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[VerifiedBy] AS [VerifiedBy], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[VerifiedOn] AS [VerifiedOn], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[Active] AS [Active], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[DeletedOn] AS [DeletedOn], 
+    [v_dataCovidUNHCRResponseStrategyDataTable].[dataCovidUNHCRResponseStrategyRowVersion] AS [dataCovidUNHCRResponseStrategyRowVersion]
+    FROM [COV].[v_dataCovidUNHCRResponseStrategyDataTable] AS [v_dataCovidUNHCRResponseStrategyDataTable]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_codeCovIndicator_codeCovOutput" Association="Self.FK_codeCovIndicator_codeCovOutput">
+            <End Role="codeCovOutput" EntitySet="codeCovOutput" />
+            <End Role="codeCovIndicator" EntitySet="codeCovIndicator" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeCovOutput_codeCovObjective" Association="Self.FK_codeCovOutput_codeCovObjective">
+            <End Role="codeCovObjective" EntitySet="codeCovObjective" />
+            <End Role="codeCovOutput" EntitySet="codeCovOutput" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValues_codeTables" Association="Self.FK_codeTablesValues_codeTables">
+            <End Role="codeTables" EntitySet="codeTables" />
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="Self.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesOperations_codeTablesValues" Association="Self.FK_codeTablesValuesOperations_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesConfigurations" EntitySet="codeTablesValuesConfigurations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="COVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="COVEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="codeCovIndicators" EntityType="COVModel.codeCovIndicator" />
+          <EntitySet Name="codeCovObjectives" EntityType="COVModel.codeCovObjective" />
+          <EntitySet Name="codeCovOutputs" EntityType="COVModel.codeCovOutput" />
+          <EntitySet Name="codeCovUnits" EntityType="COVModel.codeCovUnit" />
+          <EntitySet Name="codeTables" EntityType="COVModel.codeTable" />
+          <EntitySet Name="codeTablesValues" EntityType="COVModel.codeTablesValue" />
+          <EntitySet Name="codeTablesValuesConfigurations" EntityType="COVModel.codeTablesValuesConfiguration" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="COVModel.codeTablesValuesLanguage" />
+          <EntitySet Name="codeOchaLocations" EntityType="COVModel.codeOchaLocation" />
+          <AssociationSet Name="FK_codeCovIndicator_codeCovOutput" Association="COVModel.FK_codeCovIndicator_codeCovOutput">
+            <End Role="codeCovOutput" EntitySet="codeCovOutputs" />
+            <End Role="codeCovIndicator" EntitySet="codeCovIndicators" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeCovOutput_codeCovObjective" Association="COVModel.FK_codeCovOutput_codeCovObjective">
+            <End Role="codeCovObjective" EntitySet="codeCovObjectives" />
+            <End Role="codeCovOutput" EntitySet="codeCovOutputs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValues_codeTables" Association="COVModel.FK_codeTablesValues_codeTables">
+            <End Role="codeTable" EntitySet="codeTables" />
+            <End Role="codeTablesValue" EntitySet="codeTablesValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="COVModel.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValue" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguage" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesOperations_codeTablesValues" Association="COVModel.FK_codeTablesValuesOperations_codeTablesValues">
+            <End Role="codeTablesValue" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesConfiguration" EntitySet="codeTablesValuesConfigurations" />
+          </AssociationSet>
+          <EntitySet Name="dataCovidUNHCRResponseStrategies" EntityType="COVModel.dataCovidUNHCRResponseStrategy" />
+          <EntitySet Name="v_dataCovidUNHCRResponseStrategyDataTable" EntityType="COVModel.v_dataCovidUNHCRResponseStrategyDataTable" />
+          <EntitySet Name="codeCovIndicatorTechnicalUnits" EntityType="COVModel.codeCovIndicatorTechnicalUnit" />
+          <EntitySet Name="codeCovIndicatorTechnicalUnitMaps" EntityType="COVModel.codeCovIndicatorTechnicalUnitMap" />
+        </EntityContainer>
+        <EntityType Name="codeCovIndicator">
+          <Key>
+            <PropertyRef Name="IndicatorGUID" />
+          </Key>
+          <Property Name="IndicatorGUID" Type="Guid" Nullable="false" />
+          <Property Name="OutputGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndicatorDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CovIndicatorUnit" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CovIndicatorTechnicalUnit" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="codeCovIndicatorRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="codeCovOutput" Relationship="COVModel.FK_codeCovIndicator_codeCovOutput" FromRole="codeCovIndicator" ToRole="codeCovOutput" />
+        </EntityType>
+        <EntityType Name="codeCovObjective">
+          <Key>
+            <PropertyRef Name="ObjectiveGUID" />
+          </Key>
+          <Property Name="ObjectiveGUID" Type="Guid" Nullable="false" />
+          <Property Name="ObjectiveDescription" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="codeCovObjectiveRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="codeCovOutputs" Relationship="COVModel.FK_codeCovOutput_codeCovObjective" FromRole="codeCovObjective" ToRole="codeCovOutput" />
+        </EntityType>
+        <EntityType Name="codeCovOutput">
+          <Key>
+            <PropertyRef Name="OutputGUID" />
+          </Key>
+          <Property Name="OutputGUID" Type="Guid" Nullable="false" />
+          <Property Name="ObjectiveGUID" Type="Guid" Nullable="false" />
+          <Property Name="OutputDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="codeCovOutputRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="codeCovIndicators" Relationship="COVModel.FK_codeCovIndicator_codeCovOutput" FromRole="codeCovOutput" ToRole="codeCovIndicator" />
+          <NavigationProperty Name="codeCovObjective" Relationship="COVModel.FK_codeCovOutput_codeCovObjective" FromRole="codeCovOutput" ToRole="codeCovObjective" />
+        </EntityType>
+        <EntityType Name="codeCovUnit">
+          <Key>
+            <PropertyRef Name="CovUnitGUID" />
+          </Key>
+          <Property Name="CovUnitGUID" Type="Guid" Nullable="false" />
+          <Property Name="CovUnitItems" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CovUnitDescription" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CovUnitCost" Type="Double" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="codeCovUnitRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+        </EntityType>
+        <EntityType Name="codeTable">
+          <Key>
+            <PropertyRef Name="TableGUID" />
+          </Key>
+          <Property Name="TableGUID" Type="Guid" Nullable="false" />
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="IndexSitemapGUID" Type="Guid" Nullable="false" />
+          <Property Name="DetailsSitemapGUID" Type="Guid" Nullable="false" />
+          <Property Name="SortID" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValues" Relationship="COVModel.FK_codeTablesValues_codeTables" FromRole="codeTable" ToRole="codeTablesValue" />
+        </EntityType>
+        <EntityType Name="codeTablesValue">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="TableGUID" Type="Guid" Nullable="false" />
+          <Property Name="FactorGUID" Type="Guid" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTable" Relationship="COVModel.FK_codeTablesValues_codeTables" FromRole="codeTablesValue" ToRole="codeTable" />
+          <NavigationProperty Name="codeTablesValuesLanguages" Relationship="COVModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValue" ToRole="codeTablesValuesLanguage" />
+          <NavigationProperty Name="codeTablesValuesConfigurations" Relationship="COVModel.FK_codeTablesValuesOperations_codeTablesValues" FromRole="codeTablesValue" ToRole="codeTablesValuesConfiguration" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesConfiguration">
+          <Key>
+            <PropertyRef Name="TableValueConfigurationGUID" />
+          </Key>
+          <Property Name="TableValueConfigurationGUID" Type="Guid" Nullable="false" />
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesConfigurationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValue" Relationship="COVModel.FK_codeTablesValuesOperations_codeTablesValues" FromRole="codeTablesValuesConfiguration" ToRole="codeTablesValue" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguage">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ValueDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValue" Relationship="COVModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValuesLanguage" ToRole="codeTablesValue" />
+        </EntityType>
+        <EntityType Name="codeOchaLocation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="admin0Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin0Name_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin0Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin1Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin1Name_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin1Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="GovernorateGUID" Type="Guid" />
+          <Property Name="admin2Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin2Name_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin2Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin3Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin3Name_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin3Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin4Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin4Name_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin4Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin5Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin5Name_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin5Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude_y" Type="Double" />
+          <Property Name="Longitude_x" Type="Double" />
+        </EntityType>
+        <Association Name="FK_codeCovIndicator_codeCovOutput">
+          <End Type="COVModel.codeCovOutput" Role="codeCovOutput" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="COVModel.codeCovIndicator" Role="codeCovIndicator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCovOutput">
+              <PropertyRef Name="OutputGUID" />
+            </Principal>
+            <Dependent Role="codeCovIndicator">
+              <PropertyRef Name="OutputGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeCovOutput_codeCovObjective">
+          <End Type="COVModel.codeCovObjective" Role="codeCovObjective" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="COVModel.codeCovOutput" Role="codeCovOutput" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCovObjective">
+              <PropertyRef Name="ObjectiveGUID" />
+            </Principal>
+            <Dependent Role="codeCovOutput">
+              <PropertyRef Name="ObjectiveGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValues_codeTables">
+          <End Type="COVModel.codeTable" Role="codeTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="COVModel.codeTablesValue" Role="codeTablesValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTable">
+              <PropertyRef Name="TableGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValue">
+              <PropertyRef Name="TableGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Type="COVModel.codeTablesValue" Role="codeTablesValue" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="COVModel.codeTablesValuesLanguage" Role="codeTablesValuesLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValue">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguage">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesOperations_codeTablesValues">
+          <End Type="COVModel.codeTablesValue" Role="codeTablesValue" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="COVModel.codeTablesValuesConfiguration" Role="codeTablesValuesConfiguration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValue">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesConfiguration">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataCovidUNHCRResponseStrategy">
+          <Key>
+            <PropertyRef Name="CovidUNHCRResponseStrategyGUID" />
+          </Key>
+          <Property Name="CovidUNHCRResponseStrategyGUID" Type="Guid" Nullable="false" />
+          <Property Name="DateOfReport" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CovStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GovernorateGUID" Type="Guid" />
+          <Property Name="Governorate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SubDistrict" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CommunityName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Neighborhood" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="ObjectiveGUID" Type="Guid" Nullable="false" />
+          <Property Name="OutputGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndicatorGUID" Type="Guid" Nullable="false" />
+          <Property Name="CovIndicatorTechnicalUnitGUID" Type="Guid" Nullable="false" />
+          <Property Name="Measure_Achievments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UNHCRStrategy" Type="Int32" />
+          <Property Name="DirectActivities" Type="Boolean" />
+          <Property Name="Associated" Type="Boolean" />
+          <Property Name="ImplementingPartner" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="CovUnitGUID" Type="Guid" Nullable="false" />
+          <Property Name="UnitCost" Type="Double" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="CostEstimationThreeMonthes" Type="Double" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="Feedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsVerified" Type="Boolean" Nullable="false" />
+          <Property Name="VerifiedBy" Type="Guid" />
+          <Property Name="VerifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="dataCovidUNHCRResponseStrategyRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+        </EntityType>
+        <EntityType Name="v_dataCovidUNHCRResponseStrategyDataTable">
+          <Key>
+            <PropertyRef Name="EDMXID" />
+            <PropertyRef Name="CovidUNHCRResponseStrategyGUID" />
+            <PropertyRef Name="DateOfReport" />
+            <PropertyRef Name="ObjectiveGUID" />
+            <PropertyRef Name="ObjectiveDescription" />
+            <PropertyRef Name="OutputGUID" />
+            <PropertyRef Name="OutputDescription" />
+            <PropertyRef Name="IndicatorGUID" />
+            <PropertyRef Name="IndicatorDescription" />
+            <PropertyRef Name="CovIndicatorTechnicalUnitGUID" />
+            <PropertyRef Name="CovIndicatorTechnicalUnit" />
+            <PropertyRef Name="CovUnitGUID" />
+            <PropertyRef Name="CreatedBy" />
+            <PropertyRef Name="CreatedOn" />
+            <PropertyRef Name="IsVerified" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="dataCovidUNHCRResponseStrategyRowVersion" />
+          </Key>
+          <Property Name="EDMXID" Type="Int32" Nullable="false" />
+          <Property Name="CovidUNHCRResponseStrategyGUID" Type="Guid" Nullable="false" />
+          <Property Name="DateOfReport" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CovStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GovernorateGUID" Type="Guid" />
+          <Property Name="Governorate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin1Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="admin2Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SubDistrict" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="admin3Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CommunityName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="admin4Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Neighborhood" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="ObjectiveGUID" Type="Guid" Nullable="false" />
+          <Property Name="ObjectiveDescription" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OutputGUID" Type="Guid" Nullable="false" />
+          <Property Name="OutputDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IndicatorGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndicatorDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CovIndicatorTechnicalUnitGUID" Type="Guid" Nullable="false" />
+          <Property Name="CovIndicatorTechnicalUnit" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Measure_Achievments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UNHCRStrategy" Type="Int32" />
+          <Property Name="DirectActivities" Type="Boolean" />
+          <Property Name="Associated" Type="Boolean" />
+          <Property Name="ImplementingPartner" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="CovUnitGUID" Type="Guid" Nullable="false" />
+          <Property Name="UnitCost" Type="Double" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="CostEstimationThreeMonthes" Type="Double" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="Feedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsVerified" Type="Boolean" Nullable="false" />
+          <Property Name="VerifiedBy" Type="Guid" />
+          <Property Name="VerifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="dataCovidUNHCRResponseStrategyRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+        </EntityType>
+        <EntityType Name="codeCovIndicatorTechnicalUnit">
+          <Key>
+            <PropertyRef Name="CovIndicatorTechnicalUnitGUID" />
+          </Key>
+          <Property Name="CovIndicatorTechnicalUnitGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndicatorTechnicalUnitDescription" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="codeCovIndicatorTechnicalUnitRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+        </EntityType>
+        <EntityType Name="codeCovIndicatorTechnicalUnitMap">
+          <Key>
+            <PropertyRef Name="CovIndicatorTechnicalUnitMapGUID" />
+          </Key>
+          <Property Name="CovIndicatorTechnicalUnitMapGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndicatorGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndicatorTechnicalUnitGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="codeCovIndicatorTechnicalUnitMapRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="COVModelStoreContainer" CdmEntityContainer="COVEntities">
+          <EntitySetMapping Name="codeCovIndicators">
+            <EntityTypeMapping TypeName="COVModel.codeCovIndicator">
+              <MappingFragment StoreEntitySet="codeCovIndicator">
+                <ScalarProperty Name="codeCovIndicatorRowVersion" ColumnName="codeCovIndicatorRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CovIndicatorTechnicalUnit" ColumnName="CovIndicatorTechnicalUnit" />
+                <ScalarProperty Name="CovIndicatorUnit" ColumnName="CovIndicatorUnit" />
+                <ScalarProperty Name="IndicatorDescription" ColumnName="IndicatorDescription" />
+                <ScalarProperty Name="OutputGUID" ColumnName="OutputGUID" />
+                <ScalarProperty Name="IndicatorGUID" ColumnName="IndicatorGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeCovObjectives">
+            <EntityTypeMapping TypeName="COVModel.codeCovObjective">
+              <MappingFragment StoreEntitySet="codeCovObjective">
+                <ScalarProperty Name="codeCovObjectiveRowVersion" ColumnName="codeCovObjectiveRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ObjectiveDescription" ColumnName="ObjectiveDescription" />
+                <ScalarProperty Name="ObjectiveGUID" ColumnName="ObjectiveGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeCovOutputs">
+            <EntityTypeMapping TypeName="COVModel.codeCovOutput">
+              <MappingFragment StoreEntitySet="codeCovOutput">
+                <ScalarProperty Name="codeCovOutputRowVersion" ColumnName="codeCovOutputRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OutputDescription" ColumnName="OutputDescription" />
+                <ScalarProperty Name="ObjectiveGUID" ColumnName="ObjectiveGUID" />
+                <ScalarProperty Name="OutputGUID" ColumnName="OutputGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeCovUnits">
+            <EntityTypeMapping TypeName="COVModel.codeCovUnit">
+              <MappingFragment StoreEntitySet="codeCovUnit">
+                <ScalarProperty Name="codeCovUnitRowVersion" ColumnName="codeCovUnitRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CovUnitCost" ColumnName="CovUnitCost" />
+                <ScalarProperty Name="CovUnitDescription" ColumnName="CovUnitDescription" />
+                <ScalarProperty Name="CovUnitItems" ColumnName="CovUnitItems" />
+                <ScalarProperty Name="CovUnitGUID" ColumnName="CovUnitGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTables">
+            <EntityTypeMapping TypeName="COVModel.codeTable">
+              <MappingFragment StoreEntitySet="codeTables">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesRowVersion" ColumnName="codeTablesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="DetailsSitemapGUID" ColumnName="DetailsSitemapGUID" />
+                <ScalarProperty Name="IndexSitemapGUID" ColumnName="IndexSitemapGUID" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="TableGUID" ColumnName="TableGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValues">
+            <EntityTypeMapping TypeName="COVModel.codeTablesValue">
+              <MappingFragment StoreEntitySet="codeTablesValues">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesRowVersion" ColumnName="codeTablesValuesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="TableGUID" ColumnName="TableGUID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValuesConfigurations">
+            <EntityTypeMapping TypeName="COVModel.codeTablesValuesConfiguration">
+              <MappingFragment StoreEntitySet="codeTablesValuesConfigurations">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesConfigurationsRowVersion" ColumnName="codeTablesValuesConfigurationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+                <ScalarProperty Name="TableValueConfigurationGUID" ColumnName="TableValueConfigurationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValuesLanguages">
+            <EntityTypeMapping TypeName="COVModel.codeTablesValuesLanguage">
+              <MappingFragment StoreEntitySet="codeTablesValuesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesLanguagesRowVersion" ColumnName="codeTablesValuesLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ValueDescription" ColumnName="ValueDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+                <ScalarProperty Name="TableValueLanguageGUID" ColumnName="TableValueLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOchaLocations">
+            <EntityTypeMapping TypeName="COVModel.codeOchaLocation">
+              <MappingFragment StoreEntitySet="codeOchaLocation">
+                <ScalarProperty Name="Longitude_x" ColumnName="Longitude_x" />
+                <ScalarProperty Name="Latitude_y" ColumnName="Latitude_y" />
+                <ScalarProperty Name="admin5Pcode" ColumnName="admin5Pcode" />
+                <ScalarProperty Name="admin5Name_ar" ColumnName="admin5Name_ar" />
+                <ScalarProperty Name="admin5Name_en" ColumnName="admin5Name_en" />
+                <ScalarProperty Name="admin4Pcode" ColumnName="admin4Pcode" />
+                <ScalarProperty Name="admin4Name_ar" ColumnName="admin4Name_ar" />
+                <ScalarProperty Name="admin4Name_en" ColumnName="admin4Name_en" />
+                <ScalarProperty Name="admin3Pcode" ColumnName="admin3Pcode" />
+                <ScalarProperty Name="admin3Name_ar" ColumnName="admin3Name_ar" />
+                <ScalarProperty Name="admin3Name_en" ColumnName="admin3Name_en" />
+                <ScalarProperty Name="admin2Pcode" ColumnName="admin2Pcode" />
+                <ScalarProperty Name="admin2Name_ar" ColumnName="admin2Name_ar" />
+                <ScalarProperty Name="admin2Name_en" ColumnName="admin2Name_en" />
+                <ScalarProperty Name="GovernorateGUID" ColumnName="GovernorateGUID" />
+                <ScalarProperty Name="admin1Pcode" ColumnName="admin1Pcode" />
+                <ScalarProperty Name="admin1Name_ar" ColumnName="admin1Name_ar" />
+                <ScalarProperty Name="admin1Name_en" ColumnName="admin1Name_en" />
+                <ScalarProperty Name="admin0Pcode" ColumnName="admin0Pcode" />
+                <ScalarProperty Name="admin0Name_ar" ColumnName="admin0Name_ar" />
+                <ScalarProperty Name="admin0Name_en" ColumnName="admin0Name_en" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataCovidUNHCRResponseStrategies">
+            <EntityTypeMapping TypeName="COVModel.dataCovidUNHCRResponseStrategy">
+              <MappingFragment StoreEntitySet="dataCovidUNHCRResponseStrategy">
+                <ScalarProperty Name="dataCovidUNHCRResponseStrategyRowVersion" ColumnName="dataCovidUNHCRResponseStrategyRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="VerifiedOn" ColumnName="VerifiedOn" />
+                <ScalarProperty Name="VerifiedBy" ColumnName="VerifiedBy" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CostEstimationThreeMonthes" ColumnName="CostEstimationThreeMonthes" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="CovUnitGUID" ColumnName="CovUnitGUID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ImplementingPartner" ColumnName="ImplementingPartner" />
+                <ScalarProperty Name="Associated" ColumnName="Associated" />
+                <ScalarProperty Name="DirectActivities" ColumnName="DirectActivities" />
+                <ScalarProperty Name="UNHCRStrategy" ColumnName="UNHCRStrategy" />
+                <ScalarProperty Name="Measure_Achievments" ColumnName="Measure_Achievments" />
+                <ScalarProperty Name="CovIndicatorTechnicalUnitGUID" ColumnName="CovIndicatorTechnicalUnitGUID" />
+                <ScalarProperty Name="IndicatorGUID" ColumnName="IndicatorGUID" />
+                <ScalarProperty Name="OutputGUID" ColumnName="OutputGUID" />
+                <ScalarProperty Name="ObjectiveGUID" ColumnName="ObjectiveGUID" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
+                <ScalarProperty Name="CommunityName" ColumnName="CommunityName" />
+                <ScalarProperty Name="SubDistrict" ColumnName="SubDistrict" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Governorate" ColumnName="Governorate" />
+                <ScalarProperty Name="GovernorateGUID" ColumnName="GovernorateGUID" />
+                <ScalarProperty Name="CovStatus" ColumnName="CovStatus" />
+                <ScalarProperty Name="DateOfReport" ColumnName="DateOfReport" />
+                <ScalarProperty Name="CovidUNHCRResponseStrategyGUID" ColumnName="CovidUNHCRResponseStrategyGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_dataCovidUNHCRResponseStrategyDataTable">
+            <EntityTypeMapping TypeName="COVModel.v_dataCovidUNHCRResponseStrategyDataTable">
+              <MappingFragment StoreEntitySet="v_dataCovidUNHCRResponseStrategyDataTable">
+                <ScalarProperty Name="dataCovidUNHCRResponseStrategyRowVersion" ColumnName="dataCovidUNHCRResponseStrategyRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="VerifiedOn" ColumnName="VerifiedOn" />
+                <ScalarProperty Name="VerifiedBy" ColumnName="VerifiedBy" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CostEstimationThreeMonthes" ColumnName="CostEstimationThreeMonthes" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="CovUnitGUID" ColumnName="CovUnitGUID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ImplementingPartner" ColumnName="ImplementingPartner" />
+                <ScalarProperty Name="Associated" ColumnName="Associated" />
+                <ScalarProperty Name="DirectActivities" ColumnName="DirectActivities" />
+                <ScalarProperty Name="UNHCRStrategy" ColumnName="UNHCRStrategy" />
+                <ScalarProperty Name="Measure_Achievments" ColumnName="Measure_Achievments" />
+                <ScalarProperty Name="CovIndicatorTechnicalUnit" ColumnName="CovIndicatorTechnicalUnit" />
+                <ScalarProperty Name="CovIndicatorTechnicalUnitGUID" ColumnName="CovIndicatorTechnicalUnitGUID" />
+                <ScalarProperty Name="IndicatorDescription" ColumnName="IndicatorDescription" />
+                <ScalarProperty Name="IndicatorGUID" ColumnName="IndicatorGUID" />
+                <ScalarProperty Name="OutputDescription" ColumnName="OutputDescription" />
+                <ScalarProperty Name="OutputGUID" ColumnName="OutputGUID" />
+                <ScalarProperty Name="ObjectiveDescription" ColumnName="ObjectiveDescription" />
+                <ScalarProperty Name="ObjectiveGUID" ColumnName="ObjectiveGUID" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
+                <ScalarProperty Name="admin4Name_en" ColumnName="admin4Name_en" />
+                <ScalarProperty Name="CommunityName" ColumnName="CommunityName" />
+                <ScalarProperty Name="admin3Name_en" ColumnName="admin3Name_en" />
+                <ScalarProperty Name="SubDistrict" ColumnName="SubDistrict" />
+                <ScalarProperty Name="admin2Name_en" ColumnName="admin2Name_en" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="admin1Name_en" ColumnName="admin1Name_en" />
+                <ScalarProperty Name="Governorate" ColumnName="Governorate" />
+                <ScalarProperty Name="GovernorateGUID" ColumnName="GovernorateGUID" />
+                <ScalarProperty Name="CovStatus" ColumnName="CovStatus" />
+                <ScalarProperty Name="DateOfReport" ColumnName="DateOfReport" />
+                <ScalarProperty Name="CovidUNHCRResponseStrategyGUID" ColumnName="CovidUNHCRResponseStrategyGUID" />
+                <ScalarProperty Name="EDMXID" ColumnName="EDMXID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeCovIndicatorTechnicalUnits">
+            <EntityTypeMapping TypeName="COVModel.codeCovIndicatorTechnicalUnit">
+              <MappingFragment StoreEntitySet="codeCovIndicatorTechnicalUnit">
+                <ScalarProperty Name="codeCovIndicatorTechnicalUnitRowVersion" ColumnName="codeCovIndicatorTechnicalUnitRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IndicatorTechnicalUnitDescription" ColumnName="IndicatorTechnicalUnitDescription" />
+                <ScalarProperty Name="CovIndicatorTechnicalUnitGUID" ColumnName="CovIndicatorTechnicalUnitGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeCovIndicatorTechnicalUnitMaps">
+            <EntityTypeMapping TypeName="COVModel.codeCovIndicatorTechnicalUnitMap">
+              <MappingFragment StoreEntitySet="codeCovIndicatorTechnicalUnitMap">
+                <ScalarProperty Name="codeCovIndicatorTechnicalUnitMapRowVersion" ColumnName="codeCovIndicatorTechnicalUnitMapRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IndicatorTechnicalUnitGUID" ColumnName="IndicatorTechnicalUnitGUID" />
+                <ScalarProperty Name="IndicatorGUID" ColumnName="IndicatorGUID" />
+                <ScalarProperty Name="CovIndicatorTechnicalUnitMapGUID" ColumnName="CovIndicatorTechnicalUnitMapGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

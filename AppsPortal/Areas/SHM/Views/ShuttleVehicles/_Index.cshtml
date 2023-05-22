@@ -1,0 +1,22 @@
+﻿@model MasterRecordStatus
+
+@if (Model.IsParentActive)
+{
+    <div>
+        <div id=@string.Format("{0}Filter", DataTableNames.ShuttleVehiclesDataTable) class="filter-section" style="display:none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_RecordStatus", DataTableNames.ShuttleVehiclesDataTable)
+                </div>
+            </div>
+        </div>
+        <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.ShuttleVehiclesDataTable)">
+            @Html.FieldDataTableFilter(DataTableNames.ShuttleVehiclesDataTable)
+            @Html.FieldDataTableCreate(Permissions.ShuttleVehicle.Create, Apps.SHM, Url.Action("ShuttleVehicleCreate", "ShuttleVehicles", new { FK = Model.ParentGUID }))
+            @Html.FieldDataTableDelete(Permissions.ShuttleVehicle.Delete, Apps.SHM, DataTableNames.ShuttleVehiclesDataTable)
+            @Html.FieldDataTableRestore(Permissions.ShuttleVehicle.Restore, Apps.SHM, DataTableNames.ShuttleVehiclesDataTable)
+            @Html.FieldDataTableRefresh(DataTableNames.ShuttleVehiclesDataTable)
+        </div>
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ShuttleVehiclesDataTable, FormController = "ShuttleVehicles", Area = "SHM", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+}

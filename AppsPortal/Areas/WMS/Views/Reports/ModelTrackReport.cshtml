@@ -1,0 +1,358 @@
+﻿@model ModelTrackReportModel
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("cb700866-3d14-4fd2-85af-3ce46ff2ecfd")
+
+@using (Html.BeginForm("ModelTrackReport", "Reports", new {Area = "WMS"}, FormMethod.Post, new {id = "ReportForm"}))
+{
+    <style>
+        iframe {
+            border-width: 0px !important
+        }
+    </style>
+
+    <div class="page--content">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.Label("Report Name")
+                        @Html.DropDownListFor(model => model.WarehosueReportId, new DropDownList().WarehouseReports(), "",
+                            new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                onchange = "CheckReportName(this)"
+                            })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel-body">
+                <div class="row" id="itemCustodianReportId">
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.WarehouseItemGUID)
+                            @Html.DropDownListFor(model => model.WarehouseItemGUID, new DropDownList().WarehouseItems(), "", new
+                {
+                    style = "width:100%",
+                    @class = "form-control select2-basic-search",
+                    Multiple = true
+                })
+                        </div>
+
+                        <div class="form-group">
+                            And @Html.RadioButtonFor(m => m.equationType, true, new { id = "", })
+                            Or @Html.RadioButtonFor(m => m.equationType, false, new { id = "" })
+
+                            @*<div class="col-md-6 col-md-offset-3">
+                        <div class="input-group">
+                            <input type="radio" value="1"
+                                   class="iradio_flat-green checked" aria-checked="false" />And
+                            <input type="radio" value="2"  class="iradio_flat-green" />OR
+                        </div>
+                    </div>*@
+                        </div>
+
+                        <div>
+                            <input class="btn btn-primary " data-submittype="" type="submit" value="Generate Report">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <div class="form-group" id="ReportViewer">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="RpeortDelayItems">
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+
+
+                        <div>
+                            <input class="btn btn-primary " data-submittype="" type="submit" value="Generate Report">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <div class="form-group" id="ReportViewer">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="ReportVerificationItem">
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+
+
+                        <div>
+                            <input class="btn btn-primary " data-submittype="" type="submit" value="Generate Report">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <div class="form-group" id="ReportViewer">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="ReportGeneralOVerviewId">
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            @Html.Label(" Item classification ")
+                            @Html.DropDownListFor(model => model.WarehouseItemClassificationGUID, new DropDownList().ItemClassification(), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Item sub classification  ")
+                            @Html.DropDownListFor(model => model.ItemGUIDs, new DropDownList().WarehouseItems(), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Brand")
+                            @Html.DropDownListFor(model => model.BrandGuids, new DropDownList().Brands(), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Item ")
+                            @Html.DropDownListFor(model => model.ModelGUIDs, new DropDownList().WarehouseModels(), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Staff")
+                            @Html.DropDownListFor(model => model.CustodianStaffGUID, new DropDownList().Users(true), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Warehouse")
+                            @Html.DropDownListFor(model => model.CustodianWarehouseGUID, new DropDownList().Warehouses(), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Location")
+                            @Html.DropDownListFor(model => model.LocationGuids, new DropDownList().WarehouseLocation(), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Service Status")
+                            @Html.DropDownListFor(model => model.ServicesStatusGUIDs, new DropDownList().WarehouseItemServiceStatus(), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+
+                        <div>
+
+                            <input class="btn btn-primary " data-submittype="" type="submit" value="Generate Report">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" id="ConsumableItemOverView">
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            @Html.Label(" Item classification ")
+                            @Html.DropDownListFor(model => model.WarehouseItemClassificationGUID, new DropDownList().ItemClassification(), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Item sub classification  ")
+                            @Html.DropDownListFor(model => model.ItemGUIDs, new DropDownList().WarehouseItems(), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+                        @*<div class="form-group">
+                    @Html.Label("Brand")
+                    @Html.DropDownListFor(model => model.BrandGuids, new DropDownList().Brands(), "", new
+                    {
+                        style = "width:100%",
+                        @class = "form-control select2-basic-search",
+                        Multiple = true
+                    })
+                </div>*@
+                        <div class="form-group">
+                            @Html.Label("Item ")
+                            @Html.DropDownListFor(model => model.ModelGUIDs, new DropDownList().WarehouseConsumableModels(), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Staff")
+                            @Html.DropDownListFor(model => model.CustodianStaffGUID, new DropDownList().Users(true), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+
+                        @*<div class="form-group">
+                    @Html.Label("Warehouse")
+                    @Html.DropDownListFor(model => model.CustodianWarehouseGUID, new DropDownList().Warehouses(), "", new
+                    {
+                        style = "width:100%",
+                        @class = "form-control select2-basic-search",
+                        Multiple = true
+                    })
+                </div>*@
+                        <div class="form-group">
+                            @Html.Label("Location")
+                            @Html.DropDownListFor(model => model.LocationGuids, new DropDownList().WarehouseLocation(), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+
+
+                        <div>
+
+                            <input class="btn btn-primary " data-submittype="" type="submit" value="Generate Report">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" id="ReportCustodianHostroiacalReportId">
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+
+                        <div class="form-group">
+                            @Html.Label("Staff")
+                            @Html.DropDownListFor(model => model.CustodianStaffGUID, new DropDownList().Users(true), "", new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                Multiple = true
+                            })
+                        </div>
+
+
+                        <div>
+
+                            <input class="btn btn-primary " data-submittype="" type="submit" value="Generate Report">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+}
+<script>
+
+    $("#itemCustodianReportId").hide();
+    $("#RpeortDelayItems").hide();
+    $("#ReportGeneralOVerviewId").hide();
+    $("#ReportCustodianHostroiacalReportId").hide();
+    $("#ConsumableItemOverView").hide();
+    $("#ReportVerificationItem").hide();
+    var CheckReportName = function (data) {
+        var currentReportId = $("#WarehosueReportId").val();
+        if (currentReportId == 1) {
+            $("#itemCustodianReportId").show();
+            $("#RpeortDelayItems").hide();
+            $("#ReportGeneralOVerviewId").hide();
+            $("#ReportCustodianHostroiacalReportId").hide();
+            $("#ConsumableItemOverView").hide();
+            $("#ReportVerificationItem").hide();
+
+
+        }
+        if (currentReportId == 2 || currentReportId == 7 || currentReportId == 8 || currentReportId == 9 || currentReportId == 10) {
+            $("#RpeortDelayItems").show();
+            $("#itemCustodianReportId").hide();
+            $("#ReportGeneralOVerviewId").hide();
+            $("#ReportCustodianHostroiacalReportId").hide();
+            $("#ConsumableItemOverView").hide();
+            $("#ReportVerificationItem").hide();
+        }
+        if (currentReportId == 3) {
+            $("#RpeortDelayItems").hide();
+            $("#itemCustodianReportId").hide();
+            $("#ReportGeneralOVerviewId").show();
+            $("#ReportCustodianHostroiacalReportId").hide();
+            $("#ConsumableItemOverView").hide();
+        }
+        if (currentReportId == 4) {
+            $("#RpeortDelayItems").hide();
+            $("#itemCustodianReportId").hide();
+            $("#ReportGeneralOVerviewId").hide();
+            $("#ReportCustodianHostroiacalReportId").show();
+            $("#ConsumableItemOverView").hide();
+            $("#ReportVerificationItem").hide();
+        }
+        if (currentReportId == 5) {
+            $("#RpeortDelayItems").hide();
+            $("#itemCustodianReportId").hide();
+            $("#ReportGeneralOVerviewId").hide();
+            $("#ReportCustodianHostroiacalReportId").hide();
+            $("#ConsumableItemOverView").show();
+            $("#ReportVerificationItem").hide();
+        }
+        if (currentReportId == 6) {
+            $("#RpeortDelayItems").hide();
+            $("#itemCustodianReportId").hide();
+            $("#ReportGeneralOVerviewId").hide();
+            $("#ReportCustodianHostroiacalReportId").hide();
+            $("#ConsumableItemOverView").hide();
+            $("#ReportVerificationItem").show();
+        }
+    }
+
+</script>

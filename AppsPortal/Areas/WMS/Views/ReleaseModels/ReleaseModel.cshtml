@@ -1,0 +1,21 @@
+﻿@model ReleaseModelUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ItemOutputGUID == Guid.Empty) ? "New Entry " : "Edit Entry "; }
+
+@Html.PageHeader("60f22f53-8b04-498a-beee-4e283dd290e9")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/WMS/Views/ReleaseModels/_ReleaseModelForm.cshtml")
+        <div id="ReleaseModelDetailsContainer">
+            @if (Model.ItemOutputGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/WMS/Views/ReleaseModelDetails/_ReleaseModelDetailsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ItemOutputGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+
+    

@@ -1,0 +1,10 @@
+﻿@model MasterRecordStatus
+
+@{
+    ViewBag.Title = "JobTitles";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+ <div>
+    @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.NoteVerbalesDataTable, FormController = "NoteVerbales", Area = "MRS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+</div>

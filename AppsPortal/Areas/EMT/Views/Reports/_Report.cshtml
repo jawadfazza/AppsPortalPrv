@@ -1,0 +1,12 @@
+﻿@model EMTReportParametersList
+@using ReportViewerForMvc;
+@{ try
+    {
+        @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
+
+    }
+    catch
+    {
+      <h2 style="color:orangered;">Big Data Error in loading!</h2>
+    }
+}

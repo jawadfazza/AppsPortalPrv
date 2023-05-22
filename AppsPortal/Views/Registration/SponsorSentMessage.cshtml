@@ -1,0 +1,53 @@
+﻿@model SponsorMessageModel
+@{
+    ViewBag.Title = "ZZZ";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<div class="page--header">
+    <div class="page--banner">
+        <h2>Email Verification</h2>
+        <div class="row">
+            <div class="col-md-5">
+                <article>
+                    We rely on your email and it should be valid and you have access to it.
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page--content">
+    <div class="wizard">
+        <span class="done">@resxPages.RegistrationStep1</span>
+        <span class="done">@resxPages.RegistrationStep2</span>
+        <span class="done">@resxPages.RegistrationStep3</span>
+        <span class="current">@resxPages.RegistrationStep4</span>
+        <span>@resxPages.RegistrationStep5</span>
+    </div>
+    <div class="page--body">
+        <br />
+        <br />
+        <h3>@resxPages.Dear @Model.UserFullName,</h3>
+        <p style="text-align:justify;">
+            @resxEmails.SponsorSentMessage
+
+            .Replace("$UserFullName", @Model.UserFullName)
+            .Replace("$SponsorFullName", @Model.SponsorFullName)
+            .Replace("$SponsorJobTitle", @Model.SponsorJobTitle)
+            .Replace("$SponsorEmailAddress", @Model.SponsorEmailAddress)
+            .Replace("$SponsorOrganizationInstance", @Model.OrganizationInstance)
+            .Replace("\r\n", "<br />"))
+        </p>
+    </div>
+</div>
+
+
+
+@*Dear $UserFullName,
+
+    Your request has been sent to $SponsorFullName ($SponsorEmailAddress), $SponsorJobTitle at $SponsorOrganizationInstance successfully.
+    Please open your inbox for further information.
+
+
+    Thank you*@

@@ -1,0 +1,52 @@
+﻿@model OvertimeMonthCycleUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = "Overtime " + Model.CycleName; }
+
+@Html.PageHeader("30dbdcc5-56f2-49ed-a012-a8768111046c")
+<div class="page--content">
+
+    <div id=@string.Format("{0}Filter", DataTableNames.AllStaffCycleOvertimeMonthDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Year, DbColumnName = "Year", FilterForDataType = "Text" })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MonthName, DbColumnName = "Month", FilterForDataType = "Text" })*@
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FlowStatusGUID, DbColumnName = "FlowStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().StaffOvertimeFlowStatus(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.UserGUID, DbColumnName = "UserGUID", FilterForDataType = "Text", DataList = new DropDownList().AdminHRStaff(), IsMultiple = true, IsSearchable = true })
+
+            </div>
+
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.AllStaffCycleOvertimeMonthDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.AllStaffCycleOvertimeMonthDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.AllStaffCycleOvertimeMonthDataTable)
+
+        @*@Html.FieldDataTableCreate(Permissions.StaffOvertime.Create, Apps.AHD, Url.Action("StaffOvertimeCreate", "StaffOvertime"))*@
+        @*@Html.FieldDataTableStaffSendReminderToConfirm(Permissions.StaffOvertime.Create, Apps.AHD, Url.Action("SendConfirmationReceivingModelForPendingConfirmationStaffEmail", "NationalStaffDangerPayCalcualtion", new { FK = Model.DangerPayInformationGUID }))*@
+        @*@Html.FieldDataTableCreate(Permissions.StaffOvertime.Create, Apps.AHD, Url.Action("NationalStaffDangerPayInformationCreate", "NationalStaffDangerPayCalcualtion"))*@
+
+        @Html.IndexDatatableDelete(Permissions.StaffOvertime.Delete, Apps.AHD, DataTableNames.AllStaffCycleOvertimeMonthDataTable)
+        @Html.IndexDatatableRestor(Permissions.StaffOvertime.Restore, Apps.AHD, DataTableNames.AllStaffCycleOvertimeMonthDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.AllStaffCycleOvertimeMonthDataTable)
+        @*@Html.ActionLink(" ", "ExportDangerPayStaffForMonth", "NationalStaffDangerPayCalcualtion", new { id = @ViewBag.DangerPayInformationGUID }, new { @class = "btn btn-primary fa fa-file-o" })*@
+
+    </div>
+
+
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.AllStaffCycleOvertimeMonthDataTable, FormController = "StaffOvertime", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.OvertimeMonthCycleGUID, OrderBy = 1 })
+
+    </div>
+
+
+</div>
+

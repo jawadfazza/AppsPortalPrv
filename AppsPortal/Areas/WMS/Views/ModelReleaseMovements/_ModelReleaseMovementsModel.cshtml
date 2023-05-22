@@ -1,0 +1,376 @@
+﻿@model ReleaseSingleItemUpdateModalUpdateModel
+@using (Html.BeginForm("WarehouseModelReleaseMovements", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "ReleaseModelDetailForm" }))
+{
+    string ModalTitle = Model.ItemOutputDetailGUID.ToString() == Guid.Empty.ToString() ? "New Release" : "Edit Release";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.ItemOutputDetailGUID)
+    @Html.HiddenFor(model => model.ItemOutputGUID)
+    @Html.HiddenFor(model => model.ItemInputDetailGUID)
+    @Html.HiddenFor(model => model.PackageSize)
+
+    @Html.HiddenFor(model => model.ItemServiceStatusGUID)
+    @Html.HiddenFor(model => model.ItemInputDetailGUID)
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.RequesterGUID)
+                @Html.DropDownListFor(model => model.RequesterGUID, new DropDownList().WarehouseRequsterTypes(), "", new
+                {
+                    @class = "form-control select2-basic-search",
+                    style = "width:100%",
+                    onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'RequesterNameGUID', Action : 'RemoteWarehouseRequestTypes'}]);"
+                })
+
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group HANDLER">
+                @if (Model.RequesterNameGUID != null)
+                {
+                    <div class="form-group HANDLER">
+                        @Html.LabelFor(model => model.RequesterNameGUID)
+                        @Html.DropDownListFor(model => model.RequesterNameGUID, new DropDownList().WarehouseModelRequester(Model.RequesterGUID), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group HANDLER">
+                        @Html.LabelFor(model => model.RequesterNameGUID)
+                        @Html.DropDownListFor(model => model.RequesterNameGUID, new DropDownList().Empty(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.WarehouseLocationGUID)
+                @Html.DropDownListFor(model => model.WarehouseLocationGUID, new DropDownList().WarehouseLocation(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.WarehouseSubLocationGUID)
+                @Html.DropDownListFor(model => model.WarehouseSubLocationGUID, new DropDownList().WarehouseSubLocation(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ItemRequestTypeGUID)
+                @Html.DropDownListFor(model => model.ItemRequestTypeGUID, new DropDownList().WarehouseReleaseTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ItemTagGUID)
+                @Html.DropDownListFor(model => model.ItemTagGUID, new DropDownList().WarehouseItemTags(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExpectedStartDate)
+                @Html.EditorFor(model => model.ExpectedStartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExpectedReturenedDate)
+                @Html.EditorFor(model => model.ExpectedReturenedDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.LicenseStartDate)
+                @Html.EditorFor(model => model.LicenseStartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.LicenseExpiryDate)
+                @Html.EditorFor(model => model.LicenseExpiryDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        @if (Model.ItemOutputDetailGUID != Guid.Empty)
+        {
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ActualReturenedDate)
+                    @Html.EditorFor(model => model.ActualReturenedDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+
+            </div>
+        }
+
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.NotifyStaffByEmailGUID)
+                @Html.DropDownListFor(model => model.NotifyStaffByEmailGUID, new DropDownList().WarehouseNotifyStaffByEmail(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="button" value="Show Extra" id="showExtraid" />
+            </div>
+        </div>
+        <div class="col-md-6">
+
+
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.LabelFor(model => model.SIMPackageSize)
+                @Html.DropDownListFor(model => model.SIMPackageSizeGUID, new DropDownList().WarehouseSIMPackageSize(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                @*@Html.EditorFor(model => model.SIMPackageSize, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @Default = 1 } })*@
+            </div>
+
+
+        </div>
+        <div class="col-md-6">
+
+
+        </div>
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.LabelFor(model => model.HasInternationalAccess)
+
+                @Html.CheckBoxFor(model => model.HasInternationalAccess, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.LabelFor(model => model.HasRoaming)
+
+                @Html.CheckBoxFor(model => model.HasRoaming, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.Label("Has Laptop Mouse ?")
+                @Html.CheckBoxFor(model => model.HasLaptopMouse, new { htmlAttributes = new { @class = "form-control" } })
+
+
+
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.Label("Has Head Phone ?")
+                @Html.CheckBoxFor(model => model.HasHeadPhone, new { htmlAttributes = new { @class = "form-control" } })
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.Label("Has Bag ?")
+                @Html.CheckBoxFor(model => model.HasBag, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.Label("Has Headset USB ?")
+                @Html.CheckBoxFor(model => model.HasHeadsetUSB, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.Label("Has Headset Stereo Jack ?")
+                @Html.CheckBoxFor(model => model.HasHeadsetStereoJack, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.Label("Has Back bag ?")
+                @Html.CheckBoxFor(model => model.HasBackbag, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.Label("Has Hand bag ?")
+                @Html.CheckBoxFor(model => model.HasHandbag, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.Label("Has Flash Memory ?")
+                @Html.CheckBoxFor(model => model.HasFlashMemory, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group extra">
+                @Html.LabelFor(model => model.HasCharger)
+
+                @Html.CheckBoxFor(model => model.HasCharger, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comments)
+                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="form-group">
+
+        <div class="form-group ">
+
+
+
+
+
+
+
+
+
+            @*<div class="form-group extra">
+                    @Html.LabelFor(model => model.PackageSize)
+                    @Html.EditorFor(model => model.PackageSize, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @Default = 1 } })
+                </div>*@
+
+        </div>
+
+        <div class="form-group">
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.RequestedQunatity)
+            @Html.EditorFor(model => model.RequestedQunatity, new { htmlAttributes = new { @class = "form-control", autocomplete = "off",@Default=1 } })
+        </div>*@
+
+
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.ItemOutputDetailGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.WarehouseItemsRelease.Create, Apps.WMS)
+        }
+        else
+        {
+            if (Model.Active && (Model.LastFlowTypeGUID == Guid.Parse("0C44822F-A898-476D-B291-CAF1B055AAC2") ||
+                Model.LastFlowTypeGUID == Guid.Parse("0C44822F-A898-476D-B291-CAF1B055AAC6")))
+            {
+                @Html.UpdateButton(Permissions.WarehouseItemsRelease.Update, Apps.WMS)
+
+                @Html.DeleteSwitchButton(Permissions.WarehouseItemsRelease.Delete, Apps.WMS)
+            }
+            else
+            {
+                if (Model.LastFlowTypeGUID == Guid.Parse("0C44822F-A898-476D-B291-CAF1B055AAC2"))
+                {
+                    @Html.RestoreSwitchButton(Permissions.WarehouseItemsRelease.Delete, Apps.WMS)
+                }
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+    }
+    <script>
+        $('.extra').hide();
+        $('#showExtraid').click(function () {
+            $('.extra').toggle();
+        });
+    </script>

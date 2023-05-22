@@ -1,0 +1,106 @@
+﻿@model ServiceHistoryModel
+<div class="row section">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-right pull-right col-nopadding-left">
+        <a class="btn Edit-Link" onclick="EditSection(this, '@Url.Action("ServiceHistoryUpdate","Profile")', 'PanelForServiceHistoryForm');">Edit</a>
+    </div>
+    <div class="col-lg-2 col-md-8 col-sm-8 col-xs-8">
+        <h3 class="Title">@resxPages.ServiceHistory</h3>
+    </div>
+    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+        <div id="pnlServiceInformation" class="row">
+            @if (Model == null)
+            {
+                <h4>@resxPages.ServiceHistoryNotFound</h4>
+            }
+            else
+            {
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.OrganizationDescription</h5>
+                                <span>@Model.Organization&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.EmployeeNumber</h5>
+                                <span>@Model.EmployeeNumber&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.EmailAddress</h5>
+                                <span>@Model.EmailAddress&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.IndexNumber</h5>
+                                <span>@Model.IndexNumber&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.JobTitle</h5>
+                                <span>@Model.JobTitle</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.OfficeDescription</h5>
+                                <span>@Model.OrganizationInstanceDescription</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.Grade</h5>
+                                <span>@Model.Grade</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.Step</h5>
+                                <span>@Model.Step</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.DutyStation</h5>
+                                <span>@Model.DutyStation</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.DepartmentDescription</h5>
+                                <span>@Model.Department</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.Supervisor</h5>
+                                <span>@Model.Supervisor</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.ReviewingOfficer</h5>
+                                <span>@Model.ReviewingOfficer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

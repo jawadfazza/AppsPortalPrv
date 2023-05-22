@@ -1,0 +1,45 @@
+﻿@model ShuttleTravelPurposeUpdateModel
+@using (Html.BeginForm("ShuttleTravelPurpose", "ShuttleTravelPurposes", new { Area = "SHM" }, FormMethod.Post, new { id = "ShuttleTravelPurposeForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.ShuttleTravelPurposeGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Priority)
+                @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ShuttleTravelPurposeDescription)
+                @Html.EditorFor(model => model.ShuttleTravelPurposeDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.WithReturnDate, new { @class = "chkNode-accordion" })
+                @Html.LabelFor(model => model.WithReturnDate)
+
+            </div>
+            <div id="ShuttleTravelPurposeFormControls" class="form-group form-footer">
+                @if (Model.ShuttleTravelPurposeGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.ShuttleTravelPurpose.Create, Apps.SHM)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.ShuttleTravelPurpose.Update, Apps.SHM)
+                        @Html.CreateNewButton(Permissions.ShuttleTravelPurpose.Create, Apps.SHM, Url.Action("/Create", new { Area = "SHM" }))
+                        @Html.DeleteButton(Permissions.ShuttleTravelPurpose.Delete, Apps.SHM)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.ShuttleTravelPurpose.Restore, Apps.SHM)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "ShuttleTravelPurposes", new { Area = "SHM" }))
+            </div>
+        </div>
+    </div>
+}

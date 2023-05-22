@@ -1,0 +1,20 @@
+﻿@model MedicalGenericNameUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.MedicalGenericNameGUID == Guid.Empty) ? "Medical Generic Name Type" : "Medical Generic Name Type"; }
+
+@Html.PageHeader("36bb1446-b0f2-447d-beb6-9b9113620648")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/EMT/Views/MedicalGenericNames/_MedicalGenericNameForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.MedicalGenericNameGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/EMT/Views/MedicalGenericNames/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MedicalGenericNameGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

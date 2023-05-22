@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("c53d2bf8-d0df-426b-8f9d-a6e96d0ec549")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.EntitlementsInitCalacuationDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStationGUID, DbColumnName = "DutyStationGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().SyriaDutyStations(), IsMultiple = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.EntitlementTypeGUID, DbColumnName = "EntitlementTypeGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().AHDEntitlementTypes(), IsMultiple = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.EntitlementsInitCalacuationDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.EntitlementsInitCalacuationDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.EntitlementsInitCalacuationDataTable)
+
+        @*@Html.IndexDatatableCreate(Permissions.InternationalStaffEntitlements.Create, Apps.AHD, "/AHD/StaffRAndRLeaveRequest/Create")*@
+
+
+        @Html.FieldDataTableCreate(Permissions.InternationalStaffEntitlements.Create, Apps.AHD, Url.Action("EntitlementsInitCalacuationCreate", "InternationalStaffEntitlement"))
+
+        @Html.IndexDatatableDelete(Permissions.InternationalStaffEntitlements.Delete, Apps.AHD, DataTableNames.EntitlementsInitCalacuationDataTable)
+        @Html.IndexDatatableRestor(Permissions.InternationalStaffEntitlements.Restore, Apps.AHD, DataTableNames.EntitlementsInitCalacuationDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.EntitlementsInitCalacuationDataTable)
+
+        
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.EntitlementsInitCalacuationDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+
+    
+</div>

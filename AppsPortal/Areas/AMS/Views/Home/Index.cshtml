@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("43e6810f-6823-421d-8d97-3c43fe5e744e")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+
+        @if (new CMS().HasAction(Permissions.Case.Access, Apps.AMS))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "Cases", new { Area = "AMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-calendar-check-o fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Case Appointments</h3>
+                            <span>Case Appointments Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.Appointment.Access, Apps.AMS))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "Appointments/AppointmentCalendar", new { Area = "AMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-calendar-check-o fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Calendar Appointments</h3>
+                            <span>Appointments Calendar Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.AppointmentType.Access, Apps.AMS))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "AppointmentTypes", new { Area = "AMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-table fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Appointments Types</h3>
+                            <span>Appointments Type Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.AppointmentTypeCalendar.Access, Apps.AMS))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "AppointmentTypeCalendars", new { Area = "AMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-calendar fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Slots Calendar</h3>
+                            <span>Slots Calendar Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("SchedularReport", "Reports", new { Area = "AMS" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-file-excel-o  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Reports</h3>
+                        <span>All Reports.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

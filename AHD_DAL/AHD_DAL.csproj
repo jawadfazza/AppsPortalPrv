@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1A5D1AB2-14D0-4BE8-9FBD-1FEECFBD95FA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AHD_DAL</RootNamespace>
+    <AssemblyName>AHD_DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WMS_DAL\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WMS_DAL\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Portal_BL">
+      <HintPath>..\Portal_BL\bin\Debug\Portal_BL.dll</HintPath>
+    </Reference>
+    <Reference Include="RES_Repo">
+      <HintPath>..\RES_Repo\bin\Debug\RES_Repo.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\AHDModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AHDModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AHDModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AHDModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AHDModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAHDCostCenter.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAHDEntitlementType.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAHDEntitlementTypePerDutyStation.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAHDInternationalStaffAttendanceType.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAHDLocationNoRAndRTicket.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAHDOrgnizationWorkingHour.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAHDOvertimeBaseSalary.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAHDPhoneHolderType.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAHDStaffTag.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeAHDTimeHour.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeBank.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeBankLanguage.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountries.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountriesConfigurations.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountriesLanguages.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartments.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartmentsLanguages.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStations.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStationsLanguages.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeJobTitles.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeJobTitlesLanguages.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeLocations.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeLocationsLanguages.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeMonth.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationHoliday.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTables.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValues.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValuesConfigurations.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValuesLanguages.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeVehicle.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeYear.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAdminAccessStaff.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAHDInternationalStaffEntitlement.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAHDInternationalStaffEntitlementDetail.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAHDInternationalStaffEntitlementDocument.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAHDInternationalStaffEntitlementFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAHDInternationalStaffEntitlementRoomTaken.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAHDPeriodEntitlement.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataBlomShuttleDelegationDate.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataBlomShuttleDelegationStaffRequest.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataBlomShuttleDelegationTraveler.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataDangerPayInformation.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataInternationalStaffAttendance.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMissionRequest.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMissionRequestDocument.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMissionRequestFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMissionRequestItinerary.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMissionRequestTraveler.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataNationalStaffDangerPay.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataNationalStaffDangerPayDetail.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataOvertimeMonthCycle.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataOvertimeMonthCycleStaff.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataOvertimeMonthCycleStaffFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPhoneDirectory.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataRestAndRecuperationRequest.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataRestAndRecuperationRequestDocument.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataRestAndRecuperationRequestLeaveCountry.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataRestAndRecuperationRequestLeaveDate.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataRestAndRecuperationRequestLeaveFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataSalaryCycle.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataSalaryCycleFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataSalaryCycleStep.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataSalaryCycleStepFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttle.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttleRequest.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttleRequestStaff.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttleStaff.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttleVehicle.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffAbsence.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffAbsenceBalance.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffCoreDocument.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffEligibleForDangerPay.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffLeaveAttendanceDaily.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffMedicalPayment.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffOnlineTraining.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffOvertime.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffOvertimeFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffProfileFeedback.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffProfileFeedbackFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffRelative.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffRenwalResidency.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffRenwalResidencyFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffSalary.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffSalaryFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffSalaryInAdvance.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffSalaryInAdvanceFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTempHQStaffSalary.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTempRestAndRecuperationRequestLeaveDate.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataVehicleMaintenanceRequest.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataVehicleMaintenanceRequestFlow.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sp_StaffRenewalResidency_Result.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\StaffContactsInformation.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\StaffCoreData.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userAccounts.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetails.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetailsLanguage.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userServiceHistory.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModels.cs" />
+    <Compile Include="Model\v_InterntionalStaffEntitlement.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_NationalStaffDangerPayment.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_StaffAllDataInformation.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_staffCoreDataOverview.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_StaffProfileInformation.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_UserPhoneBillsPerMonth.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_VehicleMaintenanceRequest.cs">
+      <DependentUpon>AHDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="Model\AHDModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AHDModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="bin\Release\AHD_DAL.dll.config" />
+    <None Include="Model\AHDModel.edmx.diagram">
+      <DependentUpon>AHDModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Release\AHD_DAL.dll" />
+    <Content Include="bin\Release\AHD_DAL.pdb" />
+    <Content Include="bin\Release\ar\RES_Repo.resources.dll" />
+    <Content Include="bin\Release\EntityFramework.dll" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Release\EntityFramework.xml" />
+    <Content Include="bin\Release\Portal_BL.dll" />
+    <Content Include="bin\Release\Portal_BL.pdb" />
+    <Content Include="bin\Release\RES_Repo.dll" />
+    <Content Include="bin\Release\RES_Repo.pdb" />
+    <Content Include="Model\AHDModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AHDModel.edmx</DependentUpon>
+      <LastGenOutput>AHDModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\AHDModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AHDModel.edmx</DependentUpon>
+      <LastGenOutput>AHDModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

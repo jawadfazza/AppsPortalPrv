@@ -1,0 +1,144 @@
+﻿@model List<PartnerConfirmUpdateModel>
+@{
+    ViewBag.Title = "PartnersCapacityAssessment";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout_1.cshtml";
+}
+    <div class="row">
+        <div class="page--header">
+            <div class="page--banner">
+                <h2>@resxPages.PartnersCapacityAssessmentTitle</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="page--content">
+        <div class="row">
+            <div class="wizard">
+
+                <span class="done">@resxPages.PartnersCapacityAssessmentStep1</span>
+                <span class="done">@resxPages.PartnersCapacityAssessmentStep2 </span>
+                <span class="done">@resxPages.PartnersCapacityAssessmentStep3</span>
+                <span class="done">@resxDbFields.AgancyEvaluation</span>
+                <span>@resxDbFields.PartnerConfirm</span>
+            </div>
+        </div>
+        <div class="page--body">
+            @using (Html.BeginForm("PartnerConfirmResult", "PartnersCapacityAssessment", FormMethod.Post, new { id = "AssessmentForm", @class = "main-form", enctype = "multipart/form-data" }))
+            {
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-3">
+                            @Html.LabelFor(model => model.FirstOrDefault().AssessmentTitle)
+                        </div>
+                        <div class="col-lg-1 col-sm-1">
+                            @Html.LabelFor(model => model.FirstOrDefault().PartnerEvaluation)
+                        </div>
+                        <div class="col-lg-1 col-sm-1">
+                            @Html.LabelFor(model => model.FirstOrDefault().AgancyEvaluation)
+                        </div>
+
+
+                        <div class="col-lg-7 col-sm-7">
+                            @Html.LabelFor(model => model.FirstOrDefault().Comment)
+                        </div>
+
+                    </div>
+                </div>
+                <hr />
+                <br />
+                <div class="row">
+
+                    @Html.HiddenFor(model => model.FirstOrDefault().PartnersCapacityAssessmentGUID)
+                    @{
+                        int AgancyEvaluation = 0;
+                        int PartnerEvaluation = 0;
+                    }
+                    @for (var i = 0; i < Model.Count; i++)
+                    {
+                        AgancyEvaluation += (Model[i].AgancyEvaluation.Value ? 1 : 0);
+                        PartnerEvaluation += (Model[i].PartnerEvaluation.Value ? 1 : 0);
+                        <div class="row">
+                            <div class="col-lg-3 col-sm-3">
+                                @Html.DisplayFor(model => model[i].AssessmentTitle)
+                            </div>
+                            <div class="col-lg-1 col-sm-1">
+                                @(Model[i].PartnerEvaluation.Value? 1 : 0)
+                            </div>
+                            <div class="col-lg-1 col-sm-1">
+                                @(Model[i].AgancyEvaluation.Value ? 1 : 0)
+                            </div>
+                            <div class="col-lg-7 col-sm-7">
+                                @Html.DisplayFor(model => model[i].Comment)
+                            </div>
+
+
+                        </div>
+                        <hr />
+                        <br />
+                    }
+
+                </div>
+
+                <div class="row">
+                    <div class="row">
+
+                        <div class="col-lg-3 col-sm-3">
+                            @(Languages.CurrentLanguage().ToLower()=="en"? "Totals":"المجموع")
+                        </div>
+
+                        <div class="col-lg-1 col-sm-1">
+                            <b>@PartnerEvaluation.ToString()</b>
+                        </div>
+                        <div class="col-lg-1 col-sm-1">
+                            <b>@AgancyEvaluation.ToString()</b>
+                        </div>
+                        <div class="col-lg-7 col-sm-7">
+                            @if (AgancyEvaluation == 8)
+                            {
+                                <b style="color:green">@resxPages.PartnersCapacityAssessmentFullCapacity</b>
+                            }
+                            @if (AgancyEvaluation >= 6 && AgancyEvaluation <= 7)
+                            {
+                                <b style="color:orange">@resxPages.PartnersCapacityAssessmentMediumCapacity</b>
+                            }
+                            @if (AgancyEvaluation <= 5)
+                            {
+                                <b style="color:red">@resxPages.PartnersCapacityAssessmentLowCapacity</b>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr />
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="@resxUIControls.ClickToConfirm" class="btn btn-primary" />
+
+                </div>
+                <hr />
+                <br />
+                <div class="row table-bordered">
+                    <div class="col-lg-1 col-sm-1  table-bordered" >
+                        [0-5]
+                    </div>
+                    <div class="col-lg-11 col-sm-11  table-bordered">
+                        <b style="color:red">@resxPages.PartnersCapacityAssessmentLowCapacity</b>
+                    </div>
+
+                    <div class="col-lg-1 col-sm-1  table-bordered">
+                        [6-7]
+                    </div>
+                    <div class="col-lg-11 col-sm-11  table-bordered">
+                        <b style="color:orange">@resxPages.PartnersCapacityAssessmentMediumCapacity</b>
+                    </div>
+                    <div class="col-lg-1 col-sm-1  table-bordered">
+                        [8]
+                    </div>
+                    <div class="col-lg-11 col-sm-11  table-bordered">
+                        <b style="color:green">@resxPages.PartnersCapacityAssessmentFullCapacity</b>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>

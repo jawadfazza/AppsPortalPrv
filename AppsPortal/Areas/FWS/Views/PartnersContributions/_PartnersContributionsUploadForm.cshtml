@@ -1,0 +1,148 @@
+﻿@model PartnersContributionsUploadFormModel
+@using (Html.BeginForm("PartnersContributionsUpload", "PartnersContributions", new { Area = "FWS" }, FormMethod.Post, new { id = "PartnersContributionsUploadForm" }))
+{
+    @Html.Partial("_ModalHeader", "Upload Partners' Contributions Form")
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReportingMonth) <span style="color:red;">*</span>
+                    @Html.DropDownListFor(model => model.ReportingMonth, new DropDownList().FWSReportingMonth(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReportingYear) <span style="color:red;">*</span>
+                    @Html.EditorFor(model => model.ReportingYear, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input id="file1" type="file" multiple name="fileUpload" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="progress">
+                    <div id="div-progres-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        <span id="span-progres-bar" style="float:right;padding-right:1px;">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="PartnersContributionsUploadFormControl" class="modal-footer form-footer">
+        @if (new CMS().HasAction(Permissions.PartnersContribution.Upload, Apps.FWS))
+        {
+            <button id="btn-upload-form" class="btn btn-primary"><i style="display:none;" class="fas fa-spinner fa-1x fa-pulse"></i> <span class="this-btn-text"> Upload Partners' Contributions File</span></button>
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+
+        $('input.form-control', '#PartnersContributionsUploadForm').attr('data-placement', 'auto top');
+        $('input.form-control', '#PartnersContributionsUploadForm').attr('data-container', '#PopOverContainer');
+
+        $.validator.unobtrusive.parse($('#PartnersContributionsUploadForm'));
+
+        $('#PartnersContributionsUploadFormControl').find(':submit').attr('onclick', 'javascript:void(0)');
+
+        $('#btn-upload-form').click(function (e) {
+            e.preventDefault();
+            var formName = 'PartnersContributionsUploadForm';
+            $('#' + formName).valid();
+            var form = $('#' + formName);
+            var error = $('.input-validation-error', '#' + formName).length;
+
+            if (error > 0) {
+                $('.select2-selection__rendered').removeAttr('style');
+
+                $('.input-validation-error:first-child').parent().popover({
+                    trigger: 'click',
+                    placement: 'auto top',
+                    container: '#PopOverContainer',
+                    content: ''
+                });
+                return;
+            }
+
+            var btn = $(this);
+            $(btn).find('.fas').show();
+            $(btn).find('.this-btn-text').html('Please Wait');
+            $(btn).attr("disabled", true);
+            var ajaxURL = $('#PartnersContributionsUploadForm').attr('action');
+
+            let myForm = document.getElementById('PartnersContributionsUploadForm');
+            let formData = new FormData(myForm);
+            $.ajax({
+                url: ajaxURL,
+                type: 'POST',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (JsonResult) {
+                    console.log('JsonResult', JsonResult);
+                    ////////////////////////////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////////////////////
+                    if (JsonResult.TotalRecords == undefined) {
+                        form.replaceWith(JsonResult);
+                        $(btn).find('.fas').show();
+                        $(btn).find('.this-btn-text').html('Please Wait');
+                        $(btn).attr("disabled", true);
+                        InitPlugins('#' + formName);
+                    } else {
+                        console.log('JsonResult.uploadFormTaskID', JsonResult.uploadFormTaskID);
+                        console.log('JsonResult.TotalRecords', JsonResult.TotalRecords);
+                        StartProcessBar(JsonResult.uploadFormTaskID, JsonResult.TotalRecords);
+                    }
+                    ////////////////////////////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////////////////////
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //do your own thing
+                    alert("fail");
+                }
+            });
+        });
+
+    });
+
+    function StartProcessBar(uploadFormTaskID, totalRecords) {
+        var btn = $('#btn-create-bill');
+        var notified = 0;
+        var intervalId = setInterval(function () {
+            $.post("/FWS/PartnersContributions/UploadFormProgressBar", { id: uploadFormTaskID }, function (progress) {
+                console.log('progress', progress);
+                var percentage = Math.round(((progress * 1) / (totalRecords * 1)) * 100);
+                if (percentage == 100) {
+                    if (notified != 1) {
+                        $('#div-progres-bar').css('width', "100%");
+                        $('#span-progres-bar').text("100%");
+                        Notify(NotificationType.Success, 'Please wait.');
+                        notified = 1;
+                    }
+                }
+                else if (progress > 0) {
+                    console.log('percentage', percentage);
+                    $('#div-progres-bar').css('width', percentage + "%");
+                    $('#span-progres-bar').text('Uploading: ' + percentage + "%");
+                }
+                else if (progress < 0) {
+                    $('#div-progres-bar').css('width', "100%");
+                    $('#span-progres-bar').text("100%");
+                    $(btn).find('.fas').hide();
+                    $(btn).find('.this-btn-text').html(" Upload Partners' Contributions File");
+                    clearInterval(intervalId);
+                    Notify(NotificationType.Success, 'Form uploaded successfully');
+                    DataTableRefresh('PartnersContributionsDataTable');
+                }
+            });
+        }, 500);
+    };
+</script>

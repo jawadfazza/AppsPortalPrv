@@ -1,0 +1,40 @@
+﻿@model RegistrationModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>Apps Portal Email Verification</title>
+    <style type="text/css">
+        *{
+            font-family:Arial;
+        }
+        .Title:first-line {
+            color: #FFF;
+            line-height: 140%;
+            font-size: 26px;
+        }
+        .Title {
+            font-size: 20px;
+            color: #f9ff00;
+        }
+        td.head{
+            background-color:#0072bc;
+        }
+    </style>
+</head>
+<body>
+    <table border="0" cellpadding="20" cellspacing="0" width="100%">
+        <tr>
+            <td class="head">
+                @*<h1 class="Title">@Html.Raw(EmailsResource.Title.Replace("\r\n","<br/>"))</h1>*@
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

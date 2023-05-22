@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("e32d44e2-203d-4bff-84cb-724a8e166606")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+
+        @if (new CMS().HasAction(Permissions.ElectionsManagement.Access, Apps.OVS))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "Election", new { Area = "OVS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-search fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Elections Management</h3>
+                            <span>Elections Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>

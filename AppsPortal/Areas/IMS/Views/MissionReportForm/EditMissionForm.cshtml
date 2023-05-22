@@ -1,0 +1,1340 @@
+﻿<!DOCTYPE html>
+<html>
+@model MissionReportFormUpdateModel
+@{
+    ViewBag.Title = "IMS";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<head>
+    <meta charset='utf-8' />
+    <title>Create a draggable Marker</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        mapboxgl-canvas {
+            left: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            /* position: absolute;*/
+            /*top: 0;
+                bottom: 0;*/
+            min-width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <style>
+        .coordinates {
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            margin: 0;
+            font-size: 11px;
+            line-height: 18px;
+            border-radius: 3px;
+            display: none;
+        }
+    </style>
+
+
+    <div class="page--content">
+        <div class="forms-fadeIn">
+            @*@Html.PageHeader("21079b8c-5ff7-4127-a775-133c33acfd52")*@
+
+
+            @using (Html.BeginForm("MissionReportFormUpdate", "MissionReportForm", new { Area = "IMS" }, FormMethod.Post, new { id = "MissonReportForm", @class = "", enctype = "multipart/form-data" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Mission Report
+
+                        </div>
+                        <span class="pull-right">@Html.ActionLink(resxUIControls.BackToListPage, "MissionReportFormIndex", "MissionReportForm", "IMS", new { @class = "btn btn-default" })</span>
+                        <div class="panel-body">
+                            <div id="TabContainer">
+                                <div id="exTab1">
+                                    <ul class="nav nav-pills">
+
+                                        <li class="active">
+                                            <a href="#LocationsContainer" data-toggle="tab">Mission General Information</a>
+                                        </li>
+                                        <li>
+                                            <a href="#PlanContainer" data-toggle="tab">Mission Highligts</a>
+                                        </li>
+                                        <li>
+                                            <a href="#ObservationsContainer" data-toggle="tab">Mission Observations</a>
+                                        </li>
+                                        <li>
+                                            <a href="#MissionActions" data-toggle="tab">Mission Actions</a>
+                                        </li>
+                                        <li>
+                                            <a href="#DocumentsPhotosContainer" data-toggle="tab">Mission Documents</a>
+                                        </li>
+
+                                        <li>
+
+                                    </ul>
+                                </div>
+                                <div class="tab-content clearfix">
+                                    <div class="tab-pane active" id="LocationsContainer">
+                                        <b style="color: red">@Html.ValidationSummary()</b>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                Locations
+                                                *
+                                            </div>
+                                            <div class="panel-body">
+                                                @Html.HiddenFor(model => model.MissionReportFormGUID)
+                                                @Html.HiddenFor(model => model.CreatedDate)
+                                                @Html.HiddenFor(model => model.CreatedByGUID)
+                                                @Html.HiddenFor(model => model.MissionCode)
+                                                @Html.HiddenFor(model => model.MissionNumber)
+
+                                                <div class="col-md-12">
+
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            @Html.LabelFor(model => model.MissionOfficeSourceGUID) *
+
+
+                                                            @Html.DropDownListFor(model => model.MissionOfficeSourceGUID, new DropDownList().MissionOfficeSource(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                                                        </div>
+                                                        @*<div class="col-md-3">
+                                @Html.LabelFor(model => model.DutyStationGUID) *
+
+
+                                @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().SyriaDutyStations(), "", new {style = "width:100%", @class = "form-control select2-basic-search"})
+                            </div>*@
+                                                        <div class="col-md-3">
+                                                            <div class="form-group HANDLER">
+                                                                @Html.LabelFor(model => model.MissionStartDate) *
+                                                                @Html.EditorFor(model => model.MissionStartDate, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group HANDLER">
+                                                                @Html.LabelFor(model => model.MissionEndDate)
+                                                                @Html.EditorFor(model => model.MissionEndDate, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            @Html.LabelFor(model => model.MissionStatusGUID) *
+
+
+                                                            @Html.DropDownListFor(model => model.MissionStatusGUID, new DropDownList().MissionStatus(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            @Html.LabelFor(model => model.MissionFormDepartments)<br />
+                                                            <span id="showDepartments">@Model.showDepartments</span>
+                                                            <input type="button" value="Edit Department" onclick="showEdit(1)" id="editDepartmentbtn" />
+                                                        </div>
+
+
+                                                        <div class="col-md-3 " id="editDepartmentdiv">
+
+                                                            @Html.DropDownListFor(model => model.MissionFormDepartments, new DropDownList().Departments(), "",
+                                                                new
+                                                                {
+                                                                    style = "width:100%",
+                                                                    @class = "form-control select2-basic-search",
+                                                                    Multiple = true
+                                                                })
+                                                            <input type="button" onclick="UpdateMissionDepartments()" value="Save Departments" />
+                                                        </div>
+
+
+                                                        <div class="col-md-3">
+                                                            @Html.LabelFor(model => model.MissionLeaderGUID) *
+
+                                                            @Html.DropDownListFor(model => model.MissionLeaderGUID, new DropDownList().Users(true), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+
+
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            @Html.LabelFor(model => model.MissionStaffMembers)<br />
+                                                            <span id="showStaffMembers">@Model.showStaffMembers</span>
+                                                            <input type="button" value="Edit" onclick="showEdit(2)" id="editStaffMembersbtn" />
+
+                                                            <div class="col-md-6" id="editstaffMembersdiv">
+
+
+                                                                @Html.DropDownListFor(model => model.MissionStaffMembers, new DropDownList().Users(true), "",
+                                                                    new
+                                                                    {
+                                                                        style = "width:100%",
+                                                                        @class = "form-control select2-basic-search",
+                                                                        Multiple = true
+                                                                    })
+                                                                <input type="button" onclick="UpdateStaffMembers()" value="Save Changes" />
+
+                                                            </div>
+
+
+
+
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="col-md-12" style="padding: 15px;">
+                                                        <div class="form-group">
+
+                                                            <div class="col-md-3">
+
+                                                                @Html.LabelFor(model => model.GovernorateGUID) *
+                                                                @Html.DropDownListFor(model => model.GovernorateGUID, new DropDownList().Governorates(Guid.Parse("699287E8-754D-4A63-B8DD-5344CFBAFD22")), "", new
+                                                                {
+                                                                    @class = "form-control select2-basic-search",
+                                                                    style = "width:100%",
+                                                                    onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DistrictGUID', Action : 'RemoteDistricts'}]);"
+                                                                })
+
+
+                                                            </div>
+                                                            <div class="col-md-3">
+
+                                                                @Html.LabelFor(model => model.DistrictGUID) *
+                                                                @if (Model.MissionReportFormGUID != Guid.Empty)
+                                                                {
+                                                                    @Html.DropDownListFor(model => model.DistrictGUID, new DropDownList().Districts(Model.GovernorateGUID), "", new
+                                                                    {
+                                                                        @class = "form-control select2-basic-search",
+                                                                        style = "width:100%",
+                                                                        onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'SubDistrictGUID', Action : 'RemoteSubDistricts'}]);"
+                                                                    })
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Html.DropDownListFor(model => model.DistrictGUID, new DropDownList().Empty(), "", new
+                                                                    {
+                                                                        @class = "form-control select2-basic-search",
+                                                                        style = "width:100%",
+                                                                        onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'SubDistrictGUID', Action : 'RemoteSubDistricts'}]);"
+                                                                    })
+                                                                }
+
+
+
+                                                            </div>
+                                                            <div class="col-md-3">
+
+                                                                @Html.LabelFor(model => model.SubDistrictGUID) *
+
+                                                                @if (Model.MissionReportFormGUID != Guid.Empty)
+                                                                {
+                                                                    @Html.DropDownListFor(model => model.SubDistrictGUID, new DropDownList().SubDistricts(Model.DistrictGUID), "",
+                                                                        new
+                                                                        {
+                                                                            style = "width:100%",
+                                                                            @class = "form-control select2-basic-search",
+                                                                            onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CommunityGUID', Action : 'RemoteCommunities'}]);"
+                                                                        })
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Html.DropDownListFor(model => model.SubDistrictGUID, new DropDownList().Empty(), "",
+                                                                        new
+                                                                        {
+                                                                            style = "width:100%",
+                                                                            @class = "form-control select2-basic-search",
+                                                                            onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CommunityGUID', Action : 'RemoteCommunities'}]);"
+                                                                        })
+                                                                }
+
+
+
+
+                                                            </div>
+                                                            <div class="col-md-3">
+
+                                                                @Html.LabelFor(model => model.CommunityGUID) *
+                                                                @if (Model.MissionReportFormGUID != Guid.Empty)
+                                                                {
+                                                                    @Html.DropDownListFor(model => model.CommunityGUID, new DropDownList().Communities(Model.SubDistrictGUID), "",
+                                                                        new
+                                                                        {
+                                                                            style = "width:100%",
+                                                                            @class = "form-control select2-basic-search",
+                                                                            onchange = "GetCommunityLocation($(this).val())"
+                                                                        })
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Html.DropDownListFor(model => model.CommunityGUID, new DropDownList().Empty(), "",
+                                                                        new
+                                                                        {
+                                                                            style = "width:100%",
+                                                                            @class = "form-control select2-basic-search",
+                                                                            onchange = "GetCommunityLocation($(this).val())"
+                                                                            //onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'RequesterNameGUID', Action : 'RemoteWarehouseRequestTypes'}]);"
+                                                                        })
+                                                                }
+                                                                @*@Html.DropDownListFor(model => model.ItemModelWarehouseGUID, new DropDownList().WarehouseModels(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })*@
+
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-6 ">
+                                                                @Html.LabelFor(model => model.Address)
+                                                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group HANDLER">
+                                                                    @Html.LabelFor(model => model.NVReference)
+                                                                    @Html.EditorFor(model => model.NVReference, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                GPS Coordinates: After completing address above, Coordinates will be filled automatically after chosing Community or pick from map below for more accuracy.
+                                                *
+                                                @*<input type="button" value="Get Coordinates" id="getlocatioin" class="form-group pull-right" />*@
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="col-md-12">
+
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group HANDLER">
+                                                            @Html.LabelFor(model => model.Latitude) *
+                                                            @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group HANDLER">
+                                                            Longitude *
+                                                            @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div id="map" style='height: 400px;' class='map'></div>
+                                                            <pre id='coordinates' class='coordinates'></pre>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="tab-pane" id="PlanContainer">
+
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.VisitObjectives) *
+                                                            @if (Model.MissionReportFormGUID != Guid.Empty)
+                                                            {
+                                                                <br />
+                                                                <span id="showVisitObjectives">@Model.showVisitObjectives</span>
+                                                                <input type="button" value="Edit" onclick="showEdit(3)" id="editVisitObjectivesbtn" />
+
+                                                                <div id="editVisitObjectivesdiv">
+                                                                    @Html.DropDownListFor(model => model.VisitObjectives, new DropDownList().VisitObjectives(), "",
+                                                                        new
+                                                                        {
+                                                                            style = "width:100%",
+                                                                            @class = "form-control select2-basic-search",
+                                                                            Multiple = true
+                                                                        })
+                                                                    <input type="button" onclick="UpdateVisitObjectives()" value="Save Changes" />
+                                                                </div>
+
+
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.DropDownListFor(model => model.VisitObjectives, new DropDownList().VisitObjectives(), "",
+                                                                    new
+                                                                    {
+                                                                        style = "width:100%",
+                                                                        @class = "form-control select2-basic-search",
+                                                                        Multiple = true
+                                                                    })
+                                                            }
+                                                            @*@Html.DropDownListFor(model => model.ItemModelWarehouseGUID, new DropDownList().WarehouseModels(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })*@
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.HumanitarianNeeds) *
+                                                            @if (Model.MissionReportFormGUID != Guid.Empty)
+                                                            {
+                                                                <br />
+                                                                <span id="showHumanitarianNeeds">@Model.showHumanitarianNeeds</span>
+                                                                <input type="button" value="Edit" onclick="showEdit(4)" id="editHumanitarianNeedsbtn" />
+                                                                <div id="editHumanitarianNeedsdiv">
+                                                                    @Html.DropDownListFor(model => model.HumanitarianNeeds, new DropDownList().HumanitarianNeeds(), "",
+                                                                        new
+                                                                        {
+                                                                            style = "width:100%",
+                                                                            @class = "form-control select2-basic-search",
+                                                                            Multiple = true
+                                                                        })
+
+                                                                    <input type="button" onclick="UpdateHumanitarianNeeds()" value="Save Changes" />
+                                                                </div>
+
+                                                            }
+
+
+
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.OngoingResponses) *
+                                                            @if (Model.MissionReportFormGUID != Guid.Empty)
+                                                            {
+                                                                <br />
+                                                                <span id="showOngoingResponses">@Model.showOngoingResponses</span>
+                                                                <input type="button" value="Edit" onclick="showEdit(5)" id="editOngoingResponsesbtn" />
+                                                                <div id="editOngoingResponsesdiv">
+                                                                    @Html.DropDownListFor(model => model.OngoingResponses, new DropDownList().OngoingResponses(), "",
+                                                                        new
+                                                                        {
+                                                                            style = "width:100%",
+                                                                            @class = "form-control select2-basic-search",
+                                                                            Multiple = true
+                                                                        })
+
+                                                                    <input type="button" onclick="UpdateOngoingResponses()" value="Save Changes" />
+                                                                </div>
+                                                            }
+
+
+
+
+
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                                </div>
+                                                <div class="col-md-12">
+
+                                                    <div class="col-md-12">
+
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.MissionChallenges)*
+
+                                                            @if (Model.MissionReportFormGUID != Guid.Empty)
+                                                            {
+                                                                <br />
+                                                                <span id="showMissionChallenges">@Model.showMissionChallenges</span>
+                                                                <input type="button" value="Edit" onclick="showEdit(6)" id="editMissionChallengesbtn" />
+                                                                <div id="editMissionChallengesdiv">
+                                                                    @Html.DropDownListFor(model => model.MissionChallenges, new DropDownList().MissionChallenges(), "",
+                                                                        new
+                                                                        {
+                                                                            style = "width:100%",
+                                                                            @class = "form-control select2-basic-search",
+                                                                            Multiple = true
+                                                                        })
+                                                                    <input type="button" onclick="UpdateMissionChallenges()" value="Save Changes" />
+                                                                </div>
+
+                                                            }
+
+
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="panel panel-footer">
+                                                Kindly contact Syria - Apps Dev/Support for adding new values into dropdown lists
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="tab-pane" id="ObservationsContainer">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4">
+
+                                                        @Html.CheckBoxFor(model => model.IsAnyPresenceOtherOrganization, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+                                                        @Html.LabelFor(model => model.IsAnyPresenceOtherOrganization)
+                                                    </div>
+                                                    <div class="col-md-4">
+
+                                                        @Html.CheckBoxFor(model => model.IsThereMissionReport, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+                                                        @Html.Label("Is There A Mission Report For This Mission?")
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+
+                                                        @Html.LabelFor(model => model.Gaps)
+                                                        @Html.TextAreaFor(model => model.Gaps, new { @class = "form-control", rows = 3 })
+                                                        @*@Html.EditorFor(model => model.Gaps, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })*@
+
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        @Html.LabelFor(model => model.Recommendations)
+                                                        @Html.TextAreaFor(model => model.Recommendations, new { @class = "form-control", rows = 3 })
+
+
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        @Html.Label("Action Required Text")
+                                                        @Html.TextAreaFor(model => model.ActionRequired, new { @class = "form-control", rows = 3 })
+
+
+                                                    </div>
+
+                                                    <div class="form-group">
+
+                                                        @Html.Label("Action Taken Text")
+                                                        @Html.TextAreaFor(model => model.ActionTaken, new { @class = "form-control", rows = 3 })
+
+
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        @Html.LabelFor(model => model.LinkToMissionReport)
+
+                                                        @Html.EditorFor(model => model.LinkToMissionReport, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="tab-pane" id="MissionActions">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                @*<div class="col-md-12">
+                        @Html.Partial("~/Areas/IMS/Views/TempMissionAction/_TempMissionActionsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MissionReportFormGUID, IsParentActive = Model.Active })
+                    </div>*@
+
+                                                <div class="col-md-12">
+
+                                                    @Html.Partial("~/Areas/IMS/Views/TempMissionAction/_MissionActionsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MissionReportFormGUID, IsParentActive = Model.Active })
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+                                    <div class="tab-pane" id="DocumentsPhotosContainer">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                @if (Model.ReportExtensionType.Length > 2)
+                                                {
+                                                    <div class="col-md-12">
+
+                                                        @*<a href="/Uploads/IMS/MissionForms/@Model.MissionReportFullPath"
+                            class="btn btn-link" style="font-size: 30; color: green">Download Mision Report File</a>*@
+
+
+                                                        @Html.ActionLink("Download Report", "DownloadMissionReportFile", "MissionReportForm", new { Area = "IMS", id = Model.MissionReportFormGUID }, new { @class = "btn btn-primary" })
+
+
+                                                    </div>
+                                                }
+
+                                                <input type="button" value="Edit Files" onclick="showEdit(7)" id="editShowFiles" />
+                                                <input type="button" value="Show Mission Photos" onclick="showEdit(8)" id="editMissionPhotos" />
+                                                <div class="form-group" id="showEditFiles">
+
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-body">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    @Html.CheckBoxFor(model => model.IsMissionReportPublic, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+                                                                    @Html.Label("Do you want to share the mission report ?")
+
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    Upload Mission Report :
+                                                                    @Html.TextBoxFor(m => m.UploadMissionFormFile, new { type = "file", @accept = ".pdf,.doc,.docx" })
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-body">
+                                                            <div class="form-group">
+
+
+                                                                Mission Photos:
+                                                                <div class="col-md-12">
+                                                                    Upload Mission Photo 1:
+
+                                                                    @Html.TextBoxFor(model => model.MissionPhoto1, "", new { @type = "file", @accept = "image/*" })
+                                                                    @Html.ValidationMessageFor(model => model.MissionPhoto1, "", new { @class = "text-danger" })
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    Upload Mission Photo 2:
+
+                                                                    @Html.TextBoxFor(model => model.MissionPhoto2, "", new { @type = "file", @accept = "image/*" })
+                                                                    @Html.ValidationMessageFor(model => model.MissionPhoto2, "", new { @class = "text-danger" })
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    Upload Mission Photo 3:
+
+                                                                    @Html.TextBoxFor(model => model.MissionPhoto3, "", new { @type = "file", @accept = "image/*" })
+                                                                    @Html.ValidationMessageFor(model => model.MissionPhoto3, "", new { @class = "text-danger" })
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    Upload Mission Photo 4:
+
+                                                                    @Html.TextBoxFor(model => model.MissionPhoto4, "", new { @type = "file", @accept = "image/*" })
+                                                                    @Html.ValidationMessageFor(model => model.MissionPhoto4, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="panel-footer pull-right">
+
+                                                            @if (Model.MissionReportFormGUID == Guid.Empty)
+                                                            {
+                                                                <input type="submit" value="Save Mission Form" class="btn btn-primary" />
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                @*<div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Upload Mission Report :
+
+                                    @Html.FieldDataTableCreate(Permissions.WarehouseItemsEntry.Create, Apps.PPA, Url.Action("GetUploadFile", "MissionReportForm", new { id = Model.MissionReportFormGUID }))
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>*@
+
+                                                @*Upload Mission Repot :
+                    <input type="file" id="UploadMissionFormFile "/>
+                    @Html.TextBoxFor(m => m.UploadMissionFormFile, new {type = "file"})*@
+
+                                            </div>
+                                            <div class="panel-body" id="missionPhotosPanel">
+                                                @if (Model.MissionFormPhotos.Count > 0)
+                                                {
+                                                    int Imageid = 0;
+                                                    <div class="col-md-4">
+
+                                                        <table class="table table-bordered">
+                                                            <thead><tr><th style="width: 10px">id</th><th style="width: 75px">Image</th></tr></thead>
+                                                            <tbody>
+                                                                @foreach (var item in Model.MissionFormPhotos)
+                                                                {
+                                                                    Imageid++;
+                                                                    <tr><td style="width: 10px">@Imageid</td><td style="width: 75px">  <img src="@Url.Content(item.Photo)" alt="Image" style="width: 50px; height: 50px;" /></td></tr>
+
+                                                                }
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <h5 style="color: orange">No Photos been Uploaded for this mission</h5>
+                                                }
+                                            </div>
+
+                                            <div class="panel-footer pull-right">
+
+
+                                                <input type="submit" value="Save Mission Form" class="btn btn-primary" />
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <h4 style="text-decoration:underline;">Other Missions Documents</h4>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    @*@if (Model.UserGUID != Guid.Empty && Model.Active)
+                        {*@
+                                                    <div id="DocumentsControlersFormControls">
+
+                                                        @Html.Partial("~/Areas/IMS/Views/MissionReportForm/_DocumentDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MissionReportFormGUID, IsParentActive = Model.Active })
+                                                    </div>
+                                                    @*}*@
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/supercluster@4.1.1/dist/supercluster.min.js"></script>
+
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'>
+    </script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+    <script>
+        document.getElementById("MissionPhoto2").disabled = true;
+        document.getElementById("MissionPhoto3").disabled = true;
+        document.getElementById("MissionPhoto4").disabled = true;
+        $("#missionPhotos").on("change", function () {
+            var reader = new FileReader();
+            var control = $("#missionPhotos");
+            if ($("#missionPhotos")[0].files.length > 4) {
+                alert("You can select only 4 images");
+
+                control.replaceWith(control.val('').clone(true));
+
+            }
+            else if (this.files[0].size > 5242880) {
+
+                Notify(NotificationType.Info, 'Image Size should not be greater than 5 Mega Byte');
+                control.replaceWith(control.val('').clone(true));
+                return false;
+            }
+            else if (this.files[0].type.indexOf("image") == -1) {
+
+                Notify(NotificationType.Info, 'Invalid Type please chose images check files extension');
+                control.replaceWith(control.val('').clone(true));
+                return false;
+            } else {
+                Notify(NotificationType.Success, "Images been uploaded.");
+            }
+        });
+
+        $("#MissionPhoto1").on("change", function () {
+            var reader = new FileReader();
+            var control = $("#MissionPhoto1");
+            if (this.files[0].type.indexOf("image") == -1) {
+
+                Notify(NotificationType.Info, 'Invalid Type please chose images check files extension');
+                control.replaceWith(control.val('').clone(true));
+                return false;
+            }
+            else if (this.files[0].size > 5242880) {
+
+                Notify(NotificationType.Info, 'Image Size should not be greater than 5 Mega Byte');
+                control.replaceWith(control.val('').clone(true));
+                return false;
+            }
+            else {
+                Notify(NotificationType.Success, "Images been uploaded.");
+                document.getElementById("MissionPhoto2").disabled = false;
+            }
+        });
+
+
+        $("#MissionPhoto2").on("change", function () {
+            var reader = new FileReader();
+            var control = $("#MissionPhoto2");
+
+            if (this.files[0].type.indexOf("image") == -1) {
+
+                Notify(NotificationType.Info, 'Invalid Type please chose images check files extension');
+                control.replaceWith(control.val('').clone(true));
+                return false;
+            }
+            else if (this.files[0].size > 5242880) {
+
+                Notify(NotificationType.Info, 'Image Size should not be greater than 5 Mega Byte');
+                control.replaceWith(control.val('').clone(true));
+                return false;
+            }
+            else {
+                Notify(NotificationType.Success, "Images been uploaded.");
+                document.getElementById("MissionPhoto3").disabled = false;
+            }
+        });
+
+
+        $("#MissionPhoto3").on("change", function () {
+            var reader = new FileReader();
+            var control = $("#MissionPhoto3");
+            if (this.files[0].type.indexOf("image") == -1) {
+
+                Notify(NotificationType.Info, 'Invalid Type please chose images check files extension');
+                control.replaceWith(control.val('').clone(true));
+                return false;
+            }
+            else if (this.files[0].size > 5242880) {
+
+                Notify(NotificationType.Info, 'Image Size should not be greater than 5 Mega Byte');
+                control.replaceWith(control.val('').clone(true));
+                return false;
+            }
+            else {
+                Notify(NotificationType.Success, "Images been uploaded.");
+                document.getElementById("MissionPhoto4").disabled = false;
+            }
+        });
+        $("#MissionPhoto4").on("change", function () {
+            var reader = new FileReader();
+            var control = $("#MissionPhoto4");
+            if (this.files[0].type.indexOf("image") == -1) {
+
+                Notify(NotificationType.Info, 'Invalid Type please chose images check files extension');
+                control.replaceWith(control.val('').clone(true));
+                return false;
+            }
+            else if (this.files[0].size > 5242880) {
+
+                Notify(NotificationType.Info, 'Image Size should not be greater than 5 Mega Byte');
+                control.replaceWith(control.val('').clone(true));
+                return false;
+            }
+            else {
+                Notify(NotificationType.Success, "Images been uploaded.");
+            }
+        });
+
+        $("#UploadMissionFormFile").on("change", function () {
+            var reader = new FileReader();
+            var control = $("#UploadMissionFormFile");
+            if (this.files[0].size > 5242880) {
+                Notify(NotificationType.Info, 'File Size should not be greater than 5 Mega Byte');
+
+                $("#menu_image").attr("src", "blank");
+                $("#menu_image").hide();
+                $('#menu_images').wrap('<form>').closest('form').get(0).reset();
+                $('#menu_images').unwrap();
+                control.replaceWith(control.val('').clone(true));
+                return false;
+            }
+
+            var ext = this.value.substr((this.value.lastIndexOf('.') + 1));
+            console.log('ext', ext);
+
+            switch (ext.toLowerCase()) {
+                case 'doc':
+                case 'docx':
+                case 'pdf':
+
+                    $('#UploadMissionFormFile').attr('disabled', false);
+                    Notify(NotificationType.Success, "file been uploaded.");
+                    break;
+                default:
+                    Notify(NotificationType.Info, 'This is not an allowed file type.');
+
+                    control.replaceWith(control.val('').clone(true));
+            }
+
+            reader.onload = function (e) {
+                // get loaded data and render thumbnail.
+                document.getElementById("menu_image").src = e.target.result;
+                $("#menu_image").show();
+            };
+
+            // read the image file as a data URL.
+            reader.readAsDataURL(this.files[0]);
+        });
+
+
+        $("#editDepartmentdiv").hide();
+        $("#editstaffMembersdiv").hide();
+        $("#editVisitObjectivesdiv").hide();
+        $("#editHumanitarianNeedsdiv").hide();
+        $("#editOngoingResponsesdiv").hide();
+        $("#editMissionChallengesdiv").hide();
+        $("#missionPhotosPanel").hide();
+        $("#showEditFiles").hide();
+        //$("#showMissionChallenges").hide();
+        var showEdit = function (type) {
+            if (type == 1) {
+                $("#editDepartmentdiv").toggle();
+            }
+            if (type == 2) {
+                $("#editstaffMembersdiv").toggle();
+            }
+            if (type == 3) {
+                $("#editVisitObjectivesdiv").toggle();
+            }
+            if (type == 4) {
+                $("#editHumanitarianNeedsdiv").toggle();
+            }
+            if (type == 5) {
+                $("#editOngoingResponsesdiv").toggle();
+            }
+            if (type == 6) {
+                $("#editMissionChallengesdiv").toggle();
+            }
+            if (type == 7) {
+                $("#showEditFiles").toggle();
+                $("#missionPhotosPanel").hide();
+            }
+            if (type == 8) {
+                $("#missionPhotosPanel").toggle();
+                $("#showEditFiles").hide();
+            }
+        }
+
+        var UpdateMissionDepartments = function () {
+            if ($("#MissionFormDepartments").val() != null) {
+                var url = "/IMS/MissionReportForm/UpdateMissionDepartments/";
+                var departments = $("#MissionFormDepartments").val();
+
+                $.ajax({
+                    url: url,
+                    method: "Post",
+                    data: {
+                        departments: departments,
+                        MissionReportFormGUID: $("#MissionReportFormGUID").val()
+
+                    },
+                    success: function (data) {
+                        $("#editDepartmentdiv").hide();
+
+                        $("#showDepartments").html(data.showDepartments);
+
+
+                    }
+                });
+            }
+
+        }
+
+        var UpdateStaffMembers = function () {
+            if ($("#MissionStaffMembers").val() != null) {
+                var url = "/IMS/MissionReportForm/UpdateMissionMembers/";
+                var staffs = $("#MissionStaffMembers").val();
+
+                $.ajax({
+                    url: url,
+                    method: "Post",
+                    data: {
+                        staffs: staffs,
+                        MissionReportFormGUID: $("#MissionReportFormGUID").val()
+
+                    },
+                    success: function (data) {
+                        $("#editstaffMembersdiv").hide();
+
+                        $("#showStaffMembers").html(data.showStaffMembers);
+
+
+                    }
+                });
+            }
+
+        }
+
+        var UpdateVisitObjectives = function () {
+            if ($("#VisitObjectives").val() != null) {
+                var url = "/IMS/MissionReportForm/UpdateVisitObjectives/";
+                var changes = $("#VisitObjectives").val();
+
+                $.ajax({
+                    url: url,
+                    method: "Post",
+                    data: {
+                        changes: changes,
+                        MissionReportFormGUID: $("#MissionReportFormGUID").val()
+
+                    },
+                    success: function (data) {
+                        $("#editVisitObjectivesdiv").hide();
+
+                        $("#showVisitObjectives").html(data.afterChanges);
+
+
+                    }
+                });
+            }
+
+        }
+
+        var UpdateHumanitarianNeeds = function () {
+            if ($("#HumanitarianNeeds").val() != null) {
+                var url = "/IMS/MissionReportForm/UpdateHumanitarianNeeds/";
+                var changes = $("#HumanitarianNeeds").val();
+
+                $.ajax({
+                    url: url,
+                    method: "Post",
+                    data: {
+                        changes: changes,
+                        MissionReportFormGUID: $("#MissionReportFormGUID").val()
+
+                    },
+                    success: function (data) {
+                        $("#editHumanitarianNeedsdiv").hide();
+
+                        $("#showHumanitarianNeeds").html(data.afterChanges);
+
+
+                    }
+                });
+            }
+
+        }
+
+        var UpdateOngoingResponses = function () {
+            if ($("#OngoingResponses").val() != null) {
+                var url = "/IMS/MissionReportForm/UpdateOngoingResponses/";
+                var changes = $("#OngoingResponses").val();
+
+                $.ajax({
+                    url: url,
+                    method: "Post",
+                    data: {
+                        changes: changes,
+                        MissionReportFormGUID: $("#MissionReportFormGUID").val()
+
+                    },
+                    success: function (data) {
+                        $("#editOngoingResponsesdiv").hide();
+
+                        $("#showOngoingResponses").html(data.afterChanges);
+
+
+                    }
+                });
+            }
+
+        }
+
+        var UpdateMissionChallenges = function () {
+            if ($("#MissionChallenges").val() != null) {
+                var url = "/IMS/MissionReportForm/UpdateMissionChallenges/";
+                var changes = $("#MissionChallenges").val();
+
+                $.ajax({
+                    url: url,
+                    method: "Post",
+                    data: {
+                        changes: changes,
+                        MissionReportFormGUID: $("#MissionReportFormGUID").val()
+
+                    },
+                    success: function (data) {
+                        $("#editMissionChallengesdiv").hide();
+
+                        $("#showMissionChallenges").html(data.afterChanges);
+
+
+                    }
+                });
+            }
+
+        }
+        //Map config
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWFrc291ZCIsImEiOiJjam9lNGV5ZWkwNWFkM3RwaTJzY3k5dXUzIn0.2dJy6LxlyhA_2sjgqTFkCQ';
+        var coordinates = document.getElementById('coordinates');
+        var map = new mapboxgl.Map({
+            container: 'map',
+            //light-v9
+            style: 'mapbox://styles/mapbox/streets-v10',
+            center: [38.23242187500426, 33.69486597787042],
+            zoom: 5,
+
+        });
+        mapboxgl.setRTLTextPlugin(
+            'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
+
+        this.map.on('load',
+            () => {
+                this.map.resize();
+            });
+        var geojson = [
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [-77.031952, 38.913184]
+                },
+                properties: {
+                    'marker-color': '#3bb2d0',
+                    'marker-size': 'large',
+                    'marker-symbol': 'rocket'
+                }
+            },
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [-122.413682, 37.775408]
+                },
+                properties: {
+                    'marker-color': '#3bb2d0',
+                    'marker-size': 'large',
+                    'marker-symbol': 'rocket'
+                }
+            }
+        ];
+
+        var marker = new mapboxgl.Marker({
+            draggable: true,
+
+
+        })
+            .setLngLat([1, 1])
+            .addTo(map);
+
+
+        map.addControl(new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken
+        }));
+        //var changeMarker = function () {
+
+        //    marker.remove();
+        //    marker = new mapboxgl.Marker({
+        //            draggable: true,
+
+
+        //        }).addTo(map);
+        //    //    .addTo(map);
+
+        //}
+
+        $("#getlocatioin").click(function () {
+            if ($("#CommunityGUID").val() != null) {
+                var url = "/IMS/MissionReportForm/GetLocationCoordinates/";
+
+
+                $.ajax({
+                    url: url,
+                    method: "Post",
+                    data: {
+                        id: $("#CommunityGUID").val()
+                    },
+                    success: function (data) {
+                        $("#Latitude").val(data.Latitude);
+                        $("#Longitude").val(data.Longitude);
+                    }
+                });
+            }
+        });
+
+        var GetCommunityLocation = function () {
+
+            if ($("#CommunityGUID").val() != null) {
+                var url = "/IMS/MissionReportForm/GetLocationCoordinates/";
+
+
+                $.ajax({
+                    url: url,
+                    method: "Post",
+                    data: {
+                        id: $("#CommunityGUID").val()
+                    },
+                    success: function (data) {
+                        $("#Latitude").val(data.Latitude);
+                        $("#Longitude").val(data.Longitude);
+                        //map = new mapboxgl.Map({
+                        //    container: 'map',
+
+                        //    style: 'mapbox://styles/mapbox/streets-v10',
+                        //    center: [data.Longitude, data.Latitude],
+                        //    zoom: 11,
+
+                        //});
+                        marker.remove();
+                        marker = new mapboxgl.Marker()
+                            .setLngLat([data.Longitude, data.Latitude])
+                            .addTo(map);
+                        //map.remove(mapboxgl.NavigationControl());
+
+
+                    }
+                });
+            }
+
+        }
+
+        map.on('click',
+            function (e) {
+
+                marker.remove();
+
+                document.getElementById('coordinates').innerHTML =
+                    // e.point is the x, y coordinates of the mousemove event relative
+                    // to the top-left corner of the map
+                    JSON.stringify(e.point) +
+                    '<br />' +
+                    // e.lngLat is the Longitude, latitude geographical position of the event
+                    JSON.stringify(e.lngLat);
+                marker = new mapboxgl.Marker()
+                    .setLngLat(e.lngLat)
+                    .addTo(map);
+
+                var lngLat = marker.getLngLat();
+                coordinates.style.display = 'block';
+                coordinates.innerHTML = 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
+                $("#Latitude").val(lngLat.lat);
+                $("#Longitude").val(lngLat.lng);
+                $("#altitude").val(lngLat.altitude);
+
+
+            });
+
+
+        //map.on('click', addMarker());
+
+        function addMarker(e) {
+            if (typeof circleMarker !== "undefined") {
+                map.removeLayer(circleMarker);
+            }
+            onDragEnd();
+            document.getElementById('info').innerHTML =
+                // e.point is the x, y coordinates of the mousemove event relative
+                // to the top-left corner of the map
+                JSON.stringify(e.point) +
+                '<br />' +
+                // e.lngLat is the Longitude, latitude geographical position of the event
+                JSON.stringify(e.lngLat);
+
+
+            var marker1 = new mapboxgl.Marker()
+                .setLngLat([30.5, 50.5])
+                .addTo(map);
+
+
+        }
+        //function addMarker(e){
+        //    if (typeof circleMarker !== "undefined" ){
+        //        map.removeLayer(circleMarker);
+        //    }
+        //    //add marker
+        //    circleMarker = new  L.circle(e.latlng, 200, {
+        //        color: 'red',
+        //        fillColor: '#f03',
+        //        fillOpacity: 0.5
+        //    }).addTo(map);
+        //}
+
+
+        map.addControl(new mapboxgl.NavigationControl());
+
+        function onDragEnd() {
+
+            var lngLat = marker.getLngLat();
+            coordinates.style.display = 'block';
+            coordinates.innerHTML = 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
+            $("#Latitude").val(lngLat.lat);
+            $("#Longitude").val(lngLat.lng);
+            $("#altitude").val(lngLat.altitude);
+
+        }
+
+        marker.on('dragend', onDragEnd);
+
+
+    </script>
+</body>
+</html>

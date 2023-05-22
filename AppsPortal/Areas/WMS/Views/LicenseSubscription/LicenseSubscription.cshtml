@@ -1,0 +1,149 @@
+﻿@model LicenseSubscriptionContractUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("e196661e-8a08-4d55-933d-1751c71fafa3")
+
+<div class="page--content">
+
+
+    <div id="TabContainer">
+        <div id="exTab1">
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#ContractInfoContainer" data-toggle="tab">License/Subscription Information</a>
+                </li>
+                <li>
+                    <a href="#POHistory" data-toggle="tab">PO History</a>
+                </li>
+                <li>
+                    <a href="#STIItems" data-toggle="tab"> STI Items</a>
+                </li>
+                @*<li>
+                        <a href="#VerificationContainer" data-toggle="tab"> Verification History</a>
+                    </li>
+                    <li>
+                        <a href="#ProfileContainer" data-toggle="tab">Item Profile</a>
+                    </li>*@
+
+
+                <li>
+
+            </ul>
+        </div>
+        <div class="tab-content clearfix">
+
+            <div class="tab-pane active" id="ContractInfoContainer">
+                <div class="forms-fadeIn ">
+                    @Html.Partial("~/Areas/WMS/Views/LicenseSubscription/_EditLicenseSubscription.cshtml")
+                </div>
+
+
+            </div>
+
+
+            <div class="tab-pane" id="POHistory">
+                <div id=@string.Format("{0}Filter", DataTableNames.WMSContractPOHistoryDataTable) class="filter-section" style="display: none;" DefaultButton="btnFind">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PONumber, DbColumnName = "PONumber", FilterForDataType = "Text", DataList = new DropDownList().WarehouseRequsterTypes(), IsMultiple = false })
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StartDate, DbColumnName = "StartDate", FilterForDataType = "Date" })
+                        </div>
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ExpiryDate, DbColumnName = "ExpiryDate", FilterForDataType = "Date" })
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PriceValue, DbColumnName = "PriceValue", FilterForDataType = "Text" })
+                        </div>
+                        @*<div class="col-lg-12">
+                                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.IME1, DbColumnName = "IME1", FilterForDataType = "Text" })
+                                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Custodian, DbColumnName = "Custodian", FilterForDataType = "Text" })
+                            </div>*@
+
+                        <div class="col-lg-12">
+                            @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelStatus, DbColumnName = "ModelStatus", FilterForDataType = "Text" })*@
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                        </div>
+                    </div>
+                    <div class="form-group filter-actions">
+                        @Html.DatatableFilterControls(DataTableNames.WMSContractPOHistoryDataTable)
+                    </div>
+                </div>
+                <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.WMSContractPOHistoryDataTable)">
+                    @*@Html.IndexDatatableFilter(DataTableNames.WMSContractPOHistoryDataTable)*@
+             
+                        @Html.FieldDataTableCreate(Permissions.LicenseandSubscriptionContracts.Create, Apps.WMS, Url.Action("PurchaseOrderContractCreate", "LicenseSubscription", new { FK = Model.LicenseSubscriptionContractGUID }))
+                    
+                    @Html.IndexDatatableDelete(Permissions.LicenseandSubscriptionContracts.Delete, Apps.WMS, DataTableNames.WMSContractPOHistoryDataTable)
+                    @Html.IndexDatatableRestor(Permissions.LicenseandSubscriptionContracts.Restore, Apps.WMS, DataTableNames.WMSContractPOHistoryDataTable)
+                    @Html.IndexDatatableRefresh(DataTableNames.WMSContractPOHistoryDataTable)
+                </div>
+                <div class="page--body">
+                    <div class="form-group">
+                        @if (Model.LicenseSubscriptionContractGUID != Guid.Empty && Model.Active)
+                        {
+                            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WMSContractPOHistoryDataTable, FormController = "LicenseSubscription", Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.None, PK = Model.LicenseSubscriptionContractGUID, OrderBy = 1 })
+
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane " id="STIItems">
+
+                <div id=@string.Format("{0}Filter", DataTableNames.WMSContractSTIItemsDataTable) class="filter-section" style="display: none;" DefaultButton="btnFind">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SerialNumber, DbColumnName = "SerialNumber", FilterForDataType = "Text", DataList = new DropDownList().WarehouseRequsterTypes(), IsMultiple = false })
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.BarcodeNumber, DbColumnName = "BarcodeNumber", FilterForDataType = "Date" })
+                        </div>
+                   
+
+                        <div class="col-lg-12">
+                            @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelStatus, DbColumnName = "ModelStatus", FilterForDataType = "Text" })*@
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                        </div>
+                    </div>
+                    <div class="form-group filter-actions">
+                        @Html.DatatableFilterControls(DataTableNames.WMSContractSTIItemsDataTable)
+                    </div>
+                </div>
+                <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.WMSContractPOHistoryDataTable)">
+                    @*@Html.IndexDatatableFilter(DataTableNames.WMSContractPOHistoryDataTable)*@
+
+                    @Html.FieldDataTableCreate(Permissions.LicenseandSubscriptionContracts.Create, Apps.WMS, Url.Action("ContractSTIItemsCreate", "LicenseSubscription", new { FK = Model.LicenseSubscriptionContractGUID }))
+
+                    @Html.IndexDatatableDelete(Permissions.LicenseandSubscriptionContracts.Delete, Apps.WMS, DataTableNames.WMSContractSTIItemsDataTable)
+                    @Html.IndexDatatableRestor(Permissions.LicenseandSubscriptionContracts.Restore, Apps.WMS, DataTableNames.WMSContractSTIItemsDataTable)
+                    @Html.IndexDatatableRefresh(DataTableNames.WMSContractSTIItemsDataTable)
+                </div>
+                <div class="page--body">
+                    <div class="form-group">
+                        @if (Model.LicenseSubscriptionContractGUID != Guid.Empty && Model.Active)
+                        {
+                            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WMSContractSTIItemsDataTable, FormController = "LicenseSubscription", Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.None, PK = Model.LicenseSubscriptionContractGUID, OrderBy = 1 })
+
+                        }
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+            
+
+            @*<div class="tab-pane" id="ProfileContainer">
+
+                </div>*@
+        </div>
+
+
+    </div>
+</div>
+
+

@@ -1,0 +1,38 @@
+﻿@model codeBankLanguage
+@using (Html.BeginForm("CodeBankLanguage", "CodeBanks", new { Area = "ORG" }, FormMethod.Post, new { id = "CodeBankLanguageForm" }))
+{
+    string ModalTitle = Model.BankLanguageGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.BankLanguageGUID)
+        @Html.HiddenFor(model => model.BankGUID)
+        <div class="form-group">
+            @Html.Label("Language")
+            @Html.DropDownListFor(model => model.LanguageID, new DropDownList().Languages(false), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Bank Name")
+            @Html.EditorFor(model => model.BankDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.BankLanguageGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.StaffProfile.Create, Apps.ORG)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.StaffProfile.Update, Apps.ORG)
+                @Html.DeleteSwitchButton(Permissions.StaffProfile.Delete, Apps.ORG)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.StaffProfile.Delete, Apps.ORG)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Entries";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("3d68efd9-0939-449f-9133-dcbc856faf8c")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.WarehouseItemEntriesDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.BillNumber, DbColumnName = "BillNumber", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.WarehouseItemEntriesDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format(" {0}ActionsContainer", DataTableNames.WarehouseItemEntriesDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.WarehouseItemEntriesDataTable)
+        @Html.IndexDatatableCreate(Permissions.WarehouseItemsEntry.Create, Apps.WMS, "/WMS/EntryModels/Create")
+        @Html.IndexDatatableDelete(Permissions.WarehouseItemsEntry.Delete, Apps.WMS, DataTableNames.WarehouseItemEntriesDataTable)
+        @Html.IndexDatatableRestor(Permissions.WarehouseItemsEntry.Restore, Apps.WMS, DataTableNames.WarehouseItemEntriesDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.WarehouseItemEntriesDataTable)
+    </div>
+    <div class="page--body">
+        @*@Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseItemEntriesDataTable, Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })*@
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseItemEntriesDataTable, Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>

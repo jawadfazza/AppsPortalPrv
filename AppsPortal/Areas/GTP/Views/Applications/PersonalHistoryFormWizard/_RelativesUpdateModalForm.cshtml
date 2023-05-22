@@ -1,0 +1,101 @@
+﻿@model dataPersonalHistoryRelativeUpdateModel
+
+@using (Html.BeginForm("Relatives", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "RelativesForm", @class = "main-form" }))
+{
+    string ModalTitle = Model.GTPPHRelativeGUID.ToString() == Guid.Empty.ToString() ? "Add new relative" : "update relative";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.GTPPHRelativeGUID)
+
+        @*@Html.HiddenFor(model => model.FirstQuestionAnswer)
+
+        @Html.HiddenFor(model => model.FirstQuestionAnswerFromDate)
+
+        @Html.HiddenFor(model => model.FirstQuestionAnswerToDate)
+
+        @Html.HiddenFor(model => model.SecondQuestionAnswer)
+
+        @Html.HiddenFor(model => model.SecondQuestionAnswerDetails)
+
+        @Html.HiddenFor(model => model.ThirdQuestionAnswer)
+
+        @Html.HiddenFor(model => model.FourthQuestionAnswer)
+
+        @Html.HiddenFor(model => model.FifthQuestionAnswer)
+
+        @Html.HiddenFor(model => model.SixthQuestionAnswer)
+
+        @Html.HiddenFor(model => model.SixthQuestionAnswerDetails)
+
+        @Html.HiddenFor(model => model.SeventhQuestionAnswer)
+
+        @Html.HiddenFor(model => model.SeventhQuestionAnswerDetails)
+
+        @Html.HiddenFor(model => model.EighthQuestionAnswerDetails)
+
+        @Html.HiddenFor(model => model.NinthQuestionAnswer)
+
+        @Html.HiddenFor(model => model.NinthQuestionAnswerDetails)
+
+        @Html.HiddenFor(model => model.TenthQuestionAnswer)
+
+        @Html.HiddenFor(model => model.TenthQuestionAnswerDetails)
+
+        @Html.HiddenFor(model => model.ElevenQuestionAnswer)
+
+        @Html.HiddenFor(model => model.ElevenQuestionAnswerDetails)
+
+        @Html.HiddenFor(model => model.TwelveQuestionAnswerDetails)
+
+        @Html.HiddenFor(model => model.ThirteenQuestionAnswer)
+
+        @Html.HiddenFor(model => model.ThirteenQuestionAnswerDetails)*@
+
+        <div class="col-md-12">
+            <div class="row" style="padding-top:10px;">
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.RelativeName)
+                        @Html.EditorFor(model => model.RelativeName, new
+                        {
+                            htmlAttributes = new { @class = "form-control", autocomplete = "off" }
+})
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.RelativeBirthDate)
+                        @Html.EditorFor(model => model.RelativeBirthDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.RelativeRelationship)
+                        @Html.EditorFor(model => model.RelativeRelationship, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer form-footer">
+        @if (Model.GTPPHRelativeGUID == Guid.Empty)
+        {
+            @Html.CreateButtonNoPermission()
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButtonNoPermission()
+                @Html.DeleteSwitchButtonNoPermission()
+            }
+            else
+            {
+                @Html.RestoreSwitchButtonNoPermission()
+            }
+        }
+        @Html.CloseModalButton()
+
+    </div>
+}
+

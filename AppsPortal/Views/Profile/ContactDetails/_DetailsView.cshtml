@@ -1,0 +1,60 @@
+﻿@model userContactDetails
+<div class="row section">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-right pull-right col-nopadding-left">
+        <a class="btn Edit-Link" onclick="EditSection(this, '@Url.Action("ContactDetailsUpdate", "Profile")', 'PanelForContactDetailsForm');">Edit</a>
+    </div>
+    <div class="col-lg-2 col-md-8 col-sm-8 col-xs-8">
+        <h3 class="Title">@resxPages.ContactDetailsTitle</h3>
+    </div>
+    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+        <div id="pnlContactInformation" class="row">
+            @if (Model == null)
+            {
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breath-bottom">
+                        <h4>@resxPages.ContactDetailsNotFound</h4>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.PrimaryMobileNumber</h5>
+                        <span>@(Model.PrimaryMobileCountryCode + " " + Model.PrimaryMobileNumber)&nbsp;</span>
+                    </div>
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.OfficeLandlineNumber</h5>
+                        <span>@(Model.OfficeLandlineCountryCode + " " + Model.OfficeLandlineAreaCode + " " + Model.OfficeLandlineNumber)&nbsp;</span>
+                    </div>
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.IPPhoneNumber</h5>
+                        <span>@(Model.IPPhoneCountryCode + " " + Model.IPPhoneOfficeCode + " " + Model.IPPhoneNumber)&nbsp;</span>
+                    </div>
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.CallSign</h5>
+                        <span>@(Model.CallSign) &nbsp;</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.SecondaryMobileNumber </h5>
+                        <span>@(Model.SecondayMobileCountryCode + " " + Model.SecondaryMobileNumber)&nbsp;</span>
+                    </div>
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.HomePhone</h5>
+                        <span>@(Model.HomeLandlineCountryCode + " " + Model.HomeLandlineAreaCode + " " + Model.HomeLandlineNumber)&nbsp;</span>
+                    </div>
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.IPPhoneNumber </h5>
+                        <span>@(Model.IPPhoneNumberFromOutsideCountryCode + " " + Model.IPPhoneNumberFromOutsideAreaCode + " " + Model.IPPhoneNumberFromOutsideInternalCode + " " + Model.IPPhoneNumberFromOutsideExtension)&nbsp;</span>
+                    </div>
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.PrivateEmailAddress</h5>
+                        <span>@Model.PrivateEmailAddress&nbsp;</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

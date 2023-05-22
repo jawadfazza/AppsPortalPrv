@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WarehouseCalanderVM>
+    
+@Html.Partial("_ModalHeader", "Details")
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    <h3>@resxPages.Details</h3>
+    <div class="form-group">
+        <div class="row">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Custodian</th>
+                        <th scope="col">Item</th>
+                        <th>Barcode</th>
+                        <th>Serial Number</th>
+                        <th>IMEI</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Issue Date</th>
+                        <th scope="col">Issue By</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>@item.Custodian</td>
+                            <td>@item.WarehouseItemDescription</td>
+                            <td> @item.BarcodeNumber</td>
+                            <td> @item.SerialNumber</td>
+                            <td> @item.IME1</td>
+                            <td> @item.LocationDescription</td>
+                            <td> @item.IssuedDate</td>
+                            <td> @item.IssuedBy</td>
+
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer form-footer">
+
+    @Html.CloseModalButton()
+
+</div>
+
+

@@ -1,0 +1,52 @@
+﻿@model MedicalGenericNameUpdateModel
+@using (Html.BeginForm("MedicalGenericName", "MedicalGenericNames", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalGenericNameForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+   
+    @Html.FormHiddenFields(model => model.MedicalGenericNameGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedicalGenericNameDescription)
+                @Html.EditorFor(model => model.MedicalGenericNameDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dose)
+                @Html.EditorFor(model => model.Dose, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Form)
+                @Html.EditorFor(model => model.Form, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Classification)
+                @Html.EditorFor(model => model.Classification, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sort)
+                @Html.EditorFor(model => model.Sort, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="MedicalGenericNameFormControls" class="form-group form-footer">
+                @if (Model.MedicalGenericNameGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.MedicalGenericName.Create, Apps.EMT)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.MedicalGenericName.Update, Apps.EMT)
+                        @Html.CreateNewButton(Permissions.MedicalGenericName.Create, Apps.EMT, Url.Action("/Create", new { Area = "EMT" }))
+                        @Html.DeleteButton(Permissions.MedicalGenericName.Delete, Apps.EMT)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.MedicalGenericName.Restore, Apps.EMT)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "MedicalGenericNames", new { Area = "EMT" }))
+            </div>
+        </div>
+    </div>
+}

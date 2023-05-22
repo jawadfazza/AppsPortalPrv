@@ -1,0 +1,671 @@
+﻿@model PartnersContributionsUpdateModel
+<style>
+    .select2-results__option {
+        white-space: nowrap;
+    }
+
+    .bigLocationDrop {
+        width: 800px !important;
+    }
+
+    /*.select2-result-label {
+            white-space: nowrap;
+        }*/
+</style>
+@using (Html.BeginForm("PartnersContributions", "PartnersContributions", new { Area = "FWS" }, FormMethod.Post, new { id = "PartnersContributionsForm", @class = "main-form" }))
+{
+    <h3>@resxPages.PartnerContributionForm</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.PartnerContributionGUID)
+    @Html.HiddenFor(model => model.PartnerContributionFileGUID)
+    @Html.HiddenFor(model => model.LocationGUID)
+    @Html.HiddenFor(model => model.Admin1Code)
+    @Html.HiddenFor(model => model.Admin2Code)
+    @Html.HiddenFor(model => model.Admin3Code)
+    @Html.HiddenFor(model => model.Admin4Code)
+    @Html.HiddenFor(model => model.LocationCode)
+    @Html.HiddenFor(model => model.Admin1Name)
+    @Html.HiddenFor(model => model.Admin2Name)
+    @Html.HiddenFor(model => model.Admin3Name)
+    @Html.HiddenFor(model => model.Admin4Name)
+    @Html.HiddenFor(model => model.LocationName)
+    @Html.HiddenFor(model => model.SubSectorGUID)
+    @Html.HiddenFor(model => model.SubSectorID)
+    @Html.HiddenFor(model => model.FWSSubSector)
+    @Html.HiddenFor(model => model.FWSActivity)
+    @Html.HiddenFor(model => model.FWSSubActivity)
+    @Html.HiddenFor(model => model.FWSUnit)
+    @Html.HiddenFor(model => model.FWSAnalysisUnit)
+    @Html.HiddenFor(model => model.SumBreakdown)
+    @Html.HiddenFor(model => model.SumBreakdownNew)
+    @Html.HiddenFor(model => model.IsDataApproved)
+    @Html.HiddenFor(model => model.ApprovedBy)
+    @Html.HiddenFor(model => model.ApprovedOn)
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" style="border-color:#5b9bd5">
+                <div class="panel-heading" style="background-color:#5b9bd5;border-color:#5b9bd5">
+                    <div class="panel-title">
+                        Who / من
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AgencyGUID) <span style="color:red;">*</span>
+                            @Html.DropDownListFor(model => model.AgencyGUID, new DropDownList().FWSPartners(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ImplementingPartnerGUID)
+                            @Html.DropDownListFor(model => model.ImplementingPartnerGUID, new DropDownList().FWSPartners(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" style="border-color:#ed7c31">
+                <div class="panel-heading" style="background-color:#ed7c31;border-color:#ed7c31">
+                    <div class="panel-title">
+                        Where (Geographical Location) / أين الموقع الجغرافي
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LocationLong) <span style="color:red;">*</span>
+                            @Html.DropDownListFor(model => model.LocationLong, new DropDownList().FWSLocationLong(Model.LocationGUID.ToString()), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Admin1Code)
+                            @Html.EditorFor(model => model.Admin1Code, new { htmlAttributes = new { @class = "form-control Admin1Code", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Admin2Code)
+                            @Html.EditorFor(model => model.Admin2Code, new { htmlAttributes = new { @class = "form-control Admin2Code", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Admin3Code)
+                            @Html.EditorFor(model => model.Admin3Code, new { htmlAttributes = new { @class = "form-control Admin3Code", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Admin4Code)
+                            @Html.EditorFor(model => model.Admin4Code, new { htmlAttributes = new { @class = "form-control Admin4Code", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Admin1Name)
+                            @Html.EditorFor(model => model.Admin1Name, new { htmlAttributes = new { @class = "form-control Admin1Name", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Admin2Name)
+                            @Html.EditorFor(model => model.Admin2Name, new { htmlAttributes = new { @class = "form-control Admin2Name", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Admin3Name)
+                            @Html.EditorFor(model => model.Admin3Name, new { htmlAttributes = new { @class = "form-control Admin3Name", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Admin4Name)
+                            @Html.EditorFor(model => model.Admin4Name, new { htmlAttributes = new { @class = "form-control Admin4Name", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LocationName)
+                            @Html.EditorFor(model => model.LocationName, new { htmlAttributes = new { @class = "form-control LocationName", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" style="border-color:#70ad47">
+                <div class="panel-heading" style="background-color:#70ad47;border-color:#70ad47">
+                    <div class="panel-title">
+                        When / متى
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ReportingMonth) <span style="color:red;">*</span>
+                            @Html.DropDownListFor(model => model.ReportingMonth, new DropDownList().FWSReportingMonth(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ReportingYear) <span style="color:red;">*</span>
+                            @Html.EditorFor(model => model.ReportingYear, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" style="border-color:#7030a0">
+                <div class="panel-heading" style="background-color:#7030a0;border-color:#7030a0">
+                    <div class="panel-title">
+                        What / ماذا
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HRPProject)  <span style="color:red;">*</span>
+                            @Html.DropDownListFor(model => model.HRPProject, new DropDownList().FWSHRPProject(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ActivityLong) <span style="color:red;">*</span>
+                            @Html.DropDownListFor(model => model.ActivityLong, new DropDownList().FWSActivitiesLong(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ActivityDetails)
+                            @Html.EditorFor(model => model.ActivityDetails, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DeliveryMode)  <span style="color:red;">*</span>
+                            @Html.DropDownListFor(model => model.DeliveryModeGUID, new DropDownList().FWSDeliveryMode(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FacilityGUID)  <span style="color:red;">*</span>
+                            @Html.DropDownListFor(model => model.FacilityGUID, new DropDownList().FWSFacilities(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FWSSubSector)
+                            @Html.EditorFor(model => model.FWSSubSector, new { htmlAttributes = new { @class = "form-control FWSSubSector", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FWSActivity)
+                            @Html.EditorFor(model => model.FWSActivity, new { htmlAttributes = new { @class = "form-control FWSActivity", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FWSSubActivity)
+                            @Html.EditorFor(model => model.FWSSubActivity, new { htmlAttributes = new { @class = "form-control FWSSubActivity", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" style="border-color:#1f4e78">
+                <div class="panel-heading" style="background-color:#1f4e78;border-color:#1f4e78">
+                    <div class="panel-title">
+                        Reach (What, How much, Who, How many) / الوصول: ماذا، كم، من، وكم العدد
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FWSUnit)
+                            @Html.EditorFor(model => model.FWSUnit, new { htmlAttributes = new { @class = "form-control FWSUnit", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FWSAnalysisUnit)
+                            @Html.EditorFor(model => model.FWSAnalysisUnit, new { htmlAttributes = new { @class = "form-control FWSAnalysisUnit", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BeneficiariesTypeGUID) <span style="color:red;">*</span>
+                            @Html.DropDownListFor(model => model.BeneficiariesTypeGUID, new DropDownList().FWSBeneficiariesTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PWD)
+                            @Html.DropDownListFor(model => model.PWD, new DropDownList().FWSPWD(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+
+                    @if (Model.PartnerContributionGUID != Guid.Empty && Model.SubSectorID == "MA")
+                    {
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SurvivorsOfExplosiveHazards)
+                                @Html.DropDownListFor(model => model.SurvivorsOfExplosiveHazards, new DropDownList().FWSSurvivorsOfExplosiveHazards(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SurvivorsOfExplosiveHazards)
+                                @Html.DropDownListFor(model => model.SurvivorsOfExplosiveHazards, new DropDownList().FWSSurvivorsOfExplosiveHazards(), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    }
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TotalReach)
+                            @Html.EditorFor(model => model.TotalReach, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" style="border-color:#2f75b5">
+                <div class="panel-heading" style="background-color:#2f75b5;border-color:#2f75b5">
+                    <div class="panel-title">
+                        *All beneficiaries reached in this month / جميع السمتفيدون
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Girls)
+                            @Html.EditorFor(model => model.Girls, new { htmlAttributes = new { @class = "form-control beneContr", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Boys)
+                            @Html.EditorFor(model => model.Boys, new { htmlAttributes = new { @class = "form-control beneContr", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdolescentGirls)
+                            @Html.EditorFor(model => model.AdolescentGirls, new { htmlAttributes = new { @class = "form-control beneContr", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdolescentBoys)
+                            @Html.EditorFor(model => model.AdolescentBoys, new { htmlAttributes = new { @class = "form-control beneContr", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Women)
+                            @Html.EditorFor(model => model.Women, new { htmlAttributes = new { @class = "form-control beneContr", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Men)
+                            @Html.EditorFor(model => model.Men, new { htmlAttributes = new { @class = "form-control beneContr", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ElderlyWomen)
+                            @Html.EditorFor(model => model.ElderlyWomen, new { htmlAttributes = new { @class = "form-control beneContr", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ElderlyMen)
+                            @Html.EditorFor(model => model.ElderlyMen, new { htmlAttributes = new { @class = "form-control beneContr", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SumBreakdown)
+                            @Html.EditorFor(model => model.SumBreakdown, new { htmlAttributes = new { @class = "form-control SumBreakdown", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" style="border-color:#ff00ff">
+                <div class="panel-heading" style="background-color:#ff00ff;border-color:#ff00ff">
+                    <div class="panel-title">
+                        (ONLY for GBV / CP activities) New beneficiaries reached in this month / المستفيديون الجدد لهذا الشهر فقط
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    @if (Model.PartnerContributionGUID != Guid.Empty && (Model.SubSectorID != "GBV" && Model.SubSectorID != "CP"))
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.GirlsNew)
+                                        @Html.EditorFor(model => model.GirlsNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BoysNew)
+                                        @Html.EditorFor(model => model.BoysNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AdolescentGirlsNew)
+                                        @Html.EditorFor(model => model.AdolescentGirlsNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AdolescentBoysNew)
+                                        @Html.EditorFor(model => model.AdolescentBoysNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.WomenNew)
+                                        @Html.EditorFor(model => model.WomenNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MenNew)
+                                        @Html.EditorFor(model => model.MenNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ElderlyWomenNew)
+                                        @Html.EditorFor(model => model.ElderlyWomenNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ElderlyMenNew)
+                                        @Html.EditorFor(model => model.ElderlyMenNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.GirlsNew)
+                                        @Html.EditorFor(model => model.GirlsNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BoysNew)
+                                        @Html.EditorFor(model => model.BoysNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AdolescentGirlsNew)
+                                        @Html.EditorFor(model => model.AdolescentGirlsNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AdolescentBoysNew)
+                                        @Html.EditorFor(model => model.AdolescentBoysNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.WomenNew)
+                                        @Html.EditorFor(model => model.WomenNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MenNew)
+                                        @Html.EditorFor(model => model.MenNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ElderlyWomenNew)
+                                        @Html.EditorFor(model => model.ElderlyWomenNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ElderlyMenNew)
+                                        @Html.EditorFor(model => model.ElderlyMenNew, new { htmlAttributes = new { @class = "form-control gbvcp beneNewContr", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SumBreakdownNew)
+                                    @Html.EditorFor(model => model.SumBreakdownNew, new { htmlAttributes = new { @class = "form-control SumBreakdownNew", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+
+            <div id="PartnersContributionsFormControls" class="form-group form-footer">
+                @if (Model.PartnerContributionGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.PartnersContribution.Create, Apps.FWS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.PartnersContribution.Update, Apps.FWS)
+                        @Html.CreateNewButton(Permissions.PartnersContribution.Create, Apps.FWS, Url.Action("PartnersContributions/Create", new { Area = "FWS" }))
+                        @Html.DeleteButton(Permissions.PartnersContribution.Delete, Apps.FWS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.PartnersContribution.Restore, Apps.FWS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "PartnersContributions", new { Area = "FWS" }))
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        debugger;
+        function delay(callback, ms) {
+            var timer = 0;
+            return function () {
+                var context = this, args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    callback.apply(context, args);
+                }, ms || 0);
+            };
+        };
+
+        //var LocationGUID = $('#LocationGUID').val();
+        //$('#LocationLong').val(LocationGUID).trigger('change');
+        ////if ()
+
+        $('#LocationLong').change(function (e) {
+            e.preventDefault();
+            var _locationLong = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/FWS/AutoFill/GetLocationsByLong",
+                data: { LocationLong: _locationLong },
+                success: function (JsonResult) {
+                    console.log(JsonResult);
+                    $('#Admin1Name').val(JsonResult.Admin1Name);
+                    $('#Admin1Code').val(JsonResult.Admin1Code);
+                    $('#Admin2Name').val(JsonResult.Admin2Name);
+                    $('#Admin2Code').val(JsonResult.Admin2Code);
+                    $('#Admin3Name').val(JsonResult.Admin3Name);
+                    $('#Admin3Code').val(JsonResult.Admin3Code);
+                    $('#Admin4Name').val(JsonResult.Admin4Name);
+                    $('#Admin4Code').val(JsonResult.Admin4Code);
+                    $('#LocationName').val(JsonResult.NeibourhoodRefName);
+                    $('#LocationCode').val(JsonResult.NeibourhoodPcode2)
+                    $('.Admin1Name').val(JsonResult.Admin1Name);
+                    $('.Admin1Code').val(JsonResult.Admin1Code);
+                    $('.Admin2Name').val(JsonResult.Admin2Name);
+                    $('.Admin2Code').val(JsonResult.Admin2Code);
+                    $('.Admin3Name').val(JsonResult.Admin3Name);
+                    $('.Admin3Code').val(JsonResult.Admin3Code);
+                    $('.Admin4Name').val(JsonResult.Admin4Name);
+                    $('.Admin4Code').val(JsonResult.Admin4Code);
+                    $('.LocationName').val(JsonResult.NeibourhoodRefName);
+                },
+                error: function () { }
+            });
+        });
+
+        $('#ActivityLong').change(function (e) {
+            e.preventDefault();
+            var _activityLong = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/FWS/AutoFill/GetUnitByActivityLong",
+                data: { ActivityLong: _activityLong },
+                success: function (JsonResult) {
+                    console.log(JsonResult);
+                    $('#FWSUnit').val(JsonResult.FWSUnit);
+                    $('#FWSAnalysisUnit').val(JsonResult.FWSAnalysisUnit);
+                    $('#FWSSubSector').val(JsonResult.FWSSubSector);
+                    $('#FWSActivity').val(JsonResult.FWSActivity);
+                    $('#FWSSubActivity').val(JsonResult.FWSSubActivity);
+                    $('#SubSectorID').val(JsonResult.SubSectorID)
+                    $('#SubSectorGUID').val(JsonResult.SubSectorGUID);
+
+                    $('.FWSUnit').val(JsonResult.FWSUnit);
+                    $('.FWSAnalysisUnit').val(JsonResult.FWSAnalysisUnit);
+                    $('.FWSSubSector').val(JsonResult.FWSSubSector);
+                    $('.FWSActivity').val(JsonResult.FWSActivity);
+                    $('.FWSSubActivity').val(JsonResult.FWSSubActivity);
+
+                    if (JsonResult.SubSectorID == "MA") {
+                        $('#SurvivorsOfExplosiveHazards').removeAttr('disabled');
+                        $('#SurvivorsOfExplosiveHazards').removeAttr('readonly');
+                        $('#SurvivorsOfExplosiveHazards').val('').trigger('change');
+                    } else {
+                        $('#SurvivorsOfExplosiveHazards').attr('disabled', 'disabled');
+                        $('#SurvivorsOfExplosiveHazards').attr('readonly', 'readonly');
+                        $('#SurvivorsOfExplosiveHazards').val('').trigger('change');
+                    }
+
+                    if (JsonResult.SubSectorID == "GBV" || JsonResult.SubSectorID == "CP") {
+                        $('.gbvcp').removeAttr('disabled');
+                        $('.gbvcp').removeAttr('readonly');
+                        $('.gbvcp').val('');
+                        $('#SumBreakdownNew').val('');
+                        $('.SumBreakdownNew').val('');
+                    }
+                    else {
+                        $('.gbvcp').attr('disabled', 'disabled');
+                        $('.gbvcp').attr('readonly', 'readonly');
+                        $('.gbvcp').val('');
+                        $('#SumBreakdownNew').val('');
+                        $('.SumBreakdownNew').val('');
+                    }
+                    //if (JsonResult.FWSAnalysisUnit == "# people") {
+                    //    $('#PWD').removeAttr('disabled');
+                    //    $('#PWD').removeAttr('readonly');
+                    //    $('#PWD').val('').trigger('change');
+                    //} else {
+                    //    $('#PWD').attr('disabled', 'disabled');
+                    //    $('#PWD').attr('readonly', 'readonly');
+                    //    $('#PWD').val('').trigger('change');
+                    //}
+                },
+                error: function () { }
+            });
+        });
+
+        $('.beneContr').keyup(delay(function (e) {
+            e.preventDefault();
+            var total = 0;
+            $.each($('.beneContr'), function (idx, elm) {
+                total += $(elm).val() * 1;
+            })
+            $('#SumBreakdown').val(total);
+            $('.SumBreakdown').val(total);
+        }, 500));
+
+        $('.beneNewContr').keyup(delay(function (e) {
+            e.preventDefault();
+            var total = 0;
+            $.each($('.beneNewContr'), function (idx, elm) {
+                total += $(elm).val() * 1;
+            })
+            $('#SumBreakdownNew').val(total);
+            $('.SumBreakdownNew').val(total);
+        }, 500));
+
+    });
+</script>
+

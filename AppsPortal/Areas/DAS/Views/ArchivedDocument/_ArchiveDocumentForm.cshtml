@@ -1,0 +1,145 @@
+﻿
+@model ArchiveTemplateDocumentUpdateModel
+
+
+@using (Html.BeginForm("ArchiveTemplateDocument", "ArchivedDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "ArchivedDocumentForm", @class = "main-form", enctype = "multipart/form-data" }))
+{
+    string ModalTitle = Model.ArchiveTemplateDocumentGUID.ToString() == Guid.Empty.ToString() ? "Create Document" : "Edit Document";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.ArchiveTemplateDocumentGUID)
+    @Html.HiddenFor(model => model.ArchiveTemplateDocumentCodeNumber)
+    @Html.HiddenFor(model => model.FileReferenceTypeName)
+    @Html.HiddenFor(model => model.OrganizationInstanceGUID)
+    @Html.HiddenFor(model => model.DutyStationGUID)
+
+
+    @Html.HiddenFor(model => model.TemplateName)
+    @Html.HiddenFor(model => model.DocumentName)
+    <div class="form-group">
+        @Html.LabelFor(model => model.TemplateTypeGUID)
+        @Html.DropDownListFor(model => model.TemplateTypeGUID, new DropDownList().DASTemplateType(), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search",
+       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'TemplateTypeDocumentGUID', Action : 'RemoteTemplateDocumentTypes'}]);"
+   })
+    </div>
+
+
+    @if (Model.FileReferenceGUID != null)
+    {
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.TemplateTypeDocumentGUID)
+            @Html.DropDownListFor(model => model.TemplateTypeDocumentGUID, new DropDownList().DASTemplateDocumentTypeByPK((Guid)Model.TemplateTypeGUID), "",
+                  new
+                      {
+                          style = "width:100%",
+                      @class = "form-control select2-basic-search",
+                      onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'FileReferenceGUID', Action : 'RemoteTemplateOwnerTypes'}]);"
+                  })
+        </div>
+    }
+    else
+    {
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.TemplateTypeDocumentGUID)
+            @Html.DropDownListFor(model => model.TemplateTypeDocumentGUID, new DropDownList().Empty(), "",
+            new
+                {
+                    style = "width:100%",
+                  @class = "form-control select2-basic-search",
+                onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'FileReferenceGUID', Action : 'RemoteTemplateOwnerTypes'}]);"
+
+                })
+        </div>
+    }
+    @if (Model.FileReferenceGUID != null)
+    {
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.FileReferenceGUID)
+            @Html.DropDownListFor(model => model.FileReferenceGUID, new DropDownList().FileReferenceTypes(
+                       (Guid)Model.TemplateTypeGUID), "",
+           new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+               onchange = "LoadSoftFields($('#TemplateTypeDocumentGUID').val());"
+           }
+           )
+        </div>
+    }
+    else
+    {
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.FileReferenceGUID)
+            @Html.DropDownListFor(model => model.FileReferenceGUID, new DropDownList().Empty(), "", new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-ajax FlashOnEmptySelect2",
+           data_action = "RemoteFindFileNumberBy",
+       })
+        </div>
+    }
+
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.ArchiveTemplateDocumentGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.RefugeeScannedDocument.Create, Apps.DAS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.RefugeeScannedDocument.Update, Apps.DAS)
+                @Html.DeleteSwitchButton(Permissions.RefugeeScannedDocument.Delete, Apps.DAS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.RefugeeScannedDocument.Delete, Apps.DAS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+<script>
+    $('#FileReferenceGUID').select2({
+        minimumInputLength: 3,
+        ajax: {
+            url: function () {
+                return '/DropDownList/RemoteFindFileNumberBy'
+            },
+            delay: 250,
+            data: function (params) {
+                var query = {
+                    SearchKey: params.term
+                }
+                // Query parameters will be ?search=[term]&type=public
+                return query;
+            },
+            processResults: function (data) {
+                var res = data.items.map(function (item) {
+                    return { id: item.id, text: item.text };
+                });
+                return {
+                    results: res
+                };
+            }
+        }
+    });
+
+    function LoadSoftFields(TemplateTypeDocumentGUID) {
+        if (TemplateTypeDocumentGUID == null) {
+            $("#SoftFieldPartialDivId").html("");
+
+        }
+        if (TemplateTypeDocumentGUID != null) {
+            var URL = "/DAS/ArchivedDocument/GetSoftFields?TemplateTypeDocumentGUID=" + TemplateTypeDocumentGUID;
+
+            $('#SoftFieldPartialDivId').load(URL,
+                function () { });
+        }
+    };
+</script>

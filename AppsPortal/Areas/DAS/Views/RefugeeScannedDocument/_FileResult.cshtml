@@ -1,0 +1,251 @@
+﻿<style>
+    img:hover {
+        cursor: pointer;
+    }
+    /* Context menu */
+    .context-menu {
+        display: none;
+        position: absolute;
+        border: 1px solid black;
+        border-radius: 3px;
+        width: 110px;
+        background: white;
+        box-shadow: 10px 10px 5px #888888;
+        text-align: center
+    }
+
+        .context-menu ul {
+            list-style: none;
+            padding: 2px;
+        }
+
+            .context-menu ul li {
+                padding: 5px 2px;
+                margin-bottom: 3px;
+                color: black;
+                font-weight: bold;
+                background-color: cadetblue;
+            }
+
+                .context-menu ul li:hover {
+                    cursor: pointer;
+                    background-color: #7fffd4;
+                }
+</style>
+@model ScannNewDocumentModel
+<div class="panel-group">
+    @if (Model.ScannDocumentGUID == null)
+    {
+        <div class="panel panel-default" ng-show="NewCaseShow">
+            <div class="panel-heading">
+                File Location
+                *
+            </div>
+            <div class="panel-body">
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="col-xs-1">
+
+                                <label for="IndicatorTypemenu">Cabinet</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="cabinet" ng-change="CabientChange()"
+                                        data-ng-model="CabinetGUID"
+                                        data-ng-options="p.Guid as p.Name for p in  codeCabinets">
+                                    <option value="">----</option>
+                                </select>
+
+
+                            </div>
+                            <div class="col-xs-1">
+
+                                <label for="IndicatorTypemenu">Shelf</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="shelf"
+                                        data-ng-model="ShelfGUID"
+                                        data-ng-options="p.Guid as p.Name for p in  codeCabinetShelfs">
+                                    <option value="">----</option>
+                                </select>
+
+                            </div>
+                            @Html.HiddenFor(m => m.FileNumber)
+
+                            <div class="col-xs-2">
+                                <label for="IndicatorTypemenu">Tag Document</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="MetaDataDocumentsGUIDs" multiple
+                                        data-ng-model="MetaDataDocumentsGUIDs"
+                                        data-ng-options="p.Guid as p.Name for p in  codeMetaDatas">
+                                    <option value="">----</option>
+                                </select>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+            <div class="panel-footer pull-right">
+
+
+                <input class="btn btn-primary"
+                       type="button" value="Scan Document" id="Scannid" ng-click="ScannDocument()" />
+
+                <input class="btn btn-primary Modal-Link "
+                       type="button" value="Scanner Setting" id="scannerSettings"
+                       data-url="/DAS/ScanDocument/GetScannerSettings" />
+                <input class=" btn btn-primary" type="button" value="Merge File" id="MergeFile"
+                       ng-click="getmergefile()" />
+
+
+
+            </div>
+        </div>
+    }
+    @if (Model.ScannDocumentGUID != null)
+    {
+        <div class="panel panel-default" ng-show="ExistCaseShow">
+            <div class="panel-heading">
+                File Location
+                *
+            </div>
+            <div class="panel-body">
+                <div class="col-xs-1">
+                    <label for="IndicatorTypemenu"></label>
+
+                </div>
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="col-xs-1">
+
+                                <label for="IndicatorTypemenu">Cabinet</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="cabinet" ng-change="CabientChange()"
+                                        data-ng-model="CabinetGUID"
+                                        data-ng-options="p.Guid as p.Name for p in  codeCabinets">
+                                    <option value="">----</option>
+                                </select>
+
+
+                            </div>
+                            <div class="col-xs-1">
+
+                                <label for="IndicatorTypemenu">Shelf</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="shelf"
+                                        data-ng-model="ShelfGUID"
+                                        data-ng-options="p.Guid as p.Name for p in  codeCabinetShelfs">
+                                    <option value="">----</option>
+                                </select>
+
+                            </div>
+
+
+                            <div class="col-xs-2">
+                                <label for="IndicatorTypemenu">Tag Document</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="MetaDataDocumentsGUIDs" multiple
+                                        data-ng-model="MetaDataDocumentsGUIDs"
+                                        data-ng-options="p.Guid as p.Name for p in  codeMetaDatas">
+                                    <option value="">----</option>
+                                </select>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+            <div class="panel-footer pull-right">
+
+
+                <input class="btn btn-primary"
+                       type="button" value="Scan Document" id="Scannid" ng-click="ScannDocument()" />
+
+
+                <input class="btn btn-primary Modal-Link "
+                       type="button" value="Scanner Setting" id="scannerSettings"
+                       data-url="/DAS/ScanDocument/GetScannerSettings" />
+                <input class=" btn btn-primary" type="button" value="Merge File" id="MergeFile"
+                       ng-click="getmergefile()" />
+
+
+
+            </div>
+        </div>
+    }
+
+
+    @if (Model.ScannDocumentGUID != null)
+    {
+        <div class="panel panel-default" ng-show="documentImagesShow">
+            <div class="panel-heading">
+                File Images
+
+            </div>
+            <div class="panel-body CleanImage">
+
+                <div style="overflow-x:scroll;">
+
+                    <div class="col-md-12" id="DisplayImages">
+                        <table class="table table-striped table-bordered  hover ">
+
+                            <thead>
+                                <tr>
+                                    Document Scanned Images
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr class="context-menu-one" id="image-list">
+
+                                    <td ng-repeat="item in filename" class="" id="{{item}}">
+                                        <a ng-href="/Areas/DAS/DEC/{{userGuid}}/{{mysearchKey}}/{{item}}" target="_blank">
+                                            <img src="/Areas/DAS/DEC/{{userGuid}}/{{mysearchKey}}/{{item}}" width="100px;" />
+
+                                    </td>
+                                    <td ng-show="false"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <table>
+                            <tr>
+                                <td ng-repeat="img in filenames" id="{{img}}">
+                                    <a ng-href="/Areas/DAS/DEC_MERGE/{{userGuid}}/{{FileNumber}}/{{img}}"><img ng-src="~/DEC_MERGE/{{userGuid}}/{{FileNumber}}/{{img}}" width="100" /></a>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="box box-footer">
+
+                <div class="col-md-12 pull-right">
+                    <input type="button" value="Save" ng-click="SaveFinal();" class="btn btn-primary" />
+                    <input type="button" value="Update order" id="SaveScannid" class="btn btn-primary btn-danger" />
+
+
+                </div>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+
+

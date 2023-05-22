@@ -1,0 +1,88 @@
+﻿@using PPA_DAL.Model;
+@{
+    ViewBag.Title = "ReviewTrackingReport";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("6c5244fc-ed0b-4810-ac84-de78e4914a1a")
+
+@{
+    PPA_DAL.Model.PPAEntities DbPPA = new PPAEntities();
+    string LAN = Languages.CurrentLanguage();
+
+
+    var reportData = (from a in DbPPA.ProjectPartnershipAgreement.AsNoTracking().Where(x => x.Active)
+                      join b in DbPPA.PPAOriginalFile.AsNoTracking().Where(x => x.Active) on a.PPAGUID equals b.PPAGUID
+                      join c in DbPPA.PPAFileVersion.AsNoTracking().Where(x => x.Active) on b.PPAOriginalFileGUID equals c.PPAOriginalFileGUID into LJ1
+                      from R1 in LJ1.DefaultIfEmpty()
+                      join UploadedBy in DbPPA.userProfiles.AsNoTracking().Where(x => x.Active) on a.CreatedByUserProfileGUID equals UploadedBy.UserProfileGUID
+                      join userServiceHistory in DbPPA.userServiceHistory.AsNoTracking().Where(x => x.Active) on UploadedBy.ServiceHistoryGUID equals userServiceHistory.ServiceHistoryGUID
+                      join userPersonalDetailsLanguage in DbPPA.userPersonalDetailsLanguage.AsNoTracking().Where(x => x.Active && x.LanguageID == "EN") on userServiceHistory.UserGUID equals userPersonalDetailsLanguage.UserGUID
+                      join UploadedTo in DbPPA.PPADistributionList.AsNoTracking().Where(x => x.Active) on a.PPAGUID equals UploadedTo.PPAGUID
+                      join UploadedToUser in DbPPA.userPersonalDetailsLanguage.AsNoTracking().Where(x => x.Active && x.LanguageID == LAN) on UploadedTo.UserGUID equals UploadedToUser.UserGUID
+                      select new
+                      {
+                          UploadedTo = UploadedToUser.FirstName + " " + UploadedToUser.Surname,
+                          UploadedOn = DateTime.Now,
+                          UploadedBy = userPersonalDetailsLanguage.FirstName + " " + userPersonalDetailsLanguage.Surname,
+                          ActionByUser = R1.FileActionType,
+                          ActionDateByUser = DateTime.Now,
+                          DutyStation = (from aa in DbPPA.userAccounts.Where(x => x.Active && x.UserGUID == UploadedTo.UserGUID)
+                                         join bb in DbPPA.userServiceHistory.Where(x => x.Active) on aa.UserGUID equals bb.UserGUID
+                                         join cc in DbPPA.userProfiles.Where(x => x.Active) on bb.ServiceHistoryGUID equals cc.ServiceHistoryGUID
+                                         join dd in DbPPA.codeDutyStationsLanguages.Where(x => x.Active && x.LanguageID == "EN") on cc.DutyStationGUID equals dd.DutyStationGUID
+                                         orderby cc.FromDate
+                                         select dd.DutyStationDescription).FirstOrDefault(),
+                          Department = (from aaa in DbPPA.userAccounts.Where(x => x.Active && x.UserGUID == UploadedTo.UserGUID)
+                                        join bbb in DbPPA.userServiceHistory.Where(x => x.Active) on aaa.UserGUID equals bbb.UserGUID
+                                        join ccc in DbPPA.userProfiles.Where(x => x.Active) on bbb.ServiceHistoryGUID equals ccc.ServiceHistoryGUID
+                                        join ddd in DbPPA.codeDepartmentsLanguages.Where(x => x.Active && x.LanguageID == "EN") on ccc.DepartmentGUID equals ddd.DepartmentGUID
+                                        orderby ccc.FromDate
+                                        select ddd.DepartmentDescription).FirstOrDefault()
+                      }).ToList();
+
+
+
+    <div class="page--content">
+        <div class="page--body">
+            <table style="margin-top:40px" class="table dataTable no-footer dtr-inline">
+                <thead>
+                    <tr>
+                        <th>Uploaded To</th>
+                        <th>Uploaded On</th>
+                        <th>Uploaded By</th>
+                        <th>Action By Reviewer</th>
+                        <th>Action By Reviewer Date</th>
+                        <th>Reviewer Duty Station</th>
+                        <th>Reviewer Department</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+
+                    @*@foreach (var item in reportData)
+                    {
+                    <tr>
+                        <td>@item.UploadedTo</td>
+                        <td>@item.UploadedOn.ToShortDateString()</td>
+                        <td>@item.UploadedBy</td>
+                        <td>@item.ActionByUser</td>
+                        @if (item.ActionByUser == "" || item.ActionByUser == null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@item.ActionDateByUser.ToShortDateString()</td>
+
+                        }
+                        <td>@item.DutyStation</td>
+                        <td>@item.Department</td>
+                    </tr>
+                    }*@
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

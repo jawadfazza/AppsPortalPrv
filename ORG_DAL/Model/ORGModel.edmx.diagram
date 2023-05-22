@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="81ff8fa953114d9aadbd1ffb816a2ca6" Name="Diagram1" ZoomLevel="35">
+        <EntityTypeShape EntityType="ORGModel.dataAdminAccessStaff" Width="1.5" PointX="8" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.dataPhoneDirectory" Width="1.5" PointX="8" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffProfileFeedback" Width="1.5" PointX="8" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffProfileFeedbackFlow" Width="1.5" PointX="10.25" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffBankAccount" Width="1.5" PointX="18" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffCoreDocument" Width="1.5" PointX="8" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffCorePassport" Width="1.5" PointX="8" PointY="26.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.StaffCoreDataBank" Width="1.5" PointX="18" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.StaffCoreDataHistory" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.userAccounts" Width="1.5" PointX="12.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.userPasswords" Width="1.5" PointX="15" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.userPersonalDetails" Width="1.5" PointX="15" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.userPersonalDetailsLanguage" Width="1.5" PointX="17.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.userProfiles" Width="1.5" PointX="17.25" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.userServiceHistory" Width="1.5" PointX="15" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeBank" Width="1.5" PointX="15.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeBankLanguage" Width="1.5" PointX="18" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeCountries" Width="1.5" PointX="0.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeCountriesLanguages" Width="1.5" PointX="3" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeDepartments" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeDepartmentsConfigurations" Width="1.5" PointX="3" PointY="40.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeDepartmentsLanguages" Width="1.5" PointX="3" PointY="44.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeDutyStations" Width="1.5" PointX="0.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeDutyStationsConfigurations" Width="1.5" PointX="3" PointY="32" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeDutyStationsLanguages" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeJobTitles" Width="1.5" PointX="0.75" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeJobTitlesLanguages" Width="1.5" PointX="3" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeLocations" Width="1.5" PointX="7.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeLocationsLanguages" Width="1.5" PointX="10" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeTables" Width="1.5" PointX="19.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeTablesValues" Width="1.5" PointX="22" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeTablesValuesConfigurations" Width="1.5" PointX="24.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.codeTablesValuesLanguages" Width="1.5" PointX="24.25" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffPhone" Width="1.5" PointX="12.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ORGModel.v_dataSyriaPhoneDirectory" Width="1.5" PointX="19.75" PointY="19.875" IsExpanded="true" />
+        <AssociationConnector Association="ORGModel.FK_dataStaffProfileFeedbackFlow_Feedback" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_dataStaffBankAccount_codeBank" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_dataStaffBankAccount_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_StaffCoreDataBank_codeBank" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_StaffCoreDataHistory_codeCountries" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_StaffCoreDataHistory_codeCountries1" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_StaffCoreDataHistory_codeCountries2" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_StaffCoreDataHistory_codeCountries3" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_StaffCoreDataHistory_codeDepartments" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_StaffCoreDataHistory_codeDutyStations" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_StaffCoreDataHistory_codeJobTitles" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_userPassword_userAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_userPersonalDetails_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_userServiceHistory_userAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_userPersonalDetailsLanguage_userPersonalDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_userProfiles_codeDepartments1" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_userProfiles_codeDutyStations1" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_userProfiles_codeJobTitles1" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_userProfiles_userServiceHistory" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.codeBank_codeBankLanguage_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_codeCountriesLanguages_codeCountries" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_codeDepartmentsLanguages_codeDepartments" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_codeOrganizationsOperationsDepartments_codeDepartments" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_codeDutyStationsLanguages_codeDutyStations" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_codeOrganizationsOperationsDutyStations_codeDutyStations" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_codeJobTitlesLanguages_codeJobTitles" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_codeLocationsLanguages_codeLocations" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_codeTablesValues_codeTables" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_codeTablesValuesLanguages_codeTablesValues" ManuallyRouted="false" />
+        <AssociationConnector Association="ORGModel.FK_codeTablesValuesOperations_codeTablesValues" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ORGModel.userPermissions" Width="1.5" PointX="22.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffOnlineTraining" Width="1.5" PointX="8" PointY="31.125" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffOnlineTrainingHistory" Width="1.5" PointX="10.25" PointY="31.625" />
+        <AssociationConnector Association="ORGModel.dataStaffOnlineTrainingHistory_dataStaffOnlineTraining" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffRelative" Width="1.5" PointX="8" PointY="36.75" />
+        <EntityTypeShape EntityType="ORGModel.v_StaffProfileInformation" Width="1.5" PointX="12.375" PointY="22.75" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffServiceProvided" Width="1.5" PointX="8" PointY="41.75" />
+        <EntityTypeShape EntityType="ORGModel.dataICTServiceAuthUser" Width="1.5" PointX="20.375" PointY="4.75" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffSalaryInAdvance" Width="1.5" PointX="8" PointY="48" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffSalaryInAdvanceFlow" Width="1.5" PointX="15.25" PointY="31.625" />
+        <AssociationConnector Association="ORGModel.dataStaffSalaryInAdvanceFlow_dataStaffSalaryInAdvance" />
+        <EntityTypeShape EntityType="ORGModel.dataStaffPosition" Width="1.5" PointX="8" PointY="54" />
+        <EntityTypeShape EntityType="ORGModel.StaffCoreData" Width="1.5" PointX="5.75" PointY="16.375" />
+        <AssociationConnector Association="ORGModel.FK_dataAdminAccessStaff_StaffCoreData" />
+        <AssociationConnector Association="ORGModel.FK_dataPhoneDirectory_staffcoredata" />
+        <AssociationConnector Association="ORGModel.dataStaffOnlineTraining_StaffCoredata" />
+        <AssociationConnector Association="ORGModel.FK_dataStaffPosition_staffcoredata" />
+        <AssociationConnector Association="ORGModel.FK_dataStaffProfileFeedback_StaffCoreData" />
+        <AssociationConnector Association="ORGModel.FK_dataStaffProfileFeedbackFlow_userPersonalDetails_createBy" />
+        <AssociationConnector Association="ORGModel.dataStaffOnlineTraining_dataStaffRelative" />
+        <AssociationConnector Association="ORGModel.dataSalaryCycleFlow_CreatestaffCoreData" />
+        <AssociationConnector Association="ORGModel.dataStaffSalaryInAdvance_StaffCoredata" />
+        <AssociationConnector Association="ORGModel.dataStaffSalaryInAdvanceFlow_CreatestaffCoreData" />
+        <AssociationConnector Association="ORGModel.FK_dataStaffServiceProvided_staffCore" />
+        <AssociationConnector Association="ORGModel.FK_dataStaffCoreDocument_StaffCoreData" />
+        <AssociationConnector Association="ORGModel.FK_dataStaffCorePassport_StaffCoreData" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

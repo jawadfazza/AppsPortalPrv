@@ -1,0 +1,606 @@
+﻿@model RMSReportParametersList
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("f121e42e-4f6e-42c4-8cd6-c91643fdd3c0")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+
+        @if (new CMS().HasAction(Permissions.PrintersConfiguration.Access, Apps.RMS))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "PrinterConfiguration", new { Area = "RMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-calendar-check-o fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Printer Configuration</h3>
+                            <span>Printer Configuration Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.PrintersConfiguration.Access, Apps.RMS))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "PrinterTree", new { Area = "RMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-tree fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Printer Tree</h3>
+                            <span>Printer Tree Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.Oid.Access, Apps.RMS))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "Oids", new { Area = "RMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-calendar-check-o fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Oids Configuration</h3>
+                            <span>Oids Configuration Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @*@if (new CMS().HasAction(Permissions.PrintersConfiguration.Access, Apps.RMS))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("ReportIndex", "Reports", new { Area = "RMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa- fa-file-excel-o fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Printer Reports</h3>
+                            <span>Printer Reports Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }*@
+
+    </div>
+    <br />
+    <hr />
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    @using (Html.BeginForm("Chart", "Reports", new { Area = "RMS" }, FormMethod.Post, new { id = "ReportForm" }))
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="height:35px">
+                        <h3 class="panel-title" style="color:black;"><b>Filters</b> </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <div class="form-group">
+                                @Html.Label("Report Topic")
+                                @Html.DropDownListFor(model => model.Report, new DropDownList().PrinterReportTopic(), "", new
+                           {
+                               style = "width:100%",
+                               @class = "form-control select2-basic-search",
+                               onchange = "HideShowFilters();"
+                           })
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <div class="form-group">
+                                @Html.Label("Start Date")
+                                @Html.EditorFor(model => model.LogDateTimeStart, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <div class="form-group">
+                                @Html.Label("End Date")
+                                @Html.EditorFor(model => model.LogDateTimeEnd, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                @Html.Label("Printer")
+                                @Html.DropDownListFor(model => model.PrinterConfigurationGUID, new DropDownList().PrinterConfigrations(), "", new
+                           {
+                               style = "width:100%",
+                               @class = "form-control select2-basic-search",
+                               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'OidGUID', Action : 'RemotePrinterConfigurationOid'}]);"
+                           })
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" style="display: flex;margin-top: 25px;">
+                            <input id="btnCharts" type="button" name="btnCharts" class="btn btn-primary ActionControl" style="width:50%" onclick="InitDashboards();" value="Generate Report">
+                            <input type="reset" class="btn btn-default" style="width:50%" value="Clear All" onclick="ClearAll();">
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div style="display:none" id="ChartPanel">
+        <div id="exTab1">
+            <ul class="nav nav-pills">
+
+                <li class="active">
+                    <a href="#1a" data-toggle="tab">Printer Status</a>
+                </li>
+                <li>
+                    <a href="#2a" data-toggle="tab">Printers Ink Cartridge Changed</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="tab-content clearfix">
+            <div class="tab-pane active table-bordered" id="1a">
+                <div class="row">
+                    <div class="col-lg-5 " style="border-right:10px">
+                        <div id="container1" style="height:400px; width:100%;padding-right:10px;border:ridge;">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div id="container2" style="height:400px; width:100%; margin: 0 auto;border:ridge;">
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <div class="row">
+                    <div class="col-lg-5" style="border-right:10px">
+                        <div id="container3" style="height:400px; width:100%;padding-right:10px;border:ridge;">
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div id="container4" style="height:400px; width:100%; margin: 0 auto;border:ridge;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="2a">
+
+                <div class="row">
+                    <div class="col-lg-5" style="border-right:10px">
+                        <div id="container5" style="height:400px; width:100%;padding-right:10px;border:ridge;">
+                        </div>
+                    </div>
+                    <div class="col-lg-7" style="border-right:10px">
+                        <div id="container6" style="height:400px; width:100%;padding-right:10px;border:ridge;">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        HideShowFilters();
+    });
+    function HideShowFilters() {
+        $("#ChartPanel").hide();
+        ///$('.nav-pills a[href="#1a"]').prop('disabled', true);
+
+        if ($('#Report').val() == '') {
+            $('#LogDateTimeStart').prop('disabled', true);
+            $('#LogDateTimeEnd').prop('disabled', true);
+            $('#PrinterConfigurationGUID').prop('disabled', true);
+        }
+        if ($('#Report').val() == 1) {
+            $('#LogDateTimeStart').prop('disabled', false);
+            $('#LogDateTimeEnd').prop('disabled', false);
+            $('#PrinterConfigurationGUID').prop('disabled', false);
+        }
+        if ($('#Report').val() == 2) {
+            $('#LogDateTimeStart').prop('disabled', false);
+            $('#LogDateTimeEnd').prop('disabled', false);
+            $('#PrinterConfigurationGUID').prop('disabled', true);
+        }
+    }
+
+    function ClearAll() {
+        $("#ChartPanel").hide();
+        $('#LogDateTimeStart').prop('disabled', true);
+        $('#LogDateTimeEnd').prop('disabled', true);
+        $('#PrinterConfigurationGUID').prop('disabled', true);
+    }
+
+
+    var Process = '<center><img src="../Assets/Images/loading.gif" style="top: 50%;position: absolute;" /></center>'
+    var totalChartNumber = 0;
+    var numberOfChartCompletet = 0;
+    function DecideWhenLoadComplete() {
+        numberOfChartCompletet++;
+        if (numberOfChartCompletet == totalChartNumber) {
+            $('#btnCharts').prop('disabled', false);
+            $('#ChartsLoad').html('');
+
+        }
+    }
+    function InitDashboards() {
+        if ($("#LogDateTimeStart").val() != "" && $("#LogDateTimeEnd").val() != "") {
+          
+            numberOfChartCompletet = 0;
+            $('html,body').animate({
+                scrollTop: $("#ChartPanel").offset().top - 75
+            }, 'slow');
+          
+            if ($('#Report').val() == 1) {
+                if ($("#PrinterConfigurationGUID").val() == "") { Notify(NotificationType.Warning, 'Printer List Empty'); }
+                else {
+                    $('#container1').html('').append(Process);
+                    $('#container2').html('').append(Process);
+                    $('#container3').html('').append(Process);
+                    $('#container4').html('').append(Process);
+                    $('#ChartsLoad').append('<span class="loadingSpan" style="margin-left:4px;margin-top:2px;"> Please wait...</span>');
+                    $('#btnCharts').prop('disabled', true);
+                    $('#ChartPanel').show();
+                    totalChartNumber = 4
+                    $('.nav-pills a[href="#1a"]').prop('disabled', false);
+                    $('.nav-pills a[href="#2a"]').prop('disabled', true);
+                    $('.nav-pills a[href="#1a"]').tab('show');
+                    SupplyLevelChart();
+                    PaperCountChart();
+                    FunctionStatusChart();
+                    FunctionStatusChartPIE();
+                }
+            }
+            if ($('#Report').val() == 2) {
+                $('#container5').html('').append(Process);
+                $('#container6').html('').append(Process);
+                $('#ChartsLoad').append('<span class="loadingSpan" style="margin-left:4px;margin-top:2px;"> Please wait...</span>');
+                $('#btnCharts').prop('disabled', true);
+                $('#ChartPanel').show();
+                totalChartNumber = 2;
+                $('.nav-pills a[href="#2a"]').prop('disabled', false);
+                $('.nav-pills a[href="#1a"]').prop('disabled', true);
+                $('.nav-pills a[href="#2a"]').tab('show');
+                PrinterInkCartridge();
+                PrinterInkCartridgeColumn();
+            }
+           
+            
+        } else {
+            if ($("#LogDateTimeStart").val() == "") { Notify(NotificationType.Warning, 'Log Date Start Empty'); }
+            if ($("#LogDateTimeEnd").val() == "") { Notify(NotificationType.Warning, 'Log Date End Empty'); }
+        }
+
+    };
+
+    function SupplyLevelChart() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/RMS/Home/SupplyLevelChart",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var seriesData = response["MainReport"];
+                // $('#container2').removeClass('loadingSpanChart');
+                Highcharts.chart('container2', {
+                    title: {
+                        text: 'Printer Supply Level'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Y'
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle'
+                    },
+                    plotOptions: {
+                        series: {
+                            label: {
+                                connectorAllowed: true
+                            },
+                            pointStart: 1
+
+                        }
+                    },
+                    series: seriesData,
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
+                    }
+
+                });
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+    function PaperCountChart() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/RMS/Home/PaperCountChart",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var seriesData = response["MainReport"];
+                //  $('#container4').removeClass('loadingSpanChart');
+                Highcharts.chart('container4', {
+                    title: {
+                        text: 'Paper Count Level'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Y'
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle'
+                    },
+                    plotOptions: {
+                        series: {
+                            label: {
+                                connectorAllowed: true
+                            },
+                            pointStart: 1
+
+                        }
+                    },
+                    series: seriesData,
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
+                    }
+
+                });
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+    function FunctionStatusChart() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/RMS/Home/FunctionStatusChart",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                // $('#container1').removeClass('loadingSpanChart');
+                var seriesData = response["MainReport"];
+                var categories = response["categories"];
+                console.log('categories', categories)
+                console.log('seriesData', seriesData)
+                Highcharts.chart('container1', {
+                    chart: {
+                        type: 'area'
+                    },
+                    title: {
+                        text: 'Number Of Functional Status'
+                    },
+                    xAxis: {
+                        categories: categories
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: seriesData
+                });
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+    function FunctionStatusChartPIE() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/RMS/Home/FunctionStatusChartPIE",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var seriesData = response["MainReport"];
+                //  $('#container3').removeClass('loadingSpanChart');
+                Highcharts.chart('container3', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Printer Functions Per Status Percent'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            //dataLabels: {
+                            //    enabled: true,
+                            //    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            //    style: {
+                            //        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            //    }
+                            //}
+                        }
+                    },
+                    series: [{
+                        name: 'Brands',
+                        colorByPoint: true,
+                        data: seriesData
+                    }]
+                });
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+
+    function PrinterInkCartridge() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/RMS/Home/PrinterInkCartridge",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var seriesData = response["MainReport"];
+                //  $('#container3').removeClass('loadingSpanChart');
+                Highcharts.chart('container5', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Printers Ink Cartridge changed over the period '
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Brands',
+                        colorByPoint: true,
+                        data: seriesData
+                    }]
+                });
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+    function PrinterInkCartridgeColumn() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/RMS/Home/PrinterInkCartridgeColumn",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var seriesData = response["MainReport"];
+                var drilldown = response["DetailsReport"];
+                Highcharts.chart('container6', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Printers Ink Cartridge changed over the period '
+                    },
+
+                    xAxis: {
+                        type: 'category'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total percent market share'
+                        }
+
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y:.1f}%'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                    },
+                    series: [
+                        {
+                            name: "Browsers",
+                            colorByPoint: true,
+                            data: seriesData
+                        }
+                    ]
+                    , drilldown: {
+                        series: drilldown
+
+                    }
+                });
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+</script>
+
+

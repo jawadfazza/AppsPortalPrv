@@ -1,0 +1,104 @@
+﻿@model ReportsModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("fdb5fe06-7ce9-420a-942b-6f53bda2db16")
+<style>
+    .fas {
+        color: #0072BC;
+    }
+</style>
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/TBS/Reports/FinanceReport">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-bar-chart fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Mobile/Land Line Finance Reports</h3>
+                        <span>..............................</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/TBS/Reports/FinanceReport">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-bar-chart fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>4G Report</h3>
+                        <span>..............................</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+@*<div class="page--content">
+        <div class="row" style="margin-top:15px;">
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="height:35px">
+                        <h3 class="panel-title" style="margin-right: -17px;"><b>Report Parameters</b> </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ReportTypeGUID)
+                            @Html.DropDownListFor(model => model.ReportTypeGUID, new DropDownList().BillReports(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TelecomCompanyGUID)
+                            @Html.DropDownListFor(model => model.TelecomCompanyGUID, new DropDownList().TelecomCompaniesByOperationList(), new { style = "width:100%", @class = "form-control select2-basic-multiple", multiple = "multiple" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SimTypeGUID)
+                            @Html.DropDownListFor(model => model.SimTypeGUID, new DropDownList().SimCardTypes(), new { style = "width:100%", @class = "form-control select2-basic-multiple", multiple = "multiple" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DepartmentGUID)
+                            @Html.DropDownListFor(model => model.DepartmentGUID, new DropDownList().Departments(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), new { style = "width:100%", @class = "form-control select2-basic-multiple", multiple = "multiple" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserGUID)
+                            @Html.DropDownListFor(model => model.UserGUID, new DropDownList().Users(true), new { style = "width:100%", @class = "form-control select2-basic-multiple", multiple = "multiple" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StartDate)
+                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EndDate)
+                            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <input id="btn-generateReport" class="btn btn-primary" type="button" value="Generate">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="height:35px">
+                        <h3 class="panel-title" style="margin-right: -17px;"><b>Results</b> </h3>
+                    </div>
+                    <div class="panel-body">
+                        RDLC
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+@*<script type="text/javascript">
+        $(function () {
+            $('#btn-generateReport').click(function (e) {
+                e.preventDefault();
+            });
+
+        });
+    </script>*@

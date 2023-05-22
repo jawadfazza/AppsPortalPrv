@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "ItemModels";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("60f22f53-8b04-498a-beee-4e283dd290e9")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.ItemModelsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.BrandGUID, DbColumnName = "BrandGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Brands(), IsMultiple = true })
+                
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStationDescription, DbColumnName = "DutyStationGUID", FilterForDataType = "Options", DataList = new DropDownList().DutyStationsByProfile(), IsMultiple = true })*@
+
+            </div>
+
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemClassification, DbColumnName = "WarehouseItemClassificationGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().ItemClassification(), IsMultiple = true })
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.WarehouseItemGUID, DbColumnName = "WarehouseItemGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().WarehouseItems(), IsMultiple = true })
+                
+
+               
+            </div>
+            <div class="col-lg-12">
+                
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.ItemModelsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.ItemModelsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.ItemModelsDataTable)
+        @Html.IndexDatatableCreate(Permissions.ItemModel.Create, Apps.WMS, "/WMS/ItemModels/Create")
+        @Html.IndexDatatableDelete(Permissions.ItemModel.Delete, Apps.WMS, DataTableNames.ItemModelsDataTable)
+        @Html.IndexDatatableRestor(Permissions.ItemModel.Restore, Apps.WMS, DataTableNames.ItemModelsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.ItemModelsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ItemModelsDataTable, Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

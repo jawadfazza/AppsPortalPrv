@@ -1,0 +1,55 @@
+﻿@model string
+@if (Model.ToString() == FilterDataTypes.Number || Model.ToString() == FilterDataTypes.Date || Model.ToString() == FilterDataTypes.DateTime)
+{
+    <select class="select2-basic-single FilterOperation" data="op" style="width:100%;">
+        <option value="eq" selected="selected">@resxUIControls.Equal</option>
+        <option value="ne">@resxUIControls.NotEqual</option>
+        <option value="em">@resxUIControls.Empty</option>
+        <option value="nm">@resxUIControls.NotEmpty</option>
+        <option value="gt">@resxUIControls.Greater</option>
+        <option value="ge">@resxUIControls.GreaterOrEqual</option>
+        <option value="lt">@resxUIControls.Less</option>
+        <option value="le">@resxUIControls.LessOrEqual</option>
+        <option value="bt">@resxUIControls.Between</option>
+        <option value="nb">@resxUIControls.NotBetween</option>
+    </select>
+}
+@if(Model.ToString() == FilterDataTypes.Text)
+{
+    <select class="select2-basic-single FilterOperation" data="op" style="width:100%;">
+        <option value="cn" selected="selected">@resxUIControls.Contains</option>
+        <option value="in">@resxUIControls.Equal</option>
+        <option value="ni">@resxUIControls.NotEqual</option>
+        <option value="em">@resxUIControls.Empty</option>
+        <option value="nm">@resxUIControls.NotEmpty</option>
+        <option value="bw">@resxUIControls.BeginsWith</option>
+        <option value="bn">@resxUIControls.DoesNotBeginWith</option>
+        <option value="ew">@resxUIControls.EndsWith</option>
+        <option value="en">@resxUIControls.DoesNotEndWith</option>
+        <option value="nc">@resxUIControls.DoesNotContain</option>
+        <option value="bt">@resxUIControls.Between</option>
+        <option value="nb">@resxUIControls.NotBetween</option>
+    </select>
+}
+@if (Model.ToString() == FilterDataTypes.Options)
+{
+    <select class="select2-basic-single FilterOperation" data="op" style="width:100%;">
+        <option value="in" selected="selected">@resxUIControls.Equal</option>
+        <option value="ni">@resxUIControls.NotEqual</option>
+        <option value="em">@resxUIControls.Empty</option>
+        <option value="nm">@resxUIControls.NotEmpty</option>
+        <option value="cn">@resxUIControls.Contains</option>
+        @*<option value="bw">@resxUIControls.BeginsWith</option>
+        <option value="bn">@resxUIControls.DoesNotBeginWith</option>
+        <option value="ew">@resxUIControls.EndsWith</option>
+        <option value="en">@resxUIControls.DoesNotEndWith</option>
+        <option value="cn">@resxUIControls.Contains</option>
+        <option value="nc">@resxUIControls.DoesNotContain</option>*@
+    </select>
+}
+@if (Model.ToString() == FilterDataTypes.Boolean)
+{
+    <select class="select2-basic-single FilterOperation" data="op" style="width:100%;">
+        <option value="eq" selected="selected">@resxUIControls.Equal</option>
+    </select>
+}

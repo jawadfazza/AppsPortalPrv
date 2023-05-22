@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="44d03881730545f0b71a44a73ddf33dd" Name="Diagram1" ZoomLevel="42">
+        <EntityTypeShape EntityType="TBSModel.codeCallCost" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.codeOperationsLanguages" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.codeTablesValuesLanguages" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.codeTelecomCompanyLanguages" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.codeTelecomCompanyOperation" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.configTelecomCompanyOperation" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.codeCDRLocation" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.configTelecomCompanyOperationMobileColumn" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.dataBillFile" Width="1.5" PointX="7.5" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.dataBillToProcess" Width="1.5" PointX="9.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.dataCDRCopiedFile" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.dataStaffPhone" Width="1.5" PointX="7.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.dataUserCustomPhoneDirectory" Width="1.5" PointX="11.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.v_BillsDataTable" Width="1.5" PointX="11.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.v_BillTotalAmount" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBSModel.v_MyOwnBillsMain" Width="1.5" PointX="13.75" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="TBSModel.FK_configTelecomCompanyOperation_codeTelecomCompanyOperations" ManuallyRouted="false" />
+        <AssociationConnector Association="TBSModel.FK_configTelecomCompanyOperationMobileColumns_configTelecomCompanyOperation" ManuallyRouted="false" />
+        <AssociationConnector Association="TBSModel.FK_dataCDRCopiedFile_codeCDRLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="TBSModel.FK_dataBillToProcess_dataBillFile" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TBSModel.codeTelecomCompany" Width="1.5" PointX="7.5" PointY="24" />
+        <AssociationConnector Association="TBSModel.FK_CodeTelecomCompanyLanguages_CodeTelecomCompany" />
+        <EntityTypeShape EntityType="TBSModel.userProfiles" Width="1.5" PointX="19" PointY="1" />
+        <EntityTypeShape EntityType="TBSModel.userServiceHistory" Width="1.5" PointX="16.75" PointY="1.625" />
+        <EntityTypeShape EntityType="TBSModel.codeDepartmentsLanguages" Width="1.5" PointX="2.75" PointY="15.75" />
+        <EntityTypeShape EntityType="TBSModel.codeDutyStationsLanguages" Width="1.5" PointX="16.75" PointY="6.75" />
+        <AssociationConnector Association="TBSModel.FK_userProfiles_userServiceHistory" />
+        <EntityTypeShape EntityType="TBSModel.userPersonalDetailsLanguage" Width="1.5" PointX="16.375" PointY="10.75" />
+        <EntityTypeShape EntityType="TBSModel.v_PendingBills" Width="1.5" PointX="16.375" PointY="18.75" />
+        <EntityTypeShape EntityType="TBSModel.configTelecomCompanyOperationLandColumn" Width="1.5" PointX="5.25" PointY="1.375" />
+        <AssociationConnector Association="TBSModel.FK_configTelecomCompanyOperationLandColumns_configTelecomCompanyOperation" />
+        <EntityTypeShape EntityType="TBSModel.dataStaffPrivateCall" Width="1.5" PointX="18.375" PointY="17.75" />
+        <EntityTypeShape EntityType="TBSModel.v_MyOwnBillsDetailed" Width="1.5" PointX="12.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TBSModel.v_STISIMCardCustodian" Width="1.5" PointX="20.375" PointY="14.75" />
+        <EntityTypeShape EntityType="TBSModel.dataUserBillDetail" Width="1.5" PointX="9.75" PointY="18.875" />
+        <EntityTypeShape EntityType="TBSModel.v_FinanceReport" Width="1.5" PointX="19.375" PointY="6.75" />
+        <EntityTypeShape EntityType="TBSModel.dataBill" Width="1.5" PointX="5.25" PointY="14.25" />
+        <AssociationConnector Association="TBSModel.FK_dataBills_configTelecomCompanyOperation" />
+        <AssociationConnector Association="TBSModel.FK_dataBillFiles_dataBills" />
+        <EntityTypeShape EntityType="TBSModel.v_LatestUserCalls" Width="1.5" PointX="16.375" PointY="14.75" />
+        <EntityTypeShape EntityType="TBSModel.StaffCoreData" Width="1.5" PointX="0.75" PointY="19.75" />
+        <EntityTypeShape EntityType="TBSModel.dataStaffCallsTag" Width="1.5" PointX="20.375" PointY="19.75" />
+        <EntityTypeShape EntityType="TBSModel.dataUserBill" Width="1.5" PointX="7.5" PointY="18.75" />
+        <AssociationConnector Association="TBSModel.FK_dataUserBill_dataBills" />
+        <AssociationConnector Association="TBSModel.FK_dataUserBillDetail_dataUserBill" />
+        <EntityTypeShape EntityType="TBSModel.v_UserBillDetailsGrouped" Width="1.5" PointX="3.375" PointY="19.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

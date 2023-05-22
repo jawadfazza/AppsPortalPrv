@@ -1,0 +1,94 @@
+﻿@model VehicleUpdateModel
+@using (Html.BeginForm("Vehicle", "Vehicle", new { Area = "SHM" }, FormMethod.Post, new { id = "VehicleForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.VehicleGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.VehicleNumber)
+                @Html.EditorFor(model => model.VehicleNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.VechileModelGUID)
+                @Html.DropDownListFor(model => model.VechileModelGUID, new DropDownList().LookupValues(LookupTables.AHDVechileModel), "",
+               new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.VehicleTypeGUID)
+                @Html.DropDownListFor(model => model.VehicleTypeGUID, new DropDownList().LookupValues(LookupTables.AHDVehicleType), "",
+               new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.VehileColorGUID)
+                @Html.DropDownListFor(model => model.VehileColorGUID, new DropDownList().LookupValues(LookupTables.AHDVehileColor), "",
+               new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ManufacturingYear)
+                @Html.EditorFor(model => model.ManufacturingYear, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PlateNumber)
+                @Html.EditorFor(model => model.PlateNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ChassisNumber)
+                @Html.EditorFor(model => model.ChassisNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EngineNumber)
+                @Html.EditorFor(model => model.EngineNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+          
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastRenewalDate)
+                @Html.EditorFor(model => model.LastRenewalDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Available)
+                @Html.CheckBoxFor(model => model.Available, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comment)
+                @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrganizationInstanceGUID)
+                @Html.DropDownListFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstancesByProfile(), "",
+               new
+                    {
+                        @class = "form-control select2-basic-search",
+                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DutyStationGUID', Action : 'RemoteOrganizationInstanceDutyStation'}]);",
+                   style = "width:100%"
+                    })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DutyStationGUID)
+                @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStationsOneValue(Model.DutyStationGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div id="VehicleFormControls" class="form-group form-footer">
+                @if (Model.VehicleGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Vehicle.Create, Apps.SHM)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Vehicle.Update, Apps.SHM)
+                        @Html.CreateNewButton(Permissions.Vehicle.Create, Apps.SHM, Url.Action("Vehicle/Create", "Vehicle", new { Area = "SHM" }))
+                        @Html.DeleteButton(Permissions.Vehicle.Delete, Apps.SHM)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Vehicle.Restore, Apps.SHM)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "Vehicles", new { Area = "SHM" }))
+            </div>
+        </div>
+    </div>
+}
+

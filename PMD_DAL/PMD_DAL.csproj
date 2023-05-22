@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D849D299-B5A5-44E1-977A-5909594B5656}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PMD_DAL</RootNamespace>
+    <AssemblyName>PMD_DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ExpressiveAnnotations, Version=2.7.4.0, Culture=neutral, PublicKeyToken=d3e372f3c1e83cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExpressiveAnnotations.2.9.6\lib\net45\ExpressiveAnnotations.dll</HintPath>
+    </Reference>
+    <Reference Include="ExpressiveAnnotations.MvcUnobtrusive, Version=2.5.4.0, Culture=neutral, PublicKeyToken=d3e372f3c1e83cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExpressiveAnnotations.2.9.6\lib\net45\ExpressiveAnnotations.MvcUnobtrusive.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\codedatatest.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOchaLocation.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOchaLocationGovernorate.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsInstances.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsInstancesLanguages.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmd2022CommunityCenter.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmd2022Indicator.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmd2022IndicatorLanguage.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmd2022IndicatorStatus.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmd2022IndicatorStatusLanguage.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmd2022Output.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmd2022OutputLanguage.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmd2022UnitOfAchievement.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmd2022UnitOfAchievementLanguages.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmd2023UnitOfAchievement.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmd2023UnitOfAchievementLanguages.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdCommunityCenter.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdExcelColumns2022Config.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdExcelColumnsConfig.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePMDHealthWhoDiagnosis.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdIndicator.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdIndicatorLanguage.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdObjective.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdObjectiveLanguage.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdObjectiveStatus.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdObjectiveStatusLanguage.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdOutcome.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdOutcomeLanguage.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdOutput.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdOutputLanguage.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdPartner.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdPartnerLanguage.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdPillar.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdPillarOutcome.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdUnitOfAchievement.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdUnitOfAchievementLanguages.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdWarehouse.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codePmdWarehouseLanguage.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataDashboardFullAccess.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataDashboardPermission.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataHealthWhoCategoryAggregation.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataHealthWhoDiagnosis.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPartnerMonitoring2022Attachement.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPartnerMonitoring2022DB.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPartnerMonitoring2022IndicatorStatus.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPartnerMonitoringAttachement.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPartnerMonitoringDB.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPartnerMonitoringIndicatorStatus.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPartnerMonitoringObjectiveStatus.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMD2022DomesticUnitOfAchievement.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMD2022HealthUnitOfAchievement.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMD2022HealthWHOAchievement.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMDBulkUpload.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMDClosingBalance.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMDDamagedLostDistribution.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMDDamagedLostDistributionDetail.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMDDispatch.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMDDispatchDetail.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMDDomesticUnitOfAchievement.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMDHealthUnitOfAchievement.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMDItemsTransfer.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPMDItemsTransferDetail.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPPAForm.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPPAFormHistory.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTempAchievementsConfig.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\datatest.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMDModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PMDModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMDModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMDModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PMDModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMD_ClosingBalancePivotTable_Result.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMD_DamagedLostDistributionDetails_Result.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMD_DamagedLostDistributionPivotTable_Result.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMD_DispatchDetails_Result.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMD_DispatchPivotTable_Result.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMD_DistributionDetails_Result.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMD_DistributionPivotTable_Result.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMD_ItemsTransferDetails_Result.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PMD_ItemsTransferPivotTable_Result.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModels.cs" />
+    <Compile Include="Model\v_AchievementVsTargetsMain.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_Bulk2022Extraction.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_BulkExtraction.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_dataPartnerMonitoringDatabase2022DataTable.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_dataPartnerMonitoringDatabaseDataTable.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_flatCodes.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_flatCRIItems.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_flatHealthCommunityItems.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_flatHealthHealthItems.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_flatHealthItems.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_OchaLocationsLevelOneFour.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_PMDCodes.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_PMDImplementingPartners.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_PRMDFlatTable2022_PowerBI.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_PRMDFlatTableCRI_PowerBI.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_PRMDFlatTableHealthItmes_PowerBI.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_PRMDFlatTable_PowerBI.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_tempCodesPMD.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_tempCodesPMD2.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_TotalPOCsReachedByOutcome.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_UpdatedAfterNotVerified.cs">
+      <DependentUpon>PMDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="Model\PMDModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PMDModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\PMDModel.edmx.diagram">
+      <DependentUpon>PMDModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\PMDModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PMDModel.edmx</DependentUpon>
+      <LastGenOutput>PMDModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\PMDModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PMDModel.edmx</DependentUpon>
+      <LastGenOutput>PMDModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\expressive.annotations.validate.js" />
+    <Content Include="Scripts\expressive.annotations.validate.min.js" />
+    <Content Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Portal_BL\Portal_BL.csproj">
+      <Project>{1bc38177-4b12-460f-bf33-0c50ac0905cc}</Project>
+      <Name>Portal_BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RES_Repo\RES_Repo.csproj">
+      <Project>{a12aa199-2e39-4fac-afe3-83a718aa5d40}</Project>
+      <Name>RES_Repo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

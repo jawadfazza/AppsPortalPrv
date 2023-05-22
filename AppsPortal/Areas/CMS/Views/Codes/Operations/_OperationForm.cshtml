@@ -1,0 +1,44 @@
+﻿@model OperationUpdateModel
+@using (Html.BeginForm("Operation", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "OperationForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.OperationGUID)
+    @Html.ErrorSummary()
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.OperationDescription)
+                @Html.EditorFor(model => model.OperationDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.CountryGUID)
+                @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().Countries(), new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.BureauGUID)
+                @Html.DropDownListFor(model => model.BureauGUID, new DropDownList().UNHCRBureaus(), new { @class = "form-control select2-basic-single", style = "width:100%" })
+            </div>
+            <div id="OperationFormControls" class="form-group form-footer">
+                @if (Model.OperationGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Operations.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Operations.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.Operations.Create, Apps.CMS, Url.Action("OpreationCreate", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.Operations.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Operations.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Operations", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+}

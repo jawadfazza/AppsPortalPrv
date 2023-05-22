@@ -1,0 +1,70 @@
+﻿@model ItemOutputDetailNotificationModel
+<style>
+    .wrapper {
+        position: relative;
+        width: 400px;
+        height: 200px;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    img {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .signature-pad {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 400px;
+        height: 200px;
+    }
+</style>
+
+@using (Html.BeginForm("WarehosueReleaseModelNotification", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "ReleaseModelRemdinerForm" }))
+{
+    string ModalTitle = Model.ItemOutputDetailGUID.ToString() == Guid.Empty.ToString() ? "New Reminder" : "Edit Reminder";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ItemOutputNotificationGUID)
+        @Html.HiddenFor(model => model.ItemOutputDetailGUID)
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.ItemStatuGUID)
+                @Html.DropDownListFor(model => model.ItemStatuGUID, new DropDownList().WarehouseItemStatus(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NotificationMessage)
+            @Html.EditorFor(model => model.NotificationMessage, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+     
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ItemOutputNotificationGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.WarehouseItemsRelease.Create, Apps.WMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.WarehouseItemsRelease.Update, Apps.WMS)
+                @Html.DeleteSwitchButton(Permissions.WarehouseItemsRelease.Delete, Apps.WMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.WarehouseItemsRelease.Delete, Apps.WMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+
+

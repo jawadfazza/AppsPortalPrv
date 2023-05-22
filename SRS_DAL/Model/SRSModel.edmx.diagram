@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5aab1b8b2ef14ff4940da12a042cf0bd" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="SRSModel.userAccounts" Width="1.5" PointX="1.5" PointY="0.75" />
+        <EntityTypeShape EntityType="SRSModel.userPersonalDetails" Width="1.5" PointX="3.75" PointY="22.375" />
+        <EntityTypeShape EntityType="SRSModel.userPersonalDetailsLanguage" Width="1.5" PointX="6" PointY="22.375" />
+        <EntityTypeShape EntityType="SRSModel.userProfiles" Width="1.5" PointX="6" PointY="6.5" />
+        <EntityTypeShape EntityType="SRSModel.userServiceHistory" Width="1.5" PointX="3.75" PointY="0.875" />
+        <EntityTypeShape EntityType="SRSModel.codeApplications" Width="1.5" PointX="15.75" PointY="7.875" />
+        <EntityTypeShape EntityType="SRSModel.codeApplicationsLanguages" Width="1.5" PointX="18" PointY="7.875" />
+        <EntityTypeShape EntityType="SRSModel.codeDepartments" Width="1.5" PointX="3.75" PointY="17.875" />
+        <EntityTypeShape EntityType="SRSModel.codeDepartmentsConfigurations" Width="1.5" PointX="6" PointY="16.375" />
+        <EntityTypeShape EntityType="SRSModel.codeDepartmentsLanguages" Width="1.5" PointX="6" PointY="26.875" />
+        <EntityTypeShape EntityType="SRSModel.codeDutyStations" Width="1.5" PointX="0.75" PointY="7.375" />
+        <EntityTypeShape EntityType="SRSModel.codeDutyStationsConfigurations" Width="1.5" PointX="3" PointY="14.625" />
+        <EntityTypeShape EntityType="SRSModel.codeDutyStationsLanguages" Width="1.5" PointX="3" PointY="6" />
+        <EntityTypeShape EntityType="SRSModel.codeJobTitles" Width="1.5" PointX="3.75" PointY="10" />
+        <EntityTypeShape EntityType="SRSModel.codeJobTitlesLanguages" Width="1.5" PointX="6" PointY="12.75" />
+        <EntityTypeShape EntityType="SRSModel.codeTables" Width="1.5" PointX="8.75" PointY="4.375" />
+        <EntityTypeShape EntityType="SRSModel.codeTablesValues" Width="1.5" PointX="11" PointY="4.375" />
+        <EntityTypeShape EntityType="SRSModel.codeTablesValuesConfigurations" Width="1.5" PointX="13.25" PointY="3" />
+        <EntityTypeShape EntityType="SRSModel.codeTablesValuesLanguages" Width="1.5" PointX="13.25" PointY="6.125" />
+        <AssociationConnector Association="SRSModel.FK_userPersonalDetails_userAccounts" />
+        <AssociationConnector Association="SRSModel.FK_userServiceHistory_userAccount" />
+        <AssociationConnector Association="SRSModel.FK_userPersonalDetailsLanguage_userPersonalDetails" />
+        <AssociationConnector Association="SRSModel.FK_userProfiles_codeDepartments1" />
+        <AssociationConnector Association="SRSModel.FK_userProfiles_codeDutyStations1" />
+        <AssociationConnector Association="SRSModel.FK_userProfiles_codeJobTitles1" />
+        <AssociationConnector Association="SRSModel.FK_userProfiles_userServiceHistory" />
+        <AssociationConnector Association="SRSModel.FK_codeApplicationsLanaguages_codeApplications" />
+        <AssociationConnector Association="SRSModel.FK_codeDepartmentsLanguages_codeDepartments" />
+        <AssociationConnector Association="SRSModel.FK_codeOrganizationsOperationsDepartments_codeDepartments" />
+        <AssociationConnector Association="SRSModel.FK_codeDutyStationsLanguages_codeDutyStations" />
+        <AssociationConnector Association="SRSModel.FK_codeOrganizationsOperationsDutyStations_codeDutyStations" />
+        <AssociationConnector Association="SRSModel.FK_codeJobTitlesLanguages_codeJobTitles" />
+        <AssociationConnector Association="SRSModel.FK_codeTablesValues_codeTables" />
+        <AssociationConnector Association="SRSModel.FK_codeTablesValuesLanguages_codeTablesValues" />
+        <AssociationConnector Association="SRSModel.FK_codeTablesValuesOperations_codeTablesValues" />
+        <EntityTypeShape EntityType="SRSModel.dataAppBugAuthorization" Width="1.5" PointX="20.25" PointY="19.125" />
+        <EntityTypeShape EntityType="SRSModel.dataAppBugReport" Width="1.5" PointX="18" PointY="14.625" />
+        <EntityTypeShape EntityType="SRSModel.dataAppEnhancementAuthorization" Width="1.5" PointX="23.25" PointY="14.375" />
+        <EntityTypeShape EntityType="SRSModel.dataAppEnhancementRequest" Width="1.5" PointX="21" PointY="14.5" />
+        <EntityTypeShape EntityType="SRSModel.dataAppRequestAuthorization" Width="1.5" PointX="12.875" PointY="31" />
+        <EntityTypeShape EntityType="SRSModel.dataHelpDesk" Width="1.5" PointX="8.375" PointY="20.125" />
+        <EntityTypeShape EntityType="SRSModel.dataHelpDeskAttachement" Width="1.5" PointX="10.625" PointY="27.125" />
+        <AssociationConnector Association="SRSModel.FK_codeApplications_dataAppBugReport" />
+        <AssociationConnector Association="SRSModel.FK_codeApplications_dataAppEnhancementRequest" />
+        <AssociationConnector Association="SRSModel.FK_dataAppBugAuthorization_dataAppBugReport" />
+        <AssociationConnector Association="SRSModel.FK_dataAppBugReport_dataHelpDesk" />
+        <AssociationConnector Association="SRSModel.FK_dataAppEnhancementAuthorization_dataAppEnhancementRequest" />
+        <AssociationConnector Association="SRSModel.FK_dataAppEnhancementRequest_dataHelpDesk" />
+        <AssociationConnector Association="SRSModel.FK_dataHelpDeskAttachement_dataHelpDesk" />
+        <EntityTypeShape EntityType="SRSModel.dataApplicationRequest" Width="1.5" PointX="10.625" PointY="13.875" />
+        <AssociationConnector Association="SRSModel.FK_dataApplicationRequest_dataHelpDesk" />
+        <AssociationConnector Association="SRSModel.FK_dataAppRequestAuthorization_dataApplicationRequest" />
+        <EntityTypeShape EntityType="SRSModel.dataChangeRequest" Width="1.5" PointX="10.625" PointY="20.625" />
+        <EntityTypeShape EntityType="SRSModel.dataChangeRequestActionPlan" Width="1.5" PointX="12.875" PointY="20.5" />
+        <AssociationConnector Association="SRSModel.FK_dataChangeRequest_dataHelpDesk" />
+        <AssociationConnector Association="SRSModel.FK_dataChangeRequestActionPlan_dataChangeRequest" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,53 @@
+﻿@model dataPersonalHistoryPersonalInfoUpdateModel
+@using (Html.BeginForm("PersonalInformationWizard", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "PersonalInformationWizardForm", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.GTPPHPersonalInfoGUID)
+    @Html.AntiForgeryToken()
+    <div class="tab-pane" id="tab1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><b>2. PERSONAL INFORMATION </b> (Mandatory to complete)</span>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DateOfBirth)  <span class="span-required-field">*</span>
+                        @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Gender)   <span class="span-required-field">*</span>
+                        @Html.DropDownListFor(model => model.Gender, new DropDownList().GTPGenders(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MaritalStatus)  <span class="span-required-field">*</span>
+                        @Html.DropDownListFor(model => model.MaritalStatus, new DropDownList().GTPMaritalStatuses(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right">
+                            @if (Model.GTPPHPersonalInfoGUID == Guid.Empty)
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Save & Next' data-url="/GTP/Applications/PersonalInformationWizard/Create" data-next-url="/GTP/Applications/ContanctInformationWizard/Create" />
+                            }
+                            else
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Update" name='next' value='Update & Next' data-url="/GTP/Applications/PersonalInformationWizard/Create" data-next-url="/GTP/Applications/ContanctInformationWizard/Create" />
+                            }
+                        </div>
+                        <div style="float:left">
+                            <input type='button' class='btn btn-primary wizard-button-previous' data-previous-url="/GTP/Applications/GeneralInformationWizard/Create" name='previous' value='Previous' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

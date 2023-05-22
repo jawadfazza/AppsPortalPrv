@@ -1,0 +1,82 @@
+﻿@model ApplicationReviewUpdateModel
+
+@using (Html.BeginForm("ApplicationReview", "ApplicationsReview", new { Area = "GTP" }, FormMethod.Post, new { id = "ApplicationReviewForm" }))
+{
+    string ModalTitle = "Application Review";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.GTPApplicationGUID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullName)
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailAddress)
+            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.GTPCategoryGUID)
+            @Html.DropDownListFor(model => model.GTPCategoryGUID, new DropDownList().GTPCategories(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsEligible)
+            @Html.DropDownListFor(model => model.IsEligible, new DropDownList().GTPEligibility(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div id="div-require-eligible" style="display:none;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.GTPApplicationExpiryDate)
+                @Html.EditorFor(model => model.GTPApplicationExpiryDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div style="font-size:12px;">
+                <b>Make sure to change the "three years" which appears twice in the email body to the relevant duration</b>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmailBody)
+                @Html.TextAreaFor(model => model.EmailBody, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 10 })
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer form-footer">
+        <input class="btn btn-primary SLAME ActionControl" data-submittype="Update" onclick="SubmitForm(this); " type="submit" disabled="disabled" value="Confirm Selection">
+        <input class="btn btn-primary SLAME ActionControl" data-submittype="SetReviewed" onclick="SubmitForm(this); " type="submit" value="Set as Reviewed">
+        Click <a href="/GTP/ApplicationsReview/PersonalHistoryFormReview/@Model.GTPApplicationGUID">Here</a> To view P11 form.
+        @Html.CloseModalButton()
+
+    </div>
+    <div style="padding:0 15px;">
+        @*@Html.Partial("~/Views/Audit/_AuditHandler.cshtml", Url.Action("GetAuditHistory", "Audit", new { Area = "", RecordGUID = Model.ApplicationLanguageGUID } ))*@
+    </div>
+
+}
+
+<script type="text/javascript">
+    $(function () {
+        if ($('#IsEligible').val() == 'true') {
+            $('#div-require-eligible').show();
+        }
+        $(document).on('change', '#IsEligible', function () {
+            if ($(this).val() == 'true') {
+                $('#div-require-eligible').show();
+            } else {
+                $('#div-require-eligible').hide();
+            }
+        })
+        $(document).on('change', '#GTPApplicationExpiryDate', function () {
+
+            var datea = $(this).val();
+            var emailBody = $('#EmailBody').text();
+
+            var date = new Date(datea);
+            var fDate = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
+            alert(fDate);
+            emailBody = emailBody.replace("$ExpiryDate", fDate);
+            $('#EmailBody').text(emailBody)
+
+        })
+
+    })
+</script>

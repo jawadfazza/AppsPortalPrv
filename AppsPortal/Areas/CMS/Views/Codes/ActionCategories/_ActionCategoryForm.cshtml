@@ -1,0 +1,40 @@
+﻿@using AppsPortal.Controllers;
+@model ActionCategoryUpdateModel
+@using (Html.BeginForm("ActionCategory", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "ActionCategoryForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.ActionCategoryGUID)
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ActionCategoryDescription)
+                @Html.EditorFor(model => model.ActionCategoryDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ApplicationGUID)
+                @Html.DropDownListFor(model => model.ApplicationGUID, new DropDownList().Applications(),"", new { style = "width:100%", @class = "form-control select2-basic-single" })
+            </div>
+            <div id="ActionCategoryFormControls" class="form-group form-footer">
+                @if (Model.ActionCategoryGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.ActionCategories.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.ActionCategories.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.ActionCategories.Create, Apps.CMS, Url.Action("ActionCategories/Create", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.ActionCategories.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.ActionCategories.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("ActionCategories", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+}

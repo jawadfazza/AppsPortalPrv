@@ -1,0 +1,627 @@
+﻿@model InternationalStaffEntitlementUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = Model.StaffName + " " + Model.PeriodName; }
+
+@Html.PageHeader("eb96f22d-4409-4bb6-8800-54db4b5fd4ca")
+<link href="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.js"></script>
+<script src="~/Assets/Plugin/JQuery/jquery.ui.touch-punch.min.js"></script>
+
+<style>
+    ul.a {
+        list-style-position: outside;
+    }
+
+    body {
+        background-color: #f5f5f5;
+    }
+
+    .icon-circle {
+        border: 1px solid;
+        padding: 5px;
+        border-radius: 50%;
+        width: 25px !important;
+        height: 25px !important;
+        font-size: 15px;
+        margin-right: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.2;
+    }
+
+    .color-icon-check {
+        color: green;
+        opacity: 0.5;
+    }
+
+    .color-icon-arrow {
+        color: blue;
+        opacity: 0.7;
+    }
+
+    .row-flex {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .header {
+        background: #000084;
+        color: white;
+        margin-top: 1rem;
+        border-radius: 10px 10px 0px 0px;
+        padding: 5px;
+    }
+
+    .row-data {
+        background-color: white;
+        display: flex;
+        padding: 10px;
+        margin: 3px 0px;
+    }
+
+    .row-flex-2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 15px;
+        margin-right: 10px;
+    }
+</style>
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+
+            <div class="panel-heading" id="step1panelcreate">
+                
+
+
+            </div>
+            <div>
+              
+
+                    
+
+                    @Html.HiddenFor(m => m.StaffGUID)
+                    @Html.HiddenFor(m => m.InternationalStaffEntitlementGUID)
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="step1InfoBox">
+                        <div class="panel panel-primary newPanelSettings">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+                                <h3 class="box-title">Entitlement For @Model.StaffName ( @Model.PeriodName )<span class="pull-right" style="color:blue">   Total Entitlements :  @Model.TotalEntitlements US Dollars</span></h3>
+                                <div id="statusId" class="col-lg-offset-1" style="font-weight: bold;"></div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="step3InfoBox">
+                                <div class="panel panel-primary ">
+                            
+                                    <div class="panel-body showstep3body">
+
+                                        @Html.Partial("~/Areas/AHD/Views/InternationalStaffEntitlement/_EntilementRequestStatus.cshtml")
+
+
+
+
+                                    </div>
+                                   
+
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="col-md-12">
+                                    <div id=@string.Format("{0}Filter", DataTableNames.InternationalStaffEntitlementDetailDataTable) class="filter-section" style="display: none;" DefaultButton="btnFind">
+                                        <div class="row">
+
+                                            <div class="col-lg-12">
+
+                                                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                                            </div>
+                                        </div>
+                                        <div class="form-group filter-actions">
+                                            @Html.DatatableFilterControls(DataTableNames.InternationalStaffEntitlementDetailDataTable)
+                                        </div>
+                                    </div>
+                                    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.InternationalStaffEntitlementDetailDataTable)">
+
+                                        @Html.IndexDatatableRefresh(DataTableNames.InternationalStaffEntitlementDetailDataTable)
+                                    </div>
+                                    <div class="page--body">
+                                        <h3>
+                                        </h3>
+
+                                        <div class="form-group">
+                                            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.InternationalStaffEntitlementDetailDataTable, FormController = "InternationalStaffEntitlement", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = (Guid)Model.InternationalStaffEntitlementGUID, OrderBy = 1 })
+                                        </div>
+                                        @if (Model.FlowStatusGUID == InternationalStaffEntitlmentFlowStatus.PendingVerification)
+                                        {
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+
+                                                    @Html.Label("Preferred Payment Method")
+                                                    @Html.DropDownListFor(model => model.PaymentMethodGUID, new DropDownList().StaffEntitlmentsPerferredPaymentMethod(), "", new { @class = "form-control select2-basic-search ", style = "width:100%" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    @Html.LabelFor(model => model.StaffComment, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(model => model.StaffComment, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12"></div>
+                                            <br />
+
+                                        }
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                            <div class="panel-footer  showstep1body">
+                                @if (Model.FlowStatusGUID == InternationalStaffEntitlmentFlowStatus.PendingVerification)
+                                {
+                                    <div class="form-group">
+                                        <input type="button" class="btn btn-info"
+                                               id="btnApproveEntitlementByStaffID" value="Confirm and send to review" />
+                                        <input type="button" class="btn btn-danger pull-right" id="btnRetunrRejectByStaffID" value="Reject and return to HR to review " />
+                                    </div>
+                                }
+                                @if (Model.FlowStatusGUID == InternationalStaffEntitlmentFlowStatus.Closed && Model.IsConfirmReceipt == null)
+                                {
+
+
+
+                                    <div class="col-md-12"></div>
+                                    <br />
+                                    <div class="form-group">
+                                        <input type="button" class="btn btn-info"
+                                               id="btnConfirmReceiptEntitlementByStaffID" value="Confirm Receipt" />
+
+                                    </div>
+                                }
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="step2InfoBox">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="panel panel-primary ">
+                                <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+                                    <h3 class="box-title">Dates Details  </h3>
+
+                                </div>
+                                <div class="panel-body showstep2body">
+
+                                    @*<div class="form-group">
+                                        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.InternationalStaffAttendanceDetailDataTable, FormController = "InternationalStaffEntitlement", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = (Guid)Model.InternationalStaffEntitlementGUID, OrderBy = 1 })
+                                    </div>*@
+                                    <div id='calendar'></div>
+
+                                </div>
+                                <div class="panel-footer  showstep2body">
+
+                                    @*<i class="far fa-hand-point-down showfooterstep2 pull-left"></i>
+                            <br />
+                            <input type="button" onclick="MoveToStep3()" value="Save and move to next step" id="movetosetp3id"
+                                   class="btn btn-primary showfooterstep2" />*@
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    
+                  
+                  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    
+    var myInternationalStaffEntitlementGUID = $("#InternationalStaffEntitlementGUID").val();
+  
+     var _stage = parseInt(@ViewBag.Stage);
+
+
+    var checkStatus = function () {
+        var data = _stage;
+
+
+        if (data == 0) {
+            return;
+        }
+        else {
+
+            var RequestLabel = ['Prepared', 'Verified', 'Certified', 'Closed'];
+
+            var body = '<div >';
+            var bodycheck = '';
+            var bodyempty = '';
+            var bodyarrow = '';
+            var check = false, empty = false;
+
+            for (var i = 0; i < RequestLabel.length; i++) {
+
+                if (i + 1 < data) {
+                    check = true;
+                    bodycheck += '<div class="row row-flex">';
+                    bodycheck += '<i class="fa fa-check icon-circle color-icon-check"></i>';
+                    bodycheck += "<div>" + RequestLabel[i] + "</div></div>";
+
+                }
+                else if (i + 1 == data) {
+
+                    bodyarrow += "<div class='row row-flex'><div class='row-flex-2'>";
+                    if (data != 1)
+                        bodyarrow += "<a data-toggle='collapse' href='#Up' aria-expanded='false' aria-controls='collapseExample'><i class='fa fa-caret-up'></i></a>";
+                    if (data != RequestLabel.length)
+                        bodyarrow += "<a data-toggle='collapse' href='#Down' aria-expanded='false' aria-controls='collapseExample' ><i class='fa fa-caret-down'></i></a>";
+                    bodyarrow += "</div > ";
+                    bodyarrow += '<i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>';
+                    bodyarrow += "<a data-toggle='collapse' href='#M' aria-expanded='false' aria-controls='collapseExample'>" + RequestLabel[i] + "</a></div>";
+
+                }
+                else {
+                    empty = true;
+                    bodyempty += '<div class="row row-flex">';
+                    bodyempty += '<i class="icon-circle"></i>';
+                    bodyempty += "<div>" + RequestLabel[i] + "</div></div>";
+                }
+            }
+
+            body += "<div class='collapse' style='margin-left: 20px;' id='Up'>" + bodycheck + "</div>";
+            body += bodyarrow;
+            body += "<div class='collapse' style='margin-left: 20px;' id='Down'>" + bodyempty + "</div>";
+
+            body += '</div>';
+
+            $('#statusId').append(body);
+        }
+    }
+    checkStatus();
+    var Source;
+    var events = [];
+    var curSource = new Array();
+    var staffGUID = $("#StaffGUID").val();
+    
+    $("#btnApproveEntitlementByStaffID").click(function () {
+        var StaffComment = $("#StaffComment").val();
+        var PaymentMethodGUID = $("#PaymentMethodGUID").val();
+        $('#btnApproveEntitlementByStaffID').hide();
+        $('#btnRetunrRejectByStaffID').hide();
+        $.ajax({
+            url: "/AHD/InternationalStaffEntitlement/SendEntitlementApprovedByStaff",
+            dataType: 'json',
+            type: "post",
+            data: {
+                myInternationalStaffEntitlementGUID: myInternationalStaffEntitlementGUID,
+                StaffComment: StaffComment,
+                PaymentMethodGUID: PaymentMethodGUID
+
+            },
+            success: function (data) {
+                if (data.success == 1) {
+                    Notify(NotificationType.Success, 'Your request been submitted');
+                }
+            }
+
+        });
+    });
+
+    $("#btnRetunrRejectByStaffID").click(function () {
+        var StaffComment = $("#StaffComment").val();
+        // alert(myInternationalStaffEntitlementGUID);
+        $('#btnRetunrRejectByStaffID').hide();
+        $.ajax({
+            url: "/AHD/InternationalStaffEntitlement/SendRejectToHRByStaff",
+            dataType: 'json',
+            type: "post",
+            data: { myInternationalStaffEntitlementGUID: myInternationalStaffEntitlementGUID, StaffComment: StaffComment },
+            success: function (data) {
+                if (data.success == 1) {
+                    Notify(NotificationType.Success, 'Your request been sent to HR to review');
+                }
+            }
+
+        });
+    });
+
+    $("#btnConfirmReceiptEntitlementByStaffID").click(function () {
+
+        // alert(myInternationalStaffEntitlementGUID);
+        $('#btnConfirmReceiptEntitlementByStaffID').hide();
+        $.ajax({
+            url: "/AHD/InternationalStaffEntitlement/SaveConfirmReceiptEntitlement",
+            dataType: 'json',
+            type: "post",
+            data: { myInternationalStaffEntitlementGUID: myInternationalStaffEntitlementGUID },
+            success: function (data) {
+                if (data.success == 1) {
+                    Notify(NotificationType.Success, 'Saved Successfully');
+                }
+            }
+
+        });
+    });
+
+
+    //first source uses querystring to determine what events to pull back
+    curSource[0] = '/hackyjson/cal?e1=' + $('#e1').is(':checked') + '&e2=' + $('#e2').is(':checked');
+    //second source just returns all events
+    curSource[1] = '/hackyjson/anothercal/';
+    var newSource = new Array();
+    $(document).ready(function () {
+
+        InitializeCalendarLeavs();
+    });
+    function searchAppointment() {
+        if ($('#search-term').val() != '') {
+            newSource = Source.filter(elem =>
+                (elem.title.toLowerCase().indexOf($('#search-term').val().toLowerCase()) > -1));
+            refreshCalendar(newSource);
+
+        } else {
+            refreshCalendar(Source);
+        }
+    }
+    function refreshCalendar(newSource) {
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('addEventSource', newSource);
+        $('#calendar').fullCalendar('refetchEvents');
+    }
+
+
+    $(document).keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            event.preventDefault();
+            searchAppointment();
+        }
+
+    });
+
+    var SlotWorkDays = [];
+    function InitializeCalendarLeavs() {
+
+        $.ajax({
+            url: "/AHD/InternationalStaffPresenceTracking/GetWorkingDay",
+            dataType: 'json',
+            type: "post",
+            success: function (data) {
+                $.each(data.WorkDays, function (key, value) {
+                    SlotWorkDays.push(value.Day);
+                });
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today,myCustomButton',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,list'
+                    },
+
+                    height: 700,
+                    allDayText: 'Events',
+                    selectable: true,
+                    overflow: 'auto',
+                    editable: true,
+                    firstDay: 0,
+                    businessHours: true,
+                    businessHours:
+                    {
+                        start: '8:30',
+                        end: '04:00',
+                        dow: SlotWorkDays
+                    },
+
+                    //eventLimit: true, // for all non-agenda views
+                    //views: {
+                    //    agenda: {
+                    //        eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                    //    }
+                    //},
+                    events: function (start, end, timezone, callback) {
+                        $.ajax({
+                            url: "/AHD/InternationalStaffPresenceTracking/GetCalendarDataFromDatabaseFilterByUser",
+                            dataType: 'json',
+                            type: "post",
+                            data: {
+                                // our hypothetical feed requires UNIX timestamps
+                                start: start.format('YYYY-MM-DD HH:mm'),
+                                end: end.format('YYYY-MM-DD HH:mm'),
+                                staffGUID: staffGUID
+                            },
+                            success: function (data) {
+                                events = [];
+                                //alert(JSON.stringify(data.CalendarEvents, null, 2));
+                                $.map(data.CalendarEvents, function (item, i) {
+                                    var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                                    var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                                    var event = new Object();
+                                    event.id = item.EventId;
+                                    event.UserGUID = item.UserGUID;
+                                    event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                    event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                    event.title = item.Title;
+                                    event.allDay = false;
+                                    event.backgroundColor = item.backgroundColor;
+                                    event.borderColor = item.borderColor;
+                                    //if (item.PublicHolday) { event.color = 'red'; event.overlap = false; }
+                                    //if (item.PreventAppointments) { event.color = 'orange'; event.allDay = item.AllDayEvent; }
+                                    events.push(event)
+                                });
+                                callback(events);
+                            }
+                        });
+                    },
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $.ajax({
+                            type: "GET",
+                            url: '/AHD/InternationalStaffPresenceTracking/AttendanceLeaveCalendarUpdate?PK=' + calEvent.id,
+                            success: function (data) {
+                                $('#FormModal').modal('show');
+                                // inject your content into the "placeholder" div
+                                $('#Partial-Container').html(data);
+                                $('#Loading-Container').hide();
+                                InitPlugins($('#Partial-Container'));
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    },
+                    //customButtons: {
+                    //    myCustomButton: {
+                    //        text: 'Add New Leave',
+                    //        click: function () {
+                    //            $.ajax({
+                    //                type: "GET",
+                    //                url: '/AHD/InternationalStaffPresenceTracking/AttendanceLeaveCalendarCreate',
+                    //                success: function (data) {
+                    //                    $('#FormModal').modal('show');
+                    //                    // inject your content into the "placeholder" div
+                    //                    $('#Partial-Container').html(data);
+                    //                    $('#Loading-Container').hide();
+                    //                    InitPlugins($('#Partial-Container'));
+                    //                },
+                    //                error: function (err) {
+                    //                    console.log(err);
+                    //                }
+                    //            });
+                    //        }
+                    //    }
+                    //},
+                    select: function (start, end) {
+
+                    },
+                    eventDrop: function (event, delta, revertFunc) {
+                        $.ajax({
+                            type: "post",
+                            url: '/AHD/InternationalStaffPresenceTracking/AttendanceLeaveUpdateDropEvent?PK=' + event.id + "&startDate=" + event.start.format() + "&endDate=" + event.end.format(),
+                            success: function (JsonResult) {
+                                if (JsonResult.Notify != null) {
+                                    ProcessNotify(JsonResult);
+                                    if (JsonResult.Notify.Type == NotificationType.Error) {
+                                        revertFunc();
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+
+
+    }
+
+
+
+
+
+    function ShowStaffLeaves(guid) {
+
+
+        events = events.filter(function (event) {
+            return event.UserGUID == guid;
+        });
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today,myCustomButton',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,list'
+            },
+
+            height: 700,
+            allDayText: 'Events',
+            selectable: true,
+            overflow: 'auto',
+            editable: true,
+            firstDay: 0,
+            businessHours: true,
+            businessHours:
+            {
+                start: '8:30',
+                end: '04:00',
+                dow: SlotWorkDays
+            },
+
+            //eventLimit: true, // for all non-agenda views
+            //views: {
+            //    agenda: {
+            //        eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+            //    }
+            //},
+            events: function (start, end, timezone, callback) {
+
+
+
+
+                $.map(events, function (item, i) {
+                    var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                    var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                    var event = new Object();
+                    event.id = item.EventId;
+                    event.UserGUID = item.UserGUID;
+                    event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                    event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                    event.title = item.Title;
+                    event.allDay = false;
+                    event.backgroundColor = item.backgroundColor;
+                    event.borderColor = item.borderColor;
+                    //if (item.PublicHolday) { event.color = 'red'; event.overlap = false; }
+                    //if (item.PreventAppointments) { event.color = 'orange'; event.allDay = item.AllDayEvent; }
+                    events.push(event)
+                });
+                callback(events);
+                //alert(JSON.stringify(events, null, 2));
+
+            },
+
+        });
+    }
+</script>

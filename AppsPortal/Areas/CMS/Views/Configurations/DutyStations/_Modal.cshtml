@@ -1,0 +1,58 @@
+﻿@model ConfigurationModel
+<div class="forms-fadeIn checkboxs-form">
+    @using (Html.BeginForm("DutyStationsConfig", "Configurations", FormMethod.Post, new { id = "DutyStationsConfigFrom" }))
+    {
+        string ModalTitle = "Add Duty Stations";
+        @Html.Partial("_ModalHeader", ModalTitle)
+        <div class="modal-body narrow-modal-body">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ValueGuid)
+
+            @{ var Countries = (from a in Model.CheckBoxList
+                                 group a by a.GroupDescription into g
+                                 select new
+                                 {
+                                     Country = g.Key,
+                                     DutyStations = g.Select(x => new CheckBoxList { Value = x.Value, Description = x.Description, Checked = x.Checked }).ToList()
+                                 }).ToList();
+                int Index = 0;
+            }
+            <div class="mScroll " data-mcs-theme="rounded-dark" style="max-height:400px;">
+                @for (int i = 0; i < Countries.Count; i++)
+                {
+                    
+                    <div class="checkboxes-container">
+                        <div class="CheckBoxesGroupHeader">
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="chkHead-accordion" />
+                                <span><b>@Countries[i].Country</b></span>
+                            </label>
+                        </div>
+
+                        @for (int j = 0; j < Countries[i].DutyStations.Count(); j++)
+                        {
+                            <div class="configOption">
+                                @Html.Hidden("CheckBoxList[" + Index + "].Value", Countries[i].DutyStations[j].Value)
+                                @Html.Hidden("CheckBoxList[" + Index + "].Description", Countries[i].DutyStations[j].Description)
+                                <label class="black ClearFindTextBox" style="margin-bottom:0!important">
+                                    @Html.CheckBox("CheckBoxList[" + Index + "].Checked", Countries[i].DutyStations[j].Checked, new { @class = "chkNode-accordion" })
+                                    @Html.DisplayFor(m => Countries[i].DutyStations[j].Description)
+                                </label>
+                            </div>
+                            Index++;
+                        }
+
+                    </div>
+                }
+            </div>
+
+            <div class="modal-footer form-footer">
+                @if (Model.ValueGuid != Guid.Empty)
+                {
+                    @Html.CreateButton(1, Apps.CMS)
+                }
+                <input type="button" id="btnClose" class="btn btn-default SLAME" data-dismiss="modal" value="@resxUIControls.Close" />
+            </div>
+        </div>
+                }
+</div>

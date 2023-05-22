@@ -1,0 +1,111 @@
+﻿@model RegistrationQueueView
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<div class="page--header">
+    <div class="page--banner">
+        <h2>@resxPages.ConfirmNewAccount</h2>
+        <div class="row">
+            <div class="col-md-5">
+                <article>
+                    @resxPages.ConfirmNewAccountArticle
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page--content">
+    <div class="page--body">
+        <h3 class="page--subtitle"></h3>
+        <div class="row">
+            <div class="col-lg-7">
+                @using (Html.BeginForm("Register", "Registration", FormMethod.Post, new { @class = "formControl", id = "RegisterForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.UserRegistrationQueueGUID)
+                    @Html.HiddenFor(model => model.UserGUID)
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <img id="userProfileImage" class="userProfilePhotoInPermissions" src="/Assets/Images/img.png" />
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="col-xs-12">
+                                <div class="form-footer">
+                                    <div class="col-xs-4">
+                                        @Html.Label(@resxDbFields.FullName)
+                                    </div>
+                                    <div class="col-xs-8">
+                                        @Html.DisplayFor(model => model.FirstName , new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.DisplayFor(model =>  model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-footer">
+                                    <div class="col-xs-4">
+                                        @Html.LabelFor(model => model.EmailAddress)
+                                    </div>
+                                    <div class="col-xs-8">
+                                        @Html.DisplayFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-footer">
+                                    <div class="col-xs-4">
+                                        @Html.LabelFor(model => model.JobTitleDescription)
+                                    </div>
+                                    <div class="col-xs-8">
+                                        @Html.DisplayFor(model => model.JobTitleDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-footer">
+                                    <div class="col-xs-4">
+                                        @Html.LabelFor(model => model.OrganizationInstanceDiscription)
+                                    </div>
+                                    <div class="col-xs-8">
+                                        @Html.DisplayFor(model => model.OrganizationInstanceDiscription, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-footer">
+                                    <div class="col-xs-4">
+                                        @Html.LabelFor(model => model.RequestedOn)
+                                    </div>
+                                    <div class="col-xs-8">
+                                        @Html.DisplayFor(model => model.RequestedOn, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="forms-footer">
+                                    <br />
+                                    <hr />
+                                    <br />
+                                    <div class="col-xs-1">
+                                        @Html.CheckBoxFor(model => model.ConfirmedRegistrationQueue)
+                                    </div>
+                                    <div class="col-xs-11">
+                                        @Html.LabelFor(model => model.ConfirmedRegistrationQueue)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-footer">
+                                    <div class="col-xs-12">
+                                        <input class="btn btn-primary SLAME ActionControl" data-submittype="Confirm" onclick="SubmitForm(this);" type="submit" value="@resxUIControls.AcceptRequest">
+                                        <input class="btn btn-danger SLAME ActionControl" data-submittype="Deny" onclick="SubmitForm(this);" type="submit" value="@resxUIControls.RejectRequest">
+                                    </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

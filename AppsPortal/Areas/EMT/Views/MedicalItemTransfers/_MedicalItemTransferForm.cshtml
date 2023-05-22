@@ -1,0 +1,60 @@
+﻿@model MedicalItemTransferUpdateModel
+@using (Html.BeginForm("MedicalItemTransfer", "MedicalItemTransfers", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalItemTransferForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+   
+    @Html.FormHiddenFields(model => model.MedicalItemTransferGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.Label(resxDbFields.TransferDate)
+                @Html.EditorFor(model => model.DeliveryDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            @*<div class="form-group">
+            @if (Model.ConfirmedReceived)
+            {
+                @Html.CheckBoxFor(model => model.ConfirmedReceived, new { @disabled = "true" })
+            }
+            else
+            {
+                @Html.CheckBoxFor(model => model.ConfirmedReceived, new { @class = "chkNode-accordion" })
+            }
+            @Html.LabelFor(model => model.ConfirmedReceived)
+        </div>*@
+
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.MedicalPharmacyGUID)
+                @Html.DropDownListFor(model => model.MedicalPharmacyGUID, new DropDownList().MedicalPharmacyMain(false), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+            <div class="form-group">
+                @Html.Label(resxDbFields.CreatedBy)
+                @Html.DisplayFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                - @Html.Label(resxDbFields.CreatedOn)
+                @Html.DisplayFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div id="MedicalItemTransferFormControls" class="form-group form-footer">
+                @if (Model.MedicalItemTransferGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.MedicalItemTransfer.Create, Apps.EMT)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.MedicalItemTransfer.Update, Apps.EMT)
+                        @Html.CreateNewButton(Permissions.MedicalItemTransfer.Create, Apps.EMT, Url.Action("/Create", new { Area = "EMT" }))
+                        @Html.DeleteButton(Permissions.MedicalItemTransfer.Delete, Apps.EMT)
+                        <button type="button" title="Transfer Partner  Items to Partner Pharmacies or Warehouses" class="btnCreate Modal-Link btn pull-right btn-default" data-url="@Url.Action("MedicalItemInputTransferCreate", "MedicalItemTransfers", new { FK = Model.MedicalItemTransferGUID })"><i class="fa fa-exchange "></i></button>
+
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.MedicalItemTransfer.Restore, Apps.EMT)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "MedicalItemTransfers", new { Area = "EMT" }))
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,435 @@
+﻿@model TenderUpdateModel
+
+@using (Html.BeginForm("Tender", "Tenders", new { Area = "TTT" }, FormMethod.Post, new { id = "TenderForm", @class = "main-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.TenderGUID)
+
+    @Html.HiddenFor(model => model.TenderRequisitionGUID)
+    @Html.HiddenFor(model => model.TenderingAndEvaluationGUID)
+    @Html.HiddenFor(model => model.TenderEndorsementsAndApprovalsGUID)
+    @Html.HiddenFor(model => model.TenderContractInformationGUID)
+    @Html.HiddenFor(model => model.TenderObservationAndRemarksGUID)
+
+    @Html.HiddenFor(model => model.TenderReference)
+    @Html.HiddenFor(model => model.TenderSequence)
+    @Html.HiddenFor(model => model.FirstOpenCheck)
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.TenderYear)
+
+    try
+    {
+        @Html.Hidden("TenderBoxNumbersClient", String.Join(",", Model.TenderBoxNumbers))
+    }
+    catch { }
+
+    try
+    {
+        @Html.Hidden("AwardedCompanyClient", String.Join(",", Model.AwardedCompanyGUIDs))
+    }
+    catch { }
+
+    try
+    {
+        @Html.Hidden("FocalPointRUGUIDClient", String.Join(",", Model.FocalPointRUGUID))
+    }
+    catch { }
+
+
+
+    <div class="row">
+        <br />
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Details</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderTypeGUID)
+                        @Html.DropDownListFor(model => model.TenderTypeGUID, new DropDownList().TenderTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderSequence)
+                        @Html.EditorFor(model => model.TenderSequenceDisplay, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderReference)
+                        @Html.EditorFor(model => model.TenderReferenceDisplay, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderSubject)
+                        @Html.EditorFor(model => model.TenderSubject, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProcurementPlanLine)
+                        @Html.DropDownListFor(model => model.ProcurementPlanLine, new DropDownList().DutyStations(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BuyerGUID)
+                        @Html.DropDownListFor(model => model.BuyerGUID, new DropDownList().UsersForTender(true), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SupervisorGUID)
+                        @Html.DropDownListFor(model => model.SupervisorGUID, new DropDownList().UsersForTender(true), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderLaunchingDate)
+                        @Html.EditorFor(model => model.TenderLaunchingDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderClosingDate)
+                        @Html.EditorFor(model => model.TenderClosingDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderBoxNumbers)
+                        @Html.DropDownListFor(model => model.TenderBoxNumbers, new DropDownList().TenderBoxNumbers(), new { style = "width:100%", @class = "form-control select2-basic-multiple", multiple = "multiple" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderExtendedClosingDate)
+                        @Html.EditorFor(model => model.TenderExtendedClosingDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderDeadlineForClarification)
+                        @Html.EditorFor(model => model.TenderDeadlineForClarification, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderSiteVisitDate)
+                        @Html.EditorFor(model => model.TenderSiteVisitDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderSampleSubmissionDeadline)
+                        @Html.EditorFor(model => model.TenderSampleSubmissionDeadline, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderDateForBidderConference)
+                        @Html.EditorFor(model => model.TenderDateForBidderConference, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderStatusGUID)
+                        @Html.DropDownListFor(model => model.TenderStatusGUID, new DropDownList().TenderStatuses(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderResolutionGUID)
+                        @Html.DropDownListFor(model => model.TenderResolutionGUID, new DropDownList().TenderResolutions(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NotifyBOC)
+                        @Html.DropDownListFor(model => model.NotifyBOC, new DropDownList().DoNotifyBOC(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenderReminderDays)
+                        @Html.EditorFor(model => model.TenderReminderDays, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+            </div>
+            @if (Model.TenderGUID != Guid.Empty)
+            {
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Endorsements and Approvals</div>
+                    <div class="panel-body">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.HofoSupplyOfficerRepLccRccHccGUID)
+                                @Html.DropDownListFor(model => model.HofoSupplyOfficerRepLccRccHccGUID, new DropDownList().TenderHofoSupplyRep(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EndorsmentApprovalDate)
+                                @Html.EditorFor(model => model.EndorsmentApprovalDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EndorsmentApprovalNumber)
+                                @Html.EditorFor(model => model.EndorsmentApprovalNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="panel panel-primary">
+                <div class="panel-heading">Observations / Remarks</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ObservationAndRemarks)
+                        @Html.TextAreaFor(model => model.ObservationAndRemarks, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 13 })
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Requisition</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RequestingUnitGUID)
+                        @Html.DropDownListFor(model => model.RequestingUnitGUID, new DropDownList().Departments(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FocalPointRUGUID)
+                        @Html.DropDownListFor(model => model.FocalPointRUGUID, new DropDownList().Users(true), new { style = "width:100%", @class = "form-control select2-basic-multiple", multiple = "multiple" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RequestRecieved)
+                        @Html.EditorFor(model => model.RequestRecieved, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdentityHqOrSyrGUID)
+                        @Html.DropDownListFor(model => model.IdentityHqOrSyrGUID, new DropDownList().TenderIdentities(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BudgetSourceGUID)
+                        @Html.DropDownListFor(model => model.BudgetSourceGUID, new DropDownList().TenderBudgetSources(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (Model.TenderGUID != Guid.Empty)
+        {
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Tendering and Evaluation</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TenderBidOpeningDateTechnical)
+                            @Html.EditorFor(model => model.TenderBidOpeningDateTechnical, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TenderTechnicalEvaluationDate)
+                            @Html.EditorFor(model => model.TenderTechnicalEvaluationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TenderBidOpeningDateFinancial)
+                            @Html.EditorFor(model => model.TenderBidOpeningDateFinancial, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TenderFinancialEvaluationDate)
+                            @Html.EditorFor(model => model.TenderFinancialEvaluationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.TenderGUID != Guid.Empty)
+        {
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Contract Information</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FA1OfGUID)
+                            @Html.DropDownListFor(model => model.FA1OfGUID, new DropDownList().TenderFA1(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AwardedCompanyGUIDs)
+                            @Html.DropDownListFor(model => model.AwardedCompanyGUIDs, new DropDownList().TenderAwardedCompany(), new { style = "width:100%", @class = "form-control select2-basic-multiple", multiple = "multiple" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AwardedAmountOrCeiling)
+                            @Html.EditorFor(model => model.AwardedAmountOrCeiling, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Currency)
+                            @Html.DropDownListFor(model => model.Currency, new DropDownList().TenderAmountCurrency(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="TenderFormControls" class="form-group form-footer">
+                @if (Model.TenderGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Tenders.Create, Apps.TTT)
+                    <input id="btn-generateCoverLetter" class="btn btn-primary" type="button" value="Generate Cover Letter">
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Tenders.Update, Apps.TTT)
+                        @Html.CreateNewButton(Permissions.Tenders.Create, Apps.TTT, Url.Action("Create", "Tenders", new { Area = "TTT" }))
+                        @Html.DeleteButton(Permissions.Tenders.Delete, Apps.TTT)
+                        <input id="btn-generateCoverLetter" class="btn btn-primary" type="button" value="Generate Cover Letter">
+
+
+                        @*<div>
+                                <a href="/TTT/Tenders/CoverLetterDownload?PK=@Model.TenderGUID">Download Now</a>
+                            </div>*@
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Tenders.Restore, Apps.TTT)
+
+
+                        <input class="btn btn-primary" type="button" disabled="disabled" value="Generate Cover Letter">
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "Tenders", new { Area = "TTT" }))
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<div class="modal fade" id="confirmCoverLetterModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Generate Cover Letter</h4>
+            </div>
+            <div class="modal-body">
+                <p>Dear user,</p>
+                <p>Please be advised that some part of the document (highlighted) need to be adjusted to your course.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-confirmCoverLetter" class="btn btn-primary" data-dismiss="modal">Download Cover Letter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $('#btn-generateCoverLetter').click(function (e) {
+            e.preventDefault();
+            $('#confirmCoverLetterModal').modal('show');
+        });
+
+        $('#btn-confirmCoverLetter').click(function (e) {
+            e.preventDefault();
+            var TenderGUID = $('#TenderGUID').val();
+            if (TenderGUID == '00000000-0000-0000-0000-000000000000') {
+                Notify(NotificationType.Warning, "Please save the current tender, or add a new tender record before generating cover letter.");
+            } else {
+                window.location.href = '/TTT/Tenders/CoverLetterDownload?PK=' + TenderGUID;
+            }
+        });
+        $('#btn-testtest').click(function (e) {
+            e.preventDefault();
+
+
+        });
+
+        if ($('#AwardedCompanyClient').length) {
+            var res1 = $('#AwardedCompanyClient').val().split(",");
+            $('#AwardedCompanyGUIDs').val(res1).trigger('change');
+        }
+
+        if ($('#TenderBoxNumbersClient').length) {
+            var res2 = $('#TenderBoxNumbersClient').val().split(",");
+            $('#TenderBoxNumbers').val(res2).trigger('change');
+        }
+
+        if ($('#FocalPointRUGUIDClient').length) {
+            var res3 = $('#FocalPointRUGUIDClient').val().split(",");
+            $('#FocalPointRUGUID').val(res3).trigger('change');
+        }
+
+
+
+        $('#TenderClosingDate').change(function (e) {
+            e.preventDefault();
+            validateBoxNumbers();
+
+        });
+
+        $('#TenderClosingDate').focus(function (e) {
+              $('#FirstOpenCheck').val("False");
+        });
+
+
+        $('#ProcurementPlanLine').change(function (e) {
+            e.preventDefault();
+            validateBoxNumbers();
+
+        });
+        var $eventSelect = $('#ProcurementPlanLine');
+        $eventSelect.on("select2:open", function (e) {  $('#FirstOpenCheck').val("False");});
+
+        function validateBoxNumbers() {
+
+            var tenderClosingDate = $("#TenderClosingDate").val();
+            if (tenderClosingDate == "") {
+                return;
+            }
+            var procurementPlanLine = $('#ProcurementPlanLine').val();
+            if (procurementPlanLine == "") {
+                return;
+            }
+            var tenderGUID = $('#TenderGUID').val();
+
+            if (tenderClosingDate == null) {
+                return;
+            }
+            if ($('#FirstOpenCheck').val() == "True") {
+
+                return;
+            }
+
+
+            $("#TenderBoxNumbers").find('option:selected').removeAttr('selected');
+            $("#TenderBoxNumbers").val('');
+            $("#TenderBoxNumbers").change();
+
+            //$("#select2_example")
+            $.each($("#TenderBoxNumbers>option"), function (id, va) {
+                var newValue = va.value.replace('"', '');
+                if (newValue == "Without Tender Box") {
+                      $("#TenderBoxNumbers>option").last().removeAttr('disabled');
+                      $("#TenderBoxNumbers>option").last().text(newValue);
+                } else {
+                     $("#TenderBoxNumbers>option[value=" + newValue + "]").removeAttr('disabled');
+                     $("#TenderBoxNumbers>option[value='" + newValue + "']").text(newValue);
+                }
+            });
+
+            $("#TenderBoxNumbers").select2().trigger('change');
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CheckTenderBoxAvailability", "Tenders", new { Area = "TTT"})",
+                data: {
+                    TenderGUID: tenderGUID,
+                    TenderClosingDate: tenderClosingDate,
+                    ProcurementPlanLine: procurementPlanLine
+                },
+                success: function (result) {
+                    if (result.ReservedBoxNumbers == "") {
+                        return;
+                    }
+                    $.each(result.ReservedBoxNumbers, function (idx, val) {
+                        var boxNumbers = val.TenderBoxNumber.split(",");
+                        $.each(boxNumbers, function (_idx, bn) {
+                            if (bn == 'Without Tender Box') {
+                                return;
+                            }
+                            $("#TenderBoxNumbers>option[value='" + bn + "']").attr('disabled', 'disabled');
+                            $("#TenderBoxNumbers>option[value='" + bn + "']").text(bn + " (Reserved for tender: " + val.TenderSubject + ")");
+                        })
+                    });
+                },
+                error: function () {}
+            });
+        }
+
+    })
+    function RefreshTenderReferences(ref, seq) {
+        $('#TenderReference').val(ref);
+        $('#TenderReferenceDisplay').val(ref);
+        $('#TenderSequence').val(seq);
+        $('#TenderSequenceDisplay').val(seq);
+    }
+</script>

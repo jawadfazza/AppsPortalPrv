@@ -1,0 +1,38 @@
+﻿@model codeFactorsLanguages
+@using (Html.BeginForm("FactorLanguage", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "FactorLanguageForm" }))
+{
+    string ModalTitle = Model.FactorLanguageGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.FactorLanguageGUID)
+        @Html.HiddenFor(model => model.FactorGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.LanguageID)
+            @Html.DropDownListFor(model => model.LanguageID, new DropDownList().Languages(false), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FactorDescription)
+            @Html.EditorFor(model => model.FactorDescription, new { htmlAttributes = new {  @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.FactorLanguageGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.Factors.Create, Apps.CMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.Factors.Update, Apps.CMS)
+                @Html.DeleteSwitchButton(Permissions.Factors.Delete, Apps.CMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.Factors.Restore, Apps.CMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

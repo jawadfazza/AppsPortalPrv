@@ -1,0 +1,122 @@
+﻿@model FinanceReportParameterModel
+@{
+    ViewBag.Title = "Tenders";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("94a52eda-07a7-4a57-8927-ac45b7f1f525")
+
+<div class="col-md-12">
+    @using (Html.BeginForm("GetFinanceReportData", "Reports", new { Area = "TBS" }, FormMethod.Post, new { id = "GetFinanceReportDataForm", @class = "main-form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Report Parameters
+            </div>
+            <div class="panel-body">
+                <div class="form-group col-md-2">
+                    @Html.LabelFor(model => model.ReportTypeGUID)
+                    @Html.DropDownListFor(model => model.ReportTypeGUID, new DropDownList().BillReports(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                </div>
+                @*<div class="form-group col-md-2">
+                        @Html.LabelFor(model => model.BillingDutyStationGUID)
+                        @Html.DropDownListFor(model => model.BillingDutyStationGUID, new DropDownList().DutyStations(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                    </div>*@
+                <div class="form-group col-md-2">
+                    @Html.LabelFor(model => model.TelecomCompanyGUID)
+                    @Html.DropDownListFor(model => model.TelecomCompanyGUID, new DropDownList().BillingTelecomCompanies(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                </div>
+                <div class="form-group col-md-2">
+                    @Html.LabelFor(model => model.BillForMonth)
+                    @Html.DropDownListFor(model => model.BillForMonth, new DropDownList().BillingMonthesForReport(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                </div>
+                <div class="form-group col-md-2">
+                    @Html.LabelFor(model => model.BillForYear)
+                    @Html.DropDownListFor(model => model.BillForYear, new DropDownList().BillingYearsForReport(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                </div>
+                <div class="form-group col-md-2">
+                    @Html.LabelFor(model => model.UserGUID)
+                    @Html.DropDownListFor(model => model.UserGUID, new DropDownList().CoreUsers(true), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button id="btn-generate-report" class="btn btn-primary"><i style="display:none;" class="fas fa-spinner fa-1x fa-pulse"></i> <span class="this-btn-text"> Generate Report</span></button>
+            </div>
+        </div>
+
+    }
+
+</div>
+<div class="page--body">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="report-result-container" class="col-md-12">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        InitValidators('#GetFinanceReportDataForm');
+        $('#btn-generate-report').click(function (e) {
+            e.preventDefault();
+            var formName = 'GetFinanceReportDataForm';
+            $('#' + formName).valid();
+            var error = $('.input-validation-error', '#' + formName).length;
+
+            if (error > 0) {
+                $('.select2-selection__rendered').removeAttr('style');
+
+                $('.input-validation-error:first-child').parent().popover({
+                    trigger: 'click',
+                    placement: 'auto top',
+                    container: '#PopOverContainer',
+                    content: ''
+                });
+                return;
+            }
+
+            var form = $('#GetFinanceReportDataForm');
+            var btn = $(this);
+            $('#report-result-container').html('');
+            $(btn).find('.fas').show();
+            $(btn).find('.this-btn-text').html('Please Wait');
+            $(btn).attr("disabled", true);
+
+            var form = $('#GetFinanceReportDataForm');
+
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: $(form).attr('action'),
+                data: $(form).serialize(),
+                success: function (html) {
+                    $('#report-result-container').html(html);
+                    $(btn).find('.fas').hide();
+                    $(btn).find('.this-btn-text').html(' Generate Report');
+                    $(btn).removeAttr("disabled");
+                    var table = $('#tbl-summary').DataTable({
+
+                    });
+                    var ReportTypeGUID = $('#ReportTypeGUID').val();
+                    //var BillingDutyStationGUID = $('#BillingDutyStationGUID').val();
+                    var BillForMonth = $('#BillForMonth').val();
+                    var BillForYear = $('#BillForYear').val();
+                    var TelecomCompanyGUID = $('#TelecomCompanyGUID').val();
+                    var UserGUID = $('#UserGUID').val();
+                    $('#tbl-summary_length').append('<a id="link-download-excel" style="color:white" target="_blank" href="/TBS/Reports/DownloadFinanceReportExcel?ReportTypeGUID=' + ReportTypeGUID + '&BillForMonth=' + BillForMonth + '&BillForYear=' + BillForYear + '&TelecomCompanyGUID=' + TelecomCompanyGUID + '&UserGUID=' + UserGUID + '" class="btn btn-primary">Download Form</a>');
+                    InitRecordsPerPage();
+                    $(window).unbinde('beforeunload');
+                },
+                error: function () { }
+            });
+
+        });
+
+    })
+</script>

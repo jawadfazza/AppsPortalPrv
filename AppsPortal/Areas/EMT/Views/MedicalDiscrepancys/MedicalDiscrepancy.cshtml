@@ -1,0 +1,20 @@
+﻿@model MedicalDiscrepancyUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.MedicalDiscrepancyGUID == Guid.Empty) ? "Medical Item Transfer" : "Medical Item Transfer"; }
+
+@Html.PageHeader("dcbc5395-b758-4902-b90e-b1a728ad45a4")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/EMT/Views/MedicalDiscrepancys/_MedicalDiscrepancyForm.cshtml")
+        <div id="MedicalDiscrepancyDetailsContainer">
+            @if (Model.MedicalDiscrepancyGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/EMT/Views/MedicalDiscrepancys/_MedicalDiscrepancyDetailsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MedicalDiscrepancyGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

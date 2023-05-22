@@ -1,0 +1,59 @@
+﻿@model MedicalDiscrepancyDetailsUpdateModel
+@using (Html.BeginForm("MedicalDiscrepancyDetail", "MedicalDiscrepancys", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalDiscrepancyDetailForm" }))
+{
+    string ModalTitle = Model.MedicalDiscrepancyDetailGUID.ToString() == Guid.Empty.ToString() ? "New Item" : "Edit Item";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.MedicalDiscrepancyDetailGUID)
+    @Html.HiddenFor(model => model.MedicalDiscrepancyGUID)
+    @Html.HiddenFor(model => model.ReferenceItemGUID)
+
+    <div class="form-group HANDLER">
+        @Html.LabelFor(model => model.MedicalItemGUID)
+        @Html.DropDownListFor(model => model.MedicalItemGUID, new DropDownList().MedicalItems(), "",
+       new
+            {
+           style = "width:100%",
+           @class = "form-control select2-basic-search",
+           onchange = "UpdateDropDownList([$(this).val()+','+$('#MedicalPharmacyGUID').val()], [{ DropDownListID : 'MedicalItemTransferDetailGUID', Action : 'RemoteMedicalItemTransferDetails'}]);"
+       })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DiscrepancyQuantity)
+        @Html.EditorFor(model => model.DiscrepancyQuantity, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.OriginalQuantity)
+        @Html.EditorFor(model => model.OriginalQuantity, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.RemainingItems)
+        @Html.EditorFor(model => model.RemainingItems, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comment)
+        @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.MedicalDiscrepancyDetailGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.MedicalDiscrepancy.Create, Apps.EMT)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.MedicalDiscrepancy.Update, Apps.EMT)
+                @Html.DeleteSwitchButton(Permissions.MedicalDiscrepancy.Delete, Apps.EMT)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.MedicalDiscrepancy.Delete, Apps.EMT)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

@@ -1,0 +1,27 @@
+﻿@model ApplicationEnhancementRequestModel
+@{
+    ViewBag.Title = "Application Request";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("343af74c-a510-4161-b8e2-551fab3e80a1")
+@{string PageTitle = (Model.AppEnhancementGUID == Guid.Empty) ? "New Application Enhancement" : "Edit Application Enhancement"; }
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/SRS/Views/ApplicationEnhancements/_ApplicationEnhancementForm.cshtml")
+        <div id="ApplicationEnhancementAttachementContainer">
+            
+            @if (Model.AppEnhancementGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/SRS/Views/ApplicationEnhancements/_ApplicationEnhancementAttachementDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.AppEnhancementGUID, IsParentActive = Model.Active })
+            }
+        </div>
+        @*<div id="ApplicationRequestAuthorizationContainer">
+                @if (Model.AppRequestGUID != Guid.Empty && Model.Active)
+                {
+
+                    @Html.Partial("~/Areas/SRS/Views/ApplicationRequest/_ApplicationRequestAuthorization.cshtml",Model)
+                }
+            </div>*@
+    </div>
+</div>

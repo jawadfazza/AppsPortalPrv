@@ -1,0 +1,55 @@
+﻿@model dataPersonalHistoryRelativeWorkerUpdateModel
+
+@using (Html.BeginForm("RelativesWorkers", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "RelativesWorkersForm", @class = "main-form" }))
+{
+    string ModalTitle = Model.GTPPHRelativeWorkerGUID.ToString() == Guid.Empty.ToString() ? "Add new relative" : "update relative";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.GTPPHRelativeWorkerGUID)
+
+        <div class="col-md-12">
+            <div class="row" style="padding-top:10px;">
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.RelativeName)
+                        @Html.EditorFor(model => model.RelativeName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.RelativeRelationship)
+                        @Html.EditorFor(model => model.RelativeRelationship, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.RelativeOrganization)
+                        @Html.EditorFor(model => model.RelativeOrganization, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer form-footer">
+        @if (Model.GTPPHRelativeWorkerGUID == Guid.Empty)
+        {
+            @Html.CreateButtonNoPermission()
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButtonNoPermission()
+                @Html.DeleteSwitchButtonNoPermission()
+            }
+            else
+            {
+                @Html.RestoreSwitchButtonNoPermission()
+            }
+        }
+        @Html.CloseModalButton()
+
+    </div>
+}
+

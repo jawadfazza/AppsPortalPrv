@@ -1,0 +1,20 @@
+﻿@model MedicalBeneficiaryItemOutUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.MedicalBeneficiaryItemOutGUID == Guid.Empty) ? "Medical Item Transfer" : "Medical Item Transfer"; }
+
+@Html.PageHeader("794deff6-7e6e-454a-90ae-43dc1b2bca0d")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/EMT/Views/MedicalBeneficiaryItemOuts/_MedicalBeneficiaryItemOutForm.cshtml")
+        <div id="MedicalBeneficiaryItemOutDetailsContainer">
+            @if (Model.MedicalBeneficiaryItemOutGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/EMT/Views/MedicalBeneficiaryItemOuts/_MedicalBeneficiaryItemOutDetailsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MedicalBeneficiaryItemOutGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

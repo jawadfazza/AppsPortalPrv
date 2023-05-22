@@ -1,0 +1,151 @@
+﻿@model ItemInputDetailModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("6428fe46-5a43-46f0-a9e6-0bcb1c510af2")
+
+<div class="page--content">
+
+
+    <div id="TabContainer">
+        <div id="exTab1">
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#MovementsEntryContainer" data-toggle="tab">Entry </a>
+                </li>
+                <li>
+                    <a href="#MovementsReleaseContainer" data-toggle="tab">Release </a>
+                </li>
+                @*<li>
+                    <a href="#ProfileContainer" data-toggle="tab">Item Profile</a>
+                </li>*@
+
+
+                <li>
+
+            </ul>
+        </div>
+        <div class="tab-content clearfix">
+            <br />
+            @ViewBag.ItemName
+            <div class="tab-pane active" id="MovementsEntryContainer">
+
+
+                <div id=@string.Format("{0}Filter", DataTableNames.WarehouseConsumableItemEntryDetailInfoDataTable) class="filter-section" style="display: none;" DefaultButton="btnFind">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CustodianType, DbColumnName = "CustodianType", FilterForDataType = "Text", DataList = new DropDownList().WarehouseRequsterTypes(), IsMultiple = false })
+
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Custodian, DbColumnName = "Custodian", FilterForDataType = "Text" })
+
+
+                        </div>
+                        <div class="col-lg-12">
+
+
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DeliveryStatus, DbColumnName = "DeliveryStatus", FilterForDataType = "Text", DataList = new DropDownList().ModelDeliveryStatus(), IsMultiple = false })
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ReleaseType, DbColumnName = "ReleaseType", FilterForDataType = "Text", DataList = new DropDownList().WarehouseReleaseTypes(), IsMultiple = false })
+
+
+
+
+                        </div>
+                        @*<div class="col-lg-12">
+                        @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.IME1, DbColumnName = "IME1", FilterForDataType = "Text" })
+                        @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Custodian, DbColumnName = "Custodian", FilterForDataType = "Text" })
+                    </div>*@
+
+                        <div class="col-lg-12">
+                            @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelStatus, DbColumnName = "ModelStatus", FilterForDataType = "Text" })*@
+
+
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                        </div>
+                    </div>
+                    <div class="form-group filter-actions">
+                        @Html.DatatableFilterControls(DataTableNames.WarehouseConsumableItemEntryDetailInfoDataTable)
+                    </div>
+                </div>
+                <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.WarehouseConsumableItemEntryDetailInfoDataTable)">
+                    @Html.FieldDataTableCreate(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("WarehouseConsumableSingleItemEntryCreate", "ConsumableItem", new { FK = Model.ItemModelWarehouseGUID }))
+                    @*@Html.IndexDatatableDelete(Permissions.ItemModel.Delete, Apps.WMS, DataTableNames.WarehouseConsumableItemEntryDetailInfoDataTable)*@
+                    @Html.IndexDatatableRestor(Permissions.ItemModel.Restore, Apps.WMS, DataTableNames.WarehouseConsumableItemEntryDetailInfoDataTable)
+                    @Html.IndexDatatableRefresh(DataTableNames.WarehouseConsumableItemEntryDetailInfoDataTable)
+                </div>
+                <div class="page--body">
+                    <div class="form-group">
+
+                        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseConsumableItemEntryDetailInfoDataTable, FormController = "ConsumableItem", Area = "WMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ItemModelWarehouseGUID, OrderBy = 1 })
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="tab-pane" id="MovementsReleaseContainer">
+                @Html.Partial("~/Areas/WMS/Views/ConsumableItemReleaseDetail/_ConsumableItemReleaseDetailInfoDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.ItemModelWarehouseGUID, IsParentActive = Model.Active })
+                @*@Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseConsumableItemReleaseDetailInfoDataTable, FormController = "ConsumableItem", Area = "WMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ItemModelWarehouseGUID, OrderBy = 1 })*@
+
+            </div>
+
+            @*<div class="tab-pane" id="ProfileContainer">
+            <div class="forms-fadeIn ">
+
+
+                @Html.Partial("~/Areas/WMS/Views/ModelEntryMovements/_EditModelEntryMovementForm.cshtml")
+
+
+
+
+
+            </div>
+
+
+
+
+
+        </div>*@
+        </div>
+
+
+    </div>
+</div>
+<script>
+
+
+
+    $("#otherDeterminant").hide();
+    $('#ShowOtherDeterminantid').click(function () {
+        $('#otherDeterminant').toggle();
+    });
+
+    $("#showModelDetails").hide();
+    var ShowModelDetails = function () {
+        $("#showModelDetails").toggle();
+    }
+
+
+    //if (ItemModelWarehouseGUID != null) {
+    //    var URL = "/WMS/ModelMovements/GetModelDeterminats?ItemModelWarehouseGUID=" + ItemModelWarehouseGUID;
+
+    //    $('#ModelDeterminant').load(URL,
+    //        function () { });
+    //}
+    var CheckCreateNewRelease = function (data) {
+
+        if (data == 1) {
+            $(".btnCreate").hide();
+        }
+        else if (data == 0) {
+            $(".btnCreate").show();
+        }
+    }
+
+</script>
+

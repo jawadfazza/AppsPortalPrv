@@ -1,0 +1,19 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+            <div id=@string.Format("{0}Filter",DataTableNames.PersonalDetailsNamesDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.PersonalDetailsNamesDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer",DataTableNames.PersonalDetailsNamesDataTable)">
+                <button type="button" title="Filter" class="btnFilter btn btn-sm btn-success" onclick="ToggleFilter('@DataTableNames.PersonalDetailsNamesDataTable');"><i class="fa fa-filter"></i></button>
+                <button type="button" title="Add New Record" class="btnCreate Modal-Link btn btn-sm btn-primary" data-url="@Url.Action("PersonalDetailsNamesUpdate", "Profile")"><i class="fa fa-plus"></i></button>
+                <button type="button" title="Delete Selected Records" class="btnDelete btn btn-sm btn-primary Confirm" data-mode="All" data-action="Delete" data-submittype="@SubmitTypes.Delete" data-datatable="@DataTableNames.PersonalDetailsNamesDataTable"><i class="fa fa-trash-o"></i></button>
+                <button type="button" title="Restore Selected Records" class="btnRestore btn btn-sm btn-warning Confirm" data-mode="All" data-action="Restore" data-submittype="@SubmitTypes.Restore" style="display:none;" data-datatable="@DataTableNames.PersonalDetailsNamesDataTable"><i class="fa fa-history"></i></button>
+                <button type="button" title="Refresh" class="btnRefresh btn btn-sm btn-primary" onclick="DataTableRefresh('@DataTableNames.PersonalDetailsNamesDataTable');"><i class="fa fa-refresh"></i></button>
+            </div>
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.PersonalDetailsNamesDataTable, FormController = "Profile", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID , OrderBy = 1 })
+    </div>
+</div>

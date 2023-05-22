@@ -1,0 +1,38 @@
+﻿@model codeTelecomCompanyLanguages
+@using (Html.BeginForm("TelecomCompanyLanguage", "Configuration", new { Area = "TBS" }, FormMethod.Post, new { id = "TelecomCompanyLanguageForm" }))
+{
+    string ModalTitle = Model.TelecomCompanyLanguageGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.TelecomCompanyLanguageGUID)
+        @Html.HiddenFor(model => model.TelecomCompanyGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.LanguageID)
+            @Html.DropDownListFor(model => model.LanguageID, new DropDownList().Languages(false), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TelecomCompanyDescription)
+            @Html.EditorFor(model => model.TelecomCompanyDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.TelecomCompanyLanguageGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.TelecomCompanies.Create, Apps.TBS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.TelecomCompanies.Update, Apps.TBS)
+                @Html.DeleteSwitchButton(Permissions.TelecomCompanies.Delete, Apps.TBS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.TelecomCompanies.Delete, Apps.TBS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

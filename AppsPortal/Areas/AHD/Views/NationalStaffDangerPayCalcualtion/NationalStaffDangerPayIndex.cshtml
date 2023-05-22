@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@model NationalStaffDangerPayDataTableModel
+<br />
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.NationalStaffDangerPayDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            @*<div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemClassification, DbColumnName = "WarehouseItemClassificationGUID", FilterForDataType = "Text", DataList = new DropDownList().ItemClassification(), IsMultiple = true, IsSearchable = true })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.WarehouseItemGUID, DbColumnName = "WarehouseItemGUID", FilterForDataType = "Text", DataList = new DropDownList().WarehouseItems(), IsMultiple = true, IsSearchable = true })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.BrandGUID, DbColumnName = "BrandGUID", FilterForDataType = "Text", DataList = new DropDownList().Brands(), IsMultiple = true, IsSearchable = true })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemModelWarehouseGUID, DbColumnName = "ItemModelWarehouseGUID", FilterForDataType = "Text", DataList = new DropDownList().WarehouseModels(), IsMultiple = true, IsSearchable = true })
+
+                </div>*@
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.NationalStaffDangerPayDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.NationalStaffDangerPayDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.NationalStaffDangerPayDataTable)
+
+        
+        @*@Html.IndexDatatableDelete(Permissions.NationalStaffDangerPayManagement.Delete, Apps.AHD, DataTableNames.NationalStaffDangerPayDataTable)*@
+        @Html.IndexDatatableRestor(Permissions.NationalStaffDangerPayManagement.Restore, Apps.AHD, DataTableNames.NationalStaffDangerPayDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.NationalStaffDangerPayDataTable)
+
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.NationalStaffDangerPayDataTable, FormController = "NationalStaffDangerPayCalcualtion", Area = "AHD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.StaffGUID, OrderBy = 1 })
+    </div>
+</div>

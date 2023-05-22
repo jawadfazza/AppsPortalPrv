@@ -1,0 +1,76 @@
+﻿@model List<PPAProgressTrackingReportModel>
+@{
+    ViewBag.Title = "PPAProgressReport";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("86234502-f956-4879-b924-e761b9f659c4")
+
+<div class="page--content">
+    <br />
+    <div class="page--body">
+        <div id="dataTableContainer">
+            @Html.Partial("~/Areas/PPA/Views/Reports/ProgressTrackingReport/_PPAProgressReport.cshtml")
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.panel-heading', '#accordion').unbind('click').on('click', function (e) {
+            var target = $(this).attr('href');
+            $('.panel-body-accordion', target).html( '@resxPages.Loading');
+
+            var loadUrl = $(this).attr('data-url');
+            debugger;
+            var isExpanded = $(this).find('.panel-title').attr('aria-expanded');
+            if (isExpanded != 'true') {
+                setTimeout(function () {
+                    $('.panel-body', target).load(loadUrl, function () {
+                        InitPlugins(this);
+                        InitLoadOriginalFileVersions();
+                    });
+                }, 500);
+            }
+        });
+
+
+    });
+        function InitLoadOriginalFileVersions() {
+            $('.panel-heading', '#accordionLVL2').unbind('click').on('click', function (e) {
+                var target = $(this).attr('href');
+                var loadUrl = $(this).attr('data-url');
+
+                @*$('.panel-body', target).html( '@resxPages.Loading');*@
+
+            alert(target);
+            alert(loadUrl);
+                debugger;
+                var x = $('.panel-body', target);
+            var isExpanded = $(this).find('.panel-title').attr('aria-expanded');
+            if (isExpanded != 'true') {
+                setTimeout(function () {
+                    $('.panel-body', target).load(loadUrl, function () {
+                        InitPlugins(this);
+                    });
+                }, 500);
+            }
+        });
+    }
+    $(function () {
+        $('.clickLinkClassToReplace').click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $('#FormModal').modal('show');
+            $('#Partial-Container').load('/PPA/Reports/ActionsOnPackageMoreInfo?PPAGUID=' + $(this).attr('data-PPAGUID'), function () {
+                InitPlugins($('#Partial-Container'));
+                $('.modal-content').css('width', '150%');
+                $('.modal-content').css('margin-left', '-175px');
+                $('#Loading-Container').hide();
+
+            });
+        });
+    });
+
+
+</script>

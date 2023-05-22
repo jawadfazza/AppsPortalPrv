@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "JobTitles";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("e4c5d273-e247-4c25-b55e-4f957951dcc1")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.PMDWarehousesDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.WarehouseDescription, DbColumnName = "PMDWarehouseDescription", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.PMDWarehousesDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.PMDWarehousesDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.PMDWarehousesDataTable)
+        @Html.IndexDatatableCreate(Permissions.PMDWarehouse.Create, Apps.PMD, "/PMD/PMDWarehouses/Create")
+        @Html.IndexDatatableDelete(Permissions.PMDWarehouse.Delete, Apps.PMD, DataTableNames.PMDWarehousesDataTable)
+        @Html.IndexDatatableRestor(Permissions.PMDWarehouse.Restore, Apps.PMD, DataTableNames.PMDWarehousesDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.PMDWarehousesDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.PMDWarehousesDataTable, Area = "PMD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

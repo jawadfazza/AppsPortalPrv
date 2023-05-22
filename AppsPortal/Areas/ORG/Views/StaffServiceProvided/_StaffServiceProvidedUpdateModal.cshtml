@@ -1,0 +1,71 @@
+﻿@model StaffServiceProvidedUpdateModel
+@using (Html.BeginForm("StaffServiceProvided", "StaffProfile", new { Area = "ORG" }, FormMethod.Post, new { id = "StaffServiceForm" }))
+{
+    string ModalTitle = Model.StaffServiceProvidedGUID.ToString() == Guid.Empty.ToString() ? "New Service " : "Edit Service";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.StaffServiceProvidedGUID)
+        @Html.HiddenFor(model => model.UserGUID)
+        @Html.HiddenFor(model => model.ServiceName)
+
+        @Html.HiddenFor(model => model.LastFlowStatusName)
+        @Html.HiddenFor(model => model.UpdateByGUID)
+        @Html.HiddenFor(model => model.CreateByGUID)
+        @Html.HiddenFor(model => model.UpdateDate)
+        @Html.HiddenFor(model => model.CreateDate)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServiceTypeGUID)
+            @Html.DropDownListFor(model => model.ServiceTypeGUID, new DropDownList().StaffServiceProvidedTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastFlowStatusGUID)
+            @Html.DropDownListFor(model => model.LastFlowStatusGUID, new DropDownList().StaffServiceProvidedFlowStatus(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.StartDate)
+            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExpiryDate)
+            @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comments)
+            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.StaffServiceProvidedGUID == Guid.Empty)
+        {
+
+            @Html.CreateButton(Permissions.StaffProfileICTSection.Update, Apps.ORG)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.StaffProfileICTSection.Update, Apps.ORG)
+                @Html.DeleteSwitchButton(Permissions.StaffProfileICTSection.Update, Apps.ORG)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.StaffProfileICTSection.Update, Apps.ORG)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

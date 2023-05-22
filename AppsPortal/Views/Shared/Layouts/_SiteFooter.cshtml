@@ -1,0 +1,82 @@
+﻿<footer class="footer">
+    <div class="footer__wrapper">
+        <div class="footer--nav">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    @*<img src="~/Assets/Images/unhcr-logo-apple-touch.png" style="width:100px;" />*@
+                </div>
+            </div>
+            <div class="row">
+                @{
+                    if (Session[SessionKeys.UserGUID] != null && Session[SessionKeys.CurrentApp] != null)
+                    {
+                        List<NavigationMenu> Menus = new CMS().ApplicationMenus(Guid.Parse(Session[SessionKeys.CurrentApp].ToString()));
+                        foreach (var Menu in Menus)
+                        {
+                            <div class="col-lg-2 col-md-3 col-sm-4 cols-xs-6 footer-menu">
+                                <ul>
+                                    <li>
+                                        <a style="color:#0072bc" href=@Menu.RootMenuUrl>@Menu.RootMenuDescription</a>
+                                    </li>
+                                </ul>
+                                @foreach (var SubMenu in Menu.SubMenu)
+                                {
+                                    <div class="footer-link"><a href="@SubMenu.SubMenuUrl">@SubMenu.SubMenuDescription</a></div>
+                                }
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+        @*<div class="footer--left">
+                <div class="content">
+                    <div class="footer--links">
+                        <div class="copyright">
+                            <p><a >© UNHCR 2001-2016</a></p>
+                        </div>
+                        <nav class="footer--utility">
+                            <ul>
+                                <li><a  title="Media centre">Media centre</a></li>
+                                <li><a  title="Careers">Careers</a></li>
+                                <li><a  title="Emergencies portal">Emergencies portal</a></li>
+                                <li><a  title="Refworld">Refworld</a></li>
+                                <li><a  title="Contact us">Contact us</a></li>
+                                <li><a  title="Privacy Policy">Privacy Policy</a></li>
+                                <li><a  title="Statistics">Statistics</a></li>
+                                <li><a  title="Get involved">Get involved</a></li>
+                                <li><a  title="Terms &amp; Conditions of Use">Terms &amp; Conditions of Use</a></li>
+                                <li><a  title="Business">Business</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>*@
+        @*<div class="footer--right">
+                <div class="content">
+                    <div class="footer--subscribe">
+                        <p>
+                            <strong>
+                                STAY CONNECTED
+                            </strong>
+                        </p>
+                        <p><a  class="btn">Subscribe to our newsletter</a></p>
+                    </div>
+                </div>
+            </div>*@
+        <div style="padding:10px;">
+            <!-- <div>© UNHCR 2001-@DateTime.Now.Year</div> -->
+            @*<div class="footer--social" style="float:right;">
+                <ul>
+                    <li>Follow: </li>
+                    <li><a title="Follow UNHCR on Twitter" class="ftr--twt"></a></li>
+                    <li><a title="Follow UNHCR on FaceBook" class="ftr--fb"></a></li>
+                    <li><a title="View our YouTube channel" class="ftr--yt"></a></li>
+                    <li><a title="View our Instagram page" class="ftr--ig"></a></li>
+                </ul>
+            </div>*@
+        </div>
+    </div>
+    <div style="margin-bottom:50px;">
+    </div>
+</footer>

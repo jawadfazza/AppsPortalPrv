@@ -1,0 +1,58 @@
+﻿@model StaffPhoneUpdateModel
+@using (Html.BeginForm("StaffPhones", "Configuration", new { Area = "TBS" }, FormMethod.Post, new { id = "StaffPhonesForm" }))
+{
+    string ModalTitle = Model.StaffSimGUID.ToString() == Guid.Empty.ToString() ? "New Phone Number" : "Edit Phone Number";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.StaffSimGUID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserGUID)
+            @Html.DropDownListFor(model => model.UserGUID, new DropDownList().Users(true), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TelecomCompanyOperationGUID)
+            @Html.DropDownListFor(model => model.TelecomCompanyOperationGUID, new DropDownList().TelecomCompaniesByOperationList(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber)
+            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneTypeGUID)
+            @Html.DropDownListFor(model => model.PhoneTypeGUID, new DropDownList().PhoneTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneUsageTypeGUID)
+            @Html.DropDownListFor(model => model.PhoneUsageTypeGUID, new DropDownList().PhoneUsageTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FromDate)
+            @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToDate)
+            @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.StaffSimGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.StaffPhones.Create, Apps.TBS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.StaffPhones.Update, Apps.TBS)
+                @Html.DeleteSwitchButton(Permissions.StaffPhones.Delete, Apps.TBS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.StaffPhones.Delete, Apps.TBS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

@@ -1,0 +1,18 @@
+﻿@model FactorUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("9a7c3e36-bfb4-48b6-aeb1-9b7171431202")
+@{string PageTitle = (Model.FactorGUID == Guid.Empty) ? "New Factor" : "Edit Factor";}
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/Factors/_FactorForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.FactorGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/Factors/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.FactorGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

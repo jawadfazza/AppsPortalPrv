@@ -1,0 +1,50 @@
+﻿
+@model PartnerReportUpdateModel
+@using (Html.BeginForm("PartnerReport", "PartnerReports", new { Area = "PCR" }, FormMethod.Post, new { id = "PartnerReportForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.PartnerReportGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group HANDLER">
+                @Html.Label(resxDbFields.Partner)
+                @Html.DropDownListFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstancesAcronymByProfile(), "", new {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'PartnerCenterGUID', Action : 'RemoteOrganizationInstanceByPartnerCenter'}]);"
+           })
+            </div>
+
+            <div class="form-group HANDLER">
+                @Html.Label(resxDbFields.CommunityCenters)
+                @Html.DropDownListFor(model => model.PartnerCenterGUID, new DropDownList().PartnerCenterOneValue(Model.PartnerCenterGUID), "", new {
+                style = "width:100%",
+                @class = "form-control select2-basic-search"
+
+               })
+            </div>
+            <div id="PartnerReportFormControls" class="form-group form-footer">
+                @if (Model.PartnerReportGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.UploadPartnerReport.Create, Apps.PCR)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.UploadPartnerReport.Update, Apps.PCR)
+                        @Html.CreateNewButton(Permissions.UploadPartnerReport.Create, Apps.PCR, Url.Action("/Create", new { Area = "PCR" }))
+                        @Html.DeleteButton(Permissions.UploadPartnerReport.Delete, Apps.PCR)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.UploadPartnerReport.Restore, Apps.PCR)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "PartnerReports", new { Area = "PCR" }))
+            </div>
+        </div>
+    </div>
+}

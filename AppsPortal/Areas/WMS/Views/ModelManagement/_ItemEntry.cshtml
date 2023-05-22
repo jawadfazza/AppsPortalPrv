@@ -1,0 +1,56 @@
+﻿@model ItemInputModel
+@using (Html.BeginForm("ItemModelLanguage", "ItemModels", new { Area = "WMS" }, FormMethod.Post, new { id = "ItemModelLanguageForm" }))
+{
+    string ModalTitle = Model.ItemInputGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+  
+        @Html.HiddenFor(model => model.ItemInputGUID)
+  
+        <div class="form-group">
+            @Html.LabelFor(model => model.PONumber)
+            @Html.EditorFor(model => model.PONumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.InputDate)
+            @Html.EditorFor(model => model.InputDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.PartyTypeGUID)
+            @Html.DropDownListFor(model => model.PartyTypeGUID, new DropDownList().PartyTypes(), "", new
+            {
+                @class = "form-control select2-basic-single",
+                style = "width:100%",
+                onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'PartyGUID', Action : 'RemotePartyTypes'}]);"
+            })
+
+
+        </div>
+
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.PartyGUID)
+            @Html.DropDownListFor(model => model.PartyGUID, new DropDownList().Empty(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ItemInputGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ItemModel.Create, Apps.WMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ItemModel.Update, Apps.WMS)
+                @Html.DeleteSwitchButton(Permissions.ItemModel.Delete, Apps.WMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ItemModel.Delete, Apps.WMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

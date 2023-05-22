@@ -1,0 +1,23 @@
+﻿@model MasterRecordStatus
+@*<h3 class="Title">Bank Accounts</h3>*@
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      
+            <div id=@string.Format("{0}Filter", DataTableNames.StaffServiceProvidedDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.StaffServiceProvidedDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffServiceProvidedDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.StaffServiceProvidedDataTable)
+                @Html.FieldDataTableCreate(Permissions.StaffProfileICTSection.Update, Apps.ORG, Url.Action("StaffServiceProvidedCreate", "StaffProfile", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.StaffProfileICTSection.Update, Apps.ORG, DataTableNames.StaffServiceProvidedDataTable)
+                @Html.FieldDataTableRestore(Permissions.StaffProfileICTSection.Update, Apps.ORG, DataTableNames.StaffServiceProvidedDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.StaffServiceProvidedDataTable)
+            </div>
+        
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffServiceProvidedDataTable, FormController = "StaffProfile", Area = "ORG", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

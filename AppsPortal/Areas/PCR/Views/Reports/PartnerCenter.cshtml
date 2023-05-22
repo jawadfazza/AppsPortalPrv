@@ -1,0 +1,102 @@
+﻿@model PCRReportParametersMultiple
+@{
+    ViewBag.Title = "Partner Reports";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("a7cee1ba-916f-4d6d-a9c4-8104d136fab8")
+@using (Html.BeginForm("PartnerCenter", "Reports", new { Area = "PCR" }, FormMethod.Post, new { id = "ReportForm" }))
+{
+    <style>
+        iframe {
+            border-width: 0px !important
+        }
+    </style>
+    <div class="page--content">
+        <h3>@resxPages.ReportParameters</h3>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReportName)
+                    @Html.DropDownListFor(model => model.ReportName, new DropDownList().ReportsName(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple"
+               })
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EndDate)
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OrganizationInstanceDescription)
+                    @Html.DropDownListFor(model => model.OrganizationInstanceDescription, new DropDownList().OrganizationsInstancesByProfileValueString(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple",
+                   multiple = "multiple",
+                   onchange = "UpdateDropDownListFromMultiple([$(this).val()], [{ DropDownListID : 'PartnerCenterDescription', Action : 'RemotePartnerCentersByOrganizationInstance'}]);"
+               })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PartnerCenterDescription)
+                    @Html.DropDownListFor(model => model.PartnerCenterDescription, new DropDownList().Empty(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple",
+                   multiple = "multiple",
+               })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReportGUID)
+                    @Html.DropDownListFor(model => model.ReportGUID, new DropDownList().PartnerReports(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-search",
+                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CategoryGUID2', Action : 'RemoteCategoryPartnerReportLevel2'}]);"
+
+               })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryGUID2)
+                    @Html.DropDownListFor(model => model.CategoryGUID2, new DropDownList().Empty(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple",
+                   multiple = "multiple",
+                   onchange = "UpdateDropDownListFromMultiple([$(this).val()], [{ DropDownListID : 'CategoryGUID3', Action : 'RemoteParentCategoryPartnerReport'}]);"
+               })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryGUID3)
+                    @Html.DropDownListFor(model => model.CategoryGUID3, new DropDownList().Empty(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple",
+                   multiple = "multiple",
+               })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AggregationGUID)
+                    @Html.DropDownListFor(model => model.AggregationGUID, new DropDownList().ParentAggregation(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple",
+                   multiple = "multiple",
+               })
+
+                </div>
+                <div>
+                    <input class="btn btn-primary " data-submittype="" onclick="SubmitForm(this);" type="submit" value="Generate Report">
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div class="form-group" id="ReportViewer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

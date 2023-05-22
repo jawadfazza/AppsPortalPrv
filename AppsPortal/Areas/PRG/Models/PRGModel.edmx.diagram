@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="17facb2450764f20b7610b8d93502b8e" Name="Diagram1" ZoomLevel="27">
+        <EntityTypeShape EntityType="PRGModel.dataIndividual" Width="2.25" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PRGModel.dataIndividualProcessGroup" Width="2" PointX="3.875" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PRGModel.dataPhotograph" Width="1.5" PointX="3" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PRGModel.dataProcessGroup" Width="1.5" PointX="0.75" PointY="36.75" IsExpanded="true" />
+        <AssociationConnector Association="PRGModel.FK_dataIndividualProcessGroup_dataIndividual" ManuallyRouted="false" />
+        <AssociationConnector Association="PRGModel.FK_dataPhotograph_dataIndividual" ManuallyRouted="false" />
+        <AssociationConnector Association="PRGModel.FK_dataIndividualProcessGroup_dataProcessGroup" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PRGModel.codeProcessStatus" Width="1.5" PointX="0.75" PointY="46.25" />
+        <EntityTypeShape EntityType="PRGModel.dataDocument" Width="1.5" PointX="4" PointY="9.125" />
+        <AssociationConnector Association="PRGModel.FK_ProcessStatusCode_codeProcessStatus" />
+        <AssociationConnector Association="PRGModel.FK_dataDocument_dataIndividual" />
+        <EntityTypeShape EntityType="PRGModel.codeDocumentTypeText" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PRGModel.codeProcessStatusText" Width="1.5" PointX="3" PointY="46.5" />
+        <AssociationConnector Association="PRGModel.FK_codeProcessStatusText_codeProcessStatus" />
+        <EntityTypeShape EntityType="PRGModel.configSecurityUser" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PRGModel.dataIndividualV4" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PRGModel.dataProcessGroupV4" Width="1.5" PointX="9.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,292 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("b726ac3a-cd6a-4ea3-9cfa-adcc6d1b77d6")
+
+@*<link href="~/Areas/WMS/Temp/layout.min.css" rel="stylesheet" />*@
+<div data-ng-app="myApp">
+    <div data-ng-controller="MyCtrl">
+
+
+        <div class="form-group">
+
+            <div class="col-md-12" style="overflow: auto; height: 760px;display:none;" id="resultId">
+                @*<input type="button" ng-click="Delete()" value="Delete" />*@
+                <div class="col-md-12" id="itemdata">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">@resxDbFields.BrandDescription</label>
+                            <select class="form-control" id="brands"
+                                    data-ng-model="DashboardVMFilter.brandGuids"
+                                    multiple="multiple"
+                                    data-ng-options="p.BrandGUID as p.BrandName for p in brands">
+                                <option value="">----</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Item Category</label>
+                            <select class="form-control" id="itemClassificationGuids"
+                                    data-ng-model="DashboardVMFilter.itemClassificationGuids"
+                                    multiple="multiple"
+                                    data-ng-options="p.WarehouseItemClassificationGUID as p.WarehouseItemClassificationDescription for p in warehouseItemClassification">
+                                <option value="">----</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Item Group</label>
+                            <select class="form-control" id="WarehouseItemGUIDs"
+                                    data-ng-model="DashboardVMFilter.itemGuids"
+                                    multiple="multiple"
+                                    data-ng-options="p.WarehouseItemGUID as p.WarehouseItemDescription for p in warehouseItems">
+                                <option value="">----</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Location</label>
+                            <select class="form-control" id="LocationGUIDs"
+                                    data-ng-model="DashboardVMFilter.WarehouseLocationGUIDs"
+                                    multiple="multiple"
+                                    data-ng-options="p.WarehouseLocationGUID as p.WarehouseLocationDescription for p in WarehouseLocations">
+                                <option value="">----</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Service Status</label>
+                            <select class="form-control" id="ItemServiceGUIDs"
+                                    data-ng-model="DashboardVMFilter.ItemServiceGUIDs"
+                                    multiple="multiple"
+                                    data-ng-options="p.ValueGUID as p.ValueDescription for p in ItemServiceStatus">
+                                <option value="">----</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Movement Status</label>
+                            <select class="form-control" id="DeliveryStatusGUIDs"
+                                    data-ng-model="DashboardVMFilter.DeliveryStatusGUIDs"
+                                    multiple="multiple"
+                                    data-ng-options="p.ValueGUID as p.ValueDescription for p in ItemMovementStatus">
+                                <option value="">----</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="button" ng-click="GetSearchModels()" value="Search" />
+
+                        </div>
+                        <div class="form-group">
+                            @Html.ActionLink("Export", "ExportAllModelItemInformation", "Dashboard", null, new { @class = "btn btn-primary" })
+
+
+                            @*@Html.ActionLink("Test", "test", "ModelMovements", null, new { @class = "btn btn-primary" })*@
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+
+                        <div id="tableCont">
+                            <table id="itemsTable">
+                                <tr>
+                                    @*<td valign="top" class="col-md-3">
+
+                                <input type="text" placeholder="Search by item" ng-model="searchItems" class="form-control">
+
+                            </td>*@
+
+                                    <td>
+                                        <table class="table table-striped table-bordered  hover " id="myItems" ng-show="itemSummary.items.length>0">
+
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        @*<input type="text" placeholder="Search by item" ng-model="searchItems" class="form-control">*@
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody ng-repeat="item in itemSummary.items |filter:searchItems">
+
+                                                <tr class="panel-primary">
+
+                                                    <td colspan="6">
+                                                        <b style="color: blue;">{{item.ItemName}}</b> <b class="pull-right"> Total Items {{item.TotalItems}} Total Avaiable Items :{{item.TotalAvaiable}}  <a ng-show="item.TotalItems>0" ng-href="@Url.Content("/WMS/Dashboard/ExportModelItemInformation?id="){{item.WarehouseItemGUID}}"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a></b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    @{int i = 0;}
+                                                    <td>
+                                                        @if (i % 6 == 0)
+                                                        {
+                                                            @:<div class="row">
+                                                            }
+                                                        @{
+                                                            i++;
+
+                                                        }
+                                                        <div class="col-md-2" ng-repeat="model in item.models">
+                                                            <table id="myModels">
+                                                                <tr>
+                                                                    <td>
+                                                                        <img src="/Uploads/WMS/ItemImages/{{model.WarehouseItemModelGUID}}.jpg"
+                                                                             style="width: 100px; height: 100px;"
+                                                                             class="Modal-Link lgModal"
+                                                                             data-url="/WMS/DashBoard/GetItemModelInformation/{{model.WarehouseItemModelGUID}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div style="margin-top: 8px; margin-bottom: 8px;">
+                                                                            {{model.ModelName}} <br />
+
+                                                                            Total Items:{{model.TotalItems}}
+                                                                            <div style="display: none">{{model.BrandName}}</div>
+                                                                            <div ng-if="model.TotalAvaiable=='0'">
+                                                                                <div style="color: red; font-weight: bold;">
+                                                                                    Avaiable:{{model.TotalAvaiable}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div ng-if="model.TotalAvaiable>'0'" style="background-color: white; color: black">
+                                                                                <div>
+                                                                                    Avaiable:{{model.TotalAvaiable}}
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <br />
+
+                                                                        </div>
+                                                                    </td>
+
+                                                                </tr>
+
+
+                                                            </table>
+                                                        </div>
+
+                                                        @if ((i % 6 == 0))
+                                                        {@:</div>
+                                                    }
+
+
+
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <div ng-show="itemSummary.items.length==0">
+                                            <h2 style="color: red;font-weight: bold">No Data Match</h2>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <div class="col-md-3 col-lg-offset-2">
+                    <div class="form-group" id="itemLoader1">
+                        Loading....
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 col-lg-offset-2">
+                <div class="form-group" id="itemLoader">
+                    Loading....
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var myApp = angular.module('myApp', []);
+
+    //Controller
+    myApp.controller('MyCtrl',
+        [
+            '$scope', '$http', '$timeout', '$window', '$interval',
+            function($scope, $http, $timeout, $window, $interval) {
+                $scope.myitems = [];
+                $('select').select2();
+                $('#itemLoader1').hide();
+                $('#itemLoader').show();
+
+                $scope.GetSearchModels = function () {
+                    $('#itemdata').hide();
+                    $('#itemLoader').show();
+                    $('#itemLoader1').show();
+                    
+                    //$("#itemsTable tr").remove();
+                    //$('#itemsTable tbody').empty();
+                    //$('#myTableId tbody').empty();
+
+
+                    $http({
+                        method: 'Post',
+                        url: "@Url.Action("GetSearchModels", "Dashboard")",
+                        data: { myModel: $scope.DashboardVMFilter }
+
+                    }).success(function(data) {
+
+                        $scope.itemSummary = data.itemSummary;
+                        $('#itemLoader').hide();
+                        $('#itemLoader1').hide();
+                        $('#itemdata').show();
+                        //$scope.items = data.items;
+                        //$scope.brands = data.brands;
+                        $('select').select2();
+                        //$('#itemsTable select').css('width', '100%');
+
+                    });
+
+                }
+
+     $scope.Delete = function() {
+
+                    $http({
+                        method: 'Post',
+                        url: "@Url.Action("delete", "Dashboard")",
+
+                    }).success(function(data) {
+
+
+                    });
+                }
+
+                $scope.InitDashboardData = function() {
+
+                    $http({
+                        method: 'Post',
+                        url: "@Url.Action("InitDashboardData", "Dashboard")",
+
+                    }).success(function (data) {
+                        $('#itemLoader').hide();
+                        $("#resultId").show();
+                        $scope.itemSummary = data.itemSummary;
+                        $scope.items = data.items;
+                        $scope.brands = data.brands;
+                        $scope.warehouseItemClassification = data.warehouseItemClassification;
+                        $scope.ItemMovementStatus = data.ItemMovementStatus;
+                        $scope.ItemServiceStatus = data.ItemServiceStatus;
+                        $scope.warehouses = data.warehouses;
+                        $scope.warehouseItems = data.warehouseItems;
+                        $scope.WarehouseLocations = data.WarehouseLocations;
+                        $('select').select2();
+                        //$('#itemsTable select').css('width', '100%');
+
+                    });
+                }
+                $scope.InitDashboardData();
+
+            }
+        ]);
+</script>

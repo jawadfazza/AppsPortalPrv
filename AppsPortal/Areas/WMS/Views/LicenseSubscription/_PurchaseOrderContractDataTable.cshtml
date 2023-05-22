@@ -1,0 +1,23 @@
+﻿@model MasterRecordStatus
+@*<h3 class="Title">Bank Accounts</h3>*@
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      
+            <div id=@string.Format("{0}Filter", DataTableNames.WMSContractPOHistoryDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.WMSContractPOHistoryDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.WMSContractPOHistoryDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.WMSContractPOHistoryDataTable)
+                @Html.FieldDataTableCreate(Permissions.LicenseandSubscriptionContracts.Create, Apps.WMS, Url.Action("PurchaseOrderContractCreate", "LicenseSubscription", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.LicenseandSubscriptionContracts.Delete, Apps.WMS, DataTableNames.WMSContractPOHistoryDataTable)
+                @Html.FieldDataTableRestore(Permissions.LicenseandSubscriptionContracts.Restore, Apps.WMS, DataTableNames.WMSContractPOHistoryDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.WMSContractPOHistoryDataTable)
+            </div>
+        
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WMSContractPOHistoryDataTable, FormController = "LicenseSubscription", Area = "WMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

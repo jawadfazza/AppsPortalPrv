@@ -1,0 +1,173 @@
+﻿@model List<dataPersonalHistoryEducationUpdateModel>
+<div class="tab-pane" id="tab1" style="margin-top: 5px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span><b>10. EDUCATION </b>(Mandatory to complete even if you have no formal education; if so, please indicate)</span>
+            <br />
+        </div>
+        <div class="panel-body">
+            <input type="button" data-url="/GTP/Applications/EducationCreate" class="btn btn-success lgModal Modal-Link" value="Add New Education" />
+            <div class="row">
+                <div class="col-md-12" style="padding-bottom:10px;">
+                    <span>
+                        This space provides you with an opportunity to indicate that your academic credential or degree was obtained from an educational institution that is recognised or sanctioned by a competent national authority, included in the IAU/UNESCO list.
+                    </span>
+                    <br />
+                    <span>
+                        When evaluating academic credentials of applicants, UNHCR is guided by the United Nations Educational, Scientific and Cultural Organization's (UNESCO) listing (referred to as the "UNESCO list - World Guide to Higher Education (WHED)" ) of higher education institutions recognized, and to determine the level of university degree conferred  on candidates since the level of degrees is not always consistent across countries.
+                    </span>
+                    <br />
+                    <span>
+                        Please CHECK THE SITE TO CONFIRM YOUR UNIVERSITY IS ACCREDITTED.  <a href="www.whed.net">(website - www.whed.net)</a>
+                    </span>
+                    <br />
+                    <span>
+                        <b>Note: </b>You must indicate the main language used for 75% or more of your studies, for each education item you list.
+                    </span>
+                </div>
+            </div>
+            @if (Model == null || Model.Count == 0)
+            {
+                <div class="alert alert-info" style="margin-top:5px;">
+                    <strong>No educations has been added</strong>
+                </div>
+            }
+            else
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="panel panel-default" style="margin-top:5px;">
+                        <div class="panel-heading">
+                            <span><b>Education # @(i + 1) </b> <input type="button" data-url="/GTP/Applications/EducationUpdate/@Model[i].GTPPHEducationGUID" class="btn btn-success lgModal Modal-Link pull-right" style="margin-top:-6px" value="Update / Delete this education record" /></span>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="col-md-12">
+                                <div class="row" style="padding-top:10px;">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].ExactTitleOfDegreeOrCertification)
+                                            @Html.EditorFor(model => model[i].ExactTitleOfDegreeOrCertification, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].BegintDate)
+                                            @Html.EditorFor(model => model[i].BegintDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].EndDate)
+                                            @Html.EditorFor(model => model[i].EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].MainMajorOrTopic)
+                                            @Html.EditorFor(model => model[i].MainMajorOrTopic, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].OtherMajorsOrTopics)
+                                            @Html.EditorFor(model => model[i].OtherMajorsOrTopics, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].EducationLevelGUID)
+                                            @if (Model[i].EducationLevelGUID != null)
+                                            {
+                                                @Html.DropDownListFor(model => model[i].EducationLevelGUID, new DropDownList().GTPEducationLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownListFor(model => model[i].EducationLevelGUID, new DropDownList().GTPEducationLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                            }
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].MainLanguageOfStudyGUID)
+                                            @Html.DropDownListFor(model => model[i].MainLanguageOfStudyGUID, new DropDownList().GTPLanguages(Model[i].MainLanguageOfStudyGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="padding-top:30px;">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].IsEducationCompleted)
+                                            @Html.EditorFor(model => model[i].IsEducationCompleted, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].SchoolNameDescription)
+                                            @Html.EditorFor(model => model[i].SchoolNameDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                    <div class="div-country-city-container">
+
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model[i].CountryGUID)
+                                                @Html.DropDownListFor(model => model[i].CountryGUID, new DropDownList().GTPCountries(Model[i].CountryGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model[i].CityGUID)
+                                                @if (Model[i].CountryGUID != null)
+                                                {
+                                                    @Html.DropDownListFor(model => model[i].CityGUID, new DropDownList().GTPCities(Model[i].CountryGUID, Model[i].CityGUID), "", new { @class = "form-control select2-basic-search this-city-ddl", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.DropDownListFor(model => model[i].CityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search this-city-ddl", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].Comments)
+                                            @Html.TextAreaFor(model => model[i].Comments, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2, disabled = "disabled", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="float:right">
+                        <input type='button' class='btn btn-primary wizard-custom-button-next' name="next" value='Next' data-next-url="/GTP/Applications/SkillsWizard/Create" />
+
+                    </div>
+                    <div style="float:left">
+                        <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/SpecializedTrainingWizard/Create" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

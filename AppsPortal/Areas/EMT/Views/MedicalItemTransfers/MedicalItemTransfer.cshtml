@@ -1,0 +1,20 @@
+﻿@model MedicalItemTransferUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.MedicalItemTransferGUID == Guid.Empty) ? resxPages.MedicalItemTransfer : resxPages.MedicalItemTransfer; }
+
+@Html.PageHeader("943e7575-0e37-448b-9648-67f3acbd2c9d")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/EMT/Views/MedicalItemTransfers/_MedicalItemTransferForm.cshtml")
+        <div id="MedicalItemTransferDetailsContainer">
+            @if (Model.MedicalItemTransferGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/EMT/Views/MedicalItemTransfers/_MedicalItemTransferDetailsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MedicalItemTransferGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

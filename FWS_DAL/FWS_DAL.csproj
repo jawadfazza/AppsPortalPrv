@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E2F5774A-2AAC-4B92-B7BE-C20B5BE30775}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FWS_DAL</RootNamespace>
+    <AssemblyName>FWS_DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Portal_BL">
+      <HintPath>..\Portal_BL\bin\Debug\Portal_BL.dll</HintPath>
+    </Reference>
+    <Reference Include="RES_Repo">
+      <HintPath>..\RES_Repo\bin\Debug\RES_Repo.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Z.EntityFramework.Extensions, Version=5.1.33.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Z.EntityFramework.Extensions.5.1.33\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\code4WSAccessStatus.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSActivity.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSActivityTag.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSBeneficiaryType.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSCamps.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSFacility.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSFunding.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSHub.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSLocation.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSOrgTypeByHub.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSPartner.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSSeverityRanking.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\code4WSSubSector.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataMasterTable.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPartnerContribution.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPartnerContributionFile.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FWSModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FWSModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FWSModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FWSModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FWSModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetailsLanguage.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModels.cs" />
+    <Compile Include="Model\v_MasterTable.cs">
+      <DependentUpon>FWSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="Model\FWSModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FWSModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\FWSModel.edmx.diagram">
+      <DependentUpon>FWSModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\FWSModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FWSModel.edmx</DependentUpon>
+      <LastGenOutput>FWSModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\FWSModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FWSModel.edmx</DependentUpon>
+      <LastGenOutput>FWSModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

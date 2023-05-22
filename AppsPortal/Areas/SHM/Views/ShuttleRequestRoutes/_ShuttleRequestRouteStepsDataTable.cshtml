@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.Step (s)</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.ShuttleRequestRouteStepsDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.ShuttleRequestRouteStepsDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.ShuttleRequestRouteStepsDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.ShuttleRequestRouteStepsDataTable)
+                @Html.FieldDataTableCreate(Permissions.TelecomCompanies.Create, Apps.SHM, Url.Action("ShuttleRequestRouteStepCreate", "ShuttleRequestRoutes", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.TelecomCompanies.Delete, Apps.SHM, DataTableNames.ShuttleRequestRouteStepsDataTable)
+                @Html.FieldDataTableRestore(Permissions.TelecomCompanies.Restore, Apps.SHM, DataTableNames.ShuttleRequestRouteStepsDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.ShuttleRequestRouteStepsDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ShuttleRequestRouteStepsDataTable, FormController = "ShuttleRequestRoutes", Area = "SHM", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

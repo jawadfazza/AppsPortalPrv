@@ -1,0 +1,91 @@
+﻿@model List<ProgressTrackingReportActionMoreInfoModel>
+
+@Html.Partial("_ModalHeader", "More Info")
+
+@*G.Key == PPAUserAccessType.FullAccess ? "Distribution list" : G.Key == PPAUserAccessType.CC1WithAccess ? "CC1 With Access" : "CC2 Without Access",*@
+<div class="modal-body">
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:20%;">Category</th>
+                <th style="width:25%;">Staff Name</th>
+                <th style="width:20%;">Duty Station</th>
+                <th style="width:20%;">Department</th>
+                <th style="width:30%;">Last Action Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Where(x => x.PPAUserAccessTypeGUID == PPAUserAccessType.FullAccess).Count() > 0)
+            {
+                <tr>
+                    <td colspan="5">
+                        Distribution List
+                    </td>
+                </tr>
+                foreach (var staffGrp in Model.Where(x => x.PPAUserAccessTypeGUID == PPAUserAccessType.FullAccess))
+                {
+
+                            foreach (var staff in staffGrp.Details)
+                            {
+                            <tr>
+                                <td style="width:20%;"></td>
+                                <td style="width:25%;">@staff.FullName</td>
+                                <td style="width:20%;">@staff.DutyStationDescription</td>
+                                <td style="width:20%;">@staff.DepartmentDescription</td>
+                                <td style="width:30%;">@staff.LastActionDate</td>
+                            </tr>
+                            }
+
+                }
+
+            }
+            @if (Model.Where(x => x.PPAUserAccessTypeGUID == PPAUserAccessType.CC1WithAccess).Count() > 0)
+            {
+                <tr>
+                    <td colspan="5">
+                        CC1 With Access
+                    </td>
+                </tr>
+                foreach (var staffGrp in Model.Where(x => x.PPAUserAccessTypeGUID == PPAUserAccessType.CC1WithAccess))
+                {
+
+                            foreach (var staff in staffGrp.Details)
+                            {
+                            <tr>
+                                <td style="width:20%;"></td>
+                                <td style="width:25%;">@staff.FullName</td>
+                                <td style="width:20%;">@staff.DutyStationDescription</td>
+                                <td style="width:20%;">@staff.DepartmentDescription</td>
+                                <td style="width:30%;">@staff.LastActionDate</td>
+                            </tr>
+                            }
+         
+                }
+ 
+            }
+            @if (Model.Where(x => x.PPAUserAccessTypeGUID == PPAUserAccessType.CC2WithoutAccess).Count() > 0)
+            {
+                <tr>
+                    <td colspan="5">
+                        CC2 Without Access
+                    </td>
+                </tr>
+                foreach (var staffGrp in Model.Where(x => x.PPAUserAccessTypeGUID == PPAUserAccessType.CC2WithoutAccess))
+                {
+ 
+                            foreach (var staff in staffGrp.Details)
+                            {
+                            <tr>
+                                <td style="width:20%;"></td>
+                                <td style="width:25%;">@staff.FullName</td>
+                                <td style="width:20%;">@staff.DutyStationDescription</td>
+                                <td style="width:20%;">@staff.DepartmentDescription</td>
+                                <td style="width:30%;">@staff.LastActionDate</td>
+                            </tr>
+                            }
+                }
+            }
+        </tbody>
+    </table>
+</div>

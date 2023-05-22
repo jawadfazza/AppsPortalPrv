@@ -1,0 +1,76 @@
+﻿@model List<PCR_DAL.Model.v_CommunityCenters>
+
+<iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiMzQ2ZDgyY2ItMzgzMS00ODU0LTkxMDItYmE0YzRkODY3ZmQ4IiwidCI6ImU1YzM3OTgxLTY2NjQtNDEzNC04YTBjLTY1NDNkMmFmODBiZSIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
+
+@*<table>
+        <tr>
+            <th>
+                @Html.Display("Category1")
+            </th>
+            <th>
+                @Html.Display("Category2")
+            </th>
+            <th>
+                @Html.Display("Category3")
+            </th>
+            <th>
+                @Html.Display("Aggregatio Description")
+            </th>
+            <th>
+                @Html.Display("AggregationValue")
+            </th>
+            <th>
+                @Html.Display("DutyStationDescription")
+            </th>
+            <th>
+                @Html.Display("OrganizationInstanceDescription")
+            </th>
+            <th>
+                @Html.Display("PartnerCenterDescription")
+            </th>
+            <th>
+                @Html.Display("Report")
+            </th>
+            <th>
+                @Html.Display("EndDate")
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AggregationDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AggregationValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DutyStationDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizationInstanceDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartnerCenterDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Report)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+
+        </tr>
+    }
+
+    </table>*@

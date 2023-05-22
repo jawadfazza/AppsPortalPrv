@@ -1,0 +1,26 @@
+﻿@model ApplicationRequestModel
+@{
+    ViewBag.Title = "Application Request";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("d38032f7-78a5-488c-ae8c-58f6dc091b47")
+@{string PageTitle = (Model.AppRequestGUID == Guid.Empty) ? "New Application Request" : "Edit Application Request"; }
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/SRS/Views/ApplicationRequest/_ApplicationRequestForm.cshtml")
+        <div id="ApplicationRequestAttachementContainer">
+            @if (Model.AppRequestGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/SRS/Views/ApplicationRequest/_ApplicationRequestAttachementDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.AppRequestGUID, IsParentActive = Model.Active })
+            }
+        </div>
+        @*<div id="ApplicationRequestAuthorizationContainer">
+            @if (Model.AppRequestGUID != Guid.Empty && Model.Active)
+            {
+
+                @Html.Partial("~/Areas/SRS/Views/ApplicationRequest/_ApplicationRequestAuthorization.cshtml",Model)
+            }
+        </div>*@
+    </div>
+</div>

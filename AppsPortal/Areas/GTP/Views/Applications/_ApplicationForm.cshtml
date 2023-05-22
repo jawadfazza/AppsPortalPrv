@@ -1,0 +1,106 @@
+﻿@model GTPApplicationUpdateModel
+
+@using (Html.BeginForm("Application", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "GTPApplicationForm", @class = "main-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.GTPApplicationGUID)
+    @Html.HiddenFor(model => model.UserGUID)
+    @Html.HiddenFor(model => model.GTPApplicationDate)
+    @Html.HiddenFor(model => model.GTPApplicationExpiryDate)
+    @Html.HiddenFor(model => model.IsReviewed)
+    @Html.HiddenFor(model => model.ReviewedBy)
+    @Html.HiddenFor(model => model.ReviewedOn)
+    @Html.HiddenFor(model => model.IsEligible)
+    @Html.HiddenFor(model => model.UpdatedOn)
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-12">
+            <b style="font-size:22px;">For any technical problem or any further support, please contact us through the mobile number +963-998760790.</b>
+        </div>
+    </div>
+    <div class="row">
+        <br />
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Welcome to the UNHCR online portal for submitting your application for Group 2. Please select your category below:
+                    <br />
+                    Please note that if you do not meet one of the categories above, you are not eligible to apply for Group 2 and your application will be screened out.
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GTPCategoryGUID)
+                        @Html.DropDownListFor(model => model.GTPCategoryGUID, new DropDownList().GTPCategories(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="div_redirectP11_container" style="display:none;">
+        <br />
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+
+                </div>
+                <div class="panel-body">
+                    Click  <a href="/GTP/PersonalHistoryFormWizard/Create">Here</a> to create / update your P11 form.
+                </div>
+            </div>
+        </div>
+    </div>
+    if (Model.IsNew == true)
+    {
+
+        <div class="row" id="div_submit_container">
+            <div class="col-md-12">
+                <div id="GTPApplicationFormControls" class="form-group form-footer">
+                    <input class="btn btn-primary SLAME ActionControl" data-submittype="Update" onclick="SubmitForm(this); " type="submit" disabled="disabled" value="Update Application">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <br />
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="/GTP/PersonalHistoryFormWizard/Create/">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-list  fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Create / Update the P11 form</h3>
+                            <span></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+        </div>
+
+
+    }
+    else
+    {
+
+        <div class="row" id="div_submit_container">
+            <div class="col-md-12">
+                <div id="GTPApplicationFormControls" class="form-group form-footer">
+                    <input class="btn btn-primary SLAME ActionControl" data-submittype="Create" onclick="SubmitForm(this); " type="submit" disabled="disabled" value="Create Application">
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+}
+
+<script type="text/javascript">
+    function RedirectToPersonalHistory() {
+        window.location.href = "/GTP/PersonalHistoryFormWizard/Create";
+
+        //$('#div_submit_container').hide();
+        //$('#div_redirectP11_container').show();
+    }
+</script>

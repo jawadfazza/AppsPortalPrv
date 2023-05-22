@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MissionReportFormDataTableModel>
+
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    <h3>@resxPages.Details</h3>
+    <div class="form-group">
+    <div class="row">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Field Office</th>
+                    <th scope="col">Mission Start Date</th>
+                    <th>Mission End Date</th>
+                    <th scope="col">Governorate</th>
+                    <th scope="col">District</th>
+                    <th scope="col">SubDistrict</th>
+                    <th scope="col">Community</th>
+                    <th scope="col">Created By</th>
+                    <th scope="col">Mission Leader</th>
+                    <th scope="col">Mission Status</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.DutyStation</td>
+                    <td>@item.MissionStartDate</td>
+                    <td> @item.MissionEndDate</td>
+                    <td> @item.Governorate</td>
+                    <td> @item.District</td>
+                    <td> @item.SubDistrict</td>
+                    <td> @item.Community</td>
+                    <td> @item.CreatedBy</td>
+                    <td> @item.MissionLeader</td>
+                    <td> @item.MissionStatus</td>
+
+                </tr>
+
+            }
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+<div class="modal-footer form-footer">
+
+    @Html.CloseModalButton()
+
+</div>
+
+

@@ -1,0 +1,73 @@
+﻿@model WMSPurchaseOrderContractUpdateModel
+@using (Html.BeginForm("PurchaseOrderContract", "LicenseSubscription", new { Area = "WMS" }, FormMethod.Post, new { id = "PONumberForm" }))
+{
+    string ModalTitle = Model.LicenseSubscriptionContractPOGUID.ToString() == Guid.Empty.ToString() ? "New Purchase Date" : "Edit Purchase Date";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.LicenseSubscriptionContractGUID)
+        @Html.HiddenFor(model => model.LicenseSubscriptionContractGUID)
+        @Html.HiddenFor(model => model.CreateByGUID)
+        @Html.HiddenFor(model => model.UpdateByGUID)
+        @Html.HiddenFor(model => model.CreateDate)
+        @Html.HiddenFor(model => model.UpdateDate)
+
+        <div cllass="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PONumber)
+                @Html.EditorFor(model => model.PONumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate)
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExpiryDate)
+                @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PODescription)
+                @Html.EditorFor(model => model.PODescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price)
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comments)
+                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="fine-uploader-manual-trigger"></div>
+        </div>
+        
+
+        @*<div class="form-group HANDLER">
+            @Html.Label("File Type")
+            @Html.DropDownListFor(model => model.FileTypeGUID, new DropDownList().WarehouseDocumentFileType(), new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>*@
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.LicenseSubscriptionContractPOGUID == Guid.Empty)
+        {
+            @*<input id="my-select-files-btn" type="button" value="Select Files" class="btn btn-default" />*@
+            @Html.CreateButton(Permissions.LicenseandSubscriptionContracts.Create, Apps.WMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.LicenseandSubscriptionContracts.Update, Apps.WMS)
+                @Html.DeleteSwitchButton(Permissions.LicenseandSubscriptionContracts.Delete, Apps.WMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.LicenseandSubscriptionContracts.Delete, Apps.WMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+
+

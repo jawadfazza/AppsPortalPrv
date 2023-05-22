@@ -1,0 +1,25 @@
+﻿@model NoteVerbaleUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.NoteVerbaleGUID == Guid.Empty) ? "New Note Verbale Type" : "Edit Note Verbale Type"; }
+@if (!Model.Map)
+{
+    @Html.PageHeader("cbc2a933-9ba0-4b26-b2b2-9b94df30d835")
+}
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+            @Html.Partial("~/Areas/MRS/Views/NoteVerbales/_NoteVerbaleForm.cshtml")
+            <div id="TabContainer">
+                @if (Model.NoteVerbaleGUID != Guid.Empty && Model.Active)
+                {
+                    @Html.Partial("~/Areas/MRS/Views/NoteVerbaleStaffs/_Index.cshtml", new MasterRecordStatus { ParentGUID = Model.NoteVerbaleGUID, IsParentActive = Model.Active })
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

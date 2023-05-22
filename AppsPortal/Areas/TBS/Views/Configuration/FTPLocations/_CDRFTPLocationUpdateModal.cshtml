@@ -1,0 +1,47 @@
+﻿
+@model codeCDRLocation
+@using (Html.BeginForm("CDRFTPLocation", "Configuration", new { Area = "TBS" }, FormMethod.Post, new { id = "CDRFTPLocationForm" }))
+{
+    string ModalTitle = Model.CDRLocationGUID.ToString() == Guid.Empty.ToString() ? "New CDR FTP Location" : "Edit CDR FTP Location";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.CDRLocationGUID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DutyStationGUID)
+            @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStations(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FTPPath)
+            @Html.EditorFor(model => model.FTPPath, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FTPUsr)
+            @Html.EditorFor(model => model.FTPUsr, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FTPPass)
+            @Html.EditorFor(model => model.FTPPass, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.CDRLocationGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.CDRFTPLocationsManagement.Create, Apps.TBS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.CDRFTPLocationsManagement.Update, Apps.TBS)
+                @Html.DeleteSwitchButton(Permissions.CDRFTPLocationsManagement.Delete, Apps.TBS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.CDRFTPLocationsManagement.Delete, Apps.TBS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

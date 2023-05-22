@@ -1,0 +1,288 @@
+﻿@model MasterRecordStatus
+<style>
+    .fc-time {
+        display: none !important;
+    }
+
+    .fc-time {
+        display: none !important;
+    }
+
+    .fc-fri {
+        color: red;
+        background-color: lightgoldenrodyellow;
+    }
+
+    .fc-sat {
+        color: red;
+        background-color: lightgoldenrodyellow;
+    }
+</style>
+
+@*<h3 class="Title">R And R Dates</h3>*@
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+
+
+        <br />
+
+        <div id='calendar'></div>
+
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var userAccessLevel = '@ViewBag.userAccessLevel';
+    var Source;
+    var events = [];
+    var curSource = new Array();
+    var guid = "@Model.ParentGUID";
+
+
+
+    var newSource = new Array();
+    $(document).ready(function () {
+
+        InitializeCalendarLeavs();
+    });
+    function searchAppointment() {
+        if ($('#search-term').val() != '') {
+            newSource = Source.filter(elem =>
+                (elem.title.toLowerCase().indexOf($('#search-term').val().toLowerCase()) > -1));
+            refreshCalendar(newSource);
+
+        } else {
+            refreshCalendar(Source);
+        }
+    }
+    function refreshCalendar(newSource) {
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('addEventSource', newSource);
+        $('#calendar').fullCalendar('refetchEvents');
+    }
+
+
+    $(document).keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            event.preventDefault();
+            searchAppointment();
+        }
+
+    });
+
+    var SlotWorkDays = [];
+    function InitializeCalendarLeavs() {
+
+
+        $.ajax({
+            url: "/AHD/InternationalStaffPresenceTracking/GetWorkingDay",
+            dataType: 'json',
+            type: "post",
+            success: function (data) {
+                $.each(data.WorkDays, function (key, value) {
+                    SlotWorkDays.push(value.Day);
+                });
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today,myCustomButton',
+                        center: 'title',
+
+                    },
+
+                    height: 700,
+                    allDayText: 'Events',
+                    selectable: true,
+                    overflow: 'auto',
+                    editable: true,
+                    firstDay: 0,
+                    businessHours: true,
+                    businessHours:
+                    {
+                        start: '8:30',
+                        end: '04:00',
+                        dow: SlotWorkDays
+                    },
+
+                    //eventLimit: true, // for all non-agenda views
+                    //views: {
+                    //    agenda: {
+                    //        eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                    //    }
+                    //},
+                    events: function (start, end, timezone, callback) {
+                        $.ajax({
+                            url: "/AHD/StaffRAndRLeave/GetCalanderRRLeaves",
+                            dataType: 'json',
+                            type: "post",
+                            data: {
+                                // our hypothetical feed requires UNIX timestamps
+                                start: start.format('YYYY-MM-DD HH:mm'),
+                                end: end.format('YYYY-MM-DD HH:mm'),
+                                guid: guid
+                            },
+                            success: function (data) {
+                                events = [];
+                                //alert(JSON.stringify(data.CalendarEvents, null, 2));
+                                $.map(data.CalendarEvents, function (item, i) {
+                                    var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                                    var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                                    var event = new Object();
+                                    event.id = item.EventId;
+                                    event.UserGUID = item.UserGUID;
+                                    event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                    event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                    event.title = item.Title;
+                                    
+                                    event.allDay = false;
+                                    event.backgroundColor = item.backgroundColor;
+                                    event.borderColor = item.borderColor;
+                                    //if (item.PublicHolday) { event.color = 'red'; event.overlap = false; }
+                                    //if (item.PreventAppointments) { event.color = 'orange'; event.allDay = item.AllDayEvent; }
+                                    events.push(event)
+                                });
+                                callback(events);
+                            }
+                        });
+                    },
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $.ajax({
+                            type: "GET",
+                            url: '/AHD/StaffRAndRLeave/RRLeaveCalendarUpdate?PK=' + calEvent.id,
+                            success: function (data) {
+                                $('#FormModal').modal('show');
+                                // inject your content into the "placeholder" div
+                                $('#Partial-Container').html(data);
+                                $('#Loading-Container').hide();
+                                InitPlugins($('#Partial-Container'));
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    },
+                    customButtons: {
+                        myCustomButton: {
+                            text: 'Indicate Dates',
+                            click: function () {
+                                $.ajax({
+                                    type: "GET",
+                                    //url: '/AHD/StaffRAndRLeave/TempRestAndRecuperationLeaveDateCreate?FK=' + guid,
+                                    url: '/AHD/StaffRAndRLeave/TempRestAndRecuperationLeaveDateCreate?FK=' + guid,
+                                    success: function (data) {
+                                        $('#FormModal').modal('show');
+                                        // inject your content into the "placeholder" div
+                                        $('#Partial-Container').html(data);
+                                        $('#Loading-Container').hide();
+                                        InitPlugins($('#Partial-Container'));
+                                    },
+                                    error: function (err) {
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                        }
+                    },
+                    select: function (start, end) {
+
+                    },
+                    eventDrop: function (event, delta, revertFunc) {
+                        alert(1);
+                        $.ajax({
+                            type: "post",
+                            url: '/AHD/StaffRAndRLeave/AttendanceLeaveUpdateDropEvent?PK=' + event.id + "&startDate=" + event.start.format() + "&endDate=" + event.end.format(),
+                            success: function (JsonResult) {
+                                if (JsonResult.Notify != null) {
+                                    ProcessNotify(JsonResult);
+                                    if (JsonResult.Notify.Type == NotificationType.Error) {
+                                        revertFunc();
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+
+
+    }
+
+
+
+
+
+
+
+    function ShowStaffLeaves(guid) {
+
+
+        events = events.filter(function (event) {
+            return event.UserGUID == guid;
+        });
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today,myCustomButton',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,list'
+            },
+
+            height: 700,
+            allDayText: 'Events',
+            selectable: true,
+            overflow: 'auto',
+            editable: true,
+            firstDay: 0,
+            businessHours: true,
+            businessHours:
+            {
+                start: '8:30',
+                end: '04:00',
+                dow: SlotWorkDays
+            },
+
+            //eventLimit: true, // for all non-agenda views
+            //views: {
+            //    agenda: {
+            //        eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+            //    }
+            //},
+            events: function (start, end, timezone, callback) {
+
+
+
+
+                $.map(events, function (item, i) {
+                    var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                    var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                    var event = new Object();
+                    event.id = item.EventId;
+                    event.UserGUID = item.UserGUID;
+                    event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                    event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                    event.title = item.Title;
+                    event.allDay = false;
+                    event.backgroundColor = item.backgroundColor;
+                    event.borderColor = item.borderColor;
+                    //if (item.PublicHolday) { event.color = 'red'; event.overlap = false; }
+                    //if (item.PreventAppointments) { event.color = 'orange'; event.allDay = item.AllDayEvent; }
+                    events.push(event)
+                });
+                callback(events);
+
+
+            },
+
+        });
+    }
+
+
+</script>

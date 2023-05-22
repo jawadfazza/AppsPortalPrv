@@ -1,0 +1,72 @@
+﻿@model StaffRAndRLeaveRequestModel
+@using (Html.BeginForm("EditRAndRRequest", "StaffRAndRLeave", new { Area = "AHD" }, FormMethod.Post, new { id = "EditRAndRRequestForm", @class = "main-form", enctype = "multipart/form-data" }))
+{
+    <h3>Main Information</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.RestAndRecuperationLeaveGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.BackupArrangementGUID)
+                @Html.DropDownListFor(model => model.BackupArrangementGUID, new DropDownList().AdminHRStaff(), "", new
+    {
+        @class = "form-control select2-basic-search",
+        style = "width:100%",
+
+    })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReturnDateFromLastRLeave)
+                    @Html.EditorFor(model => model.ReturnDateFromLastRLeave, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ExpiryDateOfResidency)
+                    @Html.EditorFor(model => model.ExpiryDateOfResidency, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SupervisorGUID)
+                    @Html.EditorFor(model => model.SupervisorGUID, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApprovedByGUID)
+                    @Html.EditorFor(model => model.ApprovedByGUID, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                </div>
+
+
+
+
+                <div class="form-group HANDLER" id="itemparenetId">
+                    @Html.LabelFor(model => model.EmployeeComments)
+                    @Html.EditorFor(model => model.EmployeeComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                </div>
+
+
+                @Html.CreateButton(Permissions.InternationalStaffRestAndRecuperationLeave.Create, Apps.AHD)
+
+                @*<div id="InternationalStaffRestAndRecuperationLeaveFormControls" class="form-group form-footer">
+            @if (Model.RestAndRecuperationLeaveGUID == Guid.Empty)
+            {
+                @Html.CreateButton(Permissions.InternationalStaffRestAndRecuperationLeave.Create, Apps.AHD)
+            }
+            else
+            {
+                if (Model.Active)
+                {
+
+                    @Html.UpdateButton(Permissions.InternationalStaffRestAndRecuperationLeave.Update, Apps.AHD)
+                    @Html.CreateNewButton(Permissions.InternationalStaffRestAndRecuperationLeave.Create, Apps.AHD, Url.Action("/Create", new { Area = "AHD" }))
+                    @Html.DeleteButton(Permissions.InternationalStaffRestAndRecuperationLeave.Delete, Apps.AHD)
+                }
+                else
+                {
+                    @Html.RestoreButton(Permissions.InternationalStaffRestAndRecuperationLeave.Restore, Apps.AHD)
+                }
+            }
+
+        </div>*@
+            </div>
+    </div>
+        </div>
+}
+

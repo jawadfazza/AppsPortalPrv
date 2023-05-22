@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "RegistrationFailed";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+<div class="page--header">
+    <div class="page--banner">
+        <h2>@resxPages.RegistrationFailed</h2>
+        <div class="row">
+            <div class="col-md-5">
+                <article>
+                    Number of attempts exceed 
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page--content">
+    <div class="page--body">
+        <br />
+        <br />
+        <p>
+            @resxPages.RegistrationFailedBody
+            <br />
+            <br />
+            @Html.ActionLink("Back to Registration Page", "Register", "Registration", new { @class = "btn btn-default" })
+        </p>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+﻿@Html.Partial("_ModalHeader", "Validate Partners' Contributions Data")
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">Validate Selected Record(s).</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="PartnersContributionsUploadFormControl" class="modal-footer form-footer">
+    @if (new CMS().HasAction(Permissions.PartnersContribution.Upload, Apps.FWS))
+    {
+        <input id="btn-validate-data" type="submit" class="btn btn-primary" onclick="SubmitForm(this)" value="Validate Data" data-submittype="Validate" data-refreshdatatable="PartnersContributionsDataTable" form="PartnersContributionsDataTableForm">
+    }
+    @Html.CloseModalButton()
+</div>

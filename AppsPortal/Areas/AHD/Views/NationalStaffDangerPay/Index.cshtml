@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("3db5e37e-be75-4a93-8161-4e3e1b8ffd6f")
+
+<div class="page--content">
+    <h1>@Model.PaymentDurationName</h1>@if (@ViewBag.TotalStaffNotConfirmed > 0)
+    {<b>There are still : @ViewBag.TotalStaffNotConfirmed staff did not confirm </b>}
+else
+{
+    <b>All staff  confirmed</b>
+}
+    <div id=@string.Format("{0}Filter", DataTableNames.NationalStaffAllDangerPayDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FlowStatus, DbColumnName = "ConfirmationStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().DangerPayStaffConfirmationStatus(), IsMultiple = true, IsSearchable = true })
+
+            </div>
+
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.NationalStaffAllDangerPayDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.NationalStaffAllDangerPayDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.NationalStaffAllDangerPayDataTable)
+        @Html.ActionLink(" ", "SendConfirmationReceivingModelForPendingConfirmationStaffEmail", "NationalStaffDangerPayCalcualtion", new { FK = @ViewBag.DangerPayInformationGUID }, new { @class = "btn btn-primary fa fa-bell" })
+        @*@Html.FieldDataTableStaffSendReminderToConfirm(Permissions.NationalStaffDangerPayManagement.Create, Apps.AHD, Url.Action("SendConfirmationReceivingModelForPendingConfirmationStaffEmail", "NationalStaffDangerPayCalcualtion", new { FK = Model.DangerPayInformationGUID }))*@
+        @*@Html.FieldDataTableCreate(Permissions.NationalStaffDangerPayManagement.Create, Apps.AHD, Url.Action("NationalStaffDangerPayInformationCreate", "NationalStaffDangerPayCalcualtion"))*@
+
+        @Html.IndexDatatableDelete(Permissions.NationalStaffDangerPayManagement.Delete, Apps.AHD, DataTableNames.NationalStaffAllDangerPayDataTable)
+        @Html.IndexDatatableRestor(Permissions.NationalStaffDangerPayManagement.Restore, Apps.AHD, DataTableNames.NationalStaffAllDangerPayDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.NationalStaffAllDangerPayDataTable)
+        @*@Html.ActionLink(" ", "ExportDangerPayStaffForMonth", "NationalStaffDangerPayCalcualtion", new { id = @ViewBag.DangerPayInformationGUID }, new { @class = "btn btn-primary fa fa-file-o" })*@
+
+    </div>
+    <div class="col-md-6 col-md-offset-8">
+        @Html.ActionLink(" Export Finance Report(Standard)", "ExportStandardDangerPayStaffForMonth", "NationalStaffDangerPayCalcualtion", new { id = @ViewBag.DangerPayInformationGUID }, new { @class = " fa fa-file-o" })
+        @Html.ActionLink(" Export Summary  Report", "ExportDangerPayStaffForMonth", "NationalStaffDangerPayCalcualtion", new { id = @ViewBag.DangerPayInformationGUID }, new { @class = " fa fa-file-o" })
+        @Html.ActionLink("Export Danger Pay Detail ", "ExportDetailDangerPayStaffForMonth", "NationalStaffDangerPayCalcualtion", new { id = @ViewBag.DangerPayInformationGUID }, new { @class = "fa fa-file-o" })
+    </div>
+    <br />
+    
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.NationalStaffAllDangerPayDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.DangerPayInformationGUID, OrderBy = 1 })
+    </div>
+
+
+</div>

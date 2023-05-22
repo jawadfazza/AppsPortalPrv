@@ -1,0 +1,221 @@
+﻿@model PCRReportParametersMultiple
+@{
+    ViewBag.Title = "Partner Reports";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("f8e636bb-8080-45de-9006-4f2b54fdb2f2")
+@using (Html.BeginForm("StanderReports", "Reports", new { Area = "PCR" }, FormMethod.Post, new { id = "ReportForm" }))
+{
+    <style>
+        iframe {
+            border-width: 0px !important
+        }
+    </style>
+    <div class="page--content">
+        <h3>@resxPages.ReportParameters</h3>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReportGUID)
+                    @Html.DropDownListFor(model => model.ReportGUID, new DropDownList().PartnerStandardReports(), "", new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-search"
+               })
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Update Date")
+                    @Html.DropDownListFor(model => model.EndDate, new DropDownList().PartnerReportCompiledEndDate(), "", new
+               {
+                   style = "width:100%;",
+                   @class = "form-control",
+               })
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" style="height:35px">
+                                    <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                        <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#OrganizationInstanceGUID').val([]); $('#OrganizationInstanceGUID').trigger('change');">Clear</a>
+                                    </span>
+                                    <h3 class="panel-title" style="margin-left: -10px;"><b>Partner</b> </h3>
+                                </div>
+
+                                <div class="panel-body" style="padding-top: 0px;height:340px">
+                                    <div class="row">
+                                        @Html.ListBoxFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstancesAcronymByProfile(), new
+                                   {
+                                       style = "width:100%;height:340px;font-size:15px;",
+                                       @class = "form-control list--box",
+                                       onchange = "FindChildrenGovernorates($(this).val());UpdateDropDownListFromMultiple([$(this).val()+'|'+$('#DutyStationGUID').val()], [{ DropDownListID : 'PartnerCenterGUID', Action : 'RemotePartnerCenterByOrganizationInstanceByDutyStation'}]);"
+                                   })
+                                    </div>
+                                </div>
+                                <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                    <a onclick="$('#OrganizationInstanceGUID option').prop('selected', true); $('#OrganizationInstanceGUID').trigger('change');">Select All</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" style="height:35px">
+                                    <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                        <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#DutyStationGUID').val([]);  $('#DutyStationGUID').trigger('change');">Clear</a>
+                                    </span>
+                                    <h3 class="panel-title" style="margin-left: -10px;"><b>Governorate</b> </h3>
+                                </div>
+                                <div class="panel-body" style="padding-top: 0px;height:340px">
+                                    <div class="row">
+
+                                        @Html.ListBoxFor(model => model.DutyStationGUID, new DropDownList().Empty(), new
+                                   {
+                                       style = "width:100%;height:340px;font-size:15px;",
+                                       @class = "form-control list--box",
+                                       onchange = "if(FindParentMultiple('DutyStationGUID','OrganizationInstanceGUID')){UpdateDropDownListFromMultiple([$('#OrganizationInstanceGUID').val()+'|'+$(this).val()], [{ DropDownListID : 'PartnerCenterGUID', Action : 'RemotePartnerCenterByOrganizationInstanceByDutyStation'}]);}"
+
+                                   })
+                                    </div>
+
+                                </div>
+                                <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                    <a onclick="$('#DutyStationGUID option').prop('selected', true); $('#DutyStationGUID option:first').prop('selected', false); $('#DutyStationGUID').trigger('change');">Select All</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" style="height:35px">
+                                        <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                            <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#OrganizationInstanceGUID').val([]); $('#OrganizationInstanceGUID').trigger('change');">Clear</a>
+                                        </span>
+                                        <h3 class="panel-title" style="margin-left: -10px;"><b>Partner</b> </h3>
+                                    </div>
+
+                                    <div class="panel-body" style="padding-top: 0px;height:340px">
+                                        <div class="row">
+
+
+
+                                            @Html.ListBoxFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstancesAcronymByProfile(), new
+                                       {
+                                           style = "width:100%;height:340px;font-size:15px;",
+                                           @class = "form-control list--box",
+                                       })
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                        <a onclick="$('#OrganizationInstanceGUID option').prop('selected', true); $('#OrganizationInstanceGUID').trigger('change');">Select All</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" style="height:35px">
+                                        <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                            <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#DutyStationGUID').val([]); $('#DutyStationGUID').trigger('change');">Clear</a>
+                                        </span>
+                                        <h3 class="panel-title" style="margin-left: -10px;"><b>Governorate</b> </h3>
+                                    </div>
+                                    <div class="panel-body" style="padding-top: 0px;height:340px">
+                                        <div class="row">
+
+                                            @Html.ListBoxFor(model => model.DutyStationGUID, new DropDownList().Empty(), new
+                                       {
+                                           style = "width:100%;height:340px;font-size:15px;",
+                                           @class = "form-control list--box",
+
+                                       })
+                                        </div>
+
+                                    </div>
+                                    <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                        <a onclick="$('#DutyStationGUID option').prop('selected', true); $('#DutyStationGUID').trigger('change');">Select All</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+                <div>
+                    <input class="btn btn-primary " data-submittype="" type="submit" value="Generate Report">
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div class="form-group" id="ReportViewer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script>
+    //$(document).ready(function () {
+    //    UpdateDropDownListFromMultiple([""], [{ DropDownListID: 'DutyStationGUID', Action: 'RemoteSyriaDutyStationForPCR' }]);
+    //});
+
+    $(document).ready(function () {
+        UpdateDropDownListFromMultiple([""], [{ DropDownListID: 'DutyStationGUID', Action: 'RemoteSyriaDutyStationForPCR' }]);
+        UpdateDropDownListFromMultiple([$('#OrganizationInstanceGUID').val() + '|' + $(this).val()], [{ DropDownListID: 'PartnerCenterGUID', Action: 'RemotePartnerCenterByOrganizationInstanceByDutyStation' }]);
+    });
+
+    function FindChildrenGovernorates(SelectedFromSource) {
+        debugger;
+
+        // $('#' + DestinationList + ' option[value="' + GroupVal + '"]').show().fadeOut(100).fadeIn(100);
+        var results = [];
+        //$('#DutyStationGUID').val([]);
+        $('#DutyStationGUID option').each(function () {
+            $(this).attr('selected', false);
+        });
+
+
+        $('#DutyStationGUID option').each(function () {
+            var thisObj = $(this);
+            if ($(this).attr('data-group') != undefined) {
+                var listOfParents = $(this).attr('data-group').split(',');
+                $.each(listOfParents, function (i, elm) {
+                    $.each(SelectedFromSource, function (_i, _elm) {
+                        if (elm == _elm) {
+                            thisObj.attr('selected', true);
+                        }
+                    });
+                });
+            }
+        });
+
+
+        return true;
+    }
+
+    function FindParentMultiple(SourceList, DestinationList) {
+        debugger;
+        // $('#' + DestinationList + ' option[value="' + GroupVal + '"]').show().fadeOut(100).fadeIn(100);
+        var selected = $('#' + SourceList).find('option:selected', this);
+        var results = [];
+
+        selected.each(function () {
+            var array = $(this).data('group').split(',');
+            $.each(array, function (i) {
+                results.push(array[i]);
+            });
+        });
+
+        $('#' + DestinationList).val([]);
+        $('#' + DestinationList).val(results);
+        return true;
+    }
+</script>

@@ -1,0 +1,18 @@
+﻿@model OfficeUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("00f39843-c042-4e9f-af76-482df1705377")
+@{string PageTitle = (Model.OfficeGUID == Guid.Empty) ? "New Office" : "Edit Office";}
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/Offices/_OfficeForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.OfficeGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/Offices/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.OfficeGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

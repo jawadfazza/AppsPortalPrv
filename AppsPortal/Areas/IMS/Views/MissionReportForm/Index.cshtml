@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "MissionReportForm";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("3163ff42-af05-4eed-9147-dd66cfbea167")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.MissionReportFormDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.GovernorateGUID, DbColumnName = "GovernorateGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Governorates(Guid.Parse("699287E8-754D-4A63-B8DD-5344CFBAFD22")), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DistrictGUID, DbColumnName = "DistrictGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().AllDistricts(), IsSearchable = true })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SubDistrictGUID, DbColumnName = "SubDistrictGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().AllSubDistricts(), IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CommunityGUID, DbColumnName = "CommunityGUID", FilterForDataType = "Text", DataList = new DropDownList().AllCommunities(), IsMultiple = true })
+
+
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MissionStartDate, DbColumnName = "MissionStartDate", FilterForDataType = "Date" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MissionEndDate, DbColumnName = "MissionEndDate", FilterForDataType = "Date" })
+
+
+            </div>
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MissionCode, DbColumnName = "MissionCode", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().IMSMissionFormCode(), IsMultiple = true, IsSearchable = true })
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MissionLeaderGUID, DbColumnName = "MissionLeaderGUID", FilterForDataType = "Text", DataList = new DropDownList().Users(true), IsMultiple = true, IsSearchable = true })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MissionStatusGUID, DbColumnName = "MissionStatusGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().MissionStatus(), IsMultiple = true, IsSearchable = true })
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CreatedByGUID, DbColumnName = "CreatedByGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Users(true), IsMultiple = true, IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStation, DbColumnName = "MissionSourceOfficeGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().MissionOfficeSource(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.MissionReportFormDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.MissionReportFormDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.MissionReportFormDataTable)
+        @Html.IndexDatatableCreateNoPermission("/IMS/MissionForm/Create")
+        @Html.IndexDatatableDeleteNoPermission(DataTableNames.MissionReportFormDataTable)
+        @Html.IndexDatatableRestorNoPermission(DataTableNames.MissionReportFormDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.MissionReportFormDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MissionReportFormDataTable, FormController = "MissionReportForm", Area = "IMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>
+

@@ -1,0 +1,83 @@
+﻿<div class="row section">
+    <div class="xrow">
+        <div class="col-lg-10">
+            <h3 class="Title EditTitle">@resxPages.Permissions</h3>
+            <article>@resxPages.PermissionsArticle</article>
+        </div>
+        <div class="col-lg-2 text-right">
+            <a class="btn Edit-Link" onclick="CancelEditSection(this, '@Url.Action("PermissionsView","AccountSettings")', 'PanelForPermissions');">Close</a>
+        </div>
+    </div>
+
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 hidden-sm hidden-xs">
+
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading01" data-toggle="collapse" data-parent="#accordion" href="#Tab01" aria-expanded="true" style="background-color:#ddd;">
+                                    <span class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#Tab01">
+                                        <b>@resxPages.PortalApplications</b>
+                                    </span>
+                                </div>
+                                <div id="Tab01" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading01">
+                                    <div class="panel-body" style="padding:0;">
+                                        @{
+                                            var Apps = new DropDownList().Applications();
+                                            foreach (var app in Apps)
+                                            {
+                                                <div onclick="BuildMyPermissionsTree('@app.Value',this)" class="MenuElement">@app.Text</div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="col-lg-9 col-md-8">
+                    <div class="col-lg-12" style="background-color:#ddd;padding:10px 15px;border:1px solid #ccc;">
+                        <div class="HANDLER hidden-lg hidden-md">
+                            @Html.DropDownList("ApplicationGUID", new DropDownList().Applications(), "", new
+                       {
+                           style = "width:100%",
+                           @class = "form-control select2-basic-search FlashOnEmptySelect2",
+                           onchange = "BuildMyPermissionsTree($(this).val());"
+                       })
+                        </div>
+                        <b><span id="uiApplicationName" class="hidden-sm hidden-xs">@resxPages.NoApplicationSelected</span></b>
+                    </div>
+                    <div class="col-lg-12" style="border: 1px solid #ccc;border-top:none; background-color: #f8f8f8;min-height:210px;">
+                        <div id="LoadingPermissions" style="display:none;">
+                            <span class="loadingSpan" style="margin-left:4px;margin-top:2px;">@resxPages.LoadingPermissions</span>
+                        </div>
+                        <div id="TreeStuff" style="padding:5px 0;display:none;">
+                            <div id="divNodesTotal" style="margin:10px 0;">
+                                <span id="lblNodesTotal"></span>
+                            </div>
+                            <input class="form-control form-group" style="margin-bottom:0px;width:100%;display:inline-block;" type=text name="search_field" id="search_field" placeholder="Find Action" />
+                            <div style="margin-top:10px;" id="TreeLevelController">
+                                <table style="width:100%">
+                                    <tr>
+                                        <td style="width:1px">
+                                            <button id="btnExpandCollapseTree" class="collapsedTree btn-level" type="button" onmousedown="ExpandCollapseTree(this,'#PermissionsTree')"></button>
+                                        </td>
+                                        <td>
+                                            <input id="TreeLevelsSlider" type="text" style="width:98%" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="jsTreeMyPermissions">
+                                <div data-key="TreeKey" id="PermissionsTree"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-footer">
+                <a class="btn btn-default" onclick="CancelEditSection(null,'/AccountSettings/PermissionsView', 'PanelForPermissions');">Close</a>
+            </div>
+        </div>
+
+</div>

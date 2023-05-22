@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PrimaryEmailVerification" xml:space="preserve">
+    <value>عزيزي $FullName
+
+نشكرك على وقتك للتسجيل في بوابة المفوضية السامية لشؤون اللاجئين في سوريا
+
+ $VerifyEmailAddressLink من أجل التأكد من أنك تستخدم عنوان بريد إلكتروني صالح يرجى التحقق من البريد الإلكتروني الخاص بك الرجاء النقر
+
+إذا كان الرابط لا يعمل، فيرجى نسخ الرابط أدناه ولصقه في عنوان الرابط للمتصفح
+$Link
+
+يرجى عدم إعادة ارسال هذا البريد الإلكتروني
+
+تحياتنا الحارة،
+فريق دعم بوابة تطبيقات المفوضية</value>
+  </data>
+  <data name="PrimaryEmailVerificationSubject" xml:space="preserve">
+    <value>التحقق من صحة البريد الإلكتروني لتطبيقات أبس</value>
+  </data>
+  <data name="AccessRequestToSponsor" xml:space="preserve">
+    <value>عزيزي $SponsorFullName
+
+$UserFullName، من  $UserFullOrganizationName، طلب الوصول إلى بوابة طلبات المفوضية
+
+انقر  $ReviewRequest  للحصول على التفاصيل الكاملة.
+
+إذا كان الرابط لا يعمل، فيرجى نسخ الرابط أدناه ولصقه في عنوان الرابط للمتصفح
+$Link
+
+يرجى عدم إعادة ارسال هذا البريد الإلكتروني
+
+تحياتنا الحارة،
+فريق دعم بوابة تطبيقات المفوضية</value>
+  </data>
+  <data name="AccessRequestToSponsorSubject" xml:space="preserve">
+    <value>طلبات الحصول على مدخل طلبات المفوضية</value>
+  </data>
+  <data name="AccessRequestToUser" xml:space="preserve">
+    <value>عزيزي $UserFullName,
+
+  بنجاح. $SponsorOrganizationFullName في   $SponsorJobTitle  ( $SponsorEmailAddress )  $SponsorFullName  تم إرسال طلبك إلى
+
+سوف تحصل على بريد إلكتروني آخر مرة واحدة $SponsorFirstName استجابة لطلبك.
+
+ $SponsorFirstName لن يستجيب قريبا، يرجى النقر  $ChangeSponsor إذا كان
+
+إذا كان الرابط لا يعمل، فيرجى نسخ الرابط أدناه ولصقه في عنوان الرابط للمتصفح
+$Link
+
+يرجى عدم إعادة ارسال هذا البريد الإلكتروني
+
+تحياتنا الحارة،
+فريق دعم بوابة تطبيقات المفوضية</value>
+  </data>
+  <data name="AccessRequestToUserSubject" xml:space="preserve">
+    <value>طلبات الحصول على مدخل طلبات المفوضية</value>
+  </data>
+  <data name="SponsorSentMessage" xml:space="preserve">
+    <value>عزيزي  $UserFullName,
+
+ بنجاح. $SponsorOrganizationFullName في   $SponsorJobTitle  ( $SponsorEmailAddress )  $SponsorFullName  تم إرسال طلبك إلى
+
+الرجاء فتح البريد الوارد للحصول على مزيد من المعلومات.
+
+شكرا لكم</value>
+  </data>
+  <data name="VoteInvitationMessage" xml:space="preserve">
+    <value>عزيزي $FullName
+
+نود أن ندعوك إلى التصويت عبر الإنترنت $VoteName الذي سيعقد في  $InvitationDate.
+
+من أجل التصويت يرجى الضغط  $VoteLink
+
+إذا كان الرابط لا يعمل، فيرجى نسخ الرابط أدناه ولصقه في عنوان الرابط للمتصفح
+$Link
+
+يرجى عدم إعادة ارسال هذا البريد الإلكتروني
+
+تحياتنا الحارة،
+فريق دعم بوابة تطبيقات المفوضية</value>
+  </data>
+  <data name="VoteInvitationSubject" xml:space="preserve">
+    <value>دعوة التصويت</value>
+  </data>
+  <data name="VoteInvitationFormat" xml:space="preserve">
+    <value>عزيزي الناخب،
+
+نود أن ندعوك إلى التصويت عبر الإنترنت $VoteName الذي سيعقد في $InvitationDate.
+
+من أجل التصويت يرجى النقر الرابط أدناه
+
+إذا كان الرابط لا يعمل، فيرجى نسخ الرابط أدناه ولصقه في عنوان الرابط للمتصفح
+حلقة الوصل
+
+يرجى عدم إعادة ارسال هذا البريد الإلكتروني
+
+تحياتنا الحارة،
+فريق دعم بوابة تطبيقات المفوضية</value>
+  </data>
+  <data name="SponsorConfirmedAccount" xml:space="preserve">
+    <value>عزيزي  $FullName
+
+تم تأكيد حسابك من قبل  $SponsorName،
+يرجى اتباع الرابط أدناه لإكمال عملية التسجيل
+$VerifyEmailAddressLink
+
+إذا كان الرابط لا يعمل، فيرجى نسخ الرابط أدناه ولصقه في عنوان الرابط للمتصفح
+$Link
+
+يرجى عدم إعادة ارسال هذا البريد الإلكتروني
+
+تحياتنا الحارة،
+فريق دعم بوابة تطبيقات المفوضية</value>
+  </data>
+  <data name="SponsorConfirmedAccountSubject" xml:space="preserve">
+    <value>الراعي أكد حسابك</value>
+  </data>
+  <data name="AccessRequestToSponsorFailed" xml:space="preserve">
+    <value>عزيزي $UserFullName
+&lt;BR/&gt;
+تم رفض طلب الوصول إلى بوابة طلبات المفوضية من قبل الراعي ( $SponsorFullName)
+
+انقر $ReviewRequest تغيير الكفيل.
+&lt;BR/&gt;
+إذا كان الرابط لا يعمل، فيرجى نسخ الرابط أدناه ولصقه في عنوان الرابط للمتصفح
+$Link
+
+يرجى عدم إعادة ارسال هذا البريد الإلكتروني
+
+تحياتنا الحارة،
+فريق دعم بوابة تطبيقات المفوضية</value>
+  </data>
+  <data name="AccessRequestToSponsorFailedSubject" xml:space="preserve">
+    <value>تم رفض الوصول إلى مدخلات المفوضية السامية للأمم المتحدة لشؤون اللاجئين</value>
+  </data>
+  <data name="ForgetPasswordEmailVerify" xml:space="preserve">
+    <value>عزيزي $FullName
+
+بنجاح ($EmailAddress) تم إعادة تعيين كلمة المرور الخاصة بك
+
+$VerifyEmailAddressLink  انتقل إلى لإعادة تعيين كلمة المرور الخاصة بك على الفور.إذا لم تقم بإجراء هذا التغيير أو إذا كنت تعتقد شخص غير مصرح له دخل إلى حسابك، 
+
+إذا لم يعمل الرابط يرجى نسخ الرابط أدناه ولصقه على  رابط متصفحك
+$Link
+
+يرجى عدم إعادة أرسال هذا البريد الإلكتروني
+
+أطيب التحيات،
+تطبيقات المفوضية فريق دعم البوابة</value>
+  </data>
+  <data name="ForgetPasswordEmailVerifySubject" xml:space="preserve">
+    <value>تمت إعادة تعيين كلمة المرور الخاصة بك.</value>
+  </data>
+  <data name="FinalApproval_Agency" xml:space="preserve">
+    <value>الأعزاء أعضاء الفريق العامل المعني بتقييم منع الاستغلال والانتهاك الجنسيين، &lt;br /&gt;
+إن الشريك @PartnerName قد وافق على التقييم النهائي لقدراته في مجال منع الاستغلال والانتهاك الجنسيين. &lt;br /&gt;
+والدرجة النهائية التي حصل عليها هي @Score وهي تشير إلى أن المنظمة لديها قدرات @Rate في مجال منع الاستغلال والانتهاك الجنسيين.&lt;br /&gt;
+قد ترغبون في المضي قدماً بوضع خطة لتعزيز القدرات في مجال منع الاستغلال والانتهاك.</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="FinalApproval_Partner" xml:space="preserve">
+    <value>عزيزي @Name &lt;br /&gt;&lt;br /&gt;
+هذا توكيد بأنكم قد قبلتم التقييم النهائي لقدرات منظمتكم في مجال منع الاستغلال والانتهاك الجنسيين.&lt;br /&gt;
+والدرجة النهائية التي حصلتم عليها هي @Score وهي تشير إلى أن منظمتكم لديها قدرات @Rate في مجال منع الاستغلال والانتهاك الجنسيين.&lt;br /&gt;
+سيتصل بكم الفريق العامل المعني بتقييم منع الاستغلال والانتهاك الجنسيين في الأسابيع المقبلة من أجل وضع خطة لتعزيز قدراتكم في مجال منع الاستغلال والانتهاك الجنسيين .&lt;br /&gt;&lt;br /&gt;
+مع أحر التحيات</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersAssessmentPart_Agency" xml:space="preserve">
+    <value>الأعزاء أعضاء الفريق العامل المعني بتقييم منع الاستغلال والانتهاك الجنسيين,&lt;br /&gt;&lt;br /&gt;
+لقد أنهى @Name، وهو منسّق منع الاستغلال والانتهاك الجنسيين لدى @PartnerName، التقييم الذاتي لقدرات منظمته في مجال منع الاستغلال والانتهاك الجنسيين. يمكنكم الآن الدخول إلى التقييم الذاتي باتباع الرابط أدناه &lt;br /&gt;
+@Link &lt;br /&gt;
+يرجى مراجعة الإجابات التي قدّمها الشريك بعناية، وإضافة إجابتكم وتعليقاتكم الخاصة حول كل سؤال من أسئلة التقييم. قد ترغبون بالاتصال بـ @Name لطلب المزيد من التوضيحات قبل إكمال التقييم. &lt;br /&gt;&lt;br /&gt;
+مع أحر التحيات</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersAssessmentPart_Partner" xml:space="preserve">
+    <value>عزيزي @Name &lt;br /&gt;&lt;br /&gt;
+شكراً جزيلاً لكم على إنجاز التقييم الذاتي الخاص بالشركاء بخصوص منع الاستغلال والانتهاك الجنسيين. يمكنكم الآن الدخول إلى تقييمكم الذاتي باتباع الرابط أدناه @Link .&lt;br /&gt;
+الآن، سيقوم الفريق العامل المعني بتقييم منع الاستغلال والانتهاك الجنسيين بمراجعة تقييمكم وستتلقون رسالة بالبريد الإلكتروني حال إتمام المراجعة.&lt;br /&gt;
+من الممكن أن يتصل بكم أعضاء الفريق العامل المعني بتقييم منع الاستغلال والانتهاك الجنسيين في الأيام المقبلة لطلب بعض الإيضاحات حول الإجابات التي قدّمتموها.&lt;br /&gt;&lt;br /&gt;
+مع أحر التحيات</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="UNAssessmentPart_Agency" xml:space="preserve">
+    <value>الأعزاء أعضاء الفريق العامل المعني بتقييم منع الاستغلال والانتهاك الجنسيين،&lt;br /&gt;&lt;br /&gt;
+هذا توكيد بأنكم أكملتم تقييم @PartnerName. وقد أرسلنا رابطاً إلى المنسّق من أجل توكيد ذلك وموافقته على التقييم الذي قمتم به. حالما يؤكد الشريك ذلك، ستتلقون رسالة توكيد بالبريد الإلكتروني. &lt;br /&gt;&lt;br /&gt;
+مع أحر التحيات</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="UNAssessmentPart_Partner" xml:space="preserve">
+    <value>عزيزي @Name،&lt;br /&gt;&lt;br /&gt;
+لقد أنهى الفريق العامل المعني بتقييم منع الاستغلال والانتهاك الجنسيين مرحلة تقييم الأمم المتحدة لقدرات منظمتكم في مجال منع الاستغلال والانتهاك الجنسيين.&lt;br /&gt;
+والدرجة النهائية التي حصلتم عليها هي @Score  وهي تشير إلى أن منظمتكم لديها قدرات @Rate في مجال منع الاستغلال والانتهاك الجنسيين.&lt;br /&gt;
+يمكنكم الآن الدخول إلى التقييم النهائي باتباع الرابط الآتي لمراجعة الدرجات التي وضعها الفريق العامل وتعليقاته.&lt;br /&gt;  @Link 
+ إذا كنتم موافقين على التقييم النهائي، فيرجى تاكيد ذلك بالنقر على زر التوكيد في أسفل التقييم.&lt;br /&gt;
+قد ترغبون في الاتصال بالفريق العامل المعني بمنع الاستغلال والانتهاك الجنسيين من أجل المزيد من التوضيحات أو مراجعة التقييم النهائي. &lt;br /&gt;&lt;br /&gt;
+مع أحر التحيات</value>
+    <comment>PCA</comment>
+  </data>
+</root>

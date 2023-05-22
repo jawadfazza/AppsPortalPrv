@@ -1,0 +1,32 @@
+﻿@model PartnersCapacityAssessmentDocUpdateModel
+@{
+    ViewBag.Title = "PartnersCapacityAssessment";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout_1.cshtml";
+}
+<div class="page--header">
+    <div class="page--banner">
+        <h2>@resxPages.PartnersCapacityAssessmentTitle</h2>
+        <article>
+            @resxPages.PartnersCapacityAssessmentCompleted
+        </article>
+
+    </div>
+</div>
+
+
+<div class="page--content">
+    <div class="wizard">
+        <span class="done">@resxPages.PartnersCapacityAssessmentStep1</span>
+        <span class="done">@resxPages.PartnersCapacityAssessmentStep2</span>
+        <span class="done">@resxPages.PartnersCapacityAssessmentStep3</span>
+
+    </div>
+    <div class="page--body">
+        <h1><i class="fa fa-check-circle fa-1x" aria-hidden="true"></i> @resxPages.PartnersCapacityAssessmentThanks</h1>
+        <br />
+        <br />
+        <hr />
+        <h5><i class="fa fa-plus fa-1x" aria-hidden="true"></i><a href="~/PCA/PartnersCapacityAssessment/Index"> @resxPages.PartnersCapacityAssessmentNew</a></h5>
+</div>
+</div>
+

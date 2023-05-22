@@ -1,0 +1,384 @@
+﻿@model SHMReportParameters
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("99371405-4315-4a0d-8dac-58e3510ed0c2")
+
+<div class="page--content">
+    @using (Html.BeginForm("ReportsBoard", "Reports", new { Area = "SHM" }, FormMethod.Post, new { id = "ReportForm" }))
+    {
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="height:35px">
+                        <h3 class="panel-title" style="color:black;"><b>Filters</b> </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <div class="form-group">
+                                    @Html.Label("Report Topic")
+                                    @Html.DropDownListFor(model => model.Report, new DropDownList().ShuttleReportTopicRDLC(), "", new
+                               {
+                                   style = "width:100%",
+                                   @class = "form-control select2-basic-search",
+                                   onchange = "HideShowFilters();"
+                               })
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+                                    @Html.Label("Start Date")
+                                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+                                    @Html.Label("End Date")
+                                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="display: flex;margin-top: 25px;">
+                                <input class="btn btn-primary " data-submittype="" onclick="InitDashboards();SubmitForm(this);" type="submit" value="Generate Report">
+                                <input type="reset" class="btn btn-default" style="width:50%" value="Clear All" onclick="ClearAll();">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                @Html.Label("Passenger")
+                                @Html.DropDownList("UserPassengerGUID", new DropDownList().CoreUsers(true),
+                                            new { multiple = "multiple", data = "nothing", @class = "form-control select2-basic-multiple", style = "width:100%", placeholder = "Passagnger" })
+
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                @Html.Label("Driver")
+                                @Html.DropDownList("UserDriverGUID", new DropDownList().ShuttleDrivers(),
+                                         new { multiple = "multiple", data = "nothing", @class = "form-control select2-basic-multiple", style = "width:100%" })
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                @Html.Label("AV Num")
+                                @Html.DropDownList("VehicleGUID", new DropDownList().Vehicles(),
+                                         new { multiple = "multiple", data = "nothing", @class = "form-control select2-basic-multiple", style = "width:100%" })
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 " style="">
+                                <div class="form-group">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#DutyStationGUID').val([]); $('#DutyStationGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.DutyStationGUID)</b> </h3>
+
+                                        </div>
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.DutyStationGUID, new DropDownList().DutyStationsByProfile(), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                              // onchange = "FindPerent('DutyStationGUID','OrganizationInstanceGUID',0);"
+                                           })
+                                            </div>
+
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#DutyStationGUID option').prop('selected', true); $('#DutyStationGUID').trigger('change');FindPerent('DutyStationGUID','OrganizationInstanceGUID',0);">Select All</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#CountryGUID').val([]); $('#CountryGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.CountryGUID)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.CountryGUID, new DropDownList().CountriesSyriaShuttle(), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "UpdateDropDownListFromMultiple([$(this).val()], [{ DropDownListID : 'StartLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);"
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#CountryGUID option').prop('selected', true); $('#CountryGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#StartLocationGUID').val([]); $('#StartLocationGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.StartLocationGUID)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.StartLocationGUID, new DropDownList().LocationsByCountries(new DropDownList().CountriesSyriaShuttle().Select(x => x.Value).ToList().ConvertAll(Guid.Parse).ToArray(), Guid.Parse("C970DDF5-31E5-47A1-BE76-AF15833D4E6A")), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#StartLocationGUID option').prop('selected', true); $('#StartLocationGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#CountryGUID1').val([]); $('#CountryGUID1').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.CountryGUID1)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.CountryGUID1, new DropDownList().CountriesSyriaShuttle(), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "UpdateDropDownListFromMultiple([$(this).val()], [{ DropDownListID : 'EndLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);"
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#CountryGUID1 option').prop('selected', true); $('#CountryGUID1').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#EndLocationGUID').val([]); $('#EndLocationGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.EndLocationGUID)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.EndLocationGUID, new DropDownList().LocationsByCountries(new DropDownList().CountriesSyriaShuttle().Select(x => x.Value).ToList().ConvertAll(Guid.Parse).ToArray(), Guid.Parse("C970DDF5-31E5-47A1-BE76-AF15833D4E6A")), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#EndLocationGUID option').prop('selected', true); $('#EndLocationGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:none" id="ChartPanel">
+                <div id="exTab1">
+                    <ul class="nav nav-pills">
+                        <li>
+                            <a href="#1a" data-toggle="tab">Dashboard Summary</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="tab-content clearfix">
+                    <div class="tab-pane active table-bordered" id="1a">
+
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4" style="border-right:10px">
+                                <div id="Tab1Container1" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-8 " style="border-right:10px">
+                                <div id="Tab1Container2" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <hr />
+                        <div class="row">
+                            <div class="col-lg-4" style="border-right:10px">
+                                <div id="Tab1Container3" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+                                </div>
+
+                            </div>
+                            <div class="col-lg-8">
+                                <div id="Tab1Container4" style="height:350px; width:100%; margin: 0 auto;border:solid;border-color: #e6dfdf;">
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <hr />
+                        <div class="row">
+                            <div class="col-lg-4 " style="border-right:10px">
+                                <div id="Tab1Container7" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-8 " style="border-right:10px">
+                                <div id="Tab1Container8" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <hr />
+                        <div class="row">
+                            <div class="col-lg-6 " style="border-right:10px">
+                                <div id="Tab1Container5" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 " style="border-right:10px">
+                                <div id="Tab1Container6" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group" id="ReportViewer">
+
+            </div>
+        </div>
+    }
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        UpdateDropDownList([""], [{ DropDownListID: 'MedicalPharmacyGUID', Action: 'RemoteMedicalPharmacyGrorp' }]);
+        UpdateDropDownList([""], [{ DropDownListID: 'MedicalItemGUID', Action: 'RemoteMedicalItemGrorp' }]);
+    });
+
+
+    function HideShowFilters() {
+        var IntReport = $("#Report").val();
+
+        if (IntReport == '1' || IntReport == '2') {
+            $("#MedicalBeneficiaryGUID").prop('disabled', false);
+            $("#MedicalBeneficiaryGUID").text('');
+
+        } else {
+            $("#MedicalBeneficiaryGUID").prop('disabled', true);
+            $("#MedicalBeneficiaryGUID").text('');
+        }
+
+    }
+
+    function ClearAll() {
+        $("#MedicalBeneficiaryGUID").text('');
+        $('#Report li:first-child').attr("selected", "selected");
+        $('#ReportViewer').hide();
+    }
+
+    function FindPerent(FromList, Tragetlist, SplitSeq) {
+        // $('#' + Tragetlist + ' option[value="' + GroupVal + '"]').show().fadeOut(100).fadeIn(100);
+        var selected = $('#' + FromList).find('option:selected', this);
+        var results = [];
+
+        selected.each(function () {
+            results.push($(this).data('group'));
+        });
+
+        $('#' + Tragetlist).val([]);
+        $('#' + Tragetlist).val(results);
+    }
+
+    function FindPerentMultiple(FromList, Tragetlist) {
+        debugger;
+        // $('#' + Tragetlist + ' option[value="' + GroupVal + '"]').show().fadeOut(100).fadeIn(100);
+        var selected = $('#' + FromList).find('option:selected', this);
+        var results = [];
+
+        selected.each(function () {
+            var array = $(this).data('group').split(',');
+            $.each(array, function (i) {
+                results.push(array[i]);
+            });
+        });
+
+        $('#' + Tragetlist).val([]);
+        $('#' + Tragetlist).val(results);
+        return true;
+    }
+
+   function NoSelectionSelectAll() {
+
+        if ($('#EndLocationGUID > option:selected').length == 0) {
+            $('#EndLocationGUID option').prop('selected', true);
+            if ($('#CountryGUID1 > option:selected').length != 0) {
+                 $('#EndLocationGUID option:first').prop('selected', false);
+            }
+        }
+        if ($('#StartLocationGUID > option:selected').length == 0) {
+            $('#StartLocationGUID option').prop('selected', true);
+            if ($('#CountryGUID > option:selected').length != 0) {
+                $('#StartLocationGUID option:first').prop('selected', false);
+            }
+        }
+       
+    }
+
+    var Process = '<center><img src="../Assets/Images/loading.gif" style="top: 50%;position: absolute;" /></center>'
+    function InitDashboards() {
+        NoSelectionSelectAll();
+        $('#ReportViewer').show();
+        $('#ReportViewer').html('').append(Process);
+        $('html,body').animate({
+            scrollTop: $("#ReportViewer").offset().top + 100
+        }, 'slow');
+    }
+</script>

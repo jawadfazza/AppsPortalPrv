@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.Globalization</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+        <div id=@string.Format("{0}Filter", DataTableNames.PartnerCenterLanguagesDataTable) class="filter-section" style="display:none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_RecordStatus", DataTableNames.PartnerCenterLanguagesDataTable)
+                </div>
+            </div>
+        </div>
+        <div class="dt-controls-field" id="@string.Format(" {0}ActionsContainer", DataTableNames.PartnerCenterLanguagesDataTable)">
+            @Html.FieldDataTableFilter(DataTableNames.PartnerCenterLanguagesDataTable)
+            @Html.FieldDataTableCreate(Permissions.CommunityCenterCode.Create, Apps.PCR, Url.Action("PartnerCenterLanguageCreate", "PartnerCenters", new { FK = Model.ParentGUID }))
+            @Html.FieldDataTableDelete(Permissions.CommunityCenterCode.Delete, Apps.PCR, DataTableNames.PartnerCenterLanguagesDataTable)
+            @Html.FieldDataTableRestore(Permissions.CommunityCenterCode.Restore, Apps.PCR, DataTableNames.PartnerCenterLanguagesDataTable)
+            @Html.FieldDataTableRefresh(DataTableNames.PartnerCenterLanguagesDataTable)
+        </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.PartnerCenterLanguagesDataTable, FormController = "PartnerCenters", Area = "PCR", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

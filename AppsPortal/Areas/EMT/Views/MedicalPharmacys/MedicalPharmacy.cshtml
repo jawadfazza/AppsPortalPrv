@@ -1,0 +1,20 @@
+﻿@model MedicalPharmacyUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.MedicalPharmacyGUID == Guid.Empty) ? "New Appointment Type" : "Edit Appointment Type"; }
+
+@Html.PageHeader("71a88605-d221-411b-b477-349e53cf254d")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/EMT/Views/MedicalPharmacys/_MedicalPharmacyForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.MedicalPharmacyGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/EMT/Views/MedicalPharmacys/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MedicalPharmacyGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

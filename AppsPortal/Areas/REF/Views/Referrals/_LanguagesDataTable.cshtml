@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.Globalization</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.ReferralLanguagesDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.ReferralLanguagesDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.ReferralLanguagesDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.ReferralLanguagesDataTable)
+                @Html.FieldDataTableCreate(Permissions.TelecomCompanies.Create, Apps.REF, Url.Action("ReferralLanguageCreate", "Referrals", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.TelecomCompanies.Delete, Apps.REF, DataTableNames.ReferralLanguagesDataTable)
+                @Html.FieldDataTableRestore(Permissions.TelecomCompanies.Restore, Apps.REF, DataTableNames.ReferralLanguagesDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.ReferralLanguagesDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ReferralLanguagesDataTable, FormController = "Referrals", Area = "REF", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

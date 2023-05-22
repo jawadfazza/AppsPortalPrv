@@ -1,0 +1,335 @@
+﻿@model StaffProfileUpdateModel
+<style>
+    .ProfInfoDivs {
+        width: 18%;
+        float: left;
+        margin-right: 26px;
+    }
+
+    .newPanelSettings {
+        background-color: #f3f3f3;
+        border-color: #f3f3f3;
+    }
+
+    .customHr {
+        border-top: 2px solid #cac3c3;
+        padding-bottom: 20px;
+    }
+</style>
+@using (Html.BeginForm("StaffProfile", "StaffProfile", new { Area = "ORG" }, FormMethod.Post, new { id = "StaffProfileForm", @class = "main-form" }))
+{
+    @*@Html.AntiForgeryToken()*@
+    @Html.FormHiddenFields(model => model.UserGUID)
+
+
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary newPanelSettings">
+                <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+                    @*<h3 class="panel-title" style="color:black">
+                            <b style="padding-top:10px;">Staff Profile</b>
+                            <span id="compare-ad" class="pull-right" style="color:blue;">Compare with Active Directory</span>
+                        </h3>*@
+
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div style="margin-top: 8px;float: left;margin-left: 60px;">
+                                <img id="imgProfilePhoto" src="@Model.MediaPath" class="profile-photo" />
+                                <div class="photo-controls">
+                                    <a href="#" class="Modal-Link" data-url="/Profile/Photo/">@resxPages.ChangePhoto</a> |
+                                    <a href="#" class="Confirm" data-mode="Single" data-submittype="ProfilePhotoDelete" data-url="/Profile/Photo/">@resxPages.Remove</a>
+                                </div>
+                                <div class="photo-controls">
+                                    @Html.DisplayFor(m => m.FirstNameEN) @Html.DisplayFor(m => m.SurnameEN)
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @*<div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StaffStatus) *
+
+                        @Html.DropDownListFor(model => model.StaffStatusGUID, new DropDownList().StaffStatus(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RecruitmentTypeGUID) *
+                        @Html.DropDownListFor(model => model.RecruitmentTypeGUID, new DropDownList().StaffRecuitmentTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                </div>
+            </div>*@
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstNameEN) *
+                                        @Html.DisplayFor(model => model.FirstNameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SurnameEN) 
+                                        <br />
+                                        @Html.DisplayFor(model => model.SurnameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstNameAR)
+                                        <br />
+                                        @Html.DisplayFor(model => model.FirstNameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SurnameAR)
+                                        <br />
+                                        @Html.DisplayFor(model => model.SurnameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FatherNameEN)
+                                        <br />
+                                        @Html.DisplayFor(model => model.FatherNameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FatherNameAR)
+                                        <br />
+                                        @Html.DisplayFor(model => model.FatherNameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MotherNameEN)
+                                        <br />
+                                        @Html.DisplayFor(model => model.MotherNameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MotherNameAR)
+                                        <br />
+                                        @Html.DisplayFor(model => model.MotherNameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+
+                    <br />
+                    <hr class="customHr" />
+
+
+
+
+                    <div class="row">
+                        <br />
+                        
+                        <div class="col-md-12">
+                            <h4 style="text-decoration:underline;">Bank Accounts</h4>
+                        </div>
+                        <div class="col-md-12">
+                            @*@if (Model.UserGUID != Guid.Empty && Model.Active)
+                                {*@
+                            <div id="BanksControlersFormControls">
+
+                                @Html.Partial("~/Areas/ORG/Views/StaffProfile/_BanksDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.UserGUID, IsParentActive = Model.Active })
+                            </div>
+                            @*}*@
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var currReq = "@Model.RecruitmentTypeGUID";
+            var currContract = "@Model.ContractTypeGUID";
+
+
+            if (currReq != null && currReq == 'fc4b2e79-2b97-4252-a50b-915b07a12310') {
+
+              $(".nationalshow").hide();
+                $('.internationlshow').show();
+
+            }
+            else {
+                $(".nationalshow").show();
+                $('.internationlshow').hide();
+            }
+            if (currContract != null && currContract == '1506f90e-f377-49b6-a8cd-116250246a44') {
+
+                $("#positionnumberdiv").hide();
+
+            }
+            else {
+                $("#positionnumberdiv").show();
+            }
+
+        });
+    $(function () {
+
+        $('#compare-ad').click(function (e) {
+            e.preventDefault();
+
+        });
+    });
+
+
+
+
+
+        $('#RecruitmentTypeGUID').change(function (e) {
+
+            e.preventDefault();
+            var val = $(this).val();
+
+            if (val == 'fc4b2e79-2b97-4252-a50b-915b07a12310') {
+
+                $(".nationalshow").hide();
+                $('.internationlshow').show();
+            }
+            else {
+                $(".nationalshow").show();
+                $('.internationlshow').hide();
+            }
+
+        });
+    $('#ContractTypeGUID').change(function (e) {
+
+        e.preventDefault();
+        var val = $(this).val();
+
+
+        if (val == '1506f90e-f377-49b6-a8cd-116250246a44') {
+
+
+            $("#positionnumberdiv").hide();
+
+        }
+        else {
+            $("#positionnumberdiv").show();
+
+        }
+
+    });
+        //
+        $('#AssignmentType').change(function (e) {
+            e.preventDefault();
+            var val = $(this).val();
+            if (val == 'fc4b2e79-2b97-4252-a50b-915b07a12310')//int
+            {
+                $('#international-section').show();
+            }
+            else if (val == '41651262-08ac-42dc-a691-9bbce28c95d1')//nat
+            {
+                $('#international-section').hide();
+            }
+        });
+
+    //$('#ContractTypeGUID').change(function (e) {
+    //    e.preventDefault();
+    //    var val1 = $(this).val().toLowerCase();
+    //    var val2 = '4484D38E-AD84-40E0-9209-E55804AAEC83'.toLowerCase();
+
+
+    //    if (val1 == val2)//end of contract
+    //    {
+
+    //        $('.contractendDate').hide();
+    //    }
+    //    else {
+    //        $('.contractendDate').show();
+
+    //    }
+
+    //});
+
+        function DetectStaffPrefix(gender) {
+            if (gender == '') {
+                return 'Mr.';
+            } else {
+                return 'Ms.';
+            }
+        }
+
+
+
+         $('#PlaceOfBirthGUID').change(function (e) {
+             var val = $(this).val();
+             if (val=="" ||val == null)
+             {
+                 $('#PlaceOfBirthCountryAR').val("");
+             }
+             else
+             {
+
+                 $.ajax({
+                     url: "/ORG/StaffProfile/GetStaffBirthCityAR",
+                     dataType: 'json',
+                     type: "post",
+                     data: { myGuid: val },
+                     success: function (data) {
+                         $('#PlaceOfBirthCountryAR').val(data.country);
+                     }
+
+                 });
+             }
+         });
+
+       $('#JobTitleGUID').change(function (e) {
+           var val = $(this).val();
+           if (val=="" || val == null) {
+               $('#PlaceOfBirthCountryAR').val();
+           }
+           else {
+               $.ajax({
+                   url: "/ORG/StaffProfile/GetStaffJobTitleAR",
+                   dataType: 'json',
+                   type: "post",
+                   data: { myGuid: val },
+                   success: function (data) {
+                       $('#JobTitleAR').val(data.jobtitle);
+                   }
+
+               });
+           }
+                    });
+
+
+</script>

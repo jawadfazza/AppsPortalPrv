@@ -1,0 +1,172 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("f21c797b-273d-4bb5-991e-95cd3b230efa")
+<div class="page--content">
+    <div class="PermissionsFilterHandler">
+        <h4>@resxPages.PermissionsFilter</h4>
+        <input type="button" id="btnShowFilter" class="btn btn-success" onclick="$('#PermissionsFilter').slideToggle();$(this).hide();" style="display:none;" value="Show Filter" />
+    </div>
+    <div id="PermissionsFilter" class="PermissionsFilter forms-fadeIn" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row" id="SourceUser">
+                    <div class="col-lg-4">
+                        <img id="userProfileImage" class="userProfilePhotoInPermissions" src="/Assets/Images/img.png" />
+                    </div>
+                    <div class="col-lg-8 HANDLER">
+                        @Html.DropDownList("UserProfileGUID", new DropDownList().Empty(), new
+                       {
+                           style = "width:100%",
+                           @class = "form-control select2-basic-ajax FlashOnEmptySelect2",
+                           data_action = "RemoteFindUserCurrentProfile",
+                           onchange = "GetUserDetails($(this).val(),'#SourceUser');"
+                       })
+                        <div style="margin: 10px 0; padding: 7px; border: solid 1px #ccc; background-color:#fff; min-height: 135px;">
+                            <span class="userInfoInPermissions lblEmailAddress">Please select a user from above</span>
+                            <span class="userInfoInPermissions lblOrganization"></span>
+                            <span class="userInfoInPermissions lblJobTitle"></span>
+                            <span class="userInfoInPermissions lblOperation"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-4">
+                        @Html.Label("ApplicationGUID", "Applications")
+                        <a onclick="toggleMoreFilter(this);" style="cursor:pointer; font-size:small">@resxPages.More</a>
+                    </div>
+                    <div class="col-lg-8 HANDLER form-group">
+                        @Html.DropDownList("ApplicationGUID", new DropDownList().Applications(), "", new
+                       {
+                           style = "width:100%",
+                           @class = "form-control select2-basic-search FlashOnEmptySelect2",
+                           onchange = "UpdateDropDownList([$(this).val(),'true'], [{ DropDownListID : 'CategoryGUID', Action : 'RemoteActionsCategories'}," +
+                                                                           "{ DropDownListID : 'ActionGUID', Action : ''}]);"
+                       })
+                    </div>
+                </div>
+                <div class="row toggleRow" style="display:none;">
+                    <div class="col-lg-4 form-group">
+                        @Html.Label("CategoryGUID", "Actions Categories")
+                    </div>
+                    <div class="col-lg-8 form-group HANDLER">
+                        @Html.DropDownList("CategoryGUID", new DropDownList().Empty(), "", new
+                       {
+                           style = "width:100%",
+                           @class = "form-control select2-basic-search",
+                           onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'ActionGUID', Action : 'RemoteActions'}]);"
+                       })
+                    </div>
+                </div>
+                <div class="row toggleRow" style="display:none;">
+                    <div class="col-lg-4 form-group">
+                        @Html.Label("ActionGUID", "Actions")
+                    </div>
+                    <div class="col-lg-8 form-group HANDLER">
+                        @Html.DropDownList("ActionGUID", new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 form-group">
+                        @Html.Label("UNHCRBureauGUID", "UNHCR Bureaus")
+                    </div>
+                    <div class="col-lg-8 form-group HANDLER">
+                        @Html.DropDownList("UNHCRBureauGUID", new DropDownList().UNHCRBureaus(), "", new
+                       {
+                           style = "width:100%",
+                           @class = "form-control select2-basic-single",
+                           onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'OperationGUIDs', Action : 'RemoteOperationsByBureau'}]);"
+                       })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 form-group">
+                        @Html.Label("OperationGUIDs", "Operations")
+                    </div>
+                    <div class="col-lg-8 form-group HANDLER">
+                        @Html.DropDownList("OperationGUIDs", new DropDownList().Empty(), new
+                       {
+                           style = "width:100%",
+                           multiple = "multiple",
+                           @class = "form-control select2-basic-multiple",
+                           onchange = "UpdateDropDownListFromMultiple([$(this).val()], [{ DropDownListID : 'OrganizationGUIDs', Action: 'RemoteOrganizationsByOperations'}]);"
+                       })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 form-group">
+                        @Html.Label("OrganizationGUIDs", "Organization")
+                    </div>
+                    <div class="col-lg-8 form-group HANDLER">
+                        @Html.DropDownList("OrganizationGUIDs", new DropDownList().Empty(), new { multiple = "multiple", @class = "form-control select2-basic-multiple", style = "width:100%" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 form-group">
+                        @Html.Label("CountryGUIDs", "Country")
+                    </div>
+                    <div class="col-lg-8 form-group HANDLER">
+                        @Html.DropDownList("CountryGUIDs", new DropDownList().Countries(), new { multiple = "multiple", data = "nothing", @class = "form-control select2-basic-multiple", style = "width:100%" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 form-group">
+                        @Html.Label("GovernorateGUIDs", "Locations Level 1")
+                    </div>
+                    <div class="col-lg-8 form-group HANDLER">
+                        @Html.DropDownList("GovernorateGUIDs", new DropDownList().DutyStations(), new { multiple = "multiple", @class = "form-control select2-basic-multiple", style = "width:100%" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="button" value="Find" class="btnFind btn btn-success" onclick="BuildTree();" />
+                <input id="btnCloseFilter" type="button" value="@resxUIControls.Close" class="btnClose btn btn-default" onclick="TogglePermissionFilter('Permissions');" />
+                <input type="button" value="Clear Filter" class="btnClear btn btn-default" onclick="ClearTreeForm('PermissionsFilter');" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="PermissionContainer" style="display:none;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="divNodesTotal" style="margin-bottom:10px;"><span id="lblNodesTotal"></span></div>
+                        <div>
+                            <input class="form-control form-group" style="margin-bottom:0px;width:100%;display:inline-block;" type=text name="search_field" id="search_field" placeholder="Find Action" />
+                        </div>
+                        <div style="margin-top:10px;" id="TreeLevelController">
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:1px">
+                                        <button id="btnExpandCollapseTree" class="collapsedTree btn-level" type="button" onmousedown="ExpandCollapseTree(this,'#PermissionsTree')"></button>
+                                    </td>
+                                    <td>
+                                        <input id="TreeLevelsSlider" type="text" style="width:96%" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div data-key="TreeKey" id="PermissionsTree">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="border-top:solid 1px #eee; margin:20px 0; padding:10px 0;">
+                            <input id="btnSavePermissions" type="button" class="btn btn-primary SLAME" value="Save Changes" onclick="SubmitPermissions();" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿@model SalaryCyclePeriodUpdateModel
+@using (Html.BeginForm("SalaryCyclePeriod", "StaffSalary", new { Area = "AHD" }, FormMethod.Post, new { id = "SalaryCyclePeriodForm" }))
+{
+    string ModalTitle = Model.SalaryCycleGUID.ToString() == Guid.Empty.ToString() ? "New Cycle " : "Edit Cycle";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.SalaryCycleGUID)
+    @*@Html.HiddenFor(model => model.BlomShuttleDelegationDateGUID)*@
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Year)
+        @Html.DropDownListFor(model => model.Year, new DropDownList().AHDYears(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MonthName)
+        @Html.DropDownListFor(model => model.MonthName, new DropDownList().AHDMonths(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+
+    </div>
+
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.SyrianIDNumber)
+        @Html.EditorFor(model => model.SyrianIDNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DelgationStaffTypeGUID)
+        @Html.DropDownListFor(model => model.DelgationStaffTypeGUID, new DropDownList().SalaryCycleTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+    </div>*@
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comments)
+        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+    </div>
+
+
+
+</div>
+<div class="modal-footer form-footer">
+    @if (Model.SalaryCycleGUID == Guid.Empty)
+    {
+
+        @Html.CreateButton(Permissions.SalaryCycle.Create, Apps.AHD)
+    }
+    else
+    {
+        if (Model.Active)
+        {
+        
+            @Html.UpdateButton(Permissions.SalaryCycle.Update, Apps.AHD)
+            @Html.DeleteSwitchButton(Permissions.SalaryCycle.Update, Apps.AHD)
+        }
+        else
+        {
+            @Html.RestoreSwitchButton(Permissions.SalaryCycle.Update, Apps.AHD)
+        }
+    }
+    @Html.CloseModalButton()
+</div>
+}

@@ -1,0 +1,39 @@
+﻿@model FileModel
+@using (Html.BeginForm("UpdateBulkCustodian", "ArchivedDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "CreateFileForm" }))
+{
+    string ModalTitle = "Update Bulk Files Custodian";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FileNumber)
+        @Html.TextAreaFor(model => model.FileNumbers, new { @class = "form-control group-control", autocomplete = "off", style = "width:100%;", rows = 6 })
+
+    </div>
+    <div class="form-group">
+             @Html.LabelFor(model => model.LastCustodianTypeGUID)
+             @Html.DropDownListFor(model => model.LastCustodianTypeGUID, new DropDownList().DASDocumentCustodianType(), "", new
+        {
+            @class = "form-control select2-basic-search",
+            style = "width:100%",
+            onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'LastCustodianTypeNameGUID', Action : 'RemoteDocumentCustodianType'}]);"
+        })
+         </div>
+    <div class="form-group">
+        @Html.Label("Transfer To")
+        @Html.DropDownListFor(model => model.LastCustodianTypeNameGUID, new DropDownList().DASUsersTransferAuthorized(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+    </div>
+
+
+</div>
+
+
+<div class="modal-footer form-footer">
+
+    @Html.CreateButton(Permissions.RefugeeScannedDocument.Update, Apps.DAS)
+
+    @Html.CloseModalButton()
+</div>
+}

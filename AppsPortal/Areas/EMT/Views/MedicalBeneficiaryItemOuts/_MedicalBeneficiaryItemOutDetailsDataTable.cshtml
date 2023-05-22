@@ -1,0 +1,26 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.MedicalBeneficiaryItemOutDetail</h3>
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.MedicalBeneficiaryItemOutDetailsDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.MedicalBeneficiaryItemOutDetailsDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.MedicalBeneficiaryItemOutDetailsDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.MedicalBeneficiaryItemOutDetailsDataTable)
+                @Html.FieldDataTableCreate(Permissions.MedicalBeneficiaryItemOut.Create, Apps.EMT, Url.Action("MedicalBeneficiaryItemOutDetailCreate", "MedicalBeneficiaryItemOuts", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.MedicalBeneficiaryItemOut.Delete, Apps.EMT, DataTableNames.MedicalBeneficiaryItemOutDetailsDataTable)
+                @Html.FieldDataTableRestore(Permissions.MedicalBeneficiaryItemOut.Restore, Apps.EMT, DataTableNames.MedicalBeneficiaryItemOutDetailsDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.MedicalBeneficiaryItemOutDetailsDataTable)
+            </div>
+        }
+        <div class="mScroll blueDataTableHeader" data-mcs-theme="rounded-dark" style="max-height:300px;">
+            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MedicalBeneficiaryItemOutDetailsDataTable, FormController = "MedicalBeneficiaryItemOuts", Area = "EMT", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+        </div>
+    </div>
+</div>

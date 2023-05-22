@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "StockItems";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("8fa1f0f3-8a2d-4824-81ce-df574331ceab")
+<div class="page--content">
+    <div class="pull-right"><h4>Last Update Date : @ViewBag.LastUploadDate</h4> </div>
+    <div id=@string.Format("{0}Filter", DataTableNames.ISSItemPipelineDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemGUID, DbColumnName = "ItemGUID", FilterForDataType = "Text", DataList = new DropDownList().StockInsightItems(), IsMultiple = true, IsSearchable = true })
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StockGUID, DbColumnName = "StockGUID", FilterForDataType = "Text", DataList = new DropDownList().StockInsighsStocks(), IsMultiple = true, IsSearchable = true })
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemDescription, DbColumnName = "ItemDescription", FilterForDataType = "Text" })*@
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStationDescription, DbColumnName = "DutyStationGUID", FilterForDataType = "Options", DataList = new DropDownList().DutyStationsByProfile(), IsMultiple = true })*@
+
+            </div>
+
+            <div class="col-lg-12">
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationInstanceDescription, DbColumnName = "OrganizationInstanceGUID", FilterForDataType = "Options", DataList = new DropDownList().OrganizationsInstancesByProfile(), IsMultiple = true })*@
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.ISSItemPipelineDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.ISSItemPipelineDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.ISSItemPipelineDataTable)
+        @*@Html.IndexDatatableCreate(Permissions.StockItemDistribution.Create, Apps.ISS, "/ISS/Item/Create")
+        @Html.IndexDatatableDelete(Permissions.StockItemDistribution.Delete, Apps.ISS, DataTableNames.ISSItemPipelineDataTable)
+        @Html.IndexDatatableRestor(Permissions.StockItemDistribution.Restore, Apps.ISS, DataTableNames.ISSItemPipelineDataTable)*@
+        @Html.IndexDatatableRefresh(DataTableNames.ISSItemPipelineDataTable)
+        @Html.FieldDataTableUpload(Permissions.StockItemDistribution.Create, Apps.ISS, Url.Action("UploadFiles", "ItemPipeline"))
+
+        @*@Html.ActionLink("Export Template", "ExportItemPiplineTemplate", "ItemPipeline", null, new { @class = "btn btn-primary" })*@
+
+        <a href="@Url.Action("ExportItemPiplineTemplate", "ItemPipeline")" class="btn btn-primary">
+
+            <span class="fa fa-cloud-download" aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ISSItemPipelineDataTable, Area = "ISS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

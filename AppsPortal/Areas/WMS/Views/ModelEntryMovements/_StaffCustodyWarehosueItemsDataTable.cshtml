@@ -1,0 +1,29 @@
+﻿@model MasterRecordStatus
+@*<h3 class="Title">Bank Accounts</h3>*@
+<div class="row">
+    <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12">
+        <div id=@string.Format("{0}Filter", DataTableNames.StaffCustodyWarehosueItemsDataTable) class="filter-section" style="display:none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_RecordStatus", DataTableNames.StaffCustodyWarehosueItemsDataTable)
+                </div>
+            </div>
+        </div>
+
+        <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffBankAccountDataTable)">
+            @*@Html.FieldDataTableFilter(DataTableNames.StaffCustodyWarehosueItemsDataTable)*@
+
+            @*@Html.FieldDataTableDelete(Permissions.StaffProfile.Delete, Apps.WMS, DataTableNames.StaffBankAccountDataTable)*@
+
+            @*@Html.FieldDataTableRestore(Permissions.StaffProfile.Restore, Apps.WMS, DataTableNames.StaffBankAccountDataTable)*@
+            @Html.FieldDataTableRefresh(DataTableNames.StaffCustodyWarehosueItemsDataTable)
+            @Html.ActionLink(" Export To Excel", "ExportStaffSTIItems", "ModelMovements", new { id = Model.ParentGUID }, new { @style = "font-family: 'inherit;' font-weight: normal;" })
+            
+        </div>
+        
+        <br />
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffCustodyWarehosueItemsDataTable, FormController = "StaffProfile", Area = "ORG", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+        @*@Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffCoreDocumentDataTable, FormController = "StaffProfile", Area = "ORG", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })*@
+    </div>
+</div>
+

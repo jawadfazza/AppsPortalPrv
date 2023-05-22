@@ -1,0 +1,168 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+
+}
+@Html.PageHeader("959b6734-90e8-4384-8108-4b430823fb33")
+<div class="page--content">
+    <div id='calendar'></div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InitializeCalendar();
+    });
+
+    var SlotWorkDays = [];
+    function InitializeCalendar() {
+        $.ajax({
+            url: "/AMS/AppointmentTypeCalendars/GetWorkingDay",
+            dataType: 'json',
+            type: "post",
+            success: function (data) {
+                $.each(data.WorkDays, function (key, value) {
+                    SlotWorkDays.push(value.Day);
+                });
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today,myCustomButton',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,list'
+                    },
+                    height: 700,
+                    allDayText: 'Events',
+                    selectable: true,
+                    overflow: 'auto',
+                    editable: true,
+                    firstDay: 0,
+                    businessHours: true,
+                    displayEventTime: false,
+                  
+                    businessHours:
+                    {
+                        start: '8:30',
+                        end: '03:30',
+                        dow: SlotWorkDays
+                    },
+                    events: function (start, end, timezone, callback) {
+                        $.ajax({
+                            url: "/AMS/AppointmentTypeCalendars/GetCalendarDataFromDatabase",
+                            dataType: 'json',
+                            type: "post",
+                            data: {
+                                // our hypothetical feed requires UNIX timestamps
+                                start: start.format('YYYY-MM-DD HH:mm'),
+                                end: end.format('YYYY-MM-DD HH:mm')
+                            },
+                            success: function (data) {
+                                var events = [];
+                                $.map(data.CalendarEvents, function (item, i) {
+                                    var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                                    var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                                    var event = new Object();
+                                    event.id = item.EventId;
+                                    event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                    event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                    event.title = item.Title;
+                                    event.allDay = false;
+                                    if (item.PublicHolday) { event.color = 'red'; event.overlap = false; }
+                                    if (item.PreventAppointments) { event.color = 'orange'; event.allDay = item.AllDayEvent; }
+                                    events.push(event)
+                                });
+                                callback(events);
+                            }
+                        });
+                    },
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $.ajax({
+                            type: "GET",
+                            url: '/AMS/AppointmentTypeCalendars/AppointmentTypeCalendarUpdate?PK=' + calEvent.id,
+                            success: function (data) {
+                                $('#FormModal').modal('show');
+                                // inject your content into the "placeholder" div
+                                $('#Partial-Container').html(data);
+                                $('#Loading-Container').hide();
+                                InitPlugins($('#Partial-Container'));
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    },
+                    customButtons: {
+                        myCustomButton: {
+                            text: 'Add Events',
+                            click: function () {
+                                $.ajax({
+                                    type: "GET",
+                                    url: '/AMS/AppointmentTypeCalendars/AppointmentTypeCalendarCreate',
+                                    success: function (data) {
+                                        $('#FormModal').modal('show');
+                                        // inject your content into the "placeholder" div
+                                        $('#Partial-Container').html(data);
+                                        $('#Loading-Container').hide();
+                                        InitPlugins($('#Partial-Container'));
+                                    },
+                                    error: function (err) {
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                        }
+                    },
+                    select: function (start, end) {
+
+                    },
+                    eventDrop: function (event, delta, revertFunc) {
+                        $.ajax({
+                            type: "post",
+                            url: '/AMS/AppointmentTypeCalendars/AppointmentTypeCalendarUpdateDropEvent?PK=' + event.id + "&startDate=" + event.start.format() + "&endDate=" + event.end.format(),
+                            success: function (JsonResult) {
+                                if (JsonResult.Notify != null) {
+                                    ProcessNotify(JsonResult);
+                                    if (JsonResult.Notify.Type == NotificationType.Error) {
+                                        revertFunc();
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+
+
+    }
+    function UpadetSlotEvents(AppointmentTypeCalenderGUID) {
+        if ($('#calendar').length != 0) {
+            $.ajax({
+                dataType: 'json',
+                type: "post",
+                url: '/AMS/AppointmentTypeCalendars/UpadetSlotEvents?PK=' + AppointmentTypeCalenderGUID,
+                success: function (data) {
+                    var item = data.AppointmentTypeCalender[0];
+                    var event = $("#calendar").fullCalendar('clientEvents', AppointmentTypeCalenderGUID)[0];
+                    event.start = item.EventStartDate
+                    event.end = item.EventEndDate
+                    event.allDay = false;
+                    if (item.PublicHolday) { event.color = 'red'; event.overlap = false; }
+                    if (item.PreventAppointments) { event.color = 'orange'; event.allDay = item.AllDayEvent; }
+                    $('#calendar').fullCalendar('updateEvent', event);
+                    $('#calendar').fullCalendar('refetchEvents');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    }
+
+</script>
+
+

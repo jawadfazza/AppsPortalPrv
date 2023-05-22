@@ -1,0 +1,38 @@
+﻿@model codePartnerCenterLanguage
+@using (Html.BeginForm("PartnerCenterLanguage", "PartnerCenters", new { Area = "PCR" }, FormMethod.Post, new { id = "PartnerCenterLanguageForm" }))
+{
+    string ModalTitle = Model.PartnerCenterLanguageGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.PartnerCenterLanguageGUID)
+        @Html.HiddenFor(model => model.PartnerCenterGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.LanguageID)
+            @Html.DropDownListFor(model => model.LanguageID, new DropDownList().Languages(false), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PartnerCenterDescription)
+            @Html.EditorFor(model => model.PartnerCenterDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.PartnerCenterLanguageGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.CommunityCenterCode.Create, Apps.PCR)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.CommunityCenterCode.Update, Apps.PCR)
+                @Html.DeleteSwitchButton(Permissions.CommunityCenterCode.Delete, Apps.PCR)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.CommunityCenterCode.Delete, Apps.PCR)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

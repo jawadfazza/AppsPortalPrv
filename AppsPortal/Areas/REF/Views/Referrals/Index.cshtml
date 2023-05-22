@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "JobTitles";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("bf00366b-dabe-487b-a45b-107e1d181923")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.ReferralsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ReferralDescription, DbColumnName = "ReferralDescription", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ApplicationDescription, DbColumnName = "ApplicationGUID", FilterForDataType = FilterDataTypes.Options , DataList = new DropDownList().Applications() })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.ReferralsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.ReferralsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.ReferralsDataTable)
+        @Html.IndexDatatableCreate(Permissions.ReferralConfigManagement.Create, Apps.REF, "/REF/Referrals/Create")
+        @Html.IndexDatatableDelete(Permissions.ReferralConfigManagement.Delete, Apps.REF, DataTableNames.ReferralsDataTable)
+        @Html.IndexDatatableRestor(Permissions.ReferralConfigManagement.Restore, Apps.REF, DataTableNames.ReferralsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.ReferralsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ReferralsDataTable, Area = "REF", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

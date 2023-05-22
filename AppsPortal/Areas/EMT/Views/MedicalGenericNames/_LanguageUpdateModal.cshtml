@@ -1,0 +1,38 @@
+﻿@model codeMedicalGenericNameLanguage
+@using (Html.BeginForm("MedicalGenericNameLanguage", "MedicalGenericNames", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalGenericNameLanguageForm" }))
+{
+    string ModalTitle = Model.MedicalGenericNameLanguageGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.MedicalGenericNameLanguageGUID)
+        @Html.HiddenFor(model => model.MedicalGenericNameGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.LanguageID)
+            @Html.DropDownListFor(model => model.LanguageID, new DropDownList().Languages(false), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MedicalGenericNameDescription)
+            @Html.EditorFor(model => model.MedicalGenericNameDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.MedicalGenericNameLanguageGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.MedicalGenericName.Create, Apps.EMT)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.MedicalGenericName.Update, Apps.EMT)
+                @Html.DeleteSwitchButton(Permissions.MedicalGenericName.Delete, Apps.EMT)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.MedicalGenericName.Delete, Apps.EMT)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

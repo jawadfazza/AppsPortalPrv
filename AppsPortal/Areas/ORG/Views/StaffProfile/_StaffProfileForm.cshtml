@@ -1,0 +1,971 @@
+﻿@model StaffProfileUpdateModel
+<style>
+    .ProfInfoDivs {
+        width: 18%;
+        float: left;
+        margin-right: 26px;
+    }
+
+    .newPanelSettings {
+        background-color: #f3f3f3;
+        border-color: #f3f3f3;
+    }
+
+    .customHr {
+        border-top: 2px solid #cac3c3;
+        padding-bottom: 20px;
+    }
+
+
+    .container {
+        width: 100%;
+        margin: 100px auto;
+    }
+
+    .text-msg {
+        margin: 20px 0;
+        display: block;
+        clear: both;
+        text-align: justify;
+    }
+</style>
+@using (Html.BeginForm("StaffProfile", "StaffProfile", new { Area = "ORG" }, FormMethod.Post, new { id = "StaffProfileForm", @class = "main-form" }))
+{
+    @*@Html.AntiForgeryToken()*@
+    @Html.FormHiddenFields(model => model.UserGUID)
+
+
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary newPanelSettings">
+                <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+                    @*<h3 class="panel-title" style="color:black">
+                            <b style="padding-top:10px;">Staff Profile</b>
+                            <span id="compare-ad" class="pull-right" style="color:blue;">Compare with Active Directory</span>
+                        </h3>*@
+
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div style="margin-top: 8px;float: left;margin-left: 60px;">
+                                @*<img id="imgProfilePhoto" src="@Model.MediaPath" class="profile-photo" />
+        <div class="photo-controls">
+            <a href="#" class="Modal-Link" data-url="/Profile/Photo/">@resxPages.ChangePhoto</a> |
+            <a href="#" class="Confirm" data-mode="Single" data-submittype="ProfilePhotoDelete" data-url="/Profile/Photo/">@resxPages.Remove</a>
+        </div>*@
+                                <img id="imgProfilePhoto" src="@Model.MediaPath" class="profile-photo" />
+                                <div class="photo-controls">
+                                    <a href="#" class="Modal-Link" data-url="/StaffProfile/UploadUserPhoto?id=@Model.UserGUID">@resxPages.ChangePhoto</a> |
+                                    <a href="#" class="Confirm" data-mode="Single" data-submittype="ProfilePhotoDelete" data-url="/Profile/Photo/">@resxPages.Remove</a>
+                                </div>
+                                <div class="photo-controls">
+                                    @Html.DisplayFor(m => m.FirstNameEN) @Html.DisplayFor(m => m.SurnameEN)
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.StaffStatus) *
+
+                                        @Html.DropDownListFor(model => model.StaffStatusGUID, new DropDownList().StaffStatus(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.RecruitmentTypeGUID) *
+                                        @Html.DropDownListFor(model => model.RecruitmentTypeGUID, new DropDownList().StaffRecuitmentTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                        @*@Html.EditorFor(model => model.RecruitmentTypeGUID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstNameEN) *
+                                        @Html.EditorFor(model => model.FirstNameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SurnameEN) *
+                                        @Html.EditorFor(model => model.SurnameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstNameAR) *
+                                        @Html.EditorFor(model => model.FirstNameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SurnameAR) *
+                                        @Html.EditorFor(model => model.SurnameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FatherNameEN)
+                                        @Html.EditorFor(model => model.FatherNameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FatherNameAR)
+                                        @Html.EditorFor(model => model.FatherNameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MotherNameEN)
+                                        @Html.EditorFor(model => model.MotherNameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MotherNameAR)
+                                        @Html.EditorFor(model => model.MotherNameAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+
+                    <br />
+                    <hr class="customHr" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 style="text-decoration:underline;">Personal Information</h4>
+                        </div>
+                        <div class="col-md-12">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PlaceOfBirthGUID) *
+                                    @Html.DropDownListFor(model => model.PlaceOfBirthGUID, new DropDownList().Countries(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PlaceOfBirthCountryAR)
+                                    @Html.EditorFor(model => model.PlaceOfBirthCountryAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PlaceBirthCityEn)
+                                    @Html.EditorFor(model => model.PlaceBirthCityEn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PlaceBirthCityAr)
+                                    @Html.EditorFor(model => model.PlaceBirthCityAr, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DateOfBirth) *
+                                    @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.NationalityGUID) *
+                                    @Html.DropDownListFor(model => model.NationalityGUID, new DropDownList().Nationalities(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Nationality1Arabic)
+                                    @Html.EditorFor(model => model.Nationality1Arabic, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3 ">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Nationality2GUID)
+                                    @Html.DropDownListFor(model => model.Nationality2GUID, new DropDownList().Nationalities(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            </div>
+                            <div class="col-md-3 ">
+                                <div class="form-group">
+                                    @Html.Label("Nationality 2(AR)")
+                                    @Html.EditorFor(model => model.Nationality2Arabic, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3 ">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Nationality3GUID)
+                                    @Html.DropDownListFor(model => model.Nationality3GUID, new DropDownList().Nationalities(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            </div>
+                            <div class="col-md-3 ">
+                                <div class="form-group">
+                                    @Html.Label("Nationality 3(AR)")
+                                    @Html.EditorFor(model => model.Nationality3Arabic, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.StaffPrefix) *
+                                    @Html.DropDownListFor(model => model.StaffPrefixGUID, new DropDownList().StaffPrefix(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    @*@Html.EditorFor(model => model.StaffPrefix, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })*@
+                                    @Html.HiddenFor(model => model.GenderGUID)
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BloodGroup)
+                                    @Html.DropDownListFor(model => model.BloodGroup, new DropDownList().BloodGroup(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 nationalshow">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SyrianNationalIDNumber)
+                                    @Html.EditorFor(model => model.SyrianNationalIDNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3 internationlshow">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ExpiryOfResidencyVisa)
+                                    @Html.EditorFor(model => model.ExpiryOfResidencyVisa, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <br />
+                        <hr class="customHr" />
+                        <div class="col-md-12">
+                            <h4 style="text-decoration:underline;">Employment  information</h4>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.JobTitleGUID) *
+                                    @Html.DropDownListFor(model => model.JobTitleGUID, new DropDownList().JobTitles(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.JobTitleAR)
+                                    @Html.EditorFor(model => model.JobTitleAR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 nationalshow">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DegreeEn)
+                                    @Html.EditorFor(model => model.DegreeEn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3 nationalshow">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DegreeAr)
+                                    @Html.EditorFor(model => model.DegreeAr, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TitleEnglishMSRP)
+                                    @Html.EditorFor(model => model.TitleEnglishMSRP, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TitleArabicMSRP)
+                                    @Html.EditorFor(model => model.TitleArabicMSRP, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            @*<div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.TitleEnglishMOFA)
+                                        @Html.EditorFor(model => model.TitleEnglishMOFA, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.TitleArabicMOFA)
+                                        @Html.EditorFor(model => model.TitleArabicMOFA, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    </div>
+                                </div>*@
+
+                        </div>
+                        <div class="col-md-12 internationlshow">
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LastJobEn)
+                                    @Html.EditorFor(model => model.LastJobEn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LastJobAr)
+                                    @Html.EditorFor(model => model.LastJobAr, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ContractTypeGUID) *
+                                    @Html.DropDownListFor(model => model.ContractTypeGUID, new DropDownList().StaffContractTypes(), "",
+                                   new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    @*@Html.EditorFor(model => model.ContractTypeGUID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })*@
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EmploymentID) *
+                                    @if (Model.UserGUID == null || Model.UserGUID == Guid.Empty)
+                                    {
+                                        @Html.EditorFor(model => model.EmploymentID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    }
+                                    else if (Model.EmploymentID == null)
+                                    {
+                                        @Html.EditorFor(model => model.EmploymentID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                                    }
+                                    else
+                                    {
+
+                                        @*@Html.HiddenFor(model => model.EmploymentID)
+                                            @Html.DisplayFor(model => model.EmploymentID)*@
+                                        @Html.EditorFor(model => model.EmploymentID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.UNHCRIDNumber)
+                                    @Html.EditorFor(model => model.UNHCRIDNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EmailAddress) *
+                                    @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DutyStationGUID) *
+                                    @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().SyriaStaffDutyStation(), "", new
+                                    {
+                                   @class = "form-control select2-basic-search",
+                                   style = "width:100%",
+
+                               })
+                                </div>
+                            </div>
+                            <div class="col-md-3" id="officetypeid">
+                                <div class="form-group">
+                                    @Html.Label("Office")
+                                    @Html.DropDownListFor(model => model.OfficeTypeGUID, new DropDownList().StaffOfficeTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DepartmentGUID)
+                                    @Html.DropDownListFor(model => model.DepartmentGUID, new DropDownList().Departments(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.StaffGradeGUID) *
+                                    @Html.DropDownListFor(model => model.StaffGradeGUID, new DropDownList().StaffGrades(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ReportToGUID)
+                                    @Html.DropDownListFor(model => model.ReportToGUID, new DropDownList().Users(true), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.StaffEOD)
+                                    @Html.EditorFor(model => model.StaffEOD, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3 contractendDate">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ContractEndDate)
+                                    @Html.EditorFor(model => model.ContractEndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3" id="positionnumberdiv">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PositionNumber)
+                                    @Html.EditorFor(model => model.PositionNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+
+
+
+                            <div class="col-md-3" >
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AllStaffPositionsGUID)
+                                    <br />
+                                    <span id="showDepartments">@Model.showPositions</span>
+
+
+                                    <div id="editstaffpostions">
+                                        @Html.DropDownListFor(model => model.AllStaffPositionsGUID, new DropDownList().StaffPositionTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%", Multiple = true })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 ">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LastDepartureDate)
+                                    @if (Model.StaffStatusGUID == Guid.Parse("B9CD375C-A576-4AA4-8AF4-FF3C1C4E3611"))
+                                    {
+                                        @Html.EditorFor(model => model.LastDepartureDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    }
+                                    else
+                                    {
+                                        @Html.EditorFor(model => model.LastDepartureDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                    }
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <br />
+                        <hr class="customHr" />
+                        <div class="col-md-12">
+                            <h4 style="text-decoration:underline;">Contacts Information</h4>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PermanentAddressEn)
+                                    @Html.EditorFor(model => model.PermanentAddressEn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PermanentAddressAr)
+                                    @Html.EditorFor(model => model.PermanentAddressAr, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CurrentAddressEn)
+                                    @Html.EditorFor(model => model.CurrentAddressEn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CurrentAddressAr)
+                                    @Html.EditorFor(model => model.CurrentAddressAr, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.HomeTelephoneNumberLandline)
+                                    @Html.EditorFor(model => model.HomeTelephoneNumberLandline, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("Private Mobile Number (+963xxxxxxxxx)")
+                                    @Html.EditorFor(model => model.HomeTelephoneNumberMobile, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.HiddenFor(m => m.OfficialMobileNumber)
+                                    @Html.LabelFor(model => model.OfficialMobileNumber)
+                                    <br />
+                                    @Html.DisplayFor(model => model.OfficialMobileNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.HQExtensionNumber)
+                                    @Html.EditorFor(model => model.HQExtensionNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("Speed Call Prefix")
+                                    @Html.EditorFor(model => model.DamascusExtensionNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.OfficialExtensionNumber)
+                                    @Html.EditorFor(model => model.OfficialExtensionNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CallSign)
+                                    @Html.EditorFor(model => model.CallSign, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.OfficeRoomNumberBuilding)
+                                    @Html.EditorFor(model => model.OfficeRoomNumberBuilding, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SATPhoneNumber)
+                                    @Html.EditorFor(model => model.SATPhoneNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div id="StaffProfileFormControls" class="form-group form-footer">
+                            @if (Model.UserGUID == Guid.Empty)
+                            {
+                                @Html.CreateButton(Permissions.StaffProfileHRSection.Create, Apps.ORG)
+                            }
+                            else
+                            {
+                                if (Model.Active)
+                                {
+                                    @Html.UpdateButton(Permissions.StaffProfileHRSection.Update, Apps.ORG)
+                                    @*@Html.CreateNewButton(Permissions.StaffProfileHRSection.Create, Apps.ORG, Url.Action("StaffProfile/Create", "StaffProfile", new { Area = "ORG" }))*@
+                                    @*@Html.DeleteButton(Permissions.StaffProfileHRSection.Delete, Apps.ORG)*@
+                                }
+                                else
+                                {
+                                    @*@Html.RestoreButton(Permissions.StaffProfileHRSection.Restore, Apps.ORG)*@
+                                }
+                            }
+                            @Html.BackToList(Url.Action("StaffProfileIndex", "StaffProfile", new { Area = "ORG" }))
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <br />
+                        <hr class="customHr" />
+                        <div class="col-md-12">
+                            <h4 style="text-decoration:underline;">Bank Accounts</h4>
+                        </div>
+                        <div class="col-md-12">
+                            @*@if (Model.UserGUID != Guid.Empty && Model.Active)
+                                {*@
+                            <div id="BanksControlersFormControls">
+
+                                @Html.Partial("~/Areas/ORG/Views/StaffProfile/_BanksDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.UserGUID, IsParentActive = Model.Active })
+                            </div>
+                            @*}*@
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <br />
+                        <hr class="customHr" />
+                        <div class="col-md-12">
+                            <h4 style="text-decoration:underline;">Personal Documents</h4>
+                        </div>
+                        <div class="col-md-12">
+                            @*@if (Model.UserGUID != Guid.Empty && Model.Active)
+                                {*@
+                            <div id="DocumentsControlersFormControls">
+
+                                @Html.Partial("~/Areas/ORG/Views/StaffProfile/_DocumentDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.UserGUID, IsParentActive = Model.Active })
+                            </div>
+                            @*}*@
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <br />
+                        <hr class="customHr" />
+                        <div class="col-md-12">
+                            <h4 style="text-decoration:underline;">Confirmation Section</h4>
+                        </div>
+                        <div class="col-md-12">
+
+                            <div id="ConfirmationControlersFormControls">
+                                <div id="ProfileFeedbackControlersFormControls">
+
+                                    <button onclick="NotifyStaffToConfirmProfile()" type="button" id="NotifyStaffID" class="btn btn-labeled btn-primary ">
+
+                                        <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="staffProfileConfirmationLoader"></i></span> Notify Staff
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    @*<div class="row">
+                            <br />
+                            <hr class="customHr" />
+                            <div class="col-md-12">
+                                <h4 style="text-decoration:underline;">User Feedback && Issues</h4>
+                            </div>
+                            <div class="col-md-12">
+
+                                <div id="ProfileFeedbackControlersFormControls">
+
+                                    @Html.Partial("~/Areas/ORG/Views/StaffProfile/_StaffFeedbackDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.UserGUID, IsParentActive = Model.Active })
+                                </div>
+
+                            </div>
+
+                        </div>*@
+
+                    @*<div class="row">
+                            <br />
+                            <hr class="customHr" />
+                            <div class="col-md-12">
+                                <h4 style="text-decoration:underline;">Account Check Flow</h4>
+                            </div>
+                            <div class="col-md-12">
+
+
+                                <div id="CheckStatusFormControls">
+
+                                    <div class="container">
+                                        <ul class="progressbar">
+                                            <li id="hrconfirm" class="active">
+                                                HR
+                                                <br />
+                                              <input type="button" value="Confirm" />
+
+                                            </li>
+
+                                            <li id="adminconfirm">
+                                                Amdin
+                                                <br />
+                                                <input type="button" value="Send Email" />
+                                            </li>
+                                            <li id="financeconfirm">
+                                                Finance
+                                                <br />
+                                                <input type="button" value="Send Email" />
+                                            </li>
+                                            <li id="ictconfirm">
+                                                ICT
+                                                <br />
+                                                <input type="button" value="Send Email" />
+                                             </li>
+                                             <li id="securityconfirm">
+                                                 Security
+
+                                                 <br />
+                                                 <input type="button" value="Send Email" />
+                                             </li>
+                                             <li id="staffconfirm">
+
+                                                 Staff
+                                                 <br />
+                                                 <input type="button" value="Send Email" />
+                                             </li>
+                                        </ul>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>*@
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#staffProfileConfirmationLoader').hide();
+        $('#officetypeid').hide();
+
+        $('#editstaffpostions').show();
+
+            var currReq = "@Model.RecruitmentTypeGUID";
+        var currContract = "@Model.ContractTypeGUID";
+
+        $('#hrconfirm').css('color', 'green');
+        var currDutyStation = "@Model.DutyStationGUID";
+        if (currDutyStation != null && currDutyStation == '6d7397d6-3d7f-48fc-bfd2-18e69673ac92') {
+            $('#officetypeid').show();
+        }
+        else {
+            $('#officetypeid').hide();
+        }
+
+            if (currReq != null && currReq == 'fc4b2e79-2b97-4252-a50b-915b07a12310') {
+
+              $(".nationalshow").hide();
+                $('.internationlshow').show();
+
+            }
+            else {
+                $(".nationalshow").show();
+                $('.internationlshow').hide();
+            }
+            if (currContract != null && currContract == '1506f90e-f377-49b6-a8cd-116250246a44') {
+
+                $("#positionnumberdiv").hide();
+
+            }
+            else {
+                $("#positionnumberdiv").show();
+            }
+
+        });
+    $(function () {
+
+        $('#compare-ad').click(function (e) {
+            e.preventDefault();
+
+        });
+    });
+
+
+
+
+
+        $('#RecruitmentTypeGUID').change(function (e) {
+
+            e.preventDefault();
+            var val = $(this).val();
+
+            if (val == 'fc4b2e79-2b97-4252-a50b-915b07a12310') {
+
+                $(".nationalshow").hide();
+                $('.internationlshow').show();
+            }
+            else {
+                $(".nationalshow").show();
+                $('.internationlshow').hide();
+            }
+
+        });
+    $('#ContractTypeGUID').change(function (e) {
+
+        e.preventDefault();
+        var val = $(this).val();
+
+
+        if (val == '1506f90e-f377-49b6-a8cd-116250246a44') {
+
+
+            $("#positionnumberdiv").hide();
+
+        }
+        else {
+            $("#positionnumberdiv").show();
+
+        }
+
+    });
+
+    $('#DutyStationGUID').change(function (e) {
+
+        e.preventDefault();
+        var val = $(this).val();
+
+
+        if (val == '6d7397d6-3d7f-48fc-bfd2-18e69673ac92') {
+
+
+            $("#officetypeid").hide();
+
+        }
+        else {
+            $("#officetypeid").show();
+
+        }
+
+    });
+        //
+        $('#AssignmentType').change(function (e) {
+            e.preventDefault();
+            var val = $(this).val();
+            if (val == 'fc4b2e79-2b97-4252-a50b-915b07a12310')//int
+            {
+                $('#international-section').show();
+            }
+            else if (val == '41651262-08ac-42dc-a691-9bbce28c95d1')//nat
+            {
+                $('#international-section').hide();
+            }
+        });
+
+    //$('#  ').change(function (e) {
+    //    e.preventDefault();
+    //    var val1 = $(this).val().toLowerCase();
+    //    var val2 = '4484D38E-AD84-40E0-9209-E55804AAEC83'.toLowerCase();
+
+
+    //    if (val1 == val2)//end of contract
+    //    {
+
+    //        $('.contractendDate').hide();
+    //    }
+    //    else {
+    //        $('.contractendDate').show();
+
+    //    }
+
+    //});
+
+        function DetectStaffPrefix(gender) {
+            if (gender == '') {
+                return 'Mr.';
+            } else {
+                return 'Ms.';
+            }
+        }
+
+
+
+         $('#PlaceOfBirthGUID').change(function (e) {
+             var val = $(this).val();
+             if (val=="" ||val == null)
+             {
+                 $('#PlaceOfBirthCountryAR').val("");
+             }
+             else
+             {
+
+                 $.ajax({
+                     url: "/ORG/StaffProfile/GetStaffBirthCityAR",
+                     dataType: 'json',
+                     type: "post",
+                     data: { myGuid: val },
+                     success: function (data) {
+                         $('#PlaceOfBirthCountryAR').val(data.country);
+                     }
+
+                 });
+             }
+         });
+
+
+       $('#JobTitleGUID').change(function (e) {
+           var val = $(this).val();
+           if (val=="" || val == null) {
+               $('#PlaceOfBirthCountryAR').val();
+           }
+           else {
+               $.ajax({
+                   url: "/ORG/StaffProfile/GetStaffJobTitleAR",
+                   dataType: 'json',
+                   type: "post",
+                   data: { myGuid: val },
+                   success: function (data) {
+                       $('#JobTitleAR').val(data.jobtitle);
+                   }
+
+               });
+           }
+       });
+    var ChangePositions = function () {
+
+        $('#editstaffpostions').show();
+        $('#editStaffPositionsID').hide();
+    }
+
+    var NotifyStaffToConfirmProfile = function () {
+
+
+        var userGUID = "@Model.UserGUID";
+
+
+        var url = "/ORG/StaffProfile/NotifyStaffToConfirmProfile/";
+
+        $("#staffProfileConfirmationLoader").show();
+        $(':button').prop('disabled', true);
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: {
+                userGUID: userGUID,
+
+
+            },
+            success: function (data) {
+                $("#staffProfileConfirmationLoader").hide();
+
+                $(':button').prop('disabled', false);
+                if (data.success == 1) {
+
+
+                    Notify(NotificationType.Success, 'Saved Successfully');
+                    $("#FeedbackControlersFormControls").hide();
+
+                }
+                else if (data.success == 0) {
+
+                    return true;
+                }
+                else if (data.success == -2) {
+                    Notify(NotificationType.Warning, 'No Permission');
+                }
+            }
+        });
+    }
+
+
+</script>

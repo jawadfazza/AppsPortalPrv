@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3B871216-758F-4FAD-80A2-A46F484ED60B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MRS_DAL</RootNamespace>
+    <AssemblyName>MRS_DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\PPA_DAL\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\AppsPortal\bin\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Portal_BL">
+      <HintPath>..\Portal_BL\bin\Debug\Portal_BL.dll</HintPath>
+    </Reference>
+    <Reference Include="REF_DAL">
+      <HintPath>..\REF_DAL\bin\Debug\REF_DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\codeDutyStationsLanguages.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeLocations.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeLocationsLanguages.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsInstances.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsInstancesLanguages.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeReferralStatus.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeReferralStatusLanguage.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValues.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValuesLanguages.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeVehicle.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataNoteVerbale.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataNoteVerbaleOrganization.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataNoteVerbaleStaff.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataNoteVerbaleVehicle.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MRSModel.Context.cs">
+      <DependentUpon>MRSModel.Context.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Model\MRSModel.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Model\MRSModel.Designer.cs">
+      <DependentUpon>MRSModel.edmx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Model\RP_NoteVerbaleStaff_Result.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RP_NoteVerbaleVehicle_Result.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RP_NoteVerbale_Result.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetailsLanguage.cs">
+      <DependentUpon>MRSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Model\MRSModel.edmx.diagram">
+      <DependentUpon>MRSModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RES_Repo\RES_Repo.csproj">
+      <Project>{A12AA199-2E39-4FAC-AFE3-83A718AA5D40}</Project>
+      <Name>RES_Repo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Model\MRSModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MRSModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\MRSModel.Context.tt">
+      <DependentUpon>MRSModel.edmx</DependentUpon>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MRSModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\MRSModel.tt">
+      <DependentUpon>MRSModel.edmx</DependentUpon>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MRSModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

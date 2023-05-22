@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.Globalization</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter",DataTableNames.SitemapLanguagesDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.SitemapLanguagesDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer",DataTableNames.SitemapLanguagesDataTable)">                
+                @Html.FieldDataTableFilter(DataTableNames.SitemapLanguagesDataTable)
+                @Html.FieldDataTableCreate(Permissions.Sitemap.Create, Apps.CMS, Url.Action("SitemapLanguageCreate", "Codes", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.Sitemap.Delete, Apps.CMS, DataTableNames.SitemapLanguagesDataTable)
+                @Html.FieldDataTableRestore(Permissions.Sitemap.Restore, Apps.CMS, DataTableNames.SitemapLanguagesDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.SitemapLanguagesDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.SitemapLanguagesDataTable, FormController = "Codes", Area="CMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

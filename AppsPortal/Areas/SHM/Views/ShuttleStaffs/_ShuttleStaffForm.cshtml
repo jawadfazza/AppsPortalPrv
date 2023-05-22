@@ -1,0 +1,143 @@
+﻿@model dataShuttleStaff
+@using (Html.BeginForm("ShuttleStaff", "ShuttleStaffs", new { Area = "SHM" }, FormMethod.Post, new { id = "ShuttleStaffForm", @class = "main-form" }))
+{
+    string ModalTitle = Model.ShuttleStaffGUID.ToString() == Guid.Empty.ToString() ? "Add New Traveler" : "Edit Traveler";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ShuttleStaffGUID)
+        @Html.HiddenFor(model => model.ShuttleVehicleGUID)
+
+        <div class="form-group">
+            @Html.CheckBoxFor(model => model.IsUNAgencyStaff, new { @class = "chkNode-accordion chkUNStaff" })
+            @Html.LabelFor(model => model.IsUNAgencyStaff)
+        </div>
+        <div class="form-group">
+            @Html.Label(resxDbFields.TravelerName)
+            @Html.DropDownList("UserPassengerGUID", new DropDownList().Users(true), @*new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-multiple",
+           data_action = "RemoteFindUserBy",
+           onchange = "GetUserDetailsForProfileToProfile($(this).val(),'#SourceUser');"
+       }*@
+           new { multiple = "multiple", @class = "form-control select2-basic-multiple", style = "width:100%" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UNAgencyStaffName)
+            @Html.EditorFor(model => model.UNAgencyStaffName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UNAgencyEmailAddress)
+            @Html.EditorFor(model => model.UNAgencyEmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UNAgencyPhoneNumber)
+            @Html.EditorFor(model => model.UNAgencyPhoneNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShuttleTravelPurposeGUID)
+            @Html.DropDownListFor(model => model.ShuttleTravelPurposeGUID, new DropDownList().ShuttleTravelPurpose(), "", new { @class = "form-control select2-basic-search FlashOnEmptySelect2", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Departure Point")
+            @Html.DropDownListFor(model => model.DeparturePointGUID, new DropDownList().LocationOneLinkedValues(Model.DeparturePointGUID), "",
+    new
+    {
+    style = "width:100%",
+    @class = "form-control select2-basic-search"
+    })
+        </div>
+        <div class="form-group">
+            @Html.Label("Drop Off Point")
+            @Html.DropDownListFor(model => model.DropOffPointGUID, new DropDownList().LocationOneLinkedValues(Model.DropOffPointGUID), "",
+    new
+    {
+    style = "width:100%",
+    @class = "form-control select2-basic-search"
+    })
+        </div>
+        <div class="form-group">
+            @Html.CheckBoxFor(model => model.Confirmed, new { @class = "chkNode-accordion" })
+            @Html.Label("Confirm the Staff Will be Join  the Shuttle")
+        </div>
+        @if (Model.ShuttleRequestGUID != Guid.Empty)
+        {
+            <a target="_blank" href="@Url.Action("../Uploads/SHM/ShuttleRequest/" + Model.ShuttleRequestGUID + ".pdf")">Download Request Document</a>
+        }
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ShuttleStaffGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ShuttleStaff.Create, Apps.SHM)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ShuttleStaff.Update, Apps.SHM)
+                @Html.DeleteSwitchButton(Permissions.ShuttleStaff.Delete, Apps.SHM)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ShuttleStaff.Delete, Apps.SHM)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+
+}
+<script>
+    $('.select2-basic-ajax').select2({
+        minimumInputLength: 3,
+        ajax: {
+            url: function () { return '/DropDownList/' + $(this).attr('data-action') },
+            delay: 250,
+            data: function (params) {
+                var query = {
+                    SearchKey: params.term
+                }
+                // Query parameters will be ?search=[term]&type=public
+                return query;
+            },
+            processResults: function (data) {
+                // Tranforms the top-level key of the response object from 'items' to 'results'
+                return {
+                    results: data.items
+                };
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        if ($('#IsUNAgencyStaff').is(':checked')) {
+            $("#UNAgencyStaffName").attr("disabled", false);
+            $("#UNAgencyPhoneNumber").attr("disabled", false);
+            $("#UNAgencyEmailAddress").attr("disabled", false);
+            $("#UserPassengerGUID").attr("disabled", true);
+        } else {
+            $("#UNAgencyStaffName").attr("disabled", true);
+            $("#UNAgencyPhoneNumber").attr("disabled", true);
+            $("#UNAgencyEmailAddress").attr("disabled", true);
+            $("#UserPassengerGUID").attr("disabled", false);
+        }
+    });
+
+    $(document).on('ifChecked ifUnchecked', '.chkUNStaff', function (event) {
+        var DataTable = $(this).closest('table, .checkboxes-container');
+        console.log(DataTable);
+        if (event.type == 'ifChecked') {
+            $("#UNAgencyStaffName").attr("disabled", false);
+            $("#UNAgencyPhoneNumber").attr("disabled", false);
+            $("#UNAgencyEmailAddress").attr("disabled", false);
+            $("#UserPassengerGUID").attr("disabled", true);
+        } else {
+            $("#UNAgencyStaffName").attr("disabled", true);
+            $("#UNAgencyPhoneNumber").attr("disabled", true);
+            $("#UNAgencyEmailAddress").attr("disabled", true);
+            $("#UserPassengerGUID").attr("disabled", false);
+        }
+    });
+</script>

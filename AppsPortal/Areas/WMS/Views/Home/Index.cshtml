@@ -1,0 +1,618 @@
+﻿@model PendingRequestCheckVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("46e6b58e-320f-4f7f-a917-94742a2e4311")
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<link href="~/Assets/Plugin/CustomDashboard/layout.min.css" rel="stylesheet" />
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-red">
+                <span class="info-box-icon"><i class="fa fa-flag-o"></i></span>
+                <div class="pull-right">    </div>
+                <div class="info-box-content">
+                    <span class="info-box-text">Delay in return item(s)</span>
+                    @Model.DelayInReturn
+
+                    <div class="progress">
+
+                    </div>
+                    <span class="progress-description">
+                        <a href="/WMS/FlowIndex" style="color:orange">Link</a>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-aqua">
+                <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+                <div class="pull-right"> </div>
+                <div class="info-box-content">
+                    <span class="info-box-text">My warehouse (Pending Confirmation)</span>
+                    @Model.pendingForMyWarehosue
+
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 85%"></div>
+                    </div>
+                    <span class="progress-description">
+
+                        <a href="/WMS/PendingVerificationWarehouseIndex" style="color:orange">Link</a>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-blue">
+                <span class="info-box-icon"><i class="fa fa-files-o"></i></span>
+                <div class="pull-right"> </div>
+                <div class="info-box-content">
+                    <span class="info-box-text">Other warehouses (Pending Confirmation)</span>
+                    @Model.PendingForOtherWarehouse
+
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 85%"></div>
+                    </div>
+                    <span class="progress-description">
+                        <a href="/WMS/PendingVerificationOtherWarehouse" style="color:orange">Link</a>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-green">
+                <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+                <div class="pull-right">   </div>
+                <div class="info-box-content">
+                    <span class="info-box-text">Staff (Pending Confirmation)</span>
+                    @Model.PendingForStaff
+
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 85%"></div>
+                    </div>
+                    <span class="progress-description">
+                        <a href="/WMS/PendingVerificationStaffIndex" style="color:orange">Link</a>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/WMS/ModelEntryMovements">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>
+                            Serially Tracked Items
+                        </h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/WMS/ConsumableItemOverview">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Consumable Item</h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/WMS/Dashboard/Home">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Stock Overview</h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+
+            <a class="black" href="/WMS/HOME/Reports/">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Reporting</h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/WMS/LicenseSubscription">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>License & Subscription</h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/WMS/Home/Configuration">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-cogs  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Configuration </h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/WMS/ItemVerificationPeriod">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Item(s) Verification</h3>
+                        <span>--</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @*<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/ORG/StaffProfile/IndexStaffPhoneDirectory">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Staff Phone Directory</h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>*@
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/ORG/StaffProfileICT">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Staff Profiles</h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/WMS/ItemRequests">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Staff Requests</h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/WMS/AllDamagedItemRequests">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>IT Equipment Damage Report</h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            @using (Html.BeginForm("Chart", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "InitDashoardChartsform" }))
+            {
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+
+                        <div class="form-group">
+
+                            @Html.Label("Issue from")
+                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="form-group">
+                            @Html.Label("Issue to")
+                            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <div class="form-group">
+                            @Html.Label("_", new { @style = "color:white;" })
+                            <input id="btnCharts" name="btnCharts" class="btn btn-primary ActionControl" style="width:100%" onclick="InitDashboards();" value="Generate Report">
+                            @*<div id="ChartsLoad"></div>*@
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                        <br />
+                        Last Movement :
+                        <a href="/WMS/TrackItemMovementDailyIndex/" value="Last 3 days">Last 1 day</a>|
+                        <a href="/WMS/TrackItemMovementWeeklyIndex/" value="Last 3 days">Last 7 days</a>|
+                        <a href="/WMS/TrackItemMovementMonthlyIndex/" value="Last 3 days">Last 30 days</a>|
+                        <a href="/WMS/TrackItemMovementAllIndex/" value="Last 3 days">All </a>
+                    </div>
+
+                </div>
+
+            }
+        </div>
+
+    </div>
+
+    <div style="display:none" id="ChartPanel">
+        <br />
+        <hr />
+
+        <div class="row">
+            <div class="col-lg-4" style="border-right:10px">
+                <div id="container" style="height:400px; width:100%;padding-right:10px;border:ridge;"></div>
+            </div>
+
+
+
+            <div class="col-lg-7">
+                <div id="container2" style="height:400px; width:100%; margin: 0 auto;border:ridge;">
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="border-right:10px">
+            <div class="col-md-11">
+                <div id="calendar">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript">
+    var Process = '<center><img src="../Assets/Images/loading.gif" style="top: 50%;position: absolute;" /></center>';
+    var totalChartNumber = 3;
+    var numberOfChartCompletet = 0;
+    function DecideWhenLoadComplete() {
+        numberOfChartCompletet++;
+        if (numberOfChartCompletet == totalChartNumber) {
+            $('#btnCharts').prop('disabled', false);
+            $('#ChartsLoad').html('');
+
+        }
+    }
+
+    function InitDashboards() {
+
+        $('#ChartsLoad').append('<span class="loadingSpan" style="margin-left:4px;margin-top:2px;"> Please wait...</span>');
+        $('#btnCharts').prop('disabled', false);
+        $('#ChartPanel').show();
+        numberOfChartCompletet = 0;
+        $('#container').html('').append(Process);
+        $('#container2').html('').append(Process);
+        $('#container3').html('').append(Process);
+        GetIssuingItemGovernorates();
+        GetItemByMonths();
+        GetItemDistByCalander();
+        //MapNV();
+    };
+
+    //InitDashboards();
+    function GetIssuingItemGovernorates() {
+        var form = $('#InitDashoardChartsform');
+        var formData = form.serialize();
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/WMS/Home/Chart1',
+            data: formData,
+            success: function (data) {
+                console.log(data);
+                Highcharts.chart('container', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie',
+                        options3d: {
+                            enabled: true,
+                            alpha: 45,
+                            beta: 0
+                        }
+                    },
+                    title: {
+                        text: 'Items issuing by Governorates'
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                //enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        allowPointSelect: true,
+                        keys: ['name', 'y', 'selected', 'sliced'],
+                        data: data.issuLocations,
+                        showInLegend: true
+                    }]
+                });
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function GetItemByMonths() {
+        var form = $('#InitDashoardChartsform');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/WMS/Home/chart2",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var seriesData = response.Model;
+                $('#container2').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container2', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Items status'
+                    },
+
+                    xAxis: {
+                        categories: [
+                            'Jan',
+                            'Feb',
+                            'Mar',
+                            'Apr',
+                            'May',
+                            'Jun',
+                            'Jul',
+                            'Aug',
+                            'Sep',
+                            'Oct',
+                            'Nov',
+                            'Dec'
+                        ],
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    exporting: {
+                        enabled: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: seriesData
+                });
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+
+    function GetItemDistByCalander() {
+
+        function ini_events(ele) {
+            //$("#calendar").hide();
+            //$("#imageLoader").show();
+            ele.each(function () {
+
+                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+                // it doesn't need to have a start or end
+                var eventObject = {
+                    title: $.trim($(this).text())
+                    // use the element's text as the event title
+                };
+
+                // store the Event Object in the DOM element so we can get to it later
+                $(this).data('eventObject', eventObject);
+
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 1070,
+                    revert: true, // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+
+            });
+        }
+
+        ini_events($('#external-events div.external-event'));
+
+        /* initialize the calendar
+         -----------------------------------------------------------------*/
+        //Date for the calendar events (dummy data)
+        var date = new Date();
+        var d = date.getDate(),
+            m = date.getMonth(),
+            y = date.getFullYear();
+
+        $('#calendar').fullCalendar({
+
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            buttonText: {
+                today: 'today',
+                month: 'month',
+                week: 'week',
+                day: 'day',
+                list: 'list'
+            },
+            //Random default events
+            /**/
+            events: "/WMS/Home/InitCalander",
+
+            /**/
+
+            eventClick: function (calEvent, jsEvent, view) {
+                $('#FormModal').modal('show');
+                //alert(JSON.stringify(calEvent.id,null,2));
+                $.ajax({
+                    type: "GET",
+                    url: '/WMS/Reports/GetMovementItemDetails?PK=' + calEvent.id,
+                    success: function (data) {
+                        // inject your content into the "placeholder" div
+                        $('#Partial-Container').html(data);
+                        $('#Loading-Container').hide();
+                        InitPlugins($('#Partial-Container'));
+
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            },
+            //title: 'Answer HotLine',
+            //start: new Date(y, m, d, 12, 0),
+            //end: new Date(y, m, d, 14, 0),
+            //allDay: false,
+            //backgroundColor: "#00c0ef", //Info (aqua)
+            //borderColor: "#00c0ef" //Info (aqua)
+            editable: true,
+            droppable: true, // this allows things to be dropped onto the calendar !!!
+            drop: function (date, allDay) { // this function is called when something is dropped
+
+                // retrieve the dropped element's stored Event Object
+                var originalEventObject = $(this).data('eventObject');
+
+                // we need to copy it, so that multiple events don't have a reference to the same object
+                var copiedEventObject = $.extend({}, originalEventObject);
+
+                // assign it the date that was reported
+                copiedEventObject.start = date;
+                copiedEventObject.allDay = allDay;
+                copiedEventObject.backgroundColor = $(this).css("background-color");
+                copiedEventObject.borderColor = $(this).css("border-color");
+
+                // render the event on the calendar
+                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+
+                // is the "remove after drop" checkbox checked?
+                if ($('#drop-remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(this).remove();
+                }
+
+            }
+        });
+
+        /* ADDING EVENTS */
+        var currColor = "#3c8dbc"; //Red by default
+        //Color chooser button
+        var colorChooser = $("#color-chooser-btn");
+        $("#color-chooser > li > a").click(function (e) {
+            e.preventDefault();
+            //Save color
+            currColor = $(this).css("color");
+            //Add color effect to button
+            $('#add-new-event').css({ "background-color": currColor, "border-color": currColor });
+        });
+        $("#add-new-event").click(function (e) {
+            e.preventDefault();
+            //Get value and make sure it is not null
+            var val = $("#new-event").val();
+            if (val.length == 0) {
+                return;
+            }
+
+            //Create events
+            var event = $("<div/>");
+            event.css({ "background-color": currColor, "border-color": currColor, "color": "#fff" }).addClass("external-event");
+            event.html(val);
+            $('#external-events').prepend(event);
+
+            //Add draggable funtionality
+            ini_events(event);
+
+            //Remove event from text input
+            $("#new-event").val("");
+        });
+
+    }
+
+</script>
+

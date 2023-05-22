@@ -1,0 +1,57 @@
+﻿@model dataStaffModel
+@using (Html.BeginForm("ElectionStaff", "Staff", new { Area = "OVS" }, FormMethod.Post, new { id = "ElectionStaffForm" }))
+{
+    string ModalTitle = Model.StaffGUID.ToString() == Guid.Empty.ToString() ?resxDbFields.NewStaff : resxDbFields.EditStaff;
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ElectionStaffGUID)
+        @Html.HiddenFor(model => model.StaffGUID)
+        @Html.HiddenFor(model => model.ElectionGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary SLAME ActionControl" onclick="SenStaffMail();" type="button" value="@resxDbFields.SendMessage">
+        </div>
+    </div>
+    
+
+    <div class="modal-footer form-footer">
+        @if (Model.StaffGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ElectionsManagement.Create, Apps.OVS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ElectionsManagement.Update, Apps.OVS)
+                @Html.DeleteSwitchButton(Permissions.ElectionsManagement.Delete, Apps.OVS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ElectionsManagement.Restore, Apps.OVS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+    <script>
+        var SenStaffMail = function () {
+            var formData = $("#ElectionStaffForm").serialize();
+        $.ajax({
+            url: "@Url.Action("ElectionStaffSingleMessgeCreate", "Staff")",
+            method: "Post",
+            data: formData,
+            success: function(JsonResult, status, xhr) {
+                ProcessNotify(JsonResult);
+            }
+        });
+    };
+    </script>

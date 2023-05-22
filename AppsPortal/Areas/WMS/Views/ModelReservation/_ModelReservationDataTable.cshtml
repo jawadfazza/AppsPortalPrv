@@ -1,0 +1,25 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.ModelResveration</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.WarehouseModelReservationMovementDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.WarehouseModelReservationMovementDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.WarehouseModelReservationMovementDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.WarehouseModelReservationMovementDataTable)
+                @Html.FieldDataTableCreate(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("WarehouseModelReservationMovementsCreate", "ModelMovements", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.WarehouseItemsEntry.Delete, Apps.WMS, DataTableNames.WarehouseModelReservationMovementDataTable)
+                @Html.FieldDataTableRestore(Permissions.WarehouseItemsEntry.Restore, Apps.WMS, DataTableNames.WarehouseModelReservationMovementDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.WarehouseModelReservationMovementDataTable)
+            </div>
+        }
+     
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseModelReservationMovementDataTable, FormController = "ModelMovements", Area = "WMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

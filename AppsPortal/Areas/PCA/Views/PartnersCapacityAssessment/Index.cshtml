@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "PartnersCapacityAssessmentsDataTable";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout_1.cshtml";
+}
+@Html.PageHeader("5132f339-4703-4fb9-b353-d7d5cb67760e")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.PartnersCapacityAssessmentsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PartnerName, DbColumnName = "PartnerName", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.EmailAddress, DbColumnName = "EmailAddress", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.AgancyConfirm, DbColumnName = "AgancyConfirm", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().CheckBoxRecordStatus() })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PartnerConfirm, DbColumnName = "PartnerConfirm", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().CheckBoxRecordStatus() })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PartnerEvaluation, DbColumnName = "PartnerEvaluation", FilterForDataType = "Number" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.AgancyEvaluation, DbColumnName = "AgancyEvaluation", FilterForDataType = "Number" })
+            </div>
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.PartnersCapacityAssessmentsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format(" {0}ActionsContainer", DataTableNames.PartnersCapacityAssessmentsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.PartnersCapacityAssessmentsDataTable)
+        @Html.IndexDatatableCreate(Permissions.PartnersCapacityAssessment.Create, Apps.PCA, "/PCA/PartnersCapacityAssessment/Index")
+        @Html.IndexDatatableDelete(Permissions.PartnersCapacityAssessment.Delete, Apps.PCA, DataTableNames.PartnersCapacityAssessmentsDataTable)
+        @Html.IndexDatatableRestor(Permissions.PartnersCapacityAssessment.Restore, Apps.PCA, DataTableNames.PartnersCapacityAssessmentsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.PartnersCapacityAssessmentsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.PartnersCapacityAssessmentsDataTable, Area = "PCA", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

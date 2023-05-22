@@ -1,0 +1,88 @@
+﻿    @model ElectionUpdateModel
+@using (Html.BeginForm("Election", "Election", new { Area = "OVS" }, FormMethod.Post, new { id = "ElectionForm", @class = "main-form" }))
+{
+    @*<h3>@resxPages.Details</h3>*@
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.ElectionGUID)
+    <div class="row">
+        <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.Title)
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Details)
+                @Html.TextAreaFor(model => model.Details, new { @class = "form-control", rows = 5 })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate)
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CloseDate)
+                @Html.EditorFor(model => model.CloseDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.ResultAvaiableDate)
+                @Html.EditorFor(model => model.ResultAvaiableDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeZone)
+                @Html.DropDownListFor(model => model.TimeZone, new DropDownList().TimeZones(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.OrganizationInstanceGUID)
+                @Html.DropDownList("OrganizationInstanceGUID", new DropDownList().OrganizationsInstances(), new
+                {
+                    style = "width:100%",
+                    @class = "form-control select2-basic-search",
+                    onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DutyStationGUID', Action: 'RemoteDutyStation'}]);"
+                })
+
+            </div>
+
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.DutyStationGUID, htmlAttributes: new {@class = "control-label"})
+            @Html.DropDownList("DutyStationGUID", new DropDownList().Empty(), new {@class = "form-control select2-basic-search", style = "width:100%"})*@
+                @Html.LabelFor(model => model.DutyStationGUID, htmlAttributes: new { @class = "control-label" })
+                @if (Model.OrganizationInstanceGUID != null)
+                {
+                    @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStationsSelected((Guid)Model.OrganizationInstanceGUID), new
+                    {
+                        style = "width:100%",
+                        @class = "form-control select2-basic-search"
+                    })
+                }
+                else
+                {
+                    @Html.DropDownList("DutyStationGUID", new DropDownList().Empty(), new { @class = "form-control select2-basic-search", style = "width:100%" })
+                }
+            </div>
+
+            <div id="ElectionsFormControls" class="form-group form-footer">
+                @if (Model.ElectionGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.ElectionsManagement.Create, Apps.OVS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.ElectionsManagement.Update, Apps.OVS)
+                        @Html.CreateNewButton(Permissions.ElectionsManagement.Create, Apps.OVS, Url.Action("Create", "Election", new { Area = "OVS" }))
+                        @Html.DeleteButton(Permissions.ElectionsManagement.Delete, Apps.OVS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.ElectionsManagement.Restore, Apps.OVS)
+                    }
+                }
+                @Html.BackToList(Url.Action("", "Election", new { Area = "OVS" }))
+            </div>
+        </div>
+    </div>
+}

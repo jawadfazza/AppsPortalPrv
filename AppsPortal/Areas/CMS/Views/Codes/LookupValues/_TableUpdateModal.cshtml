@@ -1,0 +1,40 @@
+﻿@model codeTables
+@using (Html.BeginForm("Table", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "TableForm" }))
+{
+    string ModalTitle = Model.TableGUID.ToString() == Guid.Empty.ToString() ? "New " : "Edit ";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.TableGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.TableName)
+            @Html.EditorFor(model => model.TableName, new { htmlAttributes = new {  @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SortID)
+            @Html.EditorFor(model => model.SortID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @{
+            var FactorsToken = Model.TableGUID.ToString(); //new CMS().LookupValueFactorsCollector(Model.TableGUID);
+        }
+        @if (Model.TableGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.LookupValues.Create, Apps.CMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.LookupValues.Update, Apps.CMS, FactorsToken)
+                @Html.DeleteSwitchButton(Permissions.LookupValues.Delete, Apps.CMS, FactorsToken)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.LookupValues.Restore, Apps.CMS, FactorsToken)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

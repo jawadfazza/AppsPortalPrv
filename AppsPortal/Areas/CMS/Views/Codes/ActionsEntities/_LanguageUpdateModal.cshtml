@@ -1,0 +1,39 @@
+﻿@model codeActionsEntitiesLanguages
+@using (Html.BeginForm("ActionEntityLanguage", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "ActionEntityLanguageForm" }))
+{
+    string ModalTitle = Model.ActionEntityLanguageGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ActionEntityLanguageGUID)
+        @Html.HiddenFor(model => model.ActionEntityGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.LanguageID)
+            @Html.DropDownListFor(model => model.LanguageID, new DropDownList().Languages(false), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ActionEntityDescription)
+            @Html.EditorFor(model => model.ActionEntityDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+       
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ActionEntityLanguageGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ActionsEntities.Create, Apps.CMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ActionsEntities.Update, Apps.CMS)
+                @Html.DeleteSwitchButton(Permissions.ActionsEntities.Delete, Apps.CMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ActionsEntities.Restore, Apps.CMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

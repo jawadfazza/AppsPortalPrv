@@ -1,0 +1,109 @@
+﻿@model StaffVoteElectionModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{ string PageTitle = resxDbFields.VotePage; }
+<style>
+    .candidate-photo {
+        display: block;
+        height: 100px;
+        overflow: hidden;
+        text-indent: 100%;
+        white-space: nowrap;
+        width: 460px;
+    }
+
+    .container {
+        height: 2rem;
+        overflow: hidden;
+    }
+
+</style>
+<div class="page--header">
+    <div class="page--banner">
+        <h2 id="PageTitle" style="font-size: 30px;">@Html.DisplayTextFor(modelitem => modelitem.ElectionTitle)</h2>
+    </div>
+</div>
+<div class="page--content">
+    <div class="row">
+        <div class="forms-fadeIn">
+            @Html.HiddenFor(model => model.ElectionGUID)
+            <div id="voteContainer">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <table id="ElectionCandidatesDataTable" style="width:100%">
+                            <tr>
+                                <td>
+                                    @foreach (var item in Model.electionCandidateModel)
+                                    {
+                                        <div class="row LoginMoreDetails">
+
+                                            <div class="col-lg-10 col-xs-8">
+                                                <div class="row"> <div class="col-lg-10"> <input type="checkbox" class="chkNode " value="@item.ElectionCandidateGUID" name="ElectionCandidateGUID" /><b> @Html.DisplayTextFor(modelitem => item.FullName)</b></div></div>
+                                                <br />
+                                                <div class="row">
+                                                <div class="col-lg-10 col-sm-12 container" style="padding-left:5%;">
+                                                    @Html.DisplayTextFor(modelitem => item.CampaignPlan)
+                                                     
+                                                     </div>
+                                               </div>
+                                                <div class="row">
+                                                    <a class="containerLink" href="#" style="padding-left:5%;">+ Show More</a>
+                                                </div>
+                                                <hr />
+                                            </div>
+                                            <div class="col-lg-2 col-xs-4 text-center">
+
+                                                <a href="#">
+                                                    <img src=@( System.IO.File.Exists(Server.MapPath(@"\\Uploads") + "\\OVS\\CanidiatePhotos\\" + item.ElectionCandidateGUID + ".jpg")?
+                                                     Url.Content(@Html.DisplayFor(modelItem => item.CandidatePhoto).ToString()):
+                                                                String.Format("/Uploads/OVS/Templete/{0}.jpg?v="+new Random().Next(1,1000), Guid.Empty) )
+                                                         style="width: 125px" id="ElectionCandidateGUID"
+                                                         class="Modal-Link img-thumbnail"
+                                                         data-url="/OVS/Vote/GetCandidateInfo/@item.ElectionCandidateGUID"
+                                                         alt="@Html.DisplayTextFor(modelitem => item.FullName)" />
+                                                </a>
+                                            </div>
+                                            @using (Html.BeginForm("ElectionCandidatesDataTable", "Vote", FormMethod.Post, new { id = "ElectionCandidatesDataTableForm" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                            }
+                                        </div>
+                                    }
+
+                                    <div class="page--banner">
+                                        <div class="dt-controls-field SubjectBox">
+                                            @*To Send your Vote Just click on this button*@
+                                            @Html.IndexDataTableVote(DataTableNames.ElectionCandidatesDataTable)
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = window.history.forward(0);
+
+    $('.containerLink').click(function () {
+       
+        if ($(this).text() == '+ Show More') {
+            $(this).parent().prev().children().css('height', 'Auto');
+            $(this).text("- Show Less");
+            return false;
+        }
+        if ($(this).text() == '- Show Less') {
+            $(this).parent().prev().children().css('height', '2rem');
+            $(this).text("+ Show More");
+            return false;
+        }
+        
+    });
+</script>

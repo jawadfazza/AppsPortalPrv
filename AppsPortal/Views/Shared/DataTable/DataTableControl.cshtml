@@ -1,0 +1,6 @@
+﻿@model DataTableControl
+@Html.Raw(new CMS().DataTableControl(Model.Name, Model.FormController,Model.Area, Model.Type, Model.EditMode, Model.PK, Model.OrderBy, Model.FK , Model.SelectAll))
+@using (Html.BeginForm(Model.Name , Model.FormController,new { Area=Model.Area}, FormMethod.Post, new { id = Model.Name + "Form" }))
+{
+    @Html.AntiForgeryToken()
+}

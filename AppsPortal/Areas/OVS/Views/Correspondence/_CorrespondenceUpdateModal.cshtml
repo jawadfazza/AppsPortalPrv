@@ -1,0 +1,61 @@
+﻿@model dataElectionCorrespondence
+@using (Html.BeginForm("ElectionCorrespondence", "Correspondence", new { Area = "OVS" }, FormMethod.Post, new { id = "ElectionCorrespondenceForm" }))
+{
+    string ModalTitle = Model.ElectionCorrespondenceGUID.ToString() == Guid.Empty.ToString() ? "New Correspondence" : "Edit Correspondence";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ElectionCorrespondenceGUID)
+        @Html.HiddenFor(model => model.ElectionGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.MessageTitle)
+            @Html.EditorFor(model => model.MessageTitle, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            @*@Html.DropDownListFor(model => model.LanguageID, new DropDownList().Languages(false), "", new { @class = "form-control select2-basic-single", style = "width:100%" })*@
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MessageBody)
+            @Html.TextAreaFor(model => model.MessageBody, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SendDate)
+            @Html.EditorFor(model => model.SendDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ElectionCorrespondenceTypeGUID)
+            @Html.DropDownListFor(model => model.ElectionCorrespondenceTypeGUID, new DropDownList().ElectionCorrespondenceTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ElectionCorrespondenceGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ElectionsManagement.Create, Apps.OVS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ElectionsManagement.Update, Apps.OVS)
+                @Html.DeleteSwitchButton(Permissions.ElectionsManagement.Delete, Apps.OVS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ElectionsManagement.Delete, Apps.OVS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+@*<script src="~/Assets/Plugin/trumbowyg/plugins/base64/trumbowyg.base64.min.js"></script>*@
+<script>
+
+    $(document).ready(function () {
+        @*$("#MessageBody").html("@resxEmails.AccessRequestToSponsor");*@
+        $('#MessageBody').trumbowyg({
+            
+        });
+        
+
+    });
+</script>

@@ -1,0 +1,165 @@
+﻿@model OfficeUpdateModel
+@using (Html.BeginForm("Office", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "OfficeForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.OfficeGUID)
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="form-group">
+                @Html.LabelFor(model => model.OfficeDescription)
+                @Html.EditorFor(model => model.OfficeDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OfficePhoneNumber)
+                <div class="input-group">
+                    <div class="input-group-btn" style="font-size:1em;">
+                        @Html.DropDownListFor(model => model.OfficePhoneCountryCode, new SelectList(ViewBag.ddlCountriesPhoneCode, "Value", "Text"), "", new { @class = "form-control select2-basic-CountryCode expandWidth no-left-border" })
+                    </div>
+                    @Html.EditorFor(model => model.OfficePhoneNumber, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", @style = "width:100%" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.VTCIP)
+                @Html.EditorFor(model => model.VTCIP, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OfficeTypeGUID)
+                @Html.DropDownListFor(model => model.OfficeTypeGUID, new DropDownList().OfficeTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CountryGUID)
+                @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().Countries(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DutyStationGUID)
+                @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStations(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrganizationGUID)
+                @Html.DropDownListFor(model => model.OrganizationGUID, new DropDownList().AuthorizedOrganizations(Permissions.Offices.CreateGuid, Model.OrganizationGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OfficeAddress)
+                @Html.TextAreaFor(model => model.OfficeAddress, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <label>Office Photo</label><br />
+            <div class="PhotoBox" style="height:505px;">
+                @Html.HiddenFor(model => model.MediaName)
+                <img id="imgOfficePhoto" class="imgLogo" src="@Model.MediaPath" />
+                <div id="LogoUploadList" class="LoadingList">
+                </div>
+            </div>
+            @{
+                string FactorsToken = new FactorsCollector().Office(Model.OfficeGUID);
+
+                if ((new CMS().HasAction(Permissions.Offices.Update,Apps.CMS,FactorsToken) || Model.OfficeGUID == Guid.Empty) && Model.Active)
+                {
+                    <div id="fine-uploader" class="upload-link"></div>@: &nbsp;
+                    <div style="display:inline-block; padding:8px 0;">
+                        <a href="#" class="Confirm" data-mode="Single" data-submittype="OfficePhotoDelete">Remove</a>
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-lg-11">
+            @Html.Partial("_SearchLocation", new MapModel { Height = "400px", Zoom = 15, Latitude = Model.Latitude, Longitude = Model.Longitude })
+        </div>
+        <div class="col-lg-11">
+            <div id="OfficeFormControls" class="form-group form-footer">
+
+                @if (Model.OfficeGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Offices.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Offices.Update, Apps.CMS, FactorsToken)
+                        @Html.CreateNewButton(Permissions.Offices.Create, Apps.CMS, Url.Action("Offices/Create", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.Offices.Delete, Apps.CMS, FactorsToken)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Offices.Restore, Apps.CMS, FactorsToken)
+                    }
+                }
+                @Html.BackToList(Url.Action("Offices", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+                }
+<script type="text/template" id="qq-template">
+    <div class="qq-uploader-selector qq-uploader-link">
+
+        <div class="qq-upload-button-selector qq-upload-button">
+            <div>Change Photo | </div>
+        </div>
+
+        <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
+            <li style="margin:10px auto;">
+                <div class="qq-progress-bar-container-selector">
+                    <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                </div>
+                <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
+                <span class="qq-upload-size-selector qq-upload-size"></span>
+                <button type="button" class="qq-upload-cancel-selector btn btn-default">Cancel</button>
+                <button type="button" class="qq-upload-retry-selector btn btn-danger">Retry</button>
+                <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+            </li>
+        </ul>
+    </div>
+</script>
+<script>
+    CountriesCodes = @Html.Raw(ViewBag.JsonCountries)
+</script>
+<script>
+  var uploader = new qq.FineUploader({
+        scaling: {
+            sendOriginal: false,
+            sizes: [
+                { name: "medium", maxSize: 1024 }
+            ]
+        },
+        validation: {
+            allowedExtensions: ['jpeg', 'jpg'],
+            image: { minWidth: 1024, minHeight: 768 },
+        },
+        showMessage: function (message) {
+            Notify(NotificationType.Error, message);
+        },
+        messages: {
+            minHeightImageError: "Image quality is low<br>Minimum resolution is 1024 x 768 Pixels",
+            minWidthImageError: "Image quality is low<br>Minimum resolution is 1024 x 768 Pixels.",
+        },
+        debug: false,
+        element: document.getElementById('fine-uploader'),
+        listElement: document.getElementById('LogoUploadList'),
+        request: {
+            endpoint: '/Upload/UploadOfficePhoto/' + $('#OfficeGUID').val()
+        },
+        deleteFile: {
+            enabled: true,
+            endpoint: '/uploads'
+        },
+        retry: {
+            enableAuto: true
+        },
+        callbacks: {
+            onUpload: function () {
+                console.log("Upload started!");
+                $('#LogoUploadList').show();
+            },
+            onComplete: function (id, name, responseJSON, maybeXhr) {
+                $('.qq-upload-size-selector').hide();
+                $('#imgOfficePhoto').attr('src', responseJSON.path + "?" + Math.random().toString());
+                $('#MediaName').val(responseJSON.path);
+                $('.qq-upload-success').remove();
+            }
+        }
+    });
+</script>

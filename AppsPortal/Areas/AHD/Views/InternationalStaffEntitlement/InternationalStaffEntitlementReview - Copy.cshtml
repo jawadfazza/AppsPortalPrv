@@ -1,0 +1,424 @@
+﻿@model InternationalStaffEntitlementUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<style>
+    .fc-time {
+        display: none !important;
+    }
+</style>
+
+@*@Html.PageHeaderWithParms("3517107a-e679-4dad-858e-87c70c77715e", null, Model.InternationalStaffEntitlementGUID.ToString(), 4)*@
+
+@Html.PageHeader("eb96f22d-4409-4bb6-8800-54db4b5fd4ca")
+
+<div class="page--content">
+    @Html.HiddenFor(m => m.StaffGUID)
+    @Html.HiddenFor(m => m.InternationalStaffEntitlementGUID)
+
+    <div id="TabContainer">
+        <div id="exTab1">
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#EntitlmentInfo" data-toggle="tab">Entitlement Information</a>
+                </li>
+                <li>
+                    <a href="#EntitlementDetails" data-toggle="tab"> Entitlement Details</a>
+                </li>
+
+
+
+                <li>
+
+            </ul>
+        </div>
+        <div class="tab-content clearfix">
+            <h4 style='color:red'>@Model.StaffName @Model.PeriodName</h4>
+            <div class="tab-pane active" id="EntitlmentInfo">
+
+
+                <div id=@string.Format("{0}Filter", DataTableNames.InternationalStaffEntitlementDetailDataTable) class="filter-section" style="display: none;" DefaultButton="btnFind">
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                        </div>
+                    </div>
+                    <div class="form-group filter-actions">
+                        @Html.DatatableFilterControls(DataTableNames.InternationalStaffEntitlementDetailDataTable)
+                    </div>
+                </div>
+                <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.InternationalStaffEntitlementDetailDataTable)">
+                   
+                    @Html.IndexDatatableRefresh(DataTableNames.InternationalStaffEntitlementDetailDataTable)
+                </div>
+                <div class="page--body">
+                    <h3>
+                        Total Entitlements :  @Model.TotalEntitlements US Dollars
+                    </h3>
+
+                    <div class="form-group">
+                        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.InternationalStaffEntitlementDetailDataTable, FormController = "InternationalStaffEntitlement", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = (Guid)Model.InternationalStaffEntitlementGUID, OrderBy = 1 })
+                    </div>
+                    @if (Model.FlowStatusGUID == InternationalStaffEntitlmentFlowStatus.PendingVerification)
+                    {
+
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                @Html.Label("Preferred Payment Method")
+                                @Html.DropDownListFor(model => model.PaymentMethodGUID, new DropDownList().StaffEntitlmentsPerferredPaymentMethod(), "", new { @class = "form-control select2-basic-search ", style = "width:100%" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.StaffComment, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.StaffComment, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+
+                        <div class="col-md-12"></div>
+                        <br />
+                        <div class="form-group">
+                            <input type="button" class="btn btn-info"
+                                   id="btnApproveEntitlementByStaffID" value="Confirm and send to review" />
+                            <input type="button" class="btn btn-danger" id="btnRetunrRejectByStaffID" value="Reject and return to HR to review " />
+                        </div>
+                    }
+                    @if (Model.FlowStatusGUID == InternationalStaffEntitlmentFlowStatus.Closed && Model.IsConfirmReceipt==null)
+                    {
+
+                
+
+                        <div class="col-md-12"></div>
+                        <br />
+                        <div class="form-group">
+                            <input type="button" class="btn btn-info"
+                                   id="btnConfirmReceiptEntitlementByStaffID" value="Confirm Receipt" />
+                            
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="tab-pane" id="EntitlementDetails">
+                <div class="form-group">
+                    @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.InternationalStaffAttendanceDetailDataTable, FormController = "InternationalStaffEntitlement", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = (Guid)Model.InternationalStaffEntitlementGUID, OrderBy = 1 })
+                </div>
+                <div id='calendar'></div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+<script type="text/javascript">
+    var Source;
+    var events = [];
+    var curSource = new Array();
+    var staffGUID = $("#StaffGUID").val();
+    var myInternationalStaffEntitlementGUID = $("#InternationalStaffEntitlementGUID").val();
+    $("#btnApproveEntitlementByStaffID").click(function () {
+        var StaffComment = $("#StaffComment").val();
+        var PaymentMethodGUID = $("#PaymentMethodGUID").val();
+        $('#btnApproveEntitlementByStaffID').hide();
+        $('#btnRetunrRejectByStaffID').hide();
+        $.ajax({
+            url: "/AHD/InternationalStaffEntitlement/SendEntitlementApprovedByStaff",
+            dataType: 'json',
+            type: "post",
+            data: {
+                myInternationalStaffEntitlementGUID: myInternationalStaffEntitlementGUID,
+                StaffComment: StaffComment,
+                PaymentMethodGUID: PaymentMethodGUID
+
+            },
+            success: function (data) {
+                if (data.success == 1) {
+                    Notify(NotificationType.Success, 'Your request been submitted');
+                }
+            }
+
+        });
+    });
+
+    $("#btnRetunrRejectByStaffID").click(function () {
+        var StaffComment = $("#StaffComment").val();
+        // alert(myInternationalStaffEntitlementGUID);
+        $('#btnRetunrRejectByStaffID').hide();
+        $.ajax({
+            url: "/AHD/InternationalStaffEntitlement/SendRejectToHRByStaff",
+            dataType: 'json',
+            type: "post",
+            data: { myInternationalStaffEntitlementGUID: myInternationalStaffEntitlementGUID, StaffComment: StaffComment },
+            success: function (data) {
+                if (data.success == 1) {
+                    Notify(NotificationType.Success, 'Your request been sent to HR to review');
+                }
+            }
+
+        });
+    });
+
+    $("#btnConfirmReceiptEntitlementByStaffID").click(function () {
+        
+        // alert(myInternationalStaffEntitlementGUID);
+        $('#btnConfirmReceiptEntitlementByStaffID').hide();
+        $.ajax({
+            url: "/AHD/InternationalStaffEntitlement/SaveConfirmReceiptEntitlement",
+            dataType: 'json',
+            type: "post",
+            data: { myInternationalStaffEntitlementGUID: myInternationalStaffEntitlementGUID },
+            success: function (data) {
+                if (data.success == 1) {
+                    Notify(NotificationType.Success, 'Saved Successfully');
+                }
+            }
+
+        });
+    });
+
+
+    //first source uses querystring to determine what events to pull back
+    curSource[0] = '/hackyjson/cal?e1=' + $('#e1').is(':checked') + '&e2=' + $('#e2').is(':checked');
+    //second source just returns all events
+    curSource[1] = '/hackyjson/anothercal/';
+    var newSource = new Array();
+    $(document).ready(function () {
+
+        InitializeCalendarLeavs();
+    });
+    function searchAppointment() {
+        if ($('#search-term').val() != '') {
+            newSource = Source.filter(elem =>
+                (elem.title.toLowerCase().indexOf($('#search-term').val().toLowerCase()) > -1));
+            refreshCalendar(newSource);
+
+        } else {
+            refreshCalendar(Source);
+        }
+    }
+    function refreshCalendar(newSource) {
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('addEventSource', newSource);
+        $('#calendar').fullCalendar('refetchEvents');
+    }
+
+
+    $(document).keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            event.preventDefault();
+            searchAppointment();
+        }
+
+    });
+
+    var SlotWorkDays = [];
+    function InitializeCalendarLeavs() {
+
+        $.ajax({
+            url: "/AHD/InternationalStaffPresenceTracking/GetWorkingDay",
+            dataType: 'json',
+            type: "post",
+            success: function (data) {
+                $.each(data.WorkDays, function (key, value) {
+                    SlotWorkDays.push(value.Day);
+                });
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today,myCustomButton',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,list'
+                    },
+
+                    height: 700,
+                    allDayText: 'Events',
+                    selectable: true,
+                    overflow: 'auto',
+                    editable: true,
+                    firstDay: 0,
+                    businessHours: true,
+                    businessHours:
+                    {
+                        start: '8:30',
+                        end: '04:00',
+                        dow: SlotWorkDays
+                    },
+
+                    //eventLimit: true, // for all non-agenda views
+                    //views: {
+                    //    agenda: {
+                    //        eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                    //    }
+                    //},
+                    events: function (start, end, timezone, callback) {
+                        $.ajax({
+                            url: "/AHD/InternationalStaffPresenceTracking/GetCalendarDataFromDatabaseFilterByUser",
+                            dataType: 'json',
+                            type: "post",
+                            data: {
+                                // our hypothetical feed requires UNIX timestamps
+                                start: start.format('YYYY-MM-DD HH:mm'),
+                                end: end.format('YYYY-MM-DD HH:mm'),
+                                staffGUID: staffGUID
+                            },
+                            success: function (data) {
+                                events = [];
+                                //alert(JSON.stringify(data.CalendarEvents, null, 2));
+                                $.map(data.CalendarEvents, function (item, i) {
+                                    var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                                    var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                                    var event = new Object();
+                                    event.id = item.EventId;
+                                    event.UserGUID = item.UserGUID;
+                                    event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                    event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                    event.title = item.Title;
+                                    event.allDay = false;
+                                    event.backgroundColor = item.backgroundColor;
+                                    event.borderColor = item.borderColor;
+                                    //if (item.PublicHolday) { event.color = 'red'; event.overlap = false; }
+                                    //if (item.PreventAppointments) { event.color = 'orange'; event.allDay = item.AllDayEvent; }
+                                    events.push(event)
+                                });
+                                callback(events);
+                            }
+                        });
+                    },
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $.ajax({
+                            type: "GET",
+                            url: '/AHD/InternationalStaffPresenceTracking/AttendanceLeaveCalendarUpdate?PK=' + calEvent.id,
+                            success: function (data) {
+                                $('#FormModal').modal('show');
+                                // inject your content into the "placeholder" div
+                                $('#Partial-Container').html(data);
+                                $('#Loading-Container').hide();
+                                InitPlugins($('#Partial-Container'));
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    },
+                    //customButtons: {
+                    //    myCustomButton: {
+                    //        text: 'Add New Leave',
+                    //        click: function () {
+                    //            $.ajax({
+                    //                type: "GET",
+                    //                url: '/AHD/InternationalStaffPresenceTracking/AttendanceLeaveCalendarCreate',
+                    //                success: function (data) {
+                    //                    $('#FormModal').modal('show');
+                    //                    // inject your content into the "placeholder" div
+                    //                    $('#Partial-Container').html(data);
+                    //                    $('#Loading-Container').hide();
+                    //                    InitPlugins($('#Partial-Container'));
+                    //                },
+                    //                error: function (err) {
+                    //                    console.log(err);
+                    //                }
+                    //            });
+                    //        }
+                    //    }
+                    //},
+                    select: function (start, end) {
+
+                    },
+                    eventDrop: function (event, delta, revertFunc) {
+                        $.ajax({
+                            type: "post",
+                            url: '/AHD/InternationalStaffPresenceTracking/AttendanceLeaveUpdateDropEvent?PK=' + event.id + "&startDate=" + event.start.format() + "&endDate=" + event.end.format(),
+                            success: function (JsonResult) {
+                                if (JsonResult.Notify != null) {
+                                    ProcessNotify(JsonResult);
+                                    if (JsonResult.Notify.Type == NotificationType.Error) {
+                                        revertFunc();
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+
+
+    }
+
+
+
+
+
+    function ShowStaffLeaves(guid) {
+
+
+        events = events.filter(function (event) {
+            return event.UserGUID == guid;
+        });
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today,myCustomButton',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,list'
+            },
+
+            height: 700,
+            allDayText: 'Events',
+            selectable: true,
+            overflow: 'auto',
+            editable: true,
+            firstDay: 0,
+            businessHours: true,
+            businessHours:
+            {
+                start: '8:30',
+                end: '04:00',
+                dow: SlotWorkDays
+            },
+
+            //eventLimit: true, // for all non-agenda views
+            //views: {
+            //    agenda: {
+            //        eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+            //    }
+            //},
+            events: function (start, end, timezone, callback) {
+
+
+
+
+                $.map(events, function (item, i) {
+                    var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                    var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                    var event = new Object();
+                    event.id = item.EventId;
+                    event.UserGUID = item.UserGUID;
+                    event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                    event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                    event.title = item.Title;
+                    event.allDay = false;
+                    event.backgroundColor = item.backgroundColor;
+                    event.borderColor = item.borderColor;
+                    //if (item.PublicHolday) { event.color = 'red'; event.overlap = false; }
+                    //if (item.PreventAppointments) { event.color = 'orange'; event.allDay = item.AllDayEvent; }
+                    events.push(event)
+                });
+                callback(events);
+                //alert(JSON.stringify(events, null, 2));
+
+            },
+
+        });
+    }
+
+
+</script>
+

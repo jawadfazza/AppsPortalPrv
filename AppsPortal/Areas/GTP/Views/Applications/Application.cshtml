@@ -1,0 +1,18 @@
+﻿@model GTPApplicationUpdateModel
+@{
+    ViewBag.Title = "Tenders";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("222fa37c-fa95-4d6d-9bf1-eaffd76e2b4e")
+
+@{string PageTitle = (Model.GTPApplicationGUID == Guid.Empty) ? "New Application" : "Edit Application"; }
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/GTP/Views/Applications/_ApplicationForm.cshtml")
+    </div>
+</div>
+@section scripts {
+
+}

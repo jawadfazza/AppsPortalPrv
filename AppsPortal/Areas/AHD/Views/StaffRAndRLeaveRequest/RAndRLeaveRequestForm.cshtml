@@ -1,0 +1,1636 @@
+﻿@model StaffRAndRLeaveRequestModel
+@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.RestAndRecuperationLeaveGUID == Guid.Empty) ? "New  R&R Leave " : "Edit  R&R Leave"; }
+@Html.PageHeader("bc314333-5728-4fed-a733-ab4bafe167cd")
+<style>
+    ul.a {
+        list-style-position: outside;
+    }
+</style>
+<link href="~/Assets/Plugin/fullcalendar/main.min.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/fullcalendar/main.min.js"></script>
+<div class="page--content">
+
+    <div>
+        <div id="step-1" style="display: block;margin-top:10px!important;">
+            <div id="staffinfodivid" class="panel panel-default staffinfo tab-pane step-content" style="display: block;">
+                <div class="panel-heading" id="step1panelcreate">
+                    R R Request for : @Model.StaffName
+                    @*<h5 style=" color: red" class="pull-right">Current Request Status :(@Model.LastFlowStatusName)</h5>*@
+
+                    <a class="pull-right" href="https://unhcr365.sharepoint.com/sites/dhr-policies/Shared%20Documents/Inter-agency%20repository%20of%20HR%20Policies/Attendance%20and%20Leave/R%20&%20R/Administrative%20Instructions/Rest%20and%20recuperation%20R&R.pdf" target="_blank">R_R Rules</a>
+
+
+                </div>
+                <div class="panel-heading" style="background-color:forestgreen;color:white;font-weight:bold" id="step1paneldone">
+                    R R Request for : @Model.StaffName
+
+                    <i class="fas fa-check-circle pull-right" id="spanstep1" style="display:none;"> Completed</i>
+                </div>
+                <div class="panel-body">
+                    <div class="from-group">
+                        @using (Html.BeginForm("StaffRAndRLeaveRequest", "StaffRAndRLeave", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffRAndRLeaveForm", @class = "main-form", enctype = "multipart/form-data" }))
+                        {
+
+                            @Html.AntiForgeryToken()
+
+                            @Html.FormHiddenFields(model => model.RestAndRecuperationLeaveGUID)
+                            <div class="col-md-12">
+
+                                <div class="col-md-3">
+                                    <div class="form-group HANDLER">
+                                        @Html.LabelFor(model => model.BackupArrangementGUID)
+
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.DropDownListFor(model => model.BackupArrangementGUID, new DropDownList().AdminHRStaff(), "",
+                                            new
+                                            {
+                                            @class = "form-control select2-basic-search",
+                                            style = "width:100%",
+
+                                            })
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            @Html.DisplayFor(model => model.BackupArrangementName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Return Date From Last RR")
+
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.EditorFor(model => model.ReturnDateFromLastRLeave, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            @Html.DisplayFor(model => model.ReturnDateFromLastRLeave, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ExpiryDateOfResidency)
+
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.EditorFor(model => model.ExpiryDateOfResidency, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            @Html.DisplayFor(model => model.ExpiryDateOfResidency, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group HANDLER" id="itemparenetId">
+                                        @Html.LabelFor(model => model.SupervisorGUID)
+
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.DropDownListFor(model => model.SupervisorGUID, new DropDownList().InternationalStaffUsers(false), "", new
+                                                                 {
+                                                                 @class = "form-control select2-basic-search",
+                                                                 style = "width:100%",
+
+                                                                 })
+                                        }
+                                        else
+                                        {
+                                            @Html.HiddenFor(model => model.SupervisorGUID)
+                                            <br />
+                                            @Html.DisplayFor(model => model.SupervisorName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Label("Destination Country")
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().Countries(), "", new
+                                                                    {
+                                                                    @class = "form-control select2-basic-search",
+                                                                    style = "width:100%",
+
+                                                                    })
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            @Html.DisplayFor(model => model.CountryName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Label("Detail Destination Address")
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.EditorFor(model => model.DestinationCountry, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            @Html.DisplayFor(model => model.DestinationCountry, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <span> Shuttle Information</span>
+
+                                <div id="shuttleinfoid">
+                                    @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.Label("Departure Country")
+
+                                                @Html.DropDownListFor(model => model.DestCountryGUID, new DropDownList().CountriesSyriaShuttle(), "",
+                                                             new
+                                                             {
+                                                                 @class = "form-control select2-basic-search",
+                                                                 onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'StartLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);",
+                                                                 style = "width:100%"
+                                                             })
+
+
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Departure City")
+                                            @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                            {
+                                                @Html.DropDownListFor(model => model.StartLocationGUID, new DropDownList().LocationOneValue(Model.StartLocationGUID), "",
+                                                                         new
+                                                                         {
+                                                                             style = "width:100%",
+                                                                             onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DeparturePointGUID', Action : 'RemoteLocationsByLocationType'}]);",
+                                                                             @class = "form-control select2-basic-search"
+                                                                         })
+                                            }
+                                            else
+                                            {
+                                                <br />
+                                                @Html.DisplayFor(model => model.StartLocation, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Departure Point")
+                                            @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                            {
+                                                @Html.DropDownListFor(model => model.DeparturePointGUID, new DropDownList().LocationOneValue(Model.DeparturePointGUID), "",
+                                                                        new
+                                                                        {
+                                                                            style = "width:100%",
+                                                                            @class = "form-control select2-basic-search"
+                                                                        })
+                                            }
+                                            else
+                                            {
+                                                <br />
+                                                @Html.DisplayFor(model => model.DeparturePoint, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                            }
+
+                                        </div>
+                                    </div>
+                                    @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.Label("Drop Off Country")
+
+                                                @Html.DropDownListFor(model => model.CountryGUID1, new DropDownList().CountriesSyriaShuttle(), "",
+                                                                        new
+                                                                        {
+                                                                            @class = "form-control select2-basic-search",
+                                                                            onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'EndLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);",
+                                                                            style = "width:100%"
+                                                                        })
+
+
+
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Drop Off City")
+                                            @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                            {
+                                                @Html.DropDownListFor(model => model.EndLocationGUID, new DropDownList().LocationOneValue(Model.EndLocationGUID), "",
+                                                               new
+                                                               {
+                                                                   style = "width:100%",
+                                                                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DropOffPointGUID', Action : 'RemoteLocationsByLocationType'}]);",
+                                                                   @class = "form-control select2-basic-search"
+                                                               })
+                                            }
+                                            else
+                                            {
+                                                <br />
+                                                @Html.DisplayFor(model => model.EndLocation, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Drop Off Point")
+                                            @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                            {
+                                                @Html.DropDownListFor(model => model.DropOffPointGUID, new DropDownList().LocationOneValue(Model.DropOffPointGUID), "",
+                                                                              new
+                                                                              {
+                                                                                  style = "width:100%",
+                                                                                  @class = "form-control select2-basic-search"
+                                                                              })
+                                            }
+                                            else
+                                            {
+                                                <br />
+                                                @Html.DisplayFor(model => model.DropOffPoint, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group HANDLER" id="itemparenetId">
+                                        @Html.LabelFor(model => model.EmployeeComments)
+
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.EditorFor(model => model.EmployeeComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            @Html.DisplayFor(model => model.EmployeeComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+
+                                    </div>
+
+
+                                </div>
+
+
+
+
+
+
+
+
+                            </div>
+                        }
+                    </div>
+
+
+                    @Html.Partial("~/Areas/AHD/Views/TempRAndRLeaveDates/_EditTempCalenderLeaves.cshtml", new MasterRecordStatus { ParentGUID = Model.RestAndRecuperationLeaveGUID, IsParentActive = Model.Active })
+                    <br />
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                            <button onclick="StaffRAndRLeaveRequestCreate()" type="button" id="staffSubmitLeaveId" class="btn btn-labeled btn-primary rejectAccess " style="display:none;">
+
+                                <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="submitToReviewLoader"></i></span> Submit Request To HR For Review
+                            </button>
+
+                            <button onclick="ChangeRequestInfo()" type="button" id="ChangeRequestInfoId" class="btn btn-labeled btn-primary rejectAccess " style="display:none;">
+
+                                 Chanage Request Information
+                            </button>
+
+
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div id="step-2">
+
+            <div id="hrreviewdivid" class="panel panel-default createStep hrReviewStep tab-pane step-content">
+                <div class="panel-heading" id="step2panelcreate">
+                    HR Section
+
+
+                </div>
+                <div class="panel-heading" style="background-color:forestgreen;color:white;font-weight:bold" id="step2paneldone">
+                    HR Section
+
+                    <i class="fas fa-check-circle pull-right " id="spanstep2" style="display:none;"> Completed</i>
+
+
+
+                </div>
+                <div class="panel-body">
+                    <div class="form-group hrReview">
+                        This RR has been  Requested by
+
+                        @Model.StaffName on @Model.SubmittedDateFormat
+
+                        for the following dates :
+                        <br />
+                        <span style="padding-left:20px">
+
+                            Leave Start Date:    @Model.LeaveInDateStringFormat
+
+                        </span>
+                        <br />
+                        <span style="padding-left:20px">
+                            Leave End Date:  @Model.LeaveOutDateStringFormat
+
+                        </span>
+                        <br />
+                        Please fill the needed information below and then click confirm button below in order to complete the process
+                        <i class="far fa-hand-point-down"></i>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.EligibleDate)
+
+                            @if ((Model.AccessLevel == 2) && (Model.CurrentStep == 2 || Model.CurrentStep == 1))
+                            {
+                                @Html.EditorFor(model => model.EligibleDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                            }
+                            else
+                            {
+                                <br />
+                                @Html.DisplayFor(model => model.EligibleDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.MyRepresentativeGUID)
+
+                            @if ((Model.AccessLevel == 2) && (Model.CurrentStep == 2 || Model.CurrentStep == 1))
+                            {
+                                @Html.DropDownListFor(model => model.ApprovedByGUID, new DropDownList().HRRepresentiaveAcessStaffUsers(false), "", new
+                                                        {
+                                                        @class = "form-control select2-basic-search",
+                                                        style = "width:100%",
+
+                                                        })
+                            }
+
+                            else
+                            {
+                                <br />
+                                @Html.DisplayFor(model => model.MyRepresentativeGUID, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group HANDLER" id="itemparenetId">
+                            @Html.LabelFor(model => model.HRComments)
+                            @if ((Model.AccessLevel == 2) && (Model.CurrentStep == 2 || Model.CurrentStep == 1))
+                            {
+                                @Html.EditorFor(model => model.HRComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                            }
+                            else
+                            {
+                                <br />
+                                @Html.DisplayFor(model => model.HRComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        @if ((Model.AccessLevel == 2) && (Model.CurrentStep == 2 || Model.CurrentStep == 1))
+                        {
+                            if (@ViewBag.TotalDaysFromLastRR > 0 && @ViewBag.TotalDaysFromLastRR < 28)
+                            {
+                                <h3 style="color:red;"> Total Days From Last RR is  @ViewBag.TotalDaysFromLastRR Days</h3>
+                            }
+                            if (@ViewBag.TotalDaysFromLastRR == 0 || @ViewBag.TotalDaysFromLastRR > 28)
+                            {
+                                <h3 style="color:green;"> Total Days From Last RR is  @ViewBag.TotalDaysFromLastRR Days</h3>
+                            }
+
+
+                        }
+                    </div>
+                    <div class="col-md-12">
+                        @if ((Model.CurrentStep > 2))
+                        {
+                            <div class="form-group HANDLER" id="itemparenetId">
+                                @Html.LabelFor(model => model.HRReviewDate)
+
+                                <br />
+                                @Html.DisplayFor(model => model.HRReviewDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                            </div>
+                            <div class="form-group HANDLER" id="itemparenetId">
+                                @Html.LabelFor(model => model.ReviewedByHRStaffName)
+
+                                <br />
+                                @Html.DisplayFor(model => model.ReviewedByHRStaffName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                            </div>
+
+                        }
+                    </div>
+                    <br />
+
+                    <div class="col-md-12">
+                        <br />
+                    </div>
+                    <div class="form-group">
+
+
+                        <div class="col-md-12 rejectAccess">
+                            <div class="col-md-6">
+
+                                <button onclick="HRReviewApprovalCreate()" type="button" id="approveHrId" class="btn btn-labeled btn-info hrReview " style="display:none;">
+
+                                    <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="approveHrIdLoading"></i></span> Confirm Request and Forward to supervisor
+                                </button>
+                            </div>
+                        </div>
+                        
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="step-3">
+            <div id="supervisorDivId" class="panel panel-default createStep SupervisorReviewStep tab-pane step-content">
+                <div class="panel-heading" id="step3panelcreate">
+                    Supervisor Section
+
+
+                </div>
+                <div class="panel-heading" style="background-color:forestgreen;color:white;font-weight:bold" id="step3paneldone">
+                    Supervisor Section
+
+                    <i class="fas fa-check-circle pull-right " id="spanstep3" style="display:none;"> Completed</i>
+
+
+
+                </div>
+                <div class="panel-body">
+                    <div class="form-group supervisorinfocontrol">
+                        <ul style="list-style-type: square;
+                                                     list-style-position: outside;
+                                                                     list-style-image: none;">
+                            <li>
+                                This RR has been  Requested by
+
+                                @Model.StaffName on @Model.SubmittedDateFormat
+
+                                for the following dates :
+                                <br />
+                                <span style="padding-left:20px">
+
+                                    Leave Start Date:    @Model.LeaveInDateStringFormat
+
+                                </span>
+                                <br />
+                                <span style="padding-left:20px">
+                                    Leave End Date:  @Model.LeaveOutDateStringFormat
+
+                                </span>
+
+                            </li>
+                            <li>
+
+                                Approved  by HR on @Model.HRReviewDateFormat by @Model.ReviewedByHRStaffName
+                            </li>
+                            <li>
+                                Please fill the needed information below and then click confirm button below in order to complete the process
+                                <i class="far fa-hand-point-down"></i>
+                            </li>
+                        </ul>
+
+
+
+                    </div>
+
+
+
+
+                    <div class="col-md-12" id="step3_submit">
+                        @if ((Model.CurrentStep > 3))
+                        {
+                            <div class="col-md-4 form-group HANDLER" id="itemparenetId">
+                                @Html.LabelFor(model => model.SupervisorName)
+
+                                <br />
+                                @Html.DisplayFor(model => model.SupervisorName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                            </div>
+                            <div class="col-md-8 form-group HANDLER" id="itemparenetId">
+                                @Html.LabelFor(model => model.SupervisorApprovedDate)
+
+                                <br />
+                                @Html.DisplayFor(model => model.SupervisorApprovedDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                            </div>
+
+                        }
+                        <div class="col-md-12 HANDLER" id="itemparenetId">
+                            @Html.LabelFor(model => model.SupervisorComments)
+
+                            @if ((Model.AccessLevel == 3) && (Model.CurrentStep == 3 || Model.CurrentStep == 2))
+                            {
+                                @Html.EditorFor(model => model.SupervisorComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                            }
+                            else
+                            {
+                                <br />
+                                @Html.DisplayFor(model => model.SupervisorComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                            }
+
+                        </div>
+
+                        <div class="col-md-12">
+                            @if ((Model.AccessLevel == 3) && (Model.CurrentStep == 3 || Model.CurrentStep == 2))
+                            {
+                                if (@ViewBag.TotalDaysFromLastRR > 0 && @ViewBag.TotalDaysFromLastRR < 28)
+                                {
+                                    <h3 style="color:red;"> Total Days From Last RR is  @ViewBag.TotalDaysFromLastRR Days</h3>
+                                }
+                                if (@ViewBag.TotalDaysFromLastRR == 0 || @ViewBag.TotalDaysFromLastRR > 28)
+                                {
+                                    <h3 style="color:green;"> Total Days From Last RR is  @ViewBag.TotalDaysFromLastRR Days</h3>
+                                }
+
+                            }
+                        </div>
+
+                    </div>
+                    <div>
+
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12">
+                        <br />
+                    </div>
+                    <div class="col-md-12">
+
+
+
+                        <div class="col-md-12 rejectAccess">
+                            <div class="col-md-6">
+                                <button onclick="SuperVisorApprovalCreate()" type="button" id="approveSupervisorId" class="btn btn-labeled btn-info supervisorinfocontrol" style="display:none;">
+
+                                    <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="approveSupervisorLoading"></i></span>Approve Request and send to Representative
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="pull-right">
+                                    <button onclick="SuperVisorRejectCreate()" type="button" id="rejectSupervisorId" class="btn btn-labeled btn-danger supervisorinfocontrol" style="display:none;">
+
+                                        <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="rejectSupervisorLoading"></i></span>Reject and notify staff
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-4">
+            <div id="RepresentativeReviewdivid" class="panel panel-default createStep RepresentativeReviewStep tab-pane step-content">
+                <div class="panel-heading" id="step4panelcreate">
+                    Representative Section
+
+
+                </div>
+                <div class="panel-heading" style="background-color:forestgreen;color:white;font-weight:bold" id="step4paneldone">
+                    Representative Section
+
+                    <i class="fas fa-check-circle pull-right " id="spanstep4" style="display:none;"> Completed</i>
+
+
+
+                </div>
+                <div class="panel-body">
+
+
+                    <div class="form-group repcontrolinfo">
+                        <ul class="a" style="list-style-type:circle">
+                            <li>
+                                This RR has been  Requested by
+
+                                @Model.StaffName on @Model.SubmittedDateFormat
+
+                                for the following dates :
+                                <br />
+                                <span style="padding-left:20px">
+
+                                    Leave Start Date:    @Model.LeaveInDateStringFormat
+
+                                </span>
+                                <br />
+                                <span style="padding-left:20px">
+                                    Leave End Date:  @Model.LeaveOutDateStringFormat
+
+                                </span>
+                                <br />
+                            </li>
+                            <li>
+                                Approved  by HR on @Model.HRReviewDateFormat by @Model.ReviewedByHRStaffName
+                                <br />
+                            </li>
+                            <li>
+                                Approved  by @Model.SupervisorName on  @Model.SupervisorApprovedDateFormat
+                                <br />
+                            </li>
+                            <li>
+
+                                Please fill the your comments if any and then click the Approve Request button below in order to complete the process
+                                <i class="far fa-hand-point-down"></i>
+                            </li>
+                        </ul>
+
+
+
+
+
+
+
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="form-group HANDLER" id="itemparenetId">
+                            @Html.LabelFor(model => model.RepresentativeComments)
+
+                            @if ((Model.AccessLevel == 5) && (Model.CurrentStep == 4))
+                            {
+                                @Html.EditorFor(model => model.RepresentativeComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                            }
+                            else
+                            {
+                                <br />
+                                @Html.DisplayFor(model => model.RepresentativeComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        @if ((Model.CurrentStep > 4))
+                        {
+                            <div class="form-group HANDLER" id="itemparenetId">
+                                @Html.LabelFor(model => model.ApprovedByName)
+
+                                <br />
+                                @Html.DisplayFor(model => model.ApprovedByName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                            </div>
+                            <div class="form-group HANDLER" id="itemparenetId">
+                                @Html.LabelFor(model => model.RepresentativeDecisionDate)
+
+                                <br />
+                                @Html.DisplayFor(model => model.RepresentativeDecisionDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                            </div>
+
+                        }
+                        <div class="col-md-12">
+                            @if ((Model.AccessLevel == 5) && (Model.CurrentStep == 4))
+                            {
+                                if (@ViewBag.TotalDaysFromLastRR > 0 && @ViewBag.TotalDaysFromLastRR < 28)
+                                {
+                                    <h3 style="color:red;"> Total Days From Last RR is  @ViewBag.TotalDaysFromLastRR Days</h3>
+                                }
+                                if (@ViewBag.TotalDaysFromLastRR == 0 || @ViewBag.TotalDaysFromLastRR > 28)
+                                {
+                                    <h3 style="color:green;"> Total Days From Last RR is  @ViewBag.TotalDaysFromLastRR Days</h3>
+                                }
+
+
+                            }
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <br />
+                    </div>
+                    <div class="col-md-12" id="represent_submit">
+
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class=" rejectAccess">
+                                    <button onclick="RepresentativeApproveRAndRLeaveCreate()" type="button" id="RepresentativeReviewId" class="btn btn-labeled btn-info repcontrolinfo" style="display:none;">
+
+                                        <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="RepresentativeReviewIdLoading"></i></span> Approve Request and send to HR
+                                    </button>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="pull-right rejectAccess">
+                                    <button onclick="RepresentativeRejectRAndRLeaveCreate()" type="button" id="RepresentativeRejectId" class="btn btn-labeled btn-danger repcontrolinfo" style="display:none;">
+
+                                        <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="rejectRepresentativeLoading"></i></span> Reject Request and Return to Staff
+                                    </button>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="step-5">
+
+            <div id="ClosureStep" class="panel panel-default createStep ClosureStep tab-pane step-content">
+                <div class="panel-heading" id="step5panelcreate">
+                    Closure Section
+
+
+                </div>
+                <div class="panel-heading" style="background-color:forestgreen;color:white;font-weight:bold" id="step5paneldone">
+                    Closure Section
+
+                    <i class="fas fa-check-circle pull-right " id="spanstep5" style="display:none;"> Completed</i>
+
+
+
+                </div>
+                <div class="panel-body rejectAccess">
+
+                    <br />
+                    <br />
+                    <div class="form-group AfterReturnVerify col-md-3" style="display:none;">
+                        @Html.Label("Travel Plan Status")
+                        @Html.DropDownListFor(model => model.TravelPlanStatusGUID, new DropDownList().RRLeavePlanStatus(), "",
+                                                          new
+                                                          {
+                                                              style = "width:100%",
+                                                              @class = "form-control select2-basic-search"
+                                                          })
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group updateLeaveDates">
+                        @*<button onclick="ChangeLeaveDates()" type="button" id="ChangeLeaveDatesid" class="btn btn-labeled btn-info">
+
+                            Update Leave Dates
+                        </button>*@
+
+                        <button onclick="NotifyStaffByNewLeaveDates()" type="button" id="NotifyStaffByNewLeaveDatesId" class="btn btn-labeled btn-info">
+
+                            Notify Staff By New Leave Dates
+                        </button>
+                    </div>
+                    <div class="row updateLeaveDates">
+                        <br />
+                        <hr class="customHr" />
+                        <div class="col-md-12">
+                            <h4 style="text-decoration:underline;">Documents</h4>
+                        </div>
+                        <div class="col-md-12">
+
+                            <div id="BanksControlersFormControls">
+
+                                @Html.Partial("~/Areas/AHD/Views/RAndRDocuments/_DocumentDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.RestAndRecuperationLeaveGUID, IsParentActive = Model.Active })
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <br />
+                    <br />
+                    <div clcass="col-md-12">
+                        <div class="col-md-12 rejectAccess">
+                            <a name='Print Form' class="hrApprovalclass" target="_blank" href='/AHD/Reports/InternationalRAndRLeaveReport?PK=@Model.RestAndRecuperationLeaveGUID'>Print Form <i class="far fa-file-pdf"></i></a>
+                        </div>
+                        <br />
+                        <br />
+                        <button onclick="CloseRAndRLeaveCreate()" type="button" id="ClsoeReviewId" class="btn btn-labeled btn-info" style="display:none;">
+
+                            Close RR Request
+                        </button>
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<script>
+
+    var currentStep = '@Model.CurrentStep';
+
+    var accessLevel = '@Model.AccessLevel';
+    var readOnlyAccess = '@Model.RejectAccess';
+    var flowStatus = '@Model.FlowStatusGUID';
+
+
+    $('#TravelPlanStatusGUID').change(function (e) {
+
+        e.preventDefault();
+        var val = $(this).val();
+
+        if (val == '71f78782-d09c-4535-9366-cf803057cb02') {
+
+            $(".updateLeaveDates").show();
+
+        }
+        else {
+            $(".updateLeaveDates").hide();
+
+        }
+
+    });
+    //$('#ContractTypeGUID').change(function (e) {
+
+    //    e.preventDefault();
+    //    var val = $(this).val();
+
+
+    //    if (val == '1506f90e-f377-49b6-a8cd-116250246a44') {
+
+
+    //        $("#positionnumberdiv").hide();
+
+    //    }
+    //    else {
+    //        $("#positionnumberdiv").show();
+
+    //    }
+
+    //});
+
+
+
+
+
+
+
+    var RestPage = function () {
+        $("#submitToReviewLoader").hide();
+        $("#pendingHRLoading").hide();
+        $("#approveHrIdLoading").hide();
+        $("#approveSupervisorLoading").hide();
+        $("#hrApprovalLoading").hide();
+        $("#CloseReviewIdLoading").hide();
+        $("#RepresentativeReviewIdLoading").hide();
+        $('#rejectSupervisorLoading').hide();
+        $("#TempGUIDAdd").hide();
+        $('#rejectRepresentativeLoading').hide();
+        $('#step1paneldone').hide();
+        $('#step2paneldone').hide();
+        $('#step3paneldone').hide();
+        $('#step4paneldone').hide();
+        $('#step5paneldone').hide();
+        $('#step5panelcreate').hide();
+        $('.updateLeaveDates').hide();
+        $('.addnewleavesclass').hide();
+    }
+    RestPage();
+
+    $('.ClosureStep').hide();
+    //if (currentStep == 0) {
+    //    $(".staffinfo").show();
+    //    $('.hrReviewStep').hide();
+    //    $('.SupervisorReviewStep').hide();
+    //    $('.hrApprovalReviewStep').hide();
+    //    $('.RepresentativeReviewStep').hide();
+    //}
+
+
+    if ((accessLevel == 1 || accessLevel == null) && (currentStep == 0 || currentStep == 1)) {
+        $("#TempGUIDAdd").show();
+        $('#staffSubmitLeaveId').show();
+        $(".staffinfo").show();
+        $('.hrReviewStep').hide();
+        $('.SupervisorReviewStep').hide();
+        $('.hrApprovalReviewStep').hide();
+        $('.RepresentativeReviewStep').hide();
+        $('.addnewleavesclass').show();
+        $('.ClosureStep').hide();
+        if (readOnlyAccess == 1) {
+            $('.rejectAccess').hide();
+        }
+        //$('#wizard').smartWizard('goToStep', 1);
+
+
+    }
+    else if (accessLevel == 2 && (currentStep == 2 || currentStep == 1)) {
+        $('.hrReview').show();
+        $(".staffinfo").show();
+        $('.hrReviewStep').show();
+        $('.SupervisorReviewStep').hide();
+        $('.hrApprovalReviewStep').hide();
+        $('.RepresentativeReviewStep').hide();
+        $('.ClosureStep').hide();
+        if (readOnlyAccess == 1) {
+            $('.rejectAccess').hide();
+        }
+        //$('#wizard').smartWizard('goToStep', 2);
+        $('#spanstep1').show();
+        $('#step1panelcreate').hide();
+        $('#step1paneldone').show();
+
+        $('html, body').animate({
+            scrollTop: $("#step-2").offset().top
+        }, 2000);
+
+    }
+        //supervisor
+    else if (accessLevel == 3 && (currentStep == 3 || currentStep == 2)) {
+
+        $('#approveSupervisorId').show();
+        $('#rejectSupervisorId').show();
+
+
+        $('.hrReview').hide();
+        $(".staffinfo").show();
+
+        $('.hrReviewStep').show();
+
+        $('.hrApprovalReviewStep').hide();
+        $('.RepresentativeReviewStep').hide();
+        $('.ClosureStep').hide();
+        $('#approveHrId').hide();
+        if (readOnlyAccess == 1 || flowStatus != "b9cd375c-a576-4aa4-8af4-ff3c1c4e3634") {
+            $('.rejectAccess').hide();
+        }
+        $('html, body').animate({
+            scrollTop: $("#step3_submit").offset().top
+        }, 2000);
+        ////$('#wizard').smartWizard('goToStep', 3);
+        $('#spanstep1').show();
+        $('#spanstep2').show();
+
+        $('#step1panelcreate').hide();
+        $('#step1paneldone').show();
+        $('#step2panelcreate').hide();
+        $('#step2paneldone').show();
+
+    }
+        //
+    else if (accessLevel == 2 && (currentStep == 3)) {
+
+        $('.hrApprovalclass').show();
+        $('.hrReview').hide();
+        $(".staffinfo").show();
+        $('.hrReviewStep').show();
+        $('.SupervisorReviewStep').show();
+        $('.hrApprovalReviewStep').show();
+        $('.RepresentativeReviewStep').hide();
+        $('.ClosureStep').hide();
+
+        $('#approveHrId').hide();
+        if (readOnlyAccess == 1 || flowStatus != "b9cd375c-a576-4aa4-8af4-ff3c1c4e3632") {
+            $('.rejectAccess').hide();
+        }
+        $('html, body').animate({
+            scrollTop: $("#hrapprovaldivid").offset().top
+        }, 2000);
+        //$('#wizard').smartWizard('goToStep', 4);
+        $('#spanstep1').show();
+        $('#spanstep2').show();
+        $('#spanstep3').show();
+
+        $('#step1panelcreate').hide();
+        $('#step1paneldone').show();
+        $('#step2panelcreate').hide();
+        $('#step2paneldone').show();
+        $('#step3panelcreate').hide();
+        $('#step3paneldone').show();
+    }
+
+    else if (accessLevel == 5 && (currentStep == 4)) {
+        $('.supervisorinfocontrol').hide();
+        $('#RepresentativeReviewId').show();
+        $('#RepresentativeRejectId').show();
+        $('.controlHrApproval').hide();
+        $('.hrReview').hide();
+        $(".staffinfo").show();
+        $('.hrReviewStep').show();
+        $('.SupervisorReviewStep').show();
+        $('.hrApprovalReviewStep').show();
+        $('.RepresentativeReviewStep').show();
+        $('.ClosureStep').hide();
+        $('#approveHrId').hide();
+        if (readOnlyAccess == 1) {
+            $('.rejectAccess').hide();
+        }
+        $('html, body').animate({
+            scrollTop: $("#represent_submit").offset().top
+        }, 2000);
+        //$('#wizard').smartWizard('goToStep', 4);
+        $('#spanstep1').show();
+        $('#spanstep2').show();
+        $('#spanstep3').show();
+
+
+        $('#step1panelcreate').hide();
+        $('#step1paneldone').show();
+        $('#step2panelcreate').hide();
+        $('#step2paneldone').show();
+        $('#step3panelcreate').hide();
+        $('#step3paneldone').show();
+
+
+    }
+    else if (accessLevel == 2 && (currentStep == 5)) {
+
+
+        $('.supervisorinfocontrol').hide();
+        $('.hrReview').hide();
+        $('.repcontrolinfo').hide();
+
+
+        $('#ClsoeReviewId').show();
+        $('.AfterReturnVerify').show();
+        $('.hrApprovalclass').show();
+        $('#step5panelcreate').show();
+        $('.controlHrApproval').hide();
+        $(".staffinfo").show();
+
+        $('.hrReviewStep').show();
+        $('.SupervisorReviewStep').show();
+        $('.hrApprovalReviewStep').show();
+        $('.RepresentativeReviewStep').show();
+        $('.ClosureStep').show();
+
+        $('#approveHrId').hide();
+        if (readOnlyAccess == 1) {
+            $('.rejectAccess').hide();
+        }
+        $('#spanstep1').show();
+        $('#spanstep2').show();
+        $('#spanstep3').show();
+        $('#spanstep4').show();
+
+        $('#step1panelcreate').hide();
+        $('#step1paneldone').show();
+        $('#step2panelcreate').hide();
+        $('#step2paneldone').show();
+        $('#step3panelcreate').hide();
+        $('#step3paneldone').show();
+        $('#step4panelcreate').hide();
+        $('#step4paneldone').show();
+
+        $('html, body').animate({
+            scrollTop: $("#step-5").offset().top
+        }, 2000);
+
+        //$('#wizard').smartWizard('goToStep', 5);
+    }
+    else {
+
+        $('.supervisorinfocontrol').hide();
+        $('.hrReview').hide();
+        $('.repcontrolinfo').hide();
+        $('#spanstep1').show();
+        $('#spanstep2').show();
+        $('#spanstep3').show();
+        $('#spanstep4').show();
+        $('#spanstep5').show();
+        $('#step1panelcreate').hide();
+        $('#step1paneldone').show();
+        $('#step2panelcreate').hide();
+        $('#step2paneldone').show();
+        $('#step3panelcreate').hide();
+        $('#step3paneldone').show();
+        $('#step4panelcreate').hide();
+        $('#step4paneldone').show();
+        $('.ClosureStep').show();
+        if (currentStep > 5) {
+
+
+            $('#step5panelcreate').hide();
+            $('#step5paneldone').show();
+        }
+        else {
+            $('#step5panelcreate').show();
+            $('#step5paneldone').hide();
+        }
+
+
+
+    }
+    var ChangeRequestInfo = function () {
+
+    }
+    var StaffRAndRLeaveRequestCreate = function () {
+
+        var table = $('#InternationalTempStaffRAndRDatesDataTable').dataTable();
+        var url = "/AHD/StaffRAndRLeave/StaffRAndRLeaveRequestCreate/";
+
+
+        if ( currentStep == 0 || currentStep == 1) {
+
+            $("#submitToReviewLoader").show();
+            $(':button').prop('disabled', true);
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+                    ReturnDateFromLastRLeave: $("#ReturnDateFromLastRLeave").val(),
+                    BackupArrangementGUID: $("#BackupArrangementGUID").val(),
+                    ExpiryDateOfResidency: $("#ExpiryDateOfResidency").val(),
+                    EmployeeComments: $("#EmployeeComments").val(),
+                    DestinationCountry: $("#DestinationCountry").val(),
+                    CountryGUID: $("#CountryGUID").val(),
+                    _DeparturePointGUID: $("#DeparturePointGUID").val(),
+                    _DropOffPointGUID: $("#DropOffPointGUID").val(),
+                    _StartLocationGUID : $("#StartLocationGUID").val(),
+                    _EndLocationGUID: $("#EndLocationGUID").val(),
+                    _MySupervisorGUID: $("#SupervisorGUID").val(),
+
+
+                },
+                success: function (data) {
+                    $("#submitToReviewLoader").hide();
+                    $(':button').prop('disabled', false);
+                    if (data.success == 1) {
+
+
+                        Notify(NotificationType.Success, 'Request has been sent to HR for review');
+                        $('#staffSubmitLeaveId').hide();
+                        $("#backToIndexId").show();
+                        $("#mainWizardid").hide();
+                    }
+                    else if (data.success == 0) {
+
+                        return true;
+                    }
+                    else if (data.success == -2) {
+                        Notify(NotificationType.Warning, 'No Permission');
+                    }
+                    else if (data.success == -3) {
+                        Notify(NotificationType.Success, 'Please provide us with your travel return date(TT) should be the last date');
+                    }
+                    else if (data.success == -4) {
+                        Notify(NotificationType.Success, 'Please provide us with your travel date (TT) should be the first date');
+                    }
+                }
+            });
+        }
+        else {
+            Notify(NotificationType.Warning, 'Please Add your leave dates from prvious step');
+        }
+
+
+    }
+
+    var HRReviewApprovalCreate = function () {
+
+        if (currentStep == 1) {
+            var url = "/AHD/StaffRAndRLeave/HRReviewApprovalCreate/";
+            $(':button').prop('disabled', true);
+            $("#approveHrIdLoading").show();
+
+
+
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+                    EligibleDate: $("#EligibleDate").val(),
+                    ApprovedByGUID: $("#ApprovedByGUID").val()
+
+
+                },
+                success: function (data) {
+                    $(':button').prop('disabled', false);
+                    $("#approveHrIdLoading").hide();
+                    //if (data.success == 1) {
+                        Notify(NotificationType.Success, 'Request has been sent to Supervisor for review');
+                        $('#staffSubmitLeaveId').hide();
+                        $("#backToIndexId").show();
+
+                    $('#approveHrId').hide();
+                    $('#step2panelcreate').hide();
+                    $('#step2paneldone').show();
+                        //$("#backToIndexId").show();
+                        //$("#mainWizardid").hide();
+                    //}
+                    //else {
+                    //    return true;
+                    //}
+                }
+            });
+        }
+        else {
+            Notify(NotificationType.Warning, 'No Permission');
+        }
+    }
+
+
+    var SuperVisorApprovalCreate = function () {
+        if (currentStep == 2) {
+            $(':button').prop('disabled', true);
+            $("#approveSupervisorLoading").show();
+            var url = "/AHD/StaffRAndRLeave/SuperVisorApprovalCreate/";
+
+
+
+
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+                    SupervisorComments: $("#SupervisorComments").val(),
+
+
+                },
+                success: function (data) {
+                    $(':button').prop('disabled', false);
+                    $("#approveSupervisorLoading").hide();
+                    //if (data.success == 1) {
+                        $('#staffSubmitLeaveId').hide();
+                        $("#backToIndexId").show();
+                        $("#mainWizardid").hide();
+                    $(".supervisorinfocontrol").hide();
+                    $('#step3panelcreate').hide();
+                    $('#step3paneldone').show();
+                        Notify(NotificationType.Success, 'Request has been sent to HR for review');
+
+                        //$("#backToIndexId").show();
+                        //$("#mainWizardid").hide();
+                    //}
+                    //else {
+                    //    return true;
+                    //}
+                }
+            });
+        }
+        else {
+            Notify(NotificationType.Warning, 'Please Add your leave dates from prvious step');
+        }
+
+    }
+
+
+
+    var SuperVisorRejectCreate = function () {
+        if (currentStep == 2) {
+            $(':button').prop('disabled', true);
+            $("#rejectSupervisorLoading").show();
+            var url = "/AHD/StaffRAndRLeave/SuperVisorRejectCreate/";
+
+
+
+
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+                    SupervisorComments: $("#SupervisorComments").val(),
+
+
+                },
+                success: function (data) {
+                    $(':button').prop('disabled', false);
+                    $("#rejectSupervisorLoading").hide();
+                    //if (data.success == 1) {
+                        $('#staffSubmitLeaveId').hide();
+                        $("#backToIndexId").show();
+                        $(".supervisorinfocontrol").hide();
+                    Notify(NotificationType.Success, 'RR Request has been rejected');
+
+
+                        //$("#backToIndexId").show();
+                        //$("#mainWizardid").hide();
+                    //}
+                    //else {
+                    //    return true;
+                    //}
+                }
+            });
+        }
+        else {
+            Notify(NotificationType.Warning, 'Please Add your leave dates from prvious step');
+        }
+
+    }
+
+
+
+    var HRApprovalCreate = function () {
+        if (currentStep == 3) {
+            $(':button').prop('disabled', true);
+            $("#hrApprovalLoading").show();
+            var url = "/AHD/StaffRAndRLeave/HRApprovalCreate/";
+
+
+
+
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+
+
+                },
+                success: function (data) {
+                    $(':button').prop('disabled', false);
+                    $("#hrApprovalLoading").hide();
+                    //if (data.success == 1) {
+                        Notify(NotificationType.Success, 'Leave has been approved');
+                        $('#staffSubmitLeaveId').hide();
+                        $("#backToIndexId").show();
+                        //$("#mainWizardid").hide();
+                        $("#hrApprovalId").hide();
+                        $(".supervisorinfocontrol").hide();
+                        //$("#mainWizardid").hide();
+                    //}
+                    //else {
+                    //    return true;
+                    //}
+                }
+            });
+        }
+        else {
+            Notify(NotificationType.Warning, 'No Permission');
+        }
+    }
+
+
+    var RepresentativeApproveRAndRLeaveCreate = function () {
+        if (currentStep == 4) {
+            $(':button').prop('disabled', true);
+            $("#RepresentativeReviewIdLoading").show();
+            var url = "/AHD/StaffRAndRLeave/RepresentativeApproveRAndRLeaveCreate/";
+
+
+
+
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+                    RepresentativeComments: $('#RepresentativeComments').val()
+
+
+                },
+                success: function (data) {
+                    $(':button').prop('disabled', false);
+                    $("#RepresentativeReviewIdLoading").hide();
+                    //if (data.success == 1) {
+                        Notify(NotificationType.Success, 'RR Request has been approved');
+                        $('#staffSubmitLeaveId').hide();
+                        $("#backToIndexId").show();
+                        //$("#mainWizardid").hide();
+                        $("#hrApprovalId").hide();
+                    $(".repcontrolinfo").hide();
+                    $('#step4panelcreate').hide();
+                    $('#step4paneldone').show();
+                        //$("#mainWizardid").hide();
+                    //}
+                    //else {
+                    //    return true;
+                    //}
+                }
+            });
+        }
+        else {
+            Notify(NotificationType.Warning, 'No Permission');
+        }
+    }
+
+    var RepresentativeRejectRAndRLeaveCreate = function () {
+        if (currentStep == 4) {
+            $(':button').prop('disabled', true);
+            $('#rejectRepresentativeLoading').show();
+            var url = "/AHD/StaffRAndRLeave/RepresentativeRejectRAndRLeaveCreate/";
+
+
+
+
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+                    RepresentativeComments: $('#RepresentativeComments').val()
+
+
+                },
+                success: function (data) {
+                    $(':button').prop('disabled', false);
+                    $('#rejectRepresentativeLoading').show();
+                    //if (data.success == 1) {
+                        Notify(NotificationType.Success, 'RR Request  has been rejected ');
+                        $('#staffSubmitLeaveId').hide();
+                        $("#backToIndexId").show();
+                        //$("#mainWizardid").hide();
+                        $("#hrApprovalId").hide();
+                        //$("#backToIndexId").show();
+                        $(".repcontrolinfo").hide();
+                    //}
+                    //else {
+                    //    return true;
+                    //}
+                }
+            });
+        }
+        else {
+            Notify(NotificationType.Warning, 'No Permission');
+        }
+    }
+
+    var CloseRAndRLeaveCreate = function () {
+        $(':button').prop('disabled', true);
+        $("#CloseReviewIdLoading").show();
+
+        if (currentStep == 5) {
+            var url = "/AHD/StaffRAndRLeave/CloseRAndRLeaveCreate/";
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+                    _travelPlanStatusGUID: $("#TravelPlanStatusGUID").val(),
+
+
+                },
+                success: function (data) {
+                    $(':button').prop('disabled', false);
+                    $("#CloseReviewIdLoading").hide();
+                    //if (data.success == 1) {
+                        Notify(NotificationType.Success, 'Leave has been closed');
+                        $('#staffSubmitLeaveId').hide();
+                        $("#backToIndexId").show();
+                        $("#mainWizardid").hide();
+                        //$("#backToIndexId").show();
+                    $("#ClsoeReviewId").hide();
+                    $('.AfterReturnVerify').show();
+                    $('#step5panelcreate').hide();
+                    $('#step5paneldone').show();
+                    //}
+                    //else {
+                    //    return true;
+                    //}
+                }
+            });
+        }
+        else {
+            Notify(NotificationType.Warning, 'No Permission');
+        }
+
+    }
+
+
+    var ChangeLeaveDates = function () {
+        $(':button').prop('disabled', true);
+        $("#CloseReviewIdLoading").show();
+
+
+
+        $.ajax({
+            type: "GET",
+            //url: '/AHD/StaffRAndRLeave/TempRestAndRecuperationLeaveDateCreate?FK=' + guid,
+            url: '/AHD/StaffRAndRLeave/TempCustomUpdateLeaveRestAndRecuperationLeaveDate?FK=' + $("#RestAndRecuperationLeaveGUID").val(),
+            success: function (data) {
+                $('#FormModal').modal('show');
+                // inject your content into the "placeholder" div
+                $('#Partial-Container').html(data);
+                $('#Loading-Container').hide();
+                InitPlugins($('#Partial-Container'));
+                $(':button').prop('disabled', false);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+
+
+    }
+
+
+    var NotifyStaffByNewLeaveDates = function () {
+        $(':button').prop('disabled', true);
+
+
+
+
+        $.ajax({
+            type: "POST",
+            //url: '/AHD/StaffRAndRLeave/TempRestAndRecuperationLeaveDateCreate?FK=' + guid,
+            url: '/AHD/StaffRAndRLeave/NotifyStaffByNewLeaveDates?FK=' + $("#RestAndRecuperationLeaveGUID").val(),
+            success: function (data) {
+        
+                
+                Notify(NotificationType.Success, 'Sent Successfully');
+                $(':button').prop('disabled', false);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+
+
+    }
+
+    var ChangeRequestInfo = function () {
+
+        $.ajax({
+            type: "GET",
+            //url: '/AHD/StaffRAndRLeave/TempRestAndRecuperationLeaveDateCreate?FK=' + guid,
+            url: '/AHD/StaffRAndRLeave/ChangeRequestInfo?FK=' + $("#RestAndRecuperationLeaveGUID").val(),
+            success: function (data) {
+                traveltimeIn = 1;
+                $('#FormModal').modal('show');
+                // inject your content into the "placeholder" div
+                
+                $('#Loading-Container').hide();
+                InitPlugins($('#Partial-Container'));
+                
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+
+    }
+
+
+   
+
+    
+
+</script>

@@ -1,0 +1,20 @@
+﻿@model PartnerReportUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.PartnerReportGUID == Guid.Empty) ? "New Partner Report" : "Edit Partner Report"; }
+
+@Html.PageHeader("d6683641-70cb-4d17-8467-eafa74479282")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/PCR/Views/PartnerReports/_PartnerReportForm.cshtml")
+        <div id="PartnerReportCompiledsContainer">
+            @if (Model.PartnerReportGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/PCR/Views/PartnerReports/_PartnerReportsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.PartnerReportGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

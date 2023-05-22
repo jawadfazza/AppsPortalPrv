@@ -1,0 +1,28 @@
+﻿@model ItemBulkStatusVM
+@using (Html.BeginForm("ChangeBulkItemStatus", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "ItemBulkStatus" }))
+{
+    @Html.AntiForgeryToken()
+    string ModalTitle = Model.ItemInputDetailGUID.ToString() == Guid.Empty.ToString() ? "Change Item(s) Status" : "Change Item(s) Status";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        <div class="form-group">
+            @Html.LabelFor(model => model.ItemInputDetailGUID)
+            @Html.DropDownListFor(model => model.ItemInputModelGuids, new DropDownList().GetModelDeterminants(), "", new { @class = "form-control select2-basic-single", style = "width:100%", Multiple = true })
+        </div>
+        <div class="form-group">
+            @Html.Label("Item Status")
+            @Html.DropDownListFor(model => model.ItemStatusGUID, new DropDownList().WarehouseItemStatus(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ItemInputDetailGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.WarehouseItemsRelease.Create, Apps.WMS)
+        }
+
+        @Html.CloseModalButton()
+    </div>
+}
+
+
+

@@ -1,0 +1,212 @@
+﻿@model PCRReportParametersMultiple
+@{
+    ViewBag.Title = "Partner Reports";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("a7cee1ba-916f-4d6d-a9c4-8104d136fab8")
+@using (Html.BeginForm("Chart", "Reports", new { Area = "PCR" }, FormMethod.Post, new { id = "ReportForm" }))
+{
+    <style>
+        iframe {
+            border-width: 0px !important
+        }
+    </style>
+    <div class="page--content">
+        <h3>@resxPages.ReportParameters</h3>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EndDate)
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OrganizationInstanceDescription)
+                    @Html.DropDownListFor(model => model.OrganizationInstanceDescription, new DropDownList().OrganizationsInstancesByProfileValueString(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple",
+                   multiple = "multiple",
+                   onchange = "UpdateDropDownListFromMultiple([$(this).val()], [{ DropDownListID : 'PartnerCenterDescription', Action : 'RemotePartnerCentersByOrganizationInstance'}]);"
+               })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PartnerCenterDescription)
+                    @Html.DropDownListFor(model => model.PartnerCenterDescription, new DropDownList().Empty(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple",
+                   multiple = "multiple",
+               })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReportGUID)
+                    @Html.DropDownListFor(model => model.ReportGUID, new DropDownList().PartnerReports(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-search",
+                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CategoryGUID2', Action : 'RemoteCategoryPartnerReportLevel2'}]);"
+
+               })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryGUID2)
+                    @Html.DropDownListFor(model => model.CategoryGUID2, new DropDownList().Empty(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple",
+                   multiple = "multiple",
+                   onchange = "UpdateDropDownListFromMultiple([$(this).val()], [{ DropDownListID : 'CategoryGUID3', Action : 'RemoteParentCategoryPartnerReport'}]);"
+               })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryGUID3)
+                    @Html.DropDownListFor(model => model.CategoryGUID3, new DropDownList().Empty(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple",
+                   multiple = "multiple",
+               })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AggregationGUID)
+                    @Html.DropDownListFor(model => model.AggregationGUID, new DropDownList().ParentAggregation(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple",
+                   multiple = "multiple",
+               })
+
+                </div>
+                <div>
+                    <input class="btn btn-primary " onclick="InitDashboard();" value="Generate Report">
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <script src="https://code.highcharts.com/highcharts.js"></script>
+                <script src="https://code.highcharts.com/modules/data.js"></script>
+                <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+
+                <div id="container" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+
+    function InitDashboard() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Reports/chart",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                debugger;
+                var MainReport = response["MainReport"];
+                var arr = []
+
+                $.map(MainReport, function (item, index) {
+                    //var i = [item.name, item.city_population];
+                    var obj = {};
+                    var obj1 = {};
+                    obj.name = item.name;
+                    obj.colorByPoint = false;
+                    obj1.name = item.name;
+                    obj1.drilldown = item.name;
+                    obj1.y = item["data"].y;
+                    var arr1 = []
+                    arr1.push(obj1);
+                    obj.data = arr1;
+
+                    arr.push(obj);
+                });
+
+                var myJsonString = JSON.stringify(arr);
+                var jsonArray = JSON.parse(JSON.stringify(arr));
+
+                var DetailsReport = response["DetailsReport"];
+                var arrDetails = []
+                $.map(DetailsReport, function (item, index) {
+                    //var i = [item.name, item.city_population];
+                    debugger;
+                    var obj = {};
+                    obj.id = item.id;
+                    obj.name = item.name;
+                    obj.colorByPoint = false;
+                    var arr1 = [];
+
+                    $.map(item["data"], function (item1, index) {
+                        var obj1 = {};
+                        obj1.name = item1.name;
+                        obj1.drilldown = item1.name;
+                        obj1.y = item1.y;
+                        arr1.push(obj1);
+                    });
+                    obj.data = arr1;
+
+                    arrDetails.push(obj);
+                });
+
+                var myJsonString1 = JSON.stringify(arrDetails);
+                var jsonArray1 = JSON.parse(JSON.stringify(arrDetails));
+
+
+                //alert(jsonArray);
+                drawPieChart(jsonArray, jsonArray1);
+
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+</script>
+<script>
+
+    function drawPieChart(seriesData, DrilldownData) {
+        var options = {
+            chart: {
+                renderTo: 'container',
+                type: 'column'
+            },
+            title: {
+                text: 'Partner '
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:.1f}%'
+                    },
+
+                    events: {
+                        click: function (event) {
+                            //alert(event.point.name)
+                        },
+                        drilldown: function () {
+
+                        }
+
+                    }
+                }
+
+
+
+
+            },
+            series: seriesData,
+            drilldown: { series: DrilldownData }
+        };
+        //options.series[0].data = data;
+
+        var chart = new Highcharts.chart(options);
+    };
+
+
+</script>

@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+@*<h3 class="Title">Bank Accounts</h3>*@
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.StaffNationalPassportDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.StaffNationalPassportDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffNationalPassportDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.StaffNationalPassportDataTable)
+                @Html.FieldDataTableCreate(Permissions.StaffProfile.Create, Apps.ORG, Url.Action("StaffCorePassportCreate", "StaffProfile", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.StaffProfile.Delete, Apps.ORG, DataTableNames.StaffNationalPassportDataTable)
+                @Html.FieldDataTableRestore(Permissions.StaffProfile.Restore, Apps.ORG, DataTableNames.StaffNationalPassportDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.StaffNationalPassportDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffNationalPassportDataTable, FormController = "StaffProfile", Area = "ORG", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

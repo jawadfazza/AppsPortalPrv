@@ -1,0 +1,2382 @@
+﻿@model PCRReportParametersMultiple
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("425e977f-7e27-4e1f-970d-0661d9b4fbc0")
+<style>
+    .panel-title {
+        font-size: 13px !important;
+    }
+
+    hr {
+        border-top: 2px solid #eee !important;
+        margin-top: 20px !important;
+        margin-bottom: 0px !important;
+    }
+
+    .nav > li > a, .nav > li > a {
+        border-top: 4px solid red;
+    }
+
+    .panel-primary {
+        border: 1px;
+        border-left-color: lightgray !important;
+        border-bottom-color: lightgray !important;
+        border-right-color: lightgray !important;
+    }
+    /*::-webkit-scrollbar {
+        width: 1em;
+    }
+
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: darkgrey;
+        outline: 1px solid slategrey;
+    }*/
+</style>
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+        @if (new CMS().HasAction(Permissions.CommunityCenterCode.Access, Apps.PCR))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "PartnerCenters", new { Area = "PCR" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-table fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Community Center Code</h3>
+                            <span>Community Center Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.UploadPartnerReport.Access, Apps.PCR))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "PartnerReports", new { Area = "PCR" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-table fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Upload Reports</h3>
+                            <span>Upload Partner Reports Managment Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.StandardReport.Access, Apps.PCR))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("ReportIndex", "Reports", new { Area = "PCR" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa- fa-file-excel-o fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Reports</h3>
+                            <span>Partner Reports Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.PublishReports.Access, Apps.PCR))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class='Modal-Link black' href='#' data-url="/PCR/PartnerReports/ManageReportVisibilityUpdate/">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-rss  fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Publish Reports</h3>
+                            <span>Manage reports visibility</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+    <br />
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
+    @using (Html.BeginForm("Chart", "Reports", new { Area = "RMS" }, FormMethod.Post, new { id = "ReportForm" }))
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="height:35px">
+                        <h3 class="panel-title" style="color:black;"><b>Filters</b> </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 ">
+
+                                @Html.Label("Update Date")
+                                @Html.DropDownListFor(model => model.EndDate, new DropDownList().PartnerReportCompiledEndDate(), "", new
+                           {
+                               style = "width:100%;",
+                               @class = "form-control",
+                           })
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 ">
+                                @Html.Label("Report Topic")
+                                @Html.DropDownListFor(model => model.ReportGUID, new DropDownList().PartnerReports(), "", new
+                           {
+                               style = "width:100%;",
+                               @class = "form-control",
+                               onchange = "$('#AggregationGUID').val('').trigger('change');"
+                           })
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 ">
+
+                                @Html.Label("Report Level")
+                                @Html.DropDownListFor(model => model.AggregationGUID,new DropDownList().AggregationIndividualsFamily(),"", new
+                           {
+                               style = "width:100%",
+                               @class = "form-control",
+                               onchange = "HideShowFilters();"
+                           })
+                            </div>
+                            <div class="col-lg-3" style="display: flex;margin-top: 25px;">
+                                <input id="btnCharts" type="button" name="btnCharts" class="btn btn-primary ActionControl" style="width:50%" onclick="InitDashboards();" value="Generate Report">
+                                <input id="btnPrint" type="button" name="btnPrint" class="btn btn-info ActionControl" style="width:25%" onclick="printDiv();" value="Print">
+                                <input type="reset" class="btn btn-default" style="width:25%" value="Clear All" onclick="ClearAll();">
+                            </div>
+                        </div>
+                        <hr /> <br />
+                        <div class="row">
+                            @Html.Hidden("Org")
+                            @Html.Hidden("Gov")
+                            @Html.Hidden("Cat2")
+                            @Html.Hidden("Cat3")
+                            @Html.Hidden("Partner")
+
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#OrganizationInstanceGUID').val([]); $('#OrganizationInstanceGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>Partner</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:340px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstancesAcronymByProfile(), new
+                                           {
+                                               style = "width:100%;height:340px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "FindChildrenGovernorates($(this).val());UpdateDropDownListFromMultiple([$(this).val()+'|'+$('#DutyStationGUID').val()], [{ DropDownListID : 'PartnerCenterGUID', Action : 'RemotePartnerCenterByOrganizationInstanceByDutyStation'}]);"
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#OrganizationInstanceGUID option').prop('selected', true); $('#OrganizationInstanceGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#DutyStationGUID').val([]);  $('#DutyStationGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>Governorate</b> </h3>
+                                        </div>
+                                        <div class="panel-body" style="padding-top: 0px;height:340px">
+                                            <div class="row">
+
+                                                @Html.ListBoxFor(model => model.DutyStationGUID, new DropDownList().Empty(), new
+                                           {
+                                               style = "width:100%;height:340px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "if(FindParentMultiple('DutyStationGUID','OrganizationInstanceGUID')){UpdateDropDownListFromMultiple([$('#OrganizationInstanceGUID').val()+'|'+$(this).val()], [{ DropDownListID : 'PartnerCenterGUID', Action : 'RemotePartnerCenterByOrganizationInstanceByDutyStation'}]);}"
+
+                                           })
+                                            </div>
+
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#DutyStationGUID option').prop('selected', true); $('#DutyStationGUID option:first').prop('selected', false); $('#DutyStationGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 " style="">
+                                <div class="form-group">
+
+
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#PartnerCenterGUID').val([]); $('#PartnerCenterGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>Community Center</b> </h3>
+                                        </div>
+                                        <div class="panel-body" style="padding-top: 0px;height:340px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.PartnerCenterGUID, new DropDownList().Empty(), new
+                                                {
+                                                    style = "width:100%;height:340px;font-size:15px;",
+                                                    @class = "form-control list--box",
+                                                    onchange= "FindParent('PartnerCenterGUID','OrganizationInstanceGUID',0);FindParent('PartnerCenterGUID','DutyStationGUID',1);"
+                                                })
+                                            </div>
+
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#PartnerCenterGUID option').prop('selected', true); $('#PartnerCenterGUID option:first').prop('selected', false); $('#PartnerCenterGUID').trigger('change'); ">Select All</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 " id="ColCategoryGUID2">
+                                <div class="form-group">
+
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#CategoryGUID2').val([]); $('#CategoryGUID2').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b> @Html.Label("Main Category", new { @id = "Category2", @style = "color:white" })</b> </h3>
+                                        </div>
+                                        <div class="panel-body" style="padding-top: 0px;height:340px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.CategoryGUID2, new DropDownList().Empty(), new
+                             {
+
+                                 @class = "form-control",
+                                 style = "width:100%;height:340px;font-size:15px;",
+                                 onchange = "UpdateDropDownListFromMultiple([$(this).val()], [{ DropDownListID : 'CategoryGUID3', Action : 'RemoteParentCategoryPartnerReport'}]);",
+                                 disabled = "disabled"
+                             })
+                                            </div>
+
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#CategoryGUID2 option').prop('selected', true);  $('#CategoryGUID2 option:first').prop('selected', false);  $('#CategoryGUID2').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 " id="ColCategoryGUID3">
+
+                                <div class="form-group">
+
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#CategoryGUID3').val([]); $('#CategoryGUID3').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.Label("Sub Category", new { @id = "Category3", @style = "color:white" })</b> </h3>
+                                        </div>
+                                        <div class="panel-body" style="padding-top: 0px;height:340px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.CategoryGUID3, new DropDownList().Empty(), new
+                               {
+                                   style = "width:100%;height:340px;font-size:15px;",
+                                   @class = "form-control",
+                                   onchange= "FindParent('CategoryGUID3','CategoryGUID2',0);",
+                                   disabled = "disabled"
+                               })
+                                            </div>
+
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#CategoryGUID3 option').prop('selected', true); $('#CategoryGUID3 option:first').prop('selected', false); $('#CategoryGUID3').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="display:none;" id="ChartPanel">
+            <div id="exTab1">
+                <ul class="nav nav-pills">
+                    <li>
+                        <a href="#3a" data-toggle="tab">General Statistics</a>
+                    </li>
+                    <li>
+                        <a href="#2a" data-toggle="tab">Vulnerability</a>
+                    </li>
+                    <li class="active">
+                        <a href="#1a" data-toggle="tab">Services</a>
+                    </li>
+                    <li>
+                        <a href="#4a" data-toggle="tab">Channels & Referrals</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="tab-content clearfix">
+                <div class="tab-pane active table-bordered" id="1a">
+
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-12" style="border-right:10px">
+                            <input class="btn btn-default" style="width:100%;" onclick="chart7('7')" value="Back">
+                            <div id="container7" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-4" style="border-right:10px">
+                            <div id="container4" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div id="container6" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div id="container5" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-5" style="border-right:10px">
+                            <div id="container1" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="container2" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-12" style="border-right:10px">
+                            <div id="container3" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="tab-pane" id="2a">
+
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-12" style="border-right:10px">
+                            <input class="btn btn-default" style="width:100%;" onclick="chart7('77')" value="Back">
+                            <div id="container77" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-4" style="border-right:10px">
+                            <div id="container44" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div id="container66" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div id="container55" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-5" style="border-right:10px">
+                            <div id="container11" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="container22" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-12" style="border-right:10px">
+                            <div id="container33" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="tab-pane" id="3a">
+
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-12" style="border-right:10px">
+                            <div id="container111" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-4" style="border-right:10px">
+                            <div id="container222" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div id="container444" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div id="container333" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-5" style="border-right:10px">
+                            <div id="container666" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="container777" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-12" style="border-right:10px">
+                            <div id="container555" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="4a">
+
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-12" style="border-right:10px">
+                            <div id="container1111" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+
+                            </div>
+
+                            <div id="container2222" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-5" style="border-right:10px">
+                            <div id="container4444" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="container5555" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-12" style="border-right:10px">
+                            <div id="container3333" style="height:400px; width:100%;border:dashed;border-width:1px;border-color:lightgray;">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        UpdateDropDownListFromMultiple([""], [{ DropDownListID: 'DutyStationGUID', Action: 'RemoteSyriaDutyStationForPCR' }]);
+        UpdateDropDownListFromMultiple([$('#OrganizationInstanceGUID').val() + '|' + $(this).val()], [{ DropDownListID: 'PartnerCenterGUID', Action: 'RemotePartnerCenterByOrganizationInstanceByDutyStation' }]);
+    });
+    function printDiv() {
+        var divToPrint = $(activeTab);
+        var newWin = window.open('', 'Print-Window');
+        newWin.document.open();
+        newWin.document.write('<html><body onload="window.print()"><div class="page--content">' + divToPrint.html() + '</div></body></html>');
+        newWin.document.close();
+        setTimeout(function () { newWin.close(); }, 15);
+    }
+
+    function FindParent(SourceList, DestinationList, SplitSeq) {
+        // $('#' + DestinationList + ' option[value="' + GroupVal + '"]').show().fadeOut(100).fadeIn(100);
+        var selected = $('#' + SourceList).find('option:selected', this);
+        var results = [];
+
+        selected.each(function () {
+            results.push($(this).data('group').split(',')[SplitSeq]);
+        });
+
+        $('#' + DestinationList).val([]);
+        $('#' + DestinationList).val(results);
+    }
+    function FindParentMultiple(SourceList, DestinationList) {
+        debugger;
+        // $('#' + DestinationList + ' option[value="' + GroupVal + '"]').show().fadeOut(100).fadeIn(100);
+        var selected = $('#' + SourceList).find('option:selected', this);
+        var results = [];
+
+        selected.each(function () {
+            var array = $(this).data('group').split(',');
+            $.each(array, function (i) {
+                results.push(array[i]);
+            });
+        });
+
+        $('#' + DestinationList).val([]);
+        $('#' + DestinationList).val(results);
+        return true;
+    }
+    function FindChildrenGovernorates(SelectedFromSource) {
+
+
+        // $('#' + DestinationList + ' option[value="' + GroupVal + '"]').show().fadeOut(100).fadeIn(100);
+        var results = [];
+        //$('#DutyStationGUID').val([]);
+        $('#DutyStationGUID option').each(function () {
+            $(this).attr('selected', false);
+        });
+        $('#DutyStationGUID option').each(function () {
+            var thisObj = $(this);
+            console.log('DutyStationGUID option', $(this));
+
+            if ($(this).attr('data-group') != undefined) {
+                var listOfParents = $(this).attr('data-group').split(',');
+                $.each(listOfParents, function (i, elm) {
+
+                    if (elm == SelectedFromSource) {
+                        thisObj.attr('selected', true);
+                    }
+                });
+            }
+        });
+        return true;
+    }
+
+    var activeTab = '';
+    function HideShowFilters() {
+        $("#ChartPanel").hide();
+        $('.nav-pills a[href="#1a"]').prop('disabled', true);
+        $('.nav-pills a[href="#2a"]').prop('disabled', true);
+        $('.nav-pills a[href="#3a"]').prop('disabled', true);
+        $('.nav-pills a[href="#4a"]').prop('disabled', true);
+
+        if ($('#ReportGUID').val() == '') {
+
+            $('#Category2').html("Main Category");
+            $('#Category3').html("Sub Category");
+            $('#CategoryGUID2').prop('disabled', true);
+            $('#ColCategoryGUID2').show();
+            $('#CategoryGUID2').empty();
+            $('#CategoryGUID3').prop('disabled', true);
+            $('#ColCategoryGUID3').show();
+            $('#CategoryGUID3').empty();
+            $('#GenderGUID').prop('disabled', true);
+            $('#AgeGUID').prop('disabled', true);
+            $('#ProfileGUID').prop('disabled', true);
+            //$('#ReferralReasonGUID').prop('disabled', true);
+            //$('#ReferralReason').hide();
+        }
+        //General Statistics
+        if ($('#ReportGUID').val() == '00000000-0000-0000-0000-000000000003') {
+            activeTab = '#3a';
+            $('.nav-pills a[href="#3a"]').prop('disabled', false);
+            $('.nav-pills a[href="#3a"]').tab('show');
+            $('#Category2').html("Main General Statistics");
+            $('#Category3').html("Sub General Statistics");
+            $('#CategoryGUID2').prop('disabled', true);
+            $('#CategoryGUID2').empty();
+            $('#ColCategoryGUID2').hide();
+            $('#CategoryGUID3').prop('disabled', true);
+            $('#CategoryGUID3').empty();
+            $('#ColCategoryGUID3').hide();
+            $('#GenderGUID').prop('disabled', true);
+            $('#AgeGUID').prop('disabled', true);
+            $('#ProfileGUID').prop('disabled', true);
+            //$('#ReferralReason').hide();
+            //family
+            if ($("#AggregationGUID").val() == '00000000-0000-0000-0000-000000000001') {
+                $('#OrganizationInstanceGUID').prop('disabled', false);
+                $('#DutyStationGUID').prop('disabled', false);
+                $('#PartnerCenterGUID').prop('disabled', false);
+                $('#CategoryGUID2').prop('disabled', true);
+                $('#CategoryGUID2').empty();
+                $('#CategoryGUID3').prop('disabled', true);
+                $('#CategoryGUID3').empty();
+                $('#GenderGUID').prop('disabled', true);
+                $('#AgeGUID').prop('disabled', true);
+                $('#ProfileGUID').prop('disabled', true);
+            }
+            //individuals
+            if ($("#AggregationGUID").val() == '00000000-0000-0000-0000-000000000002') {
+                $('#OrganizationInstanceGUID').prop('disabled', false);
+                $('#DutyStationGUID').prop('disabled', false);
+                $('#PartnerCenterGUID').prop('disabled', false);
+                $('#CategoryGUID2').prop('disabled', true);
+                $('#CategoryGUID2').empty();
+                $('#CategoryGUID3').prop('disabled', true);
+                $('#CategoryGUID3').empty();
+                $('#GenderGUID').prop('disabled', false);
+                $('#AgeGUID').prop('disabled', false);
+                $('#ProfileGUID').prop('disabled', false);
+            }
+        }
+        //Verlnerabilty
+        if ($('#ReportGUID').val() == '00000000-0000-0000-0000-000000000001') {
+            activeTab = '#2a';
+            $('.nav-pills a[href="#2a"]').prop('disabled', false);
+            $('.nav-pills a[href="#2a"]').tab('show');
+            $('#Category2').html("Main Vulnerability");
+            $('#Category3').html("Sub Vulnerability");
+            $('#CategoryGUID2').prop('disabled', true);
+            $('#ColCategoryGUID2').show();
+            $('#CategoryGUID2').empty();
+            $('#CategoryGUID3').prop('disabled', true);
+            $('#ColCategoryGUID3').show();
+            $('#CategoryGUID3').empty();
+            $('#GenderGUID').prop('disabled', true);
+            $('#AgeGUID').prop('disabled', true);
+            $('#ProfileGUID').prop('disabled', true);
+            //$('#ReferralReason').hide();
+            //family
+            if ($("#AggregationGUID").val() == '00000000-0000-0000-0000-000000000001') {
+                $('#OrganizationInstanceGUID').prop('disabled', false);
+                $('#DutyStationGUID').prop('disabled', false);
+                $('#PartnerCenterGUID').prop('disabled', false);
+
+                $('#CategoryGUID2').prop('disabled', false);
+                UpdateDropDownList([$('#ReportGUID').val()], [{ DropDownListID: 'CategoryGUID2', Action: 'RemoteCategoryPartnerReportLevel2' }, { DropDownListID: 'CategoryGUID3', Action: 'RemoteCategoryPartnerReportLevel3' }]);
+
+                //UpdateDropDownListFromMultiple([$('#CategoryGUID2').val()], [{ DropDownListID: 'CategoryGUID3', Action: 'RemoteParentCategoryPartnerReport' }]);
+                $('#CategoryGUID3').prop('disabled', false);
+                $('#GenderGUID').prop('disabled', true);
+                $('#AgeGUID').prop('disabled', true);
+                $('#ProfileGUID').prop('disabled', true);
+            }
+            //individuals
+            if ($("#AggregationGUID").val() == '00000000-0000-0000-0000-000000000002') {
+                $('#OrganizationInstanceGUID').prop('disabled', false);
+                $('#DutyStationGUID').prop('disabled', false);
+                $('#PartnerCenterGUID').prop('disabled', false);
+                $('#CategoryGUID2').prop('disabled', false);
+                UpdateDropDownList([$('#ReportGUID').val()], [{ DropDownListID: 'CategoryGUID2', Action: 'RemoteCategoryPartnerReportLevel2' }, { DropDownListID: 'CategoryGUID3', Action: 'RemoteCategoryPartnerReportLevel3' }]);
+
+                $('#CategoryGUID3').prop('disabled', false);
+                $('#GenderGUID').prop('disabled', false);
+                $('#AgeGUID').prop('disabled', false);
+                $('#ProfileGUID').prop('disabled', false);
+            }
+        }
+        //Services
+        if ($('#ReportGUID').val() == '00000000-0000-0000-0000-000000000002') {
+            activeTab = '#1a';
+            $('.nav-pills a[href="#1a"]').prop('disabled', false);
+            $('.nav-pills a[href="#1a"]').tab('show');
+            $('#Category2').html("Main Service");
+            $('#Category3').html("Sub Service");
+            $('#CategoryGUID2').prop('disabled', true);
+            $('#ColCategoryGUID2').show();
+            $('#CategoryGUID2').empty();
+            $('#CategoryGUID3').prop('disabled', true);
+            $('#ColCategoryGUID3').show();
+            $('#CategoryGUID3').empty();
+            $('#GenderGUID').prop('disabled', true);
+            $('#AgeGUID').prop('disabled', true);
+            $('#ProfileGUID').prop('disabled', true);
+            //$('#ReferralReason').hide();
+            //family
+            if ($("#AggregationGUID").val() == '00000000-0000-0000-0000-000000000001') {
+                $('#OrganizationInstanceGUID').prop('disabled', false);
+                $('#DutyStationGUID').prop('disabled', false);
+                $('#PartnerCenterGUID').prop('disabled', false);
+                $('#CategoryGUID2').prop('disabled', false);
+                UpdateDropDownList([$('#ReportGUID').val()], [{ DropDownListID: 'CategoryGUID2', Action: 'RemoteCategoryPartnerReportLevel2' }, { DropDownListID: 'CategoryGUID3', Action: 'RemoteCategoryPartnerReportLevel3' }]);
+
+                $('#CategoryGUID3').prop('disabled', false);
+                $('#GenderGUID').prop('disabled', true);
+                $('#AgeGUID').prop('disabled', true);
+                $('#ProfileGUID').prop('disabled', true);
+            }
+            //individuals
+            if ($("#AggregationGUID").val() == '00000000-0000-0000-0000-000000000002') {
+                $('#OrganizationInstanceGUID').prop('disabled', false);
+                $('#DutyStationGUID').prop('disabled', false);
+                $('#PartnerCenterGUID').prop('disabled', false);
+                $('#CategoryGUID2').prop('disabled', false);
+                UpdateDropDownList([$('#ReportGUID').val()], [{ DropDownListID: 'CategoryGUID2', Action: 'RemoteCategoryPartnerReportLevel2' }, { DropDownListID: 'CategoryGUID3', Action: 'RemoteCategoryPartnerReportLevel3' }]);
+
+                $('#CategoryGUID3').prop('disabled', false);
+                $('#GenderGUID').prop('disabled', false);
+                $('#AgeGUID').prop('disabled', false);
+                $('#ProfileGUID').prop('disabled', false);
+            }
+        }
+        //REferral & Channel
+        if ($('#ReportGUID').val() == '00000000-0000-0000-0000-000000000004') {
+            activeTab = '#4a';
+            $('.nav-pills a[href="#4a"]').prop('disabled', false);
+            $('.nav-pills a[href="#4a"]').tab('show');
+            $('#Category2').html("Main Chan & Ref");
+            $('#Category3').html("Sub Chan & Ref");
+
+            //$('#ReferralReason').show();
+            //$('#ReferralReasonGUID').prop('disabled', false);
+            $('#OrganizationInstanceGUID').prop('disabled', false);
+            $('#DutyStationGUID').prop('disabled', false);
+            $('#PartnerCenterGUID').prop('disabled', false);
+            $('#CategoryGUID2').prop('disabled', true);
+            $('#ColCategoryGUID2').hide();
+            $('#CategoryGUID2').empty();
+            $('#CategoryGUID3').prop('disabled', true);
+            $('#ColCategoryGUID3').hide();
+            $('#CategoryGUID3').empty();
+            $('#GenderGUID').prop('disabled', true);
+            $('#AgeGUID').prop('disabled', true);
+            $('#ProfileGUID').prop('disabled', true);
+            //if ($("#AggregationGUID").val() == '00000000-0000-0000-0000-000000000001') {
+            //    $('#ReferralReason').hide();
+            //    $('#ReferralReasonGUID').prop('disabled', true);
+            //}
+        }
+    }
+    function ClearAll() {
+        $('#CategoryGUID3').empty();
+        $('#CategoryGUID2').empty();
+
+
+
+        $('#Category2').html("Main Category");
+        $('#Category3').html("Sub Category");
+        $('#CategoryGUID3').prop('disabled', true);
+        $('#CategoryGUID2').prop('disabled', true);
+        $('#GenderGUID').prop('disabled', true);
+        $('#AgeGUID').prop('disabled', true);
+        $('#ProfileGUID').prop('disabled', true);
+        $('#ChartPanel').hide();
+
+        $('#OrganizationInstanceGUID').val([]);
+        $('#DutyStationGUID').val([]);
+        $('#DutyStationGUID option').each(function () {
+            $(this).attr('selected', false);
+        });
+        UpdateDropDownListFromMultiple([$('#OrganizationInstanceGUID').val() + '|' + $('#DutyStationGUID').val()], [{ DropDownListID: 'PartnerCenterGUID', Action: 'RemotePartnerCenterByOrganizationInstanceByDutyStation' }]);
+
+
+    }
+
+    var Process = '<center><img src="../Assets/Images/loading.gif" style="top: 50%;position: absolute;" /></center>'
+    var totalChartNumber = 0;
+    var numberOfChartCompleted = 0;
+    function DecideWhenLoadComplete() {
+        numberOfChartCompleted++;
+        if (numberOfChartCompleted == totalChartNumber) {
+
+            $('#btnCharts').prop('disabled', false);
+            $('#ChartsLoad').html('');
+
+        }
+    }
+
+    function NoSelectionSelectAll() {
+        if ($('#CategoryGUID2 > option:selected').length == 0) {
+            $('#CategoryGUID2 option').prop('selected', true);
+            $('#CategoryGUID2 option:first').prop('selected', false);
+        }
+        if ($('#CategoryGUID3 > option:selected').length == 0) {
+            $('#CategoryGUID3 option').prop('selected', true);
+            $('#CategoryGUID3 option:first').prop('selected', false);
+        }
+        if ($('#OrganizationInstanceGUID > option:selected').length == 0) {
+            $('#OrganizationInstanceGUID option').prop('selected', true);
+        }
+        if ($('#DutyStationGUID > option:selected').length == 0) {
+            $('#DutyStationGUID option').prop('selected', true);
+            $('#DutyStationGUID option:first').prop('selected', false);
+        }
+        if ($('#PartnerCenterGUID > option:selected').length == 0) {
+            $('#PartnerCenterGUID option').prop('selected', true);
+            $('#PartnerCenterGUID option:first').prop('selected', false);
+        }
+        formDataCashed = $('#ReportForm').serialize();
+    }
+
+    var formDataCashed = $('#ReportForm').serialize();
+    function InitDashboards() {
+
+        var IntReport = $('#ReportGUID').val();
+        if (formDataCashed != $('#ReportForm').serialize()) {
+            if ($("#ReportGUID").val() != "" && $("#EndDate").val() != "" && $("#AggregationGUID").val() != "" && $("#PartnerCenterGUID option").length != 1) {
+                formDataCashed = $('#ReportForm').serialize();
+                totalChartNumber = 0;
+                if ($("#AggregationGUID").children("option").filter(":selected").text() == 'Family') {
+                    totalChartNumber = 22;
+                }
+                Highcharts.setOptions({
+                    lang: {
+                        thousandsSep: ','
+                    }
+                });
+                Highcharts.setOptions({
+                    chart: {
+                        style: {
+                            fontSize: '12px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                });
+                $('#ChartsLoad').append('<span class="loadingSpan" style="margin-left:4px;margin-top:2px;"> Please wait...</span>');
+
+                $('#ChartPanel').show();
+
+                $('html,body').animate({
+                    scrollTop: $("#ChartPanel").offset().top - 75
+                }, 'slow');
+
+                numberOfChartCompleted = 0;
+                $('#container1').html('').append(Process);
+                $('#container2').html('').append(Process);
+                $('#container3').html('').append(Process);
+                $('#container4').html('').append(Process);
+                $('#container5').html('').append(Process);
+                $('#container6').html('').append(Process);
+                $('#container7').html('').append(Process);
+
+                $('#container11').html('').append(Process);
+                $('#container22').html('').append(Process);
+                $('#container33').html('').append(Process);
+                $('#container44').html('').append(Process);
+                $('#container55').html('').append(Process);
+                $('#container66').html('').append(Process);
+                $('#container77').html('').append(Process);
+
+                $('#container111').html('').append(Process);
+                $('#container222').html('').append(Process);
+                $('#container333').html('').append(Process);
+                $('#container444').html('').append(Process);
+                $('#container555').html('').append(Process);
+                $('#container666').html('').append(Process);
+                $('#container777').html('').append(Process);
+
+                $('#container1111').html('').append(Process);
+                $('#container2222').html('').append(Process);
+                $('#container3333').html('').append(Process);
+                $('#container4444').html('').append(Process);
+                $('#container5555').html('').append(Process);
+
+
+                $("#Gov").val("");
+                $("#Org").val("");
+                $("#Cat3").val("");
+                $("#Partner").val("");
+                $('#ReportGUID').val("00000000-0000-0000-0000-000000000002");
+                if (IntReport == '00000000-0000-0000-0000-000000000002') {
+                    if ($("#AggregationGUID").val() == '00000000-0000-0000-0000-000000000001') { totalChartNumber = 4; } else { totalChartNumber = 7; }
+                    chart1("1");
+                    chart2("2");
+                    chart3("3");
+                    if ($("#AggregationGUID").children("option").filter(":selected").text() == 'Individuals') {
+                        chart4("4");
+                        chart5("5");
+                        chart6("6");
+                        $('#container4').show(); $('#container5').show(); $('#container6').show();
+                    } else {
+                        $('#container4').hide(); $('#container5').hide(); $('#container6').hide()
+                    }
+                    chart7("7");
+
+                }
+
+                $('#ReportGUID').val("00000000-0000-0000-0000-000000000001");
+                if (IntReport == '00000000-0000-0000-0000-000000000001') {
+                    if ($("#AggregationGUID").val() == '00000000-0000-0000-0000-000000000001') { totalChartNumber = 4; } else { totalChartNumber = 7; }
+
+                    chart1("11");
+                    chart2("22");
+                    chart3("33");
+                    if ($("#AggregationGUID").children("option").filter(":selected").text() == 'Individuals') {
+                        chart4("44");
+                        chart5("55");
+                        chart6("66");
+                        $('#container44').show(); $('#container55').show(); $('#container66').show();
+                    } else {
+                        $('#container44').hide(); $('#container55').hide(); $('#container66').hide()
+                    }
+                    chart7("77");
+
+                }
+
+                if (IntReport == '00000000-0000-0000-0000-000000000003') {
+
+                    if ($("#AggregationGUID").children("option").filter(":selected").text() == 'Individuals') {
+                        totalChartNumber = 7;
+                        chart10();
+                        chart11();
+                        chart12();
+                        $('#container222').show(); $('#container333').show(); $('#container444').show();
+                    } else {
+                        totalChartNumber = 4;
+                        $('#container222').hide(); $('#container333').hide(); $('#container444').hide()
+                    }
+                    chart9();
+                    chart13();
+                    chart17();
+                    chart18();
+
+                }
+                $('#ReportGUID').val("00000000-0000-0000-0000-000000000004");
+                if (IntReport == '00000000-0000-0000-0000-000000000004') {
+                    if ($("#AggregationGUID").children("option").filter(":selected").text() == 'Individuals') {
+                        totalChartNumber = 4;
+                        chart14();
+                        chart15();
+                        chart19();
+                        chart20();
+                        $('#container2222').width("100%");
+                        $('#container1111').hide(); $('#container2222').show(); $('#container3333').show(); $('#container4444').show(); $('#container5555').show();
+                    }
+                    else {
+                        totalChartNumber = 1;
+                        chart16();
+                        $('#container1111').width("100%");
+                        $('#container1111').show(); $('#container2222').hide(); $('#container3333').hide(); $('#container4444').hide(); $('#container5555').hide();
+                    }
+
+
+                }
+                $('#btnCharts').prop('disabled', true);
+
+            }
+            else {
+                if ($("#ReportGUID").val() == "") { Notify(NotificationType.Warning, 'Report Topic Empty'); }
+                if ($("#EndDate").val() == "") { Notify(NotificationType.Warning, 'Update Date Empty'); }
+                if ($("#AggregationGUID").val() == "") { Notify(NotificationType.Warning, 'Report Level Empty'); }
+                if ($("#PartnerCenterGUID option").length == 1) { Notify(NotificationType.Warning, 'Community Center Empty'); }
+            }
+            $('#ReportGUID').val(IntReport);
+            NoSelectionSelectAll();
+
+        } else {
+            Notify(NotificationType.Warning, 'No Change in The Filters');
+        }
+    };
+
+    function chart1(container) {
+
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart1",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Registered = response["Registered"];
+                var Assisted = response["Assisted"];
+                var categories = response["categories"];
+                var seriesArr = Assisted.data != null ? [Registered, Assisted] : [Registered]
+                $('#container1').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container' + container, {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Governorate ' //+ $("#AggregationGUID").children("option").filter(":selected").text()
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        //series: {
+                        //    allowPointSelect: true,
+                        //    states: {
+                        //        select: {
+                        //            color: 'Red',
+                        //            borderWidth: 2,
+                        //            //borderColor: 'Red'
+                        //        }
+                        //    }
+                        //},
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                                //borderWidth: '1',
+                                //y: -20,
+                                //rotation: 90,
+                            },
+                            //cursor: 'pointer',
+                            events: {
+                                click: function (e) {
+                                    //$("#Gov").val(e.point.category);
+                                    //$("#Org").val("");
+                                    //$("#Cat3").val("");
+                                    //$("#Partner").val("");
+                                    //if (activeTab == '#1a') {
+                                    //    $('#ReportGUID').val("00000000-0000-0000-0000-000000000002");
+                                    //    chart2("2"); chart3("3"); chart4("4"); chart5("5"); chart6("6"); chart7("7");
+                                    //}
+                                    //if (activeTab == '#2a') {
+                                    //    $('#ReportGUID').val("00000000-0000-0000-0000-000000000001");
+                                    //    chart2("22"); chart3("33"); chart4("44"); chart5("55"); chart6("66"); chart7("77");
+                                    //}
+                                }
+                            }
+                        },
+                    },
+                    series: seriesArr
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart2(container) {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart2",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Registered = response["Registered"];
+                var Assisted = response["Assisted"];
+                var categories = response["categories"];
+                var seriesArr = Assisted.data != null ? [Registered, Assisted] : [Registered]
+                $('#container2').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container' + container, {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Partner ' //+ $("#AggregationGUID").children("option").filter(":selected").text()
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                                //borderWidth: '1',
+                                //y: -20,
+                                //verticalAlign: 'top',
+                                //rotation: 90,
+                            },
+                            // cursor: 'pointer',
+                            events: {
+                                click: function (e) {
+                                    //$("#Gov").val("");
+                                    //$("#Org").val(e.point.category);
+                                    //$("#Cat3").val("");
+                                    //$("#Partner").val("");
+                                    //if (activeTab == '#1a') {
+                                    //    $('#ReportGUID').val("00000000-0000-0000-0000-000000000002");
+                                    //    chart1("1"); chart2("2"); chart3("3"); chart4("4"); chart5("5"); chart6("6"); chart7("7");
+                                    //}
+                                    //if (activeTab == '#2a') {
+                                    //    $('#ReportGUID').val("00000000-0000-0000-0000-000000000001");
+                                    //    chart1("11"); chart2("22"); chart3("33"); chart4("44"); chart5("55"); chart6("66"); chart7("77");
+                                    //}
+                                }
+                            }
+                        },
+                    },
+                    series: seriesArr
+                });
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart3(container) {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart3",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Registered = response["Registered"];
+                var Assisted = response["Assisted"];
+                var categories = response["categories"];
+                var seriesArr = Assisted.data != null ? [Registered, Assisted] : [Registered]
+                $('#container3').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container' + container, {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Community Center '// + $("#AggregationGUID").children("option").filter(":selected").text()
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                                //borderWidth: '1',
+                                //y: -20,
+                                //verticalAlign: 'top',
+                                //rotation: 90,
+                            },
+                            // cursor: 'pointer',
+                            events: {
+                                click: function (e) {
+                                    //$("#Gov").val("");
+                                    //$("#Org").val("");
+                                    //$("#Cat3").val("");
+                                    //$("#Partner").val(e.point.category);
+                                    //if (activeTab == '#1a') {
+                                    //    $('#ReportGUID').val("00000000-0000-0000-0000-000000000002");
+                                    //    chart1("1"); chart2("2"); chart3("3"); chart4("4"); chart5("5"); chart6("6"); chart7("7");
+                                    //}
+                                    //if (activeTab == '#2a') {
+                                    //    $('#ReportGUID').val("00000000-0000-0000-0000-000000000001");
+                                    //    chart1("11"); chart2("22"); chart4("33"); chart4("44"); chart5("55"); chart6("66"); chart7("77");
+                                    //}
+                                }
+                            }
+                        },
+                    },
+                    series: seriesArr
+                });
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart4(container) {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart4",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Registered = response["Registered"];
+                var Assisted = response["Assisted"];
+                var categories = response["categories"];
+                var seriesArr = Assisted.data != null ? [Registered, Assisted] : [Registered]
+                $('#container4').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container' + container, {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Age'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                                //borderWidth: '1',
+                                //y: -20,
+                                //rotation: 90,
+                            },
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: seriesArr
+                });
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart5(container) {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart5",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Registered = response["Registered"];
+                var Assisted = response["Assisted"];
+                var categories = response["categories"];
+                var seriesArr = Assisted.data != null ? [Registered, Assisted] : [Registered]
+                $('#container5').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container' + container, {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Profile'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                                //borderWidth: '1',
+                                //y: -20,
+                                //verticalAlign: 'top',
+                                //rotation: 90,
+                            },
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: seriesArr
+                });
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+
+    function chart6(container) {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart6",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+
+                DecideWhenLoadComplete();
+                var Registered = response["Registered"];
+                var Assisted = response["Assisted"];
+                var categories = response["categories"];
+                var seriesArr = Assisted.data != null ? [Registered, Assisted] : [Registered]
+                $('#container6').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container' + container, {
+                    chart: {
+                        type: 'column',
+                    },
+                    title: {
+                        text: 'Gender'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        },
+                        stackLabels: {
+                            enabled: false,
+
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        guids: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                                //borderWidth: '1',
+                                //y: -20,
+                                //verticalAlign: 'top',
+                                //rotation: 90,
+                            },
+                            pointPadding: 0.2,
+                            borderWidth: 0,
+                            events: {
+                                click: function (e) {
+
+                                }
+                            }
+                        },
+                    },
+                    series: seriesArr
+
+                });
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart7(container) {
+
+        //  $("#btnServiceBack").hide();
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        var title = "";
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart7",
+            dataType: "json",
+            data: formData,
+
+            success: function (response) {
+                console.log('Chart 7', formData);
+                DecideWhenLoadComplete();
+                var Registered = response["Registered"];
+                var Assisted = response["Assisted"];
+                var categories = response["categories"];
+
+                //if ($('#AggregationGUID').val() == "00000000-0000-0000-0000-000000000001" && $('#ReportGUID').val() == "00000000-0000-0000-0000-000000000001") {
+                //    categories[0] = "Recorded Families";
+                //} else if ($('#AggregationGUID').val() == "00000000-0000-0000-0000-000000000002" && $('#ReportGUID').val() == "00000000-0000-0000-0000-000000000001") {
+                //    categories[0] = "Recorded Individuals";
+                //}
+
+                var seriesArr = Assisted.data != null ? [Registered, Assisted] : [Registered]
+                $('#container7').removeClass('loadingSpanChart');
+                title = Assisted["data"] != null ? "Services" : "Vulnerabilities";
+                //  title = title + ' By ' + $("#AggregationGUID").children("option").filter(":selected").text();
+                // Create the chart
+                Highcharts.chart('container' + container, {
+                    chart: {
+                        type: 'column',
+                        events: {
+                            load: function (event) {
+                                if (container == 77) {
+                                    $($('#container77').find('.highcharts-series-group').children().children()[0]).css({ fill: "grey" });
+
+                                }
+                            },
+                        },
+                    },
+                    title: {
+                        text: title
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    }
+                    ,
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+
+                    plotOptions: {
+                        column: {
+                            //zones: [{ color: 'blue' }, { value: Registered[0] , color: 'red' }],
+                            dataLabels: {
+                                enabled: true
+
+                                //borderWidth: '1',
+                                //y: -20,
+                                //verticalAlign: 'top',
+                                //rotation: 90,
+                            },
+                            cursor: 'pointer',
+                            events: {
+                                click: function (e) {
+                                    if (e.point.category != "- Registered") {
+                                        $("#Cat2").val(e.point.category);
+
+                                        if (activeTab == '#1a') { $('#ReportGUID').val("00000000-0000-0000-0000-000000000002"); chart8("7"); }
+                                        if (activeTab == '#2a') { $('#ReportGUID').val("00000000-0000-0000-0000-000000000001"); chart8("77"); }
+                                    }
+                                    //  $("#btnServiceBack").show();
+                                }
+                            }
+                        },
+                    },
+                    series: seriesArr
+                }
+                );
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart8(container) {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        var title = "";
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart8",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Registered = response["Registered"];
+                var Assisted = response["Assisted"];
+                var categories = response["categories"];
+                var seriesArr = Assisted.data != null ? [Registered, Assisted] : [Registered]
+                $('#container7').removeClass('loadingSpanChart');
+                title = Assisted["data"] != null ? "Sub Services" : "Sub Vulnerabilities";
+                //title = title + ' By ' + $("#AggregationGUID").children("option").filter(":selected").text();
+                // Create the chart
+                Highcharts.chart('container' + container, {
+                    chart: {
+                        type: 'column',
+                    },
+                    title: {
+                        text: title
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        guids: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                                // borderWidth: '1',
+                                //  y: -20,
+                                //  verticalAlign: 'top',
+                                //  rotation: 90,
+                            },
+                            // cursor: 'pointer',
+                            events: {
+                                click: function (e) {
+                                    //$("#Gov").val("");
+                                    //$("#Org").val("");
+                                    //$("#Cat3").val(e.point.category);
+                                    //$("#Partner").val("");
+                                    //if (activeTab == '#1a') {
+                                    //    $('#ReportGUID').val("00000000-0000-0000-0000-000000000002");
+                                    //    chart1("1"); chart2("2"); chart3("3"); chart4("4"); chart5("5"); chart6("6");
+                                    //}
+                                    //if (activeTab == '#2a') {
+                                    //    $('#ReportGUID').val("00000000-0000-0000-0000-000000000001");
+                                    //    chart1("11"); chart2("22"); chart3("33"); chart4("44"); chart5("55"); chart6("66");
+                                    //}
+                                }
+                            }
+                        },
+                    },
+                    series: seriesArr,
+
+                });
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+
+    function chart9() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        //  var _categ = "";
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart9",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                debugger;
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container31').removeClass('loadingSpanChart');
+                debugger;
+                //if ($('#AggregationGUID').val() == "00000000-0000-0000-0000-000000000001") {
+                //    _categ = "Recorded Families";
+                //} else if ($('#AggregationGUID').val() == "00000000-0000-0000-0000-000000000002") {
+                //    _categ = "Recorded Individuals";
+                //}
+                // Create the chart
+                Highcharts.chart('container111', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'General Statistics  ' //+ $("#AggregationGUID").children("option").filter(":selected").text()
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+
+                        categories: categories,
+                        crosshair: true,
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                            }
+                        },
+                    },
+                    series: [Result]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart10() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart10",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container222').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container222', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Age '
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                            }
+                        },
+                    },
+                    series: [Result]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart11() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart11",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container333').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container333', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Profile'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                            }
+                        },
+                    },
+                    series: [Result]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart12() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart12",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container444').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container444', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Gender'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                            }
+                        },
+                    },
+                    series: [Result]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart13() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart13",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container555').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container555', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Community Center'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                            }
+                        },
+                    },
+                    series: [Result]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart17() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart17",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container666').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container666', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Governorate '
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                            }
+                        },
+                    },
+                    series: [Result]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart18() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart18",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container777').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container777', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Partner '
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                            }
+                        },
+                    },
+                    series: [Result]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+
+    function chart14() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart14",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container2222').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container2222', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Individuals Referred to External Services'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                            }
+                        },
+                    },
+                    series: [Result]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart15() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart15",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container3333').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container3333', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Community Centers'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                            }
+                        },
+                    },
+                    series: [Result]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart16() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart16",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container1111').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container1111', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Channel For Learning About the CCs'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Totals',
+                        colorByPoint: true,
+                        data: Result
+                    }]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart19() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart19",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container4444').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container4444', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Governorate'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                            }
+                        },
+                    },
+                    series: [Result]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+    function chart20() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/PCR/Home/chart20",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+                $('#container5555').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container5555', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Partner'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Totals (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                            }
+                        },
+                    },
+                    series: [Result]
+                });
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+</script>
+
+
+

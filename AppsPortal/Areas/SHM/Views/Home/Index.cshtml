@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("80e74af0-c73b-4a50-a3a1-7a6679ae212c")
+<style type="text/css">
+    html {
+        height: 100%;
+    }
+
+    body {
+        height: 100%;
+    }
+
+    #map-canvas {
+        min-height: 100%;
+    }
+
+    .expanded {
+        height: 94%;
+    }
+
+    .board {
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 203px 1px;
+        border: solid 1px #333;
+        width: 260px;
+        height: 600px;
+        padding: 10px;
+        border-radius: 4px;
+        color: #FFFFFF;
+    }
+
+    .closeWindow {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+        .closeWindow:hover {
+            background-color: #f0f0f0;
+        }
+</style>
+<script src="~/Assets/JScript/MarkerCluster.js"></script>
+<script src="~/Assets/JScript/Maps.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("Index", "ShuttleRequests", new { Area = "SHM" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-taxi fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Shuttle Requests</h3>
+                        <span>Shuttle Requests Management Tool.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @if (new CMS().HasAction(Permissions.Shuttle.Access, Apps.SHM))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "Shuttles", new { Area = "SHM" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-suitcase fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Shuttle Fleet Management </h3>
+                            <span>Shuttle Fleet Management Calendar.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.Vehicle.Access, Apps.SHM) || new CMS().HasAction(Permissions.ShuttleTravelPurpose.Access, Apps.SHM))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("CodeTable", "Home", new { Area = "SHM" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-cog fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Code Table</h3>
+                            <span>Code Tables Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.Shuttle.Access, Apps.SHM))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "Dashboards", new { Area = "SHM" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-chart-bar fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Charts</h3>
+                            <span>Charts Overview Shuttle Management.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.Shuttle.Access, Apps.SHM))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "Reports", new { Area = "SHM" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa- fa-file-excel-o fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Reports Board</h3>
+                            <span>Reports Board Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+
+</div>

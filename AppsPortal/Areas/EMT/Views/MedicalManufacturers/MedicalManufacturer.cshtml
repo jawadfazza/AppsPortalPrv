@@ -1,0 +1,20 @@
+﻿@model MedicalManufacturerUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.MedicalManufacturerGUID == Guid.Empty) ? "Medical Manufacturer Type" : "Medical Manufacturer Type"; }
+
+@Html.PageHeader("da0643bc-1d4c-4e3e-8dbc-e9b16fe9952f")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/EMT/Views/MedicalManufacturers/_MedicalManufacturerForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.MedicalManufacturerGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/EMT/Views/MedicalManufacturers/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MedicalManufacturerGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,43 @@
+﻿@model SitemapUpdateModel
+@using (Html.BeginForm("Sitemap", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "SitemapsForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.SitemapGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.SitemapDescription)
+                @Html.EditorFor(model => model.SitemapDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ParentGUID)
+                @Html.DropDownListFor(model => model.ParentGUID, new DropDownList().Sitemaps(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ActionUrl)
+                @Html.EditorFor(model => model.ActionUrl, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="SitemapsFormControls" class="form-group form-footer">
+                @if (Model.SitemapGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Sitemap.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Sitemap.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.Sitemap.Create, Apps.CMS, Url.Action("Sitemaps/Create", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.Sitemap.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Sitemap.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Sitemaps", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+}

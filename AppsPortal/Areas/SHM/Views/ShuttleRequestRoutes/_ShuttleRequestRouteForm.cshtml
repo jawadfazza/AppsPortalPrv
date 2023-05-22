@@ -1,0 +1,82 @@
+﻿@model ShuttleRequestRouteUpdateModel
+@using (Html.BeginForm("ShuttleRequestRoute", "ShuttleRequestRoutes", new { Area = "SHM" }, FormMethod.Post, new { id = "ShuttleRequestRouteForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.ShuttleRequestRouteGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12" style="border-right:solid;">
+                    <div class="form-group">
+                        @Html.Label("Departure Country")
+                        @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().CountriesSyriaShuttle(), "",
+     new
+     {
+         @class = "form-control select2-basic-search",
+         onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'StartLocationGUID1', Action : 'RemoteLocationsByGovernorate'}]);",
+         style = "width:100%"
+     })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Departure City")
+                        @Html.DropDownListFor(model => model.StartLocationGUID1, new DropDownList().LocationOneValue(Model.StartLocationGUID1), "",
+     new
+     {
+         style = "width:100%",
+        // onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DeparturePointGUID', Action : 'RemoteLocationsByLocationType'}]);",
+         @class = "form-control select2-basic-search"
+     })
+                    </div>
+                   
+                  
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="form-group">
+                        @Html.Label("Drop Off Country")
+                        @Html.DropDownListFor(model => model.CountryGUID1, new DropDownList().CountriesSyriaShuttle(), "",
+     new
+     {
+         @class = "form-control select2-basic-search",
+         onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'EndLocationGUID1', Action : 'RemoteLocationsByGovernorate'}]);",
+         style = "width:100%"
+     })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Drop Off City")
+                        @Html.DropDownListFor(model => model.EndLocationGUID1, new DropDownList().LocationOneValue(Model.EndLocationGUID1), "",
+     new
+     {
+         style = "width:100%",
+         //onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DropOffPointGUID', Action : 'RemoteLocationsByLocationType'}]);",
+         @class = "form-control select2-basic-search"
+     })
+                    </div>
+                   
+                  
+                </div>
+            </div>
+            <div id="ShuttleRequestRouteFormControls" class="form-group form-footer">
+                @if (Model.ShuttleRequestRouteGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.ShuttleRequestRoute.Create, Apps.SHM)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.ShuttleRequestRoute.Update, Apps.SHM)
+                        @Html.CreateNewButton(Permissions.ShuttleRequestRoute.Create, Apps.SHM, Url.Action("/Create", new { Area = "SHM" }))
+                        @Html.DeleteButton(Permissions.ShuttleRequestRoute.Delete, Apps.SHM)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.ShuttleRequestRoute.Restore, Apps.SHM)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "ShuttleRequestRoutes", new { Area = "SHM" }))
+            </div>
+        </div>
+    </div>
+}

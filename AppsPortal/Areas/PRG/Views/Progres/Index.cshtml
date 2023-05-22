@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("9d08a621-0028-4825-a5ef-3c66b04cd4ff")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter",DataTableNames.IndividualsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxPRGDbFields.IndividualID, DbColumnName = "IndividualID", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxPRGDbFields.ProcessingGroupNumber, DbColumnName = "ProcessingGroupNumber", FilterForDataType = FilterDataTypes.Text })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxPRGDbFields.GivenName, DbColumnName = "GivenName", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxPRGDbFields.VerbalName, DbColumnName = "VerbalName", FilterForDataType = FilterDataTypes.Text })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxPRGDbFields.NationalityCode, DbColumnName = "NationalityCode", FilterForDataType = "Text", DataList = new DropDownList().NationalitiesProGres(), IsMultiple = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxPRGDbFields.OriginCountryCode, DbColumnName = "OriginCountryCode", FilterForDataType = "Text", DataList = new DropDownList().CountriesA3Code(), IsMultiple = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxPRGDbFields.DateofBirth, DbColumnName = "DateofBirth", FilterForDataType = FilterDataTypes.Date })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxPRGDbFields.ProcessStatusCode, DbColumnName = "ProcessStatusCode", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsMultiple = false, DataList = new PRGDropDownList().ProcessStatus() })
+
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.IndividualsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer",DataTableNames.ActionsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.IndividualsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.IndividualsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.IndividualsDataTable, FormController = "Progres", Area = "PRG" , Type = DataTableTypes.Index, EditMode = DataTableEditMode.NoCheckBox, OrderBy = 1 })
+    </div>
+</div>

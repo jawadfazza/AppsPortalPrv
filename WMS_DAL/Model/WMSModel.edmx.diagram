@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c04abc8b42df418fa641d0a313163e95" Name="Diagram1" ZoomLevel="53">
+        <EntityTypeShape EntityType="WMSModel.StaffCoreData" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.userAccounts" Width="1.5" PointX="0.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.userPersonalDetails" Width="1.5" PointX="3" PointY="43.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.userPersonalDetailsLanguage" Width="1.5" PointX="5.25" PointY="43.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeBrand" Width="1.5" PointX="6.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeBrandLanguage" Width="1.5" PointX="9" PointY="59.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeCountries" Width="1.5" PointX="15.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeCountriesLanguages" Width="1.5" PointX="18" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeDepartments" Width="1.5" PointX="13.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeDepartmentsLanguages" Width="1.5" PointX="16" PointY="13.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="WMSModel.codeDutyStations" Width="1.5" PointX="3.5" PointY="31.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeDutyStationsLanguages" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeItemModelWarehouse" Width="1.5" PointX="11.25" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeJobTitles" Width="1.5" PointX="12.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeJobTitlesLanguages" Width="1.5" PointX="15" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeLocations" Width="1.5" PointX="19.5" PointY="36.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeLocationsLanguages" Width="1.5" PointX="21.75" PointY="37.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeTables" Width="1.5" PointX="5.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeTablesValues" Width="1.5" PointX="8" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeTablesValuesConfigurations" Width="1.5" PointX="10.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeTablesValuesLanguages" Width="1.5" PointX="10.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouse" Width="1.5" PointX="5.75" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseFocalPoint" Width="1.5" PointX="3" PointY="48" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseGeneralFeature" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseGeneralFeatureLanguage" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseItem" Width="1.5" PointX="6.75" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseItemClassification" Width="1.5" PointX="4.5" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseItemClassificationLanguage" Width="1.5" PointX="6.75" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseItemDeterminant" Width="1.5" PointX="9" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseItemFeatur" Width="1.5" PointX="9" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseItemLanguage" Width="1.5" PointX="9" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseItemModel" Width="1.5" PointX="9" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseItemModelDeterminant" Width="1.5" PointX="13.5" PointY="59.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseItemModelFeature" Width="1.5" PointX="11.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseItemModelLanguage" Width="1.5" PointX="11.25" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseItemPackingType" Width="1.5" PointX="9" PointY="34.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseLanguage" Width="1.5" PointX="8" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseLocation" Width="1.5" PointX="3.5" PointY="35.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseLocationLanguage" Width="1.5" PointX="5.75" PointY="59.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseRequesterType" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseRequesterTypeLanguage" Width="1.5" PointX="13" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseStore" Width="1.5" PointX="11.25" PointY="46" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseStoreLanguage" Width="1.5" PointX="13.5" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseSubLocation" Width="1.5" PointX="11.25" PointY="59.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseSubLocationLanguage" Width="1.5" PointX="13.5" PointY="69.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseType" Width="1.5" PointX="3.5" PointY="39.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseTypeLanguage" Width="1.5" PointX="5.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseVehicle" Width="1.5" PointX="5.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWarehouseVehicleLanguage" Width="1.5" PointX="8" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWMSItemTag" Width="1.5" PointX="19.5" PointY="58.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWMSVendor" Width="1.5" PointX="14.25" PointY="37.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemInput" Width="1.5" PointX="5.25" PointY="53.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemInputDetail" Width="1.5" PointX="13.5" PointY="43.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemInputDeterminant" Width="1.5" PointX="15.75" PointY="49.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemInputFlow" Width="1.5" PointX="10.5" PointY="49.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemIntpuDetailUploadedDocument" Width="1.5" PointX="18.75" PointY="48.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemOutput" Width="1.5" PointX="8.25" PointY="53.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemOutputDetail" Width="1.5" PointX="21.75" PointY="46.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemOutputDetailFlow" Width="1.5" PointX="27" PointY="48" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemOutputFlow" Width="1.5" PointX="10.5" PointY="54.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemOutputNotification" Width="1.5" PointX="24" PointY="41.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemOutputNotificationPackage" Width="1.5" PointX="21.75" PointY="43" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemRequest" Width="1.5" PointX="3" PointY="63.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemRequestDetail" Width="1.5" PointX="5.25" PointY="64.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemRequestFlow" Width="1.5" PointX="5.25" PointY="48.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemReservation" Width="1.5" PointX="18.75" PointY="53.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemTransfer" Width="1.5" PointX="15.75" PointY="43.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemVerificationPeriod" Width="1.5" PointX="11.25" PointY="64.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemVerificationPeriodDetail" Width="1.5" PointX="15.75" PointY="54.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataItemVerificationWarehousePeriod" Width="1.5" PointX="13.5" PointY="64.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataLicenseSubscriptionContract" Width="1.5" PointX="16.5" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataLicenseSubscriptionContractPO" Width="1.5" PointX="18.75" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataLicenseSubscriptionContractPOFile" Width="1.5" PointX="21" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataLicenseSubscriptionContractSTIItem" Width="1.5" PointX="18.75" PointY="41.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataPendingVerficationReminder" Width="1.5" PointX="24" PointY="67.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataWarehosueReport" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataWarehouseFocalPoint" Width="1.5" PointX="8" PointY="46" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.dataReportTemplate" Width="1.5" PointX="2.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_EntryMovementDataTable" Width="1.5" PointX="13.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_ItemDefinationPerWarhouse" Width="1.5" PointX="2.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_ItemOutputFlowDetailReport" Width="1.5" PointX="15.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_staffEmailNoDuplication" Width="1.5" PointX="9.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_STISIMCardCustodian" Width="1.5" PointX="18.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_TrackAllItemMovement" Width="1.5" PointX="19.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_trackConsumableItemDetail" Width="1.5" PointX="20.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_trackItemEntryMovementDataTable" Width="1.5" PointX="21.75" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_trackItemInputDataTableDetail" Width="1.5" PointX="23.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_trackItemOutputFlow" Width="1.5" PointX="23.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_trackItemOverviewSummaryDetail" Width="1.5" PointX="25.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_TrackStaffHasPendingConfirmationItem" Width="1.5" PointX="25.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_trackStaffHistorical" Width="1.5" PointX="25.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_trackStaffPhones" Width="1.5" PointX="17.75" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_trackStaffPhonesAllGSM" Width="1.5" PointX="12.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_trackStaffSIMSinglePhone" Width="1.5" PointX="15.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.v_TrackWarehouseHasPendingConfirmationItem" Width="1.5" PointX="25.75" PointY="26.375" IsExpanded="true" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseFocalPoint_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseFocalPoint_userAccounts1" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInput_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInputDetail_LastVerifiedByGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInputDetail_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInputDeterminant_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInputFlow_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemIntpuDetailUploadedDocument_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutput_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetail_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetailFlow_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputFlow_CreatedByGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputFlow_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputFlow_userAccountss" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputNotification_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemRequest_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemRequestFlow_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemReservation_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemTransfer_ConfirmedByGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemTransfer_TransferedFromGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemVerificationPeriodDetail_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_userPersonalDetails_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_userPersonalDetailsLanguage_userPersonalDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeBrandLanguage_codeBrand" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemModel_codeBrand" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeCountriesLanguages_codeCountries" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeDepartmentsLanguages_codeDepartments" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeDutyStationsLanguages_codeDutyStations" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouse_codeDutyStations" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInputDetail_codeItemModelWarehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemModelWarehouse_codeItemModel" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemModelWarehouse_codeWarehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeJobTitlesLanguages_codeJobTitles" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeLocationsLanguages_codeLocations" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.fk_dataItemOutputDetail_CurrentLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeTablesValues_codeTables" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeTablesValuesLanguages_codeTablesValues" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeTablesValuesOperations_codeTablesValues" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouse_codeWarehouseLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouse_codeWarehouseType" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouse_WarehosueParentGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseFocalPoint_codeWarehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseFocalPoint_codeWarehouse1" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseLanguage_codeWarehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseStore_codeWarehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInput_codeWarehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInputDetail_codeWarehouseOwner" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutput_codeWarehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemTransfer_codeWarehouse_Destination" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemTransfer_codeWarehouse_Source" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemVerificationWarehousePeriod_codeWarehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseGeneralFeatureLanguage_codeWarehouseGeneralFeature" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemFeatur_codeWarehouseGeneralFeature" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemModelFeature_codeWarehouseGeneralFeature" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeItemModel_codeItem" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItem_codeWarehouseItemClassification" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemDeterminant_codeItem" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemFeatur_codeWarehouseItem" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemLanguage_codeWarehouseItem" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemPackingType_codeWarehouseItem" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemRequestDetail_codeWarehouseItem" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemClassification_codeWarehouseType" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemClassificationLanguage_codeWarehouseItemClassification" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeItemModelLanguage_codeItemModel" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemModel_ParentWarehouseItemGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemModelDeterminant_codeWarehouseItemModel" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseItemModelFeature_codeWarehouseItemModel" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_DataITemInputDeterminant_codeWarehouseItemModelDeterminant" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseLocationLanguage_codeWarehouseLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseSubLocation_codeWarehouseLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.fk_dataItemInputDetail_codeWarehouseLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetail_codeWarehouseLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetail_codeWarehouseLocationOnReturn" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseRequesterTypeLanguage_codeWarehouseStore" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseStoreLanguage_codeWarehouseStore" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInputDetail_codeWarehouseStore" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseLocationLanguage_codeWarehouseSubLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInputDetail_codeWarehouseSubLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetail_codeWarehouseSubLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseTypeLanguage_codeWarehouseType" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouseVehicleLanguage_codeWarehouseVehicle" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetail_codeWMSItemTag" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataLicenseSubscriptionContract_codeVendor" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInput_dataItemRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInputDetail_dataItemInput" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInputFlow_dataItemInput" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemInputDetail_ParentItemModelWarehouseGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_DataITemInputDeterminant_dataItemInputDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemIntpuDetailUploadedDocument_dataItemInputDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_DataItemOutputDetail_dataItemInputDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemReservation_dataItemInputDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemTransfer_ItemInputGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemVerificationPeriodDetail_dataItemInputDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataLicenseSubscriptionContract_dataItemInputDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutput_dataItemRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_DataItemOutputDetail_dataItemOutput" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputFlow_dataItemOutput" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetailFlow_dataItemOutputDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputNotification_ItemOutputDetailGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataPendingVerficationReminder_dataItemOutputDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputNotification_dataItemOutputNotificationPackage" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemRequestDetails_dataItemRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataItemRequestFlow_dataItemRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.fk_dataItemVerificationWarehousePeriod_dataItemVerificationPeriod" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.fk_dataItemVerificationPeriodDetail_dataItemVerificationWarehousePeriod" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataLicenseSubscriptionContractPO_dataLicenseSubscriptionContract" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataLicenseSubscriptionContractSTIItem_dataLicenseSubscriptionContract" ManuallyRouted="false" />
+        <AssociationConnector Association="WMSModel.FK_dataLicenseSubscriptionContractPOFile_dataLicenseSubscriptionContractPO" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WMSModel.StaffContactsInformation" Width="1.5" PointX="17.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.codeWMSFeatureType" Width="1.5" PointX="17.25" PointY="62.125" />
+        <EntityTypeShape EntityType="WMSModel.codeWMSFeatureTypeValue" Width="1.5" PointX="19.5" PointY="61.75" />
+        <EntityTypeShape EntityType="WMSModel.dataItemInputDetailFeature" Width="1.5" PointX="21.75" PointY="57.25" />
+        <AssociationConnector Association="WMSModel.FK_StaffCoreData_codeCountries" />
+        <AssociationConnector Association="WMSModel.FK_StaffCoreData_codeCountries1" />
+        <AssociationConnector Association="WMSModel.FK_StaffCoreData_codeCountries2" />
+        <AssociationConnector Association="WMSModel.FK_StaffCoreData_codeCountries3" />
+        <AssociationConnector Association="WMSModel.FK_StaffCoreData_codeDepartments" />
+        <AssociationConnector Association="WMSModel.FK_StaffCoreData_codeDutyStations" />
+        <AssociationConnector Association="WMSModel.FK_StaffCoreData_codeJobTitles" />
+        <AssociationConnector Association="WMSModel.codeWMSFeatureTypeValue_codeWMSFeatureType" />
+        <AssociationConnector Association="WMSModel.dataItemInputDetailFeature_codeWMSFeatureTypeValue" />
+        <AssociationConnector Association="WMSModel.dataItemInputDetailFeature_dataItemInputDetail" />
+        <EntityTypeShape EntityType="WMSModel.codeWMSPartner" Width="1.5" PointX="3.375" PointY="20.75" />
+        <EntityTypeShape EntityType="WMSModel.codeWMSCIMTCountryOffice" Width="1.5" PointX="28.375" PointY="0.75" />
+        <EntityTypeShape EntityType="WMSModel.codeCountriesConfigurations" Width="1.5" PointX="18" PointY="65.5" />
+        <AssociationConnector Association="WMSModel.FK_codeCountriesOperations_codeCountries" />
+        <EntityTypeShape EntityType="WMSModel.dataStaffServiceProvided" Width="1.5" PointX="28.375" PointY="5.75" />
+        <AssociationConnector Association="WMSModel.FK_dataStaffServiceProvided_staffCore" />
+        <EntityTypeShape EntityType="WMSModel.v_trackItemOverviewSummary" Width="1.5" PointX="28.375" PointY="11.75" />
+        <EntityTypeShape EntityType="WMSModel.v_StaffContactsListForSTI" Width="1.5" PointX="28.375" PointY="19.75" />
+        <EntityTypeShape EntityType="WMSModel.userProfiles" Width="1.5" PointX="21" PointY="9.75" />
+        <AssociationConnector Association="WMSModel.FK_userProfiles_codeDepartments1" />
+        <AssociationConnector Association="WMSModel.FK_userProfiles_codeDutyStations1" />
+        <AssociationConnector Association="WMSModel.FK_userProfiles_codeJobTitles1" />
+        <EntityTypeShape EntityType="WMSModel.codeWMSEmailGroup" Width="1.5" PointX="28.375" PointY="27.75" />
+        <EntityTypeShape EntityType="WMSModel.v_TrackSIMCardRoamingDetail" Width="1.5" PointX="30.375" PointY="0.75" />
+        <EntityTypeShape EntityType="WMSModel.codeOrganizationsInstances" Width="1.5" PointX="0.75" PointY="33.875" />
+        <EntityTypeShape EntityType="WMSModel.codeOrganizationsInstancesLanguages" Width="1.5" PointX="3" PointY="53.125" />
+        <AssociationConnector Association="WMSModel.FK_codeCountriesConfigurations_codeOrganizationsInstances" />
+        <AssociationConnector Association="WMSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" />
+        <AssociationConnector Association="WMSModel.FK_codeTablesValuesConfigurations_codeOrganizationsInstances" />
+        <AssociationConnector Association="WMSModel.FK_codeWarehouse_codeOrganizationsInstances" />
+        <EntityTypeShape EntityType="WMSModel.dataItemOutputDetailDamagedTrack" Width="1.5" PointX="27" PointY="36.875" />
+        <EntityTypeShape EntityType="WMSModel.dataItemOutputDetailDamagedTrackMovementFlow" Width="1.5" PointX="31.25" PointY="28.75" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetailDamagedTrackMovementFlow_userAccounts" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetailDamagedTrack_ReviewerByGUID" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetailDamagedTrack_userAccounts" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetailDamagedTrack_codeDutyStations" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetailDamagedTrack_dataItemInputDetail" />
+        <AssociationConnector Association="WMSModel.FK_dataItemOutputDetailDamagedTrack_dataItemOutputDetail" />
+        <AssociationConnector Association="WMSModel.dataItemOutputDetailDamagedTrackMovementFlow_ItemTrack" />
+        <AssociationConnector Association="WMSModel.FK_dataMissionRequestItinerary_dataMissionRequest" />
+        <EntityTypeShape EntityType="WMSModel.v_StaffWithItemsInCustody" Width="1.5" PointX="30.375" PointY="5.75" />
+        <EntityTypeShape EntityType="WMSModel.v_StaffAllDataInformation" Width="1.5" PointX="30.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

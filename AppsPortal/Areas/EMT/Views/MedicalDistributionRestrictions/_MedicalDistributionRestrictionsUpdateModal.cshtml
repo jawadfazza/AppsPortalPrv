@@ -1,0 +1,85 @@
+﻿@model MedicalDistributionRestrictionUpdateModel
+
+@using (Html.BeginForm("MedicalDistributionRestriction", "MedicalDistributionRestrictions", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalDistributionRestrictionForm" }))
+{
+    string ModalTitle = Model.MedicalDistributionRestrictionGUID.ToString() == Guid.Empty.ToString() ? "New DistributionRestrictions" : "Edit DistributionRestrictions";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.MedicalDistributionRestrictionGUID)
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.ImplementPartnerGUID)
+            @Html.DropDownListFor(model => model.ImplementPartnerGUID, new DropDownList().OrganizationsInstancesByProfile(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.Label(resxDbFields.ProvideByOrganizationInstanceGUID)
+            @Html.DropDownListFor(model => model.ProvideByOrganizationInstanceGUID, new DropDownList().OrganizationsInstancesByProfile(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.BeneficiaryTypeGUID)
+            @Html.DropDownListFor(model => model.BeneficiaryTypeGUID, new DropDownList().LookupValues(LookupTables.BeneficiaryType),
+                           new { multiple = "multiple", @class = "form-control select2-basic-multiple", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrescriptionNumberPerMonth)
+            @Html.EditorFor(model => model.PrescriptionNumberPerMonth, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MedicineNumberPerPrescription)
+            @Html.EditorFor(model => model.MedicineNumberPerPrescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MedicinesQuantity)
+            @Html.EditorFor(model => model.MedicinesQuantity, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MedicinesExpiration)
+            @Html.EditorFor(model => model.MedicinesExpiration, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.MedicinesExcludedByClassification)
+            @Html.DropDownListFor(model => model.MedicinesExcludedByClassification, new DropDownList().LookupValues(LookupTables.MedicalTreatment),
+                           new { multiple = "multiple", @class = "form-control select2-basic-multiple", style = "width:100%" })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.MedicinesExcludedByBrand)
+            @Html.DropDownListFor(model => model.MedicinesExcludedByBrand, new DropDownList().MedicalItems(),
+                           new { multiple = "multiple", @class = "form-control select2-basic-multiple", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.Label(resxDbFields.CreatedBy)
+            @Html.DisplayFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+            - @Html.Label(resxDbFields.CreatedOn)
+            @Html.DisplayFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.MedicalDistributionRestrictionGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.MedicalDistributionRestriction.Create, Apps.EMT)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.MedicalDistributionRestriction.Update, Apps.EMT)
+                @Html.DeleteSwitchButton(Permissions.MedicalDistributionRestriction.Delete, Apps.EMT)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.MedicalDistributionRestriction.Delete, Apps.EMT)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+@Html.HiddenFor(model => model.BeneficiaryTypeClientGUID)
+@Html.HiddenFor(model => model.MedicinesExcludedByClassificationClient)
+@Html.HiddenFor(model => model.MedicinesExcludedByBrandClient)
+<script type="text/javascript">
+    $(function () {
+        $('#BeneficiaryTypeGUID').val($('#BeneficiaryTypeClientGUID').val().split(",")).trigger('change');
+        $('#MedicinesExcludedByClassification').val($('#MedicinesExcludedByClassificationClient').val().split(",")).trigger('change');
+        $('#MedicinesExcludedByBrand').val($('#MedicinesExcludedByBrandClient').val().split(",")).trigger('change');
+    })
+</script>

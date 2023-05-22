@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+
+
+<div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">
+    <h3 class="Title">Card Issuance History</h3>
+    @if (Model.IsParentActive)
+    {
+        <div id=@string.Format("{0}Filter", DataTableNames.CardIssuedsDataTable) class="filter-section" style="display:none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_RecordStatus", DataTableNames.CardIssuedsDataTable)
+                </div>
+            </div>
+        </div>
+        <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.CardIssuedsDataTable)">
+            @Html.FieldDataTableFilter(DataTableNames.CardIssuedsDataTable)
+            @Html.FieldDataTableCreate(Permissions.CardIssued.Create, Apps.IDC, Url.Action("CardIssuedCreate", "CardIssueds", new { FK = Model.ParentGUID }))
+            @Html.FieldDataTableDelete(Permissions.CardIssued.Delete, Apps.IDC, DataTableNames.CardIssuedsDataTable)
+            @Html.FieldDataTableRestore(Permissions.CardIssued.Restore, Apps.IDC, DataTableNames.CardIssuedsDataTable)
+            @Html.FieldDataTableRefresh(DataTableNames.CardIssuedsDataTable)
+        </div>
+    }
+    @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.CardIssuedsDataTable, FormController = "CardIssueds", Area = "IDC", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+</div>

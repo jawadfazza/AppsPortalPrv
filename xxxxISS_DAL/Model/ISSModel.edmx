@@ -1,0 +1,1342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ISSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="userAccounts">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TimeZone" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RequestedOn" Type="datetime" Nullable="false" />
+          <Property Name="SecurityQuestionGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SecurityAnswer" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="AccountStatusID" Type="int" Nullable="false" />
+          <Property Name="IsFirstLogin" Type="bit" Nullable="false" />
+          <Property Name="HasPhoto" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userAccountsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="userPersonalDetails">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" />
+          <Property Name="GenderGUID" Type="uniqueidentifier" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="PreferedLanguageID" Type="nvarchar" MaxLength="5" />
+          <Property Name="BloodGroup" Type="nvarchar" MaxLength="5" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userPersonalDetailsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GrandFatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeISSItem">
+          <Key>
+            <PropertyRef Name="ItemGUID" />
+          </Key>
+          <Property Name="ItemGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SequencId" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeISSItemRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="codeISSItemLanguage">
+          <Key>
+            <PropertyRef Name="ItemLanguageGUID" />
+          </Key>
+          <Property Name="ItemLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ItemGUID" Type="uniqueidentifier" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ItemDescription" Type="nvarchar" MaxLength="300" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeISSItemLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="codeISSStock">
+          <Key>
+            <PropertyRef Name="StockGUID" />
+          </Key>
+          <Property Name="StockGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="LocationGUID" Type="uniqueidentifier" />
+          <Property Name="ParentGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeISSStockRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+          <Property Name="OrderId" Type="int" />
+        </EntityType>
+        <EntityType Name="codeISSStockLanguage">
+          <Key>
+            <PropertyRef Name="StockLanguageGUID" />
+          </Key>
+          <Property Name="StockLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StockGUID" Type="uniqueidentifier" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="StockDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codecodeISSStockLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="codeItemModelWarehouse">
+          <Key>
+            <PropertyRef Name="ItemModelWarehouseGUID" />
+          </Key>
+          <Property Name="ItemModelWarehouseGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WarehouseItemModelGUID" Type="uniqueidentifier" />
+          <Property Name="WarehouseGUID" Type="uniqueidentifier" />
+          <Property Name="LowestAmountAllowed" Type="int" />
+          <Property Name="ReOrderedLimit" Type="int" />
+          <Property Name="IsNeedApproval" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeItemModelWarehouseRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+          <Property Name="TotalAvaiable" Type="int" />
+          <Property Name="TotalEntry" Type="int" />
+          <Property Name="TotalRelease" Type="int" />
+          <Property Name="TotalPending" Type="int" />
+          <Property Name="FlowTypeGUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="dataItemOverview">
+          <Key>
+            <PropertyRef Name="ItemOverviewGUID" />
+          </Key>
+          <Property Name="ItemOverviewGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ItemGUID" Type="uniqueidentifier" />
+          <Property Name="TotalItemAllStocks" Type="int" />
+          <Property Name="TotalItemPipeLine" Type="int" />
+          <Property Name="TotalItemStockWithPipeLine" Type="int" />
+          <Property Name="TotalReservedForEmergency" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataItemOverviewRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="dataItemPipeline">
+          <Key>
+            <PropertyRef Name="ItemPipelineGUID" />
+          </Key>
+          <Property Name="ItemPipelineGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ItemPipelineUploadGUID" Type="uniqueidentifier" />
+          <Property Name="ItemGUID" Type="uniqueidentifier" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ETA" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataItemPipelineRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+          <Property Name="StockGUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="dataItemPipelineUpload">
+          <Key>
+            <PropertyRef Name="ItemPipelineUploadGUID" />
+          </Key>
+          <Property Name="ItemPipelineUploadGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="IsLastUpload" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreatedByGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataItemPipelineUploadRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="dataItemStockBalance">
+          <Key>
+            <PropertyRef Name="ItemStockBalanceGUID" />
+          </Key>
+          <Property Name="ItemStockBalanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TrackStockUploadGUID" Type="uniqueidentifier" />
+          <Property Name="ItemGUID" Type="uniqueidentifier" />
+          <Property Name="StockGUID" Type="uniqueidentifier" />
+          <Property Name="TotalItem" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataItemStockBalanceRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="dataItemStockEmergencyReserve">
+          <Key>
+            <PropertyRef Name="ItemStockEmergencyReserveGUID" />
+          </Key>
+          <Property Name="ItemStockEmergencyReserveGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ItemStockEmergencyUploadGUID" Type="uniqueidentifier" />
+          <Property Name="ItemGUID" Type="uniqueidentifier" />
+          <Property Name="QuantityToBeReserved" Type="int" />
+          <Property Name="ForWhere" Type="nvarchar" MaxLength="400" />
+          <Property Name="ExpectedDateToDispatch" Type="datetime" />
+          <Property Name="TotalItemInAllStock" Type="int" />
+          <Property Name="PipelineOrdersPlaced" Type="int" />
+          <Property Name="TotalStockWithPipeline" Type="int" />
+          <Property Name="TotalReservedforEmergency" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataItemStockEmergencyReserveRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="dataItemStockEmergencyUpload">
+          <Key>
+            <PropertyRef Name="ItemStockEmergencyUploadGUID" />
+          </Key>
+          <Property Name="ItemStockEmergencyUploadGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="IsLastUpload" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreatedByGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataItemStockEmergencyUploadRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="dataTrackStockUpload">
+          <Key>
+            <PropertyRef Name="TrackStockUploadGUID" />
+          </Key>
+          <Property Name="TrackStockUploadGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="IsLastUpload" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreatedByGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataTrackStockUploadRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <Association Name="FK_codecodeISSStockLanguage_codeISSStock">
+          <End Role="codeISSStock" Type="Self.codeISSStock" Multiplicity="0..1" />
+          <End Role="codeISSStockLanguage" Type="Self.codeISSStockLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSStock">
+              <PropertyRef Name="StockGUID" />
+            </Principal>
+            <Dependent Role="codeISSStockLanguage">
+              <PropertyRef Name="StockGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeISSItemLanguage_codeISSItem">
+          <End Role="codeISSItem" Type="Self.codeISSItem" Multiplicity="0..1" />
+          <End Role="codeISSItemLanguage" Type="Self.codeISSItemLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSItem">
+              <PropertyRef Name="ItemGUID" />
+            </Principal>
+            <Dependent Role="codeISSItemLanguage">
+              <PropertyRef Name="ItemGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemOverview_codeISSItem">
+          <End Role="codeISSItem" Type="Self.codeISSItem" Multiplicity="0..1" />
+          <End Role="dataItemOverview" Type="Self.dataItemOverview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSItem">
+              <PropertyRef Name="ItemGUID" />
+            </Principal>
+            <Dependent Role="dataItemOverview">
+              <PropertyRef Name="ItemGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemPipeline_codeISSItem">
+          <End Role="codeISSItem" Type="Self.codeISSItem" Multiplicity="0..1" />
+          <End Role="dataItemPipeline" Type="Self.dataItemPipeline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSItem">
+              <PropertyRef Name="ItemGUID" />
+            </Principal>
+            <Dependent Role="dataItemPipeline">
+              <PropertyRef Name="ItemGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemPipeline_codeISSStock">
+          <End Role="codeISSStock" Type="Self.codeISSStock" Multiplicity="0..1" />
+          <End Role="dataItemPipeline" Type="Self.dataItemPipeline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSStock">
+              <PropertyRef Name="StockGUID" />
+            </Principal>
+            <Dependent Role="dataItemPipeline">
+              <PropertyRef Name="StockGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemPipeline_dataItemPipelineUpload">
+          <End Role="dataItemPipelineUpload" Type="Self.dataItemPipelineUpload" Multiplicity="0..1" />
+          <End Role="dataItemPipeline" Type="Self.dataItemPipeline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataItemPipelineUpload">
+              <PropertyRef Name="ItemPipelineUploadGUID" />
+            </Principal>
+            <Dependent Role="dataItemPipeline">
+              <PropertyRef Name="ItemPipelineUploadGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemPipelineUpload_userAccounts">
+          <End Role="userAccounts" Type="Self.userAccounts" Multiplicity="0..1" />
+          <End Role="dataItemPipelineUpload" Type="Self.dataItemPipelineUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="dataItemPipelineUpload">
+              <PropertyRef Name="CreatedByGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockBalance_codeISSItem">
+          <End Role="codeISSItem" Type="Self.codeISSItem" Multiplicity="0..1" />
+          <End Role="dataItemStockBalance" Type="Self.dataItemStockBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSItem">
+              <PropertyRef Name="ItemGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockBalance">
+              <PropertyRef Name="ItemGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockBalance_codeISSStock">
+          <End Role="codeISSStock" Type="Self.codeISSStock" Multiplicity="0..1" />
+          <End Role="dataItemStockBalance" Type="Self.dataItemStockBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSStock">
+              <PropertyRef Name="StockGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockBalance">
+              <PropertyRef Name="StockGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockBalance_dataTrackStockUpload">
+          <End Role="dataTrackStockUpload" Type="Self.dataTrackStockUpload" Multiplicity="0..1" />
+          <End Role="dataItemStockBalance" Type="Self.dataItemStockBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataTrackStockUpload">
+              <PropertyRef Name="TrackStockUploadGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockBalance">
+              <PropertyRef Name="TrackStockUploadGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockEmergencyReserve_codeISSItem">
+          <End Role="codeISSItem" Type="Self.codeISSItem" Multiplicity="0..1" />
+          <End Role="dataItemStockEmergencyReserve" Type="Self.dataItemStockEmergencyReserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSItem">
+              <PropertyRef Name="ItemGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockEmergencyReserve">
+              <PropertyRef Name="ItemGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockEmergencyReserve_dataItemStockEmergencyUpload">
+          <End Role="dataItemStockEmergencyUpload" Type="Self.dataItemStockEmergencyUpload" Multiplicity="0..1" />
+          <End Role="dataItemStockEmergencyReserve" Type="Self.dataItemStockEmergencyReserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataItemStockEmergencyUpload">
+              <PropertyRef Name="ItemStockEmergencyUploadGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockEmergencyReserve">
+              <PropertyRef Name="ItemStockEmergencyUploadGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockEmergencyUpload_userAccounts">
+          <End Role="userAccounts" Type="Self.userAccounts" Multiplicity="0..1" />
+          <End Role="dataItemStockEmergencyUpload" Type="Self.dataItemStockEmergencyUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockEmergencyUpload">
+              <PropertyRef Name="CreatedByGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataTrackStockUpload_userAccounts">
+          <End Role="userAccounts" Type="Self.userAccounts" Multiplicity="0..1" />
+          <End Role="dataTrackStockUpload" Type="Self.dataTrackStockUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="dataTrackStockUpload">
+              <PropertyRef Name="CreatedByGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userPersonalDetails_userAccounts">
+          <End Role="userAccounts" Type="Self.userAccounts" Multiplicity="1" />
+          <End Role="userPersonalDetails" Type="Self.userPersonalDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="userPersonalDetails">
+              <PropertyRef Name="UserGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userPersonalDetailsLanguage_userPersonalDetails">
+          <End Role="userPersonalDetails" Type="Self.userPersonalDetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userPersonalDetailsLanguage" Type="Self.userPersonalDetailsLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userPersonalDetails">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="userPersonalDetailsLanguage">
+              <PropertyRef Name="UserGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKcodeISSStock_WarehosueParentGUID">
+          <End Role="codeISSStock" Type="Self.codeISSStock" Multiplicity="0..1" />
+          <End Role="codeISSStock1" Type="Self.codeISSStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSStock">
+              <PropertyRef Name="StockGUID" />
+            </Principal>
+            <Dependent Role="codeISSStock1">
+              <PropertyRef Name="ParentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ISSModelStoreContainer">
+          <EntitySet Name="userAccounts" EntityType="Self.userAccounts" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="userPersonalDetails" EntityType="Self.userPersonalDetails" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="userPersonalDetailsLanguage" EntityType="Self.userPersonalDetailsLanguage" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="codeISSItem" EntityType="Self.codeISSItem" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeISSItemLanguage" EntityType="Self.codeISSItemLanguage" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeISSStock" EntityType="Self.codeISSStock" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeISSStockLanguage" EntityType="Self.codeISSStockLanguage" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeItemModelWarehouse" EntityType="Self.codeItemModelWarehouse" Schema="code" store:Type="Tables" />
+          <EntitySet Name="dataItemOverview" EntityType="Self.dataItemOverview" Schema="ISS" store:Type="Tables" />
+          <EntitySet Name="dataItemPipeline" EntityType="Self.dataItemPipeline" Schema="ISS" store:Type="Tables" />
+          <EntitySet Name="dataItemPipelineUpload" EntityType="Self.dataItemPipelineUpload" Schema="ISS" store:Type="Tables" />
+          <EntitySet Name="dataItemStockBalance" EntityType="Self.dataItemStockBalance" Schema="ISS" store:Type="Tables" />
+          <EntitySet Name="dataItemStockEmergencyReserve" EntityType="Self.dataItemStockEmergencyReserve" Schema="ISS" store:Type="Tables" />
+          <EntitySet Name="dataItemStockEmergencyUpload" EntityType="Self.dataItemStockEmergencyUpload" Schema="ISS" store:Type="Tables" />
+          <EntitySet Name="dataTrackStockUpload" EntityType="Self.dataTrackStockUpload" Schema="ISS" store:Type="Tables" />
+          <AssociationSet Name="FK_codecodeISSStockLanguage_codeISSStock" Association="Self.FK_codecodeISSStockLanguage_codeISSStock">
+            <End Role="codeISSStock" EntitySet="codeISSStock" />
+            <End Role="codeISSStockLanguage" EntitySet="codeISSStockLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeISSItemLanguage_codeISSItem" Association="Self.FK_codeISSItemLanguage_codeISSItem">
+            <End Role="codeISSItem" EntitySet="codeISSItem" />
+            <End Role="codeISSItemLanguage" EntitySet="codeISSItemLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemOverview_codeISSItem" Association="Self.FK_dataItemOverview_codeISSItem">
+            <End Role="codeISSItem" EntitySet="codeISSItem" />
+            <End Role="dataItemOverview" EntitySet="dataItemOverview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemPipeline_codeISSItem" Association="Self.FK_dataItemPipeline_codeISSItem">
+            <End Role="codeISSItem" EntitySet="codeISSItem" />
+            <End Role="dataItemPipeline" EntitySet="dataItemPipeline" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemPipeline_codeISSStock" Association="Self.FK_dataItemPipeline_codeISSStock">
+            <End Role="codeISSStock" EntitySet="codeISSStock" />
+            <End Role="dataItemPipeline" EntitySet="dataItemPipeline" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemPipeline_dataItemPipelineUpload" Association="Self.FK_dataItemPipeline_dataItemPipelineUpload">
+            <End Role="dataItemPipelineUpload" EntitySet="dataItemPipelineUpload" />
+            <End Role="dataItemPipeline" EntitySet="dataItemPipeline" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemPipelineUpload_userAccounts" Association="Self.FK_dataItemPipelineUpload_userAccounts">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="dataItemPipelineUpload" EntitySet="dataItemPipelineUpload" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockBalance_codeISSItem" Association="Self.FK_dataItemStockBalance_codeISSItem">
+            <End Role="codeISSItem" EntitySet="codeISSItem" />
+            <End Role="dataItemStockBalance" EntitySet="dataItemStockBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockBalance_codeISSStock" Association="Self.FK_dataItemStockBalance_codeISSStock">
+            <End Role="codeISSStock" EntitySet="codeISSStock" />
+            <End Role="dataItemStockBalance" EntitySet="dataItemStockBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockBalance_dataTrackStockUpload" Association="Self.FK_dataItemStockBalance_dataTrackStockUpload">
+            <End Role="dataTrackStockUpload" EntitySet="dataTrackStockUpload" />
+            <End Role="dataItemStockBalance" EntitySet="dataItemStockBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockEmergencyReserve_codeISSItem" Association="Self.FK_dataItemStockEmergencyReserve_codeISSItem">
+            <End Role="codeISSItem" EntitySet="codeISSItem" />
+            <End Role="dataItemStockEmergencyReserve" EntitySet="dataItemStockEmergencyReserve" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockEmergencyReserve_dataItemStockEmergencyUpload" Association="Self.FK_dataItemStockEmergencyReserve_dataItemStockEmergencyUpload">
+            <End Role="dataItemStockEmergencyUpload" EntitySet="dataItemStockEmergencyUpload" />
+            <End Role="dataItemStockEmergencyReserve" EntitySet="dataItemStockEmergencyReserve" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockEmergencyUpload_userAccounts" Association="Self.FK_dataItemStockEmergencyUpload_userAccounts">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="dataItemStockEmergencyUpload" EntitySet="dataItemStockEmergencyUpload" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataTrackStockUpload_userAccounts" Association="Self.FK_dataTrackStockUpload_userAccounts">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="dataTrackStockUpload" EntitySet="dataTrackStockUpload" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userPersonalDetails_userAccounts" Association="Self.FK_userPersonalDetails_userAccounts">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="userPersonalDetails" EntitySet="userPersonalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userPersonalDetailsLanguage_userPersonalDetails" Association="Self.FK_userPersonalDetailsLanguage_userPersonalDetails">
+            <End Role="userPersonalDetails" EntitySet="userPersonalDetails" />
+            <End Role="userPersonalDetailsLanguage" EntitySet="userPersonalDetailsLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FKcodeISSStock_WarehosueParentGUID" Association="Self.FKcodeISSStock_WarehosueParentGUID">
+            <End Role="codeISSStock" EntitySet="codeISSStock" />
+            <End Role="codeISSStock1" EntitySet="codeISSStock" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ISSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="userAccounts">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="TimeZone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SecurityQuestionGUID" Type="Guid" Nullable="false" />
+          <Property Name="SecurityAnswer" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccountStatusID" Type="Int32" Nullable="false" />
+          <Property Name="IsFirstLogin" Type="Boolean" Nullable="false" />
+          <Property Name="HasPhoto" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userAccountsRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataItemPipelineUpload" Relationship="Self.FK_dataItemPipelineUpload_userAccounts" FromRole="userAccounts" ToRole="dataItemPipelineUpload" />
+          <NavigationProperty Name="dataItemStockEmergencyUpload" Relationship="Self.FK_dataItemStockEmergencyUpload_userAccounts" FromRole="userAccounts" ToRole="dataItemStockEmergencyUpload" />
+          <NavigationProperty Name="dataTrackStockUpload" Relationship="Self.FK_dataTrackStockUpload_userAccounts" FromRole="userAccounts" ToRole="dataTrackStockUpload" />
+          <NavigationProperty Name="userPersonalDetails" Relationship="Self.FK_userPersonalDetails_userAccounts" FromRole="userAccounts" ToRole="userPersonalDetails" />
+        </EntityType>
+        <EntityType Name="userPersonalDetails">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" />
+          <Property Name="GenderGUID" Type="Guid" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="PreferedLanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="BloodGroup" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userPersonalDetailsRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="userAccounts" Relationship="Self.FK_userPersonalDetails_userAccounts" FromRole="userPersonalDetails" ToRole="userAccounts" />
+          <NavigationProperty Name="userPersonalDetailsLanguage" Relationship="Self.FK_userPersonalDetailsLanguage_userPersonalDetails" FromRole="userPersonalDetails" ToRole="userPersonalDetailsLanguage" />
+        </EntityType>
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GrandFatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="userPersonalDetails" Relationship="Self.FK_userPersonalDetailsLanguage_userPersonalDetails" FromRole="userPersonalDetailsLanguage" ToRole="userPersonalDetails" />
+        </EntityType>
+        <EntityType Name="codeISSItem">
+          <Key>
+            <PropertyRef Name="ItemGUID" />
+          </Key>
+          <Property Name="ItemGUID" Type="Guid" Nullable="false" />
+          <Property Name="SequencId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeISSItemRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <NavigationProperty Name="codeISSItemLanguage" Relationship="Self.FK_codeISSItemLanguage_codeISSItem" FromRole="codeISSItem" ToRole="codeISSItemLanguage" />
+          <NavigationProperty Name="dataItemOverview" Relationship="Self.FK_dataItemOverview_codeISSItem" FromRole="codeISSItem" ToRole="dataItemOverview" />
+          <NavigationProperty Name="dataItemPipeline" Relationship="Self.FK_dataItemPipeline_codeISSItem" FromRole="codeISSItem" ToRole="dataItemPipeline" />
+          <NavigationProperty Name="dataItemStockBalance" Relationship="Self.FK_dataItemStockBalance_codeISSItem" FromRole="codeISSItem" ToRole="dataItemStockBalance" />
+          <NavigationProperty Name="dataItemStockEmergencyReserve" Relationship="Self.FK_dataItemStockEmergencyReserve_codeISSItem" FromRole="codeISSItem" ToRole="dataItemStockEmergencyReserve" />
+        </EntityType>
+        <EntityType Name="codeISSItemLanguage">
+          <Key>
+            <PropertyRef Name="ItemLanguageGUID" />
+          </Key>
+          <Property Name="ItemLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ItemGUID" Type="Guid" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ItemDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeISSItemLanguageRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <NavigationProperty Name="codeISSItem" Relationship="Self.FK_codeISSItemLanguage_codeISSItem" FromRole="codeISSItemLanguage" ToRole="codeISSItem" />
+        </EntityType>
+        <EntityType Name="codeISSStock">
+          <Key>
+            <PropertyRef Name="StockGUID" />
+          </Key>
+          <Property Name="StockGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="LocationGUID" Type="Guid" />
+          <Property Name="ParentGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeISSStockRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <Property Name="OrderId" Type="Int32" />
+          <NavigationProperty Name="codeISSStockLanguage" Relationship="Self.FK_codecodeISSStockLanguage_codeISSStock" FromRole="codeISSStock" ToRole="codeISSStockLanguage" />
+          <NavigationProperty Name="dataItemPipeline" Relationship="Self.FK_dataItemPipeline_codeISSStock" FromRole="codeISSStock" ToRole="dataItemPipeline" />
+          <NavigationProperty Name="dataItemStockBalance" Relationship="Self.FK_dataItemStockBalance_codeISSStock" FromRole="codeISSStock" ToRole="dataItemStockBalance" />
+          <NavigationProperty Name="codeISSStock1" Relationship="Self.FKcodeISSStock_WarehosueParentGUID" FromRole="codeISSStock" ToRole="codeISSStock1" />
+          <NavigationProperty Name="codeISSStock2" Relationship="Self.FKcodeISSStock_WarehosueParentGUID" FromRole="codeISSStock1" ToRole="codeISSStock" />
+        </EntityType>
+        <EntityType Name="codeISSStockLanguage">
+          <Key>
+            <PropertyRef Name="StockLanguageGUID" />
+          </Key>
+          <Property Name="StockLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="StockGUID" Type="Guid" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StockDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codecodeISSStockLanguageRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <NavigationProperty Name="codeISSStock" Relationship="Self.FK_codecodeISSStockLanguage_codeISSStock" FromRole="codeISSStockLanguage" ToRole="codeISSStock" />
+        </EntityType>
+        <EntityType Name="codeItemModelWarehouse">
+          <Key>
+            <PropertyRef Name="ItemModelWarehouseGUID" />
+          </Key>
+          <Property Name="ItemModelWarehouseGUID" Type="Guid" Nullable="false" />
+          <Property Name="WarehouseItemModelGUID" Type="Guid" />
+          <Property Name="WarehouseGUID" Type="Guid" />
+          <Property Name="LowestAmountAllowed" Type="Int32" />
+          <Property Name="ReOrderedLimit" Type="Int32" />
+          <Property Name="IsNeedApproval" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeItemModelWarehouseRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <Property Name="TotalAvaiable" Type="Int32" />
+          <Property Name="TotalEntry" Type="Int32" />
+          <Property Name="TotalRelease" Type="Int32" />
+          <Property Name="TotalPending" Type="Int32" />
+          <Property Name="FlowTypeGUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="dataItemOverview">
+          <Key>
+            <PropertyRef Name="ItemOverviewGUID" />
+          </Key>
+          <Property Name="ItemOverviewGUID" Type="Guid" Nullable="false" />
+          <Property Name="ItemGUID" Type="Guid" />
+          <Property Name="TotalItemAllStocks" Type="Int32" />
+          <Property Name="TotalItemPipeLine" Type="Int32" />
+          <Property Name="TotalItemStockWithPipeLine" Type="Int32" />
+          <Property Name="TotalReservedForEmergency" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataItemOverviewRowVersion" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <NavigationProperty Name="codeISSItem" Relationship="Self.FK_dataItemOverview_codeISSItem" FromRole="dataItemOverview" ToRole="codeISSItem" />
+        </EntityType>
+        <EntityType Name="dataItemPipeline">
+          <Key>
+            <PropertyRef Name="ItemPipelineGUID" />
+          </Key>
+          <Property Name="ItemPipelineGUID" Type="Guid" Nullable="false" />
+          <Property Name="ItemPipelineUploadGUID" Type="Guid" />
+          <Property Name="ItemGUID" Type="Guid" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ETA" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataItemPipelineRowVersion" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <Property Name="StockGUID" Type="Guid" />
+          <NavigationProperty Name="codeISSItem" Relationship="Self.FK_dataItemPipeline_codeISSItem" FromRole="dataItemPipeline" ToRole="codeISSItem" />
+          <NavigationProperty Name="codeISSStock" Relationship="Self.FK_dataItemPipeline_codeISSStock" FromRole="dataItemPipeline" ToRole="codeISSStock" />
+          <NavigationProperty Name="dataItemPipelineUpload" Relationship="Self.FK_dataItemPipeline_dataItemPipelineUpload" FromRole="dataItemPipeline" ToRole="dataItemPipelineUpload" />
+        </EntityType>
+        <EntityType Name="dataItemPipelineUpload">
+          <Key>
+            <PropertyRef Name="ItemPipelineUploadGUID" />
+          </Key>
+          <Property Name="ItemPipelineUploadGUID" Type="Guid" Nullable="false" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="IsLastUpload" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedByGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataItemPipelineUploadRowVersion" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <NavigationProperty Name="userAccounts" Relationship="Self.FK_dataItemPipelineUpload_userAccounts" FromRole="dataItemPipelineUpload" ToRole="userAccounts" />
+          <NavigationProperty Name="dataItemPipeline" Relationship="Self.FK_dataItemPipeline_dataItemPipelineUpload" FromRole="dataItemPipelineUpload" ToRole="dataItemPipeline" />
+        </EntityType>
+        <EntityType Name="dataItemStockBalance">
+          <Key>
+            <PropertyRef Name="ItemStockBalanceGUID" />
+          </Key>
+          <Property Name="ItemStockBalanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="TrackStockUploadGUID" Type="Guid" />
+          <Property Name="ItemGUID" Type="Guid" />
+          <Property Name="StockGUID" Type="Guid" />
+          <Property Name="TotalItem" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataItemStockBalanceRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <NavigationProperty Name="codeISSItem" Relationship="Self.FK_dataItemStockBalance_codeISSItem" FromRole="dataItemStockBalance" ToRole="codeISSItem" />
+          <NavigationProperty Name="codeISSStock" Relationship="Self.FK_dataItemStockBalance_codeISSStock" FromRole="dataItemStockBalance" ToRole="codeISSStock" />
+          <NavigationProperty Name="dataTrackStockUpload" Relationship="Self.FK_dataItemStockBalance_dataTrackStockUpload" FromRole="dataItemStockBalance" ToRole="dataTrackStockUpload" />
+        </EntityType>
+        <EntityType Name="dataItemStockEmergencyReserve">
+          <Key>
+            <PropertyRef Name="ItemStockEmergencyReserveGUID" />
+          </Key>
+          <Property Name="ItemStockEmergencyReserveGUID" Type="Guid" Nullable="false" />
+          <Property Name="ItemStockEmergencyUploadGUID" Type="Guid" />
+          <Property Name="ItemGUID" Type="Guid" />
+          <Property Name="QuantityToBeReserved" Type="Int32" />
+          <Property Name="ForWhere" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="ExpectedDateToDispatch" Type="DateTime" Precision="3" />
+          <Property Name="TotalItemInAllStock" Type="Int32" />
+          <Property Name="PipelineOrdersPlaced" Type="Int32" />
+          <Property Name="TotalStockWithPipeline" Type="Int32" />
+          <Property Name="TotalReservedforEmergency" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataItemStockEmergencyReserveRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <NavigationProperty Name="codeISSItem" Relationship="Self.FK_dataItemStockEmergencyReserve_codeISSItem" FromRole="dataItemStockEmergencyReserve" ToRole="codeISSItem" />
+          <NavigationProperty Name="dataItemStockEmergencyUpload" Relationship="Self.FK_dataItemStockEmergencyReserve_dataItemStockEmergencyUpload" FromRole="dataItemStockEmergencyReserve" ToRole="dataItemStockEmergencyUpload" />
+        </EntityType>
+        <EntityType Name="dataItemStockEmergencyUpload">
+          <Key>
+            <PropertyRef Name="ItemStockEmergencyUploadGUID" />
+          </Key>
+          <Property Name="ItemStockEmergencyUploadGUID" Type="Guid" Nullable="false" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="IsLastUpload" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedByGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataItemStockEmergencyUploadRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <NavigationProperty Name="userAccounts" Relationship="Self.FK_dataItemStockEmergencyUpload_userAccounts" FromRole="dataItemStockEmergencyUpload" ToRole="userAccounts" />
+          <NavigationProperty Name="dataItemStockEmergencyReserve" Relationship="Self.FK_dataItemStockEmergencyReserve_dataItemStockEmergencyUpload" FromRole="dataItemStockEmergencyUpload" ToRole="dataItemStockEmergencyReserve" />
+        </EntityType>
+        <EntityType Name="dataTrackStockUpload">
+          <Key>
+            <PropertyRef Name="TrackStockUploadGUID" />
+          </Key>
+          <Property Name="TrackStockUploadGUID" Type="Guid" Nullable="false" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="IsLastUpload" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedByGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataTrackStockUploadRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <NavigationProperty Name="userAccounts" Relationship="Self.FK_dataTrackStockUpload_userAccounts" FromRole="dataTrackStockUpload" ToRole="userAccounts" />
+          <NavigationProperty Name="dataItemStockBalance" Relationship="Self.FK_dataItemStockBalance_dataTrackStockUpload" FromRole="dataTrackStockUpload" ToRole="dataItemStockBalance" />
+        </EntityType>
+        <Association Name="FK_dataItemPipelineUpload_userAccounts">
+          <End Role="userAccounts" Type="Self.userAccounts" Multiplicity="0..1" />
+          <End Role="dataItemPipelineUpload" Type="Self.dataItemPipelineUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="dataItemPipelineUpload">
+              <PropertyRef Name="CreatedByGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockEmergencyUpload_userAccounts">
+          <End Role="userAccounts" Type="Self.userAccounts" Multiplicity="0..1" />
+          <End Role="dataItemStockEmergencyUpload" Type="Self.dataItemStockEmergencyUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockEmergencyUpload">
+              <PropertyRef Name="CreatedByGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataTrackStockUpload_userAccounts">
+          <End Role="userAccounts" Type="Self.userAccounts" Multiplicity="0..1" />
+          <End Role="dataTrackStockUpload" Type="Self.dataTrackStockUpload" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="dataTrackStockUpload">
+              <PropertyRef Name="CreatedByGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userPersonalDetails_userAccounts">
+          <End Role="userAccounts" Type="Self.userAccounts" Multiplicity="1" />
+          <End Role="userPersonalDetails" Type="Self.userPersonalDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="userPersonalDetails">
+              <PropertyRef Name="UserGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userPersonalDetailsLanguage_userPersonalDetails">
+          <End Role="userPersonalDetails" Type="Self.userPersonalDetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userPersonalDetailsLanguage" Type="Self.userPersonalDetailsLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userPersonalDetails">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="userPersonalDetailsLanguage">
+              <PropertyRef Name="UserGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeISSItemLanguage_codeISSItem">
+          <End Role="codeISSItem" Type="Self.codeISSItem" Multiplicity="0..1" />
+          <End Role="codeISSItemLanguage" Type="Self.codeISSItemLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSItem">
+              <PropertyRef Name="ItemGUID" />
+            </Principal>
+            <Dependent Role="codeISSItemLanguage">
+              <PropertyRef Name="ItemGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemOverview_codeISSItem">
+          <End Role="codeISSItem" Type="Self.codeISSItem" Multiplicity="0..1" />
+          <End Role="dataItemOverview" Type="Self.dataItemOverview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSItem">
+              <PropertyRef Name="ItemGUID" />
+            </Principal>
+            <Dependent Role="dataItemOverview">
+              <PropertyRef Name="ItemGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemPipeline_codeISSItem">
+          <End Role="codeISSItem" Type="Self.codeISSItem" Multiplicity="0..1" />
+          <End Role="dataItemPipeline" Type="Self.dataItemPipeline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSItem">
+              <PropertyRef Name="ItemGUID" />
+            </Principal>
+            <Dependent Role="dataItemPipeline">
+              <PropertyRef Name="ItemGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockBalance_codeISSItem">
+          <End Role="codeISSItem" Type="Self.codeISSItem" Multiplicity="0..1" />
+          <End Role="dataItemStockBalance" Type="Self.dataItemStockBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSItem">
+              <PropertyRef Name="ItemGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockBalance">
+              <PropertyRef Name="ItemGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockEmergencyReserve_codeISSItem">
+          <End Role="codeISSItem" Type="Self.codeISSItem" Multiplicity="0..1" />
+          <End Role="dataItemStockEmergencyReserve" Type="Self.dataItemStockEmergencyReserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSItem">
+              <PropertyRef Name="ItemGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockEmergencyReserve">
+              <PropertyRef Name="ItemGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codecodeISSStockLanguage_codeISSStock">
+          <End Role="codeISSStock" Type="Self.codeISSStock" Multiplicity="0..1" />
+          <End Role="codeISSStockLanguage" Type="Self.codeISSStockLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSStock">
+              <PropertyRef Name="StockGUID" />
+            </Principal>
+            <Dependent Role="codeISSStockLanguage">
+              <PropertyRef Name="StockGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemPipeline_codeISSStock">
+          <End Role="codeISSStock" Type="Self.codeISSStock" Multiplicity="0..1" />
+          <End Role="dataItemPipeline" Type="Self.dataItemPipeline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSStock">
+              <PropertyRef Name="StockGUID" />
+            </Principal>
+            <Dependent Role="dataItemPipeline">
+              <PropertyRef Name="StockGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockBalance_codeISSStock">
+          <End Role="codeISSStock" Type="Self.codeISSStock" Multiplicity="0..1" />
+          <End Role="dataItemStockBalance" Type="Self.dataItemStockBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSStock">
+              <PropertyRef Name="StockGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockBalance">
+              <PropertyRef Name="StockGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKcodeISSStock_WarehosueParentGUID">
+          <End Role="codeISSStock" Type="Self.codeISSStock" Multiplicity="0..1" />
+          <End Role="codeISSStock1" Type="Self.codeISSStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeISSStock">
+              <PropertyRef Name="StockGUID" />
+            </Principal>
+            <Dependent Role="codeISSStock1">
+              <PropertyRef Name="ParentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemPipeline_dataItemPipelineUpload">
+          <End Role="dataItemPipelineUpload" Type="Self.dataItemPipelineUpload" Multiplicity="0..1" />
+          <End Role="dataItemPipeline" Type="Self.dataItemPipeline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataItemPipelineUpload">
+              <PropertyRef Name="ItemPipelineUploadGUID" />
+            </Principal>
+            <Dependent Role="dataItemPipeline">
+              <PropertyRef Name="ItemPipelineUploadGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockBalance_dataTrackStockUpload">
+          <End Role="dataTrackStockUpload" Type="Self.dataTrackStockUpload" Multiplicity="0..1" />
+          <End Role="dataItemStockBalance" Type="Self.dataItemStockBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataTrackStockUpload">
+              <PropertyRef Name="TrackStockUploadGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockBalance">
+              <PropertyRef Name="TrackStockUploadGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataItemStockEmergencyReserve_dataItemStockEmergencyUpload">
+          <End Role="dataItemStockEmergencyUpload" Type="Self.dataItemStockEmergencyUpload" Multiplicity="0..1" />
+          <End Role="dataItemStockEmergencyReserve" Type="Self.dataItemStockEmergencyReserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataItemStockEmergencyUpload">
+              <PropertyRef Name="ItemStockEmergencyUploadGUID" />
+            </Principal>
+            <Dependent Role="dataItemStockEmergencyReserve">
+              <PropertyRef Name="ItemStockEmergencyUploadGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ISSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="userAccounts" EntityType="Self.userAccounts" />
+          <EntitySet Name="userPersonalDetails" EntityType="Self.userPersonalDetails" />
+          <EntitySet Name="userPersonalDetailsLanguage" EntityType="Self.userPersonalDetailsLanguage" />
+          <EntitySet Name="codeISSItem" EntityType="Self.codeISSItem" />
+          <EntitySet Name="codeISSItemLanguage" EntityType="Self.codeISSItemLanguage" />
+          <EntitySet Name="codeISSStock" EntityType="Self.codeISSStock" />
+          <EntitySet Name="codeISSStockLanguage" EntityType="Self.codeISSStockLanguage" />
+          <EntitySet Name="codeItemModelWarehouse" EntityType="Self.codeItemModelWarehouse" />
+          <EntitySet Name="dataItemOverview" EntityType="Self.dataItemOverview" />
+          <EntitySet Name="dataItemPipeline" EntityType="Self.dataItemPipeline" />
+          <EntitySet Name="dataItemPipelineUpload" EntityType="Self.dataItemPipelineUpload" />
+          <EntitySet Name="dataItemStockBalance" EntityType="Self.dataItemStockBalance" />
+          <EntitySet Name="dataItemStockEmergencyReserve" EntityType="Self.dataItemStockEmergencyReserve" />
+          <EntitySet Name="dataItemStockEmergencyUpload" EntityType="Self.dataItemStockEmergencyUpload" />
+          <EntitySet Name="dataTrackStockUpload" EntityType="Self.dataTrackStockUpload" />
+          <AssociationSet Name="FK_dataItemPipelineUpload_userAccounts" Association="Self.FK_dataItemPipelineUpload_userAccounts">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="dataItemPipelineUpload" EntitySet="dataItemPipelineUpload" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockEmergencyUpload_userAccounts" Association="Self.FK_dataItemStockEmergencyUpload_userAccounts">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="dataItemStockEmergencyUpload" EntitySet="dataItemStockEmergencyUpload" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataTrackStockUpload_userAccounts" Association="Self.FK_dataTrackStockUpload_userAccounts">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="dataTrackStockUpload" EntitySet="dataTrackStockUpload" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userPersonalDetails_userAccounts" Association="Self.FK_userPersonalDetails_userAccounts">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="userPersonalDetails" EntitySet="userPersonalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userPersonalDetailsLanguage_userPersonalDetails" Association="Self.FK_userPersonalDetailsLanguage_userPersonalDetails">
+            <End Role="userPersonalDetails" EntitySet="userPersonalDetails" />
+            <End Role="userPersonalDetailsLanguage" EntitySet="userPersonalDetailsLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeISSItemLanguage_codeISSItem" Association="Self.FK_codeISSItemLanguage_codeISSItem">
+            <End Role="codeISSItem" EntitySet="codeISSItem" />
+            <End Role="codeISSItemLanguage" EntitySet="codeISSItemLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemOverview_codeISSItem" Association="Self.FK_dataItemOverview_codeISSItem">
+            <End Role="codeISSItem" EntitySet="codeISSItem" />
+            <End Role="dataItemOverview" EntitySet="dataItemOverview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemPipeline_codeISSItem" Association="Self.FK_dataItemPipeline_codeISSItem">
+            <End Role="codeISSItem" EntitySet="codeISSItem" />
+            <End Role="dataItemPipeline" EntitySet="dataItemPipeline" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockBalance_codeISSItem" Association="Self.FK_dataItemStockBalance_codeISSItem">
+            <End Role="codeISSItem" EntitySet="codeISSItem" />
+            <End Role="dataItemStockBalance" EntitySet="dataItemStockBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockEmergencyReserve_codeISSItem" Association="Self.FK_dataItemStockEmergencyReserve_codeISSItem">
+            <End Role="codeISSItem" EntitySet="codeISSItem" />
+            <End Role="dataItemStockEmergencyReserve" EntitySet="dataItemStockEmergencyReserve" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codecodeISSStockLanguage_codeISSStock" Association="Self.FK_codecodeISSStockLanguage_codeISSStock">
+            <End Role="codeISSStock" EntitySet="codeISSStock" />
+            <End Role="codeISSStockLanguage" EntitySet="codeISSStockLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemPipeline_codeISSStock" Association="Self.FK_dataItemPipeline_codeISSStock">
+            <End Role="codeISSStock" EntitySet="codeISSStock" />
+            <End Role="dataItemPipeline" EntitySet="dataItemPipeline" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockBalance_codeISSStock" Association="Self.FK_dataItemStockBalance_codeISSStock">
+            <End Role="codeISSStock" EntitySet="codeISSStock" />
+            <End Role="dataItemStockBalance" EntitySet="dataItemStockBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FKcodeISSStock_WarehosueParentGUID" Association="Self.FKcodeISSStock_WarehosueParentGUID">
+            <End Role="codeISSStock" EntitySet="codeISSStock" />
+            <End Role="codeISSStock1" EntitySet="codeISSStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemPipeline_dataItemPipelineUpload" Association="Self.FK_dataItemPipeline_dataItemPipelineUpload">
+            <End Role="dataItemPipelineUpload" EntitySet="dataItemPipelineUpload" />
+            <End Role="dataItemPipeline" EntitySet="dataItemPipeline" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockBalance_dataTrackStockUpload" Association="Self.FK_dataItemStockBalance_dataTrackStockUpload">
+            <End Role="dataTrackStockUpload" EntitySet="dataTrackStockUpload" />
+            <End Role="dataItemStockBalance" EntitySet="dataItemStockBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataItemStockEmergencyReserve_dataItemStockEmergencyUpload" Association="Self.FK_dataItemStockEmergencyReserve_dataItemStockEmergencyUpload">
+            <End Role="dataItemStockEmergencyUpload" EntitySet="dataItemStockEmergencyUpload" />
+            <End Role="dataItemStockEmergencyReserve" EntitySet="dataItemStockEmergencyReserve" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ISSModelStoreContainer" CdmEntityContainer="ISSEntities">
+          <EntitySetMapping Name="userAccounts">
+            <EntityTypeMapping TypeName="ISSModel.userAccounts">
+              <MappingFragment StoreEntitySet="userAccounts">
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+                <ScalarProperty Name="RequestedOn" ColumnName="RequestedOn" />
+                <ScalarProperty Name="SecurityQuestionGUID" ColumnName="SecurityQuestionGUID" />
+                <ScalarProperty Name="SecurityAnswer" ColumnName="SecurityAnswer" />
+                <ScalarProperty Name="AccountStatusID" ColumnName="AccountStatusID" />
+                <ScalarProperty Name="IsFirstLogin" ColumnName="IsFirstLogin" />
+                <ScalarProperty Name="HasPhoto" ColumnName="HasPhoto" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="userAccountsRowVersion" ColumnName="userAccountsRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userPersonalDetails">
+            <EntityTypeMapping TypeName="ISSModel.userPersonalDetails">
+              <MappingFragment StoreEntitySet="userPersonalDetails">
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="GenderGUID" ColumnName="GenderGUID" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="PreferedLanguageID" ColumnName="PreferedLanguageID" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="userPersonalDetailsRowVersion" ColumnName="userPersonalDetailsRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userPersonalDetailsLanguage">
+            <EntityTypeMapping TypeName="ISSModel.userPersonalDetailsLanguage">
+              <MappingFragment StoreEntitySet="userPersonalDetailsLanguage">
+                <ScalarProperty Name="PersonalDetailsLanguageGUID" ColumnName="PersonalDetailsLanguageGUID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="GrandFatherName" ColumnName="GrandFatherName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="userPersonalDetailsLanguageRowVersion" ColumnName="userPersonalDetailsLanguageRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeISSItem">
+            <EntityTypeMapping TypeName="ISSModel.codeISSItem">
+              <MappingFragment StoreEntitySet="codeISSItem">
+                <ScalarProperty Name="ItemGUID" ColumnName="ItemGUID" />
+                <ScalarProperty Name="SequencId" ColumnName="SequencId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeISSItemRowVersion" ColumnName="codeISSItemRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeISSItemLanguage">
+            <EntityTypeMapping TypeName="ISSModel.codeISSItemLanguage">
+              <MappingFragment StoreEntitySet="codeISSItemLanguage">
+                <ScalarProperty Name="ItemLanguageGUID" ColumnName="ItemLanguageGUID" />
+                <ScalarProperty Name="ItemGUID" ColumnName="ItemGUID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeISSItemLanguageRowVersion" ColumnName="codeISSItemLanguageRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeISSStock">
+            <EntityTypeMapping TypeName="ISSModel.codeISSStock">
+              <MappingFragment StoreEntitySet="codeISSStock">
+                <ScalarProperty Name="StockGUID" ColumnName="StockGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="LocationGUID" ColumnName="LocationGUID" />
+                <ScalarProperty Name="ParentGUID" ColumnName="ParentGUID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeISSStockRowVersion" ColumnName="codeISSStockRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeISSStockLanguage">
+            <EntityTypeMapping TypeName="ISSModel.codeISSStockLanguage">
+              <MappingFragment StoreEntitySet="codeISSStockLanguage">
+                <ScalarProperty Name="StockLanguageGUID" ColumnName="StockLanguageGUID" />
+                <ScalarProperty Name="StockGUID" ColumnName="StockGUID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="StockDescription" ColumnName="StockDescription" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codecodeISSStockLanguageRowVersion" ColumnName="codecodeISSStockLanguageRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeItemModelWarehouse">
+            <EntityTypeMapping TypeName="ISSModel.codeItemModelWarehouse">
+              <MappingFragment StoreEntitySet="codeItemModelWarehouse">
+                <ScalarProperty Name="ItemModelWarehouseGUID" ColumnName="ItemModelWarehouseGUID" />
+                <ScalarProperty Name="WarehouseItemModelGUID" ColumnName="WarehouseItemModelGUID" />
+                <ScalarProperty Name="WarehouseGUID" ColumnName="WarehouseGUID" />
+                <ScalarProperty Name="LowestAmountAllowed" ColumnName="LowestAmountAllowed" />
+                <ScalarProperty Name="ReOrderedLimit" ColumnName="ReOrderedLimit" />
+                <ScalarProperty Name="IsNeedApproval" ColumnName="IsNeedApproval" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeItemModelWarehouseRowVersion" ColumnName="codeItemModelWarehouseRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+                <ScalarProperty Name="TotalAvaiable" ColumnName="TotalAvaiable" />
+                <ScalarProperty Name="TotalEntry" ColumnName="TotalEntry" />
+                <ScalarProperty Name="TotalRelease" ColumnName="TotalRelease" />
+                <ScalarProperty Name="TotalPending" ColumnName="TotalPending" />
+                <ScalarProperty Name="FlowTypeGUID" ColumnName="FlowTypeGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataItemOverview">
+            <EntityTypeMapping TypeName="ISSModel.dataItemOverview">
+              <MappingFragment StoreEntitySet="dataItemOverview">
+                <ScalarProperty Name="ItemOverviewGUID" ColumnName="ItemOverviewGUID" />
+                <ScalarProperty Name="ItemGUID" ColumnName="ItemGUID" />
+                <ScalarProperty Name="TotalItemAllStocks" ColumnName="TotalItemAllStocks" />
+                <ScalarProperty Name="TotalItemPipeLine" ColumnName="TotalItemPipeLine" />
+                <ScalarProperty Name="TotalItemStockWithPipeLine" ColumnName="TotalItemStockWithPipeLine" />
+                <ScalarProperty Name="TotalReservedForEmergency" ColumnName="TotalReservedForEmergency" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataItemOverviewRowVersion" ColumnName="dataItemOverviewRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataItemPipeline">
+            <EntityTypeMapping TypeName="ISSModel.dataItemPipeline">
+              <MappingFragment StoreEntitySet="dataItemPipeline">
+                <ScalarProperty Name="ItemPipelineGUID" ColumnName="ItemPipelineGUID" />
+                <ScalarProperty Name="ItemPipelineUploadGUID" ColumnName="ItemPipelineUploadGUID" />
+                <ScalarProperty Name="ItemGUID" ColumnName="ItemGUID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ETA" ColumnName="ETA" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataItemPipelineRowVersion" ColumnName="dataItemPipelineRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+                <ScalarProperty Name="StockGUID" ColumnName="StockGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataItemPipelineUpload">
+            <EntityTypeMapping TypeName="ISSModel.dataItemPipelineUpload">
+              <MappingFragment StoreEntitySet="dataItemPipelineUpload">
+                <ScalarProperty Name="ItemPipelineUploadGUID" ColumnName="ItemPipelineUploadGUID" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="IsLastUpload" ColumnName="IsLastUpload" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreatedByGUID" ColumnName="CreatedByGUID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataItemPipelineUploadRowVersion" ColumnName="dataItemPipelineUploadRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataItemStockBalance">
+            <EntityTypeMapping TypeName="ISSModel.dataItemStockBalance">
+              <MappingFragment StoreEntitySet="dataItemStockBalance">
+                <ScalarProperty Name="ItemStockBalanceGUID" ColumnName="ItemStockBalanceGUID" />
+                <ScalarProperty Name="TrackStockUploadGUID" ColumnName="TrackStockUploadGUID" />
+                <ScalarProperty Name="ItemGUID" ColumnName="ItemGUID" />
+                <ScalarProperty Name="StockGUID" ColumnName="StockGUID" />
+                <ScalarProperty Name="TotalItem" ColumnName="TotalItem" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataItemStockBalanceRowVersion" ColumnName="dataItemStockBalanceRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataItemStockEmergencyReserve">
+            <EntityTypeMapping TypeName="ISSModel.dataItemStockEmergencyReserve">
+              <MappingFragment StoreEntitySet="dataItemStockEmergencyReserve">
+                <ScalarProperty Name="ItemStockEmergencyReserveGUID" ColumnName="ItemStockEmergencyReserveGUID" />
+                <ScalarProperty Name="ItemStockEmergencyUploadGUID" ColumnName="ItemStockEmergencyUploadGUID" />
+                <ScalarProperty Name="ItemGUID" ColumnName="ItemGUID" />
+                <ScalarProperty Name="QuantityToBeReserved" ColumnName="QuantityToBeReserved" />
+                <ScalarProperty Name="ForWhere" ColumnName="ForWhere" />
+                <ScalarProperty Name="ExpectedDateToDispatch" ColumnName="ExpectedDateToDispatch" />
+                <ScalarProperty Name="TotalItemInAllStock" ColumnName="TotalItemInAllStock" />
+                <ScalarProperty Name="PipelineOrdersPlaced" ColumnName="PipelineOrdersPlaced" />
+                <ScalarProperty Name="TotalStockWithPipeline" ColumnName="TotalStockWithPipeline" />
+                <ScalarProperty Name="TotalReservedforEmergency" ColumnName="TotalReservedforEmergency" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataItemStockEmergencyReserveRowVersion" ColumnName="dataItemStockEmergencyReserveRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataItemStockEmergencyUpload">
+            <EntityTypeMapping TypeName="ISSModel.dataItemStockEmergencyUpload">
+              <MappingFragment StoreEntitySet="dataItemStockEmergencyUpload">
+                <ScalarProperty Name="ItemStockEmergencyUploadGUID" ColumnName="ItemStockEmergencyUploadGUID" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="IsLastUpload" ColumnName="IsLastUpload" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreatedByGUID" ColumnName="CreatedByGUID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataItemStockEmergencyUploadRowVersion" ColumnName="dataItemStockEmergencyUploadRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataTrackStockUpload">
+            <EntityTypeMapping TypeName="ISSModel.dataTrackStockUpload">
+              <MappingFragment StoreEntitySet="dataTrackStockUpload">
+                <ScalarProperty Name="TrackStockUploadGUID" ColumnName="TrackStockUploadGUID" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="IsLastUpload" ColumnName="IsLastUpload" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreatedByGUID" ColumnName="CreatedByGUID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataTrackStockUploadRowVersion" ColumnName="dataTrackStockUploadRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

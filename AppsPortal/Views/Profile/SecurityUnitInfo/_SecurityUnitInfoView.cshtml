@@ -1,0 +1,59 @@
+﻿@model StafFSecurityUnitInfoModel
+    <div class="row section">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-right pull-right col-nopadding-left">
+            <a class="btn Edit-Link" onclick="EditSection(this, '@Url.Action("SecurityUnitInfoUpdate","Profile")', 'SecurityUnitControlersFormControls');">Edit</a>
+        </div>
+        <div class="col-lg-2 col-md-8 col-sm-8 col-xs-8">
+            <h3 class="Title">Security Unit Informations</h3>
+        </div>
+        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+            <div id="PanelForSecurityInfoForm" class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.NextOfKinName</h5>
+                                <span>@Model.NextOfKinName&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.KinMobileNumber</h5>
+                                <span>@Model.KinMobileNumber&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.BSAFECertAcquired</h5>
+                                <span>@(Model.BSAFECertAcquired.HasValue ? (Model.BSAFECertAcquired.Value == true ? "Yes" : "NO") : "")&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.BSAFEExpiryDate</h5>
+                                <span>@Model.BSAFEExpiryDate&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.NumberOfDependants</h5>
+                                <span>@Model.NumberOfDependants&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breath-bottom">
+                                <h5 class="SubTitle">@resxDbFields.DependantsName</h5>
+                                <span>@Model.DependantsName&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

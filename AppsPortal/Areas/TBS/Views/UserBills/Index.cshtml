@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Bills";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("28aafff2-8f41-4556-bb73-f1c4bd6c94a4")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.UserBillsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            @*<div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TelecomCompanyDescription, DbColumnName = "TelecomCompanyDescription", FilterForDataType = "Text" })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                </div>*@
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.UserBillsDataTable)
+        </div>
+    </div>
+    @*<div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.UserBillsDataTable)">
+            @Html.IndexDatatableFilter(DataTableNames.UserBillsDataTable)
+            @Html.IndexDatatableCreate(Permissions.TelecomCompanies.Create, Apps.TBS, "/TBS/BillManagement/Create")
+            @Html.IndexDatatableDelete(Permissions.TelecomCompanies.Delete, Apps.TBS, DataTableNames.UserBillsDataTable)
+            @Html.IndexDatatableRestor(Permissions.TelecomCompanies.Restore, Apps.TBS, DataTableNames.UserBillsDataTable)
+            @Html.IndexDatatableRefresh(DataTableNames.UserBillsDataTable)
+        </div>*@
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.UserBillsDataTable, FormController = "UserBills", Area = "TBS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>
+
+@*<a class='Modal-Link' href='#' data-url='/TBS/BillManagement/ImportMobileBill/'>
+        Import File
+    </a>*@
+

@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Medical Items";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("227d1d27-431d-4f35-bf55-557b39b93f17")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.MedicalItemsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.BrandName, DbColumnName = "MedicalItemGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().MedicalItems(), IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SourceGUID, DbColumnName = "SourceGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().MedicalSource(), IsSearchable = true })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.RemainingItemsQuantity, DbColumnName = "RemainingItemsQuantity", FilterForDataType = "Number" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Barcode, DbColumnName = "Barcode", FilterForDataType = "Text" })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MedicalDoseUnitGUID, DbColumnName = "MedicalDoseUnitGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().LookupValues(LookupTables.MedicalDoseUnit), IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MedicalGenericNameGUID, DbColumnName = "MedicalGenericNameGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().MedicalGenericName(), IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MedicalPackingUnitGUID, DbColumnName = "MedicalPackingUnitGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().LookupValues(LookupTables.MedicalPackingUnit), IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MedicalPharmacologicalFormGUID, DbColumnName = "MedicalPharmacologicalFormGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().LookupValues(LookupTables.MedicalPharmacologicalForm), IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MedicalRouteAdministrationGUID, DbColumnName = "MedicalRouteAdministrationGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().LookupValues(LookupTables.MedicalRouteAdministration), IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MedicalTreatmentGUID, DbColumnName = "MedicalTreatmentGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().LookupValues(LookupTables.MedicalTreatment), IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MedicalManufacturerGUID, DbColumnName = "MedicalManufacturerGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().MedicalManufacturer(), IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.MedicalItemsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.MedicalItemsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.MedicalItemsDataTable)
+        @Html.IndexDatatableCreate(Permissions.MedicalItem.Create, Apps.EMT, "/EMT/MedicalItems/Create")
+        @Html.IndexDatatableDelete(Permissions.MedicalItem.Delete, Apps.EMT, DataTableNames.MedicalItemsDataTable)
+        @Html.IndexDatatableRestor(Permissions.MedicalItem.Restore, Apps.EMT, DataTableNames.MedicalItemsDataTable)
+        <button type="button" title="Update Medical Items Balance" class="btn btn-sm btn-primary" onclick="SubmitMedicalItemsBalance();"><i class="fa fa-exchange"></i></button>
+
+        @Html.IndexDatatableRefresh(DataTableNames.MedicalItemsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MedicalItemsDataTable, Area = "EMT", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>
+<script>
+    function SubmitMedicalItemsBalance() {
+        $.ajax({
+            method: 'post',
+            url: "/EMT/MedicalItems/MedicalItemsBalance/",
+            success: function (JsonResult, status, xhr) {
+                Notify(NotificationType.Success, "Update Medical Items Balance");
+            },
+            error: function (ex) {
+                Notify(NotificationType.Error, "There was an error submitting the record");
+            }
+        });
+    }
+</script>

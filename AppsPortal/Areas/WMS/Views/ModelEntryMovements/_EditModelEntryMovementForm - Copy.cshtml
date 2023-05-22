@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "ModelManagement";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("f473172b-3275-4a09-8c4a-ff082fee9570")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.WarehouseModelEntryMovementsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemClassification, DbColumnName = "WarehouseItemClassificationGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().ItemClassification(), IsMultiple = true })
+                
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.WarehouseItemGUID, DbColumnName = "WarehouseItemGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().WarehouseItems(), IsMultiple = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.BrandGUID, DbColumnName = "BrandGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Brands(), IsMultiple = true})
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemModelWarehouseGUID, DbColumnName = "ItemModelWarehouseGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().WarehouseItemModels(), IsMultiple = true })
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })*@
+
+            </div>
+            <div class="col-lg-12">
+
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })*@
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.BarcodeNumber, DbColumnName = "BarcodeNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SerialNumber, DbColumnName = "SerialNumber", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.IME1, DbColumnName = "IME1", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MAC, DbColumnName = "MAC", FilterForDataType = "Text" })
+
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Custodian, DbColumnName = "Custodian", FilterForDataType = "Text" })*@
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = "GSM", DbColumnName = "GSM", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = "MSRPID", DbColumnName = "MSRPID", FilterForDataType = "Text" })
+
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffName, DbColumnName = "CustodianStaffGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().UsersForWarehouse(), IsMultiple = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LocationGUID, DbColumnName = "WarehouseLocationGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().WarehouseLocation(), IsMultiple = true })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CustodianType, DbColumnName = "LastCustdianGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().WarehouseRequsterTypes(), IsMultiple = true})
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Custodian, DbColumnName = "Custodian", FilterForDataType = "Text" })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.WarehouseOwner, DbColumnName = "WarehouseOwnerGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Warehouses(), IsMultiple = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.WarehouseDescription, DbColumnName = "CustodianWarehouseGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Warehouses(), IsMultiple = true })
+
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemServiceStatusGUID, DbColumnName = "ItemServiceStatusGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().WarehouseItemServiceStatus(), IsMultiple = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemCondition, DbColumnName = "ItemConditionGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().WarehouseItemCondition(), IsMultiple = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DeliveryStatus, DbColumnName = "DeliveryStatusGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().MovementStatus(), IsMultiple = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Comments, DbColumnName = "Comments", FilterForDataType = "Text" })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = "PO Number", DbColumnName = "BillNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.VehicalNumber, DbColumnName = "CustodianStaffGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().WarehousesVehicals(), IsMultiple = true})
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CreatedBy, DbColumnName = "CreatedByGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Users(true), IsMultiple = true})
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TransferFromCountryGUID, DbColumnName = "TransferFromCountryGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Countries(), IsMultiple = true})
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TransferToCountryGUID, DbColumnName = "TransferToCountryGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Countries(), IsMultiple = true})
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.VerifyBy, DbColumnName = "LastVerifiedByGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Users(true), IsMultiple = true})
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.VerificationStatus, DbColumnName = "VerificationStatusGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().ItemVerificationStatus(), IsMultiple = true})
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelStatus, DbColumnName = "ModelStatusGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().WarehouseItemStatus(), IsMultiple = true})
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelAge, DbColumnName = "ModelAge", FilterForDataType = "Number" })
+
+
+
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.WarehouseModelEntryMovementsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format(" {0}ActionsContainer", DataTableNames.WarehouseModelEntryMovementsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.WarehouseModelEntryMovementsDataTable)
+
+        @*@Html.IndexDatatableCreate(Permissions.WarehouseItemsEntry.Create, Apps.WMS, "/WMS/ModelMovements/WarehouseModelEntryMovementsCreate")*@
+
+
+        @Html.FieldDataTableCreate(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("WarehouseModelEntryMovementsCreate", "ModelMovements"))
+        @Html.FieldDataTableCreateBulk(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("WarehouseReleaseBulkItemCreate", "ModelMovements"))
+        @Html.IndexDatatableRetrieveBulkItems(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("GetRetrieveBulkItems", "ModelMovements"))
+        @Html.IndexDatatableReminderPendingConfirmationBulkItems(Permissions.WarehouseItemsEntry.Create, Apps.WMS, DataTableNames.WarehouseModelEntryMovementsDataTable)
+        @Html.IndexDatatableReminderCustodianBulkItems(Permissions.WarehouseItemsEntry.Create, Apps.WMS, DataTableNames.WarehouseModelEntryMovementsDataTable)
+        @Html.IndexDatatableExchnageBulkItems(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("GetExchnageBulkItems", "ModelMovements"))
+        @Html.IndexDatatableChangeStatusForBulkItems(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("GetChangeBulkItemStatus", "ModelMovements"))
+        @Html.IndexDatatableVerifyItem(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("GetVerificationItem", "ModelMovements"))
+        @*@Html.IndexDatatableCheckBulkRecords(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("WarehouseModelEntryMovementsCheckCustdion", "ModelMovements"))*@
+        @Html.IndexDatatableDelete(Permissions.WarehouseItemsEntry.Delete, Apps.WMS, DataTableNames.WarehouseModelEntryMovementsDataTable)
+        @Html.IndexDatatableRestor(Permissions.WarehouseItemsEntry.Restore, Apps.WMS, DataTableNames.WarehouseModelEntryMovementsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.WarehouseModelEntryMovementsDataTable)
+        @Html.FieldDataTableSearch(Permissions.WarehouseItemsEntry.Create, Apps.WMS, "/WMS/ModelMovements/GetReleaseMultidSearch")
+        @Html.FieldDataTableContact(Permissions.WarehouseItemsEntry.Create, Apps.WMS, "/WMS/STIContacts/STIContactsIndex")
+        @Html.FieldDataTableBulkUploadItems(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("UploadFiles", "ModelMovements"))
+
+        @Html.FieldDataTableDelayItems("/WMS/FlowIndex")
+        @*@Html.ac*@
+        @Html.ActionLink("Download Entry Template", "GetTemplateFile", "ModelMovements", null, new { @style = "font-family: 'inherit;' font-weight: normal;" })
+
+
+        @*<a href="../Areas/WMS/Templates/ModelEntryTemplate.xlsx">Download Entry Template</a>*@
+
+
+    </div>
+    <div class="page--body  ">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseModelEntryMovementsDataTable, Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+
+    @*@Html.ActionLink("Export All Items", "ExportAllModelItemInformation", "Dashboard", null, new { @class = "btn btn-primary" })*@
+
+</div>
+<script>
+
+    //$(function () {
+    //    $.ajax({
+
+    //        type: "post",
+    //        url: '/WMS/ModelMovements/InitCheckPendingRequest',
+    //        success: function (data) {
+    //            //if (data.pendingForMyWarehosue > 0 || data.PendingForOtherWarehouse > 0 || data.PendingForStaff > 0 || data.DelayInReturn > 0) {
+    //                $('#Partial-Container').html(data);
+    //                $('#FormModal').modal('show');
+    //                $('#Loading-Container').hide();
+    //            //}
+    //        },
+    //        error: function (err) {
+    //            console.log(err.responseText);
+    //        }
+    //    });
+
+    //})
+
+</script>

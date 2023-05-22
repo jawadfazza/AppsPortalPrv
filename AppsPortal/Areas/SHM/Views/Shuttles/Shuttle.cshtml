@@ -1,0 +1,23 @@
+﻿@model ShuttleUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ShuttleGUID == Guid.Empty) ? "New Shuttle Type" : "Edit Shuttle Type"; }
+
+@Html.PageHeader("460cb9e2-4bbf-46c6-ae6c-1254d9d88f2e")
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+            @Html.Partial("~/Areas/SHM/Views/Shuttles/_ShuttleForm.cshtml")
+            <div id="TabContainer">
+                @if (Model.ShuttleGUID != Guid.Empty && Model.Active)
+                {
+                    @Html.Partial("~/Areas/SHM/Views/ShuttleStaffs/_Index.cshtml", new MasterRecordStatus { ParentGUID = Model.ShuttleGUID, IsParentActive = Model.Active })
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

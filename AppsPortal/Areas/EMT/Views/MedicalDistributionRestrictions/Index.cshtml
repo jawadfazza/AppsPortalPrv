@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "MedicalDistributionRestriction";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("1ee811ae-d7ca-4907-93ec-4882b641d92e")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.MedicalDistributionRestrictionsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.UNHCRNumber, DbColumnName = "UNHCRNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.IDNumber, DbColumnName = "IDNumber", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DiseaseTypeGUID, DbColumnName = "DiseaseTypeGUID", FilterForDataType = "Options", DataList = new DropDownList().DiseaseType() })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+
+            </div>
+            
+        </div>
+      
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.MedicalDistributionRestrictionsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.MedicalDistributionRestrictionsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.MedicalDistributionRestrictionsDataTable)
+
+        @Html.FieldDataTableCreate(Permissions.MedicalDistributionRestriction.Create, Apps.EMT, Url.Action("MedicalDistributionRestrictionCreate", "MedicalDistributionRestrictions"))
+        @Html.IndexDatatableDelete(Permissions.MedicalDistributionRestriction.Delete, Apps.EMT, DataTableNames.MedicalDistributionRestrictionsDataTable)
+        @Html.IndexDatatableRestor(Permissions.MedicalDistributionRestriction.Restore, Apps.EMT, DataTableNames.MedicalDistributionRestrictionsDataTable)
+        <button type="button" title="Update Records By ProGres" class="btn btn-sm btn-primary" onclick="SubmitTransferIndividualsInfo();" ><i class="fa fa-exchange"></i></button>
+        @Html.IndexDatatableRefresh(DataTableNames.MedicalDistributionRestrictionsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MedicalDistributionRestrictionsDataTable, FormController = "MedicalDistributionRestrictions", Area = "EMT", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>
+
+<script>
+    function SubmitTransferIndividualsInfo() {
+        $.ajax({
+            method: 'post',
+            url: "/EMT/MedicalDistributionRestrictions/MedicalDistributionRestrictionTransfer/",
+            success: function (JsonResult, status, xhr) {
+                Notify(NotificationType.Success, "Successfully Transferred Individuals Info");
+            },
+            error: function (ex) {
+                Notify(NotificationType.Error, "There was an error submitting the record");
+            }
+        });
+    }
+</script>
+

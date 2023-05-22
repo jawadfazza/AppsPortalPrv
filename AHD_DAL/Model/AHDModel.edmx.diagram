@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c3f7843eb7f5499ba4510806906bb18e" Name="Diagram1" ZoomLevel="23">
+        <EntityTypeShape EntityType="AHDModel.dataAdminAccessStaff" Width="1.5" PointX="5.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataAHDInternationalStaffEntitlement" Width="1.5" PointX="8" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataAHDInternationalStaffEntitlementDetail" Width="1.5" PointX="10.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataAHDInternationalStaffEntitlementFlow" Width="1.5" PointX="10.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataAHDInternationalStaffEntitlementRoomTaken" Width="1.5" PointX="12.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataAHDPeriodEntitlement" Width="1.5" PointX="5.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataDangerPayInformation" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataInternationalStaffAttendance" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataNationalStaffDangerPay" Width="1.5" PointX="8" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataNationalStaffDangerPayDetail" Width="1.5" PointX="10.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataPhoneDirectory" Width="1.5" PointX="2.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataRestAndRecuperationRequest" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataRestAndRecuperationRequestDocument" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataRestAndRecuperationRequestLeaveCountry" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataRestAndRecuperationRequestLeaveDate" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataRestAndRecuperationRequestLeaveFlow" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffEligibleForDangerPay" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffOnlineTraining" Width="1.5" PointX="17.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffProfileFeedback" Width="1.5" PointX="14.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffProfileFeedbackFlow" Width="1.5" PointX="17" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffRelative" Width="1.5" PointX="7.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffRenwalResidency" Width="1.5" PointX="12.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataTempRestAndRecuperationRequestLeaveDate" Width="1.5" PointX="9.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataVehicleMaintenanceRequest" Width="1.5" PointX="12.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.dataVehicleMaintenanceRequestFlow" Width="1.5" PointX="15" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AHDModel.StaffContactsInformation" Width="1.5" PointX="17.75" PointY="13.75" IsExpanded="true" />
+        <AssociationConnector Association="AHDModel.FK_dataAHDInternationalStaffEntitlement_dataAHDPeriodEntitlement" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataAHDInternationalStaffEntitlementDetailType_dataAHDInternationalStaffEntitlement" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataAHDInternationalStaffEntitlementFlow_dataAHDInternationalStaffEntitlement" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataAHDInternationalStaffEntitlementRoomTaken_dataAHDInternationalStaffEntitlementDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataNationalStaffDangerPay_dataDangerPayInformation" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataNationalStaffDangerPay_dataDangerPayInformationMain" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataNationalStaffDangerPayDetail_dataNationalStaffDangerPay" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataNationalStaffDangerPayDetail_dataNationalStaffDangerPayDetailParent" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationRequestDocument_dataRestAndRecuperationRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationRequestLeaveCountry_dataRestAndRecuperationRequests" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationRequestLeaveDate_dataRestAndRecuperationRequests" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationRequestLeaveFlow_dataRestAndRecuperationRequests" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataStaffProfileFeedbackFlow_Feedback" ManuallyRouted="false" />
+        <AssociationConnector Association="AHDModel.FK_dataVehicleMaintenanceRequestFlow_dataVehicleMaintenanceRequest" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AHDModel.StaffCoreData" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AHDModel.userAccounts" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="AHDModel.userPersonalDetails" Width="1.5" PointX="3" PointY="15.125" />
+        <EntityTypeShape EntityType="AHDModel.userPersonalDetailsLanguage" Width="1.5" PointX="8.25" PointY="33.375" />
+        <EntityTypeShape EntityType="AHDModel.userServiceHistory" Width="1.5" PointX="10.5" PointY="33.5" />
+        <EntityTypeShape EntityType="AHDModel.codeAHDEntitlementType" Width="1.5" PointX="29.875" PointY="23" />
+        <EntityTypeShape EntityType="AHDModel.codeAHDEntitlementTypePerDutyStation" Width="1.5" PointX="32.125" PointY="26.875" />
+        <EntityTypeShape EntityType="AHDModel.codeAHDInternationalStaffAttendanceType" Width="1.5" PointX="31.875" PointY="23" />
+        <EntityTypeShape EntityType="AHDModel.codeAHDLocationNoRAndRTicket" Width="1.5" PointX="32.875" PointY="17.75" />
+        <EntityTypeShape EntityType="AHDModel.codeAHDPhoneHolderType" Width="1.5" PointX="8.875" PointY="30" />
+        <EntityTypeShape EntityType="AHDModel.codeBank" Width="1.5" PointX="31.875" PointY="14.125" />
+        <EntityTypeShape EntityType="AHDModel.codeBankLanguage" Width="1.5" PointX="34.125" PointY="14" />
+        <EntityTypeShape EntityType="AHDModel.codeDepartments" Width="1.5" PointX="12.875" PointY="28" />
+        <EntityTypeShape EntityType="AHDModel.codeDepartmentsLanguages" Width="1.5" PointX="15.125" PointY="28.125" />
+        <EntityTypeShape EntityType="AHDModel.codeDutyStations" Width="1.5" PointX="26.875" PointY="26.875" />
+        <EntityTypeShape EntityType="AHDModel.codeDutyStationsLanguages" Width="1.5" PointX="29.125" PointY="27.125" />
+        <EntityTypeShape EntityType="AHDModel.codeJobTitles" Width="1.5" PointX="29.875" PointY="6.25" />
+        <EntityTypeShape EntityType="AHDModel.codeJobTitlesLanguages" Width="1.5" PointX="32.125" PointY="6" />
+        <EntityTypeShape EntityType="AHDModel.codeLocations" Width="1.5" PointX="27.875" PointY="18" />
+        <EntityTypeShape EntityType="AHDModel.codeLocationsLanguages" Width="1.5" PointX="30.125" PointY="18.5" />
+        <EntityTypeShape EntityType="AHDModel.codeTablesValuesConfigurations" Width="1.5" PointX="24.375" PointY="28.5" />
+        <AssociationConnector Association="AHDModel.FK_dataAdminAccessStaff_StaffCoreData" />
+        <AssociationConnector Association="AHDModel.FK_dataAHDInternationalStaffEntitlement_userPersonalDetails" />
+        <AssociationConnector Association="AHDModel.FK_dataAHDInternationalStaffEntitlementDetail_codeAHDEntitlementType" />
+        <AssociationConnector Association="AHDModel.FK_dataAHDInternationalStaffEntitlementFlow_userPersonalDetails" />
+        <AssociationConnector Association="AHDModel.dataDangerPayInformation_userAccounts" />
+        <AssociationConnector Association="AHDModel.FK_dataInternationalStaffAttendance_codeAHDInternationalStaffAttendanceType" />
+        <AssociationConnector Association="AHDModel.FK_dataInternationalStaffAttendance_userPersonalDetails" />
+        <AssociationConnector Association="AHDModel.FK_dataInternationalStaffAttendance_userPersonalDetails_createBy" />
+        <AssociationConnector Association="AHDModel.FK_dataPhoneDirectory_codeAHDPhoneHolderType" />
+        <AssociationConnector Association="AHDModel.FK_dataPhoneDirectory_staffcoredata" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationApprovedBy_userPersonalDetails" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationLeave_userPersonalDetails" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationLeaveApprovedByHRStaff_userPersonalDetails" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationLeaveReviewedByHRStaff_userPersonalDetails" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationLeaveSuperviosr_userPersonalDetails" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationRequest_userPersonalDetailsArrangement" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationRequestLeaveCreatedBy_userPersonalDetails" />
+        <AssociationConnector Association="AHDModel.FK_dataRestAndRecuperationRequestLeaveFlow_userPersonalDetails" />
+        <AssociationConnector Association="AHDModel.FK_dataStaffEligibleForDangerPay_userpersonal" />
+        <AssociationConnector Association="AHDModel.dataStaffOnlineTraining_StaffCoredata" />
+        <AssociationConnector Association="AHDModel.FK_dataStaffProfileFeedback_StaffCoreData" />
+        <AssociationConnector Association="AHDModel.FK_dataStaffProfileFeedbackFlow_userPersonalDetails_createBy" />
+        <AssociationConnector Association="AHDModel.dataStaffOnlineTraining_dataStaffRelative" />
+        <AssociationConnector Association="AHDModel.FK_dataStaffRenwalResidency_StaffCoreData" />
+        <AssociationConnector Association="AHDModel.FK_dataStaffRenwalResidency_userAccounts" />
+        <AssociationConnector Association="AHDModel.FK_dataVehicleMaintenanceRequestFlow_userAccounts" />
+        <AssociationConnector Association="AHDModel.FK_userPersonalDetails_userAccounts" />
+        <AssociationConnector Association="AHDModel.FK_userServiceHistory_userAccount" />
+        <AssociationConnector Association="AHDModel.FK_userPersonalDetailsLanguage_userPersonalDetails" />
+        <AssociationConnector Association="AHDModel.FK_codeAHDEntitlementTypePerDutyStation_codeAHDEntitlementType" />
+        <AssociationConnector Association="AHDModel.FK_codeAHDEntitlementTypePerDutyStation_codeDutyStations" />
+        <AssociationConnector Association="AHDModel.codeBank_codeBankLanguage_FK" />
+        <AssociationConnector Association="AHDModel.FK_codeDepartmentsLanguages_codeDepartments" />
+        <AssociationConnector Association="AHDModel.FK_codeDutyStationsLanguages_codeDutyStations" />
+        <AssociationConnector Association="AHDModel.FK_codeJobTitlesLanguages_codeJobTitles" />
+        <AssociationConnector Association="AHDModel.FK_codeLocationsLanguages_codeLocations" />
+        <EntityTypeShape EntityType="AHDModel.v_NationalStaffDangerPayment" Width="1.5" PointX="19.375" PointY="6.75" />
+        <AssociationConnector Association="AHDModel.FK_dataInternationalStaffAttendance_dataRestAndRecuperationRequest" />
+        <EntityTypeShape EntityType="AHDModel.codeOrganizationHoliday" Width="1.5" PointX="17.375" PointY="19.75" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffLeaveAttendanceDaily" Width="1.5" PointX="35.125" PointY="18.125" />
+        <AssociationConnector Association="AHDModel.FK_dataStaffLeaveAttendanceDaily_codeAHDInternationalStaffAttendanceType" />
+        <AssociationConnector Association="AHDModel.FK_dataStaffLeaveAttendanceDaily_userPersonalDetails" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffRenwalResidencyFlow" Width="1.5" PointX="15" PointY="14.75" />
+        <AssociationConnector Association="AHDModel.FK_dataStaffRenwalResidencyFlow_dataRenwalResidencyStaff" />
+        <AssociationConnector Association="AHDModel.FK_dataStaffRenwalResidencyFlow_userAccounts" />
+        <EntityTypeShape EntityType="AHDModel.dataShuttle" Width="1.5" PointX="29.125" PointY="31.125" />
+        <EntityTypeShape EntityType="AHDModel.dataShuttleRequest" Width="1.5" PointX="20.375" PointY="14.125" />
+        <EntityTypeShape EntityType="AHDModel.dataShuttleRequestStaff" Width="1.5" PointX="22.625" PointY="15.5" />
+        <EntityTypeShape EntityType="AHDModel.dataShuttleStaff" Width="1.5" PointX="36.625" PointY="21.375" />
+        <EntityTypeShape EntityType="AHDModel.dataShuttleVehicle" Width="1.5" PointX="34.375" PointY="21.125" />
+        <AssociationConnector Association="AHDModel.FK_dataShuttle_codeDutyStations" />
+        <AssociationConnector Association="AHDModel.FK_dataShuttleVehical_dataShuttle" />
+        <AssociationConnector Association="AHDModel.FK_dataShuttleRequestStaff_dataShuttleRequest" />
+        <AssociationConnector Association="AHDModel.FK_dataShuttleStaff_dataShuttleVehical" />
+        <EntityTypeShape EntityType="AHDModel.v_VehicleMaintenanceRequest" Width="1.5" PointX="19.375" PointY="20.75" />
+        <EntityTypeShape EntityType="AHDModel.dataBlomShuttleDelegationDate" Width="1.5" PointX="8.25" PointY="22.875" />
+        <EntityTypeShape EntityType="AHDModel.dataBlomShuttleDelegationStaffRequest" Width="1.5" PointX="17.5" PointY="25.125" />
+        <EntityTypeShape EntityType="AHDModel.dataBlomShuttleDelegationTraveler" Width="1.5" PointX="23.5" PointY="19.625" />
+        <AssociationConnector Association="AHDModel.FK_dataBlomShuttleDelegationDate_userAccounts" />
+        <AssociationConnector Association="AHDModel.FK_dataBlomShuttleDelegationStaffRequest_dataBlomShuttleDelegationDate" />
+        <AssociationConnector Association="AHDModel.FK_dataBlomShuttleDelegationTraveler_dataBlomShuttleDelegationDate" />
+        <AssociationConnector Association="AHDModel.FK_dataBlomShuttleDelegationStaffRequest_dataBlomShuttleDelegationTraveler" />
+        <AssociationConnector Association="AHDModel.FK_dataBlomShuttleDelegationStaffRequest_staffCoreData" />
+        <AssociationConnector Association="AHDModel.FK_dataBlomShuttleDelegationTraveler_staffCoreData" />
+        <EntityTypeShape EntityType="AHDModel.v_StaffProfileInformation" Width="1.5" PointX="5.625" PointY="23.25" />
+        <EntityTypeShape EntityType="AHDModel.codeMonth" Width="1.5" PointX="5.625" PointY="8" />
+        <EntityTypeShape EntityType="AHDModel.codeYear" Width="1.5" PointX="7.625" PointY="8" />
+        <EntityTypeShape EntityType="AHDModel.v_InterntionalStaffEntitlement" Width="1.5" PointX="24.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffCoreDocument" Width="1.5" PointX="3" PointY="24.375" />
+        <AssociationConnector Association="AHDModel.FK_dataStaffCoreDocument_StaffCoreData" />
+        <EntityTypeShape EntityType="AHDModel.codeAHDCostCenter" Width="1.5" PointX="29.125" PointY="37.25" />
+        <EntityTypeShape EntityType="AHDModel.codeAHDOrgnizationWorkingHour" Width="1.5" PointX="24.375" PointY="7.875" />
+        <EntityTypeShape EntityType="AHDModel.codeAHDOvertimeBaseSalary" Width="1.5" PointX="26.375" PointY="0.75" />
+        <AssociationConnector Association="AHDModel.FK_codeAHDCostCentercodeDutyStation" />
+        <EntityTypeShape EntityType="AHDModel.dataSalaryCycle" Width="1.5" PointX="3" PointY="29.125" />
+        <EntityTypeShape EntityType="AHDModel.dataSalaryCycleFlow" Width="1.5" PointX="15.25" PointY="31.875" />
+        <EntityTypeShape EntityType="AHDModel.dataSalaryCycleStep" Width="1.5" PointX="21.25" PointY="30.75" />
+        <EntityTypeShape EntityType="AHDModel.dataSalaryCycleStepFlow" Width="1.5" PointX="34.5" PointY="27.125" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffSalary" Width="1.5" PointX="24.25" PointY="31.75" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffSalaryFlow" Width="1.5" PointX="36.5" PointY="13.625" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffSalaryInAdvance" Width="1.5" PointX="3" PointY="34.125" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffSalaryInAdvanceFlow" Width="1.5" PointX="5.25" PointY="33.875" />
+        <EntityTypeShape EntityType="AHDModel.dataTempHQStaffSalary" Width="1.5" PointX="18.25" PointY="31.25" />
+        <AssociationConnector Association="AHDModel.dataSalaryCycle_CreatestaffCoreData" />
+        <AssociationConnector Association="AHDModel.dataSalaryCycleFlow_new_dataSalaryCycle" />
+        <AssociationConnector Association="AHDModel.dataSalaryCycleStepw_dataSalaryCycle" />
+        <AssociationConnector Association="AHDModel.dataStaffSalary_dataSalaryCycle" />
+        <AssociationConnector Association="AHDModel.dataTempHQStaffSalary_dataSalaryCycle" />
+        <AssociationConnector Association="AHDModel.dataSalaryCycleFlow_new_CreatestaffCoreData" />
+        <AssociationConnector Association="AHDModel.dataSalaryCycleFlow_new_StaffCoredata" />
+        <AssociationConnector Association="AHDModel.dataSalaryCycleFlow_dataSalaryCycleStep" />
+        <AssociationConnector Association="AHDModel.dataSalaryCycleFlow_StaffCoredata" />
+        <AssociationConnector Association="AHDModel.dataSalaryCycleStep_CreatestaffCoreData" />
+        <AssociationConnector Association="AHDModel.dataSalaryCycleStepFlow_new_CreatestaffCoreData" />
+        <AssociationConnector Association="AHDModel.dataStaffSalary_StaffCoredata" />
+        <AssociationConnector Association="AHDModel.dataStaffSalaryFlow_dataStaffSalary" />
+        <AssociationConnector Association="AHDModel.dataStaffSalaryFlow_CreatestaffCoreData_s" />
+        <AssociationConnector Association="AHDModel.dataSalaryCycleFlow_CreatestaffCoreData" />
+        <AssociationConnector Association="AHDModel.dataStaffSalaryInAdvance_StaffCoredata" />
+        <AssociationConnector Association="AHDModel.dataStaffSalaryInAdvanceFlow_dataStaffSalaryInAdvance" />
+        <AssociationConnector Association="AHDModel.dataStaffSalaryInAdvanceFlow_CreatestaffCoreData" />
+        <AssociationConnector Association="AHDModel.dataTempHQStaffSalary_StaffCoredata" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffMedicalPayment" Width="1.5" PointX="3" PointY="40" />
+        <AssociationConnector Association="AHDModel.dataStaffMedicalPayment_CreatestaffCoreData" />
+        <AssociationConnector Association="AHDModel.dataStaffMedicalPayment_StaffCoredata" />
+        <AssociationConnector Association="AHDModel.dataStaffMedicalPayment_UpdatedtaffCoreData" />
+        <EntityTypeShape EntityType="AHDModel.v_UserPhoneBillsPerMonth" Width="1.5" PointX="26.375" PointY="22.75" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffOvertime" Width="1.5" PointX="27.5" PointY="6.5" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffOvertimeFlow" Width="1.5" PointX="29.75" PointY="13.375" />
+        <AssociationConnector Association="AHDModel.dataStaffOvertime_CreatestaffCoreData" />
+        <AssociationConnector Association="AHDModel.dataStaffOvertime_StaffCoredata" />
+        <AssociationConnector Association="AHDModel.dataStaffOvertimeFlow_dataStaffOvertime" />
+        <AssociationConnector Association="AHDModel.dataStaffOvertimeFlow_new_CreatestaffCoreData" />
+        <EntityTypeShape EntityType="AHDModel.codeVehicle" Width="1.5" PointX="0.75" PointY="10.75" />
+        <AssociationConnector Association="AHDModel.FK_dataVehicleMaintenanceRequestFlow_codeVehicle" />
+        <AssociationConnector Association="AHDModel.FK_dataShuttleVehicle_codeVehicle" />
+        <EntityTypeShape EntityType="AHDModel.codeAHDTimeHour" Width="1.5" PointX="20.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AHDModel.codeAHDStaffTag" Width="1.5" PointX="21.375" PointY="8.75" />
+        <EntityTypeShape EntityType="AHDModel.dataMissionRequest" Width="1.5" PointX="3" PointY="46.125" />
+        <EntityTypeShape EntityType="AHDModel.dataMissionRequestDocument" Width="1.5" PointX="5.25" PointY="57.25" />
+        <EntityTypeShape EntityType="AHDModel.dataMissionRequestFlow" Width="1.5" PointX="10.25" PointY="38.25" />
+        <EntityTypeShape EntityType="AHDModel.dataMissionRequestItinerary" Width="1.5" PointX="5.25" PointY="61.125" />
+        <EntityTypeShape EntityType="AHDModel.dataMissionRequestTraveler" Width="1.5" PointX="13.25" PointY="36.75" />
+        <AssociationConnector Association="AHDModel.FK_dataMissionRequest_dataRestAndRecuperationRequest" />
+        <AssociationConnector Association="AHDModel.FK_dataMissionRequestDocument_dataMissionRequest" />
+        <AssociationConnector Association="AHDModel.FK_dataMissionRequestFlow_dataMissionRequest" />
+        <AssociationConnector Association="AHDModel.FK_dataMissionRequestItinerary_dataMissionRequest" />
+        <AssociationConnector Association="AHDModel.FK_dataMissionRequestTraveler_dataMissionRequest" />
+        <AssociationConnector Association="AHDModel.FK_dataMissionRequestFlow_userAccounts" />
+        <AssociationConnector Association="AHDModel.FK_dataMissionRequestTraveler_staffcoredata" />
+        <EntityTypeShape EntityType="AHDModel.dataOvertimeMonthCycle" Width="1.5" PointX="12.75" PointY="42.875" />
+        <EntityTypeShape EntityType="AHDModel.dataOvertimeMonthCycleStaffFlow" Width="1.5" PointX="25.25" PointY="14.625" />
+        <AssociationConnector Association="AHDModel.dataOvertimeMonthCycleStaffFlow_new_CreatestaffCoreData" />
+        <EntityTypeShape EntityType="AHDModel.v_StaffAllDataInformation" Width="1.5" PointX="31.375" PointY="31.75" />
+        <EntityTypeShape EntityType="AHDModel.dataAHDInternationalStaffEntitlementDocument" Width="1.5" PointX="10.25" PointY="43.375" />
+        <AssociationConnector Association="AHDModel.FK_dataAHDInternationalStaffEntitlementDocument_dataAHDInternationalStaffEntitlementDetail" />
+        <EntityTypeShape EntityType="AHDModel.dataOvertimeMonthCycleStaff" Width="1.5" PointX="15" PointY="20.75" />
+        <AssociationConnector Association="AHDModel.dataOvertimeMonthCycleStaff_dataOvertimeMonthCycle" />
+        <AssociationConnector Association="AHDModel.dataOvertimeMonthCycleStaff_StaffCoredata" />
+        <AssociationConnector Association="AHDModel.dataOvertimeMonthCycleStaffFlow_dataOvertimeMonthCycleStaff" />
+        <AssociationConnector Association="AHDModel.dataStaffOvertime_dataStaffOvertimecycleStaff" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffAbsence" Width="1.5" PointX="10.375" PointY="22.75" />
+        <EntityTypeShape EntityType="AHDModel.codeCountries" Width="1.5" PointX="33.375" PointY="33.25" />
+        <EntityTypeShape EntityType="AHDModel.codeCountriesConfigurations" Width="1.5" PointX="35.625" PointY="32.125" />
+        <EntityTypeShape EntityType="AHDModel.codeCountriesLanguages" Width="1.5" PointX="35.625" PointY="35.25" />
+        <EntityTypeShape EntityType="AHDModel.codeTables" Width="1.5" PointX="19.875" PointY="26.25" />
+        <EntityTypeShape EntityType="AHDModel.codeTablesValues" Width="1.5" PointX="22.125" PointY="26.25" />
+        <EntityTypeShape EntityType="AHDModel.codeTablesValuesLanguages" Width="1.5" PointX="24.375" PointY="45.375" />
+        <AssociationConnector Association="AHDModel.FK_codeCountriesLanguages_codeCountries" />
+        <AssociationConnector Association="AHDModel.FK_codeCountriesOperations_codeCountries" />
+        <AssociationConnector Association="AHDModel.FK_codeTablesValues_codeTables" />
+        <AssociationConnector Association="AHDModel.FK_codeTablesValuesLanguages_codeTablesValues" />
+        <AssociationConnector Association="AHDModel.FK_codeTablesValuesOperations_codeTablesValues" />
+        <EntityTypeShape EntityType="AHDModel.dataStaffAbsenceBalance" Width="1.5" PointX="21.375" PointY="4.75" />
+        <EntityTypeShape EntityType="AHDModel.v_staffCoreDataOverview" Width="1.5" PointX="26.375" PointY="32.25" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

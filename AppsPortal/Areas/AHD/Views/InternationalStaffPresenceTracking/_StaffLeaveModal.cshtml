@@ -1,0 +1,93 @@
+﻿@model InternationalStaffPresenceAttendanceUpdateModel
+@using (Html.BeginForm("AttendanceLeaveCalendar", "InternationalStaffPresenceTracking", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffLeaveForm" }))
+{
+    string ModalTitle = Model.InternationalStaffAttendanceGUID.ToString() == Guid.Empty.ToString() ? "New Leave" : "Edit Leave";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @*@Html.AntiForgeryToken()*@
+    @Html.FormHiddenFields(model => model.InternationalStaffAttendanceGUID)
+    @Html.HiddenFor(model => model.CreatedByGUID)
+    @Html.HiddenFor(model => model.CreateDate)
+    @Html.HiddenFor(model => model.StaffName)
+    @Html.HiddenFor(model => model.PositionName)
+  
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.StaffGUID)
+        @Html.DropDownListFor(model => model.StaffGUID, new DropDownList().InternationalStaffUsers(true), "", new
+                    {
+                    @class = "form-control select2-basic-search",
+                    style = "width:100%",
+
+                    })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.InternationalStaffAttendanceTypeGUID, htmlAttributes: new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.InternationalStaffAttendanceTypeGUID, new DropDownList().AHDInternationalAttendanceTypes(), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search"
+   })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FromDate)
+        @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ToDate)
+        @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.CountryGUID)
+        @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().Countries(), "", new
+                    {
+                    @class = "form-control select2-basic-search",
+                    style = "width:100%",
+
+                    })
+    </div>
+
+    @*<div class="form-group">
+
+        @Html.LabelFor(model => model.CityGUID)
+        @Html.DropDownListFor(model => model.CityGUID, new DropDownList().Countries(), "", new
+                    {
+                    @class = "form-control select2-basic-search",
+                    style = "width:100%",
+
+                    })
+    </div>*@
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LeaveLocation)
+        @Html.EditorFor(model => model.LeaveLocation, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comments)
+        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.InternationalStaffAttendanceGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.InternationalStaffAttendancePresence.Create, Apps.AHD)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.InternationalStaffAttendancePresence.Update, Apps.AHD)
+                @Html.DeleteSwitchButton(Permissions.InternationalStaffAttendancePresence.Delete, Apps.AHD)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.InternationalStaffAttendancePresence.Delete, Apps.AHD)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

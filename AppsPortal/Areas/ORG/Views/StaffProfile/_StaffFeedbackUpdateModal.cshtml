@@ -1,0 +1,123 @@
+﻿@model StaffProfileFeedbackUpdateModel
+@using (Html.BeginForm("StaffFeedback", "StaffProfile", new { Area = "ORG" }, FormMethod.Post, new { id = "StaffFeedbackForm" }))
+{
+    string ModalTitle = Model.StaffProfileFeedbackGUID.ToString() == Guid.Empty.ToString() ? "Report Profile Issue " : "Edit Report Issue";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.StaffProfileFeedbackGUID)
+        @Html.HiddenFor(model => model.UserGUID)
+        @Html.HiddenFor(model=>model.sameUser)
+        @if (Model.sameUser == 1)
+        {
+            <div class="form-group" >
+                @Html.Label("Issue Description")
+                @Html.TextAreaFor(model => model.FeedbackDescription, new { @class = "form-control", rows = 5 })
+                @*@Html.TextAreaFor(model => model.FeedbackDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })*@
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.FeedbackTypeGUID)
+                @Html.DropDownListFor(model => model.FeedbackTypeGUID, new DropDownList().ProfileStaffFeedbackTypes(1), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+            </div>
+
+        }
+        @*<div cllass="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.FeedbackTypeGUID)
+                @Html.DropDownListFor(model => model.FeedbackTypeGUID, new DropDownList().ProfileStaffFeedbackTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+            </div>
+
+            <div class="form-group" id="issuedesc">
+                @Html.Label("Issue Description")
+                @Html.TextAreaFor(model => model.FeedbackDescription, new { @class = "form-control", rows = 5 })
+                
+            </div>
+            @if (Model.StaffProfileFeedbackGUID != Guid.Empty)
+            {
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ResloveDescription)
+                    @Html.EditorFor(model => model.ResloveDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+
+            }
+            <div id="fine-uploader-manual-trigger"></div>
+        </div>*@
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="fine-uploader-manual-trigger"></div>
+            </div>
+        </div>
+
+        @*<div class="form-group HANDLER">
+            @Html.Label("File Type")
+            @Html.DropDownListFor(model => model.FileTypeGUID, new DropDownList().WarehouseDocumentFileType(), new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>*@
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.StaffProfileFeedbackGUID == Guid.Empty)
+        {
+
+            @Html.CreateButton()
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton()
+                @Html.DeleteSwitchButton()
+            }
+            else
+            {
+                @Html.RestoreSwitchButton()
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+<script>
+    $("#issuedesc").hide();
+    var issuedesc = "@Model.FeedbackTypeGUID";
+    if (issuedesc != null && issuedesc == 'b9cd375c-a576-4aa4-8af4-ff3c1c4e3551')
+    {
+
+        $("#issuedesc").show();
+        
+
+    }
+
+    $('#FeedbackTypeGUID').change(function (e) {
+
+        e.preventDefault();
+        var val = $(this).val();
+
+
+        if (val == 'b9cd375c-a576-4aa4-8af4-ff3c1c4e3551') {
+
+
+            $("#issuedesc").show();
+
+        }
+        else {
+            $("#issuedesc").hide();
+
+        }
+
+    });
+
+    var CheckCreateNewRelease = function (data) {
+
+        if (data == 1) {
+            $(".btnCreate").hide();
+        }
+        else if (data == 0) {
+            $(".btnCreate").show();
+        }
+    }
+</script>

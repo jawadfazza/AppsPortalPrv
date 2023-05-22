@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Project Partnership Agreements";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("7569cac4-6a32-4af8-a8e6-dcbf3c5974d1")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter",DataTableNames.PPAForUserDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PPATypeGUID, DbColumnName = "PPATypeGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().PPATypes() })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ImplementationAreaGUID, DbColumnName = "ImplementationAreaGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().PPAAreasOfImplementations() })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PPADescription, DbColumnName = "PPADescription", FilterForDataType =FilterDataTypes.Text})
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationInstanceGUID, DbColumnName = "OrganizationInstanceGUID", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = false, DataList = new DropDownList().PartnersList() })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.PPAForUserDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer",DataTableNames.PPAForUserDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.PPAForUserDataTable)
+        @*@Html.IndexDatatableCreate(Permissions.PPAManagement.Create, Apps.PPA, Url.Action("/Create/", "FilesProcess", new { Area = "PPA" }))*@
+        @*@Html.IndexDatatableDelete(Permissions.PPAManagement.Delete, Apps.PPA, DataTableNames.PPAForUserDataTable)*@
+        @*@Html.IndexDatatableRestor(Permissions.PPAManagement.Restore, Apps.PPA, DataTableNames.PPAForUserDataTable)*@
+        @Html.IndexDatatableRefresh(DataTableNames.PPAForUserDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.PPAForUserDataTable, FormController = "FilesProcess", Area = "PPA", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>
+

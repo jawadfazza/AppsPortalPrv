@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("7adc0378-16f1-4eb3-9858-260dcf1b1def", Session[SessionKeys.FullName].ToString())
+<div class="page--content">
+    <div class="page--body">
+        <div class="Profile">
+            <!--Personal Details-->
+            <div id="PanelForPersonalDetailsForm">
+                @{Html.RenderAction("PersonalDetailsView", "Profile");}
+            </div>
+            <hr />
+            <!--Service History-->
+            <div id="PanelForServiceHistoryForm">
+                @{Html.RenderAction("ServiceHistoryView", "Profile");}
+            </div>
+            <hr />
+            <!--Contact Details-->
+            <div id="PanelForContactDetailsForm">
+                @{Html.RenderAction("ContactDetailsView", "Profile");}
+            </div>
+            <hr />
+            <!--Home Address-->
+            <div id="PanelForHomeAddressForm">
+                @{Html.RenderAction("HomeAddressView", "Profile");}
+            </div>
+            <hr />
+            <!--Work Address-->
+            <div id="PanelForWorkAddressForm">
+                @{Html.RenderAction("WorkAddressView", "Profile");}
+            </div>
+            <hr />
+            <div id="PanelForTimeZoneForm">
+                @{Html.RenderAction("TimeZoneView", "Profile");}
+            </div>
+        </div>
+    </div>
+</div>

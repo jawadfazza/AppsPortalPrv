@@ -1,0 +1,104 @@
+﻿@model HelpDeskModel
+
+@using (Html.BeginForm("HelpDesk", "HelpDesk", new { Area = "SRS" }, FormMethod.Post, new { id = "HelpDeskForm", @class = "main-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.HelpDeskGUID)
+    @Html.HiddenFor(model => model.RequestedByProfileGUID)
+    @Html.HiddenFor(model => model.RequestCreateDate)
+    @Html.HiddenFor(model => model.RequestNumber)
+
+
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>@resxDbFields.RequestNumber:&nbsp;@Model.RequestNumber</b></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+
+                        @if (Model.ConfigItemGUID == Guid.Empty)
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.WorkGroupGUID)
+                                @Html.DropDownListFor(model => model.WorkGroupGUID, new DropDownList().HelpDeskWorkGroupsList(),  new { @class = "form-control select2-basic-single", style = "width:100%" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ConfigItemGUID)
+                                @Html.DropDownListFor(model => model.ConfigItemGUID, new DropDownList().HelpDeskConfigItemsList(), "", new {  @class = "form-control select2-basic-single", style = "width:100%" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.WorkGroupGUID)
+                                @Html.DropDownListFor(model => model.WorkGroupGUID, new DropDownList().HelpDeskWorkGroupsList(), new {@disabled = "disabled", @class = "form-control select2-basic-single", style = "width:100%" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ConfigItemGUID)
+                                @Html.DropDownListFor(model => model.ConfigItemGUID, new DropDownList().HelpDeskConfigItemsList(), "", new { @disabled = "disabled", @class = "form-control select2-basic-single", style = "width:100%" })
+                            </div>
+                        }
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CriticalityGUID)
+                            @Html.DropDownListFor(model => model.CriticalityGUID, new DropDownList().HelpDeskCriticalityList(), new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RequestStatusGUID)
+                            <br />
+                            Pending
+                            @*@Html.DropDownListFor(model => model.RequestStatusGUID, new DropDownList().HelpDeskRequestStatuses(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="divrefreshholder">
+            @if (Model.ConfigItemGUID == Guid.Parse("daaeaa0c-f441-4543-b533-b08bbf41a657")) //app req
+            {
+                @Html.Partial("~/Areas/SRS/Views/HelpDesk/User/_NewApplicationForm.cshtml", Model)
+            }
+            else if (Model.ConfigItemGUID == Guid.Parse("40c09a21-596b-480d-9350-0c9b089ccc72")) //enh req
+            {
+                @Html.Partial("~/Areas/SRS/Views/HelpDesk/User/_ApplicationEnhancementForm.cshtml", Model)
+            }
+            else if (Model.ConfigItemGUID == Guid.Parse("81008ea8-9b63-4b76-bff3-24ee0b41f0a6")) //bug rep
+            {
+                @Html.Partial("~/Areas/SRS/Views/HelpDesk/User/_BugReportForm.cshtml", Model)
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <div id="HelpDeskFormControls" class="form-group form-footer">
+                @if (Model.HelpDeskGUID == Guid.Empty)
+                {
+                    @Html.CreateButtonNoPermission()
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButtonNoPermission()
+                        @Html.CreateNewButtonNoPermission(Url.Action("HelpDesk/Create", "HelpDesk", new { Area = "SRS" }))
+                        @*@Html.DeleteButtonNoPermission()*@
+                    }
+                    else
+                    {
+                        @*@Html.RestoreButtonNoPermission()*@
+                    }
+                }
+                @Html.BackToList("/SRS/HelpDesk")
+            </div>
+        </div>
+    </div>
+}
+

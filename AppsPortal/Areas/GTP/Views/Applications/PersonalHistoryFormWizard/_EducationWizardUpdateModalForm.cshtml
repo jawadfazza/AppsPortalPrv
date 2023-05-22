@@ -1,0 +1,144 @@
+﻿@model dataPersonalHistoryEducationUpdateModel
+
+@using (Html.BeginForm("Education", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "EducationForm", @class = "main-form" }))
+{
+    string ModalTitle = Model.GTPPHEducationGUID.ToString() == Guid.Empty.ToString() ? "Add new education" : "update education";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.GTPPHEducationGUID)
+
+        <div class="col-md-12">
+            <div class="row" style="padding-top:10px;">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ExactTitleOfDegreeOrCertification)  <span class="span-required-field">*</span>
+                        @Html.EditorFor(model => model.ExactTitleOfDegreeOrCertification, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BegintDate)  <span class="span-required-field">*</span>
+                        @Html.EditorFor(model => model.BegintDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndDate)
+                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MainMajorOrTopic)   <span class="span-required-field">*</span>
+                        @Html.EditorFor(model => model.MainMajorOrTopic, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.OtherMajorsOrTopics)
+                        @Html.EditorFor(model => model.OtherMajorsOrTopics, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EducationLevelGUID)   <span class="span-required-field">*</span>
+                        @if (Model.EducationLevelGUID != null)
+                        {
+                            @Html.DropDownListFor(model => model.EducationLevelGUID, new DropDownList().GTPEducationLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.EducationLevelGUID, new DropDownList().GTPEducationLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        }
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MainLanguageOfStudyGUID)   <span class="span-required-field">*</span>
+                        @Html.DropDownListFor(model => model.MainLanguageOfStudyGUID, new DropDownList().GTPLanguages(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding-top:30px;">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsEducationCompleted)    <span class="span-required-field">*</span>
+                        @Html.EditorFor(model => model.IsEducationCompleted, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SchoolNameDescription)  <span class="span-required-field">*</span>
+                        @Html.EditorFor(model => model.SchoolNameDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="div-country-city-container">
+
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CountryGUID)   <span class="span-required-field">*</span>
+                            @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().GTPCountries(), "",
+                               new
+                                    {
+                                   @class = "form-control select2-basic-search",
+                                   style = "width:100%",
+                                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CityGUID', Action : 'RemoteGTPCities'}]);"
+                               })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CityGUID)     <span class="span-required-field">*</span>
+                            @if (Model.CountryGUID != null)
+                            {
+                                @Html.DropDownListFor(model => model.CityGUID, new DropDownList().GTPCities(Model.CountryGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.CityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Comments)
+                        @Html.TextAreaFor(model => model.Comments, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer form-footer">
+        @if (Model.GTPPHEducationGUID == Guid.Empty)
+        {
+            @Html.CreateButtonNoPermission()
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButtonNoPermission()
+                @Html.DeleteSwitchButtonNoPermission()
+            }
+            else
+            {
+                @Html.RestoreSwitchButtonNoPermission()
+            }
+        }
+        @Html.CloseModalButton()
+
+    </div>
+}

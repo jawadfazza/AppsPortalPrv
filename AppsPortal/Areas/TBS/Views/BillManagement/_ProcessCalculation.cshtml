@@ -1,0 +1,130 @@
+﻿@model ProcessMobileBillsCalculation
+
+@using (Html.BeginForm("ProcessCalculation", "BillManagement", new { Area = "TBS" }, FormMethod.Post, new { id = "ProcessCalculationForm" }))
+{
+    @Html.Partial("_ModalHeader", "Calculate Mobile Bills")
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Start Calculating Process By Clicking The Calculate Button</h4>
+            <p>You can close this popup and we will notify you by email when the process is done.</p>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TelecomCompanyOperationConfigGUID)
+            @Html.DropDownListFor(model => model.TelecomCompanyOperationConfigGUID, new DropDownList().TelecomCompaniesConfigGuidForMobilesList(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DutyStationGUID)
+            @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStations(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailToCC)
+            @Html.EditorFor(model => model.EmailToCC, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="progress">
+                    <div id="div-progres-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        <span id="span-progres-bar" style="float:right;padding-right:1px;">0%</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div id="monitors"></div>
+            </div>
+        </div>
+        <div id="div-pending-process" class="col-md-12">
+
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (new CMS().HasAction(Permissions.BillsManagement.Create, Apps.TBS))
+        {
+            <input id="calculateMobileBills" class="btn btn-primary" type="button" value="Process">
+            <input type="button" id="btnClose" class="btn btn-default SLAME valid" data-dismiss="modal" value="Close">
+        }
+    </div>
+}
+
+<script>
+    $(function () {
+        $('#TelecomCompanyOperationConfigGUID').change(function (e) {
+            var TelecomCompanyOperationConfigGUID = $(this).val();
+            e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: "/TBS/BillManagement/GetPendingToProcessByTelecomCompany",
+                data: { TelecomCompanyOperationConfigGUID: TelecomCompanyOperationConfigGUID },
+                success: function (html) {
+                    $('#div-pending-process').html(html);
+                    $('#calculateMobileBills').removeAttr("disabled");
+                },
+                error: function () { }
+            });
+        });
+        $("#calculateMobileBills").click(function (e) {
+            e.preventDefault();
+            var notified = 0;
+            var notified2 = 0
+            if ($('#hdn-to-process-count').val() * 1 == 0) {
+                Notify(NotificationType.Warning, 'Nothing To Process');
+                return false;
+            }
+            $('#calculateMobileBills').attr("disabled", true);
+            $('.span-process-status').text('Processing');
+            $('.span-process-status').removeClass('label-danger');
+            $('.span-process-status').addClass('label-warning');
+            $('.span-process-icon').show();
+            var form = $('#ProcessCalculationForm');
+            $.post($(form).attr('action') + 'Create', $(form).serialize(), function (JsonResult) {
+                if (JsonResult.NothingToProcess == true) {
+                    Notify(NotificationType.Warning, 'Nothing To Process');
+                    return false;
+                }
+                console.log('JsonResult', JsonResult);
+                // Periodically update progres bar
+                var intervalId = setInterval(function () {
+                    console.log('main interval id', intervalId);
+                    $.post("/TBS/BillManagement/ProcessCalculationProgres", { id: JsonResult.processCalculationTaskId }, function (progress) {
+                        console.log('progress', progress - 1);
+                        var percentage = Math.round(((progress * 1) / (JsonResult.TotalRecords * 1)) * 100);
+
+                        if (percentage == 100) {
+                            if (notified != 1) {
+                                $('#div-progres-bar').css('width', "100%");
+                                $('#span-progres-bar').text("100%");
+                                $('.span-process-status').text('Completed');
+                                $('.span-process-status').removeClass('label-warning');
+                                $('.span-process-status').addClass('label-success');
+                                $('.span-process-icon').hide();
+                                Notify(NotificationType.Success, 'Process completed. Generating notifications e-mails, please wait...');
+                                notified = 1;
+                            }
+                        }
+                        else if (progress > 0) {
+                            console.log('percentage', percentage);
+                            $('#div-progres-bar').css('width', percentage + "%");
+                            $('#span-progres-bar').text(percentage + "%");
+                        }
+                        else if (progress < 0) {
+                            console.log('clear interval id', intervalId);
+                            clearInterval(intervalId);
+                            if (notified2 != 1) {
+                                $('.span-process-status').text('Completed');
+                                $('.span-process-status').removeClass('label-danger').removeClass('label-warning');
+                                $('.span-process-status').addClass('label-success');
+                                $('.span-process-icon').hide();
+                                Notify(NotificationType.Success, 'E-mails generated successfully.');
+                                notified2 = 1;
+                            }
+
+                        }
+                    });
+                }, 500);
+            });
+        });
+    });
+
+</script>

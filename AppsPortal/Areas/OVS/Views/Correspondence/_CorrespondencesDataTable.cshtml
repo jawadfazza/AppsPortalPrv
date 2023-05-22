@@ -1,0 +1,26 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.ElectionCorrespondence</h3>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.ElectionCorrespondencesDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.ElectionCorrespondencesDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.ElectionCorrespondencesDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.ElectionCorrespondencesDataTable)
+                @Html.FieldDataTableCreate(Permissions.ElectionsManagement.Create, Apps.OVS, Url.Action("ElectionCorrespondenceCreate", "Correspondence", new { FK = Model.ParentGUID, Area = "OVS" }))
+                @Html.FieldDataTableDelete(Permissions.ElectionsManagement.Delete, Apps.OVS, DataTableNames.ElectionCorrespondencesDataTable)
+                @Html.FieldDataTableRestore(Permissions.ElectionsManagement.Restore, Apps.OVS, DataTableNames.ElectionCorrespondencesDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.ElectionCorrespondencesDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ElectionCorrespondencesDataTable, FormController = "Correspondence", Area = "OVS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>
+
+

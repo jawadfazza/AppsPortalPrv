@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Vehicle";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("0a96e242-e2c7-486e-a4e0-58ffb341b828")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.VehiclesDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.VehicleNumber, DbColumnName = "VehicleNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationInstanceDescription, DbColumnName = "OrganizationInstanceGUID", FilterForDataType = "Options", DataList = new DropDownList().OrganizationsInstancesByProfile() })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStationDescription, DbColumnName = "DutyStationGUID", FilterForDataType = "Options", DataList = new DropDownList().DutyStationsByProfile() })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+
+            </div>
+            
+        </div>
+      
+      
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.VehiclesDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.VehiclesDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.VehiclesDataTable)
+        @Html.IndexDatatableCreate(Permissions.Vehicle.Create, Apps.SHM, "/SHM/Vehicles/Create")
+        @Html.IndexDatatableDelete(Permissions.Vehicle.Delete, Apps.SHM, DataTableNames.VehiclesDataTable)
+        @Html.IndexDatatableRestor(Permissions.Vehicle.Restore, Apps.SHM, DataTableNames.VehiclesDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.VehiclesDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.VehiclesDataTable, FormController = "Vehicle", Area = "SHM", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>
+

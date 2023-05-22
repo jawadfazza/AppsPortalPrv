@@ -1,0 +1,95 @@
+﻿
+@model WarehouseUpdateModel
+@using (Html.BeginForm("Warehouse", "WarehouseConfiguration", new { Area = "WMS" }, FormMethod.Post, new { id = "WarehouseForm", @class = "main-form" }))
+
+{
+    
+<h3>@resxPages.Details</h3>
+@Html.AntiForgeryToken()
+
+@Html.FormHiddenFields(model => model.WarehouseGUID)
+@Html.HiddenFor(model => model.LocationGUID)
+<div class="row">
+    <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+        <div class="form-group HANDLER">
+            @Html.Label("Organization")
+            @Html.DropDownListFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstances(), "", new
+       {
+           @class = "form-control select2-basic-search",
+           style = "width:100%",
+           onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DutyStationGUID', Action : 'RemoteOrganizationInstanceDutyStation'}]);"
+       })
+
+
+
+        </div>
+        @if (Model.WarehouseGUID != Guid.Empty)
+        {
+            @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStations((Guid)Model.OrganizationInstanceGUID), "", new
+            {
+                @class = "form-control select2-basic-search",
+                style = "width:100%",
+
+            })
+        }
+        else
+        {
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.DutyStationGUID)
+                @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().Empty(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+        }
+
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.LocationGUID)
+                @Html.DropDownListFor(model => model.LocationGUID, new DropDownList().WarehouseLocation(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.WarehouseDescription)
+            @Html.EditorFor(model => model.WarehouseDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+        </div>
+
+
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.WarehouseLocationGUID)
+            @Html.DropDownListFor(model => model.WarehouseLocationGUID, new DropDownList().WarehouseLocation(), "", new
+            {
+                style = "width:100%",
+                @class = "form-control select2-basic-search",
+                //onchange = "CheckRelationType($(this).val())"
+
+            })
+        </div>
+
+
+
+
+
+
+
+        <div id="ItemModelFormControls" class="form-group form-footer">
+            @if (Model.WarehouseGUID == Guid.Empty)
+            {
+                @Html.CreateButton(Permissions.STIConfiguration.Create, Apps.WMS)
+            }
+            else
+            {
+                if (Model.Active)
+                {
+
+                    @Html.UpdateButton(Permissions.STIConfiguration.Update, Apps.WMS)
+                    @Html.CreateNewButton(Permissions.STIConfiguration.Create, Apps.WMS, Url.Action("/Create", new { Area = "WMS" }))
+                    @Html.DeleteButton(Permissions.STIConfiguration.Delete, Apps.WMS)
+                }
+                else
+                {
+                    @Html.RestoreButton(Permissions.STIConfiguration.Restore, Apps.WMS)
+                }
+            }
+            @Html.BackToList(Url.Action("Index", "WarehouseConfiguration", new { Area = "WMS" }))
+        </div>
+    </div>
+</div>
+}
+

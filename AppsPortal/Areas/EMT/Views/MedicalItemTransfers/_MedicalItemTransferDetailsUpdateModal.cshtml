@@ -1,0 +1,66 @@
+﻿@model MedicalItemTransferDetailUpdateModel
+@using (Html.BeginForm("MedicalItemTransferDetail", "MedicalItemTransfers", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalItemTransferDetailForm" }))
+{
+    string ModalTitle = Model.MedicalItemTransferDetailGUID.ToString() == Guid.Empty.ToString() ? resxPages.NewItem : resxPages.EditItem;
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.MedicalItemTransferDetailGUID)
+        @Html.HiddenFor(model => model.MedicalItemTransferGUID)
+        @Html.HiddenFor(model => model.OrganizationInstanceGUID)
+        @*@Html.HiddenFor(model => model.RemainingItems)*@
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.MedicalItemGUID)
+            @Html.DropDownListFor(model => model.MedicalItemGUID, new DropDownList().MedicalItems(), "",
+           new
+                {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$(this).val()+','+$('#OrganizationInstanceGUID').val()], [{ DropDownListID : 'MedicalItemInputDetailGUID', Action : 'RemoteMedicalItemInputDetails'}]);"
+
+           })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.Label(resxDbFields.BatchNumber)
+            @Html.DropDownListFor(model => model.MedicalItemInputDetailGUID, new DropDownList().MedicalItemInputDetailOne(Model.MedicalItemInputDetailGUID), "", new
+            {
+           style = "width:100%",
+           @class = "form-control select2-basic-search"
+       })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QuantityByPackingUnit)
+            @Html.EditorFor(model => model.QuantityByPackingUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QuantityByPackingTransfer)
+            @Html.EditorFor(model => model.QuantityByPackingTransfer, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RemainingItems)
+            @Html.EditorFor(model => model.RemainingItems, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.MedicalItemTransferDetailGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.MedicalItemTransfer.Create, Apps.EMT)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.MedicalItemTransfer.Update, Apps.EMT)
+                @Html.DeleteSwitchButton(Permissions.MedicalItemTransfer.Delete, Apps.EMT)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.MedicalItemTransfer.Delete, Apps.EMT)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

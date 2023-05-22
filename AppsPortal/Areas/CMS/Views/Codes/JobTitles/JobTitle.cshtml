@@ -1,0 +1,19 @@
+﻿@model JobTitleUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.JobTitleGUID == Guid.Empty) ? "New JobTitle" : "Edit JobTitle"; }
+@Html.PageHeader("e675d8ff-ae76-43b1-adec-7a4a2f4c4297")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/JobTitles/_JobTitleForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.JobTitleGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/JobTitles/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.JobTitleGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

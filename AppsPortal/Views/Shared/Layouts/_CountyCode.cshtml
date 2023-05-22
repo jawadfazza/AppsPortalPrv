@@ -1,0 +1,4 @@
+﻿@model CountryCodeDDL
+<div class="input-group-btn" style="font-size:1em;">
+    @Html.DropDownList(Model.ControlID , new SelectList(new DropDownList().CountriesPhoneCode().Where(x=>x.id==Model.SelectedValue).Select(ddl => new { Value = ddl.id, Text = ddl.text }).ToList(), "Value", "Text",Model.SelectedValue), new { @class = "form-control select2-basic-CountryCode expandWidth no-left-border" })
+</div>

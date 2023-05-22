@@ -1,0 +1,35 @@
+﻿@model ActionEntityUpdateModel
+@using (Html.BeginForm("ActionEntity", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "ActionEntityForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.ActionEntityGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ActionEntityGUID)
+                @Html.EditorFor(model => model.ActionEntityDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="ActionEntityFormControls" class="form-group form-footer">
+                @if (Model.ActionEntityGUID == Guid.Empty)
+{
+    @Html.CreateButton(Permissions.Actions.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Actions.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.Actions.Create, Apps.CMS, Url.Action("ActionsEntities/Create", "Codes", new { Area = "CMS" }))
+                        @Html.DeleteButton(Permissions.Actions.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Actions.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("ActionsEntities", "Codes", new { Area = "CMS" }))
+            </div>
+        </div>
+    </div>
+}

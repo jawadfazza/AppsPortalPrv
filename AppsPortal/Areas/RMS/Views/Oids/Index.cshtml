@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Oid";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("9d8fb08c-099f-46c7-8eb1-8f66ca74252f")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.OidsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OIDDescription, DbColumnName = "OIDDescription", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OIDNumber, DbColumnName = "OIDNumber", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PrinterTypeDescription, DbColumnName = "PrinterTypeGUID", FilterForDataType = "Options", DataList = new DropDownList().LookupValues(LookupTables.PrinterType)})
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OIDTypeDescription, DbColumnName = "OIDTypeGUID", FilterForDataType = "Options", DataList = new DropDownList().LookupValues(LookupTables.OidType) })
+
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PrinterModelDescription, DbColumnName = "PrinterModelGUID", FilterForDataType = "Options", DataList = new DropDownList().LookupValues(LookupTables.PrinterModel)})
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.OidsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.OidsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.OidsDataTable)
+        @Html.IndexDatatableCreate(Permissions.Oid.Create, Apps.RMS, "/RMS/Oids/Create")
+        @Html.IndexDatatableDelete(Permissions.Oid.Delete, Apps.RMS, DataTableNames.OidsDataTable)
+        @Html.IndexDatatableRestor(Permissions.Oid.Restore, Apps.RMS, DataTableNames.OidsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.OidsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.OidsDataTable, FormController = "Oid", Area = "RMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>
+

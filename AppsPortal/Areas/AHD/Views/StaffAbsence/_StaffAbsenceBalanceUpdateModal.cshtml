@@ -1,0 +1,55 @@
+﻿@model dataStaffAbsenceBalance
+@using (Html.BeginForm("StaffAbsenceBalance", "StaffAbsenceBalances", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffAbsenceBalanceForm", @class = "main-form" }))
+{
+    string ModalTitle = Model.StaffAbsenceBalanceGUID.ToString() == Guid.Empty.ToString() ? "New Staff Absence Balance" : "Edit Staff Absence Balance";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.StaffAbsenceBalanceGUID)
+    @Html.HiddenFor(model => model.UserGUID)
+    @Html.HiddenFor(model => model.InitialBalance)
+    <div class="form-group">
+        @Html.LabelFor(model => model.AbsenceTypeGuid)
+        @Html.DropDownListFor(model => model.AbsenceTypeGuid, new DropDownList().LookupValues(LookupTables.AbsenceType), "",
+       new
+       {
+           @class = "form-control select2-basic-search",
+           style = "width:100%"
+       })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Balance)
+        @Html.EditorFor(model => model.Balance, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.MaxBalancePerYear)
+        @Html.EditorFor(model => model.MaxBalancePerYear, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ResetDate)
+        @Html.EditorFor(model => model.ResetDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.StaffAbsenceBalanceGUID == Guid.Empty)
+        {
+            @Html.CreateButtonNoPermission()
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButtonNoPermission()
+                @Html.DeleteSwitchButtonNoPermission()
+            }
+            else
+            {
+                @Html.RestoreSwitchButton()
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+
+}
+

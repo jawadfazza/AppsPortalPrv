@@ -1,0 +1,216 @@
+﻿@model AuditReportFilterModel
+@{
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("66051221-4ee1-49e3-bc20-4467ebb500d5")
+<div class="page--content">
+
+    <div id="GlobalAuditFilter" class="filter-section" style="display:none;" defaultbutton="btnFind">
+        @using (Html.BeginForm("GlobalAuditReport", "Audit", FormMethod.Post, new { @id = "GlobalAuditReportForm" }))
+        {
+            <input type="hidden" id="RankID" name="RankID" value="0" />
+            @Html.AntiForgeryToken()
+            <div class="row">
+                @*Left Side*@
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.From, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9 form-group">
+                        @Html.EditorFor(model => model.From, new { @class = "form-control datetime-picker ays-ignore", autocomplete = "off", value=DateTime.Today })
+                        <span class="fa fa-calendar datebox"></span>
+                    </div>
+
+                    @Html.LabelFor(model => model.To, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9 form-group">
+                        @Html.EditorFor(model => model.To, new { @class = "form-control datetime-picker ays-ignore", autocomplete = "off" })
+                        <span class="fa fa-calendar datebox"></span>
+                    </div>
+
+                    @Html.LabelFor(model => model.FieldName, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9 form-group">
+                        @Html.EditorFor(model => model.FieldName, new { htmlAttributes = new { @class = "form-control ays-ignore", autocomplete = "off" } })
+                    </div>
+
+                    @Html.LabelFor(model => model.BeforeChange, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9 form-group">
+                        @Html.EditorFor(model => model.BeforeChange, new { htmlAttributes = new { @class = "form-control ays-ignore", autocomplete = "off" } })
+                    </div>
+
+                    @Html.LabelFor(model => model.AfterChange, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9 form-group">
+                        @Html.EditorFor(model => model.AfterChange, new { htmlAttributes = new { @class = "form-control ays-ignore", autocomplete = "off" } })
+                    </div>
+
+                    @Html.LabelFor(model => model.OrganizationGUID, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9 form-group HANDLER">
+                        @Html.DropDownList("OrganizationGUID", new DropDownList().Organizations(),"", new
+                   {
+                       style = "width:100%",
+                       @class = "form-control select2-basic-search ays-ignore",
+                   })
+                    </div>
+                    @Html.LabelFor(model => model.OrderBy, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9">
+                        <label class="black">@Html.RadioButton("OrderBy", "ASC") Oldest First </label>
+                        &nbsp;
+                        &nbsp;
+                        <label class="black" onclick="$('#LastDate').val(moment().format('YYYY-MM-DD'));">@Html.RadioButton("OrderBy", "DESC",true) Newest First </label>
+                    </div>
+                </div>
+
+                @*Right Side*@
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.ApplicationGUID, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9 form-group HANDLER">
+                        @Html.DropDownListFor(model => model.ApplicationGUID, new DropDownList().Applications(), "", new
+                   {
+                       style = "width:100%",
+                       @class = "form-control select2-basic-single",
+                       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'ParentGUID', Action : 'RemoteApplicationMenus'}," +
+                                                    "{ DropDownListID : 'ActionCategoryGUID', Action : 'RemoteActionsCategories'}," +
+                                                    "{ DropDownListID : 'ActionGUID', Action : ''}]);"
+                   })
+                    </div>
+
+                    @Html.LabelFor(model => model.ActionCategoryGUID, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9 form-group HANDLER">
+                       @Html.DropDownListFor(model => model.ActionCategoryGUID, new DropDownList().ActionsCategories(Model.ApplicationGUID, true), "", new
+                  {
+                      style = "width:100%",
+                      @class = "form-control select2-basic-search",
+                      onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'ActionGUID', Action : 'RemoteActions'}]);"
+                  })
+                    </div>
+
+                    @Html.LabelFor(model => model.ActionGUID, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9 form-group HANDLER">
+                        @Html.DropDownList("ActionGUID", new DropDownList().Empty(), new
+                   {
+                       style = "width:100%",
+                       @class = "form-control select2-basic-search ays-ignore",
+                   })
+                    </div>
+
+                    @Html.LabelFor(model => model.ActionVerbGUID, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9 form-group HANDLER">
+                        @Html.DropDownList("ActionVerbGUID", new DropDownList().ActionVerbs(),"", new
+                   {
+                       style = "width:100%",
+                       @class = "form-control select2-basic-search ays-ignore",
+                   })
+                    </div>
+
+                    @Html.LabelFor(model => model.ExecutedByUserGUID, new { @class = "col-lg-3 col-form-label" })
+                    <div class="col-lg-9 form-group UserDropDownList HANDLER">
+                        @Html.DropDownList("ExecutedByUserGUID", new DropDownList().Empty(), new
+                   {
+                       style = "width:100%",
+                       @class = "form-control js-example-data-ajax ays-ignore",
+                   })
+                    </div>
+                    @*@Html.LabelFor(model => model.ExecutedByUserProfileGUID, new { @class = "col-lg-3 col-form-label" })*@
+                    @*<div class="col-lg-9 form-group HANDLER">
+                        @Html.DropDownList("ExecutedByUserProfileGUID", new DropDownList().Empty(), new
+                   {
+                       style = "width:100%",
+                       @class = "form-control select2-basic-search",
+                   })
+                    </div>*@
+                </div>
+            </div>
+
+            <div class="form-group filter-actions">
+                <input type="button" value="Find" class="btnFind btn btn-success" id="btnFind" onclick="GetGlobalAudit('GlobalAuditReportForm',false);">
+                <input type="button" value="Close" class="btnClose btn btn-default" onclick="ToggleFilter('GlobalAudit');">
+                <input type="reset" value="Clear Filter" class="btnClear btn btn-default ResetForm">
+            </div>
+        }
+    </div>
+
+
+
+    <div class="dt-controls-index" id="AuditFilterContainer">
+        <button type="button" title="Filter" class="btnFilter btn btn-success" onclick="ToggleFilter('GlobalAudit');"><i class="fa fa-filter"></i></button>
+        <button type="button" title="Refresh" class="btnRefresh btn btn-primary" onclick="GetGlobalAudit('GlobalAuditReportForm',false);"><i class="fa fa-refresh"></i></button>
+    </div>
+    <div class="row">
+        <div id="Result" class="GlobalAudit" style="padding:15px;">
+
+        </div>
+        <div class="col-lg-12">
+            <div id="LoadingAudit" style="background-color:#eee;display:none;"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        GetGlobalAudit('GlobalAuditReportForm');
+
+        $(".ResetForm").on("click", function (event) {
+            debugger;
+            event.preventDefault();
+            var myForm = $(this).closest('form').get(0);
+            myForm.reset();
+            $("select", myForm).each(
+                function () {
+                    $(this).val("").trigger("change");
+                }
+            );
+        });
+
+    });
+
+    $(".js-example-data-ajax").select2({
+        ajax: {
+            url: "/DropDownList/UserDDL",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    SearchKey: params.term, // search term
+                };
+            },
+            processResults: function (data, params) {
+                return {
+                    results: data,
+                };
+            },
+            cache: true
+        },
+        //placeholder: 'Search for a repository',
+        escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+        minimumInputLength: 3,
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection
+    });
+
+    function formatRepo(repo) {
+        if (repo.loading) {
+            return repo.text;
+        }
+
+        var markup = '<div style="margin-top: -2px; margin-left: -4px;">' +
+            '<img class="uddlImage" src="' + repo.PhotoPath + '" />' +
+            '<div class="uddlName">' + repo.name + '</div>' +
+            '<div class="uddlJob">' + repo.JobTitle + '</div>' +
+            '<div class="uddlOrg">' + repo.Organization + '</div>' +
+            '</div>';
+
+        return markup;
+    }
+
+    function formatRepoSelection(repo) {
+        if (repo.id == "") {
+            return repo.text;
+        }
+        else {
+            return '<div>' +
+                '<img class="uddlImage" src="' + repo.PhotoPath + '" />' +
+                '<div class="uddlName">' + repo.name + '</div>' +
+                '<div class="uddlJob">' + repo.JobTitle + '</div>' +
+                '<div class="uddlOrg">' + repo.Organization + '</div>' +
+                '</div>';
+        }
+    }
+
+</script>

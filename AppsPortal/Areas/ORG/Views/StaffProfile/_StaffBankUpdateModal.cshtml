@@ -1,0 +1,55 @@
+﻿@model dataStaffBankAccount
+@using (Html.BeginForm("StaffBankAccount", "StaffProfile", new { Area = "ORG" }, FormMethod.Post, new { id = "StaffCoreBankForm" }))
+{
+    string ModalTitle = Model.StaffBankAccountGUID.ToString() == Guid.Empty.ToString() ? "New Bank" : "Edit Bank";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.StaffBankAccountGUID)
+        @Html.HiddenFor(model => model.UserGUID)
+        <div class="form-group">
+            @Html.Label("Bank Name")
+            @Html.DropDownListFor(model => model.BankGUID, new DropDownList().BanksNames(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Holder Name (EN)")
+            @Html.EditorFor(model => model.BankHolderNameEn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.Label("Holder Name (AR)")
+            @Html.EditorFor(model => model.BankHolderNameAr, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.Label("Account Number")
+            @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        @*<div class="form-group">
+            @Html.Label("Account Start Date")
+            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Account Expiry Date")
+            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>*@
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.StaffBankAccountGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.StaffProfile.Create, Apps.ORG)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.StaffProfile.Update, Apps.ORG)
+                @Html.DeleteSwitchButton(Permissions.StaffProfile.Delete, Apps.ORG)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.StaffProfile.Delete, Apps.ORG)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

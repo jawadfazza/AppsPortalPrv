@@ -1,0 +1,91 @@
+﻿@model string
+@{
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<div class="page--content">
+    <div class="page--banner">
+        <h2>Operation Configrations</h2>
+        <div class="sitemap">
+            <div class="nav--content row">
+                <ul>
+                    <li><a herf="#">Home</a></li>
+                    <li><a herf="#">Level I</a></li>
+                    <li><a herf="#">Level II</a></li>
+                    <li>Level III</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="page--body">
+        <div class="forms-fadeIn" style="margin-top:20px;">
+            <div class="row">
+                <div class="col-lg-5" style="margin-bottom:20px;">
+                    <article>
+                        Customize the values of the categories below which will be available for the selected operation.
+                        Users serving in the selected operation will be able to see only the checked values.
+                    </article>
+                    <div class="input-group bigSelect2">
+                        <label for="OperationGUID">Operation</label>
+                        @Html.DropDownList("OperationGUID", new DropDownList().Operations(Model),
+                   new
+                   {
+                       style = "width:100%",
+                       @class = "form-control select2-basic-search",
+                       onchange = 
+                       "$('.panel-body', '#accordion').html('Loading...'); " +
+                       "$('#accordion .in').collapse('hide');" +
+                       " AccordionNodeLoad({ 'PK': $(this).val() });"
+                   })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading01" data-url="@Url.Action(DataTableNames.OrganizationsConfigDataTable, "Configurations")" data-toggle="collapse" data-parent="#accordion" href="#Tab01" aria-expanded="false">
+                                <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#Tab01">
+                                    Organizations
+                                </span>
+                            </div>
+                            <div id="Tab01" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading01">
+                                <div class="panel-body">
+                                    Loading...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading02" data-url="@Url.Action(DataTableNames.CountriesConfigDataTable,"Configurations")" data-toggle="collapse" data-parent="#accordion" href="#Tab02" aria-expanded="false">
+                                <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#Tab02">
+                                    Countries
+                                </span>
+                            </div>
+                            <div id="Tab02" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading02">
+                                <div class="panel-body">
+                                    Loading...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading03" data-url="@Url.Action(DataTableNames.OperationsLookupConfigDataTable,"Configurations",new { FK = LookupTables.Gender })" data-toggle="collapse" data-parent="#accordion" href="#Tab03" aria-expanded="false">
+                                <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#Tab03">
+                                    Gender
+                                </span>
+                            </div>
+                            <div id="Tab03" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading03">
+                                <div class="panel-body">
+                                    Loading...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        AccordionNodeLoad({ "PK": $("#OperationGUID").val() });
+    });
+</script>

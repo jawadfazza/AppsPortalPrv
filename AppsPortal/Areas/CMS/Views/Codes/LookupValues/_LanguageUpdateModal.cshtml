@@ -1,0 +1,41 @@
+﻿@model codeTablesValuesLanguages
+@using (Html.BeginForm("TableValuesLanguage", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "TableValuesLanguageForm" }))
+{
+    string ModalTitle = Model.TableValueLanguageGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.TableValueLanguageGUID)
+        @Html.HiddenFor(model => model.ValueGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.LanguageID)
+            @Html.DropDownListFor(model => model.LanguageID, new DropDownList().Languages(false), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValueDescription)
+            @Html.EditorFor(model => model.ValueDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @{
+            var FactorsToken = new FactorsCollector().LookupValue(Model.ValueGUID);
+        }
+        @if (Model.TableValueLanguageGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.LookupValues.Create, Apps.CMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.LookupValues.Update, Apps.CMS, FactorsToken)
+                @Html.DeleteSwitchButton(Permissions.LookupValues.Delete, Apps.CMS, FactorsToken)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.LookupValues.Restore, Apps.CMS, FactorsToken)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

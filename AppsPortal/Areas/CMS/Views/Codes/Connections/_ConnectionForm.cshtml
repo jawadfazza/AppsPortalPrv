@@ -1,0 +1,86 @@
+﻿@model ConnectionUpdateModel
+@using (Html.BeginForm("Connection", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "ConnectionForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.ConnectionGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.InstanceDescription)
+                @Html.EditorFor(model => model.InstanceDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Metadata)
+                @Html.EditorFor(model => model.Metadata, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Provider)
+                @Html.EditorFor(model => model.Provider, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DataSource)
+                @Html.EditorFor(model => model.DataSource, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.InitialCatalog)
+                @Html.EditorFor(model => model.InitialCatalog, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserID)
+                @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password)
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.ApplicationGUID, new DropDownList().Applications(), new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search"
+           })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrganizationsInstancesGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.OrganizationsInstancesGUID, new DropDownList().OrganizationsInstances(), new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+               data_action = "",
+               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DutyStationGUID', Action : 'RemoteDutyStation'}]);"
+           })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DutyStationGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStationsSelected(Model.OrganizationsInstancesGUID), new
+                       {
+                           style = "width:100%",
+                           @class = "form-control select2-basic-search"
+                       })
+            </div>
+            <div id="ConnectionFormControls" class="form-group form-footer">
+                @if (Model.ConnectionGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Connection.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Connection.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.Connection.Create, Apps.CMS, Url.Action("Connections/Create", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.Connection.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Connection.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Connections", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+}

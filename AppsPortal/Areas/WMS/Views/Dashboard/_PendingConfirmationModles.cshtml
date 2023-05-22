@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ItemWarehouseInformationDetail>
+
+
+    @Html.Partial("_ModalHeader", "Model Distribution")
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+
+                    <img src="/Uploads/WMS/ItemImages/@ViewBag.ItemPhoto"
+                         style="width: 250px; height: 300px;">
+                    <br />
+                    @ViewBag.ModelName
+                   @if (@ViewBag.totalItems>0)
+                   {
+                       @Html.ActionLink("Export List of Item", "ExportItemInformation", "Dashboard", new {id = @ViewBag.WarehouseItemModelGUID}, new {@class = "btn btn-primary"})
+                   }
+                </div>
+                <div class="col-md-8">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Field Office</th>
+                            <th scope="col">Total Items</th>
+                            <th>Total Available</th>
+                            <th scope="col">Total Custody</th>
+                            <th scope="col">Total Damaged</th>
+                            <th scope="col">Total Lost</th>
+                            <th scope="col">Total GS</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>@item.Warehousename</td>
+                                <td> @item.totalItems</td>
+                                @if (@item.totalAvailable == 0)
+                                {
+                                    <td style="color: red;font-weight: bold"> @item.totalAvailable</td>
+                                }
+                                else
+                                {
+                                    <td > @item.totalAvailable</td>
+                                }
+                                <td> @item.totalCustody</td>
+                                <td> @item.totalDamaged</td>
+                                <td> @item.totalLost</td>
+                                <td> @item.totalGS</td>
+                            </tr>
+
+                        }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+    
+        </div>
+
+    </div>
+    <div class="modal-footer form-footer">
+
+        @Html.CloseModalButton()
+
+    </div>
+
+

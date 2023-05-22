@@ -1,0 +1,87 @@
+﻿<div class="col-md-12 normalStatus">
+    <div class="col-md-3">
+
+
+        <i class="fa fa-check icon-circle color-icon-check"></i>
+        <br />
+        Prepared By<br /> @Model.PreparedBy
+    </div>
+    <div class="col-md-3">
+
+        @if (Model.RequestStage > 2)
+        {
+            <i class="fa fa-check icon-circle color-icon-check"></i>
+            <br />
+            <div>Verified By<br /> @Model.StaffName</div>
+        }
+        else
+        {
+            if (Model.FlowStatusGUID == InternationalStaffEntitlmentFlowStatus.PendingVerification)
+            {
+                <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                <h7 style="color:orange">In progress</h7>
+            }
+            else
+            {
+                <i class="fa fa-arrow-right icon-circle .color-icon-arrow-gray"></i>
+            }
+
+            <br />
+            <div>Verified By</div>
+
+        }
+    </div>
+    <div class="col-md-3">
+
+        @if (Model.RequestStage > 3)
+        {
+            <i class="fa fa-check icon-circle color-icon-check"></i>
+            <br />
+            <div>Certified By<br /> @Model.CertifiedBy</div>
+        }
+        else
+        {
+            if (Model.FlowStatusGUID == InternationalStaffEntitlmentFlowStatus.PendingCertify)
+            {
+                <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                <h7 style="color:orange">In progress</h7>
+
+
+            }
+            else
+            {
+                <i class="fa fa-arrow-right icon-circle .color-icon-arrow-gray"></i>
+            }
+            <br />
+            <div>Certified By </div>
+            
+            @Model.CertifiedBy
+
+        }
+    </div>
+    <div class="col-md-3">
+        @if (Model.RequestStage > 4)
+        {
+            <i class="fa fa-check icon-circle color-icon-check"></i>
+            <br />
+            <div>Closed By <br />@Model.FinanceApprovedBy</div>
+        }
+        else
+        {
+            if (Model.FlowStatusGUID == InternationalStaffEntitlmentFlowStatus.PendingFinanceApproval)
+            {
+                <i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>
+                <h7 style="color:orange">In progress</h7>
+            }
+            else
+            {
+                <i class="fa fa-arrow-right icon-circle .color-icon-arrow-gray"></i>
+            }
+
+
+            <br />
+            <div>Closed by </div>
+
+        }
+    </div>
+</div>

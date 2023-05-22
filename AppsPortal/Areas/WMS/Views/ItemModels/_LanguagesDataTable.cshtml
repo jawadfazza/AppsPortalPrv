@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.Globalization</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.ItemModelLanguagesDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.ItemModelLanguagesDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.ItemModelLanguagesDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.ItemModelLanguagesDataTable)
+                @Html.FieldDataTableCreate(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("ItemModelLanguageCreate", "ItemModels", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.WarehouseItemsEntry.Delete, Apps.WMS, DataTableNames.ItemModelLanguagesDataTable)
+                @Html.FieldDataTableRestore(Permissions.WarehouseItemsEntry.Restore, Apps.WMS, DataTableNames.ItemModelLanguagesDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.ItemModelLanguagesDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ItemModelLanguagesDataTable, FormController = "ItemModels", Area = "WMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

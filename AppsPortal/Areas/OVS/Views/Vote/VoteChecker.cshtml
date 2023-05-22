@@ -1,0 +1,63 @@
+﻿@model VoteCheckerModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@{ string PageTitle = "Vote"; }
+
+<div class="page--content">
+
+    <div class="forms-fadeIn">
+        @if (Model.ActiveElection)
+        {
+        <div id="EligiableVoteContainer" class="dt-controls-index">
+            @if (Request.Params["accessKey"].ToString() != "01")
+            {
+                <div class="page--header">
+                    <div class="page--banner">
+                        <h2 id="PageTitle" style="font-size: 30px;"> @Html.DisplayTextFor(m => m.MessageTitle)</h2>
+                    </div>
+                </div>
+                <div class="alert alert-warning">
+                    <article>
+                        <b> @Html.DisplayTextFor(m => m.MessageBody)</b>
+
+                    </article>
+                </div>
+
+                @Html.IndexDatatableCreateVote(Permissions.ElectionsManagement.Create, Apps.OVS, Url.Action("VoteCreate", "Vote", new { Area = "OVS", FK = @Model.AccessKey }))
+            }
+            else
+            {
+                <div class="page--header">
+                    <div class="page--banner">
+                        <h2 id="PageTitle" style="font-size: 30px;color:green;"> @Html.DisplayTextFor(m => m.MessageTitle)</h2>
+                    </div>
+                </div>
+                <div class="alert alert-warning">
+                    <article>
+                        <b> @Html.DisplayTextFor(m => m.MessageBody)</b>
+
+                    </article>
+                </div>
+            }
+        </div>
+        }
+        else
+        { <div id="NotEligiableVoteContainer">
+                <div class="page--header">
+                    <div class="page--banner">
+                        <h2 id="PageTitle" style="font-size: 30px;color:orangered;">  @Html.DisplayTextFor(m => m.MessageTitle)</h2>
+                    </div>
+                </div>
+
+                <h5><b> @Html.DisplayTextFor(m => m.MessageBody)</b></h5>
+                <br />
+                <h2>@ViewBag.ErrorHeader</h2>
+                <p>@ViewBag.ErrorDescription</p>
+                <p><a onclick="window.history.back();" href="#">Return to the previous page.</a></p>
+            </div>
+        }
+    </div>
+</div>

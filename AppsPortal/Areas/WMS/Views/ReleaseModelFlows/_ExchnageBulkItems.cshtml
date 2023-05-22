@@ -1,0 +1,82 @@
+﻿@model ReleaseSingleItemUpdateModalUpdateModel
+@using (Html.BeginForm("ExchnageBulkItems", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "ItemOutputDetailFlowForm" }))
+{
+    string ModalTitle = Model.ItemOutputDetailGUID.ToString() == Guid.Empty.ToString() ? "Confirm Receiving" : "Exchange items";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    <div class="form-group">
+        @Html.LabelFor(model => model.RequesterGUID)
+        @Html.DropDownListFor(model => model.RequesterGUID, new DropDownList().WarehouseRequsterTypes(), "", new
+        {
+            @class = "form-control select2-basic-single",
+            style = "width:100%",
+            onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'RequesterNameGUID', Action : 'RemoteWarehouseRequestTypes'}]);"
+        })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.RequesterNameGUID)
+        @Html.DropDownListFor(model => model.RequesterNameGUID, new DropDownList().Empty(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Retrieve  date")
+        @Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.WarehouseLocationGUID)
+        @Html.DropDownListFor(model => model.WarehouseLocationGUID, new DropDownList().WarehouseLocation(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItemRequestTypeGUID)
+        @Html.DropDownListFor(model => model.ItemRequestTypeGUID, new DropDownList().WarehouseReleaseTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ExpectedStartDate)
+        @Html.EditorFor(model => model.ExpectedStartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ExpectedReturenedDate)
+        @Html.EditorFor(model => model.ExpectedReturenedDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comments)
+        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+</div>
+    <div class="modal-footer form-footer">
+        @*<input class="btn btn-success SLAME ActionControl RetrieveItems" data-submittype="Update" onclick="SubmitForm(this);" type="submit" disabled="disabled" value="Save Changes">*@
+        <input id="btnConfirm" type="submit" class="btn btn-primary" onclick="SubmitItemOutputDetailFlow();" value="Save Changes" />
+        @Html.CloseModalButton()
+    </div>
+}
+<script>
+
+    function SubmitItemOutputDetailFlow() {
+        var IDs = [];
+        debugger;
+
+        $(".chkPK").each(function (index) {
+            console.log(index + ": " + $(this).val());
+            $('<input />').attr('type', 'hidden').attr('name', "models").attr('value', $(this).val()).appendTo('#ItemOutputDetailFlowForm');
+        });
+        
+        
+        var form = $('#ItemOutputDetailFlowForm');
+        var formData = form.serialize();
+        
+        $.ajax({
+            method: 'post',
+            url: "WMS/ModelMovements/ExchnageBulkItems/",
+            data: formData,
+            success: function (JsonResult, status, xhr) {
+                ProcessDataTable(JsonResult, form);
+            },
+            error: function (ex) {
+                Notify(NotificationType.Error, "There was an error submitting the record");
+            }
+        });
+
+    }
+</script>
+
+

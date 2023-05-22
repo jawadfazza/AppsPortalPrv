@@ -1,0 +1,80 @@
+﻿@model HelpDeskModel
+
+@Html.HiddenFor(model => model.HelpDeskApplicationEnhancementModel.AppEnhancementGUID)
+@Html.HiddenFor(model => model.HelpDeskApplicationEnhancementModel.HelpDeskGUID)
+@Html.HiddenFor(model => model.HelpDeskApplicationEnhancementModel.Active)
+@Html.HiddenFor(model => model.HelpDeskApplicationEnhancementModel.dataAppEnhancementRequestRowVersion)
+
+<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Details</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(model => model.HelpDeskApplicationEnhancementModel.ApplicationGUID)
+                @Html.DropDownListFor(model => model.HelpDeskApplicationEnhancementModel.ApplicationGUID, new DropDownList().Applications(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.HelpDeskApplicationEnhancementModel.EnhancementPurpos)
+                @Html.TextAreaFor(model => model.HelpDeskApplicationEnhancementModel.EnhancementPurpos, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.HelpDeskApplicationEnhancementModel.EnhancementDetails)
+                @Html.TextAreaFor(model => model.HelpDeskApplicationEnhancementModel.EnhancementDetails, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.HelpDeskApplicationEnhancementModel.EnhancementBenefits)
+                @Html.TextAreaFor(model => model.HelpDeskApplicationEnhancementModel.EnhancementBenefits, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>*@
+        </div>
+    </div>
+   
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Resolution</h3>
+        </div>
+        <div class="panel-body">
+            @if (Model == null || Model.HelpDeskApplicationEnhancementAuthorizationModel == null)
+            {
+            <div class="alert alert-warning" role="alert">
+                Awaiting acceptance.
+            </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.ApprovalStatusGUID:&nbsp;<b>@Model.HelpDeskApplicationEnhancementAuthorizationModel.ApprovalStatusDescription</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.ApprovalComments:&nbsp;<b>@Model.HelpDeskApplicationEnhancementAuthorizationModel.ApprovalComments</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.EstimatedResourcesNum:&nbsp;<b>@Model.HelpDeskApplicationEnhancementAuthorizationModel.EstimatedResourcesNum</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.EstimatedTime:&nbsp;<b>@Model.HelpDeskApplicationEnhancementAuthorizationModel.EstimatedTimeDescription</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.AssignedToGUID:&nbsp;<b>@Model.AssignedToFullName</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.EnhancementStartDate:&nbsp;<b>@Model.HelpDeskApplicationEnhancementAuthorizationModel.EnhancementStartDate</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.EnhancementEndDate:&nbsp;<b>@Model.HelpDeskApplicationEnhancementAuthorizationModel.EnhancementEndDate</b></h5>
+                        </div>
+                    </div>
+
+                    </div>
+                    }
+                </div>
+    </div>
+</div>
+
+

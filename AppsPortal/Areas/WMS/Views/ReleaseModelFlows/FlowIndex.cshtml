@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "ModelManagement";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("f473172b-3275-4a09-8c4a-ff082fee9570")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.WarehouseModelTrackFlowMovementDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+         
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField {LabelText = resxDbFields.ItemModelWarehouseGUID, DbColumnName = "ModelDescription", FilterForDataType = "Text", DataList = new DropDownList().WarehouseModels(), IsMultiple = true, IsSearchable = true})
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })*@
+                @Html.Partial("_FilterField", new FilterField {LabelText = resxDbFields.Custodian, DbColumnName = "LastCustodianName", FilterForDataType = "Text"})
+            </div>
+            <div class="col-lg-12">
+
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })*@
+                @Html.Partial("_FilterField", new FilterField {LabelText = resxDbFields.BarcodeNumber, DbColumnName = "BarcodeNumber", FilterForDataType = "Text"})
+                @Html.Partial("_FilterField", new FilterField {LabelText = resxDbFields.SerialNumber, DbColumnName = "SerialNumber", FilterForDataType = "Text"})
+
+
+
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField {LabelText = resxDbFields.IME1, DbColumnName = "IMEI", FilterForDataType = "Text"})
+                @Html.Partial("_FilterField", new FilterField {LabelText = resxDbFields.Custodian, DbColumnName = "LastCustodianName", FilterForDataType = "Text"})
+            </div>
+          
+
+          
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.WarehouseModelTrackFlowMovementDataTable)
+           
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.WarehouseModelTrackFlowMovementDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.WarehouseModelTrackFlowMovementDataTable)
+
+        @Html.IndexDatatableSendReminderForDelayItemsReturn(Permissions.WarehouseItemsEntry.Create, Apps.WMS, DataTableNames.WarehouseModelTrackFlowMovementDataTable)
+        
+
+    </div>
+    <div class="page--body">
+        
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseModelTrackFlowMovementDataTable, Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 2 })
+    </div>
+
+    @*@Html.ActionLink("Export All Items", "ExportAllModelItemInformation", "Dashboard", null, new { @class = "btn btn-primary" })*@
+
+</div>

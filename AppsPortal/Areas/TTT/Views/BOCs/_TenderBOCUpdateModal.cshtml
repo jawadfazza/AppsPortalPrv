@@ -1,0 +1,45 @@
+﻿@model dataTenderBOCs
+
+@using (Html.BeginForm("TenderBOC", "BOCs", new { Area = "TTT" }, FormMethod.Post, new { id = "TenderBOCForm" }))
+{
+    string ModalTitle = Model.TenderBOCGUID.ToString() == Guid.Empty.ToString() ? "New BOC" : "Edit BOC";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.TenderBOCGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserGUID)
+            @Html.DropDownListFor(model => model.UserGUID, new DropDownList().Users(true), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DutyStationGUID)
+            @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStations(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.TenderBOCGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.TenderBOCs.Create, Apps.TTT)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.TenderBOCs.Update, Apps.TTT)
+                @Html.DeleteSwitchButton(Permissions.TenderBOCs.Delete, Apps.TTT)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.TenderBOCs.Restore, Apps.TTT)
+            }
+        }
+        @Html.CloseModalButton()
+
+    </div>
+    <div style="padding:0 15px;">
+        @*@Html.Partial("~/Views/Audit/_AuditHandler.cshtml", Url.Action("GetAuditHistory", "Audit", new { Area = "", RecordGUID = Model.ApplicationLanguageGUID } ))*@
+    </div>
+
+}

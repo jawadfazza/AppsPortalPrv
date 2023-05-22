@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Release";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("60f22f53-8b04-498a-beee-4e283dd290e9")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.WarehouseItemReleasesDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OutputNumber, DbColumnName = "OutputNumer", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.WarehouseItemReleasesDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format(" {0}ActionsContainer", DataTableNames.WarehouseItemReleasesDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.WarehouseItemReleasesDataTable)
+        @Html.IndexDatatableCreate(Permissions.AppointmentType.Create, Apps.WMS, "/WMS/ReleaseModels/Create")
+        @Html.IndexDatatableDelete(Permissions.AppointmentType.Delete, Apps.WMS, DataTableNames.WarehouseItemReleasesDataTable)
+        @Html.IndexDatatableRestor(Permissions.AppointmentType.Restore, Apps.WMS, DataTableNames.WarehouseItemReleasesDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.WarehouseItemReleasesDataTable)
+    </div>
+    <div class="page--body">
+        @*@Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseItemReleasesDataTable, Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })*@
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseItemReleasesDataTable, Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

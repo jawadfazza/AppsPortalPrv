@@ -1,0 +1,67 @@
+﻿@model CardIndividualInfoUpdateModel
+@using (Html.BeginForm("CardIndividualInfo", "CardIndividualInfos", new { Area = "IDC" }, FormMethod.Post, new { id = "CardIndividualInfoForm", @class = "main-form" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.CardIndividualInfoGUID)
+    @Html.HiddenFor(model => model.CaseNumber)
+    @Html.HiddenFor(model => model.IndividualID)
+    @Html.HiddenFor(model => model.ArrivalEstimation)
+    @Html.HiddenFor(model => model.Sex)
+
+<div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+    <h3>Refugee Details</h3>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CaseNumber):
+        @Html.DisplayFor(model => model.CaseNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } }),
+        @Html.LabelFor(model => model.IndividualID):
+        @Html.DisplayFor(model => model.IndividualID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FullName_AR)
+        @Html.EditorFor(model => model.FullName_AR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FullName_EN)
+        @Html.EditorFor(model => model.FullName_EN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.Label("Date Of Birth")
+        @Html.EditorFor(model => model.DateOfBrith, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.Label("Arrival Date")
+        @Html.EditorFor(model => model.ArrivalDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Category)
+        @Html.DropDownListFor(model => model.Category, new DropDownList().CategoryDetermination(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+    </div>
+    <div class="form-group">
+        @Html.Label("CoO")
+        @Html.DropDownListFor(model => model.CountyCodeA3, new DropDownList().CountriesA3Code(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+    </div>
+    <div id="CardIndividualInfoFormControls" class="form-group form-footer">
+        @if (Model.CardIndividualInfoGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.CardIndividualInfo.Create, Apps.IDC)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.CardIndividualInfo.Update, Apps.IDC)
+                @Html.CreateNewButton(Permissions.CardIndividualInfo.Create, Apps.IDC, Url.Action("/Create", new { Area = "IDC" }))
+                @*@Html.DeleteButton(Permissions.CardIndividualInfo.Delete, Apps.IDC)*@
+            }
+            else
+            {
+                @*@Html.RestoreButton(Permissions.CardIndividualInfo.Restore, Apps.IDC)*@
+            }
+        }
+        @Html.BackToList(Url.Action("Index", "CardIndividualInfos", new { Area = "IDC" }))
+    </div>
+</div>
+
+}

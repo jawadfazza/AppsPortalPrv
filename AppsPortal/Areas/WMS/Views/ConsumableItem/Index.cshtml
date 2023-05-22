@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "ItemModels";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("0f6d77f1-998e-4426-ba1b-ccfc14c0cb3c")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.WarehouseConsumableItemOverviewDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemClassification, DbColumnName = "WarehouseItemClassificationGUID", FilterForDataType = "Text", DataList = new DropDownList().ItemClassification(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.WarehouseItemGUID, DbColumnName = "WarehouseItemGUID", FilterForDataType = "Text", DataList = new DropDownList().WarehouseItems(), IsMultiple = true, IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.WarehouseGUID, DbColumnName = "WarehouseGUID", FilterForDataType = "Text", DataList = new DropDownList().Warehouses(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.WarehouseItemModelGUID, DbColumnName = "WarehouseItemModelGUID", FilterForDataType = "Text", DataList = new DropDownList().WarehouseConsumableModels(), IsMultiple = true, IsSearchable = true })
+            </div>
+
+            <div class="col-lg-12">
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationInstanceDescription, DbColumnName = "OrganizationInstanceGUID", FilterForDataType = "Options", DataList = new DropDownList().OrganizationsInstancesByProfile(), IsMultiple = true })*@
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.WarehouseConsumableItemOverviewDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.WarehouseConsumableItemOverviewDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.WarehouseConsumableItemOverviewDataTable)
+        @Html.IndexDatatableCreate(Permissions.WarehouseItemsEntry.Create, Apps.WMS, "/WMS/ConsumableItem/CreateEntry")
+        @Html.IndexDatatableCreateRelease(Permissions.WarehouseItemsEntry.Create, Apps.WMS, "/WMS/ConsumableItem/CreateRelease")
+        @Html.IndexDatatableDelete(Permissions.WarehouseItemsEntry.Delete, Apps.WMS, DataTableNames.WarehouseConsumableItemOverviewDataTable)
+        @Html.IndexDatatableRestor(Permissions.WarehouseItemsEntry.Restore, Apps.WMS, DataTableNames.WarehouseConsumableItemOverviewDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.WarehouseConsumableItemOverviewDataTable)
+        @Html.ActionLink("Pending confirmation", "PendingConfirmationIndex", "ConsumableItem", new { area = "WMS" })
+
+
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseConsumableItemOverviewDataTable, Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

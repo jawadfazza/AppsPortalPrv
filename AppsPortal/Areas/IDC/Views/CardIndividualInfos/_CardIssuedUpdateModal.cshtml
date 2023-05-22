@@ -1,0 +1,47 @@
+﻿@model dataCardIssued
+@using (Html.BeginForm("CardIssued", "CardIssueds", new { Area = "IDC" }, FormMethod.Post, new { id = "CardIssuedForm" }))
+{
+    string ModalTitle = Model.CardIssuedGUID.ToString() == Guid.Empty.ToString() ? "New Card Request" : "Edit Card Issued";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.CardIssuedGUID)
+        @Html.HiddenFor(model => model.CardIndividualInfoGUID)
+
+        <div class="form-group">
+            @Html.Label("Issue Reason")
+            @Html.DropDownListFor(model => model.IssueCode, new DropDownList().IDCardIssueReason(),"", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.IssueDate)
+                @Html.EditorFor(model => model.IssueDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExpirtionDate)
+            @Html.EditorFor(model => model.ExpirtionDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DutyStationGUID)
+            @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().IDCardSyriaDutyStations(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.CardIssuedGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.CardIssued.Create, Apps.IDC)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.CardIssued.Update, Apps.IDC)
+                @Html.DeleteSwitchButton(Permissions.CardIssued.Delete, Apps.IDC)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.CardIssued.Delete, Apps.IDC)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">Tags</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.TemplateTypeDocumentTagsDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.TemplateTypeDocumentTagsDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.TemplateTypeDocumentTagsDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.TemplateTypeDocumentTagsDataTable)
+                @Html.FieldDataTableCreate(Permissions.DASConfiguration.Create, Apps.DAS, Url.Action("TemplateTypeDocumentTagCreate", "TemplateConfiguration", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.DASConfiguration.Delete, Apps.DAS, DataTableNames.TemplateTypeDocumentTagsDataTable)
+                @Html.FieldDataTableRestore(Permissions.DASConfiguration.Restore, Apps.DAS, DataTableNames.TemplateTypeDocumentTagsDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.TemplateTypeDocumentTagsDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.TemplateTypeDocumentTagsDataTable, FormController = "TemplateConfiguration", Area = "DAS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

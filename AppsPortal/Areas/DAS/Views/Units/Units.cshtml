@@ -1,0 +1,23 @@
+﻿@model UnitUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.DestinationUnitGUID == Guid.Empty) ? "New  Unit " : "Edit Unit"; }
+
+@Html.PageHeader("6d2ba2fb-0f3f-4345-9438-3dcf19c2a2be")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/DAS/Views/Units/_UnitForm.cshtml")
+
+            @if (Model.DestinationUnitGUID!=null && Model.DestinationUnitGUID != Guid.Empty && Model.Active)
+            {
+                <div id="ItemModelLanguagesFormControls">
+                    @Html.Partial("~/Areas/DAS/Views/Units/_UnitFocalPointsDataTable.cshtml", new MasterRecordStatus { ParentGUID =(Guid) Model.DestinationUnitGUID, IsParentActive = Model.Active })
+                </div>
+            }
+   
+     
+    </div>
+</div>
+

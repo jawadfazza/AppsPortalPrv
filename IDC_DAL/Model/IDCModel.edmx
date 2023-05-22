@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="IDCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="codeCardIssueReason">
+          <Key>
+            <PropertyRef Name="IssueCode" />
+          </Key>
+          <Property Name="IssueCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="IssueDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Seq" Type="int" />
+          <Property Name="Approval" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeCardIssueReasonRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataCardIndividualInfo">
+          <Key>
+            <PropertyRef Name="CardIndividualInfoGUID" />
+          </Key>
+          <Property Name="CardIndividualInfoGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndividualID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CaseNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="FullName_EN" Type="nvarchar" MaxLength="70" />
+          <Property Name="FullName_AR" Type="nvarchar" MaxLength="57" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="2" />
+          <Property Name="DateOfBrith" Type="date" />
+          <Property Name="Category" Type="nvarchar" MaxLength="15" />
+          <Property Name="ArrivalDate" Type="date" />
+          <Property Name="ArrivalEstimation" Type="bit" />
+          <Property Name="CountyCodeA3" Type="nvarchar" MaxLength="10" />
+          <Property Name="ShowNationality" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataCardIndividualInfoRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataCardIssued">
+          <Key>
+            <PropertyRef Name="CardIssuedGUID" />
+          </Key>
+          <Property Name="CardIssuedGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CardIndividualInfoGUID" Type="uniqueidentifier" />
+          <Property Name="Sequance" Type="nvarchar" MaxLength="50" />
+          <Property Name="IssueDate" Type="date" />
+          <Property Name="ExpirtionDate" Type="date" />
+          <Property Name="Valid" Type="bit" />
+          <Property Name="IssueCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Approved" Type="bit" />
+          <Property Name="Barcode" Type="image" />
+          <Property Name="Photo" Type="image" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="PrintedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="PrintedDate" Type="datetime" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataCardIssuedRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_dataCardIssued_codeCardIssueReason">
+          <End Role="codeCardIssueReason" Type="Self.codeCardIssueReason" Multiplicity="0..1" />
+          <End Role="dataCardIssued" Type="Self.dataCardIssued" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCardIssueReason">
+              <PropertyRef Name="IssueCode" />
+            </Principal>
+            <Dependent Role="dataCardIssued">
+              <PropertyRef Name="IssueCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataCardIssued_dataCardIndividualInfo">
+          <End Role="dataCardIndividualInfo" Type="Self.dataCardIndividualInfo" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataCardIssued" Type="Self.dataCardIssued" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataCardIndividualInfo">
+              <PropertyRef Name="CardIndividualInfoGUID" />
+            </Principal>
+            <Dependent Role="dataCardIssued">
+              <PropertyRef Name="CardIndividualInfoGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IDCModelStoreContainer">
+          <EntitySet Name="codeCardIssueReason" EntityType="Self.codeCardIssueReason" Schema="code" store:Type="Tables" />
+          <EntitySet Name="dataCardIndividualInfo" EntityType="Self.dataCardIndividualInfo" Schema="IDC" store:Type="Tables" />
+          <EntitySet Name="dataCardIssued" EntityType="Self.dataCardIssued" Schema="IDC" store:Type="Tables" />
+          <AssociationSet Name="FK_dataCardIssued_codeCardIssueReason" Association="Self.FK_dataCardIssued_codeCardIssueReason">
+            <End Role="codeCardIssueReason" EntitySet="codeCardIssueReason" />
+            <End Role="dataCardIssued" EntitySet="dataCardIssued" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataCardIssued_dataCardIndividualInfo" Association="Self.FK_dataCardIssued_dataCardIndividualInfo">
+            <End Role="dataCardIndividualInfo" EntitySet="dataCardIndividualInfo" />
+            <End Role="dataCardIssued" EntitySet="dataCardIssued" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IDCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="IDCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="codeCardIssueReason" EntityType="IDCModel.codeCardIssueReason" />
+          <EntitySet Name="dataCardIssued" EntityType="IDCModel.dataCardIssued" />
+          <AssociationSet Name="FK_dataCardIssued_codeCardIssueReason" Association="IDCModel.FK_dataCardIssued_codeCardIssueReason">
+            <End Role="codeCardIssueReason" EntitySet="codeCardIssueReason" />
+            <End Role="dataCardIssued" EntitySet="dataCardIssued" />
+          </AssociationSet>
+          <EntitySet Name="dataCardIndividualInfo" EntityType="IDCModel.dataCardIndividualInfo" />
+          <AssociationSet Name="FK_dataCardIssued_dataCardIndividualInfo" Association="IDCModel.FK_dataCardIssued_dataCardIndividualInfo">
+            <End Role="dataCardIndividualInfo" EntitySet="dataCardIndividualInfo" />
+            <End Role="dataCardIssued" EntitySet="dataCardIssued" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="codeCardIssueReason">
+          <Key>
+            <PropertyRef Name="IssueCode" />
+          </Key>
+          <Property Name="IssueCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IssueDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeCardIssueReasonRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Seq" Type="Int32" />
+          <Property Name="Approval" Type="Boolean" />
+          <NavigationProperty Name="dataCardIssued" Relationship="IDCModel.FK_dataCardIssued_codeCardIssueReason" FromRole="codeCardIssueReason" ToRole="dataCardIssued" />
+        </EntityType>
+        <EntityType Name="dataCardIssued">
+          <Key>
+            <PropertyRef Name="CardIssuedGUID" />
+          </Key>
+          <Property Name="CardIssuedGUID" Type="Guid" Nullable="false" />
+          <Property Name="CardIndividualInfoGUID" Type="Guid" />
+          <Property Name="Sequance" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IssueDate" Type="DateTime" Precision="0" />
+          <Property Name="ExpirtionDate" Type="DateTime" Precision="0" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="IssueCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Approved" Type="Boolean" />
+          <Property Name="Barcode" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CreateBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="PrintedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PrintedDate" Type="DateTime" Precision="3" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataCardIssuedRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeCardIssueReason" Relationship="IDCModel.FK_dataCardIssued_codeCardIssueReason" FromRole="dataCardIssued" ToRole="codeCardIssueReason" />
+          <NavigationProperty Name="dataCardIndividualInfo" Relationship="IDCModel.FK_dataCardIssued_dataCardIndividualInfo" FromRole="dataCardIssued" ToRole="dataCardIndividualInfo" />
+        </EntityType>
+        <Association Name="FK_dataCardIssued_codeCardIssueReason">
+          <End Type="IDCModel.codeCardIssueReason" Role="codeCardIssueReason" Multiplicity="0..1" />
+          <End Type="IDCModel.dataCardIssued" Role="dataCardIssued" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCardIssueReason">
+              <PropertyRef Name="IssueCode" />
+            </Principal>
+            <Dependent Role="dataCardIssued">
+              <PropertyRef Name="IssueCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataCardIndividualInfo">
+          <Key>
+            <PropertyRef Name="CardIndividualInfoGUID" />
+          </Key>
+          <Property Name="CardIndividualInfoGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndividualID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CaseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullName_EN" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="FullName_AR" Type="String" MaxLength="57" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBrith" Type="DateTime" Precision="0" />
+          <Property Name="Category" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="0" />
+          <Property Name="ArrivalEstimation" Type="Boolean" />
+          <Property Name="CountyCodeA3" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ShowNationality" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataCardIndividualInfoRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataCardIssued" Relationship="IDCModel.FK_dataCardIssued_dataCardIndividualInfo" FromRole="dataCardIndividualInfo" ToRole="dataCardIssued" />
+        </EntityType>
+        <Association Name="FK_dataCardIssued_dataCardIndividualInfo">
+          <End Type="IDCModel.dataCardIndividualInfo" Role="dataCardIndividualInfo" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="IDCModel.dataCardIssued" Role="dataCardIssued" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataCardIndividualInfo">
+              <PropertyRef Name="CardIndividualInfoGUID" />
+            </Principal>
+            <Dependent Role="dataCardIssued">
+              <PropertyRef Name="CardIndividualInfoGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IDCModelStoreContainer" CdmEntityContainer="IDCEntities">
+          <EntitySetMapping Name="codeCardIssueReason">
+            <EntityTypeMapping TypeName="IDCModel.codeCardIssueReason">
+              <MappingFragment StoreEntitySet="codeCardIssueReason">
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="Seq" ColumnName="Seq" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeCardIssueReasonRowVersion" ColumnName="codeCardIssueReasonRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IssueDescription" ColumnName="IssueDescription" />
+                <ScalarProperty Name="IssueCode" ColumnName="IssueCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataCardIssued">
+            <EntityTypeMapping TypeName="IDCModel.dataCardIssued">
+              <MappingFragment StoreEntitySet="dataCardIssued">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataCardIssuedRowVersion" ColumnName="dataCardIssuedRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="PrintedDate" ColumnName="PrintedDate" />
+                <ScalarProperty Name="PrintedBy" ColumnName="PrintedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="IssueCode" ColumnName="IssueCode" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="ExpirtionDate" ColumnName="ExpirtionDate" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="Sequance" ColumnName="Sequance" />
+                <ScalarProperty Name="CardIndividualInfoGUID" ColumnName="CardIndividualInfoGUID" />
+                <ScalarProperty Name="CardIssuedGUID" ColumnName="CardIssuedGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataCardIndividualInfo">
+            <EntityTypeMapping TypeName="IDCModel.dataCardIndividualInfo">
+              <MappingFragment StoreEntitySet="dataCardIndividualInfo">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataCardIndividualInfoRowVersion" ColumnName="dataCardIndividualInfoRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ShowNationality" ColumnName="ShowNationality" />
+                <ScalarProperty Name="CountyCodeA3" ColumnName="CountyCodeA3" />
+                <ScalarProperty Name="ArrivalEstimation" ColumnName="ArrivalEstimation" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="DateOfBrith" ColumnName="DateOfBrith" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="FullName_AR" ColumnName="FullName_AR" />
+                <ScalarProperty Name="FullName_EN" ColumnName="FullName_EN" />
+                <ScalarProperty Name="CaseNumber" ColumnName="CaseNumber" />
+                <ScalarProperty Name="IndividualID" ColumnName="IndividualID" />
+                <ScalarProperty Name="CardIndividualInfoGUID" ColumnName="CardIndividualInfoGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

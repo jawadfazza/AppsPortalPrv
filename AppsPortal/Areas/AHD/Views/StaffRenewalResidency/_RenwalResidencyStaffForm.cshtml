@@ -1,0 +1,139 @@
+﻿@model StaffRenwalResidencyModel
+@using (Html.BeginForm("StaffRenewalResidency", "StaffRenewalResidency", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffRenewalResidencyForm", @class = "main-form", enctype = "multipart/form-data" }))
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.StaffRenwalResidencyGUID)
+        @Html.HiddenFor(model => model.CreateByGUID)
+        @Html.HiddenFor(model => model.CreateDate)
+        @Html.HiddenFor(model => model.LastFlowStatus)
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+                <h3>NVs for International S/Ms</h3>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FormTypeGUID)
+                            @Html.DropDownListFor(model => model.FormTypeGUID, new DropDownList().NVInternationStaffFormTypes(), "",
+                           new
+                           {
+                               style = "width:100%",
+                               @class = "form-control select2-basic-search",
+                               
+                           })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RefNumber)
+                            @Html.EditorFor(model => model.RefNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StaffGUID)
+                            @Html.DropDownListFor(model => model.StaffGUID, new DropDownList().InternationalStaffUsers(true), "",
+                           new
+                                {
+                               style = "width:100%",
+                               @class = "form-control select2-basic-search",
+                               onchange = "LoadStaffInformation($('#StaffGUID').val());"
+
+                           })
+                        </div>
+                        <div class="form-group" id="returndateid">
+                            @Html.LabelFor(model => model.ReturnDate)
+                            @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SentDate)
+                            @Html.EditorFor(model => model.SentDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                        </div>
+
+                        @*<div class="form-group">
+                            @Html.LabelFor(model => model.EntryDateToSyria)
+                            @Html.EditorFor(model => model.EntryDateToSyria, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                        </div>*@
+
+                    </div>
+                    <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
+                        @if (Model.StaffRenwalResidencyGUID != Guid.Empty)
+                        {
+                            <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LastFlowStatusGUID)
+                                    @Html.DropDownListFor(model => model.LastFlowStatusGUID, new DropDownList().StaffRenewalResidencyFormStatus(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                                </div>
+                            </div>
+                        }
+
+                        <div class="col-md-12" id="otherinfo">
+                            <div id="staffOtherInformation" class="form-group">
+
+                                @Html.Partial("~/Areas/AHD/Views/StaffRenewalResidency/_StaffOtherInformation.cshtml")
+                            </div>
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.StaffRenwalResidencyGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.StaffRenewalResidency.Create, Apps.AHD)
+
+
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.StaffRenewalResidency.Update, Apps.AHD)
+                @Html.DeleteSwitchButton(Permissions.StaffRenewalResidency.Delete, Apps.AHD)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.StaffRenewalResidency.Delete, Apps.AHD)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+<script>
+    $('#otherinfo').hide();
+    $('#returndateid').hide();
+    function LoadStaffInformation(StaffGUID) {
+        var _form = $('#FormTypeGUID').val();
+        if (_form == "66cd375c-a576-4aa4-8af4-ff3c1c4e7992") {
+            $('#returndateid').show();
+        }
+        
+        if (StaffGUID == null) {
+            $("#staffOtherInformation").html("");
+
+        }
+        //var _form = $('#FormTypeGUID').val();
+        //alert(_form);
+        if (StaffGUID != null
+           // && _form == "66CD375C-A576-4AA4-8AF4-FF3C1C4E7999"
+        ) {
+            var URL = "/AHd/StaffRenewalResidency/GetStaffOtherInformation?PK=" + StaffGUID;
+
+            $('#staffOtherInformation').load(URL,
+                function () { });
+            $('#otherinfo').show();
+        }
+    };</script>

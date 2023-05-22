@@ -1,0 +1,49 @@
+﻿@model StaffOvertimeUpdateModel
+@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("a3c4139d-13c7-4d7d-bf44-5137e455071b")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.StaffMyOvertimefDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+
+            <div class="col-lg-12">
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffGUID, DbColumnName = "StaffGUID", FilterForDataType = "Text", DataList = new DropDownList().InternationalStaffUsers(true), IsMultiple = true, IsSearchable = true })*@
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FlowStatusGUID, DbColumnName = "LastFlowStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().StaffOvertimeFlowStatus(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+
+            </div>
+            @*<div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStation, DbColumnName = "DutyStationGUID", FilterForDataType = "Text", DataList = new DropDownList().SyriaDutyStations(), IsMultiple = true, IsSearchable = true })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DepartmentGUID, DbColumnName = "DepartmentGUID", FilterForDataType = "Text", DataList = new DropDownList().Departments(), IsMultiple = true, IsSearchable = true })
+
+                </div>*@
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.StaffMyOvertimefDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffMyOvertimefDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.StaffMyOvertimefDataTable)
+        @Html.IndexDatatableCreateNoPermission("/AHD/StaffOvertime/StaffOvertimeCreate")
+
+        @*@Html.IndexDatatableCreate(Permissions.InternationalStaffEntitlements.Create, Apps.AHD, "/AHD/StaffRAndRLeaveRequest/Create")*@
+
+
+        @*@Html.FieldDataTableCreate(Permissions.InternationalStaffEntitlements.Create, Apps.AHD, Url.Action("InternationalStaffEntitlementPeriodCreate", "InternationalStaffEntitlement"))*@
+
+        @*@Html.IndexDatatableDelete(Permissions.InternationalStaffEntitlements.Delete, Apps.AHD, DataTableNames.StaffMyOvertimefDataTable)*@
+        @*@Html.IndexDatatableRestor(Permissions.InternationalStaffEntitlements.Restore, Apps.AHD, DataTableNames.StaffMyOvertimefDataTable)*@
+        @Html.IndexDatatableRefresh(DataTableNames.StaffMyOvertimefDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffMyOvertimefDataTable, FormController = "StaffOvertime", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.UserGUID, OrderBy = 1 })
+
+
+        @*@Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffMyOvertimefDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })*@
+    </div>
+
+
+</div>

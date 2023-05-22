@@ -1,0 +1,222 @@
+﻿<link href="~/Assets/Plugin/GetOrgChart/getorgchart.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/GetOrgChart/getorgchart.js"></script>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+<style type="text/css">
+    html, body {
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+
+    #people {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <select class="form-control select2-basic-single" id="ChartType" name="ChartType">
+            <option value="Full Organizational Diagram">Full Organizational Diagram</option>
+            <option value="Staff Only Organizational Diagram">Staff Only Organizational Diagram</option>
+            <option value="Departments Only Organizational Diagram">Departments Only Organizational Diagram</option>
+        </select>
+    </div>
+</div>
+<div id="people"></div>
+
+<script type="text/javascript">
+
+    $(function () {
+
+        initAjaxRequest("@Url.Action("FullOrganicChartData", "Dashboard", new { Area = "ORG" })");
+        $('#ChartType').change(function (e) {
+            e.preventDefault();
+            var ChartType = $(this).val();
+            if (ChartType == 'Full Organizational Diagram')
+            {
+                initAjaxRequest("@Url.Action("FullOrganicChartData", "Dashboard", new { Area = "ORG" })");
+            }
+            else if (ChartType == 'Staff Only Organizational Diagram')
+            {
+                initAjaxRequest("@Url.Action("StaffOnlyOrganicChartData", "Dashboard", new { Area = "ORG" })");
+            }
+            else if (ChartType == 'Departments Only Organizational Diagram')
+            {
+                initAjaxRequest("@Url.Action("DepartmentsOnlyOrganicChartData", "Dashboard", new { Area = "ORG" })");
+            }
+        });
+
+
+    });
+
+    function initAjaxRequest(url) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (result) {
+                InitOrganicChart(result["source"]);
+            },
+            error: function (errorStatus) { }
+        });
+    }
+
+    function InitOrganicChart(dataSource) {
+        var peopleElement = document.getElementById("people");
+        var orgChart = new getOrgChart(peopleElement, {
+            primaryFields: ["name", "title", "phone", "mail", "category", "adress"],
+            secondParentIdField: "secondParenId",
+            photoFields: ["image"],
+            renderNodeEvent: renderNodeEventHandler,
+            layout: getOrgChart.MIXED_HIERARCHY_RIGHT_LINKS,
+            //dataSource: [
+            //    { id: 1, parentId: null, category: "Department", name: "ICT Unit", title: "ICT Unit", phone: "---", mail: "", adress: ".....", image: "/Assets/Images/img.png" },
+            //    { id: 2, parentId: 1, category: "Staff", name: "Fitzroy Rampersad", title: "Senior ICT Officer", phone: "---", mail: "rampersa@unhcr.org", adress: ".....", image: "/Assets/Images/img.png" },
+            //    { id: 3, parentId: 2, category: "Department", name: "ICT Application Unit", title: "ICT Application Unit", phone: "---", mail: "", adress: ".....", image: "/Assets/Images/img.png" },
+            //    { id: 4, parentId: 2, category: "Department", name: "ICT Infrastructure Unit", title: "ICT Infrastructure Unit", phone: "---", mail: "", adress: ".....", image: "/Assets/Images/img.png" },
+            //    { id: 5, parentId: 3, category: "Staff", name: "Haitham Isac", title: "Associate ICT Officer", phone: "---", mail: "isac@unhcr.org", adress: ".....", image: "/Assets/Images/img.png" },
+            //    { id: 6, parentId: 5, category: "Staff", name: "Amer Karkoush", title: "ICT Associate", phone: "---", mail: "karkoush@unhcr.org", image: "/Assets/Images/img.png" },
+            //    { id: 7, parentId: 5, category: "Staff", name: "Jawad AlFazzaa", title: "ICT Associate", phone: "---", mail: "alfazzaa@unhcr.org", image: "/Assets/Images/img.png" },
+            //    { id: 8, parentId: 5, category: "Staff", name: "Mahmoud Maksoud", title: "ICT Associate", phone: "---", mail: "maksoud@unhcr.org", image: "/Assets/Images/img.png" },
+            //    { id: 9, parentId: 5, category: "Staff", name: "Ihsan Shaban", title: "ICT Associate", phone: "---", image: "/Assets/Images/img.png" },
+            //    { id: 10, parentId: 4, category: "Staff", name: "Rami Shaghlil", title: "ICT Associate", phone: "---", mail: "shaghlil@unhcr.org", image: "/Assets/Images/img.png" },
+            //    { id: 11, parentId: 4, category: "Staff", name: "Firas Ashour", title: "ICT Associate", phone: "---", mail: "ashourf@unhcr.org", image: "/Assets/Images/img.png" },
+            //    { id: 12, parentId: 4, category: "Staff", name: "Sami Homsi", title: "ICT Assistant", phone: "---", mail: "homssi@unhcr.org", image: "/Assets/Images/img.png" },
+            //    { id: 13, parentId: 4, category: "Staff", name: "Rami Daqaq", title: "ICT Associate", phone: "---", mail: "daqaq@unhcr.org", image: "/Assets/Images/img.png" },
+            //    { id: 14, parentId: 4, category: "Staff", name: "Elham Sahhar", title: "Senior ICT Assistant", phone: "---", mail: "sahhar@unhcr.org", image: "/Assets/Images/img.png" },
+            //    { id: 15, parentId: 4, category: "Staff", name: "Muna Aydi", title: "ICT Assistant", phone: "---", mail: "aydi@unhcr.org", image: "/Assets/Images/img.png" }
+            //]
+            dataSource: dataSource
+            //dataSource: [
+            //    { id: "601cd0d5-f995-4290-a71c-de94c1b8f0d8",parentId: null, type: "Staff",name: "Tibor  Molnar",title: "Other",adress: "...", image: "/Assets/Images/img.png", mail = "", phone = "" },
+            //    {
+            //        id: "befdce77-30c3-46f4-abd8-ded9aaf321b9",
+            //        parentId: "befdce77-30c3-46f4-abd8-ded9aaf321b9",
+            //        type: "Staff",
+            //        name: "Reme  Alkofairi",
+            //        title: "Other",
+            //        adress: "...",
+            //        image: "/Assets/Images/img.png",
+            //        mail = "",
+            //        phone = ""
+            //    }
+            //]
+        });
+    }
+
+    function renderNodeEventHandler(sender, args) {
+        var nodeType = args.node.data["category"];
+        if (nodeType == "Department") {
+            args.content[1] = args.content[1].replace("rect", "rect style='fill:#008000;stroke:#008000;'")
+        }
+        else if (nodeType == "Staff") {
+            args.content[1] = args.content[1].replace("rect", "rect style='fill:#0072C6;stroke:#0072C6;'")
+        }
+        //if (!isNumeric(salary)) {
+        //    return;
+        //}
+
+        //var val = (salary - min) / factor;
+        //var rgb = interpolateColor(start, end, val / 100);
+        //var hex = rgb2hex(rgb);
+
+    }
+</script>
+@*dataSource: [
+        { id: 1, parentId: null, type: "Department", name: "ICT Unit", title: "ICT Unit", phone: "---", mail: "", adress: ".....", image: "/Assets/Images/img.png" },
+        { id: 2, parentId: 1, type: "Staff", name: "Fitzroy Rampersad", title: "Senior ICT Officer", phone: "---", mail: "rampersa@unhcr.org", adress: ".....", image: "/Assets/Images/img.png" },
+        { id: 3, parentId: 2, type: "Department", name: "ICT Application Unit", title: "ICT Application Unit", phone: "---", mail: "", adress: ".....", image: "/Assets/Images/img.png" },
+        { id: 4, parentId: 2, type: "Department", name: "ICT Infrastructure Unit", title: "ICT Infrastructure Unit", phone: "---", mail: "", adress: ".....", image: "/Assets/Images/img.png" },
+        { id: 5, parentId: 3, type: "Staff", name: "Haitham Isac", title: "Associate ICT Officer", phone: "---", mail: "isac@unhcr.org", adress: ".....", image: "/Assets/Images/img.png" },
+        { id: 6, parentId: 5, type: "Staff", name: "Amer Karkoush", title: "ICT Associate", phone: "---", mail: "karkoush@unhcr.org", image: "/Assets/Images/img.png" },
+        { id: 7, parentId: 5, type: "Staff", name: "Jawad AlFazzaa", title: "ICT Associate", phone: "---", mail: "alfazzaa@unhcr.org", image: "/Assets/Images/img.png" },
+        { id: 8, parentId: 5, type: "Staff", name: "Mahmoud Maksoud", title: "ICT Associate", phone: "---", mail: "maksoud@unhcr.org", image: "/Assets/Images/img.png" },
+        { id: 9, parentId: 5, type: "Staff", name: "Ihsan Shaban", title: "ICT Associate", phone: "---", image: "/Assets/Images/img.png" },
+        { id: 10, parentId: 4, type: "Staff", name: "Rami Shaghlil", title: "ICT Associate", phone: "---", mail: "shaghlil@unhcr.org", image: "/Assets/Images/img.png" },
+        { id: 11, parentId: 4, type: "Staff", name: "Firas Ashour", title: "ICT Associate", phone: "---", mail: "ashourf@unhcr.org", image: "/Assets/Images/img.png" },
+        { id: 12, parentId: 4, type: "Staff", name: "Sami Homsi", title: "ICT Assistant", phone: "---", mail: "homssi@unhcr.org", image: "/Assets/Images/img.png" },
+        { id: 13, parentId: 4, type: "Staff", name: "Rami Daqaq", title: "ICT Associate", phone: "---", mail: "daqaq@unhcr.org", image: "/Assets/Images/img.png" },
+        { id: 14, parentId: 4, type: "Staff", name: "Elham Sahhar", title: "Senior ICT Assistant", phone: "---", mail: "sahhar@unhcr.org", image: "/Assets/Images/img.png" },
+        { id: 15, parentId: 4, type: "Staff", name: "Muna Aydi", title: "ICT Assistant", phone: "---", mail: "aydi@unhcr.org", image: "/Assets/Images/img.png" }
+    ]*@
+@*<script type="text/javascript">
+
+        function isNumeric(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+
+
+        var hex2rgb = function (hex) {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? [
+                parseInt(result[1], 16),
+                parseInt(result[2], 16),
+                parseInt(result[3], 16)
+            ] : null;
+        };
+
+        var rgb2hex = function (rgb) {
+            return "#" + ((1 << 24) + (rgb[0] << 16) + (rgb[1] << 8) + rgb[2]).toString(16).slice(1);
+        };
+
+        var interpolateColor = function (color1, color2, factor) {
+            if (arguments.length < 3) { factor = 0.5; }
+            var result = color1.slice();
+            for (var i = 0; i < 3; i++) {
+                result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
+            }
+            return result;
+        };
+
+
+
+
+        var start = hex2rgb("#008000");
+        var end = hex2rgb("#cc3300");
+        var max = null;
+        var min = null;
+        var factor = null;
+
+        function setFactor(chart) {
+            max = null;
+            min = null;
+            for (var id in chart.nodes) {
+                var node = chart.nodes[id];
+                if (node.data["salary"]) {
+                    var salary = node.data["salary"].replace("$", "");
+                    if (isNumeric(salary)) {
+                        if (max == null && min == null) {
+                            max = salary;
+                            min = salary;
+                        }
+                        else {
+                            max = Math.max(salary, max);
+                            min = Math.min(salary, min);
+                        }
+                    }
+                }
+            }
+            factor = (max - min) / 100;
+        }
+
+        var peopleElement = document.getElementById("people");
+        var orgChart = new getOrgChart(peopleElement, {
+            primaryFields: ["salary", "name"],
+            photoFields: ["image"],
+            enableZoom: false,
+            enableEdit: false,
+            enableDetailsView: false,
+            dataSource: source,
+            renderNodeEvent: renderNodeEventHandler
+        });
+
+
+    </script>*@
+

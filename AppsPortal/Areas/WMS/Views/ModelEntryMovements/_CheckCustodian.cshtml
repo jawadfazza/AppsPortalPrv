@@ -1,0 +1,98 @@
+﻿@model ReleaseSingleItemUpdateModalUpdateModel
+
+@using (Html.BeginForm("WarehouseModelEntryMovementsDataTable", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "EntryUploadForm" }))
+{
+
+
+            @Html.Partial("_ModalHeader", "Check Custodian")
+            <div class="modal-body">
+
+                @Html.AntiForgeryToken()
+
+                <div class="form-group HANDLER">
+                    @Html.LabelFor(model => model.RequesterNameGUID)
+                    @Html.DropDownListFor(model => model.RequesterNameGUID, new DropDownList().Users(true), "", new
+                    {
+                        style = "width:100%",
+                        @class = "form-control select2-basic-search",
+                        //onchange = "GetCustodianItems()"
+                    })
+                </div>
+                <input type="button" onclick="GetCustodianItems()" value="Search" />
+
+            </div>
+            <div class="modal-footer form-footer">
+
+                <input type="button" class="btn btn-primary" value="Check Items" id="checkItemsId" onclick="RetertiveBulkItems()" />
+
+                @Html.CloseModalButton()
+            </div>
+   
+}
+
+<script src="~/Assets/Plugin/angularjs/angular.js"></script>
+<script src="~/Assets/Plugin/angularjs/angular.min.js"></script>
+<script src="~/Assets/Plugin/angularjs/angular-material.min.js"></script>
+<script src="~/Assets/Plugin/angularjs/angular-aria.min.js"></script>
+<script src="~/Assets/Plugin/angularjs/angular-messages.min.js"></script>
+<script src="~/Assets/Plugin/angularjs/angular-animate.min.js"></script>
+<script>
+    
+    alert(1);
+    var myApp = angular.module('myApp', []);
+
+    //Controller
+    myApp.controller('MyCtrl',
+        [
+            '$scope', '$http', '$timeout', '$window', '$interval',
+            function($scope, $http, $timeout, $window, $interval) {
+
+                alert(1);
+
+
+                $scope.GetCustodianItems = function() {
+                    alert(1);
+                    $scope.RequesterNameGUID = $("#RequesterNameGUID").val();
+                    $http({
+                        method: 'Post',
+                        url: "@Url.Action("GetCustodianItems", "ModelMovements")",
+                        data: { RequesterNameGUID: $scope.RequesterNameGUID}
+
+                    }).success(function(data) {
+
+                        if (data.model.count > 0) {
+
+                        }
+
+
+                    });
+
+                }
+
+                var RetertiveBulkItems = function () {
+
+                    var url = "/WMS/ModelMovements/RetertiveBulkItems/";
+
+
+                    $.ajax({
+                        url: url,
+                        method: "Post",
+                        data: {
+
+                            MissionReportFormGUID: $("#MissionReportFormGUID").val()
+
+                        },
+                        success: function (data) {
+
+
+
+                        }
+                    });
+
+
+                }
+
+            }]);
+
+
+</script>

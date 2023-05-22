@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Application Enhancements";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("9d21ad94-6f02-40df-ae63-10dcecc4f416")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter",DataTableNames.ApplicationEnhancementsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        @*<div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PPATypeGUID, DbColumnName = "PPATypeGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().PPATypes() })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ImplementationAreaGUID, DbColumnName = "ImplementationAreaGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().PPAAreasOfImplementations() })
+
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PPADescription, DbColumnName = "PPADescription", FilterForDataType = FilterDataTypes.Text })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationInstanceGUID, DbColumnName = "OrganizationInstanceGUID", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = false, DataList = new DropDownList().PartnersList() })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+
+                </div>
+            </div>*@
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.ApplicationEnhancementsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer",DataTableNames.ApplicationEnhancementsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.ApplicationEnhancementsDataTable)
+        @Html.IndexDatatableCreateNoPermission(Url.Action("/Create/", "ApplicationEnhancement", new { Area = "SRS" }))
+        @Html.IndexDatatableDeleteNoPermission(DataTableNames.ApplicationEnhancementsDataTable)
+        @Html.IndexDatatableRestorNoPermission(DataTableNames.ApplicationEnhancementsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.ApplicationEnhancementsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ApplicationEnhancementsDataTable, FormController = "ApplicationEnhancement", Area = "SRS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>

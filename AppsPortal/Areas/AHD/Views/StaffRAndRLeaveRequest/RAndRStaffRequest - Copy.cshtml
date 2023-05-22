@@ -1,0 +1,637 @@
+﻿@model StaffRAndRLeaveRequestModel
+@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.RestAndRecuperationLeaveGUID == Guid.Empty) ? "New  R&R Leave " : "Edit  R&R Leave"; }
+@Html.PageHeader("bc314333-5728-4fed-a733-ab4bafe167cd")
+<style>
+    ul.a {
+        list-style-position: outside;
+    }
+</style>
+<link href="~/Assets/Plugin/fullcalendar/main.min.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/fullcalendar/main.min.js"></script>
+<div class="page--content">
+
+    <div>
+        @using (Html.BeginForm("StaffRAndRLeaveRequest", "StaffRAndRLeave", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffRAndRLeaveForm", @class = "main-form", enctype = "multipart/form-data" }))
+        {
+
+            @Html.AntiForgeryToken()
+
+            @Html.FormHiddenFields(model => model.RestAndRecuperationLeaveGUID)
+            <div class="box box-info " id="step1InfoBox">
+                <div class="panel-heading beforstep1" style="background-color: #cbcece;border-color: #cbcece;">
+                    <h3 class="box-title"> Step-1 Travel Information</h3>
+                    @*<input type="button" value="Show" class="btn btn-primary pull-left" onclick="EditStep1Information()" id="showEditStep1id" />*@
+                </div>
+
+                <div class="panel-heading afterstep1" style="background-color:forestgreen;color:white;font-weight:bold; display:none;">
+                    <h3 class="box-title"> Step-1 Travel Information <i class="fas fa-check-circle pull-right spanstep1"> Completed</i></h3>
+
+                </div>
+                <div class="box-body showstep1body">
+
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="form-group HANDLER">
+                                @Html.LabelFor(model => model.BackupArrangementGUID)
+
+                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                {
+                                    @Html.DropDownListFor(model => model.BackupArrangementGUID, new DropDownList().AdminHRStaff(), "",
+                                    new
+                                    {
+                                    @class = "form-control select2-basic-search",
+                                    style = "width:100%",
+
+                                    })
+                                }
+                                else
+                                {
+                                    <br />
+                                    @Html.DisplayFor(model => model.BackupArrangementName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                }
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.Label("Return Date From Last RR")
+
+                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                {
+                                    @Html.EditorFor(model => model.ReturnDateFromLastRLeave, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                }
+                                else
+                                {
+                                    <br />
+                                    @Html.DisplayFor(model => model.ReturnDateFromLastRLeave, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                }
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ExpiryDateOfResidency)
+
+                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                {
+                                    @Html.EditorFor(model => model.ExpiryDateOfResidency, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                }
+                                else
+                                {
+                                    <br />
+                                    @Html.DisplayFor(model => model.ExpiryDateOfResidency, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                }
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group HANDLER" id="itemparenetId">
+                                @Html.LabelFor(model => model.SupervisorGUID)
+
+                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                {
+                                    @Html.DropDownListFor(model => model.SupervisorGUID, new DropDownList().InternationalStaffUsers(false), "", new
+                                                         {
+                                                         @class = "form-control select2-basic-search",
+                                                         style = "width:100%",
+
+                                                         })
+                                }
+                                else
+                                {
+                                    @Html.HiddenFor(model => model.SupervisorGUID)
+                                    <br />
+                                    @Html.DisplayFor(model => model.SupervisorName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                }
+
+
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.Label("Destination Country")
+                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                {
+                                    @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().Countries(), "", new
+                                                            {
+                                                            @class = "form-control select2-basic-search",
+                                                            style = "width:100%",
+
+                                                            })
+                                }
+                                else
+                                {
+                                    <br />
+                                    @Html.DisplayFor(model => model.CountryName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                }
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                @Html.Label("Detail Destination Address")
+                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                {
+                                    @Html.EditorFor(model => model.DestinationCountry, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                }
+                                else
+                                {
+                                    <br />
+                                    @Html.DisplayFor(model => model.DestinationCountry, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer showstep1body ">
+                    <i class="far fa-hand-point-down showfooterstep1"></i>
+                    <div class="input-group pull-left showfooterstep1">
+
+                        <button id="checkMedicalBtn" onclick="MoveToStep2()"
+                                class="btn btn-primary showfooterstep1">
+                            Move to next step
+                            @*<i id="checkMedicalLoading" class="fa fa-refresh fa-spin"></i>*@
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-info" id="step2InfoBox">
+                <div class="panel-heading beforstep2" style="background-color: #cbcece;border-color: #cbcece;">
+                    <h3 class="box-title"> Step-2  Shuttle Information</h3>
+                    <input type="button" value="Shuttle Information" class="btn btn-primary pull-left" onclick="EditStep2Information()" id="showEditStep2id" />
+                </div>
+
+                <div class="panel-heading afterstep2" style="background-color:forestgreen;color:white;font-weight:bold; display:none;">
+                    <h3 class="box-title"> Step-2 Shuttle Information <i class="fas fa-check-circle pull-right spanstep1"> Completed</i></h3>
+
+                </div>
+
+                <div class="box-body showstep2body">
+                    <br />
+                    <div class="col-md-12">
+                        <div class="box-body">
+
+                            <div id="shuttleinfoid">
+                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                {
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Departure Country")
+
+                                            @Html.DropDownListFor(model => model.DestCountryGUID, new DropDownList().CountriesSyriaShuttle(), "",
+                                                         new
+                                                         {
+                                                             @class = "form-control select2-basic-search",
+                                                             onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'StartLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);",
+                                                             style = "width:100%"
+                                                         })
+
+
+                                        </div>
+                                    </div>
+                                }
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Departure City")
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.DropDownListFor(model => model.StartLocationGUID, new DropDownList().LocationOneValue(Model.StartLocationGUID), "",
+                                                                     new
+                                                                     {
+                                                                         style = "width:100%",
+                                                                         onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DeparturePointGUID', Action : 'RemoteLocationsByLocationType'}]);",
+                                                                         @class = "form-control select2-basic-search"
+                                                                     })
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            @Html.DisplayFor(model => model.StartLocation, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Departure Point")
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.DropDownListFor(model => model.DeparturePointGUID, new DropDownList().LocationOneValue(Model.DeparturePointGUID), "",
+                                                                    new
+                                                                    {
+                                                                        style = "width:100%",
+                                                                        @class = "form-control select2-basic-search"
+                                                                    })
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            @Html.DisplayFor(model => model.DeparturePoint, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+                                    </div>
+                                </div>
+                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                {
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.Label("Drop Off Country")
+
+                                            @Html.DropDownListFor(model => model.CountryGUID1, new DropDownList().CountriesSyriaShuttle(), "",
+                                                                    new
+                                                                    {
+                                                                        @class = "form-control select2-basic-search",
+                                                                        onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'EndLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);",
+                                                                        style = "width:100%"
+                                                                    })
+
+
+
+                                        </div>
+                                    </div>
+                                }
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Drop Off City")
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.DropDownListFor(model => model.EndLocationGUID, new DropDownList().LocationOneValue(Model.EndLocationGUID), "",
+                                                           new
+                                                           {
+                                                               style = "width:100%",
+                                                               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DropOffPointGUID', Action : 'RemoteLocationsByLocationType'}]);",
+                                                               @class = "form-control select2-basic-search"
+                                                           })
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            @Html.DisplayFor(model => model.EndLocation, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.Label("Drop Off Point")
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.DropDownListFor(model => model.DropOffPointGUID, new DropDownList().LocationOneValue(Model.DropOffPointGUID), "",
+                                                                          new
+                                                                          {
+                                                                              style = "width:100%",
+                                                                              @class = "form-control select2-basic-search"
+                                                                          })
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            @Html.DisplayFor(model => model.DropOffPoint, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group HANDLER" id="itemparenetId">
+                                    @Html.LabelFor(model => model.EmployeeComments)
+
+                                    @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                    {
+                                        @Html.EditorFor(model => model.EmployeeComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                    }
+                                    else
+                                    {
+                                        <br />
+                                        @Html.DisplayFor(model => model.EmployeeComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                    }
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer showstep2body ">
+                    <i class="far fa-hand-point-down showfooterstep2"></i>
+                    <div class="input-group">
+
+                        <button type="button" class="btn btn-primary pull-left showfooterstep2" onclick="MoveToStep3()" id="showstep2btnid">
+                            Move to next step
+                            @*<i id="showHospitalPriceLoading" class="fa fa-refresh fa-spin"></i>*@
+                        </button>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-info" id="step3InfoBox">
+                <div class="panel-heading beforstep3" style="background-color: #cbcece;border-color: #cbcece;">
+                    <h3 class="box-title"> Step-3  Indicate Travel Dates</h3>
+                    <input type="button" value="Edit Dates" class="btn btn-primary pull-left" onclick="EditStep3Information()" id="showEditStep3id" />
+                </div>
+
+                <div class="panel-heading afterstep3" style="background-color:forestgreen;color:white;font-weight:bold; display:none;">
+                    <h3 class="box-title"> Step-3 Indicate Travel Dates <i class="fas fa-check-circle pull-right spanstep1"> Completed</i></h3>
+
+                </div>
+
+                <div class="box-body showstep3body">
+                    <div class="col-md-12">
+                        <div class="box-body">
+                            <br />
+
+                            <div>
+                                @Html.Partial("~/Areas/AHD/Views/TempRAndRLeaveDates/_TempCalenderLeaves.cshtml", new MasterRecordStatus { ParentGUID = Model.RestAndRecuperationLeaveGUID, IsParentActive = Model.Active })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer " id="step4checkid">
+                    <br /><br /><br />
+                    <i class="far fa-hand-point-down showfooterstep3"></i>
+                    <div class="input-group">
+
+                        <button type="button" class="btn btn-primary pull-left showfooterstep3" onclick="MoveToStep4()" id="showstep3btnid">
+                            Move to next step
+                            @*<i id="showHospitalPriceLoading" class="fa fa-refresh fa-spin"></i>*@
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="box box-info" id="step4InfoBox">
+                <div class="panel-heading beforstep4" style="background-color: #cbcece;border-color: #cbcece;">
+                    <h3 class="box-title"> Step-4 Submission</h3>
+
+                </div>
+                <div class="panel-heading afterstep4" style="background-color:forestgreen;color:white;font-weight:bold; display:none;">
+                    <h3 class="box-title"> Congratulations! <i class="fas fa-check-circle pull-right spanstep1"> Completed</i></h3>
+
+                </div>
+
+
+                <div class="box-body showstep4body">
+                    <div class="col-md-6">
+                        <div class="box-body">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer showstep4body ">
+                    <div class="input-group pull-left showfooterstep4">
+
+                        <button onclick="StaffRAndRLeaveRequestCreate()" type="button" id="staffSubmitLeaveId" class="btn btn-primary pull-left ">
+
+                            <span class="btn-label-subaction"><i class="fa fa-refresh fa-spin" id="submitToReviewLoader"></i></span> Submit Request To HR For Review
+                        </button>
+
+
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+
+</div>
+<script>
+    var currentStep = '@Model.CurrentStep';
+
+    var accessLevel = '@Model.AccessLevel';
+    var readOnlyAccess = '@Model.RejectAccess';
+    var flowStatus = '@Model.FlowStatusGUID';
+    var restPage = function () {
+        $('#showEditStep1id').hide();
+        $('#step2InfoBox').hide();
+        $('#step3InfoBox').hide();
+        $('#step4InfoBox').hide();
+        $('#step4checkid').hide();
+        $("#submitToReviewLoader").hide();
+
+    }
+    restPage();
+
+    var EditStep1Information = function () {
+        $('.showstep1body').show();
+        $('#showEditStep1id').hide();
+        $('#step2InfoBox').hide();
+        $('#showEditStep2id').show();
+        $('#step3InfoBox').hide();
+        $('#showEditStep3id').show();
+
+    }
+    var MoveToStep2 = function () {
+        var _backup = $("#BackupArrangementGUID").val();
+
+        var _destination = $("#CountryGUID").val();
+
+        var _supervisor = $("#SupervisorGUID").val();
+
+
+
+
+
+        if (_backup == null || _backup=='') {
+            Notify(NotificationType.Warning, 'Please indicate your backup');
+        }
+        else if (_destination == null || _destination=='') {
+            Notify(NotificationType.Warning, 'Please indicate your destination country');
+        }
+        else if (_supervisor == null || _supervisor=='') {
+            Notify(NotificationType.Warning, 'Please indicate your supervisor');
+        }
+
+
+        if (_backup != '' || _destination != '' || _supervisor!='') {
+
+            $('#step2InfoBox').show();
+            $('#showEditStep2id').hide();
+            $('.showstep3body').hide();
+            $('#showEditStep3id').show();
+            $('html, body').animate({
+                scrollTop: $("#CountryGUID").offset().top
+            }, 2000);
+            $('.beforstep1').hide();
+            $('.afterstep1').show();
+            $('.showfooterstep1').hide();
+        }
+
+
+
+    }
+
+
+    var EditStep2Information = function () {
+        $('.showstep1body').hide();
+        $('#showEditStep1id').show();
+
+
+        $('#step2InfoBox').show();
+        $('#showEditStep2id').hide();
+
+        $('.showstep3body').hide();
+        $('#showEditStep3id').show();
+
+    }
+
+    var MoveToStep3 = function () {
+
+        //$('.showstep1body').hide();
+        //$('#showEditStep1id').show();
+        //$('.showstep2body').hide();
+        //$('#showEditStep2id').show();
+
+        $('#step3InfoBox').show();
+        $('.showstep3body').show();
+        $('#showEditStep3id').hide();
+
+        $('#step4checkid').hide();
+        $('html, body').animate({
+            scrollTop: $("#step3InfoBox").offset().top
+        }, 2000);
+        $('.showfooterstep2').hide();
+        $('.beforstep2').hide();
+        $('.afterstep2').show();
+    }
+
+    //var EditStep3Information = function () {
+    //    $('.showstep1body').hide();
+    //    $('#showEditStep1id').show();
+
+
+    //    $('#step2InfoBox').hide();
+    //    $('#showEditStep2id').show();
+
+    //    $('.showstep3body').show();
+    //    $('#step4checkid').hide();
+    //    $('#showEditStep3id').hide();
+    //}
+
+    var MoveToStep4 = function () {
+
+        //$('.showstep1body').hide();
+        //$('#showEditStep1id').show();
+        //$('.showstep2body').hide();
+        //$('#showEditStep2id').show();
+
+
+        //$('.showstep3body').hide();
+        //$('#showEditStep3id').show();
+
+        $('#step4InfoBox').show();
+        $('.showstep4body').show();
+        $('#showEditStep4id').hide();
+
+
+        $('html, body').animate({
+            scrollTop: $("#step4InfoBox").offset().top
+        }, 2000);
+        $('.showfooterstep3').hide();
+        $('.beforstep3').hide();
+        $('.afterstep3').show();
+
+    }
+
+    var StaffRAndRLeaveRequestCreate = function () {
+        
+
+        var table = $('#InternationalTempStaffRAndRDatesDataTable').dataTable();
+        var url = "/AHD/StaffRAndRLeave/StaffRAndRLeaveRequestCreate/";
+
+
+        if (currentStep == 0 || currentStep == 1) {
+
+            $("#submitToReviewLoader").show();
+            $(':button').prop('disabled', true);
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    RestAndRecuperationLeaveGUID: $("#RestAndRecuperationLeaveGUID").val(),
+                    ReturnDateFromLastRLeave: $("#ReturnDateFromLastRLeave").val(),
+                    BackupArrangementGUID: $("#BackupArrangementGUID").val(),
+                    ExpiryDateOfResidency: $("#ExpiryDateOfResidency").val(),
+                    EmployeeComments: $("#EmployeeComments").val(),
+                    DestinationCountry: $("#DestinationCountry").val(),
+                    CountryGUID: $("#CountryGUID").val(),
+                    _DeparturePointGUID: $("#DeparturePointGUID").val(),
+                    _DropOffPointGUID: $("#DropOffPointGUID").val(),
+                    _StartLocationGUID: $("#StartLocationGUID").val(),
+                    _EndLocationGUID: $("#EndLocationGUID").val(),
+                    _MySupervisorGUID: $("#SupervisorGUID").val(),
+
+
+                },
+                success: function (data) {
+                    $("#submitToReviewLoader").hide();
+                    $(':button').prop('disabled', false);
+                    if (data.success == 1) {
+
+
+                        Notify(NotificationType.Success, 'Request has been sent to HR for review');
+                        $('#staffSubmitLeaveId').hide();
+                        $("#backToIndexId").show();
+                        $("#mainWizardid").hide();
+                        $('.beforstep4').hide();
+                        $('.aftertep4').show();
+                    }
+                    else if (data.success == 0) {
+
+                        return true;
+                    }
+                    else if (data.success == -2) {
+                        Notify(NotificationType.Warning, 'No Permission');
+                    }
+                    else if (data.success == -3) {
+                        Notify(NotificationType.Warning, 'Please provide us with your travel return date(TT) should be the last date');
+                    }
+                    else if (data.success == -4) {
+                        Notify(NotificationType.Warning, 'Please provide us with your travel date (TT) should be the first date');
+                    }
+                }
+            });
+        }
+        else {
+            Notify(NotificationType.Warning, 'Please Add your leave dates from prvious step');
+        }
+
+
+
+
+    }
+
+
+</script>

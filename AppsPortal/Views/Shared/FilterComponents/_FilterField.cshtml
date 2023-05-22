@@ -1,0 +1,70 @@
+﻿@model FilterField
+@{
+    string CssClass = "form-control FilterValue";
+    if (Model.MustHasInitValue)
+    {
+        CssClass += " MustHasInitValue";
+    }
+    if (Model.FilterForDataType == FilterDataTypes.Date)
+    {
+        CssClass += " date-picker";
+    }
+    if (Model.FilterForDataType == FilterDataTypes.DateTime)
+    {
+        CssClass += " datetime-picker";
+    }
+}
+<div class="FilterField">
+    <label for=@string.Format("filter_{0}", Model.DbColumnName) class="col-lg-2 col-md-3 col-sm-3 col-xs-12 col-form-label">@Model.LabelText</label>
+    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+        <div class="form-group form-inline">
+            @Html.Partial("_FilterOperation", @Model.FilterForDataType)
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+        <div class="form-group form-inline">
+            @if (Model.DataList == null) //Redner TextBox
+            {
+                if (Model.FilterForDataType == FilterDataTypes.Date || Model.FilterForDataType == FilterDataTypes.DateTime)
+                {
+                    <div class="input-group">
+                        @Html.Editor("filter_" + Model.DbColumnName, new { htmlAttributes = new { data = Model.DbColumnName, datatype = Model.FilterForDataType, @class = CssClass, autocomplete = "off" } })
+                        <span class="fa fa-calendar datebox"></span>
+                    </div>
+                }
+                else
+                {
+                    <div class="input-group">
+                        @Html.Editor("filter_" + Model.DbColumnName, new { htmlAttributes = new { data = Model.DbColumnName, datatype = Model.FilterForDataType, @class = CssClass, autocomplete = "off" } })
+                    </div>
+                }
+            }
+            else //Render DropDownList!
+            {
+                if (Model.MustHasInitValue)
+                {
+                    @Html.DropDownList("filter_" + Model.DbColumnName, Model.DataList , new { data = Model.DbColumnName, @class = string.Format("{0} select2-basic-single", CssClass), style = "width:100%" })
+                }
+                else
+                {
+                    if (Model.IsSearchable)
+                    {
+                        @Html.DropDownList("filter_" + Model.DbColumnName, Model.DataList, "", new { data = Model.DbColumnName, @class = string.Format("{0} select2-basic-search", CssClass), style = "width:100%" })
+                    }
+                    else
+                    {
+                        if (Model.IsMultiple)
+                        {
+                            //Dont Remove the multiple data attribute, otherwise the ba3sah of empty option will appear
+                        @Html.DropDownList("filter_" + Model.DbColumnName, Model.DataList, new { multiple = "multiple", data = Model.DbColumnName, @class = string.Format("{0} select2-basic-multiple", CssClass), style = "width:100%" })
+                        }
+                        else
+                        {
+                        @Html.DropDownList("filter_" + Model.DbColumnName, Model.DataList, "", new { data = Model.DbColumnName, @class = string.Format("{0} select2-basic-single", CssClass), style = "width:100%" })
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@model TenderUpdateModel
+@{
+    ViewBag.Title = "Tenders";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("14c68bce-a1eb-4094-925d-7ce107ba0514")
+
+@{string PageTitle = (Model.TenderGUID == Guid.Empty) ? "New Tender" : "Edit Tender"; }
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/TTT/Views/Tenders/_TenderForm.cshtml")
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+
+
+        $(function () {
+            $('#TenderClosingDate').pikaday('destroy').pikaday({
+                format: MomentDateTimeFormat(),
+                yearRange: [1930, 2020],
+                //showTime: true,
+                autoClose: false,
+                isRTL: isRTL(),
+                showTime: true,
+                //showMinutes: true,
+                //timeLabel: "Time In Work: ",
+                startHour:0,
+                incrementHourBy: 1,
+                incrementMinuteBy: 59,
+                todayButton: true,
+            });
+             $('#TenderExtendedClosingDate').pikaday('destroy').pikaday({
+                format: MomentDateTimeFormat(),
+                yearRange: [1930, 2020],
+                //showTime: true,
+                autoClose: false,
+                isRTL: isRTL(),
+                showTime: true,
+                //showMinutes: true,
+                //timeLabel: "Time In Work: ",
+                startHour:0,
+                incrementHourBy: 1,
+                incrementMinuteBy: 59,
+                todayButton: true,
+            });
+        })
+    </script>
+}

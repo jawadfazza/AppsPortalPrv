@@ -1,0 +1,67 @@
+﻿@model WarehouseModelReservationMovementsUpdateModel
+
+
+@using (Html.BeginForm("WarehouseModelReservationMovements", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "ModelReservationMovementsForm" }))
+{
+    string ModalTitle = Model.ItemReservationGUID.ToString() == Guid.Empty.ToString() ? "New Reservation" : "Edit Reservation";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ItemReservationGUID)
+        @Html.HiddenFor(model => model.ItemInputDetailGUID)
+
+        <div class="form-group HANDLER">
+            @Html.DropDownListFor(model => model.ReservedForGUID, new DropDownList().WarehouseRequsterTypes(), "", new
+       {
+           @class = "form-control select2-basic-single",
+           style = "width:100%",
+           onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'ReservedNameForGUID', Action : 'RemoteWarehouseRequestTypes'}]);"
+       })
+
+
+        </div>
+
+
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.ReservedNameForGUID)
+            @Html.DropDownListFor(model => model.ReservedNameForGUID, new DropDownList().Empty(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+                
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.ReservationStartDate)
+            @Html.EditorFor(model => model.ReservationStartDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.ReservationEndDate)
+            @Html.EditorFor(model => model.ReservationEndDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+        </div>
+            
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comments)
+            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+       
+        
+        
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ItemReservationGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.WarehouseItemsRelease.Create, Apps.WMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.WarehouseItemsRelease.Update, Apps.WMS)
+                @Html.DeleteSwitchButton(Permissions.WarehouseItemsRelease.Delete, Apps.WMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.WarehouseItemsRelease.Delete, Apps.WMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

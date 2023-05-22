@@ -1,0 +1,48 @@
+﻿@model PendingRequestCheckVM
+
+@Html.Partial("_ModalHeader", "Notifications")
+<div class="modal-body">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            @Html.Label("Total pending verification(My warehouse)")
+            <b>@Html.DisplayFor(model => model.pendingForMyWarehosue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })</b>
+
+        </div>
+        <div class="panel-body">
+            @Html.Label("Total pending verification(Other warehouses)")
+            <b>@Html.DisplayFor(model => model.PendingForOtherWarehouse, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })</b>
+
+        </div>
+        <div class="panel-body">
+            @Html.Label("Total pending verification(staff)")
+           <b> @Html.DisplayFor(model => model.PendingForStaff, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })</b>
+
+        </div>
+        <div class="panel-body">
+            @Html.Label("Staff  delay in return item(s)")
+            <b>@Html.DisplayFor(model => model.DelayInReturn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })</b>
+            <a href="/WMS/FlowIndex">Link</a>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<div class="modal-footer form-footer">
+
+
+
+
+
+    @Html.CloseModalButton()
+</div>
+
+
+
+
+

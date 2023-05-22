@@ -1,0 +1,59 @@
+﻿
+@model BlomShuttleDelegationDateUpdateModel
+@using (Html.BeginForm("ShuttleDelegation", "StaffDelegation", new { Area = "AHD" }, FormMethod.Post, new { id = "BlomShuttleDelegationDateform", @class = "main-form", enctype = "multipart/form-data" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.BlomShuttleDelegationDateGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate)
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndDate)
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+
+            @*<a id='printAllDelegationFormsid' class='btn btn-info ' href='#' value="">
+                Print All Delegation(s) PDFs
+            </a>
+
+
+            @Html.ActionLink("Print All Delegation(s) PDFs", "CombineMultiplePDFs", "StaffDelegation", new { id = Model.BlomShuttleDelegationDateGUID }, new { @class = "btn btn-primary" })*@
+            <div id="StaffShuttleDelegationFormControls" class="form-group form-footer">
+                @if (Model.BlomShuttleDelegationDateGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.StaffShuttleDelegation.Create, Apps.AHD)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+
+                        @Html.UpdateButton(Permissions.StaffShuttleDelegation.Update, Apps.AHD)
+
+                        @Html.DeleteButton(Permissions.StaffShuttleDelegation.Delete, Apps.AHD)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.StaffShuttleDelegation.Restore, Apps.AHD)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "StaffDelegation", new { Area = "AHD" }))
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    var _delegationGUID = '@Model.BlomShuttleDelegationDateGUID';
+    $("#printAllDelegationFormsid").attr("href",
+        "/AHD/StaffDelegation/newprint?id=" + _delegationGUID);
+</script>

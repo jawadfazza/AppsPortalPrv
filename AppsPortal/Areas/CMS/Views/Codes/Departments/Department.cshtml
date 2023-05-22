@@ -1,0 +1,18 @@
+﻿@model DepartmentUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.DepartmentGUID == Guid.Empty) ? "Department Code Details" : "Department Code Details";}
+@Html.PageHeader("6ffd5528-a577-41e3-960a-013d152dbab2")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/Departments/_DepartmentForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.DepartmentGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/Departments/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.DepartmentGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

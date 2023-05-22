@@ -1,0 +1,22 @@
+﻿@model PartnerMonitoringDatabaseUpdateModel
+@{
+    ViewBag.Title = "Partner Monitoring Database Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("02177100-495b-433c-af2a-825f09d86a6b")
+
+@{string PageTitle = (Model.PartnerMonitoringDBGUID == Guid.Empty) ? "New Record" : "Edit Record"; }
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/PMD/Views/PartnerMonitoringDatabase/_PartnerMonitoringDatabaseForm.cshtml")
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+
+        })
+    </script>
+}

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("41c08df0-e1f9-4776-969b-50b9ce7ad3b2")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+
+        @if (new CMS().HasAction(Permissions.OfficeStaffAttendance.Access, Apps.OSA))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("OfficeStaffAttendanceCalendar", "OfficeStaffAttendances", new { Area = "OSA" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-calendar fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Office Staff Presence Calendar</h3>
+                            <span>Office Staff Presence Calendar .</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("OfficeStaffAttendanceStaffCalendar", "OfficeStaffAttendances", new { Area = "OSA" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-calendar fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>My Office Presence Calendar</h3>
+                            <span>Review your own Office Presence Calendar .</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@model ConfirmReturnFileModel
+<style>
+    .wrapper {
+        position: relative;
+        width: 400px;
+        height: 200px;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+   
+</style>
+
+@using (Html.BeginForm("ConfirmReciveFileCreate", "ScanDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "ConfirmRecivingFileferModelForm" }))
+{
+    string ModalTitle = Model.FileGUID.ToString() == Guid.Empty.ToString() ? "Confirm Receiving" : "Edit Receiving";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.FileGUID)
+    @Html.HiddenFor(model => model.FileGUID)
+
+
+
+
+</div>
+<div class="modal-footer form-footer">
+    <input type="submit" value="Confirm Receive file " />
+    @*@if (Model.FileGUID != Guid.Empty)
+    {
+        @Html.CreateButton(Permissions.RefugeeScannedDocument.Create, Apps.DAS)
+        @*<input type="submit" value="Confirm Receiving Item " />
+    }*@
+    @Html.CloseModalButton()
+</div>
+}
+
+

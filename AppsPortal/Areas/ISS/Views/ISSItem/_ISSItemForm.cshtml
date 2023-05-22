@@ -1,0 +1,45 @@
+﻿
+@model ItemModel
+@using (Html.BeginForm("ISSItem", "ISSItem", new { Area = "ISS" }, FormMethod.Post, new { id = "ISSItem", @class = "main-form" }))
+{
+<h3>Item Classification</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.ItemGUID)
+    @Html.HiddenFor(model=>model.SequencId)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+      
+            
+          
+            <div class="form-group HANDLER">
+                @Html.Label("Item Name")
+                @Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+     
+     
+
+            <div id="ItemModelFormControls" class="form-group form-footer">
+                @if (Model.ItemGUID == Guid.Empty)
+    {
+            @Html.CreateButton(Permissions.StockItemDistribution.Create, Apps.ISS)
+}
+else
+{
+if (Model.Active)
+{
+            @Html.UpdateButton(Permissions.StockItemDistribution.Update, Apps.ISS)
+            @Html.CreateNewButton(Permissions.StockItemDistribution.Create, Apps.ISS, Url.Action("/Create", new { Area = "ISS" }))
+            @Html.DeleteButton(Permissions.StockItemDistribution.Delete, Apps.ISS)
+}
+else
+{
+            @Html.RestoreButton(Permissions.StockItemDistribution.Restore, Apps.ISS)
+}
+}
+                <a class="black" href="/ISS/ItemClassifications">Back</a>
+                    @*@Html.BackToList(Url.Action("ItemClassifications", "ItemModels", new { Area = "ISS" }))*@
+            </div>
+        </div>
+    </div>
+}

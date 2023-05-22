@@ -1,0 +1,52 @@
+﻿@model ProcessLandLineBillsCalculation
+@using (Html.BeginForm("CalculateLandLineBills", "LandLineBills", new { Area = "TBS" }, FormMethod.Post, new { id = "CalculateLandLineBillsForm" }))
+{
+    @Html.Partial("_ModalHeader", "Calculate LandLine Bills")
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Start Calculating Process By Clicking The Calculate Button</h4>
+            <p>You can close this popup and we will notify you by email when the process is done.</p>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DutyStationGUID)
+            @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStations(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.BillForMonth)
+            @Html.DropDownListFor(model => model.BillForMonth, new DropDownList().BillingMonthesForReport(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.BillForYear)
+            @Html.DropDownListFor(model => model.BillForYear, new DropDownList().BillingYearsForReport(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (new CMS().HasAction(Permissions.BillsManagement.Create, Apps.TBS))
+        {
+            @Html.CreateButton(Permissions.BillsManagement.Create, Apps.TBS)
+        }
+        @Html.CloseModalButton()
+    </div>
+
+}
+
+@*<script>
+        $(function () {
+            $('#btn-calculateLandlineBills').click(function (e) {
+                e.preventDefault();
+                var form = $('#CalculateLandLineBillsForm');
+                $.ajax({
+                    type: "POST",
+                    url: $(form).attr('action') + 'Calculate',
+                    data: $(form).serialize(),
+                    success: function (res) { },
+                    error: function (status) { }
+                });
+            });
+
+
+        });
+    </script>*@

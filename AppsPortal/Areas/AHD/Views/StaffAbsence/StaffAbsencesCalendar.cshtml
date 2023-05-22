@@ -1,0 +1,554 @@
+﻿@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+<style>
+    .highlighted {
+        background-color: yellow;
+    }
+</style>
+@Html.PageHeader("e49cf1d2-a8ec-4be3-b3ff-1a4d415be8be")
+<div class="page--content">
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.CasesDataTable)">
+        <button id="btnFilter" type="button" title="Filter" class="btnFilter btn btn-success fa fa-filter" onclick="ToggleAdvanceFilter('DivFilter','btnFilter');"></button>
+        @Html.FieldDataTableCreate(Permissions.StaffAbsence.Create, Apps.AHD, Url.Action("StaffAbsenceCreate", "StaffAbsences"))
+        <button type="button" title="Refresh" class="btnRefresh btn btn-primary" onclick="refreshCalendar()"><i class="fa fa-refresh"></i></button>
+        <button class="btn btn-primary " onclick="GenerateReport();"><i class="fa fa-file-excel" title="Export Presence Calendar"></i></button>
+    </div>
+    @if (Request.Params["para"] != null)
+    {
+        <div class="row">
+            <div class="col-lg-4 col-sm-12 col-md-3">
+
+            </div>
+            <div class="col-lg-4 col-sm-12 col-md-6 center-block">
+                <div class="alert alert-info fade in alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                    <strong>Confirm Message! </strong>Do you want to confirm below staff presence (The Red Event )?<br /><br />
+
+                    <a id="ConfirmSupervisor" href="#" onclick="ConfirmSupervisor();" class="btn btn-success" title="Confirm"> <i class="fa fa-check"></i></a>
+                    <a id="ConfirmSupervisor" href="#" onclick="CancelSupervisor();" class="btn btn-warning" title="Reject"> <i class="fa fa-close"></i></a>
+                </div>
+
+
+            </div>
+            <div class="col-lg-4 col-sm-12 col-md-3">
+
+            </div>
+        </div>
+    }
+    <div id="DivFilter" style="width:100%;display:none;">
+
+        <div class="row" @*style="width:92%;"*@>
+            <div class="col-lg-4">
+                <h4>@resxDbFields.StaffName</h4>
+                @Html.DropDownList("StaffName", new DropDownList().CoreUsersFullNameValue(true), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search"
+   })
+            </div>
+            <div class="col-lg-4">
+                <h4>@resxDbFields.DutyStation</h4>
+                @Html.DropDownList("DutyStation", new DropDownList().SyriaStaffDutyStation(), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search"
+   })
+            </div>
+            <div class="col-lg-4">
+                <h4>@resxDbFields.Unit</h4>
+                @Html.DropDownList("Department", new DropDownList().Departments(), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search"
+   })
+            </div>
+
+        </div>
+        <br />
+        <div class="row" style="width:100%;">
+            <div class="col-lg-12 ">
+                <input type="button" value="Find" class="btnFind btn btn-success" id="btnFind" onclick="return searchStaffAbsence();">&nbsp;
+                <input type="button" value="Close" class="btnClose btn btn-default" onclick="ToggleAdvanceFilter('DivFilter','btnFilter');">&nbsp;
+                <input type="button" value="Clear Filter" class="btnClear btn btn-default" onclick="ClearFilter1()">&nbsp;
+            </div>
+        </div>
+    </div>
+    <br />
+    <div id='calendar'></div>
+    <br />
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-12">
+            <a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable" style="z-index: 0 !important; background-color: #337ab7; border-color: #337ab7 "><div class="fc-content"> <span class="fc-title">Absence Pending</span></div></a>
+            <a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable" style="z-index: 0 !important; background-color: #6aa16a; border-color: #6aa16a "><div class="fc-content"> <span class="fc-title">Absence Confirmed</span></div></a>
+            @*<a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable" style="background-color:darkred;border-color:darkred"><div class="fc-content"> <span class="fc-title">To Be Confirm By Direct Supervisor</span></div></a>*@
+            <br />
+            <br />
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+
+    function ClearFilter1() {
+        $('#StaffName').val('').trigger('change');
+        $('#DutyStation').val('').trigger('change');
+        $('#Department').val('').trigger('change');
+
+        InitializeStaffAbsenceCalendar(false);
+        ToggleAdvanceFilter('DivFilter', 'btnFilter');
+    }
+
+    function ToggleAdvanceFilter(DivID, btnID) {
+        if ($('#' + btnID).hasClass('fa-exclamation-triangle')) {
+            $('#' + DivID).hide(500);
+            $('#' + btnID).removeClass('fa-exclamation-triangle');
+            $('#' + btnID).addClass('fa-filter');
+            $('#txtShuttleSearch').prop("disabled", false);
+
+        } else {
+            $('#' + DivID).show(500);
+            $('#' + btnID).addClass('fa-exclamation-triangle');
+            $('#' + btnID).removeClass('fa-filter');
+            $('#txtShuttleSearch').prop("disabled", true);
+        }
+    }
+
+
+    var Source;
+    $(document).ready(function () {
+        InitializeStaffAbsenceCalendar(true);
+    });
+
+    function searchStaffAbsence() {
+        if ($('#StaffName').val() != '' || $('#DutyStation').val() != '' || $('#Department').val() != '') {
+            refreshCalendar(Source);
+
+        }else {
+            refreshCalendar(Source);
+        }
+    }
+    function refreshCalendar(newSource) {
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('refetchEvents');
+    }
+
+
+    $(document).keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            event.preventDefault();
+            searchStaffAbsence();
+        }
+
+    });
+
+    var WorkDays = [];
+    var events = [];
+    var StartDate, EndDate;
+    var DutyStationStaffCount = 0;
+    var DutyStationGUID = '';
+    function InitializeStaffAbsenceCalendar(Refresh) {
+
+        $.ajax({
+            url: "/AHD/StaffAbsences/GetWorkingDay",
+            dataType: 'json',
+            type: "post",
+            success: function (data) {
+                $.each(data.WorkDays, function (key, value) {
+                    WorkDays.push(value.Day);
+                });
+                $('#calendar').fullCalendar('destroy');
+                 $('#calendar').fullCalendar({
+                     height: 700,
+                    allDayText: 'Events',
+                    selectable: true,
+                    overflow: 'auto',
+                    displayEventTime: false,
+                    editable: true,
+                    defaultView: (localStorage.getItem("fcDefaultView") !== null ? localStorage.getItem("fcDefaultView") : "month"),
+                    firstDay: 0,
+                    businessHours: true,
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,list'
+                    },
+                    businessHours:
+                    {
+                        start: '8:30',
+                        end: '04:30',
+                        dow: WorkDays
+                    },
+                    //defaultView: 'list',
+                    eventLimit: true, // for all non-agenda views
+                    views: {
+                        agenda: {
+                            eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                        }
+                     }, viewRender: function (view, element) {
+                         // when the view changes, we update our localStorage value with the new view name
+                         localStorage.setItem("fcDefaultView", view.name);
+                     },
+                     events: function (start, end, timezone, callback) {
+
+                         if (($('#StaffName').val() != '' || $('#DutyStation').val() != '' || $('#Department').val() != '') /*&& (StartDate == start && EndDate == end)*/) {
+                             if (Refresh) {
+                                 StartDate = start;
+                                 EndDate = end;
+                                 var url_string = window.location.href;
+                                 var url = new URL(url_string);
+                                 var para = url.searchParams.get("para");
+                                 $.ajax({
+                                     url: "/AHD/StaffAbsences/GetStaffAbsenceCalendarData",
+                                     dataType: 'json',
+                                     type: "post",
+                                     async: false,
+                                     data: {
+                                         // our hypothetical feed requires UNIX timestamps
+                                         start: start.format('YYYY-MM-DD HH:mm'),
+                                         end: end.format('YYYY-MM-DD HH:mm'),
+                                         ParaUserGUID: para
+                                     },
+                                     success: function (data) {
+                                         //events = data.StaffAbsences;
+                                         DutyStationGUID = data.DutyStationGUID;
+                                         
+                                         events = Enumerable.From(data.Result).Select(function (x) {
+                                             return {
+                                                 id: x.id,
+                                                 start: new Date(new Date(parseInt(x.start.substr(6))).getFullYear(), new Date(parseInt(x.start.substr(6))).getMonth(), new Date(parseInt(x.start.substr(6))).getDate(), new Date(parseInt(x.start.substr(6))).getHours(), new Date(parseInt(x.start.substr(6))).getMinutes(), 0, 0),
+                                                 end: new Date(new Date(parseInt(x.end.substr(6))).getFullYear(), new Date(parseInt(x.end.substr(6))).getMonth(), new Date(parseInt(x.end.substr(6))).getDate(), 23, 59, 0, 0),
+                                                 month: x.Month,
+                                                 day: x.Day,
+                                                 IsAttend: x.IsAttend,
+                                                 title: x.title,
+                                                 DutyStationGUID: x.DutyStationGUID,
+                                                 DepartmentGUID: x.DepartmentGUID,
+                                                 color: x.color
+                                             }
+                                         }).ToArray();
+                                         var eventsDutyStation = Enumerable.From(events).Where(function (x) { return x.DutyStationGUID == DutyStationGUID }).Select(function (x) { return x }).ToArray();
+                                         callback(events);
+                                         //if (para == null) {
+                                         //    CalStaffPresencePersentage(DutyStationStaffCount);
+                                         //}
+
+                                     }
+                                 });
+                             }
+                             var SearchEvents = events;
+                             if ($('#StaffName').val() != '') {
+
+                                 SearchEvents = Enumerable.From(SearchEvents).Where(function (x) { return x.title.split(" - ")[0] == $('#StaffName').val() }).Select(function (x) { return x }).ToArray();
+                             }
+                             if ($('#DutyStation').val() != '') {
+                                 SearchEvents = Enumerable.From(SearchEvents).Where(function (x) { return x.DutyStationGUID == $('#DutyStation').val() }).Select(function (x) { return x }).ToArray();
+                             }
+                             if ($('#Department').val() != '') {
+                                 SearchEvents = Enumerable.From(SearchEvents).Where(function (x) { return x.DepartmentGUID == $('#Department').val() }).Select(function (x) { return x }).ToArray();
+                             }
+
+                             callback(SearchEvents);
+                             if (para == null) {
+                                 $(".PresencePersntageConfirmed").remove();
+                                 $(".PresencePersntagePending").remove();
+                             }
+                         } else {
+                            // ClearFilter1();
+                             if (Refresh || events.length == 0 || (StartDate != start && EndDate != end)) {
+                                 StartDate = start;
+                                 EndDate = end;
+                                 var url_string = window.location.href;
+                                 var url = new URL(url_string);
+                                 var para = url.searchParams.get("para");
+                                 $.ajax({
+                                     url: "/AHD/StaffAbsences/GetStaffAbsenceCalendarData",
+                                     dataType: 'json',
+                                     type: "post",
+                                     data: {
+                                         // our hypothetical feed requires UNIX timestamps
+                                         start: start.format('YYYY-MM-DD HH:mm'),
+                                         end: end.format('YYYY-MM-DD HH:mm'),
+                                         ParaUserGUID: para
+                                     },
+                                     success: function (data) {
+                                         //events = data.StaffAbsences;
+                                         DutyStationGUID = data.DutyStationGUID;
+                                        
+                                         events = Enumerable.From(data.Result).Select(function (x) {
+                                             return {
+                                                 id: x.id,
+                                                 start: new Date(new Date(parseInt(x.start.substr(6))).getFullYear(), new Date(parseInt(x.start.substr(6))).getMonth(), new Date(parseInt(x.start.substr(6))).getDate(), new Date(parseInt(x.start.substr(6))).getHours(), new Date(parseInt(x.start.substr(6))).getMinutes(), 0, 0),
+                                                 end: new Date(new Date(parseInt(x.end.substr(6))).getFullYear(), new Date(parseInt(x.end.substr(6))).getMonth(), new Date(parseInt(x.end.substr(6))).getDate(), 23, 59, 0, 0),
+                                                 month: x.Month,
+                                                 day: x.Day,
+                                                 IsAttend: x.IsAttend,
+                                                 title: x.title,
+                                                 DutyStationGUID: x.DutyStationGUID,
+                                                 DepartmentGUID: x.DepartmentGUID,
+                                                 color: x.color
+                                             }
+                                         }).ToArray();
+                                         var eventsDutyStation = Enumerable.From(events).Where(function (x) { return x.DutyStationGUID == DutyStationGUID }).Select(function (x) { return x }).ToArray();
+                                         callback(events);
+                                         //if (para == null) {
+                                         //    CalStaffPresencePersentage(DutyStationStaffCount);
+                                         //}
+                                       
+                                     }
+                                 });
+                             }
+                             else {
+                                 callback(events);
+                                 //if (para == null) {
+                                 //    CalStaffPresencePersentage(DutyStationStaffCount);
+                                 //}
+                             }
+                         }
+
+                         
+
+
+
+                     },
+                     eventDrop: function (event, delta, revertFunc) {
+                        $.ajax({
+                            type: "post",
+                            url: '/AHD/StaffAbsences/UpdateStaffAbsenceDate',
+                            dataType: 'json',
+                            type: "post",
+                            data: {
+                                PK: event.id,
+                                NewDate: event.start.format()
+                            },
+                            success: function (JsonResult, status, xhr) {
+                                if (JsonResult.Notify != null) {
+                                    ProcessNotify(JsonResult);
+                                    if (JsonResult.Notify.Type == NotificationType.Error) {
+                                        revertFunc();
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+
+                    },
+                     eventClick: function (calEvent, jsEvent, view) {
+                        $.ajax({
+                            type: "GET",
+                            url: '/AHD/StaffAbsences/StaffAbsenceUpdate?PK=' + calEvent.id,
+                            success: function (data) {
+                                $('#FormModal').modal('show');
+                                // inject your content into the "placeholder" div
+                                $('#Partial-Container').html(data);
+                                $('#Loading-Container').hide();
+                                InitPlugins($('#Partial-Container'));
+
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    },
+                     dayClick: function (date, allDay, jsEvent, view) {
+                        //$(".fc-state-highlight").removeClass("fc-state-highlight");
+                        //$(jsEvent.target).addClass("fc-state-highlight");
+                        $("#StaffAbsence_Date_Time").val(date.format('MMMM DD, YYYY'));
+                        StaffAbsenceCount(date.format('MMMM DD, YYYY'), $(".StaffAbsenceTypeGUID").val());
+
+
+                    }
+                });
+
+
+            }
+        });
+        //-- ajax call to fetch calendar data from database
+        Source = $('#calendar').fullCalendar('clientEvents');
+
+    }
+
+    function StaffAbsenceCount(date, guid) {
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/AHD/StaffAbsences/StaffAbsenceCount?PK=' + guid + "&Date=" + date,
+            success: function (data) {
+                $("#countTotalStaffAbsence").text(data.Total);
+                $("#countTotalStaffAbsenceIsAttend").text(data.IsAttend);
+                $("#countTotalStaffAbsenceIsCanceled").text(data.IsCanceled);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function UpadetStaffAbsenceEvents(StaffAbsenceGUID) {
+        if ($('#calendar').length != 0) {
+            $.ajax({
+                dataType: 'json',
+                type: "post",
+                url: '/AHD/StaffAbsences/UpadetStaffAbsenceEvents?PK=' + StaffAbsenceGUID,
+                success: function (data) {
+                    var app = data.StaffAbsence[0];
+                    var event = $("#calendar").fullCalendar('clientEvents', StaffAbsenceGUID)[0];
+                    event.start = app.StaffAbsenceDateTime
+                    event.end = app.StaffAbsenceDateTime
+                    event.allDay = false;
+                    if (app.IsAttend) { event.color = '#6aa16a' }
+                    if (app.IsCanceled) { event.color = 'red' }
+                    $('#calendar').fullCalendar('updateEvent', event);
+                    $('#calendar').fullCalendar('refetchEvents');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    }
+
+    //function CalStaffPresencePersentage(DutyStationStaffCount) {
+    //    $(".PresencePersntageConfirmed").remove();
+    //    $(".PresencePersntagePending").remove();
+
+    //    if ($('#StaffName').val() == '' || $('#DutyStation').val() == '' || $('#Department').val() == '') {
+    //        var str = '<span class="pull-rigth PresencePersntageConfirmed" style="font-family: -webkit-body;padding-left: 3px;padding-right: 3px;background-color:#6aa16a;color: white;">0%</span>' + '<span class="pull-rigth PresencePersntagePending" style="font-family: -webkit-body;padding-left: 3px;padding-right: 3px;MARGIN-LEFT: 3PX;background-color:#337ab7;color: white;">0%</span>'
+    //        $(".fc-day-top").append(str);
+    //        $(".PresencePersntageConfirmed").each(function (index) {
+    //            var d = new Date($(this).parent().data("date"));
+    //            var month = d.getMonth() + 1;
+    //            var day = d.getDate();
+    //            var EventPerDay = Enumerable.From(events).Where(function (x) { return x.DutyStationGUID == DutyStationGUID }).Where(function (x) { return x.month == month && x.day == day }).Select(function (x) { return x }).ToArray();
+    //            var EventPerDayConfirmed = Enumerable.From(EventPerDay).Where(function (x) { return x.DutyStationGUID == DutyStationGUID }).Where(function (x) { return x.IsAttend == true }).Select(function (x) { return x }).ToArray();
+
+    //            var persntageConfirmed = Math.round((EventPerDayConfirmed.length / DutyStationStaffCount) * 100, 1);
+    //            var persntagePending = Math.round((EventPerDay.length / DutyStationStaffCount) * 100, 1);
+
+    //            if (EventPerDay.length == 0) { $(this).next().remove(); }
+    //            else { $(this).next().text(persntagePending + "%"); }
+
+    //            if (EventPerDayConfirmed.length == 0) { $(this).remove(); }
+    //            else { $(this).text(persntageConfirmed + "%"); }
+    //        });
+    //    }
+    //    else {
+    //        $(".PresencePersntageConfirmed").remove();
+    //        $(".PresencePersntagePending").remove();
+    //    }
+    //}
+
+    function InformSupervisor() {
+       // this.preventDefault();
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/AHD/StaffAbsences/InformSupervisor',
+            success: function (data) {
+                if (data.MailSuccess) {
+                    Notify(NotificationType.Success, 'Mail Send Successfully.');
+                } else {
+                    Notify(NotificationType.Warning, 'No Presence Event Found!.');
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function ConfirmSupervisor() {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var para = url.searchParams.get("para");
+        // this.preventDefault();
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/AHD/StaffAbsences/ConfirmSupervisor?ConfirmedUserGUID=' + para,
+            success: function (data) {
+
+                if (data.MailSuccess) {
+                    Notify(NotificationType.Success, 'Confirmed Successfully.');
+
+                    setTimeout(function () {
+                        location.replace(window.location.href.split('?')[0]);
+                    }, 1000);
+
+                } else {
+                    Notify(NotificationType.Error, 'No Pending Confirmation!');
+
+                    setTimeout(function () {
+                        location.replace(window.location.href.split('?')[0]);
+                    }, 1000);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function CancelSupervisor() {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var para = url.searchParams.get("para");
+        // this.preventDefault();
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/AHD/StaffAbsences/CancelSupervisor?ConfirmedUserGUID=' + para,
+            success: function (data) {
+
+                if (data.MailSuccess) {
+                    Notify(NotificationType.Success, 'Confirmed Successfully.');
+                    setTimeout(function () {
+                        location.replace(window.location.href.split('?')[0]);
+                    }, 1000);
+
+                } else {
+                    Notify(NotificationType.Error, 'No Pending Confirmation!');
+
+                    setTimeout(function () {
+                        location.replace(window.location.href.split('?')[0]);
+                    }, 1000);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function GenerateReport() {
+        var date = $("#calendar").fullCalendar('getDate');
+        var month = date.month() + 1
+        if ($('#StaffName').val() != '') {
+            $.ajax({
+                dataType: 'json',
+                type: "post",
+                url: '/AHD/StaffAbsences/RP_StaffAbsences?date=' + date._d.getFullYear() + "-" + month + "-1&FulteredUsers=" + $('#StaffName').val(),
+                success: function (data) {
+                    window.open(data.URL, '_blank').focus();
+
+                },
+                error: function (err) {
+                    Notify(NotificationType.Error, 'Check the Internet Connectivity!');
+                }
+            });
+        } else {
+            Notify(NotificationType.Error, 'Please Select the staff memeber!');
+        }
+    }
+
+
+</script>
+

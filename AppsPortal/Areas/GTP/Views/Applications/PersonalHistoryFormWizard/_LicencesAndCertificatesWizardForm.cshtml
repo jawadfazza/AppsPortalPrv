@@ -1,0 +1,124 @@
+﻿@model List<dataPersonalHistoryLicenceAndCertificateUpdateModel>
+<div class="tab-pane" id="tab1" style="margin-top: 5px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span><b>13. LICENSES AND CERTIFICATIONS</b>(if any)</span>
+            <br />
+        </div>
+        <div class="panel-body">
+            <input type="button" data-url="/GTP/Applications/LicencesAndCertificatesCreate" class="btn btn-success lgModal Modal-Link" value="Add New Licence / Certificate" />
+            @if (Model == null || Model.Count == 0)
+            {
+                <div class="alert alert-info" style="margin-top:5px;">
+                    <strong>No licences / certificates has been added</strong>
+                </div>
+            }
+            else
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="panel panel-default" style="margin-top:5px;">
+                        <div class="panel-heading">
+                            <span><b>Licence / Certificate # @(i + 1) </b> <input type="button" data-url="/GTP/Applications/LicencesAndCertificatesUpdate/@Model[i].GTPPHLicenceGUID" class="btn btn-success lgModal Modal-Link pull-right" style="margin-top:-6px" value="Update / Delete this licence/certificate record" /></span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <div class="row" style="padding-top:10px;">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].LicenceIssueDate)
+                                            @Html.EditorFor(model => model[i].LicenceIssueDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].LicenceExpirationDate)
+                                            @Html.EditorFor(model => model[i].LicenceExpirationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].LicenceDescription)
+                                            @Html.EditorFor(model => model[i].LicenceDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="div-country-city-container">
+
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model[i].CountryGUID)
+                                                @Html.DropDownListFor(model => model[i].CountryGUID, new DropDownList().GTPCountries(Model[i].CountryGUID), "", new { @class = "form-control select2-basic-search this-country-ddl", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model[i].CityGUID)
+                                                @if (Model[i].CountryGUID != null)
+                                                {
+                                                    @Html.DropDownListFor(model => model[i].CityGUID, new DropDownList().GTPCities(Model[i].CountryGUID.Value, Model[i].CityGUID), "", new { @class = "form-control select2-basic-search this-city-ddl", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.DropDownListFor(model => model[i].CityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search this-city-ddl", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].IsLicenceRenewalInProgres)
+                                            @if (Model[i].IsLicenceRenewalInProgres != null)
+                                            {
+                                                @Html.DropDownListFor(model => model[i].IsLicenceRenewalInProgres, new DropDownList().GTPYesNo(Model[i].IsLicenceRenewalInProgres.Value), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly"  })
+
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownListFor(model => model[i].IsLicenceRenewalInProgres, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly"  })
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].LicenceNumber)
+                                            @Html.EditorFor(model => model[i].LicenceNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly"  } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].LicenceIssuedBy)
+                                            @Html.EditorFor(model => model[i].LicenceIssuedBy, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" , disabled = "disabled", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="float:right">
+                        <input type='button' class='btn btn-primary wizard-custom-button-next' name="next" value='Next' data-next-url="/GTP/Applications/ProfessionalReferencesWizard/Create" />
+
+                    </div>
+                    <div style="float:left">
+                        <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/LanguagesWizard/Create" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

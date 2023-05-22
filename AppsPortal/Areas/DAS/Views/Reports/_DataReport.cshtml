@@ -1,0 +1,60 @@
+﻿
+
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Templates</h3>
+    </div>
+
+    <div class="box-body">
+        <div class="form-group">
+            <dvi class="col-md-3">
+                <label for="Report Name">Show Reports </label>
+
+
+
+
+                <select class="form-control"
+                        data-ng-model="ReportTemplateId"
+                        data-ng-options="p.ReportTemplateId as p.Name for p in  dataReportTemplates">
+                    <option value="">----</option>
+                </select>
+
+            </dvi>
+
+
+
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="button" ng-click="ShowPivotResult()" class="btn btn-primary pull-right" value="Show Reports " />
+            </div>
+        </div>
+
+        <div class="form-group" id="pivotresultpanel">
+
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Results</h3>
+                    <div class="box-tools">
+                        @*<input type="button" ng-click="ExportToImage()" class="btn btn-primary" value="Save Image" />*@
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <div id="output" style="overflow: auto"></div>
+                    <canvas id="canvas"></canvas>
+                </div>
+
+            </div>
+            <div class="overlay" id="pivotresultloading">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>

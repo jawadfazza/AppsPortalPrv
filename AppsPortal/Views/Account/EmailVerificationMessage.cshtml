@@ -1,0 +1,32 @@
+﻿@model UserModel
+@{
+    ViewBag.Title = "Change Password";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<div class="page--header">
+    <div class="page--banner">
+        <h2>@resxPages.Hi @Model.FirstName</h2>
+        <div class="row">
+            <div class="col-md-5">
+                <article>
+                    @resxPages.PleaseReadInfromationBelowCarefully
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page--content">
+
+    <br />
+    <div class="page--body">
+        <h3 class="page--subtitle">@resxPages.ForgetPasswordStep1 /</h3>
+
+        <p style="text-align:justify;line-height:2em;">
+            @Html.Raw(@resxPages.PasswordRecoveryEmailSend
+                
+                .Replace("\r\n", "<br/>").Replace("Registration", "Forget Password").Replace("$EmailAddress",Model.EmailAddress))
+        </p>
+    </div>
+</div>

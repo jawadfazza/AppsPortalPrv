@@ -1,0 +1,18 @@
+﻿@using ReportViewerForMvc;
+<style>
+    iframe {
+        border-width: 0px !important
+    }
+</style>
+@{
+    string ModalTitle = "Appointment Slip";
+}
+@Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+
+            @*@Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)*@
+</div>
+<div class="modal-footer form-footer">
+    @Html.CloseModalButton()
+</div>
+

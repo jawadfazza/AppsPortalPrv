@@ -1,0 +1,28 @@
+﻿@using System.Collections.ObjectModel;
+@model string
+<div class="row section">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-right pull-right col-nopadding-left">
+        <a class="btn Edit-Link" onclick="EditSection(this, '@Url.Action("TimeZoneUpdate","Profile")', 'PanelForTimeZoneForm');">Edit</a>
+    </div>
+    <div class="col-lg-2 col-md-8 col-sm-8 col-xs-8">
+        <h3 class="Title">@resxDbFields.TimeZone</h3>
+    </div>
+    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+        @if (Model == null)
+        {
+            <h4>@resxPages.TimeZoneNotFound</h4>
+        }
+        else
+        {
+            <div id="pnlTimeZone" class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="breath-bottom">
+                        @{string time = TimeZoneInfo.GetSystemTimeZones().Where(x => x.Id == Model).FirstOrDefault().DisplayName;}
+                        <h5 class="SubTitle">Time Zone</h5>
+                        <span>@Model - @time</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

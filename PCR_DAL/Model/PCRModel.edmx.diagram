@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4bee9d01d986473aa4dba3833150fb01" Name="Diagram1">
+        <EntityTypeShape EntityType="PCRModel.codeDutyStations" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCRModel.codeDutyStationsLanguages" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCRModel.codePartnerCenterLanguage" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCRModel.codeAggregation" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCRModel.codeCategoryReport" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
+        <AssociationConnector Association="PCRModel.FK_codeDutyStationsLanguages_codeDutyStations" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PCRModel.codeOrganizationsInstances" Width="1.625" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="PCRModel.codeOrganizationsInstancesLanguages" Width="1.5" PointX="3.125" PointY="0.75" />
+        <AssociationConnector Association="PCRModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" />
+        <EntityTypeShape EntityType="PCRModel.dataPartnerReportDetail" Width="1.5" PointX="9.75" PointY="11" />
+        <AssociationConnector Association="PCRModel.FK_dataPartnerReportDetail_codeAggregation" />
+        <AssociationConnector Association="PCRModel.FK_dataPartnerMonthlyReportDetail_codeCategoryReport" />
+        <EntityTypeShape EntityType="PCRModel.codeTablesValues" Width="1.5" PointX="7.375" PointY="1" />
+        <EntityTypeShape EntityType="PCRModel.codeTablesValuesLanguages" Width="1.5" PointX="9.625" PointY="1" />
+        <AssociationConnector Association="PCRModel.FK_codeTablesValuesLanguages_codeTablesValues" />
+        <EntityTypeShape EntityType="PCRModel.codeCategoryAggregation" Width="1.5" PointX="7.5" PointY="9.5" />
+        <AssociationConnector Association="PCRModel.FK_codeCategoryAggregation_codeAggregation" />
+        <AssociationConnector Association="PCRModel.FK_codeCategoryAggregation_codeCategoryReport" />
+        <EntityTypeShape EntityType="PCRModel.codePartnerCenter" Width="1.5" PointX="8.125" PointY="4.5" />
+        <AssociationConnector Association="PCRModel.FK_codePartnerCenter_codeDutyStations" />
+        <AssociationConnector Association="PCRModel.FK_codePartnerCenter_codeOrganizationsInstances" />
+        <AssociationConnector Association="PCRModel.FK_codePartnerCenterLanguage_codePartnerCenter" />
+        <EntityTypeShape EntityType="PCRModel.dataPartnerReportCompiled" Width="1.5" PointX="7.5" PointY="18.25" />
+        <AssociationConnector Association="PCRModel.FK_dataPartnerReportDetail_dataPartnerReportCompiled" />
+        <EntityTypeShape EntityType="PCRModel.codeOrganizations" Width="1.5" PointX="0.75" PointY="10" />
+        <AssociationConnector Association="PCRModel.FK_codeOrganizationsInstances_codeOrganizations" />
+        <EntityTypeShape EntityType="PCRModel.dataPartnerReport" Width="1.5" PointX="10.375" PointY="4.875" />
+        <AssociationConnector Association="PCRModel.FK_dataPartnerMonthlyReport_codePartnerCenter" />
+        <AssociationConnector Association="PCRModel.FK_dataPartnerReportCompiled_dataPartnerReport" />
+        <EntityTypeShape EntityType="PCRModel.dataFileReport" Width="1.5" PointX="12.375" PointY="1" />
+        <AssociationConnector Association="PCRModel.FK_dataPartnerReportCompiled_dataFileReport" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

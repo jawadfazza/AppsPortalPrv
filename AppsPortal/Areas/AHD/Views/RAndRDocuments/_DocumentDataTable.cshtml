@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+@*<h3 class="Title">Bank Accounts</h3>*@
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      
+            <div id=@string.Format("{0}Filter", DataTableNames.StaffHQSalaryDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.StaffHQSalaryDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffHQSalaryDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.StaffHQSalaryDataTable)
+                @*@Html.IndexDatatableCreateNoPermission("/AHD/StaffRAndRLeave/RAndRDocumentsCreate")*@
+                @Html.FieldDataTableCreateNoActionPermission(Permissions.SalaryCycle.Delete, Apps.ORG, Url.Action("RAndRDocumentsCreate", "StaffRAndRLeave", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.SalaryCycle.Delete, Apps.AHD, DataTableNames.StaffHQSalaryDataTable)
+                @Html.FieldDataTableRestore(Permissions.SalaryCycle.Restore, Apps.AHD, DataTableNames.StaffHQSalaryDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.StaffHQSalaryDataTable)
+            </div>
+        
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffHQSalaryDataTable, FormController = "StaffRAndRLeave", Area = "AHD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

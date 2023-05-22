@@ -1,0 +1,182 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.MedicalItemInputDetail</h3>
+<div class="row">
+    <div class="col-lg-12 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.MedicalItemInputDetailsDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.MedicalItemInputDetailsDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.MedicalItemInputDetailsDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.MedicalItemInputDetailsDataTable)
+                @Html.FieldDataTableCreate(Permissions.MedicalItemInput.Create, Apps.EMT, Url.Action("MedicalItemInputDetailCreate", "MedicalItemInputs", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.MedicalItemInput.Delete, Apps.EMT, DataTableNames.MedicalItemInputDetailsDataTable)
+                @Html.FieldDataTableRestore(Permissions.MedicalItemInput.Restore, Apps.EMT, DataTableNames.MedicalItemInputDetailsDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.MedicalItemInputDetailsDataTable)
+            </div>
+        }
+        <div class="mScroll blueDataTableHeader" data-mcs-theme="rounded-dark" style="max-height:500px;">
+            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MedicalItemInputDetailsDataTable, FormController = "MedicalItemInputs", Area = "EMT", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function TransferDetails(Link) {
+        var table = $('#MedicalItemInputDetailsDataTable').DataTable();
+        var tr = $(Link).parent().closest('tr');
+        var row = table.row(tr);
+        console.log(row.data());
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('ExpandedLoginDetails');
+        }
+        else {
+            // Open this row
+            TransferMoreDetailsTemplate(row.data(), row)
+            tr.addClass('ExpandedLoginDetails');
+        }
+    }
+
+    function TransferMoreDetailsTemplate(d, row) {
+        var strHTML = "";
+
+        strHTML = strHTML + "<h5><b> @(Languages.CurrentLanguage()== "EN" ? "-Source Of Items" : "-مصدر العناصر")</b></h5>";
+        $.ajax({
+            method: 'post',
+            datatype: 'text',
+            async: false,
+            url: "/EMT/MedicalItemInputs/LoadingWarehouseTransferSource/" + d.MedicalItemInputDetailGUID,
+            success: function (JsonResult, status, xhr) {
+                strHTML = strHTML +
+                    '<div class="row LoginMoreDetails">' +
+                    '<div class="col-lg-12" >' +
+                    '<div class="col-lg-1 col-xs-1 text-center">' +
+
+                    '</div>' +
+                    '<div class="col-lg-10 col-xs-10">';
+                var QuantityByPackingUnitTotal = 0;
+                var QuantityByPackingTransferUnitTotal = 0;
+                var RemainingItemsTotal = 0;
+                if (JsonResult.transfers.length != 0) {
+                    strHTML = strHTML + '<div class="row" style="border-bottom-style: groove;  font-weight: bold;">' +
+                        '<div class="col-lg-3" > @(Languages.CurrentLanguage()== "EN" ? "Supply - Warehouse - Pharmacy" :"توريد - مستودع - صيدلية") </div>' +
+                        '<div class="col-lg-2" >@(Languages.CurrentLanguage()== "EN" ? "Transfer Date" : "تاريخ التحويل") </div>' +
+                        '<div class="col-lg-2" >@(Languages.CurrentLanguage()== "EN" ? "Transfer Quantity" : "كمية التحويل")  </div>' +
+                        '<div class="col-lg-2" >@(Languages.CurrentLanguage()== "EN" ? "Source Quantity" : "مصدر الكمية")  </div>' +
+                        '<div class="col-lg-3">@(Languages.CurrentLanguage()== "EN" ? "Source Remaining Quantity" : " الكمية المتبقية من المصدر")</div>' +
+                        '</div>';
+
+                    JsonResult.transfers.forEach(function (row) {
+                        strHTML = strHTML + '<div class="row" style="border-bottom-style: groove;">' +
+                            '<div class="col-lg-3" >' + row.Pharmacy + '</div>' +
+                            '<div class="col-lg-2" >' + moment(row.DeliveryDate).format('LL') + '</div>' +
+                            '<div class="col-lg-2" >' + (row.QuantityByPackingTransferUnit) + '</div>' +
+                            '<div class="col-lg-2" >' + (row.QuantityByPackingUnit) + '</div>' +
+                            '<div class="col-lg-3">' + row.RemainingItems + '</div>' +
+                            '</div>';
+                        QuantityByPackingUnitTotal += row.QuantityByPackingUnit;
+                        QuantityByPackingTransferUnitTotal += row.QuantityByPackingTransferUnit;
+                        RemainingItemsTotal += row.RemainingItems
+                    });
+                    strHTML = strHTML + '<div class="row" style="border-bottom-style: groove;  font-weight: bold;">' +
+                        '<div class="col-lg-3" > @(Languages.CurrentLanguage()== "EN" ? "Totals" : "المجموع") </div>' +
+                        '<div class="col-lg-2" > - </div>' +
+                        '<div class="col-lg-2" > ' + QuantityByPackingTransferUnitTotal + ' </div>' +
+                        '<div class="col-lg-2" > ' + QuantityByPackingUnitTotal + ' </div>' +
+                        '<div class="col-lg-3"> ' + RemainingItemsTotal + ' </div>' +
+                        '</div>';
+                    // return strHTML;
+                } else {
+                    strHTML = strHTML +
+                        '<div class="row">' +
+                        '<label class="col-lg-1">@(Languages.CurrentLanguage()== "EN" ? "Message:" : "رسالة:") </label>' +
+                        '<div class="col-lg-8">@(Languages.CurrentLanguage()== "EN" ? "No Records Found!:" : "لا توجد سجلات!") </div>' +
+                        '</div>';
+                }
+
+                strHTML = strHTML + '</div>' +
+                    '</div>' +
+                    '</div>';
+            },
+            error: function (ex) {
+                Notify(NotificationType.Error, "There was an error Loading");
+                console.log("ex", ex);
+                console.log('Error: ' + ex.responseText);
+            }
+        });
+        strHTML = strHTML + "<hr style='border-bottom-style: groove;  font-weight: bold;'/>";
+        $.ajax({
+            method: 'post',
+            datatype: 'text',
+            async: false,
+            url: "/EMT/MedicalItemInputs/LoadingWarehouseTransfer/" + d.MedicalItemInputDetailGUID,
+            success: function (JsonResult, status, xhr) {
+                strHTML = strHTML + "<h5><b>@(Languages.CurrentLanguage()== "EN" ? "(Warehouse - Pharmacy) Transfer History" : "(مستودع - صيدلية) سجل التحويل")</b></h5>" +
+                    '<div class="row LoginMoreDetails">' +
+                    '<div class="col-lg-12" >' +
+                    '<div class="col-lg-1 col-xs-1 text-center">' +
+
+                    '</div>' +
+                    '<div class="col-lg-10 col-xs-10">';
+                var QuantityByPackingUnitTotal = 0;
+                var QuantityByPackingTransferUnitTotal = 0;
+                var RemainingItemsTotal = 0;
+                if (JsonResult.transfers.length != 0) {
+                    strHTML = strHTML + '<div class="row" style="border-bottom-style: groove;  font-weight: bold;">' +
+                        '<div class="col-lg-4" > @(Languages.CurrentLanguage()== "EN" ? "Warehouse - Pharmacy" : "مستودع - صيدلية") </div>' +
+                        '<div class="col-lg-2" > @(Languages.CurrentLanguage()== "EN" ? "Transfer Date" : "تاريخ التحويل") </div>' +
+                        '<div class="col-lg-3" > @(Languages.CurrentLanguage()== "EN" ? "Transfer Quantity" : "كمية التحويل") </div>' +
+                        '<div class="col-lg-3"> @(Languages.CurrentLanguage()== "EN" ? "Remaining Quantity" : "الكمية المتبقية")</div>' +
+                        '</div>';
+
+                    JsonResult.transfers.forEach(function (row) {
+                        strHTML = strHTML + '<div class="row" style="border-bottom-style: groove;">' +
+                            '<div class="col-lg-4" >' + row.Pharmacy + '</div>' +
+                            '<div class="col-lg-2" >' + moment(row.DeliveryDate).format('LL') + '</div>' +
+                            '<div class="col-lg-3">' + (row.QuantityByPackingUnit + row.QuantityByPackingTransferUnit) + '</div>' +
+                            '<div class="col-lg-3">' + row.RemainingItems + '</div>' +
+                            '</div>';
+                        QuantityByPackingUnitTotal += row.QuantityByPackingUnit + row.QuantityByPackingTransferUnit;
+                        RemainingItemsTotal += row.RemainingItems
+                    });
+                    strHTML = strHTML + '<div class="row" style="border-bottom-style: groove;  font-weight: bold;">' +
+                        '<div class="col-lg-4" > @(Languages.CurrentLanguage()== "EN" ? "Totals" : "المجموع") </div>' +
+                        '<div class="col-lg-2" > - </div>' +
+                        '<div class="col-lg-3" > ' + QuantityByPackingUnitTotal + ' </div>' +
+                        '<div class="col-lg-3"> ' + RemainingItemsTotal + ' </div>' +
+                        '</div>';
+                    // return strHTML;
+                } else {
+                    strHTML = strHTML +
+                        '<div class="row">' +
+                        '<label class="col-lg-1">@(Languages.CurrentLanguage()== "EN" ? "Message:" : "رسالة:") </label>' +
+                        '<div class="col-lg-8">@(Languages.CurrentLanguage()== "EN" ? "No Records Found!:" : "لا توجد سجلات!") </div>' +
+                        '</div>';
+                }
+
+                strHTML = strHTML + '</div>' +
+                    '</div>' +
+                    '</div>';
+
+            },
+            error: function (ex) {
+                Notify(NotificationType.Error, "There was an error Loading Photo");
+                console.log("ex", ex);
+                console.log('Error: ' + ex.responseText);
+            }
+        });
+
+        row.child(strHTML).show();
+
+        return "";
+    }
+</script>

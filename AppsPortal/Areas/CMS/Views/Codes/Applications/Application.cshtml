@@ -1,0 +1,26 @@
+﻿@model ApplicationUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("4a101122-6168-4b4d-b887-15bd5f6226ce")
+@{string PageTitle = (Model.ApplicationGUID == Guid.Empty) ? "New Application" : "Edit Application"; }
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/Applications/_ApplicationForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.ApplicationGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/Applications/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ApplicationGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            @*@Html.Partial("~/Views/Audit/_AuditHandler.cshtml", Url.Action("ApplicationAuditHistory", "Codes", new { RecordGUID = Model.ApplicationGUID }))*@
+        </div>
+    </div>
+</div>

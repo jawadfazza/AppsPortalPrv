@@ -1,0 +1,207 @@
+﻿@using AppsPortal.Extensions
+<!DOCTYPE html>
+<html lang="@Thread.CurrentThread.CurrentCulture.Name">
+<head>
+    <title>UNHCR Syria Applications Portal</title>
+
+
+    <script src="~/Assets/Plugin/JQuery/jquery-3.2.1.js"></script>
+    <script src="~/Assets/JScript/StarupJScript.js"></script>
+    <script src="~/Assets/Plugin/JQuery/jquery-ui.min.js"></script>
+    <script src="~/Assets/Plugin/JQuery/jquery-touch-punch.js"></script>
+    <script src="~/Assets/Plugin/moment/moment.min.js"></script>
+    <script src="~/Assets/Plugin/LinqJS/linq.min.js"></script>
+    <script src="~/Assets/Globalization/resxPlugins.@(Languages.CurrentLanguage()).js"></script>
+    <script src="~/Assets/Globalization/locale/@(Languages.CurrentCulture()).js"></script>
+    <script src="~/Assets/Plugin/Modernizr/modernizer.js"></script>
+    <link href="~/Assets/Plugin/UNHCR/app.css" rel="stylesheet" type="text/css">
+
+
+
+
+    <link href="~/Assets/Plugin/Bootstrap/bootstrap@(Languages.IsRighToLeft() ? "-rtl" : "").css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/Bootstrap/bootstrap.js"></script>
+    <link href="~/Assets/Plugin/BootstrapSlider/bootstrap-slider.css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/BootstrapSlider/bootstrap-slider.js"></script>
+    <link href="~/Assets/Plugin/Pikaday/pikaday.css" rel="stylesheet" />
+    <link href="~/Assets/Plugin/Pikaday/theme.css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/Pikaday/pikadayTime.js"></script>
+    <script src="~/Assets/Plugin/Pikaday/pikaday.jquery.js"></script>
+    <link href="~/Assets/Plugin/fontawesome-free-5.10.2-web/css/all.min.css" rel="stylesheet" />
+    <link href="~/Assets/Plugin/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Assets/Plugin/Select2/select2.css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/Select2/select2.full.min.js"></script>
+    <link href="~/Assets/Plugin/DataTable/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Assets/Plugin/DataTable/Responsive/responsive.jqueryui.min.css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/SignalR/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/Assets/Plugin/pwstrength/jquery-passtest-0.2-alpha.js"></script>
+    <script src="~/Assets/Plugin/DataTable/jquery.dataTables.js"></script>
+    <script src="~/Assets/Plugin/DataTable/Responsive/dataTables.responsive.min.js"></script>
+    <script src="~/Assets/Plugin/DataTable/Buttons/dataTables.buttons.min.js"></script>
+    <link href="~/Assets/Plugin/iCheck/blue.css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/iCheck/icheck.min.js"></script>
+    <link href="~/Assets/Plugin/WebUI-Popover/jquery.webui-popover.css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/WebUI-Popover/jquery.webui-popover.js"></script>
+    <link href="~/Assets/Plugin/Noty/noty.css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/FineUploader/fine-uploader.min.js"></script>
+    <link href="~/Assets/Plugin/FineUploader/fine-uploader-new.css" rel="stylesheet" />
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqKsCTRf8C6ciDG67vpv4rjks7Njb8uJw&libraries=places"></script>*@
+    <link href="~/Assets/Plugin/JsTree/dist/themes/default/style.css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/JsTree/dist/jstree.js"></script>
+    <link href="~/Assets/Plugin/MalihuScroll/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/MalihuScroll/jquery.mCustomScrollbar.min.js"></script>
+    <link href="~/Assets/Plugin/BootSideMenu/BootSideMenu.css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/BootSideMenu/BootSideMenu.js"></script>
+    <link href="~/Assets/Plugin/ToggleMaster/css/bootstrap-toggle.min.css" rel="stylesheet" />
+    <script src="~/Assets/Plugin/ToggleMaster/js/bootstrap-toggle.min.js"></script>
+    <link href="~/Assets/Plugin/Notification/bootstrap-notifications.min.css" rel="stylesheet" />
+    @*<script src="https://cdn.datatables.net/scroller/1.4.4/js/dataTables.scroller.min.js"></script>*@
+
+    <script src="~/Assets/Plugin/DataTable/dataTables.scroller.min.js"></script>
+    <script src="~/Assets/Plugin/angularjs/angular.min.js"></script>
+    <script src="~/Assets/Plugin/angularjs/angular-material.min.js"></script>
+    <script src="~/Assets/Plugin/angularjs/angular-aria.min.js"></script>
+    <script src="~/Assets/Plugin/angularjs/angular-messages.min.js"></script>
+    <script src="~/Assets/Plugin/angularjs/angular-animate.min.js"></script>
+
+
+    <link href="~/Assets/Style/Site.css" rel="stylesheet" />
+
+
+    <script type="text/javascript">
+        if (window.localStorage.getItem('fullScreen') == 'true') {
+            document.write('<link href="/Assets/Style/FullScreen.css" rel="stylesheet" />');
+        }
+    </script>
+    <script src="~/Assets/Plugin/fullcalendar/fullcalendar.js"></script>
+    <link href="~/Assets/Plugin/fullcalendar/fullcalendar.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="@(Languages.IsRighToLeft() ? "rtl" : "ltr")">
+    <div class="mbl--head">
+        <div class="logo">
+            <a><img src="~/Assets/images/unhcr-logo.png" alt="UNHCR logo" /></a>
+        </div>
+        <div class="mbl--burger">
+            <button class="c-hamburger c-hamburger--htx">
+                <span>toggle menu</span>
+            </button>
+        </div>
+    </div>
+    <header class="">
+        @Html.Partial("_SiteHeader")
+        @Html.Partial("_SiteNavigation")
+    </header>
+    <div class="body--wrapper">
+        <div class="overlay"></div>
+        <div class="main-content" dir="@(Languages.IsRighToLeft() ? "rtl" : "ltr")">
+            <input type="hidden" id="TabGUID" />
+            @Html.Partial("_SiteSideMenu")
+            @RenderBody()
+            @Html.Partial("_Modal")
+            @Html.Partial("_Confirm")
+            @Html.Partial("_SignalRModal")
+        </div>
+        <i id="scroller" class="fa fa-angle-up fa-4x scrollToTop" onclick="goTop();"></i>
+
+        <div id="PopOverContainer">
+        </div>
+        @Html.Partial("_SiteFooter")
+    </div>
+    <script src="~/Assets/Plugin/JQuery/jquery.counterup.min.js"></script>
+    <script src="~/Assets/Plugin/JQuery/jquery.validate.min.js"></script>
+    <script src="~/Assets/Plugin/JQuery/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Assets/Plugin/ExpressiveAnnotations/expressive.annotations.validate.min.js"></script>
+    <script src="~/Assets/Plugin/JQuery/jquery.easing.min.js"></script>
+    <script src="~/Assets/Plugin/JQuery/jquery.cookie.min.js"></script>
+    @*<script src="~/Assets/Plugin/bxSlider/jquery.bxslider.min.js"></script>*@
+    <script src="~/Assets/Plugin/UNHCR/jquery.tweetHighlighted.min.js"></script>
+    <script src="~/Assets/Plugin/EasyTab/jquery.easytabs.min.js"></script>
+    <script src="~/Assets/Plugin/matchHeight/jquery.matchHeight.min.js"></script>
+    <script src="~/Assets/Plugin/FitText/jquery.fittext.min.js"></script>
+    <script src="~/Assets/Plugin/UNHCR/app.min.js"></script>
+    <script src="~/Assets/Plugin/JSZip/jszip.min.js"></script>
+   
+    <script src="~/Assets/Plugin/DataTable/Buttons/buttons.print.min.js"></script>
+    <script src="~/Assets/Plugin/DataTable/Buttons/buttons.html5.min.js"></script>
+    <script src="~/Assets/Plugin/AreYouSure/jquery.are-you-sure.js"></script>
+    <script src="~/Assets/Plugin/Mojs/mo.min.js"></script>
+    <script src="~/Assets/Plugin/Noty/noty.js"></script>
+    <script src="~/Assets/JScript/JScript.js"></script>
+
+
+    @RenderSection("scripts", false)
+
+    @*@Scripts.Render("~/bundles/MvcFoolproofValidation")*@
+    @*<script>
+            $(document).ready(function () {
+                if ($("body").hasClass("rtl")) {
+                    $('#testSideMenu').BootSideMenu({
+                        side: "left",
+                        icons: {
+                            left: 'fa fa-arrow-left',
+                            right: 'fa fa-arrow-right',
+                            down: 'fa fa-arrow-down'
+                        },
+                        pushBody: true,
+                        remember: true,
+                        closeOnClick: false,
+                        onTogglerClick: function () {
+                            //code to be executed when the toggler arrow was clicked
+                        },
+                        onBeforeOpen: function () {
+                            //code to be executed before menu open
+                        },
+                        onBeforeClose: function () {
+                            //code to be executed before menu close
+                        },
+                        onOpen: function () {
+                            //code to be executed after menu open
+                        },
+                        onClose: function () {
+                            //code to be executed after menu close
+                        },
+                        onStartup: function () {
+                            //code to be executed when the plugin is called
+                        }
+                    });
+                }
+                else {
+                    $('#testSideMenu').BootSideMenu({
+                        side: "right",
+                        icons: {
+                            left: 'fa fa-arrow-left',
+                            right: 'fa fa-arrow-right',
+                            down: 'fa fa-arrow-down'
+                        },
+                        //prevStatus:'closed',
+                        status:'closed',
+                        pushBody: false,
+                        remember: true,
+                        closeOnClick: false,
+                        onTogglerClick: function () {
+                            //code to be executed when the toggler arrow was clicked
+                        },
+                        onBeforeOpen: function () {
+                            //code to be executed before menu open
+                        },
+                        onBeforeClose: function () {
+                            //code to be executed before menu close
+                        },
+                        onOpen: function () {
+                            //code to be executed after menu open
+                        },
+                        onClose: function () {
+                            //code to be executed after menu close
+                        },
+                        onStartup: function () {
+                            //code to be executed when the plugin is called
+                        }
+                    });
+                }
+                $('#testSideMenu').css('display', 'block');
+            });
+
+        </script>*@
+</body>
+</html>

@@ -1,0 +1,147 @@
+﻿@model OfficeStaffAttendanceUpdateModel
+@using (Html.BeginForm("OfficeStaffAttendance", "OfficeStaffAttendances", new { Area = "OSA" }, FormMethod.Post, new { id = "OfficeStaffAttendanceForm" }))
+{
+
+    string ModalTitle = Model.OfficeStaffAttendanceGUID.ToString() == Guid.Empty.ToString() ? "New Office Staff Presence" : "Edit Office Staff Presence";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.OfficeStaffAttendanceGUID)
+    @Html.HiddenFor(model => model.DutyStationGUID)
+    @Html.HiddenFor(model => model.IsConfirmed)
+    @if (!new CMS().HasAction(Permissions.OfficeStaffAttendance.Confirm, Apps.OSA))
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserGUID, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.UserGUID, new DropDownList().CoreUsers(true), "", new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-search"
+       })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AttendanceFromDatetime)
+            @Html.EditorFor(model => model.AttendanceFromDatetime, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AttendanceToDatetime)
+            @Html.EditorFor(model => model.AttendanceToDatetime, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OfficeGUID)
+            @Html.DropDownListFor(model => model.OfficeGUID, new DropDownList().OfficesByDutyStation(Model.DutyStationGUID), "",
+           new
+                {
+                    @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'OfficeFloorGUID', Action : 'RemoteOfficeFloor'}]);",
+               style = "width:100%"
+                })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OfficeFloorGUID)
+            @Html.DropDownListFor(model => model.OfficeFloorGUID, new DropDownList().OfficeFloorByOffice(Model.OfficeGUID), "",
+           new
+                {
+                    @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'OfficeFloorRoomGUID', Action : 'RemoteOfficeFloorRoom'}]);ShowMap();",
+               style = "width:100%"
+                })
+        </div>
+        <div class="form-group">
+            <a href="#" target="_blank" id="MapID" onclick="ShowMap()">Download Floor Map</a>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OfficeFloorRoomGUID)
+            @Html.DropDownListFor(model => model.OfficeFloorRoomGUID, new DropDownList().OfficeFloorRoomByOfficeFloor(Model.OfficeFloorGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+
+    }
+    else
+    {
+        <div class="form-group">
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.UserGUID, new DropDownList().CoreUsers(true), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+               disabled = "disabled"
+           })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AttendanceFromDatetime)
+                @Html.DisplayFor(model => model.AttendanceFromDatetime, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AttendanceToDatetime)
+                @Html.DisplayFor(model => model.AttendanceToDatetime, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+
+            @Html.HiddenFor(model => model.UserGUID)
+            @Html.HiddenFor(model => model.AttendanceFromDatetime)
+            @Html.HiddenFor(model => model.AttendanceToDatetime)
+            @Html.HiddenFor(model => model.DutyStationGUID)
+            @Html.HiddenFor(model => model.OfficeGUID)
+            @Html.HiddenFor(model => model.OfficeFloorGUID)
+            @Html.HiddenFor(model => model.OfficeFloorRoomGUID)
+
+            @Html.CheckBoxFor(m => Model.IsAttend, new { @class = "chkNode-accordion" })
+            @Html.LabelFor(model => model.IsAttend)
+
+            @*@Html.CheckBoxFor(model => model.IsCanceled, new { @class = "chkNode-accordion" })
+                @Html.LabelFor(model => model.IsCanceled)*@
+        </div>
+    }
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.OfficeStaffAttendanceGUID == Guid.Empty)
+        {
+            if (!new CMS().HasAction(Permissions.OfficeStaffAttendance.Create, Apps.OSA))
+            {
+                @Html.CreateButtonNoPermission()
+            }
+            else
+            {
+                @Html.CreateButton(Permissions.OfficeStaffAttendance.Create, Apps.OSA)
+            }
+
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                if (!new CMS().HasAction(Permissions.OfficeStaffAttendance.Update, Apps.OSA))
+                {
+                    @Html.UpdateButtonNoPermission()
+                }
+                else
+                {
+                    @Html.UpdateButton(Permissions.OfficeStaffAttendance.Update, Apps.OSA)
+                }
+               
+                    if (!new CMS().HasAction(Permissions.OfficeStaffAttendance.Update, Apps.OSA))
+                    {
+                    @Html.DeleteSwitchButtonNoPermission() }
+                    else
+                    {
+                    @Html.DeleteSwitchButton(Permissions.OfficeStaffAttendance.Delete, Apps.OSA)
+                    }
+                
+
+            }
+
+        }
+        @Html.CloseModalButton()
+    </div>
+
+}
+
+<script>
+    $( document ).ready(function() {
+        ShowMap();
+     });
+    function ShowMap() {
+            $("#MapID").attr("href", "../../Areas/OSA/Temp/" + $("#OfficeFloorGUID").select2('val').toUpperCase() + ".pdf"); // Get current url
+    }
+</script>

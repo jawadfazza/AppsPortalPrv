@@ -1,0 +1,23 @@
+﻿@model FileModel
+@using (Html.BeginForm("SearchBulkFile", "ScanDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "CreateFileForm" }))
+{
+    string ModalTitle =  "Search File";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+ 
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FileNumber)
+        @Html.TextAreaFor(model => model.FileNumbers, new { @class = "form-control group-control", autocomplete = "off", style = "width:100%;", rows = 6 })
+
+    </div>
+
+</div>
+<div class="modal-footer form-footer">
+
+    @Html.SearchFiles(Permissions.RefugeeScannedDocument.Create, Apps.DAS)
+
+    @Html.CloseModalButton()
+</div>
+}

@@ -1,0 +1,808 @@
+﻿@model StaffMissionRequestDataTableModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.MissionRequestGUID == Guid.Empty) ? "New  Mission " : "Edit Mission"; }
+
+@Html.PageHeader("9587200a-0b18-47e4-a04d-7e44b1c2559e")
+<link href="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.js"></script>
+<script src="~/Assets/Plugin/JQuery/jquery.ui.touch-punch.min.js"></script>
+<style>
+    ul.a {
+        list-style-position: outside;
+    }
+
+</style>
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+
+            <div class="panel-heading" id="step1panelcreate">
+                @*Delegation Request for : @Model.StaffName in @Model.StartDate*@
+
+
+            </div>
+            <div>
+                @using (Html.BeginForm("StaffMissionRequest", "MissionRequest", new { Area = "AHD" }, FormMethod.Post, new { id = "MissionRequestWizardform", @class = "main-form", enctype = "multipart/form-data" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.FormHiddenFields(model => model.MissionRequestGUID)
+                    @Html.HiddenFor(model => model.StaffGUID)
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="step1InfoBox">
+                        <div class="panel panel-primary newPanelSettings">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+                                <h3 class="box-title">
+                                    Step-1 Mission Information
+
+                                    <span class="pull-right" style="color:forestgreen">@Html.DisplayFor(model => model.ReferenceNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })</span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="form-group">
+
+
+                                        <div class="col-md-3">
+                                            <div class="form-group HANDLER" id="itemparenetId">
+                                                @Html.LabelFor(model => model.DepartureDate) *
+
+                                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                                {
+                                                    @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+                                                else
+                                                {
+                                                    @Html.HiddenFor(model => model.DepartureDate)
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.ReturnDate)  *
+
+                                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                                {
+                                                    @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+                                                else
+                                                {
+                                                    @Html.HiddenFor(model => model.ReturnDate)
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group HANDLER" id="itemparenetId">
+                                                @Html.LabelFor(model => model.TypeOfTravelGUID) *
+
+                                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                                {
+                                                    @Html.DropDownListFor(model => model.TypeOfTravelGUID, new DropDownList().AHDMissionTravelTypes(), "", new
+                                                                         {
+                                                                         @class = "form-control select2-basic-search",
+                                                                         style = "width:100%",
+
+                                                                         })
+                                                }
+                                                else
+                                                {
+                                                    @Html.HiddenFor(model => model.TypeOfTravelGUID)
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.TypeOfTravel, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.TypeOfMissionGUID) *
+                                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                                {
+                                                    @Html.DropDownListFor(model => model.TypeOfMissionGUID, new DropDownList().AHDMissionTypes(), "", new
+                                                                            {
+                                                                            @class = "form-control select2-basic-search",
+                                                                            style = "width:100%",
+
+                                                                            })
+                                                }
+                                                else
+                                                {
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.TypeOfMission, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                    <div class="form-group">
+
+
+
+
+
+
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        @if (Model.DutyStationGUID != Guid.Parse("6D7397D6-3D7F-48FC-BFD2-18E69673AC92"))
+                                        {
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.HasDamascusTransit)
+                                                    @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                                    {
+                                                        @Html.CheckBoxFor(model => model.HasDamascusTransit, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                    }
+                                                    else
+                                                    {
+                                                        <br />
+                                                        @Html.DisplayFor(model => model.HasDamascusTransit, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            @Html.HiddenFor(m => m.HasDamascusTransit)
+                                        }
+
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.IsMissionCombinedWithLeave)
+                                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                                {
+                                                    @Html.CheckBoxFor(model => model.IsMissionCombinedWithLeave, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+                                                else
+                                                {
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.IsMissionCombinedWithLeave, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+                                            </div>
+
+
+                                        </div>
+                                        @if (Model.RecruitmentTypeGUID == Guid.Parse("FC4B2E79-2B97-4252-A50B-915B07A12310"))
+                                        {
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.IsMissionCombinedWithRR)
+                                                    @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                                    {
+                                                        @Html.CheckBoxFor(model => model.IsMissionCombinedWithRR, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                    }
+                                                    else
+                                                    {
+                                                        <br />
+                                                        @Html.DisplayFor(model => model.IsMissionCombinedWithRR, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                        }
+                                        else
+                                        {
+                                            @Html.HiddenFor(m => m.IsMissionCombinedWithRR)
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PurposeOfMission) *
+                                                @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                                {
+                                                    @Html.EditorFor(model => model.PurposeOfMission, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+                                                else
+                                                {
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.PurposeOfMission, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Comments)
+                                        @if ((Model.AccessLevel == 1 || Model.AccessLevel == null) && (Model.CurrentStep == 1 || Model.CurrentStep == 0))
+                                        {
+                                            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                            @Html.DisplayFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>*@
+
+
+
+
+
+
+                                </div>
+                            </div>
+                            <div class="panel-footer  showstep1body">
+
+                                <i class="far fa-hand-point-down showfooterstep1 pull-left"></i>
+                                <br />
+                                <input type="button" onclick="MoveToStep2()" value="Save and move to next step" id="movetosetp2id"
+                                       class="btn btn-primary showfooterstep1" />
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="step2InfoBox" style="display:none;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="panel panel-primary ">
+                                <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+                                    <h3 class="box-title">Step-2 Itinerary * </h3>
+
+                                </div>
+                                <div class="panel-body showstep2body">
+                                    @Html.Partial("~/Areas/AHD/Views/MissionRequest/Itinerary/_MissionRequestItineraryDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.MissionRequestGUID, IsParentActive = Model.Active })
+
+
+
+
+
+
+                                </div>
+                                <div class="panel-footer  showstep2body">
+
+                                    <i class="far fa-hand-point-down showfooterstep2 pull-left"></i>
+                                    <br />
+                                    <input type="button" onclick="MoveToStep3()" value="Save and move to next step" id="movetosetp3id"
+                                           class="btn btn-primary showfooterstep2" />
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="step3InfoBox" style="display:none;">
+                        <div class="panel panel-primary ">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+                                <h3 class="box-title"> Step-3  Traveler's Information (Optional) </h3>
+
+                            </div>
+                            <div class="panel-heading  col-md-12" style="background-color:lightyellow;color:green;">
+                                Help: Adding other travelers to the same Mission Request such as:
+                                <ul style="list-style-type:circle">
+                                    <li>a- Family member (if approved) travelling on the same exact itinerary</li>
+                                    <li>b- Colleague/s travelling on the same exact itinerary and follow the same reporting lines</li>
+                                    If no travelers to add, proceed to the next step
+                                </ul>
+
+
+                            </div>
+                            <div class="panel-body showstep3body">
+
+                                <div id="itinerarydivid" class="form-group">
+                                    @Html.Partial("~/Areas/AHD/Views/MissionRequest/Traveler/_MissionRequestTravelerDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.MissionRequestGUID, IsParentActive = Model.Active })
+
+                                </div>
+
+
+
+
+                            </div>
+
+                            <div class="panel-footer  showstep3body">
+
+                                <i class="far fa-hand-point-down showfooterstep3 pull-left"></i>
+                                <br />
+                                <input type="button" onclick="MoveToStep4()" value="Save and move to next step" id="movetosetp4id"
+                                       class="btn btn-primary showfooterstep3" />
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="step4InfoBox" style="display:none;">
+                        <div class="panel panel-primary ">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+                                <h3 class="box-title"> Step-4 Documents (Optional)</h3>
+
+                            </div>
+                            <div class="panel-heading col-md-12" style="background-color:lightyellow;color:green;">
+                                Help: Please upload all relevant documents (if available) including, but not limited to:
+                                <ul style="list-style-type:circle">
+                                    <li>a- Admin Instructions</li>
+                                    <li>b- Head of Receiving office approval</li>
+                                    <li>c- RnR Approval</li>
+                                    <li>d- TCT approval</li>
+                                    If no documents to add, proceed save and submit
+                                </ul>
+
+
+
+
+
+
+                            </div>
+                            <div class="panel-body showstep4body">
+
+
+                                @Html.Partial("~/Areas/AHD/Views/MissionRequest/Documents/_DocumentDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.MissionRequestGUID, IsParentActive = Model.Active })
+
+
+
+                            </div>
+                            <div class="panel-footer  showstep4body">
+
+
+
+                            
+                                
+                                <input type="button" onclick="MoveToFinalStep()" id="MoveToFinalStepid"
+                                       class="btn btn-primary showfooterstep4 lastsave" value="Save and move to next step"/>
+                             
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="step5InfoBox" style="display:none;">
+                        <div class="panel panel-primary ">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+                                <h3 class="box-title"> Step-5 Submission</h3>
+
+                            </div>
+                    
+                            <div class="panel-body showstep4body">
+
+                                Disclaimer:
+                                <ul style="list-style-type:circle">
+                                    <li>
+                                        Please note that it is your responsibility to get the following clearances/approvals if required:
+                                        Security Clearance Medical Clearance Visa Approval of Leave MoFA approval
+                                    </li>
+                                    <li>
+                                        I acknowledge
+                                        <input type="checkbox" id="disclmiarid" name="disclmiarid">
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                            <div class="panel-footer  showstep5footer">
+
+
+
+                        
+                                <br />
+                                <i class="far fa-hand-point-down showfooterstep4 pull-left lastsave" style="display:none"></i>
+                                <input type="button" onclick="MoveToStep5()" value="Submit" id="movetosetp5id" style="display:none"
+                                       class="btn btn-primary showfooterstep5 lastsave" />
+                                <input type="button" onclick="SaveMissionAsDraft()" value="Save as draft" id="saveasdraftid"
+                                       class="btn btn-primary showfooterstep5" />
+                                <input type="button" onclick="CancelMissionRequest()" value="Cancel the mission" id="movetosetp4Cancleid"
+                                       class="btn btn-danger showfooterstep5 pull-right" />
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var _MissionRequestGUID = $("#MissionRequestGUID").val();
+    $('input').on('ifChecked', function (event) {
+        $('#movetosetp5id').show();
+    });
+    $('input').on('ifUnchecked', function (event) {
+        $('#movetosetp5id').hide();
+
+    });
+
+
+
+      var MoveToStep2 = function () {
+
+                var _MissionRequestGUID = $("#MissionRequestGUID").val();
+                var _TypeOfMissionGUID = $("#TypeOfMissionGUID").val();
+                var _TypeOfTravelGUID = $("#TypeOfTravelGUID").val();
+                var _PurposeOfMission = $("#PurposeOfMission").val();
+                
+          var _HasDamascusTransit = $('input[name=HasDamascusTransit]').is(':checked');
+          var _IsMissionCombinedWithLeave = $('input[name=IsMissionCombinedWithLeave]').is(':checked');
+          var _IsMissionCombinedWithRR = $('input[name=IsMissionCombinedWithRR]').is(':checked');
+              var _DepartureDate = $("#DepartureDate").val();
+              var _ReturnDate = $("#ReturnDate").val();
+          //var _Comments = $("#Comments").val();
+
+          var TodayDate = new Date();
+          TodayDate.setHours(0, 0, 0, 0);
+          var _checkDepartureDate = new Date(Date.parse($("#DepartureDate").val()));
+          var _checkReturnDate = new Date(Date.parse($("#ReturnDate").val()));
+
+
+          if (_checkDepartureDate < TodayDate-1) {
+              Notify(NotificationType.Warning, 'Official Event Start Date should be euqal or bigger than today ');
+          }
+
+          else if (_checkReturnDate < TodayDate) {
+              Notify(NotificationType.Warning, 'Official Event End Date should be euqal or bigger than today ');
+          }
+
+                else      if (_DepartureDate == null || _DepartureDate == '') {
+                Notify(NotificationType.Warning, 'Please indicate Official Event Start Date ');
+            }
+            else if (_ReturnDate == null || _ReturnDate == '') {
+                Notify(NotificationType.Warning, 'Please indicate Official Event End Date ');
+            }
+
+               else if (_TypeOfMissionGUID == null || _TypeOfMissionGUID == '') {
+                    Notify(NotificationType.Warning, 'Please indicate mission type ');
+
+                }
+
+                else if (_TypeOfTravelGUID == null || _TypeOfTravelGUID == '') {
+                    Notify(NotificationType.Warning, 'Please indicate travel type ');
+                }
+
+
+                else if (_PurposeOfMission == null || _PurposeOfMission == '') {
+                    Notify(NotificationType.Warning, 'Please indicate Purpose Of The Mission ');
+                }
+
+
+                else if (new Date(_DepartureDate) > new Date(_ReturnDate)) {
+
+                    Notify(NotificationType.Error, 'Travel date should not be after the end of the event date');
+                }
+                else {
+
+
+
+                    $.ajax({
+                        url: '@Url.Action("UpdateMissionRequestFirstStep", "MissionRequest")',
+                        type: 'post',
+                        data: {
+                            _MissionRequestGUID: _MissionRequestGUID,
+                            _TypeOfMissionGUID: _TypeOfMissionGUID,
+                            _TypeOfTravelGUID: _TypeOfTravelGUID,
+
+                            _HasDamascusTransit: _HasDamascusTransit,
+                            _IsMissionCombinedWithLeave: _IsMissionCombinedWithLeave,
+                            _IsMissionCombinedWithRR: _IsMissionCombinedWithRR,
+
+                            //_RestAndRecuperationLeaveGUID: _RestAndRecuperationLeaveGUID,
+                            _PurposeOfMission: _PurposeOfMission,
+                            //_Comments: _Comments,
+                            _DepartureDate: _DepartureDate,
+                            _ReturnDate: _ReturnDate
+
+                            //ShelfGUID: $scope.ShelfGUID,
+                            //MetaDataDocumentsGUIDs: $scope.MetaDataDocumentsGUIDs
+                        },
+                        success: function (data) {
+                            if (data.success == 1) {
+                                if (data._hasConflicatdate == 1) {
+                                    Notify(NotificationType.Warning, 'Please take note that you already have a mission on this period');
+                                }
+                                $('#step2InfoBox').show();
+                                $('.showstep3body').show();
+                                $('#showEditStep3id').hide();
+
+                                $('#step4checkid').hide();
+                                $('html, body').animate({
+                                    scrollTop: $("#step2InfoBox").offset().top
+                                }, 2000);
+                                $('.showfooterstep2').show();
+                                $('#movetosetp2id').hide();
+                                Notify(NotificationType.Success, 'Saved successfully');
+                                //  $scope.mysearchKey = null;
+
+                            }
+                            else {
+
+                                Notify(NotificationType.Warning, 'Warning');
+                            }
+
+
+
+                        }
+                    });
+
+
+                }
+            }
+      var MoveToStep3 = function () {
+          var _tableMissionRequestItineraryDataTable = $('#MissionRequestItineraryDataTable').DataTable();
+
+          if (!_tableMissionRequestItineraryDataTable.data().count()) {
+              Notify(NotificationType.Warning, 'Please indicate mission itinerary ');
+          }
+
+          else {
+
+              $('#step3InfoBox').show();
+              $('.showstep3body').show();
+              $('#movetosetp3id').hide();
+              //$('#showEditStep3id').hide();
+
+              $('#step4checkid').hide();
+              $('html, body').animate({
+                  scrollTop: $("#step3InfoBox").offset().top
+              }, 2000);
+              $('.showfooterstep2').hide();
+              //$('.beforstep2').hide();
+              //$('.afterstep2').show();
+          }
+            }
+      var MoveToStep4 = function () {
+          $('#step4InfoBox').show();
+          $('#movetosetp4id').hide();
+    }
+    var MoveToFinalStep = function () {
+        $('#step5InfoBox').show();
+        $('#MoveToFinalStepid').hide();
+    }
+
+    
+    var SaveMissionAsDraft = function () {
+
+                $.ajax({
+                    url: '@Url.Action("SaveMissionAsDraft", "MissionRequest")',
+                    type: 'post',
+                    data: {
+                        _MissionRequestGUID: _MissionRequestGUID,
+                    },
+                    success: function (data) {
+                        if (data.success == 1) {
+
+                            //$('#showEditStep3id').hide();
+
+
+
+                            $('.showfooterstep4').hide();
+
+                            Notify(NotificationType.Success, 'Saved successfully');
+                            //  $scope.mysearchKey = null;
+
+                        }
+                        else {
+
+                            Notify(NotificationType.Warning, 'Warning');
+                        }
+
+
+
+                    }
+                });
+            }
+      var MoveToStep5 = function () {
+
+                $.ajax({
+                    url: '@Url.Action("SubmitMissionRequestToAdmin", "MissionRequest")',
+                    type: 'post',
+                    data: {
+                        _MissionRequestGUID: _MissionRequestGUID,
+                    },
+                    success: function (data) {
+                        if (data.success == 1) {
+
+                            //$('#showEditStep3id').hide();
+
+
+
+                            $('.showstep5footer').hide();
+
+                            Notify(NotificationType.Success, 'Saved successfully');
+                            //  $scope.mysearchKey = null;
+
+                        }
+                        else {
+
+                            Notify(NotificationType.Warning, 'Warning');
+                        }
+
+
+
+                    }
+                });
+            }
+      var CancelMissionRequest = function () {
+
+                      $.ajax({
+                        url: '@Url.Action("CancelMissionRequest", "MissionRequest")',
+                        type: 'post',
+                        data: {
+                            _MissionRequestGUID: _MissionRequestGUID,
+                                   },
+                        success: function (data) {
+                            if (data.success == 1) {
+
+                                //$('#showEditStep3id').hide();
+
+
+
+                                $('.showstep5footer').hide();
+
+                                Notify(NotificationType.Success, 'Saved successfully');
+                                //  $scope.mysearchKey = null;
+
+                            }
+                            else {
+
+                                Notify(NotificationType.Warning, 'Warning');
+                            }
+
+
+
+                        }
+                      });
+
+
+
+            }
+      $(document).on('click', ".NewLocation", function () {
+                var Error = 0;
+                var DropDownUpdate = "";
+                var LocationlevelID = '0';
+                var LocationTypeGUID = '';
+                var CountryGUID = '';
+                var LocationParentGUID = '';
+                if ($(this).hasClass("FromLocation")) {
+                    DropDownUpdate = "FromLocation";
+                    LocationlevelID = 1;
+                    LocationTypeGUID = 'c970ddf5-31e5-47a1-be76-af15833d4e6a';
+                    if ($('#CountryGUID').val() == "") {
+                        Notify(NotificationType.Warning, "Please Choose Departure Country!");
+                        Error = 1;
+                    } else {
+                        CountryGUID = $('#CountryGUID').val();
+                        LocationParentGUID = $('#CountryGUID').val();
+                    }
+                }
+
+                if (Error != 1) {
+                    $.confirm({
+                        title: 'Add New Location',
+                        content: '' +
+                            '<form action="" class="main-form"  id="LocationForm" method="post">' +
+                            '<div class="form-group">' +
+                            '<label>Location Description</label>' +
+                            '<input type="LocationDescription" id="LocationDescription" name="LocationDescription" placeholder="Location" class="name form-control" required />' +
+                            '</div>' +
+                            '<input class="PK" data-val="true" id="LocationGUID" name="LocationGUID" type="hidden" value="00000000-0000-0000-0000-000000000000">' +
+                            '<input data-val="true" id="Active" name="Active" type="hidden" value="False">' +
+                            '<input id="LocationlevelID" name="LocationlevelID" type="hidden" value="' + LocationlevelID + '">' +
+                            '<input id="LocationTypeGUID" name="LocationTypeGUID" type="hidden" value="' + LocationTypeGUID + '">' +
+                            '<input id="CountryGUID" name="CountryGUID" type="hidden" value="' + CountryGUID + '">' +
+                            '<input id="LocationParentGUID" name="LocationParentGUID" type="hidden" value="' + LocationParentGUID + '">' +
+                            '<input id="Latitude" name="Latitude" type="hidden" value="0">' +
+                            '<input id="Longitude" name="Longitude" type="hidden" value="0">' +
+                            '<input id="codeLocationsRowVersion" name="codeLocationsRowVersion" type="hidden" value="">' +
+                            '<input id="codeLocationsLanguagesRowVersion" name="codeLocationsLanguagesRowVersion" type="hidden" value="">' +
+                            '</form>',
+                        buttons: {
+                            formSubmit: {
+                                text: 'Submit',
+                                btnClass: 'btn-blue',
+                                action: function () {
+                                    var form = $('#LocationForm');
+                                    var formData = form.serialize();
+
+                                    $.ajax({
+                                        type: "Post",
+                                        url: "/AHD/MissionRequest/LocationCreate",
+                                        dataType: "json",
+                                        data: formData,
+                                        success: function (response) {
+                                            if (DropDownUpdate == "FromLocation") {
+                                                UpdateDropDownList([$('#CountryGUID').val()], [{ DropDownListID: 'StartLocationGUID', Action: 'RemoteLocationsByGovernorate' }]);
+                                            }
+
+                                            Notify(NotificationType.Success, response.data);
+                                        },
+                                        error: function (errorStatus) {
+                                            DecideWhenLoadComplete();
+                                        }
+                                    });
+
+                                }
+                            },
+                            cancel: function () {
+                                //close
+                            },
+                        },
+                        onContentReady: function () {
+                            // bind to events
+                            var jc = this;
+                            this.$content.find('form').on('submit', function (e) {
+                                // if the user submits the form by pressing enter in the field.
+                                //e.preventDefault();
+                                jc.$$formSubmit.trigger('click'); // reference the button and click it
+                                alert("");
+                            });
+                        }
+                    });
+                }
+            });
+</script>

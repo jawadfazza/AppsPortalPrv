@@ -1,0 +1,78 @@
+﻿@model string
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("8d763781-ef9c-4abb-b174-94780d744b44")
+<div class="page--content">
+    @using (Html.BeginForm("UserToUserSubmit", "Permissions", FormMethod.Post, new { id = "UserToUserSubmitForm", @class = "main-form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>From User</h4>
+                <div class="row" id="SourceUser">
+                    <div class="col-lg-4" style="width:30%">
+                        <img id="userProfileImage" class="userProfilePhotoInPermissions " src="/Assets/Images/img.png" />
+                    </div>
+                    <div class="col-lg-8 HANDLER">
+                        @Html.DropDownList("SourceProfileGUID", new DropDownList().Empty(), new
+                   {
+                       style = "width:100%",
+                       @class = "form-control select2-basic-ajax FlashOnEmptySelect2",
+                       data_action = "RemoteFindUserCurrentProfile",
+                       onchange = "GetUserDetails($(this).val(),'#SourceUser');"
+                   })
+                        <div style="margin: 10px 0; padding: 7px; border: solid 1px #ccc; background-color:#fff; min-height: 135px;">
+                            <span class="userInfoInPermissions lblEmailAddress">@resxPages.SelectTheUser</span>
+                            <span class="userInfoInPermissions lblOrganization"></span>
+                            <span class="userInfoInPermissions lblJobTitle"></span>
+                            <span class="userInfoInPermissions lblOperation"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h4>To Users</h4>
+                <div class="row" id="TargetedUser">
+                    <div class="col-lg-4" style="width:30%">
+                        <img class="userProfilePhotoInPermissions TargetedUser" src="/Assets/Images/img.png" />
+                    </div>
+                    <div class="col-lg-8 HANDLER">
+                        @Html.DropDownList("DestinationProfileGUIDs", new DropDownList().UserProfileNames(),
+                      new { multiple = "multiple", 
+                          @class = "form-control select2-basic-multiple FlashOnEmptySelect2",
+                          style = "width:100%" })
+
+                        <div style="margin: 10px 0; padding: 7px; border: solid 1px #ccc; background-color:#fff; min-height: 135px;">
+                            <span class="userInfoInPermissions lblEmailAddress">Please select a users from above</span>
+                            <span class="userInfoInPermissions lblOrganization"></span>
+                            <span class="userInfoInPermissions lblJobTitle"></span>
+                            <span class="userInfoInPermissions lblOperation"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-6 form-group">
+                @Html.Label("ApplicationGUID", "Applications")
+                @Html.DropDownList("ApplicationGUID", new DropDownList().Applications(), "", new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-search FlashOnEmptySelect2",
+               })
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <p style="line-height:2em;margin-top:50px;">
+                   @resxPages.UserToUserInstruction
+                </p>
+                <input type="submit" class="btn btn-success" onclick="SubmitForm(this);" style="width:179px;" value="Submit"  />
+            </div>
+        </div>
+    }
+</div>

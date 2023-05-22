@@ -1,0 +1,138 @@
+﻿@model MissionRequestTravelerUpdateModel
+@using (Html.BeginForm("MissionRequestTraveler", "MissionRequest", new { Area = "AHD" }, FormMethod.Post, new { id = "MissionRequestTravelerForm" }))
+{
+    string ModalTitle = Model.MissionRequestTravelerGUID.ToString() == Guid.Empty.ToString() ? "New Traveler" : "Edit Traveler";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.MissionRequestTravelerGUID)
+    @Html.HiddenFor(model => model.MissionRequestGUID)
+    @Html.HiddenFor(model => model.DepartmentGUID)
+    @Html.HiddenFor(model => model.DutyStationGUID)
+    @Html.HiddenFor(model => model.JobTitle)
+    @Html.HiddenFor(model => model.StaffName)
+    
+    @Html.HiddenFor(model => model.MissionOwnerGenderGUID)
+    @Html.HiddenFor(model => model.MissionOwnerDutyStationGUID)
+
+
+    <div class="form-group _traverllertype">
+        @Html.LabelFor(model => model.TraverlerTypeGUID)
+        @Html.DropDownListFor(model => model.TraverlerTypeGUID, new DropDownList().AHDMissionTravelerType(), "",
+       new { style = "width:100%", @class = "form-control select2-basic-search" })
+    </div>
+    <div id="alltravdiv">
+        <div class="form-group staff staffdiv">
+            @Html.LabelFor(model => model.StaffGUID)
+            @Html.DropDownListFor(model => model.StaffGUID, new DropDownList().AdminFilterStaffByDutyStation((Guid)Model.MissionOwnerDutyStationGUID), "",
+           new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        <div class="form-group family familydiv">
+            @Html.LabelFor(model => model.FamilyMemberName)
+            @Html.EditorFor(model => model.FamilyMemberName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group family familydiv">
+            @Html.LabelFor(model => model.DateOfBirth)
+            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+        @*<div class="form-group family familydiv">
+            @Html.LabelFor(model => model.GenderGUID)
+            @Html.DropDownListFor(model => model.GenderGUID, new DropDownList().GendersByOrganizationInstance(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>*@
+        <div class="form-group family familydiv">
+            @Html.LabelFor(model => model.RelationGUID)
+            @Html.DropDownListFor(model => model.RelationGUID, new DropDownList().StaffRelativeType(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Description)
+
+                @Html.CheckBoxFor(model => model.IsMandatury, new { htmlAttributes = new { @class = "form-control" } })
+            </div>*@
+
+
+        <div class="form-group familydiv">
+            @Html.Label("Traveler’s comments")
+            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.EmailAddress)
+            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullName)
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>*@
+</div>
+<div class="modal-footer form-footer all">
+    @if (Model.IsMissionOwner == true)
+    {
+    if (Model.MissionRequestTravelerGUID == null || Model.MissionRequestTravelerGUID == Guid.Empty)
+    {
+        @Html.CreateButtonNoPermission(Permissions.StaffMissionRequest.Create, Apps.AHD)
+    }
+    else if (Model.MissionRequestTravelerGUID != null || Model.MissionRequestTravelerGUID != Guid.Empty)
+    {
+        if (Model.Active)
+        {
+
+            @Html.UpdateButtonNoPermission(Permissions.StaffMissionRequest.Update, Apps.AHD)
+
+        }
+        else
+        {
+            @Html.RestoreButton(Permissions.StaffMissionRequest.Delete, Apps.AHD)
+        }
+    }
+    }
+    @Html.CloseModalButton()
+</div>
+}
+<script>
+    $('.staffdiv').hide();
+    $('.familydiv').hide();
+    var _gender = $("#MissionOwnerGenderGUID").val();
+    if (_gender == "688b11e0-24fb-44b8-94ce-d8568c4742c7") {
+        $('._traverllertype').hide();
+        $('.staffdiv').show();
+        $('.familydiv').hide();
+
+    }
+
+    var traveler = $('#TraverlerTypeGUID').val();
+    if (traveler!='' && traveler != null)
+    {
+        
+        if (traveler == '2dac5d96-e6a3-48c1-b3f5-17bfd9f62966') {
+            $('#alltravdiv').show();
+            
+            $('.staffdiv').show();
+            $('.familydiv').hide();
+        }
+        else if (traveler =='2DAC5D96-E6A3-48C1-B3F5-17BFD9F62962') {
+            $('#alltravdiv').show();
+            $('.staffdiv').hide();
+            $('.familydiv').show();
+        }
+    }
+
+    $('#TraverlerTypeGUID').change(function (e) {
+
+        e.preventDefault();
+        var val = $(this).val();
+
+        if (val == '2dac5d96-e6a3-48c1-b3f5-17bfd9f62966') {
+            $('#alltravdiv').show();
+
+            $('.staffdiv').show();
+            $('.familydiv').hide();
+        }
+        else {
+            $('#alltravdiv').show();
+            $('.staffdiv').hide();
+            $('.familydiv').show();
+        }
+
+    });
+</script>

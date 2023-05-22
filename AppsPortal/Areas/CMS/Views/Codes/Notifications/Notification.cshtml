@@ -1,0 +1,19 @@
+﻿@model NotificationUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.NotificationGUID == Guid.Empty) ? "New Notification" : "Edit Notification"; }
+@Html.PageHeader("cd6d2f54-aad0-4c42-aaed-ccba5165dc7f")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/Notifications/_NotificationForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.NotificationGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/Notifications/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.NotificationGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

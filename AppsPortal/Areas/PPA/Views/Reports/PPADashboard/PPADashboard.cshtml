@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "PPADashboard";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+
+
+<style>
+    #container {
+        height: 400px;
+        max-width: 800px;
+        min-width: 320px;
+        margin: 0 auto;
+    }
+
+    .highcharts-pie-series .highcharts-point {
+        stroke: #EDE;
+        stroke-width: 2px;
+    }
+
+    .highcharts-pie-series .highcharts-data-label-connector {
+        stroke: silver;
+        stroke-dasharray: 2, 2;
+        stroke-width: 2px;
+    }
+</style>
+
+@Html.PageHeader("9d21ad94-6f02-40df-ae63-10dcecc4f416")
+<div class="page--content">
+    <div class="col-md-6">
+        <div id="container"></div>
+    </div>
+   
+</div>
+
+
+
+<script>
+    function InitPPAProgressDashboard() {
+        $.ajax({
+            type: "GET",
+            url: "/PPA/Reports/PPAProgressDashboard",
+            dataType:"json",
+            success: function (data) {
+                alert("req com");
+                console.log('data', data);
+
+
+                Highcharts.chart('container', {
+
+                    title: {
+                        text: 'Current PPA Progress'
+                    },
+                    series: [{
+                        type: 'column',
+                        allowPointSelect: true,
+                        keys: ['name', 'y', 'selected'],
+                        data: data,
+                        showInLegend: true
+                    }]
+
+                });
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+    $(function () {
+
+        InitPPAProgressDashboard();
+
+   
+    });
+
+</script>
+@section styles{
+    <link href="~/Assets/Plugin/Highcharts-6.1.2/code/css/highcharts.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Assets/Plugin/Highcharts-6.1.2/code/js/highcharts.js"></script>
+    <script src="~/Assets/Plugin/Highcharts-6.1.2/code/js/modules/exporting.js"></script>
+}

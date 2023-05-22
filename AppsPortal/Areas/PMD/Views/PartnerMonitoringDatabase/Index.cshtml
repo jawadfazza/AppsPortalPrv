@@ -1,0 +1,217 @@
+﻿@{
+    ViewBag.Title = "Partner Monitoring Database";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("102cd5cd-9b52-46c3-aef2-e881ab87f2d0")
+
+<style>
+    .dt-controls-index button, .dt-controls-index a {
+        padding: 3px 12px;
+        font-size: 1em;
+        line-height: 1.5;
+        border-radius: 0px;
+        margin-right: 5px;
+        width: 80px;
+    }
+</style>
+@*<div class="page--content">*@
+<div class="row">
+    <div class="col-md-12" style="margin-left: 25px;padding-right: 25px;width: 98%;">
+        <div id=@string.Format("{0}Filter",DataTableNames.PartnerMonitoringDatabaseDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+            <div class="row">
+
+
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DateOfReport, DbColumnName = "DateOfReport", FilterForDataType = FilterDataTypes.Date })
+                </div>
+                <div class="col-lg-12">
+                    <hr style="border-top: 2px solid #dfe1e2;height:15px;" />
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ObjectiveGUID, DbColumnName = "ObjectiveGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsMultiple = false, DataList = new DropDownList().PMDObjectives() })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OutputGUID, DbColumnName = "OutputGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsMultiple = false, DataList = new DropDownList().Empty() })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.IndicatorGUID, DbColumnName = "IndicatorGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsMultiple = true, DataList = new DropDownList().PMDIndicators() })
+                </div>
+                <div class="col-lg-12">
+                    <hr style="border-top: 2px solid #dfe1e2;height:15px;" />
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Governorate, DbColumnName = "admin1PCode", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsMultiple = false, DataList = new DropDownList().PMDGovernorates() })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.District, DbColumnName = "admin2PCode", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsMultiple = false, DataList = new DropDownList().Empty() })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SubDistrict, DbColumnName = "admin3PCode", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsMultiple = false, DataList = new DropDownList().Empty() })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Community, DbColumnName = "admin4PCode", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsMultiple = true, DataList = new DropDownList().Empty() })
+                </div>
+                <div class="col-lg-12">
+                    <hr style="border-top: 2px solid #dfe1e2;height:15px;" />
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.IdpTotal, DbColumnName = "IdpTotal", FilterForDataType = FilterDataTypes.Number })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.RefTotal, DbColumnName = "RefTotal", FilterForDataType = FilterDataTypes.Number })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.RetTotal, DbColumnName = "RetTotal", FilterForDataType = FilterDataTypes.Number })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.HostCommunity, DbColumnName = "HostCommunity", FilterForDataType = FilterDataTypes.Number })
+                </div>
+                <div class="col-lg-12">
+                    <hr style="border-top: 2px solid #dfe1e2;height:15px;" />
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Boys, DbColumnName = "Boys", FilterForDataType = FilterDataTypes.Number })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Girls, DbColumnName = "Girls", FilterForDataType = FilterDataTypes.Number })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Men, DbColumnName = "Men", FilterForDataType = FilterDataTypes.Number })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Women, DbColumnName = "Women", FilterForDataType = FilterDataTypes.Number })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ElderlyMen, DbColumnName = "ElderlyMen", FilterForDataType = FilterDataTypes.Number })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ElderlyWomen, DbColumnName = "ElderlyWomen", FilterForDataType = FilterDataTypes.Number })
+                </div>
+                <div class="col-lg-12">
+                    <hr style="border-top: 2px solid #dfe1e2;height:15px;" />
+                </div>
+                @*<div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                </div>*@
+            </div>
+            @*<div class="form-group filter-actions">
+                @Html.DatatableFilterControls(DataTableNames.PartnerMonitoringDatabaseDataTable)
+            </div>*@
+            <div class="form-group filter-actions">
+                <input type="button" value="Find" class="btnFind btn btn-success" id="btnFind" onclick="ApplyFilter('PartnerMonitoringDatabaseDataTable');">&nbsp;
+                <input type="button" value="Close" class="btnClose btn btn-default" onclick="ToggleFilter('PartnerMonitoringDatabaseDataTable');">&nbsp;
+                <input type="button" value="Clear Filter" class="btnClear btn btn-default" onclick="ClearFilterCustom('PartnerMonitoringDatabaseDataTable');">&nbsp;
+            </div>
+        </div>
+        <div class="dt-controls-index" id="@string.Format(" {0}ActionsContainer",DataTableNames.PartnerMonitoringDatabaseDataTable)">
+            @Html.IndexDatatableFilterPMD(DataTableNames.PartnerMonitoringDatabaseDataTable)
+            @Html.IndexDatatableCreatePMD(Permissions.PartnerMonitoringDatabase.Create, Apps.PMD, Url.Action("/Create/", "PartnerMonitoringDatabase", new { Area = "PMD" }))
+            @Html.IndexDatatableDeletePMD(Permissions.PartnerMonitoringDatabase.Delete, Apps.PMD, DataTableNames.PartnerMonitoringDatabaseDataTable)
+            @Html.IndexDatatableRestorPMD(Permissions.PartnerMonitoringDatabase.Restore, Apps.PMD, DataTableNames.PartnerMonitoringDatabaseDataTable)
+            @Html.IndexDatatableRefreshPMD(DataTableNames.PartnerMonitoringDatabaseDataTable)
+        </div>
+        <a href="/PMD/PartnerMonitoringDatabase/PartnerMonitoringDatabaseMainTemplatesDownload/" style="width:270px;color:white;" class="btn btn-primary">@resxPages.DownloadMainOfflineTemplates</a>
+        <a href="/PMD/PartnerMonitoringDatabase/PartnerMonitoringDatabaseHealthTemplatesDownload/" style="width:270px;color:white;" class="btn btn-primary">@resxPages.DownloadHealthOfflineTemplates</a>
+        <a href="/PMD/PartnerMonitoringDatabase/PartnerMonitoringDatabaseCRITemplatesDownload/" style="width:270px;color:white;" class="btn btn-primary">@resxPages.DownloadCRIOfflineTemplates</a>
+
+        @if (new CMS().HasAction(Permissions.PartnerMonitoringDatabase.Create, Apps.PMD))
+        {
+            <a href="javascript:void(0)" data-url="/PMD/PartnerMonitoringDatabase/PartnerMonitoringDatabaseBulkCreate/" style="width:270px;color:white;" class="btn btn-primary Modal-Link">@resxPages.UploadBulkData</a>
+        }
+        @if (new CMS().HasAction(Permissions.PartnerMonitoringDatabase.Access, Apps.PMD))
+        {
+            <a href="/PMD/PartnerMonitoringDatabase/GenerateExcelVersion" style="width:270px;color:white;" class="btn btn-primary">@resxPages.GenerateExcelVersion</a>
+
+        }
+
+        <div class="page--body">
+            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.PartnerMonitoringDatabaseDataTable, FormController = "PartnerMonitoringDatabase", Area = "PMD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var clearNotClicked = true;
+    function ClearFilterCustom(TableID) {
+        clearNotClicked = false;
+        $('.chkPK, .chkRV', '#' + TableID + "Form").remove();
+        $('div.alert', '#' + TableID + '_wrapper').remove();
+        $('#' + TableID).DataTable().page(0).draw(false);
+        $('.FilterOperation, .FilterValue', $('#' + TableID + 'Filter')).each(function () {
+            if ($(this).is('select')) {
+                if ($(this).val() == 'bt' || $(this).val() == 'nb') {
+                    RemoveBetween($(this));
+                }
+                else {
+                    //if ($(this).attr('id') == 'filter_ObjectiveGUID' ||
+                    //    $(this).attr('id') == 'filter_OutputGUID' ||
+                    //    $(this).attr('id') == 'filter_admin1PCode' ||
+                    //    $(this).attr('id') == 'filter_admin2PCode' ||
+                    //    $(this).attr('id') == 'filter_admin3PCode'
+                    //){
+                    //    return;
+                    //}
+                    $(this).prop('selectedIndex', 0).change();
+                    if ($(this).hasClass('select2-basic-multiple')) {
+                        $(this).val(null).trigger("change");
+                    }
+                }
+            }
+            else {
+                $(this).val('');
+            }
+        });
+        $('.btnFilter').removeClass('btn-danger').addClass('btn-success');
+        $('.btnFilter i').removeClass('fa-exclamation-triangle').addClass('fa-filter');
+        window.localStorage.removeItem(TableID + 'Filter');
+        ToggleFilter(TableID);
+        location.reload();
+    }
+    function UpdateDropDownListCustom(ValuesArray, TargetList) {
+        $.each(TargetList, function (i, List) {
+            var TargetDDL = $('#' + List["DropDownListID"]);
+            $(TargetDDL).empty();
+
+            if (List['Action'] != '') {
+                $(TargetDDL).next().find('.select2-selection').addClass('LoadingDDL');
+                $(TargetDDL).prop("disabled", true);
+                var data = {};
+                for (var i = 1; i <= ValuesArray.length; i++) {
+                    data["PK" + i] = ValuesArray[i - 1];
+                }
+                $.ajax({
+                    type: "Get",
+                    url: "/DropDownList/" + List['Action'],
+                    data: data,
+                    //datatype: "Json",
+                    success: function (data) {
+                        if ($(TargetDDL).attr('data-noemptyselection') == null) {
+                            (TargetDDL).append('<option></option');
+                        }
+                        $.each(data, function (index, obj) {
+                            if (obj.Group != null) {
+                                $(TargetDDL).append('<option value="' + obj.Value + '" data-Group="' + obj.Group.Name + '">' + obj.Text + '</option>');
+                            } else {
+                                $(TargetDDL).append('<option value="' + obj.Value + '">' + obj.Text + '</option>');
+                            }
+                        });
+                        ApplyFilter('PartnerMonitoringDatabaseDataTable')
+                        $(TargetDDL).next().find('.select2-selection').removeClass('LoadingDDL');
+                        $(TargetDDL).prop("disabled", false);
+                    }
+                });
+            }
+        });
+    }
+
+    $(function () {
+        $('.buttons-copy').hide();
+        $('.buttons-excel').hide();
+        $('.buttons-print').hide();
+
+        $('#filter_ObjectiveGUID').change(function () {
+            if (clearNotClicked) { UpdateDropDownListCustom([$(this).val()], [{ DropDownListID: 'filter_OutputGUID', Action: 'RemotePMDOutputs' }]); }
+        });
+
+        $('#filter_OutputGUID').change(function () {
+            if (clearNotClicked) { UpdateDropDownListCustom([$(this).val()], [{ DropDownListID: 'filter_IndicatorGUID', Action: 'RemotePMDIndicators' }]); }
+        });
+
+        $('#filter_admin1PCode').change(function () {
+            if (clearNotClicked) { UpdateDropDownListCustom([$(this).val()], [{ DropDownListID: 'filter_admin2PCode', Action: 'RemotePMDDistricts' }]); }
+        });
+
+        $('#filter_admin2PCode').change(function () {
+            if (clearNotClicked) { UpdateDropDownListCustom([$(this).val()], [{ DropDownListID: 'filter_admin3PCode', Action: 'RemotePMDSubDistricts' }]); }
+        });
+
+        $('#filter_admin3PCode').change(function () {
+            if (clearNotClicked) { UpdateDropDownListCustom([$(this).val()], [{ DropDownListID: 'filter_admin4PCode', Action: 'RemotePMDCommunities' }]); }
+        });
+    })
+</script>

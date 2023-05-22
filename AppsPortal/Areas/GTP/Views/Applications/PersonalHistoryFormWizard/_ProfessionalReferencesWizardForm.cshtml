@@ -1,0 +1,370 @@
+﻿@model dataPersonalHistoryProfessionalReferenceUpdateModel
+@using (Html.BeginForm("ProfessionalReferencesWizard", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "ProfessionalReferencesWizardForm", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.GTPPHProfReferenceGUID)
+    @Html.AntiForgeryToken()
+    <div class="tab-pane" id="tab1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><b>14. THREE PROFESSIONAL REFERENCES </b> (Mandatory to complete)</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12" style="padding-bottom:10px;">
+                        <span>
+                            A Professional reference is a recommendation from a person who can vouch for your qualifications for a job.
+                            <br />
+                            This should not be the same person you listed as your supervisor for any of your work experiences.
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstReferenceName)    <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.FirstReferenceName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstReferenceTitle)    <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.FirstReferenceTitle, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstReferenceEmployer)     <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.FirstReferenceEmployer, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            @*<div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstReferenceCountryCode)     <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.FirstReferenceCountryCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>*@
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstReferenceTelephoneNumber)    <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.FirstReferenceTelephoneNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstReferenceExt)
+                                    @Html.EditorFor(model => model.FirstReferenceExt, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstReferenceEmailAddress)
+                                    @Html.EditorFor(model => model.FirstReferenceEmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstReferenceAddressLine1)
+                                    @Html.TextAreaFor(model => model.FirstReferenceAddressLine1, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstReferenceAddressLine2)
+                                    @Html.TextAreaFor(model => model.FirstReferenceAddressLine2, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstReferenceAddressLine3)
+                                    @Html.TextAreaFor(model => model.FirstReferenceAddressLine3, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                                </div>
+                            </div>
+                            <div class="div-country-city-container">
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstReferenceAddressCountryGUID)
+                                        @Html.DropDownListFor(model => model.FirstReferenceAddressCountryGUID, new DropDownList().GTPCountries(), "",
+                                 new
+                                      {
+                                     @class = "form-control select2-basic-search",
+                                     style = "width:100%",
+                                     onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'FirstReferenceAddressCityGUID', Action : 'RemoteGTPCities'}]);"
+                                 })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstReferenceAddressCityGUID)
+                                        @if (Model.GTPPHProfReferenceGUID != null)
+                                        {
+                                            if (Model.FirstReferenceAddressCountryGUID != null)
+                                            {
+                                                @Html.DropDownListFor(model => model.FirstReferenceAddressCityGUID, new DropDownList().GTPCities(Model.FirstReferenceAddressCountryGUID.Value), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownListFor(model => model.FirstReferenceAddressCityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownListFor(model => model.FirstReferenceAddressCityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstReferenceAddressPostalCode)
+                                    @Html.EditorFor(model => model.FirstReferenceAddressPostalCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecondReferenceName)         <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.SecondReferenceName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecondReferenceTitle)       <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.SecondReferenceTitle, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecondReferenceEmployer)     <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.SecondReferenceEmployer, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            @*<div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecondReferenceCountryCode)     <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.SecondReferenceCountryCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>*@
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecondReferenceTelephoneNumber)     <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.SecondReferenceTelephoneNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecondReferenceExt)
+                                    @Html.EditorFor(model => model.SecondReferenceExt, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecondReferenceEmailAddress)
+                                    @Html.EditorFor(model => model.SecondReferenceEmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecondReferenceAddressLine1)
+                                    @Html.TextAreaFor(model => model.SecondReferenceAddressLine1, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecondReferenceAddressLine2)
+                                    @Html.TextAreaFor(model => model.SecondReferenceAddressLine2, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecondReferenceAddressLine3)
+                                    @Html.TextAreaFor(model => model.SecondReferenceAddressLine3, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                                </div>
+                            </div>
+                            <div class="div-country-city-container">
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SecondReferenceAddressCountryGUID)
+                                        @Html.DropDownListFor(model => model.SecondReferenceAddressCountryGUID, new DropDownList().GTPCountries(), "",
+                                                                        new
+                                                                             {
+                                                                            @class = "form-control select2-basic-search",
+                                                                            style = "width:100%",
+                                                                            onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'SecondReferenceAddressCityGUID', Action : 'RemoteGTPCities'}]);"
+                                                                        })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SecondReferenceAddressCityGUID)
+                                        @if (Model.GTPPHProfReferenceGUID != null)
+                                        {
+
+                                            if (Model.SecondReferenceAddressCountryGUID != null)
+                                            {
+                                                @Html.DropDownListFor(model => model.SecondReferenceAddressCityGUID, new DropDownList().GTPCities(Model.SecondReferenceAddressCountryGUID.Value), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownListFor(model => model.SecondReferenceAddressCityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownListFor(model => model.SecondReferenceAddressCityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecondReferenceAddressPostalCode)
+                                    @Html.EditorFor(model => model.SecondReferenceAddressPostalCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ThirdReferenceName)       <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.ThirdReferenceName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ThirdReferenceTitle)      <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.ThirdReferenceTitle, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ThirdReferenceEmployer)      <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.ThirdReferenceEmployer, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            @*<div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ThirdReferenceCountryCode)     <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.ThirdReferenceCountryCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>*@
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ThirdReferenceTelephoneNumber)     <span class="span-required-field">*</span>
+                                    @Html.EditorFor(model => model.ThirdReferenceTelephoneNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ThirdReferenceExt)
+                                    @Html.EditorFor(model => model.ThirdReferenceExt, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ThirdReferenceEmailAddress)
+                                    @Html.EditorFor(model => model.ThirdReferenceEmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ThirdReferenceAddressLine1) 
+                                    @Html.TextAreaFor(model => model.ThirdReferenceAddressLine1, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ThirdReferenceAddressLine2)
+                                    @Html.TextAreaFor(model => model.ThirdReferenceAddressLine2, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ThirdReferenceAddressLine3)
+                                    @Html.TextAreaFor(model => model.ThirdReferenceAddressLine3, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                                </div>
+                            </div>
+                            <div class="div-country-city-container">
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ThirdReferenceAddressCountryGUID)
+                                        @Html.DropDownListFor(model => model.ThirdReferenceAddressCountryGUID, new DropDownList().GTPCountries(), "",
+                                                                      new
+                                                                           {
+                                                                          @class = "form-control select2-basic-search",
+                                                                          style = "width:100%",
+                                                                          onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'ThirdReferenceAddressCityGUID', Action : 'RemoteGTPCities'}]);"
+                                                                      })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ThirdReferenceAddressCityGUID)
+                                        @if (Model.GTPPHProfReferenceGUID != null)
+                                        {
+
+                                            if (Model.ThirdReferenceAddressCountryGUID != null)
+                                            {
+                                                @Html.DropDownListFor(model => model.ThirdReferenceAddressCityGUID, new DropDownList().GTPCities(Model.ThirdReferenceAddressCountryGUID.Value), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownListFor(model => model.ThirdReferenceAddressCityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownListFor(model => model.ThirdReferenceAddressCityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ThirdReferenceAddressPostalCode)
+                                    @Html.EditorFor(model => model.ThirdReferenceAddressPostalCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right">
+                            @if (Model.GTPPHProfReferenceGUID == Guid.Empty)
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Save & Next' data-next-url="/GTP/Applications/QuestionnaireWizard/Create" />
+                            }
+                            else
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Update" name='next' value='Update & Next' data-next-url="/GTP/Applications/QuestionnaireWizard/Create" />
+                            }
+                        </div>
+                        <div style="float:left">
+                            <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/LicencesAndCertificatesWizard/Create" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

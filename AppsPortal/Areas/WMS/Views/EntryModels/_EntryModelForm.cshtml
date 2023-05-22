@@ -1,0 +1,65 @@
+﻿@model EntryModelUpdateModel
+@using (Html.BeginForm("EntryModel", "EntryModels", new { Area = "WMS" }, FormMethod.Post, new { id = "EntryModelForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+   
+    @Html.FormHiddenFields(model => model.ItemInputGUID)
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BillNumber)
+                    @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                </div>
+            
+                <div class="form-group HANDLER">
+                    @Html.LabelFor(model => model.SourceGUID)
+                    @Html.DropDownListFor(model => model.SourceGUID, new DropDownList().WarehouseEntrySourceTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                    @*@Html.DropDownListFor(model => model.SourceGUID, new DropDownList().WarehouseEntrySourceTypes(), "", new
+               {
+                   @class = "form-control select2-basic-single",
+                   style = "width:100%",
+                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'SourceNameGUID', Action : 'RemoteWarehouseEntrySourceTypes'}]);"
+               })*@
+
+
+                </div>
+                <div class="form-group HANDLER">
+                    @Html.LabelFor(model => model.InputDate)
+                    @Html.EditorFor(model => model.InputDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                </div>
+                <div id="EntryModelFormControls" class="form-group form-footer">
+                    @if (Model.ItemInputGUID == Guid.Empty)
+                    {
+                        @Html.CreateButton(Permissions.WarehouseItemsEntry.Create, Apps.WMS)
+                    }
+                    else
+                    {
+                        if (Model.Active)
+                        {
+                            @Html.UpdateButton(Permissions.WarehouseItemsEntry.Update, Apps.WMS)
+                            @Html.CreateNewButton(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("/Create", new { Area = "WMS" }))
+                            @Html.DeleteButton(Permissions.WarehouseItemsEntry.Delete, Apps.WMS)
+                        }
+                        else
+                        {
+                            @Html.RestoreButton(Permissions.WarehouseItemsEntry.Restore, Apps.WMS)
+                        }
+                    }
+                    @Html.BackToList(Url.Action("Index", "EntryModels", new { Area = "WMS" }))
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+             
+           
+                @*<div class="form-group HANDLER">
+                    @Html.LabelFor(model => model.SourceNameGUID)
+                    @Html.DropDownListFor(model => model.SourceNameGUID, new DropDownList().Empty(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                </div>*@
+
+                
+            </div>
+        </div>
+    </div>
+}

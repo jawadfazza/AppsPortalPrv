@@ -1,0 +1,1856 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PrimaryEmailVerification" xml:space="preserve">
+    <value> Dear $FullName
+
+Thank you for your time to register on UNHCR Syria Applications Portal
+
+ In order to make sure you are using a valid email address please verify your email please click $VerifyEmailAddressLink
+
+If link is not working please copy the below link and paste it on your browser URL
+$Link
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+  </data>
+  <data name="PrimaryEmailVerificationSubject" xml:space="preserve">
+    <value>Apps Portal Email Verification</value>
+  </data>
+  <data name="AccessRequestToSponsor" xml:space="preserve">
+    <value>Dear $SponsorFullName
+
+$UserFullName, from $UserFullOrganizationName, requested access to UNHCR Applications Portal 
+
+Click $ReviewRequest to see the full details.
+
+If link is not working please copy the below link and paste it on your browser URL
+$Link
+ 
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team
+</value>
+  </data>
+  <data name="AccessRequestToSponsorSubject" xml:space="preserve">
+    <value>UNHCR Applications Portal Access Request</value>
+  </data>
+  <data name="AccessRequestToUser" xml:space="preserve">
+    <value>Dear $UserFullName,
+
+Your request has been sent to $SponsorFullName ($SponsorEmailAddress), $SponsorJobTitle at $SponsorOrganizationFullName successfully.
+
+You will get another email once $SponsorFirstName response to your request.
+
+If $SponsorFirstName will not response soon, please click $ChangeSponsor
+
+If link is not working please copy the below link and paste it on your browser URL
+$Link
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team
+</value>
+  </data>
+  <data name="AccessRequestToUserSubject" xml:space="preserve">
+    <value>UNHCR Applications Portal Access Request</value>
+  </data>
+  <data name="SponsorSentMessage" xml:space="preserve">
+    <value>Dear $UserFullName,
+
+Your request has been sent to $SponsorFullName ($SponsorEmailAddress), $SponsorJobTitle at $SponsorOrganizationInstance successfully.
+Please open your inbox for further information.
+
+Thank you
+</value>
+  </data>
+  <data name="VoteInvitationMessage" xml:space="preserve">
+    <value>Dear $FullName,
+
+You were invited to the online vote Election $VoteName  which will start  in $InvitationDate and end in $CloseDate
+
+If you would like to participate in voting, Please click this $VoteLink
+
+If the above link is broken or unresponsive, please copy the below link and paste it on your browser URL
+$Link
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+  </data>
+  <data name="VoteInvitationSubject" xml:space="preserve">
+    <value>Vote Invitation</value>
+  </data>
+  <data name="VoteInvitationFormat" xml:space="preserve">
+    <value>Dear Voter,
+
+We would like to invite you to the online vote $VoteName  which will take place in $InvitationDate.
+
+ In order to vote please click Link below
+
+If link is not working please copy the below link and paste it on your browser URL
+Link
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+  </data>
+  <data name="SponsorConfirmedAccount" xml:space="preserve">
+    <value>Dear $FullName
+
+Your Account has been confirmed by $SponsorName ,
+Kindly Follow the below link to complete your registration process
+$VerifyEmailAddressLink
+
+If link is not working please copy the below link and paste it on your browser URL
+$Link
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+  </data>
+  <data name="SponsorConfirmedAccountSubject" xml:space="preserve">
+    <value>Sponsor Confirmed Your Account </value>
+  </data>
+  <data name="AccessRequestToSponsorFailed" xml:space="preserve">
+    <value>Dear  $UserFullName 
+&lt;br/&gt;
+Your access request to UNHCR Applications Portal has been rejected by Sponsor ( $SponsorFullName )
+
+Click $ReviewRequest to change your sponsor.
+&lt;br/&gt;
+If link is not working please copy the below link and paste it on your browser URL
+$Link
+ 
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+  </data>
+  <data name="AccessRequestToSponsorFailedSubject" xml:space="preserve">
+    <value>UNHCR Applocations Portal Access Rejected</value>
+  </data>
+  <data name="ForgetPasswordEmailVerify" xml:space="preserve">
+    <value>Dear $FullName
+
+The password for your ID ( $EmailAddress ) has been successfully reset.
+
+If you didn’t make this change or if you believe an unauthorized person has accessed your account, go to $VerifyEmailAddressLink to reset your password immediately.
+
+If link is not working please copy the below link and paste it on your browser URL
+$Link
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+  </data>
+  <data name="ForgetPasswordEmailVerifySubject" xml:space="preserve">
+    <value>Your ID password has been reset.</value>
+  </data>
+  <data name="AppointmentAssignedBody" xml:space="preserve">
+    <value>Dear  $UserFullName 
+
+Appointment file number $FileNumber was assigned to you,
+
+Click $Link to view more details.
+&lt;br/&gt;
+If link is not working please copy the below link and paste it on your browser   
+$URL
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+    <comment>Appointment</comment>
+  </data>
+  <data name="AppointmentAssignedSubject" xml:space="preserve">
+    <value>Case Meeting File Number : $FileNumber</value>
+    <comment>Appointment</comment>
+  </data>
+  <data name="AppointmentArrivedBody" xml:space="preserve">
+    <value>Dear  $UserFullName 
+
+Appointment file number $FileNumber was arrived,
+
+Click $Link to view more details.
+&lt;br/&gt;
+If link is not working please copy the below link and paste it on your browser   
+$URL
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+    <comment>Appointment</comment>
+  </data>
+  <data name="AppointmentArrivedSubject" xml:space="preserve">
+    <value>Case Meeting Was Arrived File Number : $FileNumber</value>
+    <comment>Appointment</comment>
+  </data>
+  <data name="AppointmentCancelledBody" xml:space="preserve">
+    <value>Dear  $UserFullName 
+
+Appointment file number $FileNumber was cancelled,
+
+Click $Link to view more details.
+&lt;br/&gt;
+If link is not working please copy the below link and paste it on your browser   
+$URL
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+    <comment>Appointment</comment>
+  </data>
+  <data name="AppointmentCancelledSubject" xml:space="preserve">
+    <value>Case Meeting Was Cancelled File Number : $FileNumber</value>
+    <comment>Appointment</comment>
+  </data>
+  <data name="AppointmentRescheduledBody" xml:space="preserve">
+    <value>Dear  $UserFullName 
+
+Appointment file number $FileNumber was Rescheduled
+
+Click $Link to view more details.
+&lt;br/&gt;
+If link is not working please copy the below link and paste it on your browser   
+$URL
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+  </data>
+  <data name="AppointmentRescheduledSubject" xml:space="preserve">
+    <value>Case Meeting Was Rescheduled File Number : $FileNumber</value>
+  </data>
+  <data name="AppointmentCompletedBody" xml:space="preserve">
+    <value>Dear  $UserFullName 
+
+Appointment file number $FileNumber was completed,
+
+Click $Link to view more details.
+&lt;br/&gt;
+If link is not working please copy the below link and paste it on your browser   
+$URL
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+    <comment>Appointment</comment>
+  </data>
+  <data name="AppointmentCompletedSubject" xml:space="preserve">
+    <value>Case Meeting Was Completed File Number : $FileNumber</value>
+    <comment>Appointment</comment>
+  </data>
+  <data name="PPAUploadEmail" xml:space="preserve">
+    <value>Dear All
+
+A new PPA Package has been uploaded required action from your side on the online tracking tool.
+
+Deadline for your review: $PPADeadline
+
+Click $PPALink to see the full details.
+
+If link is not working please copy the below link and paste it on your browser URL
+$Link
+
+For your kind action
+Thank you.
+$PPACreator</value>
+  </data>
+  <data name="PPAReminderEmail" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HelpDeskEmail" xml:space="preserve">
+    <value>Dear App Sup/Dev team,
+
+$ServiceRequestType has been added. Details $HelpDeskLink
+
+For your kind action
+Thank you.</value>
+  </data>
+  <data name="HelpDeskAssignEmail" xml:space="preserve">
+    <value>Dear $AssignedTo
+
+A $ServiceRequestType has been assigned to you,required action from your side on the online help desk tool.
+
+Click $HelpDeskLink to see the full details.
+
+If the link above is not working please copy and paste below into your browser URL field
+$Link
+
+For your kind action
+Thank you.</value>
+  </data>
+  <data name="HelpDeskNotifyEmail" xml:space="preserve">
+    <value>Dear $Requestor,
+
+Thank you for contacting UNHCR Syria Operation Help Desk.
+Ticket number $RequestNumber has been added to the system. The relevant team will be in touch with you shortly. To check the status $HelpDeskLink
+
+If the link above is not working please copy and paste below into your browser URL field
+$Link
+
+For your kind information
+Thank you.</value>
+  </data>
+  <data name="ShuttleRequestFocallPointReceiveNotificationStatusPindingBody" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ShuttleRequestFocallPointReceiveNotificationStatusPindingSubject" xml:space="preserve">
+    <value>New Shuttle Request Created</value>
+  </data>
+  <data name="ShuttleRequestUserReceiveNotificationStatusCompletedBody" xml:space="preserve">
+    <value>Dear $FullName
+
+New shuttle request was Created
+Click $ShuttleRequest Link to see the full details.
+
+If link is not working please copy the below link and paste it on your browser URL
+$Link
+
+Please don't replay this email
+
+For your kind information
+Thank you.</value>
+  </data>
+  <data name="ShuttleRequestUserReceiveNotificationStatusCompletedSubject" xml:space="preserve">
+    <value>Shuttle Request Was Completed
+</value>
+  </data>
+  <data name="ShuttleRequestUserReceiveNotificationStatusPindingBody" xml:space="preserve">
+    <value>Dear $FullName,
+
+This is to confirm that your shuttle request has been received.
+
+Admin focal point will get back to you with further info as soon as possible
+
+
+Thank you.</value>
+  </data>
+  <data name="ShuttleRequestUserReceiveNotificationStatusPindingSubject" xml:space="preserve">
+    <value>Shuttle Request Pending</value>
+  </data>
+  <data name="ShuttleRequestCompletedBody" xml:space="preserve">
+    <value>Dears,
+
+Kindly follow below link for shuttle details,
+$Link
+
+Please don't replay this email
+
+For your kind information
+Thank you.</value>
+  </data>
+  <data name="ShuttleRequestCompletedSubject" xml:space="preserve">
+    <value>Shuttle Details</value>
+  </data>
+  <data name="ItemModelVerification" xml:space="preserve">
+    <value>Dear  $FullName,
+
+The following equipment has been issued to you for use during your assignment/mission period.
+ 
+As per the $VerifyStandard, you are requested to confirm the receipt of all items listed by clicking the confirmation link below(works from UNHCR Syria offices only). We’ll be grateful to doing so within 2 days from receiving this notification to avoid equipment issue/return process interruption and system records mismatch
+
+Kindly note also, the equipment is to be used in accordance with the UNHCR policy for Asset Management Chapter 8: Supply Chain Section_7-2A1_STI Policy, roles and responsibilities of the Asset custodians, you are encouraged to read this document available on the UNHCR Intranet.
+Please note that the inclusion of the  Cisco phone if any in the table below is not an indication that it was assigned to you as custodian, but only for asset management tracking purposes, please confirm that it is on your desk.
+
+$Items
+
+
+$VerifyLink
+$IssuedUser
+
+For technical support, contact Syria - ICT Support &lt;DLSyria-ICTSupport@unhcr.org&gt;
+
+
+Best regards
+UNHCR Syria ICT Unit</value>
+  </data>
+  <data name="ItemModelVerificationSubject" xml:space="preserve">
+    <value>STI - ICT item(s) release confirmation</value>
+    <comment>WMS</comment>
+  </data>
+  <data name="ModelConfirmationReminder" xml:space="preserve">
+    <value>Dear  $FullName
+
+This is a gentle reminder to confirm receiving the following items : 
+$Items,
+
+Click $VerifyLink to view more details.
+&lt;br/&gt;
+If link(works from UNHCR offices only) is not working please copy the below link and paste it on your browser   
+$Link
+
+Please don't replay this email
+
+Best regards,
+UNHCR Applications Portal Support Team</value>
+  </data>
+  <data name="HelpDeskResolutionEmail" xml:space="preserve">
+    <value>Dear $Requestor,
+
+Ticket number $RequestNumber has been resolved.
+
+To check the status $HelpDeskLink
+
+If the link above is not working please copy and paste below into your browser URL field
+$Link
+
+For your kind information
+Thank you.</value>
+  </data>
+  <data name="testError" xml:space="preserve">
+    <value>test error</value>
+  </data>
+  <data name="CustodianReturningItemReminder" xml:space="preserve">
+    <value>Dear $FullName,
+
+ICT have been informed by HR that you will be leaving the operation shortly. Our records show that during your assignment/mission to Syria you were issued and still have under your custody the following ICT items:
+
+$Items
+		
+    •As per the Syria ICT SOP, you are required to return all items listed above before your departure, these are to be returned at your duty station or CO Damascus. 
+
+    •You will not be allowed to travel to Beirut with any of the items.
+
+   •Before returning the items, you must ensure that you take a backup of all data on any of the devices which you may have been assigned      (laptop/desktop/phone), you are also required to clear any passwords which you may have set especially on smartphones. If passwords are       not cleared and the asset is not usable you may be requested to pay for the item.
+
+   •If you require assistance in preparing the assets for return as detailed above, please contact the ICT staff at your location or at CO     Damascus.
+
+$IssuedUser
+Thank you and best wishes for your future assignments
+
+
+Best regards,
+UNHCR Syria ICT Unit</value>
+    <comment>WMS</comment>
+  </data>
+  <data name="ICTRemindeRreturningItems" xml:space="preserve">
+    <value>STI - ICT item(s) return reminder</value>
+    <comment>WMS</comment>
+  </data>
+  <data name="ConfirmReturnItemToStock" xml:space="preserve">
+    <value>Dear  $FullName,
+
+This to confirm the return of the listed item(s):
+ 
+
+$Items
+
+$IssuedUser
+
+
+Best regards
+UNHCR Syria ICT Unit</value>
+    <comment>WMS</comment>
+  </data>
+  <data name="ConfirmReturnItemToStockSubject" xml:space="preserve">
+    <value>STI - ICT item(s) return confirmation</value>
+    <comment>WMS</comment>
+  </data>
+  <data name="ItemConfirmationReceiving" xml:space="preserve">
+    <value>Dear  $FullName,
+
+Thank you for the confirmation.
+ 
+
+$Items
+
+$ItemNotConfirmed
+
+$ConfirmPendingDeliveryItemsLink
+
+For technical support, contact Syria - ICT Support &lt;DLSyria-ICTSupport@unhcr.org&gt;
+
+
+Best regards
+UNHCR Syria ICT Unit</value>
+    <comment>WMS</comment>
+  </data>
+  <data name="WarehouseConfirmReceivingItemsSubject" xml:space="preserve">
+    <value>STI - ICT item(s) receipt confirmation</value>
+    <comment>wms</comment>
+  </data>
+  <data name="WarehouseReminderForDelayItemInReturn" xml:space="preserve">
+    <value>Dear $FullName,
+
+This is a gentle reminder to return the following delay item(s) to stock :
+
+$Items
+		
+
+$IssuedUser
+
+Best regards,
+UNHCR Syria ICT Unit</value>
+  </data>
+  <data name="warehosueCustodianItemConfirmation" xml:space="preserve">
+    <value>Dear  $FullName,
+
+The following item(s) has been issued to your stock.
+ 
+
+$Items
+
+
+$VerifyLink
+
+
+$IssuedUser
+
+For technical support, contact Syria - ICT Support &lt;DLSyria-ICTSupport@unhcr.org&gt;
+
+
+Best regards
+UNHCR Syria ICT Unit</value>
+  </data>
+  <data name="WarehouseCustodianReturnItemsReminder" xml:space="preserve">
+    <value>Dear $FullName,
+
+Kindly return the following item(s) to $currentStock stock: 
+
+$Items
+		
+
+$IssuedUser
+Best regards,
+UNHCR Syria ICT Unit</value>
+    <comment>wms</comment>
+  </data>
+  <data name="DangerPayStaffConfirmation" xml:space="preserve">
+    <value>Dear  $FullName,
+
+As part of the Danger Pay cycle calculations, you are kindly requested to follow the link below and update travel dates outside your duty station indicating annual, maternity/paternity, leave/ weekends and telecommuting.
+
+during the DP cycle of $MonthYear.
+
+Failing to update your travel details on the online system by COB $Deadline will put your danger payment on-hold to the following month.
+
+$VerifyLink
+
+Regards,
+HR Unit.</value>
+  </data>
+  <data name="DangerPayStaffConfirmationSubject" xml:space="preserve">
+    <value>$Month $Year  Annual/Sick leave travel dates (If any)</value>
+  </data>
+  <data name="DASFilteTrackingConfirmReceiving" xml:space="preserve">
+    <value>Dear $FullName,
+
+
+Hardcopy of the following  file($FileNumber) had been marked has been transferred to you for transfer to you by $IssuedUser on $issueDate. Upon receiving the physical file/s, kindly use link below to confirm and change the ownership to your name.
+
+$VerifyLink
+
+Regards,
+UNHCR Syria Filing Unit</value>
+  </data>
+  <data name="DASFilteTrackingConfirmReceivingSubject" xml:space="preserve">
+    <value>Confirm Receiving File Number: $FileNumber</value>
+  </data>
+  <data name="DASFileReturnToFilingUnit" xml:space="preserve">
+    <value>Dear $FullName,
+
+Kindly return the hardcopy of file  $FileNumber to filing unit as soon as possible
+
+
+		
+
+$IssuedUser
+
+
+Best regards,
+UNHCR Syria Filing Unit</value>
+  </data>
+  <data name="DASReturnFilesReminder" xml:space="preserve">
+    <value>Reminder to return File Number: $FileNumber</value>
+  </data>
+  <data name="DASRequestFilesFrom" xml:space="preserve">
+    <value>Request file number </value>
+    <comment>DAS</comment>
+  </data>
+  <data name="DASRequestPysicalFile" xml:space="preserve">
+    <value>Dear $FullName,
+
+In case you are no longer in need for any of below listed files, please initiate the “transfer process” in EFTS under “Owned Files” section and proceed with the physical file/s handover to the requester as soon as you can.
+
+Requester                     : $requester 
+Request Date               : $RequestDate
+
+$files
+
+Reply to the requestor using this email indicating a new proposed handover date in case you are still in need for any of a/m files
+
+Regards,</value>
+    <comment>DAS</comment>
+  </data>
+  <data name="DASConfirmBulkFileReceiving" xml:space="preserve">
+    <value>Dear $FullName,
+
+Hardcopy of the mentioned below file/s had been marked for transfer to you by $IssuedUser on $issueDate. Upon receiving the physical file/s, kindly use link below to confirm and change the ownership to your name.
+
+$table
+
+
+$VerifyLink
+
+Regards,
+UNHCR Syria Filing Unit</value>
+  </data>
+  <data name="DASFilteTrackingConfirmReceiveBulkFilesSubject" xml:space="preserve">
+    <value>EFTS | Physical file/s receipt confirmation.</value>
+    <comment>DAS</comment>
+  </data>
+  <data name="R_RLeaveHRApproval" xml:space="preserve">
+    <value>Dear HR Colleagues,
+
+Kindly note that $RequestedBy has been submitted for R and R leave and approved by his supervisor, please follow the link below in order to review:
+
+
+$VerifyLink
+
+
+
+Regards,
+HR Unit.</value>
+    <comment>AHD R_RLeave</comment>
+  </data>
+  <data name="R_RLeaveHRApprovalConfirmed" xml:space="preserve">
+    <value>Dear  $FullName,
+
+The R and R leave  number ($LeaveNumber) submitted by $RequestedBy has been approved by HR 
+
+
+Regards,
+HR Unit.</value>
+    <comment>AHD R_RLeave</comment>
+  </data>
+  <data name="R_RInformStaffByHRApproval" xml:space="preserve">
+    <value>Dear  $FullName,
+
+Your R and R  with this number ($leaveNumber)   has been approved by your supervisor and submitted to HR for review  
+
+
+Regards,
+HR Unit.</value>
+  </data>
+  <data name="R_RInformStaffBySupervisorApproval" xml:space="preserve">
+    <value>Dear  $FullName,
+
+Your R and R leave number ($leaveNumber)  has been approved by your Supervisor and been sent to HR For Review
+
+
+Regards,
+HR Unit.</value>
+    <comment>AHD R_RLeave</comment>
+  </data>
+  <data name="R_RLeaveInformStaffToClose" xml:space="preserve">
+    <value>Dear  $FullName,
+
+The R and R leave  number ($LeaveNumber) submitted by $RequestedBy has  been closed
+
+
+Regards,
+HR Unit.</value>
+    <comment>R_RLeave</comment>
+  </data>
+  <data name="R_RInformUserByHRReview" xml:space="preserve">
+    <value>Dear  $FullName,
+
+Your R and R leave number ($leaveNumber)  has been reveiewed by HR and sent to your supervisor
+
+
+Regards,
+HR Unit.</value>
+    <comment>AHD</comment>
+  </data>
+  <data name="R_RSupervisorReveiwEmail" xml:space="preserve">
+    <value>Dear $FullName,
+
+Kindly note that $RequestedBy submitted for R and R leave please follow the link below in order to review:
+
+
+$VerifyLink
+
+
+
+Regards,
+HR Unit.</value>
+    <comment>AHD</comment>
+  </data>
+  <data name="TenderClosingConfirmationEmail" xml:space="preserve">
+    <value>Dear reciever,
+
+You are recieving this email as a confirmation of closing the record pertaining to:
+
+Tender	          :&lt;b&gt; $TenderReference &lt;/b&gt;
+Updated On       :&lt;b&gt; $UpdatedOn &lt;/b&gt;
+Updated By        :&lt;b&gt; $UpdatedBy &lt;/b&gt;
+
+
+To access the tender online, click $TenderLink
+
+If the above link is not clickable, try copying and pasting it into the address bar of your web browser. $Link 
+
+Many thanks in advance,
+Best regards</value>
+    <comment>TTT</comment>
+  </data>
+  <data name="TendreCreateConfirmationEmail" xml:space="preserve">
+    <value>Dear reciever,
+
+You are recieving this email as a confirmation of creating new record pertaining to:
+
+Tender	        :&lt;b&gt; $TenderReference &lt;/b&gt;
+Created On       :&lt;b&gt; $CreatedOn &lt;/b&gt;
+Created By        :&lt;b&gt; $CreatedBy &lt;/b&gt;
+
+
+To access the tender online, click $TenderLink
+
+If the above link is not clickable, try copying and pasting it into the address bar of your web browser. $Link 
+
+Many thanks in advance,
+Best regards</value>
+    <comment>TTT</comment>
+  </data>
+  <data name="DangerPaySuccessFullySubmission" xml:space="preserve">
+    <value>Dear $FullName,
+
+Thank you for submitting your danger pay info for $MonthName.
+
+Regards,
+HR Unit</value>
+    <comment>AHD_13Nov</comment>
+  </data>
+  <data name="NationStaffDangerPaySubmissionConfirmtion" xml:space="preserve">
+    <value>Confirmation For Danger Pay $Month/$Year</value>
+    <comment>AHD_13Nov</comment>
+  </data>
+  <data name="EntitlemenReviewByStaffSubject" xml:space="preserve">
+    <value>$SurName | $Month $Year  Entitlements</value>
+    <comment>AHD</comment>
+  </data>
+  <data name="EntitlementReviewByManagerConfirmation" xml:space="preserve">
+    <value>Dear  $FullName,
+
+Kindly Follow the link below to check and verify the entitlement for $StaffName covering the period of $Period 
+
+
+$VerifyLink
+
+
+Prepared by: $SentBy
+
+Regards
+HR Unit</value>
+    <comment>AHD_21_Nov_2020</comment>
+  </data>
+  <data name="EntitlementReviewByStaffConfirmation" xml:space="preserve">
+    <value>Dear  $FullName,
+
+Kindly Follow the link below to check and verify your entitlement covering the period of $Period 
+
+
+$VerifyLink
+
+
+
+Prepared by: $SentBy
+
+Regards,
+HR Unit.</value>
+    <comment>AHD</comment>
+  </data>
+  <data name="TBSBillReadyEmail" xml:space="preserve">
+    <value>Dear $FullName ,
+
+Your $BillType bill for $BillMonthYear is ready for further processing at your end.
+
+To finalize your bill please follow below steps:
+
+1.	Access the system via https://prv.unhcrsyria.org/tbs (or click $IdentifyBillLinkIn to reach step 4 directly).
+2.	Click on “My Phone Bills”.
+3.	Select $BillMonthYear bill.
+4.	Identify private/official phone calls.
+5.	After identifying all records, in case there is private calls, specify the amount you want to pay in cash (optional).
+6.	Click on “Complete and Notify”.
+
+Refer to the $UserGuidLink for process details.
+
+Notes:
+1.	The process should be completed not later than $Deadline
+2.	Failing to meet the deadline, all calls will be considered “&lt;b&gt;Private&lt;/b&gt;” and admin\finance unit will deduct its cost from the next salary cycle.
+
+
+&lt;b&gt;Shall you have technical issues with the online system, forward this email to Syria – ICT Support DLSyria-ICTSupport@unhcr.org indicating your query/comments.&lt;/b&gt;
+
+Many thanks for your usual corporation.
+
+Best Regards.
+Syria IT Team</value>
+    <comment>TBS</comment>
+  </data>
+  <data name="DangerPaySuccessFullySubmissionWithDates" xml:space="preserve">
+    <value>Dear $FullName,
+Your danger pay details have been submitted to the online system.
+Kindly find your leaves information below based on your entry:
+$table
+Please review and if you find something wrong call HR unit.
+Regards,
+HR Unit</value>
+    <comment>AHD-6Apr2020</comment>
+  </data>
+  <data name="COVFeedbackEmail" xml:space="preserve">
+    <value>Dear All,
+New feedback has been added to the following record $RecordLink.
+.
+Best Regards,
+System</value>
+    <comment>COV</comment>
+  </data>
+  <data name="R_RHRToReview" xml:space="preserve">
+    <value>Dear Colleagues,
+
+Kindly note that $RequestedBy submitted for R and R leave please follow the link below in order to review:
+
+
+$VerifyLink
+
+
+
+Regards,
+HR Unit.</value>
+    <comment>AHD_9Feb_2021</comment>
+  </data>
+  <data name="R_RLeaveRepresentativeFinalApproval" xml:space="preserve">
+    <value>Dear  $FullName,
+
+The R and R leave  number ($LeaveNumber) has been approved by representative.
+
+
+Regards,
+HR Unit.</value>
+    <comment>AHD</comment>
+  </data>
+  <data name="R_RSupervisorReviewRejected" xml:space="preserve">
+    <value>Dear $FullName,
+
+Kindly note that R R number $leaveNumber has been rejected by $RejecterName for the following reason $RejectReason
+
+
+
+
+
+
+Regards,
+HR Unit.</value>
+    <comment>AHD</comment>
+  </data>
+  <data name="StaffProfileConfirmationRequest" xml:space="preserve">
+    <value>Dear $FullName,
+Kindly note that your personal information has been updated by $Profilechanger on $datechange,
+please follow the link below in order to check and confirm:
+$VerifyLink
+Regards,
+HR Unit.</value>
+    <comment>ORG_20</comment>
+  </data>
+  <data name="StaffUserRaisFeedbackIssueEmail" xml:space="preserve">
+    <value>Dear $FullName,
+
+Kindly note that $StaffName has submitted a report issue for the profile  information as below : 
+$Reason
+
+
+Kindly follow the link below in order to check and review:
+
+
+$VerifyLink
+
+
+
+Regards,
+Admin/HR Unit.</value>
+    <comment>ORG_20</comment>
+  </data>
+  <data name="StaffProfileConfirmProfileInformationEmail" xml:space="preserve">
+    <value>Dear $FullName,
+Kindly note that $StaffName has confirmed the profile personal information. 
+Regards,
+HR Unit.</value>
+    <comment>ORG_20</comment>
+  </data>
+  <data name="StaffProfileIssueFixed" xml:space="preserve">
+    <value>Dear $FullName,
+Kindly note that your profile issue has been fixed. 
+Please follow the link below in order to check and confirm
+$VerifyLink
+Regards,
+HR Unit.</value>
+    <comment>ORG_20</comment>
+  </data>
+  <data name="StaffProfileIssueFixedProfileInformationEmail" xml:space="preserve">
+    <value>Dear $FullName,
+Kindly note that $StaffName has confirmed that issue in the profile personal information has been fixed. 
+Regards,
+HR Unit.</value>
+    <comment>ORG_20</comment>
+  </data>
+  <data name="StaffConfimedProfileInformation" xml:space="preserve">
+    <value>Dear $FullName,
+
+Thank you for confirming your profile information. 
+
+
+Regards,
+Admin/HR Unit.</value>
+    <comment>ORG_20</comment>
+  </data>
+  <data name="HRToStaffToConfirmProfileInformation" xml:space="preserve">
+    <value>Dear $FullName,
+
+Kindly follow the link below in order to  confirm your profile information:
+ 
+$Link
+
+Regards,
+Admin/HR Unit.</value>
+    <comment>ORG_20</comment>
+  </data>
+  <data name="RAndRStaffCheckAfterHRUpdate" xml:space="preserve">
+    <value>Dear $FullName,
+
+Kindly note that your leave number $LeaveNumber has been updated by $hrstaff please follow the link below in order to review:
+
+$VerifyLink
+
+Regards,
+HR Unit</value>
+    <comment>AHD</comment>
+  </data>
+  <data name="InformSupervisorMessage" xml:space="preserve">
+    <value>Dear $FullName,
+
+Kindly confirm $StaffName  absence requests,
+
+Click on the below link
+
+https://$Host/AHD/StaffAbsences/IndexConfirming
+
+Best regards
+UNHCR Syria</value>
+    <comment>OSA</comment>
+  </data>
+  <data name="InformSupervisorSubject" xml:space="preserve">
+    <value>Presence Request Confirmation</value>
+    <comment>OSA</comment>
+  </data>
+  <data name="NewStaffToAddServiceProvided" xml:space="preserve">
+    <value>Dear IT support,
+
+New staff $StaffName joined Syria operation with details below:
+
+Staff id: $email
+Job title: $jobtile
+Office: $dutystation
+Unit: $unit
+Date: $ContractStartDate
+
+You are kindly requested to update IT services on staff profile – ICT Section with the following information:
+
+$table
+
+Regards</value>
+    <comment>ORG_Oct_12_2020</comment>
+  </data>
+  <data name="RemoveStaffFromAddedServiceProvided" xml:space="preserve">
+    <value>Dear IT support,
+
+Staff $StaffName has departed Syria Op as of $DepartureDate, please proceed with updating profile ICT section indicating the status of $targetservice memberships.
+
+
+
+
+
+Regards.</value>
+    <comment>ORG_Oct_12_2020</comment>
+  </data>
+  <data name="ChangePositionForStaff" xml:space="preserve">
+    <value>Dear IT support,
+
+Kindly note that the postion name for Staff $StaffName has been changed to $Position.
+
+Regards.</value>
+    <comment>ORG_Oct_12_2020</comment>
+  </data>
+  <data name="ConfirmReturnItemToStockGeneral" xml:space="preserve">
+    <value>Dear  $FullName,
+This to confirm the return of the listed item(s):
+$Items
+$IssuedUser
+Best regards
+</value>
+    <comment>Nov_04_2020</comment>
+  </data>
+  <data name="CustodianReturningItemReminderGeneral" xml:space="preserve">
+    <value>Dear $FullName,
+ICT have been informed by HR that you will be leaving the operation shortly. Our records show that during your assignment/mission to Syria you were issued and still have under your custody the following ICT items:
+$Items
+    •You will not be allowed to travel to other operation with any of the items.
+   •Before returning the items, you must ensure that you take a backup of all data on any of the devices which you may have been assigned      (laptop/desktop/phone), you are also required to clear any passwords which you may have set especially on smartphones. If passwords are not cleared and the asset is not usable you may be requested to pay for the item.
+   •If you require assistance in preparing the assets for return as detailed above, please contact the ICT staff at your location or 
+$IssuedUser
+Thank you and best wishes for your future assignments
+Best regards,
+</value>
+    <comment>Nov_04_2020</comment>
+  </data>
+  <data name="ItemConfirmationReceivingGeneral" xml:space="preserve">
+    <value>Dear  $FullName,
+Thank you for the confirmation.
+$Items
+$ItemNotConfirmed
+$ConfirmPendingDeliveryItemsLink
+Best regards
+</value>
+    <comment>Nov_04_2020</comment>
+  </data>
+  <data name="ItemModelVerificationGeneral" xml:space="preserve">
+    <value>Dear  $FullName,
+
+The following equipment has been issued to you for use during your assignment/mission period.
+ 
+You are required to confirm the receipt of all items listed by clicking the confirmation link below and following the instructions. Please do this within 2 days of receiving this notification to avoid equipment issue/return process interruption and system records mismatch.
+
+Kindly note also, the equipment is to be used in accordance with the UNHCR policy for Asset Management Chapter 8: Supply Chain Section_7-2A1_STI Policy, roles and responsibilities of the Asset custodians, you are encouraged to read this document available on the UNHCR Intranet.
+
+Please note that the inclusion of the Cisco phone ( if any ) in the table below is not an indication that it was assigned to you as custodian, but only for asset management tracking purposes, please confirm that it is on your desk.”
+
+
+$Items
+
+
+$VerifyLink
+
+$IssuedUser
+
+
+
+
+Best regards</value>
+    <comment>Nov_04_2020</comment>
+  </data>
+  <data name="ModelConfirmationReminderGeneral" xml:space="preserve">
+    <value>Dear  $FullName
+This is a gentle reminder to confirm receiving the following items : 
+$Items,
+Click $VerifyLink to view more details.
+&lt;br/&gt;
+If link(Works from UNHCR offices only) is not working please copy the below link and paste it on your browser   
+$Link
+Please don't replay this email
+Best regards,
+UNHCR Applications Portal Support Team</value>
+    <comment>Nov_04_2020</comment>
+  </data>
+  <data name="warehosueCustodianItemConfirmationGeneral" xml:space="preserve">
+    <value>Dear  $FullName,
+The following item(s) has been issued to your stock.
+$Items
+$VerifyLink
+$IssuedUser
+Best regards
+</value>
+    <comment>Nov_04_2020</comment>
+  </data>
+  <data name="WarehouseCustodianReturnItemsReminderGeneral" xml:space="preserve">
+    <value>Dear $FullName,
+Kindly return the following item(s) to $currentStock stock: 
+$Items
+$IssuedUser
+Best regards,
+</value>
+    <comment>Nov_04_2020</comment>
+  </data>
+  <data name="WarehouseReminderForDelayItemInReturnGeneral" xml:space="preserve">
+    <value>Dear $FullName,
+
+This is a gentle reminder to return the following delay item(s) to stock :
+
+$Items
+
+$IssuedUser
+
+Best regards,
+
+</value>
+    <comment>Nov_04_2020</comment>
+  </data>
+  <data name="GTPConfirmReceivingApplication" xml:space="preserve">
+    <value>Dear ($FullName), 
+
+Thank you for submitting your application for Group 2. 
+We are pleased to inform you that UNHCR is in the process of reviewing your application for Group 2, allowing access for internal GS vacancies. 
+Please note that UNHCR may contact you to provide supporting documents of your previous experience to facilitate the screening process.
+
+You will receive our feedback within two weeks. For any support, please contact us through the mobile number 0998760790. 
+
+Best regards
+UNHCR Syria, Human Resources Unit</value>
+    <comment>GTP</comment>
+  </data>
+  <data name="GTPEmailForSuccessfulApplicants" xml:space="preserve">
+    <value>Dear $FullName,
+
+we are pleased to inform you that your applications for UNHCR Group 2 for General Service positions has been successful. 
+You are now eligible to apply to internally advertised General Service (GS) positions in UNHCR Syria for a period of three years, until ($ExpiryDate). 
+Internally advertised positions will be shared with you via your email address ($ApplicantEmailAddress). In case you want to change it, please log in to your account and add another email address and set it as preferred contact email.
+Kindly note that each position has its own eligibility requirements, and therefore we encourage you to consider carefully for which positions to apply. For each application, your eligibility will be checked against the criteria outlined in the job description, including academic criteria, work experience and reference checks. 
+If you have not been recruited by the Organization in three years (when your group 2 membership expires), you will need to contact UNHCR again to re-apply to Group 2. 
+We wish you the best with your future applications.
+
+Kind regards,
+UNHCR Syria, Human Resources Unit</value>
+    <comment>GTP</comment>
+  </data>
+  <data name="GTPEmailForUnsuccessfulApplicants" xml:space="preserve">
+    <value>Dear $FullName,
+
+We regret to inform you that your applications for UNHCR Group 2 for General Service positions was not successful, as you do not fulfil the eligibility requirements.
+Although you are currently not eligible for Group 2, we encourage you to apply to our externally advertised vacancies that can be found on www.unhcr.org. 
+We wish you the best with your future applications.
+
+
+Kind regards,
+UNHCR Syria, Human Resources Unit</value>
+    <comment>GTP</comment>
+  </data>
+  <data name="GTPNewApplicationHRNotification" xml:space="preserve">
+    <value>Dear HR Colleagues,
+$FullName completed the Group 2 Application.
+
+Kind regards,
+Group 2 Portal</value>
+    <comment>GTP</comment>
+  </data>
+  <data name="GTPUpdateApplicationHRNotification" xml:space="preserve">
+    <value>Dear HR Colleagues,
+$FullName modified contents of their Group 2 Application.
+
+Kind regards,
+Group 2 Portal</value>
+    <comment>GTP</comment>
+  </data>
+  <data name="EntitlementReviewByClosedConfirmation" xml:space="preserve">
+    <value>Dear  $FullName,
+
+
+Kindly note that your entitlement, covering the period of  $Period has benn approved
+
+
+
+Regards,
+HR Unit</value>
+    <comment>AHD_21Nov_2020</comment>
+  </data>
+  <data name="EntitlementReviewByManagerConfirmationFinance" xml:space="preserve">
+    <value>Dear  Finance Unit,
+
+Kindly Follow the link below to download the entitlement for $StaffName covering the period of $Period 
+
+
+$VerifyLink
+
+
+Prepared by:$SentBy
+
+Certified by:$CertifiedBy
+
+Regards,
+HR Unit</value>
+    <comment>AHD_21_Nov_2020</comment>
+  </data>
+  <data name="EntitlementRetunToHRToReviewByCertifier" xml:space="preserve">
+    <value>Dear  $FullName,
+
+Kindly note that  the entitlement for $StaffName covering the period of $Period has not approved by $certifer for $certiferComments please check and review
+
+
+
+
+
+
+Regards,
+HR Unit</value>
+    <comment>AHD_21_Nov_2020</comment>
+  </data>
+  <data name="EntitlementRetunToHRToReviewByFinance" xml:space="preserve">
+    <value>Dear  $FullName,
+
+Kindly note that  the entitlement for $StaffName covering the period of $Period has not approved by $financename for $financeComments please check and review
+
+
+
+
+
+
+Regards,
+HR Unit</value>
+    <comment>AHD_21_Nov_2020</comment>
+  </data>
+  <data name="EntitlementRetunToHRToReviewByStaff" xml:space="preserve">
+    <value>Dear  $FullName,
+
+Kindly note that  the entitlement for $StaffName covering the period of $Period has not approved by staff for $staffcomments please check and review
+
+
+
+
+
+
+Regards,
+HR Unit</value>
+    <comment>AHD_21_Nov_2020</comment>
+  </data>
+  <data name="NewRemoveStaffFromAddedAllServiceProvided" xml:space="preserve">
+    <value>Dear IT support,
+Staff $StaffName has departed Syria Op $dutystation office  as of $DepartureDate, please proceed with updating profile ICT section indicating the status of below status services memberships.
+$table
+Regards.</value>
+    <comment>ORG_Oct_12_2020</comment>
+  </data>
+  <data name="NewStaffToAddServiceProvidedAllServices" xml:space="preserve">
+    <value>Dear IT support,
+Staff $StaffName  joined Syria operation  $dutystation office as of $ContractStartDate, please proceed with updating the profile ICT section indicating the below status services memberships.
+$table
+Regards.</value>
+    <comment>ORG_14Dec</comment>
+  </data>
+  <data name="OvertimeApprovalConfirmation" xml:space="preserve">
+    <value>Dear $StaffName,
+
+Kindly note that your overtime the overtime sheet  covering the month of $month has been approved
+
+
+Regards,
+Admin/HR Unit.</value>
+    <comment>AHD_14Dec</comment>
+  </data>
+  <data name="OvertimeByReviewer" xml:space="preserve">
+    <value>Dear colleagues,
+
+Kindly Follow the link below to check and verify the overtime sheet for  $StaffName  covering the month of $month
+$VerifyLink
+
+Regards,
+Admin/HR Unit.</value>
+    <comment>AHD_14Dec</comment>
+  </data>
+  <data name="OvertimeSubject" xml:space="preserve">
+    <value>Overtime sheet for $StaffName covering the month of $month</value>
+    <comment>AHD_14Dec</comment>
+  </data>
+  <data name="StaffSalaryBankDestenationConfirmationSubject" xml:space="preserve">
+    <value>$Month $Year  Salary Bank Detail</value>
+    <comment>AHD_14Dec</comment>
+  </data>
+  <data name="SalaryBankDestinationSubject" xml:space="preserve">
+    <value>Salary Bank Information for $period</value>
+    <comment>AHD_14Dec</comment>
+  </data>
+  <data name="StaffBankDestinationAfterSubmission" xml:space="preserve">
+    <value>Dear $FullName,
+Your bank information has been submitted into online system.
+Regards,
+HR Unit</value>
+    <comment>AHD_14Dec</comment>
+  </data>
+  <data name="StaffSalaryBankStaffConfirmation" xml:space="preserve">
+    <value>Dear  $FullName,
+Kindly follow the linke below in order to update your bank information covering the period of $period
+$VerifyLink
+Regards,
+HR Unit.</value>
+    <comment>AHD_14Dec</comment>
+  </data>
+  <data name="MissionRequestByStaffSubject" xml:space="preserve">
+    <value>Mission Request Number : $reference  for $StaffName</value>
+    <comment>AHD_28_2021</comment>
+  </data>
+  <data name="AdminFocalPointReviewerComment" xml:space="preserve">
+    <value>Admin Comment</value>
+  </data>
+  <data name="AdminFocalPointReviewerDate" xml:space="preserve">
+    <value>Admin Review Date</value>
+  </data>
+  <data name="AdminFocalPointReviewerGUID" xml:space="preserve">
+    <value>Admin Reviewer Name</value>
+  </data>
+  <data name="WMSDamagedItemReportApproved" xml:space="preserve">
+    <value>Dear  $StaffName,
+
+The damaged report request submitted for $item has ben verifed and checked by admin focal point $adminfocalpoint ,there is no Reimbursement Amount.
+Item Information :
+BC:$BC
+SN:$SN
+GSM:$GSM
+IMEI:$IMEI
+MAC:$MAC
+
+
+
+
+
+Regards</value>
+    <comment>WMS_2Feb_2021</comment>
+  </data>
+  <data name="WMSDamagedItemReportByStaffEmail" xml:space="preserve">
+    <value>Dear  Colleagues,
+
+A new damaged report request has been submitted for $item by $StaffName. Please follow the below link to take the necessary action.
+
+Item Information :
+BC:   $BC
+SN:   $SN
+GSM: $GSM
+IMEI: $IMEI
+MAC: $MAC
+
+
+$VerifyLink
+
+
+Regards</value>
+    <comment>WMS_2Feb_2021</comment>
+  </data>
+  <data name="WMSDamagedItemReportFromFinanceToStaff" xml:space="preserve">
+    <value>Dear  $StaffName,
+
+The damaged report request submitted for $item has been verified by finance focal point : $financefocalpoint ,and the Reimbursement Amount is $ReimbursementAmount.
+Item Information :
+BC:$BC
+SN:$SN
+GSM:$GSM
+IMEI:$IMEI
+MAC:$MAC
+
+
+
+
+
+Regards</value>
+    <comment>WMS_2Feb_2021</comment>
+  </data>
+  <data name="WMSDamagedItemReportSubject" xml:space="preserve">
+    <value>IT Equipment Damage Report : $itemName, Staff Name :$StaffName</value>
+    <comment>WMS_2Feb_2021</comment>
+  </data>
+  <data name="WMSDamagedItemReportVerifiedByAdminToFinanceEmail" xml:space="preserve">
+    <value>Dear  Colleagues,
+
+The damaged report submitted for $item by $StaffName has been checked and verified by admin focal point :$adminfocalpoint. Please follow the below link  to take the necessary action.
+
+Item Information :
+BC:$BC
+SN:$SN
+GSM:$GSM
+IMEI:$IMEI
+MAC:$MAC
+
+
+$VerifyLink
+
+
+Regards</value>
+    <comment>WMS_2Feb_2021</comment>
+  </data>
+  <data name="WMSDamagedItemReportVerifiedBYICTToAdminEmail" xml:space="preserve">
+    <value>Dear  Colleagues,
+
+The damaged report request submitted for $item by $StaffName has been verified by ICT Focal Point : $ICTName. Please follow the below link  to take the necessary action.
+
+Item Information :
+BC:$BC
+SN:$SN
+GSM:$GSM
+IMEI:$IMEI
+MAC:$MAC
+
+
+$VerifyLink
+
+
+Regards</value>
+    <comment>WMS_2Feb_2021</comment>
+  </data>
+  <data name="WMSICTSubmittedForStaffDamagedItemReportEmail" xml:space="preserve">
+    <value>Dear  $StaffName,
+
+A damaged report request has been submitted for $item assigned to you . Please follow the below link  to fill the needed information.
+
+BC:   $BC
+SN:   $SN
+GSM: $GSM
+IMEI: $IMEI
+MAC: $MAC
+
+
+$VerifyLink
+
+
+Regards</value>
+    <comment>WMS_2Feb_2021</comment>
+  </data>
+  <data name="MissionRequestAdminCheckForConfirmation" xml:space="preserve">
+    <value>Dear  Colleagues,
+
+A new mission request No# $reference has been submitted for $prefix $StaffName that requires your attention/action,Please $VerifyLink
+
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestApprovedByOIC" xml:space="preserve">
+    <value>Dear  $StaffName,
+
+Your mission request No# $reference has been approved by the Representative/OIC and all concerned units are notified .
+To check the status of your request, please $VerifyLink
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestCanceledMissionByAdmin" xml:space="preserve">
+    <value>Dear  $StaffName,
+
+Your mission request No# $reference has been cancelled by Admin Unit for the following reason/s:
+
+$adminComment
+
+To check the status of your request, please $VerifyLink
+
+
+
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestForStaffAfterSubmission" xml:space="preserve">
+    <value>Dear $StaffName,
+
+Your mission request has been submitted successfully for approval.
+
+ 
+
+To check the status of your request,please $VerifyLink
+
+
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestHeadOfOfficeForConfirmation" xml:space="preserve">
+    <value>Dear  $RepName,
+
+Kindly note that a mission request No# $reference for for $prefix $StaffName has been reviewed by $headOffice .Please $VerifyLink for your kind action.
+
+
+
+
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestInformAdminByRepApproval" xml:space="preserve">
+    <value>Dear  Colleagues,
+
+The mission request No# $reference  for $prefix $StaffName has been approved by Representative/OIC and requires your attention/action.
+
+Please $VerifyLink for your kind action.
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestInformStaffAfterHeadOfficeApproval" xml:space="preserve">
+    <value>Dear $StaffName,
+
+Your mission request  No# $reference has been reviewed by the Head of Unit and automatically sent to the Head of Office/OIC for concerned approval.
+
+To check the status of your request, please $VerifyLink
+
+
+
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestRejectedMissionByHeadOfOffice" xml:space="preserve">
+    <value>Dear  $StaffName,
+
+
+Your mission request No# $reference has been rejected by the Head of Unit for the following reason/s:
+
+$officecomment
+
+To check the status of your request, please $VerifyLink
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestRejectedMissionByOIC" xml:space="preserve">
+    <value>Dear  $StaffName,
+
+Your mission request  No# $reference has been rejected by the Representative/OIC for the following reason/s:
+
+$repComments
+
+To check the status of your request, please $VerifyLink 
+
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestReturnToStaffByHeadOfOffice" xml:space="preserve">
+    <value>Dear  $StaffName,
+
+Your mission request No# $reference has been sent back for revision. 
+Please check the below comments:
+
+
+$officecomment
+
+To check the status of your request, please $VerifyLink
+
+
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestReturnToStaffToReConfirmation" xml:space="preserve">
+    <value>Dear  $StaffName,
+
+Your mission request No# $reference has been sent back for revision. 
+Please check the below comments:
+
+
+$adminComment
+
+To check the status of your request, please $VerifyLink
+
+
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestVerifiedByAdminToSMCCAdminTeam" xml:space="preserve">
+    <value>Dear $StaffName,
+
+Your mission request No# $reference has been verified by Admin Unit and automatically sent to the Head of Unit for review.
+
+To check the status of your request, please  $VerifyLink
+
+
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="MissionRequestFromAdminToHeadOfUnit" xml:space="preserve">
+    <value>Dear  $HeadOfOffice,
+
+
+Kindly note that a mission request No# $reference for  $prefix $StaffName  has been verified by Admin team. 
+
+This mission request needs to be reviewed from your side.
+Please $VerifyLink for your kind action
+
+
+
+Regards</value>
+    <comment>AHD_8Feb_2021</comment>
+  </data>
+  <data name="ConfirmAccessToApplication" xml:space="preserve">
+    <value>Dears,
+Based on the approval of the application owner, please grant $accesstype on $app to  $StaffName
+Regards.</value>
+    <comment>ORg_23Mar_2021</comment>
+  </data>
+  <data name="RejectAccessToApplication" xml:space="preserve">
+    <value>Dear $StaffNamer,
+Your request to access the application $app has been rejected by $AppOwner.
+Regards.</value>
+    <comment>ORg_23Mar_2021</comment>
+  </data>
+  <data name="StaffRequestPermissionMail" xml:space="preserve">
+    <value>Dear $AppOwner,
+As business owner of application $app, you are kindly requested to approve or reject the access request submitted by $StaffName:
+$fullAccess
+$readAccess
+$rejectAccess
+Regards.</value>
+    <comment>ORg_23Mar_2021</comment>
+  </data>
+  <data name="AttendanceUpdateAfterEntitilementsCreation" xml:space="preserve">
+    <value>Dears,
+
+Kindly note that the attendacne records for $StaffName has changed by $changer 
+
+
+
+
+
+
+
+Regards,
+HR Unit.</value>
+    <comment>AHD</comment>
+  </data>
+  <data name="NewNotificationInformStaffByService" xml:space="preserve">
+    <value>Dear $StaffName,
+
+Welcome to Syria operation, kindly find below useful links to IT services, don’t hesitate to contact Syria - Damascus ICT Support DLSyria-DamascusICTSu@unhcr.org shall you have further queries.
+
+$table 
+
+Regards.</value>
+    <comment>ORG_Apr_5_2021</comment>
+  </data>
+  <data name="FinalApproval_Agency" xml:space="preserve">
+    <value>Dear PSEA assessment task force members, &lt;br /&gt;&lt;br /&gt;
+The partner @PartnerName has now approved the final assessment of PSEA capacity. &lt;br /&gt;
+Your final score is @Score which indicates that your organization has @Rate capacity on PSEA. &lt;br /&gt;
+You may want to proceed with the development of a PSEA capacity enhancement plan, &lt;br /&gt;&lt;br /&gt;
+Warm regards,</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="FinalApproval_Partner" xml:space="preserve">
+    <value>Dear @Name &lt;br /&gt;&lt;br /&gt;
+This is a confirmation that you have accepted the final assessment of your organization’s PSEA capacity. &lt;br /&gt;
+Your final score is @Score which indicates that your organization has @Rate capacity on PSEA.  &lt;br /&gt;
+You will be contacted in the upcoming weeks by PSEA assessment task force for the development of a PSEA capacity enhancement plan, &lt;br /&gt;&lt;br /&gt;
+Warm regards,</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersAssessmentPart_Agency" xml:space="preserve">
+    <value>Dear PSEA assessment task force members &lt;br /&gt;&lt;br /&gt;
+@Name who is PSEA focal point of @PartnerName has completed the self-assessment of his organization’s PSEA capacity. You may now access the assessment following the below link @Link. &lt;br /&gt;
+Kindly review carefully the answers provided by the partner, and add your own answer and comments on every question of the assessment. You may want to reach out to @PartnerName to seek more clarification before completing the assessment.&lt;br /&gt;&lt;br /&gt;
+Warm regards,</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersAssessmentPart_Partner" xml:space="preserve">
+    <value>Dear @Name &lt;br /&gt;&lt;br /&gt;
+Thank you very much for completing the partner’s PSEA self-assessment. You can now access your self-assessment following the below link. @Link &lt;br /&gt;
+Your assessment will now be reviewed by the PSEA assessment task force and you’ll receive an email once the review is completed. &lt;br /&gt;
+PSEA assessment task force members may get in touch with you in the upcoming days to seek clarification on the answers you provided. &lt;br /&gt;&lt;br /&gt;
+Warm regards,
+</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="UNAssessmentPart_Agency" xml:space="preserve">
+    <value>Dear PSEA assessment task force members, &lt;br /&gt;
+&lt;br /&gt;
+ This is a confirmation that you’ve completed the assessment of @PartnerName.  A link was shared with the focal point for his confirmation and agreement on the assessment you provided. &lt;br /&gt;
+Once the partner confirms, you will receive a confirmation email. &lt;br /&gt;&lt;br /&gt;
+Warm regards,</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="UNAssessmentPart_Partner" xml:space="preserve">
+    <value>Dear @Name &lt;br /&gt;&lt;br /&gt;
+The PSEA Task Force has now completed the UN assessment phase of your organization’s PSEA capacity. &lt;br /&gt;
+Your final score is @Score which indicates that your organization has @Rate capacity on PSEA. &lt;br /&gt;
+You may now access the final assessment following this link @Link to review the Task Force scoring and comments. If you agree with the final assessment, kindly confirm by clicking on the confirm button at the bottom of the assessment.&lt;br /&gt;
+You may want to reach out to the PSEA Task Force for more clarification or review of the final assessment.&lt;br /&gt;&lt;br /&gt;
+Warm regards,&lt;br /&gt;</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="NewStaffToAddServiceProvidedApps" xml:space="preserve">
+    <value>Dear IT support,
+Staff $StaffName joined Syria operation as of $ContractStartDate, please proceed with updating profile ICT section indicating the status of $targetservice memberships.
+Regards.</value>
+    <comment>ORG_Oct_12_2020</comment>
+  </data>
+  <data name="SendPMDRejectEmail" xml:space="preserve">
+    <value>Dear $FullName,
+
+&lt;b&gt;An indicator has been marked with:&lt;/b&gt; $ActionType 
+
+&lt;b&gt;Reason:&lt;/b&gt; $Reason
+
+&lt;b&gt;Record Link:&lt;/b&gt; $RecordLink
+
+
+Best Regards.
+PRMD System</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="SupervisorConfirmingMessage" xml:space="preserve">
+    <value>Dear $FullName,
+
+Kindly note that your $AbsenceType request has been approved by $StaffName,
+
+Best regards
+UNHCR Syria</value>
+    <comment>AHD</comment>
+  </data>
+  <data name="SupervisorConfirmingSubject" xml:space="preserve">
+    <value>Presence Request Confirmation</value>
+    <comment>AHD</comment>
+  </data>
+  <data name="InformStaffAttendanceMessage" xml:space="preserve">
+    <value>Dear $ReportTo,
+
+Kindly confirm $StaffName office attendance requests before $Date otherwise, the transportation allowance will be delayed to the next cycle,
+
+Click on the below link
+
+&lt;a href='https://$Host/OSA/OfficeStaffAttendances/OfficeStaffAttendanceStaffCalendar/?$Para'&gt;Click To Confirm&lt;/a&gt;
+
+Best regards
+UNHCR Syria</value>
+    <comment>OSA</comment>
+  </data>
+  <data name="InformStaffAttendanceSubject" xml:space="preserve">
+    <value>Office Attendanc Request Confirmation</value>
+    <comment>OSA</comment>
+  </data>
+  <data name="SupervisorConfirmingAttendanceMessage" xml:space="preserve">
+    <value>Dear $StaffName,
+
+Kindly note that your Attendance records has been approved by $ReportTo,
+Best regards
+UNHCR Syria</value>
+    <comment>OSA</comment>
+  </data>
+  <data name="SupervisorConfirmingAttendanceSubject" xml:space="preserve">
+    <value>Attendance Request Confirmation</value>
+    <comment>OSA</comment>
+  </data>
+</root>

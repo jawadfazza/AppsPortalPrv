@@ -1,0 +1,45 @@
+﻿@model SalaryCyclePeriodUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = "Staff Salary For " + Model.CycleName + " Import HQ Salary"; }
+
+@Html.PageHeader("09ab1921-2405-4cc3-ac95-2eeaeaa15de1")
+
+<div class="page--content">
+    <h3>Import HQ Salary</h3>
+    <div id=@string.Format("{0}Filter", DataTableNames.StaffHQSalaryDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffName, DbColumnName = "UserGUID", FilterForDataType = "Text", DataList = new DropDownList().AdminHRAllStaff(), IsMultiple = true, IsSearchable = true })
+
+
+
+
+            </div>
+
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.StaffHQSalaryDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffHQSalaryDataTable)">
+        @Html.FieldDataTableFilter(DataTableNames.StaffHQSalaryDataTable)
+        @*@Html.IndexDatatableCreateNoPermission("/AHD/StaffRAndRLeave/RAndRDocumentsCreate")*@
+        @Html.FieldDataTableCreate(Permissions.SalaryCycle.Delete, Apps.AHD, Url.Action("StaffHQSalaryCreate", "StaffSalary", new { FK = Model.SalaryCycleGUID }))
+        @*@Html.FieldDataTableDelete(Permissions.SalaryCycle.Delete, Apps.AHD, DataTableNames.StaffHQSalaryDataTable)
+            @Html.FieldDataTableRestore(Permissions.SalaryCycle.Restore, Apps.AHD, DataTableNames.StaffHQSalaryDataTable)*@
+        @*@Html.FieldDataTableRefresh(DataTableNames.StaffHQSalaryDataTable)*@
+    </div>
+
+
+    <div class="page--body">
+
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffHQSalaryDataTable, FormController = "StaffSalary", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.SalaryCycleGUID, OrderBy = 1 })
+
+
+    </div>
+
+
+</div>

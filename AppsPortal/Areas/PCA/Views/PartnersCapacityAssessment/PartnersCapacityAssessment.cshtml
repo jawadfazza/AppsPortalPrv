@@ -1,0 +1,198 @@
+﻿@model PartnersCapacityAssessmentDocUpdateModel
+@{
+    ViewBag.Title = "PartnersCapacityAssessment";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout_1.cshtml";
+}
+<div class="page--header">
+    <div class="page--banner">
+        <h2>@resxPages.PartnersCapacityAssessmentTitle</h2>
+    </div>
+</div>
+
+
+<div class="page--content">
+    <div class="wizard">
+
+        <span class="done">@resxPages.PartnersCapacityAssessmentStep1</span>
+        <span class="done">@resxPages.PartnersCapacityAssessmentStep2  (@Model.AssessmentTitle) (@Model.Sort / 8 )</span>
+        <span>@resxPages.PartnersCapacityAssessmentStep3</span>
+    </div>
+    <div class="page--body">
+        @using (Html.BeginForm("AssessmentCreate", "PartnersCapacityAssessment", FormMethod.Post, new { id = "AssessmentForm", @class = "main-form", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @*@Html.Partial("_ErrorSummary")*@
+
+            @Html.HiddenFor(model => model.PartnersCapacityAssessmentDocGUID)
+            @Html.HiddenFor(model => model.Sort)
+            @Html.HiddenFor(model => model.AssessmentDescription)
+            @Html.HiddenFor(model => model.AssessmentTitle)
+            @Html.HiddenFor(model => model.index)
+
+            <div class="row">
+
+                <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                    <h3>
+                        @Model.AssessmentTitle
+                        @if (HttpContext.Current.Session[SessionKeys.UserProfileGUID] != null)
+                        {
+                            <a id="DownloadAll"  href="/PartnersCapacityAssessment/DownloadAllFiles/@Model.PartnersCapacityAssessmentDocGUID">All Partner Files</a>
+                        }
+                    </h3>
+                    <article>
+                        @Model.AssessmentDescription
+                    </article>
+                    <hr />
+                    @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                    {
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            @Html.ValidationSummary(true)
+                        </div>
+                    }
+
+
+                    <div class="form-group">
+                        <h4>@Html.Label(Model.AssessmentTitle)</h4>
+                        @Html.RadioButtonFor(model => model.PartnerEvaluation, "false", new { @checked = "checked" }) @resxPages.PartnersCapacityAssessmentNo
+                        @Html.RadioButtonFor(model => model.PartnerEvaluation, "true") @resxPages.PartnersCapacityAssessmentYes
+                    </div>
+                    <div class="form-group" id="divDocSupport" style="display:@(Model.PartnerEvaluation!=null?(!Model.PartnerEvaluation.Value ?"none":"Block"):"none");">
+                        <h3>@resxDbFields.SupportingDocuments (@Html.Label(Model.AssessmentTitle))</h3>
+                        @for (var i = 0; i < Model.partnersCapacityAssessmentDocTitle.Count; i++)
+                        {
+                            <div class="row">
+                                <div class="col-lg-11 col-sm-11">
+                                    @Html.HiddenFor(model => model.partnersCapacityAssessmentDocTitle[i].SupportDocTitle)
+                                    @Html.HiddenFor(model => model.partnersCapacityAssessmentDocTitle[i].PartnersCapacityAssessmentDocGUID)
+                                    @Html.HiddenFor(model => model.partnersCapacityAssessmentDocTitle[i].PartnersCapacityAssessmentDocTitleGUID)
+
+
+                                    @*@Html.RadioButtonFor(model => model.partnersCapacityAssessmentDocTitle[i].Checked, "false")@resxPages.PartnersCapacityAssessmentNo -
+                                        @Html.RadioButtonFor(model => model.partnersCapacityAssessmentDocTitle[i].Checked, "true")@resxPages.PartnersCapacityAssessmentYes  (*@
+
+                                    @Html.CheckBoxFor(model => model.partnersCapacityAssessmentDocTitle[i].Checked)
+
+                                    @Html.DisplayFor(model => model.partnersCapacityAssessmentDocTitle[i].SupportDocTitle)
+
+
+                                </div>
+
+                                <div class="col-lg-1 col-sm-1">
+                                    <a id="a@(Model.partnersCapacityAssessmentDocTitle[i].PartnersCapacityAssessmentDocTitleGUID)" style="display:@(Model.partnersCapacityAssessmentDocTitle[i].Checked?" block":" none");" href="/PartnersCapacityAssessment/DownloadFile/@Model.partnersCapacityAssessmentDocTitle[i].PartnersCapacityAssessmentDocTitleGUID">File</a>
+                                    <button id="b@(Model.partnersCapacityAssessmentDocTitle[i].PartnersCapacityAssessmentDocTitleGUID)" style="display:none;" type="button" title="Upload Supporting Document" class=" Modal-Link  btn-success "  data-url="@Url.Action("Upload", "PartnersCapacityAssessment", new { PK = Model.partnersCapacityAssessmentDocTitle[i].PartnersCapacityAssessmentDocTitleGUID })">
+                                        @resxUIControls.Upload
+                                    </button>
+
+                                    @*@if (Model.partnersCapacityAssessmentDocTitle[i].Checked)
+                                    {
+                                    }
+                                    else
+                                    {
+                                    }*@
+                                </div>
+
+
+                            </div>
+                            <hr />
+                            <br />
+                        }
+                    </div>
+                    <br />
+
+                    <hr />
+                    @if (HttpContext.Current.Session[SessionKeys.UserProfileGUID] != null)
+                    {
+                        if (new CMS().HasAction(Permissions.PartnersCapacityAssessment.Access, Apps.PCA))
+                        {
+                            <div class="form-group">
+                                <h4>@resxPages.AgencyAssessment</h4>
+                                @Html.RadioButtonFor(model => model.AgancyEvaluation, "false", new { @checked = "checked" }) @resxPages.PartnersCapacityAssessmentNo
+                                @Html.RadioButtonFor(model => model.AgancyEvaluation, "true") @resxPages.PartnersCapacityAssessmentYes
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Comment)
+                                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", rows = 5 })
+                            </div>
+                        }
+                    }
+                    else
+                    {
+
+                        if (Model.AgancyConfirm)
+                        {
+                            <div class="form-group">
+                                <h4>@resxPages.AgencyAssessment</h4>
+                                @Html.RadioButtonFor(model => model.AgancyEvaluation, "false", new { @checked = "checked", disabled = "disabled" }) @resxPages.PartnersCapacityAssessmentNo
+                                @Html.RadioButtonFor(model => model.AgancyEvaluation, "true", new { disabled = "disabled" }) @resxPages.PartnersCapacityAssessmentYes
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Comment)
+                                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", rows = 5, disabled = "disabled" })
+                            </div>
+                        }
+
+                    }
+                <div class="form-group">
+
+                    <input type="submit" value="@resxUIControls.Previous" class="btn btn-primary" onclick="beforeSubmit(-1)" />
+                    @if (Model.Sort == 8)
+                    {
+                        <input type="submit" value="@resxUIControls.Submit" class="btn btn-primary" onclick="beforeSubmit(1)" />
+                        
+                    }
+                    else
+                    {
+                        <input type="submit" value="@resxUIControls.Next" class="btn btn-primary" onclick="beforeSubmit(1)" />
+
+
+                    }
+
+                </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    function beforeSubmit(Num) {
+        //var val = parseInt($('#index').val()) + Num;
+        $('#index').val(Num);
+        $('#AssessmentForm').submit();
+    }
+
+    $(document).on('ifChecked ifUnchecked', 'input', function (event) {
+        if ($(this).attr('type') == "radio") {
+            if (event.type == 'ifChecked' && $(this).val() == "true" && $(this).attr("name") == 'PartnerEvaluation') {
+                $('#divDocSupport').css("display", "block");
+            } if (event.type == 'ifChecked' && $(this).val() == "false" && $(this).attr("name") == 'PartnerEvaluation') {
+                $('#divDocSupport').css("display", "none");
+            }
+        }
+        if ($(this).attr('type') == "checkbox") {
+            if (event.type == 'ifChecked') {
+                $(this).parent().parent().next().find('button').css("display", "block");
+                $(this).parent().parent().next().find('a').css("display", "none");
+            } else {
+                $(this).parent().parent().next().find('button').css("display", "none");
+            }
+        }
+
+
+
+    });
+
+</script>
+
+
+@section scripts {
+    <script>
+        function ChangeToLink(str) {
+            $('#a' + str).css("display", "block");
+            $('#b' + str).css("display", "none")
+        };
+    </script>
+
+}

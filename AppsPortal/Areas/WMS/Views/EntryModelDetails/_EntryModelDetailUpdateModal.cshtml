@@ -1,0 +1,95 @@
+﻿@model ItemInputDetailModel
+
+@using (Html.BeginForm("WarehouseItemEntryDetail", "EntryModels", new { Area = "WMS" }, FormMethod.Post, new { id = "EntryModelDetailForm" }))
+{
+    string ModalTitle = Model.ItemInputDetailGUID.ToString() == Guid.Empty.ToString() ? "New Model" : "Edit Model";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @*@Html.AntiForgeryToken()*@
+    @Html.FormHiddenFields(model => model.ItemInputDetailGUID)
+    @Html.HiddenFor(model => model.ItemInputGUID)
+    @Html.HiddenFor(model => model.CreatedDate)
+    @Html.HiddenFor(model => model.CreatedByGUID)
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItemModelWarehouseGUID)
+        @*@Html.DropDownListFor(model => model.ItemModelWarehouseGUID, new DropDownList().WarehouseModels(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })*@
+        @Html.DropDownListFor(model => model.ItemModelWarehouseGUID, new DropDownList().WarehouseModels(), "", new
+        {
+
+            style = "width:100%",
+            @class = "form-control select2-basic-multiple",
+            onchange = "LoadModelDeterminats($('#ItemModelWarehouseGUID').val());"
+        })
+    </div>
+    <div id="ModelDeterminant" class="form-group">
+
+        @Html.Partial("~/Areas/WMS/Views/EntryModelDetails/_EntryModelModelDeterminant.cshtml")
+    </div>
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.ItemStatusGUID)
+        @Html.DropDownListFor(model => model.ItemStatusGUID, new DropDownList().WarehouseItemStatus(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+    </div>*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.LocationGUID)
+        @Html.DropDownListFor(model => model.LocationGUID, new DropDownList().Governorates(Guid.Parse("699287E8-754D-4A63-B8DD-5344CFBAFD22")), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.InventoryStatusGUID)
+        @Html.DropDownListFor(model => model.InventoryStatusGUID, new DropDownList().InventoryStatus(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PriceTypeGUID)
+        @Html.DropDownListFor(model => model.PriceTypeGUID, new DropDownList().PriceTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PriceValue)
+        @Html.EditorFor(model => model.PriceValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comments)
+        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.ItemInputDetailGUID == Guid.Empty || Model.ItemInputDetailGUID==null)
+        {
+            @Html.CreateButton(Permissions.WarehouseItemsEntry.Create, Apps.WMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.WarehouseItemsEntry.Update, Apps.WMS)
+                @Html.DeleteSwitchButton(Permissions.WarehouseItemsEntry.Delete, Apps.WMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.WarehouseItemsEntry.Delete, Apps.WMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+<script>
+    function LoadModelDeterminats(ItemModelWarehouseGUID) {
+        if (ItemModelWarehouseGUID == null) {
+          
+
+            $("#ModelDeterminant").html("");
+
+        }
+        if (ItemModelWarehouseGUID != null) {
+        var URL = "/WMS/EntryModels/GetModelDeterminats?ItemModelWarehouseGUID=" + ItemModelWarehouseGUID ;
+
+        $('#ModelDeterminant').load(URL,
+            function() {
+               
+
+
+            });
+            }
+    };
+</script>

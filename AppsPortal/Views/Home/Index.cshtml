@@ -1,0 +1,497 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@*@Html.PageHeader("6ffd5528-a577-41e3-960a-013d152dbab4")*@
+
+
+<div class="page--header">
+    <div class="page--banner">
+        <h2 id="PageTitle" style="font-size: 25px;">Portal Home</h2>
+        <div id="sitemap" class="sitemap">
+            <div class="nav--content row">
+                <ul>
+                    <li class="SitemapLastNode">Welcome to Applications Portal</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page--content">
+    <br />
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="panel panel-default panel-homex">
+                <div class="panel-heading">Group 2 Applications</div>
+                <div class="panel-body HomeApps" style="padding:0px;">
+                    <div class="MenuElement">
+                        <a href="/GTP/Home/Index">
+                            Click Here To Access Group 2 Applications Section
+                        </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+                    </div>
+                    @*<div class="MenuElement"><a href="#">Pending Photos</a><span class="badge badge-primary MenuElementSpan">9</span></div>
+                    <div class="MenuElement"><a href="#">Pending ID Cards</a><span class="badge badge-primary" style="float:right;margin-right:25px;">9</span></div>
+                    <div class="MenuElement"><a href="#">Pending Mobile Bill</a><span class="badge badge-primary" style="float:right;margin-right:25px;">9</span></div>
+                    <div class="MenuElement"><a href="#">Pending Mission Request</a><span class="badge badge-primary" style="float:right;margin-right:25px;">9</span></div>
+                    <div class="MenuElement"><a href="#">Pending Permission Requests</a><span class="badge badge-primary" style="float:right;margin-right:25px;">9</span></div>
+                    <div class="MenuElement"><a href="#">Account Password Change is Requried</a><span class="badge badge-primary" style="float:right;margin-right:25px;">9</span></div>*@
+
+                </div>
+            </div>
+        </div>
+
+        @if (ViewBag.UNHCRUser == "UNHCR")
+
+        {
+            <div class="col-lg-4 pull-lg-right">
+                <div class="form-group ">
+
+                    @if (ViewBag.TotalPendingSTIITems > 0 || ViewBag.TotalPendingRR > 0 || ViewBag.TotalPendinfStaffProfile > 0)
+                    {
+
+                        <div class="panel panel-default panel-homex">
+                            <div class="panel-heading">Worklist</div>
+                            <div class="panel-body HomeApps" style="padding:0px;">
+                                @if (ViewBag.TotalPendingSTIITems > 0)
+                                {
+                                    <div class="MenuElement">
+                                        <a href="@Url.Action("ConfirmReceivingBulkModelsByCustdoianEmail", "wms/ModelMovements", new { id = @Session[SessionKeys.UserGUID]})">
+                                            Pending STI Confirmation <span style="color:red">(@ViewBag.TotalPendingSTIITems)</span>
+                                        </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+                                    </div>
+                                }
+                                @if (ViewBag.TotalPendingRR > 0)
+                                {
+                                    <div class="MenuElement">
+                                        <a href="@Url.Action("ShowRAndRLeaveRequestIndex", "AHD/StaffRAndRLeave")">
+                                            RR Pending Requests(International Staff) <span style="color:red">(@ViewBag.TotalPendingRR)</span>
+                                        </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+                                    </div>
+                                }
+
+                                @if (ViewBag.TotalPendingDangerPay > 0)
+                                {
+                                    <div class="MenuElement">
+                                        <a href="@Url.Action("WorkplaceStaffDangerPayments", "AHD/NationalStaffDangerPayCalcualtion", new { id = @Session[SessionKeys.UserGUID] })" class="">National staff danger payment(s) <span style="color:red">(@ViewBag.TotalPendingDangerPay) </span></a>
+                                    </div>
+                                }
+                                @if (ViewBag.TotalPendinfStaffProfile > 0)
+                                {
+                                    <div class="MenuElement">
+
+                                        <a href="@Url.Action("StaffProfile", "Profile", new { id = @Session[SessionKeys.UserGUID] })" class="">Staff Profile Pending Confirmation <span style="color:red">(@ViewBag.TotalPendinfStaffProfile) </span></a>
+                                    </div>
+                                }
+                                @*@if (ViewBag.TotalPendinfStaffProfile > 0)
+                                {
+                                    <div class="MenuElement">
+
+                                        <a href="@Url.Action("StaffProfile", "Profile", new { id = @Session[SessionKeys.UserGUID] })" class="">Staff Profile Pending Confirmation <span style="color:red">(@ViewBag.TotalPendinfStaffProfile) </span></a>
+                                    </div>
+                                }*@
+
+                                @*<div class="MenuElement"><a href="#">Pending Photos</a><span class="badge badge-primary MenuElementSpan">9</span></div>
+                                <div class="MenuElement"><a href="#">Pending ID Cards</a><span class="badge badge-primary" style="float:right;margin-right:25px;">9</span></div>
+                                <div class="MenuElement"><a href="#">Pending Mobile Bill</a><span class="badge badge-primary" style="float:right;margin-right:25px;">9</span></div>
+                                <div class="MenuElement"><a href="#">Pending Mission Request</a><span class="badge badge-primary" style="float:right;margin-right:25px;">9</span></div>
+                                <div class="MenuElement"><a href="#">Pending Permission Requests</a><span class="badge badge-primary" style="float:right;margin-right:25px;">9</span></div>
+                                <div class="MenuElement"><a href="#">Account Password Change is Requried</a><span class="badge badge-primary" style="float:right;margin-right:25px;">9</span></div>*@
+
+                            </div>
+                        </div>
+
+
+
+                    }
+
+                </div>
+
+                <div class="form-group">
+                    <div class="panel panel-default panel-homex">
+                        <div class="panel-heading">Personal Documents</div>
+                        <div class="panel-body HomeApps" style="padding:0px;">
+                            @if (ViewBag.recruitmentType == 1)
+                            {
+                                <div class="MenuElement">
+
+                                    <a href=@Url.Action("IndexPage", "StaffRAndRLeaveRequest", new { Area = "AHD" })>
+                                        RR Request For International Staff   <i class="fa fa-book" aria-hidden="true"></i>
+                                    </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+
+                                </div>
+                                <div class="MenuElement">
+
+                                    <a href=@Url.Action("WorkplaceInternationalStaffEntitlement", "InternationalStaffEntitlement", new { Area = "AHD" })>
+                                        My Entitlement(s)   <i class="fa fa-money" aria-hidden="true"></i>
+                                    </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+
+                                </div>
+
+                            }
+                            @if (ViewBag.recruitmentType == 0)
+                            {
+
+
+                                <div class="MenuElement">
+
+                                    <a href=@Url.Action("WorkplaceStaffDangerPayments", "NationalStaffDangerPayCalcualtion", new { Area = "AHD" })>
+                                        Danger Payment(s)   <i class="fa fa-money-bill" aria-hidden="true"></i>
+                                    </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+
+                                </div>
+
+
+
+
+                            }
+                            <div class="MenuElement">
+
+                                <a href=@Url.Action("Index", "ShuttleRequests", new { Area = "SHM" })>
+                                    Shuttle Request(s)   <i class="fa fa-car" aria-hidden="true"></i>
+                                </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+
+                            </div>
+
+                            <div class="MenuElement">
+
+                                <a href=@Url.Action("MyBills", "UserBills", new { Area = "TBS" })>
+                                    My Phone  Bills   <i class="fa fa-mobile" aria-hidden="true"></i>
+                                </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+
+                            </div>
+                            <div class="MenuElement">
+
+                                <a href=@Url.Action("StaffPhotoDirectoryReport", "Reports", new { Area = "AHD" })>
+                                    Photo Directory   <i class="fa fa-address-book" aria-hidden="true"></i>
+                                </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+
+                            </div>
+                            <div class="MenuElement">
+
+                                <a href=@Url.Action("WorkplaceStaffDamagedItemIndex", "DamagedItem", new { Area = "WMS" })>
+                                    IT Equipment Damage Report   <i class="fa fa-laptop" aria-hidden="true"></i>
+                                </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+
+                            </div>
+
+                            <div class="MenuElement">
+
+                                <a href=@Url.Action("WorkplaceStaffMissionRequestIndex", "MissionRequest", new { Area = "AHD" })>
+                                    Mission Request(s)   <i class="fa fa-plane" aria-hidden="true"></i>
+                                </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="panel panel-default panel-homex">
+                        <div class="panel-heading">Useful Reports/PowerBI Dashboards</div>
+                        <div class="panel-body HomeApps" style="padding:0px;">
+                            <div class="MenuElement">
+                                <a href="https://app.powerbi.com/groups/f8c9d665-f9f2-4020-b3ce-951a98b8b98c/reports/a3001ff2-f941-4f39-9736-84d29804427c?ctid=e5c37981-6664-4134-8a0c-6543d2af80be">
+                                    Phone Directory (PBI) <i class="fa fa-bar-chart-o" aria-hidden="true"></i>
+                                </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+                            </div>
+                            <div class="MenuElement">
+                                <a href="https://app.powerbi.com/groups/f8c9d665-f9f2-4020-b3ce-951a98b8b98c/reports/71e391eb-db26-4417-95d1-0a482913c6f8?ctid=e5c37981-6664-4134-8a0c-6543d2af80be">
+                                    Office Staff Presence COVID (PBI)  <i class="fa fa-bar-chart-o" aria-hidden="true"></i>
+                                </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+                            </div>
+                            <div class="MenuElement">
+                                <a href=@Url.Action("StaffPhotoDirectoryReport", "Reports" , new { Area="AHD" })>
+                                    Photo Directory  <i class="fa fa-file-photo-o" aria-hidden="true"></i>
+                                </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="panel panel-default panel-homex">
+                        <div class="panel-heading">Useful Links</div>
+                        <div class="panel-body HomeApps" style="padding:0px;">
+                            <div class="MenuElement">
+                                <a href="https://ext.unhcrsyria.org">
+                                    UNHCR Syria External (Public) Apps Portal   <i class="fa fa-external-link" aria-hidden="true"></i>
+                                </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+                            </div>
+                            <div class="MenuElement">
+                                <a href="https://beta.unhcrsyria.org/">
+                                    Applications under Development Portal (Beta)  <i class="fa fa-external-link" aria-hidden="true"></i>
+                                </a><span class="badge badge-primary" style="float:right;margin-right:25px;"></span>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        }
+        <div class="col-lg-8">
+            @*List View*@
+            <div class="panel panel-default panel-homeX">
+                <div class="panel-heading">My Applications</div>
+                <div class="panel-body HomeApps" style="padding:0px;">
+                    <a data-appid="00000000-0000-0000-0000-000000000003" href="/TBS/" class="store-app-access">
+
+                    </a>
+                    @{
+                        var Apps = new CMS().GetHomePageApplications();
+
+
+                        foreach (var appCategory in Apps.Select(x => x.ApplicationCategoryName).Distinct())
+                        {
+
+
+
+
+
+                            foreach (var myapp in Apps.Where(x => x.ApplicationCategoryName == appCategory))
+                            {
+                                @*<div class="panel-body HomeApps" style="padding:0px;">*@
+
+                                <div class="col-md-12 MenuElement">
+                                    <div class="col-md-8">
+                                        <a data-appId="@myapp.ApplicationGUID" href="/@myapp.URL/"
+                                           class="store-app-access">
+                                            @myapp.Description
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="#" class="Modal-Link appDetail pull-right" data-url="/Profile/GetAppliationInfo?ApplicationGUID=@myapp.ApplicationGUID">About Application</a>
+                                    </div>
+                                </div>
+
+
+                            }
+
+                        }
+
+
+                    }
+
+                </div>
+            </div>
+        </div>
+        @{
+            var OtherApps = new CMS().GetHomePageOtherApplications();
+            if (OtherApps.Count > 0)
+            {
+                <div class="col-lg-8">
+
+                    <div class="panel panel-default panel-homeX">
+                        <div class="panel-heading"> Other Application(s)</div>
+
+                        <div class="panel-body HomeApps " style="padding:0px;">
+
+
+
+
+                            @foreach (var appCategory in OtherApps.Select(x => x.ApplicationCategoryName).Distinct())
+                            {
+                                <div class="panel panel-default" style="padding:10px;">
+                                    <div class="panel-heading">@appCategory</div>
+
+
+
+
+                                    @foreach (var myapp in OtherApps.Where(x => x.ApplicationCategoryName == appCategory))
+                                    {
+                                        <div class="panel-body HomeApps" style="padding:2px;">
+
+                                            <div class="col-md-12 MenuElement">
+                                                <div class="col-md-8">
+                                                    <a data-appId="@myapp.ApplicationGUID" href="/@myapp.URL/"
+                                                       class="store-app-access">
+                                                        @myapp.Description
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <a href="#"
+                                                       class="Modal-Link appDetail pull-right" data-url="/Profile/GetAppliationInfo?ApplicationGUID=@myapp.ApplicationGUID"
+                                                       title="Request Permission">About Application</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                </div>
+                            }
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+
+        @*if (ViewBag.UNHCRUser == "UNHCR")
+        {
+
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Personal Documents
+                    </div>
+                    <div id="test1" class="panel-test test in">
+                        <div class="panel-body">
+                            <div class="row">
+                                if (ViewBag.recruitmentType == 1)
+                                {
+
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                        <a class="black" href=@Url.Action("IndexPage", "StaffRAndRLeaveRequest", new { Area = "AHD" })>
+                                            <div class="SubjectBox matchHeight">
+                                                <i class="fa fa-book fa-4x" aria-hidden="true"></i>
+                                                <div>
+                                                    <h4>RR Request For International Staff</h4>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                        <a class="black" href=@Url.Action("WorkplaceInternationalStaffEntitlement", "InternationalStaffEntitlement", new { Area = "AHD" })>
+                                            <div class="SubjectBox matchHeight">
+                                                <i class="fa fa-money fa-4x" aria-hidden="true"></i>
+                                                <div>
+                                                    <h4>My Entitlement(s)</h4>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                }
+                                if (ViewBag.recruitmentType == 0)
+                                {
+
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                        <a class="black" href=@Url.Action("WorkplaceStaffDangerPayments", "NationalStaffDangerPayCalcualtion", new { Area = "AHD" })>
+                                            <div class="SubjectBox ">
+                                                <i class="fa fa-money-bill fa-4x" aria-hidden="true"></i>
+                                                <div>
+                                                    <h4>Danger Payment(s)</h4>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                        <a class="black" href=@Url.Action("WorkplaceMonthCycleOvertimeIndex", "StaffOvertime", new { Area = "AHD" })>
+                                            <div class="SubjectBox matchHeight">
+                                                <i class="fa fa-clock-o fa-4x" aria-hidden="true"></i>
+                                                <div>
+                                                    <h4>My Overtime(s)</h4>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                }
+
+
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                    <a class="black" href=@Url.Action("MyBills", "UserBills", new { Area = "TBS" })>
+                                        <div class="SubjectBox matchHeight">
+                                            <i class="fa fa-mobile fa-4x" aria-hidden="true"></i>
+                                            <div>
+                                                <h4>My Phone <br> Bills</h4>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                    <a class="black" href=@Url.Action("StaffPhotoDirectoryReport", "Reports", new { Area = "AHD" })>
+                                        <div class="SubjectBox matchHeight">
+                                            <i class="fa fa-address-book fa-4x" aria-hidden="true"></i>
+                                            <div>
+                                                <h4>Photo Directory</h4>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                    <a class="black" href=@Url.Action("WorkplaceStaffDamagedItemIndex", "DamagedItem", new { Area = "WMS" })>
+                                        <div class="SubjectBox matchHeight">
+                                            <i class="fa fa-laptop fa-4x" aria-hidden="true"></i>
+                                            <div>
+                                                <h4>IT Equipment Damage Report</h4>
+                                                <span>.</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                    <a class="black" href=@Url.Action("WorkplaceStaffMissionRequestIndex", "MissionRequest", new { Area = "AHD" })>
+                                        <div class="SubjectBox matchHeight">
+                                            <i class="fa fa-plane fa-4x" aria-hidden="true"></i>
+                                            <div>
+                                                <h4>Mission Request(s)</h4>
+                                                <span>.</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        }*@
+
+
+    </div>
+</div>
+<div id="serverTypeModel" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Disclaimer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="p-modal-body">This is a beta (Test environment) version, all changes / modifications will not be reflected in the production environemnt.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var isFirstLogin ="@ViewBag.IsFirstLogin";
+        if (isFirstLogin == "True")
+        {
+            $('#serverTypeModel').modal('show');
+        }
+})
+</script>

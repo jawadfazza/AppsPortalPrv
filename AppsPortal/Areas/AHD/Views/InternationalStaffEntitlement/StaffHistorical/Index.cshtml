@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("61376b86-90bf-44d4-ab2c-e63fea95fe44")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.InternationalStaffHistoricalEntitlementDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Month, DbColumnName = "PeriodEntitlementGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().EntitlementPeriods(), IsMultiple = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffGUID, DbColumnName = "StaffGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().AllInternationalStaffUsers(), IsMultiple = true})
+                
+
+            </div>
+            <div class="col-lg-12">
+
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FlowStatusGUID, DbColumnName = "FlowStatusGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().EntitlementFlowStatus(), IsMultiple = true})
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStation, DbColumnName = "DutyStationGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().SyriaStaffDutyStation(), IsMultiple = true})
+
+            </div>
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DepartmentGUID, DbColumnName = "DepartmentGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Departments(), IsMultiple = true})
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SubmittedDate, DbColumnName = "SubmittedDate", FilterForDataType = "Text" })
+
+            </div>
+            <div class="col-lg-12">
+                
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.InternationalStaffHistoricalEntitlementDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.InternationalStaffHistoricalEntitlementDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.InternationalStaffHistoricalEntitlementDataTable)
+
+        @*@Html.IndexDatatableCreate(Permissions.InternationalStaffEntitlements.Create, Apps.AHD, "/AHD/StaffRAndRLeaveRequest/Create")*@
+
+
+        @*@Html.FieldDataTableCreate(Permissions.InternationalStaffEntitlements.Create, Apps.AHD, Url.Action("InternationalStaffEntitlementPeriodCreate", "InternationalStaffEntitlement"))*@
+
+        @*@Html.IndexDatatableDelete(Permissions.InternationalStaffEntitlements.Delete, Apps.AHD, DataTableNames.InternationalStaffHistoricalEntitlementDataTable)*@
+        @Html.IndexDatatableRestor(Permissions.InternationalStaffEntitlements.Restore, Apps.AHD, DataTableNames.InternationalStaffHistoricalEntitlementDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.InternationalStaffHistoricalEntitlementDataTable)
+
+        @if (new CMS().HasAction(38, Guid.Parse("F18DEA05-B3E5-43E4-B1BC-900D0B66D77E"), null))
+        {
+            @Html.ActionLink(" Export  Report All Periods(Excel)", "ExportAllStaffEntitlements", "AHD/Reports", null, new { @style = "font-family: 'inherit;' font-weight: normal;" })
+            
+
+        }
+
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.InternationalStaffHistoricalEntitlementDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+        
+
+
+        @*@Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.InternationalStaffHistoricalEntitlementDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })*@
+    </div>
+ 
+    </div>

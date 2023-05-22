@@ -1,0 +1,38 @@
+﻿@model dataPMDItemsTransferDetail
+@using (Html.BeginForm("ItemsTransferDetail", "ItemsTransfer", new { Area = "PMD" }, FormMethod.Post, new { id = "ItemsTransferDetailForm" }))
+{
+    string ModalTitle = Model.ItemsTransferDetailGUID.ToString() == Guid.Empty.ToString() ? "New ItemsTransferDetail" : "Edit ItemsTransferDetail";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ItemsTransferDetailGUID)
+        @Html.HiddenFor(model => model.ItemsTransferGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnitOfAchievementGUID)
+            @Html.DropDownListFor(model => model.UnitOfAchievementGUID, new DropDownList().PMD2023Units(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity)
+            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ItemsTransferDetailGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.PMDItemsTransfer.Create, Apps.PMD)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.PMDItemsTransfer.Update, Apps.PMD)
+                @Html.DeleteSwitchButton(Permissions.PMDItemsTransfer.Delete, Apps.PMD)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.PMDItemsTransfer.Delete, Apps.PMD)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

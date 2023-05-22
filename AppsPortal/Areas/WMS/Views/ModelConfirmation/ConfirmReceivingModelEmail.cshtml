@@ -1,0 +1,78 @@
+﻿@model ReleaseSingleItemUpdateModalUpdateModel
+@{
+    ViewBag.Title = "Verify Email";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("f473172b-3275-4a09-8c4a-ff082fee9570")
+<div class="page--header">
+    <div class="page--banner">
+        <h2>@resxPages.ConfirmReceivingModel</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <article>
+                    @resxPages.ConfirmReceivingModel
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page--content">
+
+    <div class="page--body">
+        @if (Model.ItemOutputDetailGUID != null && Model.ItemOutputDetailGUID != Guid.Empty)
+        {
+
+            using (Html.BeginForm("ConfirmReceivingModelEmail", "ModelMovements", FormMethod.Post))
+            {
+
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    @Html.HiddenFor(x => x.ItemInputDetailGUID)
+                    @Html.HiddenFor(x => x.ItemOutputDetailGUID)
+                    <div class="col-lg-12" style="color: red; margin: 10px 0;">
+                        @ViewBag.ErrorSummary
+                    </div>
+                    <div class="col-md-12">
+                        <h4>Kindly Confirm Receiving the following item</h4>  @Html.DisplayFor(m => m.ModelDescription)
+                        <h5>Has following barcode/Serial number</h5>
+                        @if (Model.BarcodeNumber != null)
+                        {
+                            @Html.DisplayFor(m => m.BarcodeNumber)
+
+                        }
+                        @if (Model.SerialNumber != null)
+                        {
+                            @Html.DisplayFor(m => m.SerialNumber)
+
+                        }
+                        @if (Model.IME1 != null)
+                        {
+                            @Html.DisplayFor(m => m.IME1)
+
+                        }
+                        @if (Model.GSM != null)
+                        {
+                            @Html.DisplayFor(m => m.GSM)
+
+                        }
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+
+                        <div class="col-md-6 col-sm-6 col-xs-6 nopadding">
+
+                            <input type="submit" value="@resxUIControls.Continue" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <h3>This item been confimed </h3>
+        }
+    </div>
+
+</div>

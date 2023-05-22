@@ -1,0 +1,39 @@
+﻿@model ItemsTransferBlukItemUpdateModel
+@using (Html.BeginForm("ItemsTransferBlukItems", "ItemsTransfer", new { Area = "PMD" }, FormMethod.Post, new { id = "ItemsTransferBulkDetailForm" }))
+{
+    string ModalTitle =  "Bulk Items Transfer" ;
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ItemsTransferGUID)
+   
+    <div class="row">
+
+        <div class="col-sm-5"> @Html.Label(resxDbFields.ItemName) </div>
+        <div class="col-sm-4">@Html.Label(resxDbFields.Category) </div>
+        <div class="col-sm-3"> @Html.Label(resxDbFields.TotalAmount) </div>
+    </div>
+    <hr />
+    <div class="mScroll blueDataTableHeader" data-mcs-theme="rounded-dark" style="max-height:400px;">
+        @if (Model.ItemsTransferDetails != null)
+        {
+            for (var i = 0; i < Model.ItemsTransferDetails.Count; i++)
+            {
+                <div class="row">
+                    @Html.HiddenFor(model => model.ItemsTransferDetails[i].UnitOfAchievementGUID)
+                    @Html.HiddenFor(model => model.ItemsTransferDetails[i].ItemsTransferDetailGUID)
+                    <div class="col-sm-5"> @Html.DisplayFor(model => model.ItemsTransferDetails[i].UnitOfAchievementDescription) </div>
+                    <div class="col-sm-4">@Html.DisplayFor(model => model.ItemsTransferDetails[i].UnitOfAchievementGroupingDescription) </div>
+                    <div class="col-sm-3"> @Html.EditorFor(model => model.ItemsTransferDetails[i].MeasurementTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" }, @style = "width:30px;" }) </div>
+                </div>
+                <hr />
+            }
+        }
+    </div>
+</div>
+    <div class="modal-footer form-footer">
+
+        @Html.CreateButton(Permissions.PMDItemsTransfer.Create, Apps.PMD)
+        @Html.CloseModalButton()
+    </div>
+    }

@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxDbFields.ElectionConditions</h3>
+<div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter",DataTableNames.ElectionConditionsDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.ElectionConditionsDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer",DataTableNames.ElectionConditionsDataTable)" >
+                    <button type="button" title="Filter" class="btnFilter btn btn-sm btn-success" onclick="ToggleFilter('@DataTableNames.ElectionConditionsDataTable');"><i class="fa fa-filter"></i></button>
+                    @Html.FieldDataTableCreate(Permissions.ActionCategories.Create, Apps.OVS, Url.Action("ElectionConditionCreate", "Condition", new { FK = Model.ParentGUID, Area = "OVS" }))
+                    @Html.FieldDataTableDelete(Permissions.ActionCategories.Delete, Apps.OVS, DataTableNames.ElectionConditionsDataTable)
+                    @Html.FieldDataTableRestore(Permissions.ActionCategories.Restore, Apps.OVS, DataTableNames.ElectionConditionsDataTable)
+                    <button type="button" title="Refresh" class="btnRefresh btn btn-sm btn-primary" onclick="DataTableRefresh('@DataTableNames.ElectionConditionsDataTable');"><i class="fa fa-refresh"></i></button>
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ElectionConditionsDataTable, FormController = "Condition", Area="OVS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID ,OrderBy=2})
+    </div>
+</div>

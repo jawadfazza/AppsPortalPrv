@@ -1,0 +1,248 @@
+﻿<link href="~/Assets/Plugin/Croppie/croppie.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/Croppie/croppie.js"></script>
+<style>
+    input[type="file"] {
+        cursor: pointer;
+    }
+
+    button:focus {
+        outline: 0;
+    }
+
+    .file-btn {
+        position: relative;
+    }
+
+        .file-btn input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+    a.upload {
+        text-decoration: none;
+        text-shadow: none;
+        display: inline-block;
+    }
+
+    .upload-demo-wrap {
+        width: 100%;
+        margin-top: 16px;
+    }
+</style>
+@model dataElectionCandidate
+@using (Html.BeginForm("ElectionCandidate", "Candidate", new { Area = "OVS" }, FormMethod.Post, new { id = "ElectionCandidateForm" }))
+{
+    string ModalTitle = Model.ElectionCandidateGUID.ToString() == Guid.Empty.ToString() ? resxDbFields.NewCandidate : resxDbFields.EditCandidateInfo;
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @*@Html.HiddenFor(model => model.ElectionCandidateGUID)*@
+    @Html.FormHiddenFields(model => model.ElectionCandidateGUID)
+    @Html.HiddenFor(model => model.ElectionGUID)
+    <div class="row">
+        <div id="uploadPreview" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+
+            <div class="form-group">
+                <a class="upload btn btn-primary file-btn" style="cursor:pointer;">
+                    <span>@resxDbFields.ChoseImage</span>
+                    <input type="file" id="upload" class=" btn btn-primary" value="@resxDbFields.ChoseImage" accept="image/*.jpg" />
+                </a>
+
+                <input type="button" id="change" onclick="cancel();" value="@resxDbFields.ChangePhoto" class="upload-result btn btn-primary btnUpload" />
+
+            </div>
+            <div class="upload-demo-wrap">
+                <div id="upload-demo"></div>
+            </div>
+        </div>
+        <div id="Preview" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+
+            <div class="form-group">
+                <input type="button" id="change" onclick="changephoto();" value=@resxDbFields.ChangePhoto class="btn btn-primary" />
+            </div>
+
+            <div class="upload-demo-wrap">
+                <img id="img" style="width: 100%; height: 100%;"
+                     src=@(Model.ElectionCandidateGUID==Guid.Empty? String.Format("/Uploads/OVS/Templete/{0}.jpg?v="+new Random().Next(1,1000), Model.ElectionCandidateGUID):
+                     ( System.IO.File.Exists(Server.MapPath(@"\\Uploads") + "\\OVS\\CanidiatePhotos\\LG_" + Model.ElectionCandidateGUID + ".jpg"))?
+                     String.Format("/Uploads/OVS/CanidiatePhotos/{0}.jpg?v="+new Random().Next(1,1000), Model.ElectionCandidateGUID):
+                     String.Format("/Uploads/OVS/Templete/{0}.jpg?v="+new Random().Next(1,1000), Guid.Empty))
+                     />
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmailAddress)
+                @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FullName)
+                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CampaignPlan)
+                @*@Html.EditorFor(model => model.CampaignPlan, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })*@
+
+                @Html.TextAreaFor(model => model.CampaignPlan, new { @class = "form-control", rows = 15 })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.GenderGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownList("GenderGUID", new DropDownList().Genders(), new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.ElectionCandidateGUID == Guid.Empty)
+        {
+            @*@Html.CreateButton(Permissions.ElectionsManagement.Create, Apps.OVS)*@
+            <input type="button" id="btnUpload" class="upload-result btn btn-primary btnUpload" value=@resxDbFields.SaveChanges />
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @*<input type="button" id="btnUpload" class="upload-result btn btn-success" value="Save" />*@
+                @*<input type="button" id="btnUpload" class="upload-result btn btn-success" value=@resxDbFields.SaveChanges />*@
+                @Html.UpdateButton(Permissions.ElectionsManagement.Update, Apps.OVS)
+                @Html.DeleteSwitchButton(Permissions.ElectionsManagement.Delete, Apps.OVS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ElectionsManagement.Restore, Apps.OVS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $('.modal-dialog').addClass('modal-lg');
+        demoUpload();
+
+        if ($('#ElectionGUID').val() == "00000000-0000-0000-0000-000000000000") {
+            $('#uploadPreview').show();
+            $('#Preview').hide();
+        } else {
+            $('#uploadPreview').hide();
+            $('#Preview').show();
+
+        }
+    });
+
+    var changephoto = function() {
+        $('#uploadPreview').show();
+        $('#Preview').hide();
+    }
+
+    var cancel = function () {
+        Notify(NotificationType.Success, "Image Changed Successfully");
+        //$('.modal').modal('hide');
+    }
+
+    var _URL = window.URL || window.webkitURL;
+    $("#upload").change(function (e) {
+        var file, img;
+        var d = 300;
+        if ((file = this.files[0])) {
+            img = new Image();
+            img.onload = function () {
+                if (this.width < d || this.height < d) {
+                    $('.btnUpload, .cr-image').hide();
+                    Notify(NotificationType.Error, "Photo quality is low<br>Minimum resolution is 300 Pixels Highet or Width");
+                }
+                else {
+                    $('.btnUpload, .cr-image').show();
+                }
+            };
+            img.onerror = function () {
+                alert("not a valid file: " + file.type);
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    });
+    function demoUpload() {
+        var Image;
+        function readFile(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.upload-demo').addClass('ready');
+                    Image.croppie('bind', {
+                        url: e.target.result
+                    }).then(function () {
+                        console.log('jQuery bind complete');
+                        console.log(Image);
+                    });
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+            else {
+                alert("Sorry - your browser doesn't support the FileReader API");
+            }
+        }
+        console.log(Image);
+        Image = $('#upload-demo').croppie({
+            enableExif: true,
+            viewport: {
+                width: $('#uploadPreview').width() * 0.75,
+                height: $('#uploadPreview').width() * 0.75,
+                type: 'square'
+            },
+            boundary: {
+                width: $('#uploadPreview').width(),
+                height: $('#uploadPreview').width(),
+            },
+            format: 'jpeg',
+        });
+        Image.croppie('bind',
+            {
+                url: $('#imgProfilePhoto').attr('src')
+            });
+        $('#upload').on('change', function () {
+            readFile(this);
+        });
+
+
+        $('.btnUpload').on('click', function (ev) {
+
+            Image.croppie('result', {
+                type: 'blob',
+                size: 'original', //{ width: 1024, height: 1024 }, //'original',
+                format: 'jpeg'
+            }).then(function (imgBlob) {
+                
+                var formData = new FormData();
+                formData.append('EmailAddress', $('#EmailAddress').val());
+                formData.append('FullName', $('#FullName').val());
+                formData.append('CampaignPlan', $('#CampaignPlan').val());
+                formData.append('ElectionGUID', $('#ElectionGUID').val());
+                formData.append('GenderGUID', $('#GenderGUID').val());
+                formData.append('ElectionCandidateGUID', $('#ElectionCandidateGUID').val());
+                formData.append('fname', 'text.jpg');
+                formData.append('data', imgBlob);
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/OVS/Candidate/ElectionCandidateCreate/',
+                    // url: "@Url.Action("ElectionCandidateCreate", "Candidate")",
+                    data: formData,
+                    processData: false,
+                    contentType: false
+                }).done(function (JsonResult) {
+                    var form = $("#ElectionCandidateForm");
+                    ProcessPrimaryKey(JsonResult, form);
+                    ProcessRowVersion(JsonResult, form);
+                    ProcessDataTable(JsonResult, form);
+                    ProcessNotify(JsonResult);
+                    
+                });
+            });
+        });
+    }
+</script>

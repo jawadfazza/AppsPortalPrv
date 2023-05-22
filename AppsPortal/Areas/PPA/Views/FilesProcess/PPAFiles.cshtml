@@ -1,0 +1,68 @@
+﻿@model PPAUpdateModel
+@{
+    ViewBag.Title = "PPA";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.PPAGUID == Guid.Empty) ? "New Record" : "Edit Record"; }
+
+@Html.PageHeader("0e24b7d4-d5c0-4a03-b3c5-b9ab5af5fc42")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                @using (Html.BeginForm("PPA", "Management", new { Area = "PPA" }, FormMethod.Post, new { id = "CountryForm", @class = "main-form" }))
+                {
+                    <h3>@resxPages.Details</h3>
+                    @Html.AntiForgeryToken()
+                    @Html.FormHiddenFields(model => model.PPAGUID)
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group HANDLER">
+                                @Html.LabelFor(model => model.PPATypeGUID)
+                                @Html.DropDownListFor(model => model.PPATypeGUID, new DropDownList().PPATypes(), new { disabled = "disabled", @class = "form-control select2-basic-search", style = "width:100%" })
+                            </div>
+                            <div class="form-group HANDLER">
+                                @Html.LabelFor(model => model.ImplementationAreaGUID)
+                                @Html.DropDownListFor(model => model.ImplementationAreaGUID, new DropDownList().PPAAreasOfImplementations(), new { disabled = "disabled", @class = "form-control select2-basic-search", style = "width:100%" })
+                            </div>
+                            <div class="form-group HANDLER">
+                                @Html.LabelFor(model => model.OrganizationInstanceGUID)
+                                @Html.DropDownListFor(model => model.OrganizationInstanceGUID, new DropDownList().PartnersListForPPA(), new { disabled = "disabled", @class = "form-control select2-basic-search", style = "width:100%" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PPADescription)
+                                @Html.EditorFor(model => model.PPADescription, new { htmlAttributes = new { disabled = "disabled", @class = "form-control PageTitle abc", autocomplete = "off" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PPADeadLine)
+                                @Html.EditorFor(model => model.PPADeadLine, new { htmlAttributes = new { disabled = "disabled", @class = "form-control PageTitle abc", autocomplete = "off" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ReminderInterval)
+                                @Html.EditorFor(model => model.ReminderInterval, new { htmlAttributes = new { disabled = "disabled", @class = "form-control PageTitle abc", autocomplete = "off" } })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="PPAFormControls" class="form-group form-footer" style="margin-left: -11px;">
+
+                        @Html.BackToList(Url.Action("Index", "FilesProcess", new { Area = "" }))
+                    </div>
+                }
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div id="FilesContainer">
+                    @Html.Partial("~/Areas/PPA/Views/FilesProcess/_PPAFilesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.PPAGUID, IsParentActive = Model.Active, OptionalParameter = Model.PPAUserAccessType })
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script>
+    $('#PPADeadLine').prop('disabled', true);
+</script>

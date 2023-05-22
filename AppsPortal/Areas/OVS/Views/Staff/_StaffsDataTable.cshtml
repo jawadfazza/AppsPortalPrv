@@ -1,0 +1,28 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxDbFields.ElectionStaff</h3>
+<div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter",DataTableNames.ElectionStaffsDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.ElectionStaffsDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer",DataTableNames.ElectionStaffsDataTable)">
+                <button type="button" title="Filter" class="btnFilter btn btn-sm btn-success" onclick="ToggleFilter('@DataTableNames.ElectionStaffsDataTable');"><i class="fa fa-filter"></i></button>
+                @Html.FieldDataTableCreate(Permissions.ActionCategories.Create, Apps.OVS, Url.Action("ElectionStaffCreate", "Staff", new { FK = Model.ParentGUID, Area = "OVS" }))
+                @Html.FieldDataTableDelete(Permissions.ActionCategories.Delete, Apps.OVS, DataTableNames.ElectionStaffsDataTable)
+                @Html.FieldDataTableRestore(Permissions.ActionCategories.Restore, Apps.OVS, DataTableNames.ElectionStaffsDataTable)
+                <button type="button" title="Refresh" class="btnRefresh btn btn-sm btn-primary" onclick="DataTableRefresh('@DataTableNames.ElectionStaffsDataTable');"><i class="fa fa-refresh"></i></button>
+                @Html.FieldImportExcel(Permissions.ActionCategories.Create, Apps.OVS, Url.Action("ElectionStaffImport", "Staff", new { FK = Model.ParentGUID ,Area ="OVS"}))
+                @Html.SendVotIvitationBrodcast(Permissions.ActionCategories.Create, Apps.OVS, Url.Action("ElectionStaffMailBrodcastCreate", "Staff", new { FK = Model.ParentGUID, Area = "OVS" }))
+            </div>
+        }
+        <div class="mScroll blueDataTableHeader" data-mcs-theme="rounded-dark" style="max-height:400px;">
+            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ElectionStaffsDataTable, FormController = "Staff", Area = "OVS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Page, PK = Model.ParentGUID, OrderBy = 1 })
+        </div>
+    </div>
+</div>

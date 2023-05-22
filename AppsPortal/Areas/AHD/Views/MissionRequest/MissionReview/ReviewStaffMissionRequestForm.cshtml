@@ -1,0 +1,667 @@
+﻿@model StaffMissionRequestDataTableModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.MissionRequestGUID == Guid.Empty) ? "New  Mission " : "Edit Mission"; }
+
+@Html.PageHeader("9587200a-0b18-47e4-a04d-7e44b1c2559e")
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    body {
+        background-color: #f5f5f5;
+    }
+
+    .icon-circle {
+        border: 1px solid;
+        padding: 5px;
+        border-radius: 50%;
+        width: 25px !important;
+        height: 25px !important;
+        font-size: 15px;
+        margin-right: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.2;
+    }
+
+    .color-icon-check {
+        color: green;
+        opacity: 0.5;
+    }
+
+    .color-icon-arrow {
+        color: blue;
+        opacity: 0.7;
+    }
+    .color-icon-arrow-gray {
+        color: lightgray;
+        opacity: 0.7;
+    }
+
+    .row-flex {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .header {
+        background: #000084;
+        color: white;
+        margin-top: 1rem;
+        border-radius: 10px 10px 0px 0px;
+        padding: 5px;
+    }
+
+    .row-data {
+        background-color: white;
+        display: flex;
+        padding: 10px;
+        margin: 3px 0px;
+    }
+
+    .row-flex-2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 15px;
+        margin-right: 10px;
+    }
+</style>
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+
+            <div class="panel-heading" id="step1panelcreate">
+                @*Delegation Request for : @Model.StaffName in @Model.StartDate*@
+
+
+            </div>
+            <div>
+                @using (Html.BeginForm("MissionRequestCreate", "MissionRequest", new { Area = "AHD" }, FormMethod.Post, new { id = "MissionRequestWizardform", @class = "main-form", enctype = "multipart/form-data" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.FormHiddenFields(model => model.MissionRequestGUID)
+                    @Html.HiddenFor(model => model.StaffGUID)
+                    @Html.HiddenFor(model => model.RequestStage)
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="step1InfoBox">
+                        <div class="panel panel-primary newPanelSettings">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+                                @*<h3 class="box-title">Mission Request For :@ViewBag.StaffName <span class="pull-right">@Html.DisplayFor(model => model.ReferenceNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })</span></h3>*@
+
+                                <h3 class="box-title" style="color:blue">
+                                    Mission Request For :@ViewBag.StaffName
+                                    <span class="pull-right" style="color:blue">@Html.DisplayFor(model => model.ReferenceNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })</span>
+                                    <br />
+
+                                </h3>
+                                @*<div id="statusId" class="col-lg-offset-1" style="font-weight: bold;"></div>*@
+                            </div>
+
+
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="form-group">
+
+
+                                        <div class="col-md-3">
+                                            <div class="form-group HANDLER" id="itemparenetId">
+                                                @Html.LabelFor(model => model.DepartureDate)
+
+
+                                                @Html.HiddenFor(model => model.DepartureDate)
+                                                <br />
+                                                @Html.DisplayFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.ReturnDate)
+
+
+                                                @Html.HiddenFor(model => model.ReturnDate)
+                                                <br />
+                                                @Html.DisplayFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group HANDLER" id="itemparenetId">
+                                                @Html.LabelFor(model => model.TypeOfTravelGUID)
+
+
+                                                @Html.HiddenFor(model => model.TypeOfTravelGUID)
+                                                <br />
+                                                @Html.DisplayFor(model => model.TypeOfTravel, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.TypeOfMissionGUID)
+
+                                                <br />
+                                                @Html.DisplayFor(model => model.TypeOfMission, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                    <div class="form-group">
+
+
+
+
+
+
+                                    </div>
+                                    <div class="form-group">
+
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @if (Model.HasDamascusTransit == true)
+                                                {
+                                                    @Html.LabelFor(model => model.HasDamascusTransit)
+
+
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.HasDamascusTransit, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                                                }
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                @if (Model.IsMissionCombinedWithLeave == true)
+                                                {
+                                                    @Html.LabelFor(model => model.IsMissionCombinedWithLeave)
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.IsMissionCombinedWithLeave, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                                                }
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @if (Model.IsMissionCombinedWithRR == true)
+                                                {
+                                                    @Html.LabelFor(model => model.IsMissionCombinedWithRR)
+
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.IsMissionCombinedWithRR, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                                                }
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PurposeOfMission)
+
+                                                <br />
+                                                @Html.DisplayFor(model => model.PurposeOfMission, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @if (Model.HeadOfUnitComments != null && Model.HeadOfUnitComments != "")
+                                    {
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @Html.Label("HoO/U Comments")
+
+                                                @Html.DisplayFor(model => model.HeadOfUnitComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (Model.AuthorizedComment != null && Model.AuthorizedComment != "")
+                                    {
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @Html.Label("Representative/OIC Comments")
+
+                                                @Html.DisplayFor(model => model.AuthorizedComment, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                            </div>
+                                        </div>
+                                    }
+
+
+
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.Partial("~/Areas/AHD/Views/MissionRequest/Traveler/_ROMissionRequestTravelerDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.MissionRequestGUID, IsParentActive = Model.Active })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.Partial("~/Areas/AHD/Views/MissionRequest/Itinerary/_ROMissionRequestItineraryDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.MissionRequestGUID, IsParentActive = Model.Active })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @if (Model.LastFlowStatusGUID == AHDMissionStatusFlow.Submitted )
+                                    {
+
+                                        @Html.Partial("~/Areas/AHD/Views/MissionRequest/Documents/_DocumentDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.MissionRequestGUID, IsParentActive = Model.Active })
+
+                                    }
+                                    else
+                                    {
+                                    <div class="form-group">
+                                        @Html.Partial("~/Areas/AHD/Views/MissionRequest/Documents/_RODocumentDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.MissionRequestGUID, IsParentActive = Model.Active })
+                                    </div>
+                                    }
+                                </div>
+
+
+                            </div>
+                            <div class="panel-footer  showadminApproval">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    if(Model.LastFlowStatusGUID == AHDMissionStatusFlow.Submitted && Model.StaffGUID != Model.CurrentUserGUID)
+                   {
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="stepadmin4InfoBox">
+                        <div class="panel panel-primary ">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+                                <h3 class="box-title"> Admin Section </h3>
+
+                            </div>
+                            <div class="panel-body showstep4body">
+
+                                @if (new CMS().HasAction(98, Guid.Parse("F18DEA05-B3E5-43E4-B1BC-900D0B66D77E"), null))
+                                {
+
+                                    <div class="row">
+
+                                        <div class="form-group">
+
+                                            <div class="col-md-4">
+                                                <div class="form-group HANDLER" id="headofofficeid">
+                                                    @Html.LabelFor(model => model.HeadOfUnitApprovedByGUID)
+
+                                                    @Html.DropDownListFor(model => model.HeadOfUnitApprovedByGUID,
+                                                        new DropDownList().InternationalStaffForMissionsApprovalUsers((Guid)Model.StaffGUID), "", new
+                                                        {
+                                                            @class = "form-control select2-basic-search",
+                                                            style = "width:100%",
+
+                                                        })
+
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group HANDLER" id="authid">
+                                                    @Html.Label("Select Representative/OIC")
+
+                                                    @Html.DropDownListFor(model => model.AuthByDeputyRepresentativeGUID,
+                                                            new DropDownList().InternationalStaffForMissionsApprovalUsers((Guid)Model.StaffGUID), "", new
+                                                            {
+                                                                @class = "form-control select2-basic-search",
+                                                                style = "width:100%",
+
+                                                            })
+
+
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Comments) *
+                                                    @Html.EditorFor(model => model.AdminComments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                    <span style="color:red;">(*): In case of cancelation or sending back, this field is mandatory</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+                                }
+
+                            </div>
+                            <div class="panel-footer  showstep4body">
+
+                                @if (new CMS().HasAction(98, Guid.Parse("F18DEA05-B3E5-43E4-B1BC-900D0B66D77E"), null))
+                                {
+
+
+
+
+                                    <input type="button" onclick="ConfirmMissionRequestByAdmin()" value="Verified" id="saveAdminapproralid"
+                                           class="btn btn-primary showfooterstep1" />
+
+
+                                    <input type="button" onclick="ReturnMissionRequestByAdmin()" value="Send Back"
+                                           id="updatemissionAndReturnToStaffId"
+                                           class="btn btn-info pull-right showfooterstep1" />
+
+
+                                }
+
+                                <input type="button" onclick="CancelMissionRequestByAdmin()" value="Cancel the mission and notify staff" id="cancelMissionByAdminId"
+                                       class="btn btn-danger pull-right showfooterstep1" />
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                        }
+                    <div >
+                        
+                            @Html.Partial("~/Areas/AHD/Views/MissionRequest/MissionReview/_RequestStatus.cshtml")
+                        
+                    </div>
+                    
+                }
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var _stage = parseInt(@ViewBag.Stage);
+    
+    
+    var checkStatus = function () {
+        var data = _stage;
+        
+
+        if (data == 0) {
+            return;
+        }
+        else {
+
+            var RequestLabel = ['Submitted', 'Verified', 'Reviewed', 'Approved'];
+
+            var body = '<div >';
+            var bodycheck = '';
+            var bodyempty = '';
+            var bodyarrow = '';
+            var check = false, empty = false;
+
+            for (var i = 0; i < RequestLabel.length; i++) {
+
+                if (i + 1 < data) {
+                    check = true;
+                    bodycheck += '<div class="row row-flex">';
+                    bodycheck += '<i class="fa fa-check icon-circle color-icon-check"></i>';
+                    bodycheck += "<div>" + RequestLabel[i] + "</div></div>";
+
+                }
+                else if (i + 1 == data) {
+
+                    bodyarrow += "<div class='row row-flex'><div class='row-flex-2'>";
+                    if (data != 1)
+                        bodyarrow += "<a data-toggle='collapse' href='#Up' aria-expanded='false' aria-controls='collapseExample'><i class='fa fa-caret-up'></i></a>";
+                    if (data != RequestLabel.length)
+                        bodyarrow += "<a data-toggle='collapse' href='#Down' aria-expanded='false' aria-controls='collapseExample' ><i class='fa fa-caret-down'></i></a>";
+                    bodyarrow += "</div > ";
+                    bodyarrow += '<i class="fa fa-arrow-right icon-circle color-icon-arrow"></i>';
+                    bodyarrow += "<a data-toggle='collapse' href='#M' aria-expanded='false' aria-controls='collapseExample'>" + RequestLabel[i] + "</a></div>";
+                    
+                }
+                else {
+                    empty = true;
+                    bodyempty += '<div class="row row-flex">';
+                    bodyempty += '<i class="icon-circle"></i>';
+                    bodyempty += "<div>" + RequestLabel[i] + "</div></div>";
+                }
+            }
+
+            body += "<div class='collapse' style='margin-left: 20px;' id='Up'>" + bodycheck + "</div>";
+            body += bodyarrow;
+            body += "<div class='collapse' style='margin-left: 20px;' id='Down'>" + bodyempty + "</div>";
+
+            body += '</div>';
+
+            $('#statusId').append(body);
+        }
+    }
+    //checkStatus();
+
+    var _MissionRequestGUID = $("#MissionRequestGUID").val();
+    var ConfirmMissionRequestByAdmin = function () {
+
+        var _MissionRequestGUID = $("#MissionRequestGUID").val();
+         var _HeadOfUnitApprovedByGUID = $("#HeadOfUnitApprovedByGUID").val();
+         //var _AuthorizedByGUID = $("#AuthorizedByGUID").val();
+         var _AuthByDeputyRepresentativeGUID = $("#AuthByDeputyRepresentativeGUID").val();
+         //var _AuthByRepresentativeGUID = $("#AuthByRepresentativeGUID").val();
+
+
+         var _AdminComments = $("#AdminComments").val();
+         //if (_HeadOfUnitApprovedByGUID != null && _HeadOfUnitApprovedByGUID == '') {
+         //           Notify(NotificationType.Warning, 'Please indicate mission type ');
+
+         //       }
+
+        if (_MissionRequestGUID != null && _MissionRequestGUID == '') {
+                    Notify(NotificationType.Warning, 'Please select the mission');
+        }
+        else if (_HeadOfUnitApprovedByGUID != null && _HeadOfUnitApprovedByGUID == '') {
+            Notify(NotificationType.Warning, 'Please select the head of unit');
+        }
+        else if (_AuthByDeputyRepresentativeGUID != null && _AuthByDeputyRepresentativeGUID == '') {
+            Notify(NotificationType.Warning, 'Please select the OIC');
+        }
+                else {
+
+
+
+                    $.ajax({
+                        url: '@Url.Action("ConfirmMissionRequestByAdmin", "MissionRequest")',
+                        type: 'post',
+                        data: {
+                            _MissionRequestGUID: _MissionRequestGUID,
+                            _HeadOfUnitApprovedByGUID: _HeadOfUnitApprovedByGUID,
+                            //_AuthorizedByGUID: _AuthorizedByGUID,
+                            _AuthByDeputyRepresentativeGUID: _AuthByDeputyRepresentativeGUID,
+                            //_AuthByRepresentativeGUID: _AuthByRepresentativeGUID,
+
+                            _AdminComments: _AdminComments,
+
+
+                            //ShelfGUID: $scope.ShelfGUID,
+                            //MetaDataDocumentsGUIDs: $scope.MetaDataDocumentsGUIDs
+                        },
+                        success: function (data) {
+                            if (data.success == 1) {
+
+                                $('.showstep4body').hide();
+                                $('.normalStatus').hide();
+                                //$('.adminAfterApproval').show();
+
+                                Notify(NotificationType.Success, 'Saved successfully');
+                                //  $scope.mysearchKey = null;
+
+                                //window.location.href = '/Referral/Index/';
+
+                            }
+                            else {
+
+                                Notify(NotificationType.Warning, 'Warning');
+                            }
+
+
+
+                        }
+                    });
+
+
+                }
+            }
+
+
+    var ReturnMissionRequestByAdmin = function () {
+
+                var _MissionRequestGUID = $("#MissionRequestGUID").val();
+              
+       
+
+        var _adminComments = $("#AdminComments").val();
+        //var _Comments = $("#Comments").val();
+
+
+
+        if (_adminComments != null && _adminComments == '') {
+            Notify(NotificationType.Warning, 'Please indicate your comments and the reason for sending back the request ');
+
+        }
+       
+                else {
+
+
+
+                    $.ajax({
+                        url: '@Url.Action("ReturnMissionRequestByAdmin", "MissionRequest")',
+                        type: 'post',
+                        data: {
+                            _MissionRequestGUID: _MissionRequestGUID,
+                           
+                            _adminComments: _adminComments,
+
+                        },
+                        success: function (data) {
+                            if (data.success == 1) {
+
+                                $('.showstep4body').hide();
+
+
+                                Notify(NotificationType.Success, 'Saved successfully');
+                                //  $scope.mysearchKey = null;
+
+                            }
+                            else {
+
+                                Notify(NotificationType.Warning, 'Warning');
+                            }
+
+
+
+                        }
+                    });
+
+
+                }
+    }
+
+    var CancelMissionRequestByAdmin = function () {
+
+                var _MissionRequestGUID = $("#MissionRequestGUID").val();
+        var _adminComments = $("#AdminComments").val();
+
+
+
+        if (_adminComments != null && _adminComments == '') {
+            Notify(NotificationType.Warning, 'Please indicate your comments and the reason for canceling  ');
+
+                }
+
+
+                else {
+
+
+
+                    $.ajax({
+                        url: '@Url.Action("CancelMissionRequestByAdmin", "MissionRequest")',
+                        type: 'post',
+                        data: {
+                            _MissionRequestGUID: _MissionRequestGUID,
+                            _adminComments: _adminComments,
+
+
+
+                            //ShelfGUID: $scope.ShelfGUID,
+                            //MetaDataDocumentsGUIDs: $scope.MetaDataDocumentsGUIDs
+                        },
+                        success: function (data) {
+                            if (data.success == 1) {
+
+                                $('.showstep4body').hide();
+
+
+                                Notify(NotificationType.Success, 'Saved successfully');
+                                //  $scope.mysearchKey = null;
+
+                            }
+                            else {
+
+                                Notify(NotificationType.Warning, 'Warning');
+                            }
+
+
+
+                        }
+                    });
+
+
+                }
+    }
+
+
+
+</script>

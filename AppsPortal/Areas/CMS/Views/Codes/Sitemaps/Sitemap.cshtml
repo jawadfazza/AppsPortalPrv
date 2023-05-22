@@ -1,0 +1,18 @@
+﻿@model SitemapUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("8caef7d0-a76d-4143-a63e-74f8603bcbc6")
+@{string PageTitle = (Model.SitemapGUID == Guid.Empty) ? "New Sitemap" : "Edit Sitemap";}
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/Sitemaps/_SitemapForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.SitemapGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/Sitemaps/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.SitemapGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

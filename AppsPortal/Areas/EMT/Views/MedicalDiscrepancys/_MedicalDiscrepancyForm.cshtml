@@ -1,0 +1,109 @@
+﻿@model MedicalDiscrepancyUpdateModel
+@using (Html.BeginForm("MedicalDiscrepancy", "MedicalDiscrepancys", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalDiscrepancyForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.MedicalDiscrepancyGUID)
+   
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DiscrepancyDate)
+                @Html.EditorFor(model => model.DiscrepancyDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.MedicalPharmacyGUID)
+                @Html.DropDownListFor(model => model.MedicalPharmacyGUID, new DropDownList().MedicalPharmacyAll(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.DiscrepancyType)
+                @Html.DropDownListFor(model => model.DiscrepancyType, new DropDownList().DiscrepancyType(), "", new
+                {
+               style = "width:100%",
+               @class = "form-control select2-basic-search"
+               })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmedBy):
+                @Html.DisplayFor(model => model.ConfirmedBy, new { htmlAttributes = new { @class = "form-control" } })-
+                @Html.LabelFor(model => model.ConfirmedOn):
+                @Html.DisplayFor(model => model.ConfirmedOn, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group">
+                @Html.Label(resxDbFields.CreatedBy)
+                @Html.DisplayFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                - @Html.Label(resxDbFields.CreatedOn)
+                @Html.DisplayFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div id="MedicalDiscrepancyFormControls" class="form-group form-footer">
+                @if (Model.MedicalDiscrepancyGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.MedicalDiscrepancy.Create, Apps.EMT)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.MedicalDiscrepancy.Update, Apps.EMT)
+                        @Html.CreateNewButton(Permissions.MedicalDiscrepancy.Create, Apps.EMT, Url.Action("/Create", new { Area = "EMT" }))
+                        @Html.DeleteButton(Permissions.MedicalDiscrepancy.Delete, Apps.EMT)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.MedicalDiscrepancy.Restore, Apps.EMT)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "MedicalDiscrepancys", new { Area = "EMT" }))
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $('#MedicalBeneficiaryGUID').select2({
+        minimumInputLength: 2,
+        ajax: {
+            url: function () {
+                return '/DropDownList/RemoteFindBeneficiaryBy'
+            },
+            delay: 250,
+            data: function (params) {
+                var query = {
+                    SearchKey: params.term
+                }
+                // Query parameters will be ?search=[term]&type=public
+                return query;
+            },
+            processResults: function (data) {
+                var res = data.items.map(function (item) {
+                    return { id: item.id, text: item.Text };
+                });
+                return {
+                    results: res
+                };
+            }
+        }
+    });
+
+    function GetBeneficiaryDetails(ID, Container) {
+        $.ajax({
+            url: '/MedicalBeneficiarys/GetBeneficiaryDetails/',
+            data: { ID: ID },
+            type: 'GET',
+            success: function (Result) {
+                var data = Result["Result"];
+                $('.lblFullName', Container).text("Refugee Full Name: " + data.RefugeeFullName);
+                $('.lblNationality', Container).text("Nationality: " + data.NationalityCode);
+                $('.lblBrithday', Container).text("Brithday: " + moment(data.Brithday).format('LL'));
+
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#DiagnosisGUID').val($('#DiagnosisClientGUID').val().split(",")).trigger('change');
+    })
+</script>

@@ -1,0 +1,45 @@
+﻿@model SalaryCyclePeriodUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = "Staff Salary For " + Model.CycleName; }
+
+@Html.PageHeader("09ab1921-2405-4cc3-ac95-2eeaeaa15de1")
+<div class="page--content">
+
+    <div id=@string.Format("{0}Filter", DataTableNames.CycleSalaryFlowStepDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            @*<div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Year, DbColumnName = "Year", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MonthName, DbColumnName = "MonthName", FilterForDataType = "Text" })
+
+
+            </div>*@
+
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.CycleSalaryFlowStepDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.CycleSalaryFlowStepDataTable)">
+        @Html.FieldDataTableFilter(DataTableNames.CycleSalaryFlowStepDataTable)
+        @*@Html.IndexDatatableCreateNoPermission("/AHD/StaffRAndRLeave/RAndRDocumentsCreate")*@
+        @*@Html.FieldDataTableCreate(Permissions.SalaryCycle.Delete, Apps.AHD, Url.Action("StaffHQSalaryCreate", "StaffSalary", new { FK = Model.ParentGUID }))*@
+        @*@Html.FieldDataTableDelete(Permissions.SalaryCycle.Delete, Apps.AHD, DataTableNames.CycleSalaryFlowStepDataTable)
+        @Html.FieldDataTableRestore(Permissions.SalaryCycle.Restore, Apps.AHD, DataTableNames.CycleSalaryFlowStepDataTable)*@
+        @Html.FieldDataTableRefresh(DataTableNames.CycleSalaryFlowStepDataTable)
+        @*@Html.ActionLink(" ", "ExportDangerPayStaffForMonth", "NationalStaffDangerPayCalcualtion", new { id = @ViewBag.DangerPayInformationGUID }, new { @class = "btn btn-primary fa fa-file-o" })*@
+
+    </div>
+
+
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.CycleSalaryFlowStepDataTable, FormController = "StaffSalary", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.SalaryCycleGUID, OrderBy = 1 })
+        
+
+    </div>
+
+
+</div>
+

@@ -1,0 +1,16 @@
+﻿
+@model DocumentCabinetShelfUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.DocumentCabinetShelfGUID == Guid.Empty) ? "New DocumentCabinetShelf" : "Edit DocumentCabinetShelf"; }
+
+@Html.PageHeader("9123c4a0-2667-4715-8c42-5069bf14dfee")
+<div class="page--content">
+    <div class="foDAS-fadeIn">
+        @Html.Partial("~/Areas/DAS/Views/DocumentCabinetShelfs/_DocumentCabinetShelfForm.cshtml")
+
+    </div>
+</div>
+

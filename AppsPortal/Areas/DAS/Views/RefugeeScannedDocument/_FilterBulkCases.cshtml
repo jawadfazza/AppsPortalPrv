@@ -1,0 +1,101 @@
+﻿@model RefugeeCasesDataTableFilter
+
+
+@using (Html.BeginForm("RefugeeBulkCasesFilters", "ScanDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "RefugeeScanDocumentformFilterBulkCasesform" }))
+{
+    string ModalTitle = "New Issue";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.cases)
+
+            @Html.TextAreaFor(model => model.cases, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off", cols = 75, rows = 60 } })
+
+        </div>
+
+
+
+
+    </div>
+    <div class="modal-footer form-footer">
+        <input type="button" onclick="ApplyFilterCustom()" value="Find" />
+        @*@Html.CreateButton(Permissions.RefugeeScannedDocument.Create, Apps.DAS)*@
+
+        @Html.CloseModalButton()
+    </div>
+}
+<table id="test">
+    <thead>File number</thead>
+    <tbody>
+        <tr><td><input type="text" id="FileGUID" /></td></tr>
+    </tbody>
+</table>
+<script>
+    function ApplyFilterCustom() {
+        alert(1);
+        var form = $('#RefugeeScanDocumentformFilterBulkCasesform');
+        var formData = form.serialize();
+        var tableid = $('#test');
+        var cols = [{ bSearchable: false, bSortable: false, className: null, data: "FileGUID" }];
+        $(tableid).DataTable({
+            dom: "litrp",
+            order: "0",
+            searching: false,
+            stateSave: true,
+            ordering: true,
+            processing: true,
+            language: null,
+            autoWidth: false,
+            serverSide: true,
+            deferRender: true,
+            ajax: {
+                method: 'POST',
+                url: 'DAS/RefugeeBulkCasesFiltersBulkCaseSearch/',
+                data: formData
+            },
+            columns: cols,
+            responsive: true,
+            fnPreDrawCallback: function () {
+                SelectedReocrdsInfo(tableid);
+                $(tableid).find('th:first').addClass('dtProcessing').attr('disabled');
+            },
+            drawCallback: function () {
+                $(tableid + ' th:first').removeClass('sorting_asc');
+                InitRecordsPerPage();
+                InitiCheck($(tableid));
+                var api = $(tableid).DataTable();
+                var DataTableChkAll = $(tableid + 'SelectAll')
+                var numberOfChecked = $(tableid).find('.chkNode:checked').length;
+                var RowsCount = api.rows().count();
+                if (RowsCount == numberOfChecked && RowsCount != 0) {
+                    $(DataTableChkAll).prop("checked", true).parent('div').addClass('checked');
+                }
+                else {
+                    $(DataTableChkAll).prop("checked", false).parent('div').removeClass('checked');
+                }
+
+                var Result = window.localStorage.getItem(tableid + 'Filter');
+                if (Result != null) {
+                    if (Result.indexOf('[{"field":"Active","op":"eq","data":"false"}]') > 0) {
+                        $(tableid).addClass('deletedRecords');
+                    }
+                    else {
+                        $(tableid).removeClass('deletedRecords');
+                    }
+                }
+                $(tableid).find('.dtProcessing').removeClass('dtProcessing');
+
+            },
+            rowCallback: function (row, data, index) {
+                var PK = $(row).find('input:first-child').attr('value');
+                if ($(tableid + 'Form').find('*[data-id="' + PK + '"]').length > 0) {
+                    $(row).find('.chkNode').prop('checked', 'checked');
+                    $(row).addClass('SelectedRowStyle');
+                }
+
+            }
+        });
+    }
+</script>   

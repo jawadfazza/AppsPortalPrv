@@ -1,0 +1,132 @@
+﻿@model RMSReportParametersList
+@{
+    ViewBag.Title = "Partner Reports";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("0d58a240-a523-4f97-89cf-e8b8df1db345")
+@using (Html.BeginForm("Chart", "Reports", new { Area = "RMS" }, FormMethod.Post, new { id = "ReportForm" }))
+{
+    <style>
+        iframe {
+            border-width: 0px !important
+        }
+    </style>
+    <div class="page--content">
+        <h3>@resxPages.ReportParameters</h3>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LogDateTimeStart)
+                    @Html.EditorFor(model => model.LogDateTimeStart, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LogDateTimeEnd)
+                    @Html.EditorFor(model => model.LogDateTimeEnd, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PrinterConfigurationGUID)
+                    @Html.DropDownListFor(model => model.PrinterConfigurationGUID, new DropDownList().PrinterConfigrations(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-single",
+                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'OidGUID', Action : 'RemotePrinterConfigurationOid'}]);"
+               })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OidGUID)
+                    @Html.DropDownListFor(model => model.OidGUID, new DropDownList().Empty(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple",
+                   multiple = "multiple",
+               })
+                </div>
+                <div>
+                    <input class="btn btn-primary " onclick="InitDashboard();" value="Generate Report">
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <script src="https://code.highcharts.com/highcharts.js"></script>
+                <script src="https://code.highcharts.com/modules/data.js"></script>
+                <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+
+                <div id="container" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+
+    function InitDashboard() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/RMS/Reports/chart",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                debugger;
+                var seriesData = response["MainReport"];
+
+                drawPieChart(seriesData);
+
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+    </script>
+<script>
+
+    function drawPieChart(seriesData) {
+        Highcharts.chart('container', {
+
+            title: {
+                text: 'Oids Printer'
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Y'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: true
+                    },
+                    pointStart: 1
+
+                }
+            },
+
+            series:  seriesData ,
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+
+        });
+    };
+
+
+</script>

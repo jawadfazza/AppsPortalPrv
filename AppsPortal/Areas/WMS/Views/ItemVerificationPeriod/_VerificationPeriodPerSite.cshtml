@@ -1,0 +1,22 @@
+﻿@model WarehouseItemVerficationPeriodModel
+
+  
+    @Html.Partial("_ModalHeader", "Item")
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            @if (Model.ItemVerificationPeriodGUID != Guid.Empty)
+            {
+          
+            
+            }
+            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseTrackModelVerifiationPerSite, FormController = "ModelMovements", Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.ItemVerificationPeriodGUID, OrderBy = 1 })
+        </div>
+        </div>
+
+    </div>
+    <div class="modal-footer form-footer">
+
+        @Html.CloseModalButton()
+    </div>
+

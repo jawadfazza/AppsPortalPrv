@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "JobTitles";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("e5fc8ed5-5f82-429e-8c87-3661b139bdaa")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.ReferralStepsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Description, DbColumnName = "Description", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ReferralGUID, DbColumnName = "ReferralGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Referral(), IsSearchable = true })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ApplicationGUID, DbColumnName = "ApplicationGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Applications(), IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.ReferralStepsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.ReferralStepsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.ReferralStepsDataTable)
+        @Html.IndexDatatableCreate(Permissions.ReferralStep.Create, Apps.REF, "/REF/ReferralSteps/Create")
+        @Html.IndexDatatableDelete(Permissions.ReferralStep.Delete, Apps.REF, DataTableNames.ReferralStepsDataTable)
+        @Html.IndexDatatableRestor(Permissions.ReferralStep.Restore, Apps.REF, DataTableNames.ReferralStepsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.ReferralStepsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ReferralStepsDataTable, Area = "REF", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

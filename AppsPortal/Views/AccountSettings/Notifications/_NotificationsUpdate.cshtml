@@ -1,0 +1,17 @@
+﻿<div class="row section">
+    <div class="col-xs-1 text-right pull-right">
+        <a class="btn Edit-Link" onclick="CancelEditSection(this, '@Url.Action("NotificationsView","AccountSettings")', 'PanelForNotifications');">Close</a>
+    </div>
+    <div class="col-xs-11">
+        <h3 class="Title EditTitle">@resxPages.Notifications</h3>
+        <span>@resxPages.NotificationsArticle</span>
+    </div>
+    <div class="col-xs-6">
+        <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.NotificationsAccountSettingDataTable)">
+            @Html.IndexDatatableRefresh(DataTableNames.NotificationsAccountSettingDataTable)
+        </div>
+        <div class="page--body">
+            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.NotificationsAccountSettingDataTable, FormController = "AccountSettings", Type = DataTableTypes.Field, EditMode = DataTableEditMode.NoCheckBox, OrderBy = 0 })
+        </div>
+    </div>
+</div>

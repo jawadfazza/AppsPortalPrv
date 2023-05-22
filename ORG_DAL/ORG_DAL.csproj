@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C5379B76-CF09-4091-AD32-378FEAA8CA0C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ORG_DAL</RootNamespace>
+    <AssemblyName>ORG_DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="RES_Repo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RES_Repo\bin\Debug\RES_Repo.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\codeBank.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeBankLanguage.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountries.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountriesLanguages.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartments.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartmentsConfigurations.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartmentsLanguages.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStations.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStationsConfigurations.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStationsLanguages.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeJobTitles.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeJobTitlesLanguages.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeLocations.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeLocationsLanguages.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTables.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValues.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValuesConfigurations.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValuesLanguages.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataAdminAccessStaff.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataICTServiceAuthUser.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPhoneDirectory.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffBankAccount.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffCoreDocument.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffCorePassport.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffOnlineTraining.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffOnlineTrainingHistory.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffPhone.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffPosition.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffProfileFeedback.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffProfileFeedbackFlow.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffRelative.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffSalaryInAdvance.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffSalaryInAdvanceFlow.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataStaffServiceProvided.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ORGModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ORGModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ORGModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ORGModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ORGModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\StaffCoreData.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\StaffCoreDataBank.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\StaffCoreDataHistory.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userAccounts.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPasswords.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPermissions.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetails.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetailsLanguage.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userProfiles.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userServiceHistory.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModels.cs" />
+    <Compile Include="Model\v_dataSyriaPhoneDirectory.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\v_StaffProfileInformation.cs">
+      <DependentUpon>ORGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="Model\ORGModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ORGModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\ORGModel.edmx.diagram">
+      <DependentUpon>ORGModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Portal_BL\Portal_BL.csproj">
+      <Project>{1bc38177-4b12-460f-bf33-0c50ac0905cc}</Project>
+      <Name>Portal_BL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\ORGModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ORGModel.edmx</DependentUpon>
+      <LastGenOutput>ORGModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\ORGModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ORGModel.edmx</DependentUpon>
+      <LastGenOutput>ORGModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,20 @@
+﻿@model AppointmentTypeUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.AppointmentTypeGUID == Guid.Empty) ? "New Appointment Type" : "Edit Appointment Type"; }
+
+@Html.PageHeader("17835fdd-ec89-4270-9721-f73d6f759a98")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/AMS/Views/AppointmentTypes/_AppointmentTypeForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.AppointmentTypeGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/AMS/Views/AppointmentTypes/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.AppointmentTypeGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

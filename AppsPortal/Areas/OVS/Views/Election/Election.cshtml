@@ -1,0 +1,38 @@
+﻿@model ElectionUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ElectionGUID == Guid.Empty) ? resxDbFields.NewElection : resxDbFields.EditElection; }
+@Html.PageHeader("3529ad4c-5228-4d0e-9e30-9bc1cd28e365")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/OVS/Views/Election/_ElectionForm.cshtml")
+        @*<div id="LanguagesContainer">
+            @if (Model.ElectionGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/OVS/Views/Election/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ElectionGUID, IsParentActive = Model.Active })
+            }
+        </div>*@
+
+        <div id="CandidatesContainer">
+            @if (Model.ElectionGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/OVS/Views/Candidate/_CandidatesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ElectionGUID, IsParentActive = Model.Active })
+            }
+        </div>
+        <div id="ConditionsContainer">
+            @if (Model.ElectionGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/OVS/Views/Condition/_ConditionsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ElectionGUID, IsParentActive = Model.Active })
+            }
+        </div>
+        <div id="StaffContainer">
+            @if (Model.ElectionGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/OVS/Views/Staff/_StaffsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ElectionGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@model TrackStaffDangerPaymentsDataTableModel
+
+@Html.PageHeader("9fddf622-c036-4213-9ac3-338413673398")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.TrackStaffDangerPaymentDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FlowStatus, DbColumnName = "ConfirmationStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().DangerPayStaffConfirmationStatus(), IsMultiple = true, IsSearchable = true })
+
+            </div>
+
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.TrackStaffDangerPaymentDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.TrackStaffDangerPaymentDataTable)">
+        @*@Html.IndexDatatableFilter(DataTableNames.TrackStaffDangerPaymentDataTable)*@
+
+        @Html.IndexDatatableRefresh(DataTableNames.TrackStaffDangerPaymentDataTable)
+
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.TrackStaffDangerPaymentDataTable, FormController = "NationalStaffDangerPayCalcualtion", Area = "AHD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.NationalStaffDangerPayGUID, OrderBy = 1 })
+        @*@Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.TrackStaffDangerPaymentDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.NationalStaffDangerPayGUID, OrderBy = 1 })*@
+
+        @*@Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.TrackStaffDangerPaymentDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.NationalStaffDangerPayGUID, OrderBy = 1 })*@
+    </div>
+
+
+</div>

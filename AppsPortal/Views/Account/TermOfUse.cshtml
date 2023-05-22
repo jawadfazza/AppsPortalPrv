@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = @resxPages.WelcomeTitle;
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<div class="page--header">
+    <div class="page--banner">
+        <h2>@resxPages.TermOfUse</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <article>
+                    Legal agreement, we need a lawyer
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page--content">
+    <div class="page--body">
+        <br />
+        <article>
+            Terms of use text
+        </article>
+        @using (Html.BeginForm("TermOfUse", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="@resxPages.Agree" class="btn btn-success" />
+            <a href="/" class="btn btn-default">@resxPages.Disagree</a>
+        }
+    </div>
+</div>

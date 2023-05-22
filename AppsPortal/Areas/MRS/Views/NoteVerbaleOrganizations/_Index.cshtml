@@ -1,0 +1,22 @@
+﻿@model MasterRecordStatus
+
+@if (Model.IsParentActive)
+{ 
+    <div>
+        <div id=@string.Format("{0}Filter", DataTableNames.NoteVerbaleOrganizationsDataTable) class="filter-section" style="display:none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_RecordStatus", DataTableNames.NoteVerbaleOrganizationsDataTable)
+                </div>
+            </div>
+        </div>
+        <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.NoteVerbaleOrganizationsDataTable)">
+            @Html.FieldDataTableFilter(DataTableNames.NoteVerbaleOrganizationsDataTable)
+            @Html.FieldDataTableCreate(Permissions.NoteVerbale.Create, Apps.MRS, Url.Action("NoteVerbaleOrganizationCreate", "NoteVerbaleOrganizations", new { FK = Model.ParentGUID }))
+            @Html.FieldDataTableDelete(Permissions.NoteVerbale.Delete, Apps.MRS, DataTableNames.NoteVerbaleOrganizationsDataTable)
+            @Html.FieldDataTableRestore(Permissions.NoteVerbale.Restore, Apps.MRS, DataTableNames.NoteVerbaleOrganizationsDataTable)
+            @Html.FieldDataTableRefresh(DataTableNames.NoteVerbaleOrganizationsDataTable)
+        </div>
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.NoteVerbaleOrganizationsDataTable, FormController = "NoteVerbaleOrganizations", Area = "MRS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+}

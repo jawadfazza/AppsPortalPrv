@@ -1,0 +1,2387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SRSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="userAccounts">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TimeZone" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RequestedOn" Type="datetime" Nullable="false" />
+          <Property Name="SecurityQuestionGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SecurityAnswer" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="AccountStatusID" Type="int" Nullable="false" />
+          <Property Name="IsFirstLogin" Type="bit" Nullable="false" />
+          <Property Name="HasPhoto" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userAccountsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="userPersonalDetails">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" />
+          <Property Name="GenderGUID" Type="uniqueidentifier" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="PreferedLanguageID" Type="nvarchar" MaxLength="5" />
+          <Property Name="BloodGroup" Type="nvarchar" MaxLength="5" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userPersonalDetailsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GrandFatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="userProfiles">
+          <Key>
+            <PropertyRef Name="UserProfileGUID" />
+          </Key>
+          <Property Name="UserProfileGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProfileConfirmed" Type="bit" />
+          <Property Name="ServiceHistoryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" />
+          <Property Name="SiteCategoryGUID" Type="uniqueidentifier" />
+          <Property Name="PositionNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="JobTitleGUID" Type="uniqueidentifier" />
+          <Property Name="Grade" Type="nvarchar" MaxLength="50" />
+          <Property Name="FromDate" Type="date" Nullable="false" />
+          <Property Name="ToDate" Type="date" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userProfilesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="userServiceHistory">
+          <Key>
+            <PropertyRef Name="ServiceHistoryGUID" />
+          </Key>
+          <Property Name="ServiceHistoryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployeeNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="IndexNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userServiceHistoryRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeApplications">
+          <Key>
+            <PropertyRef Name="ApplicationGUID" />
+          </Key>
+          <Property Name="ApplicationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationID" Type="int" Nullable="false" />
+          <Property Name="ApplicationAcrynom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApplicationStatusGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeApplicationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeApplicationsLanguages">
+          <Key>
+            <PropertyRef Name="ApplicationLanguageGUID" />
+          </Key>
+          <Property Name="ApplicationLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ApplicationDescription" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeApplicationsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDepartments">
+          <Key>
+            <PropertyRef Name="DepartmentGUID" />
+          </Key>
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" />
+          <Property Name="DepartmentCode" Type="nvarchar" MaxLength="150" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDepartmentsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDepartmentsConfigurations">
+          <Key>
+            <PropertyRef Name="DepartmentConfigurationGUID" />
+          </Key>
+          <Property Name="DepartmentConfigurationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDepartmentsConfigurationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="DepartmentTypeGUID" Type="uniqueidentifier" />
+          <Property Name="ParentDepartmentGUID" Type="uniqueidentifier" />
+          <Property Name="DepartmentParentStaffGUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="codeDepartmentsLanguages">
+          <Key>
+            <PropertyRef Name="DepartmentLanguageGUID" />
+          </Key>
+          <Property Name="DepartmentLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DepartmentDescription" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDepartmentsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsConfigurations">
+          <Key>
+            <PropertyRef Name="DutyStationConfigurationGUID" />
+          </Key>
+          <Property Name="DutyStationConfigurationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsConfigurationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DutyStationDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeJobTitles">
+          <Key>
+            <PropertyRef Name="JobTitleGUID" />
+          </Key>
+          <Property Name="JobTitleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeJobTitlesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeJobTitlesLanguages">
+          <Key>
+            <PropertyRef Name="JobTitleLanguageGUID" />
+          </Key>
+          <Property Name="JobTitleLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="JobTitleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="JobTitleDescription" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeJobTitlesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTables">
+          <Key>
+            <PropertyRef Name="TableGUID" />
+          </Key>
+          <Property Name="TableGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TableName" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="IndexSitemapGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DetailsSitemapGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SortID" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TableGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesConfigurations">
+          <Key>
+            <PropertyRef Name="TableValueConfigurationGUID" />
+          </Key>
+          <Property Name="TableValueConfigurationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesConfigurationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ValueDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataAppBugAuthorization">
+          <Key>
+            <PropertyRef Name="AppBugAuthorizationGUID" />
+          </Key>
+          <Property Name="AppBugAuthorizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AppBugReportGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApprovalStatusGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApprovedByProfileGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApprovalComments" Type="nvarchar(max)" />
+          <Property Name="BugAnalysis" Type="nvarchar(max)" />
+          <Property Name="BugResolution" Type="nvarchar(max)" />
+          <Property Name="EstimatedResourcesNum" Type="int" Nullable="false" />
+          <Property Name="EstimatedTime" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BugFixStartDate" Type="datetime" Nullable="false" />
+          <Property Name="BugFixEndDate" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataAppBugAuthorizationRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataAppBugReport">
+          <Key>
+            <PropertyRef Name="AppBugReportGUID" />
+          </Key>
+          <Property Name="AppBugReportGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HelpDeskGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BugDetails" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="dataAppBugReportRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dataAppEnhancementAuthorization">
+          <Key>
+            <PropertyRef Name="AppEnhancementAuthorizationGUID" />
+          </Key>
+          <Property Name="AppEnhancementAuthorizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AppEnhancementGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApprovedByProfileGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApprovalStatusGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApprovalComments" Type="nvarchar(max)" />
+          <Property Name="EstimatedResourcesNum" Type="int" Nullable="false" />
+          <Property Name="EstimatedTime" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EnhancementStartDate" Type="datetime" Nullable="false" />
+          <Property Name="EnhancementEndDate" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataAppEnhancementAuthorizationRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataAppEnhancementRequest">
+          <Key>
+            <PropertyRef Name="AppEnhancementGUID" />
+          </Key>
+          <Property Name="AppEnhancementGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HelpDeskGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EnhancementPurpos" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EnhancementDetails" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EnhancementBenefits" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="dataAppEnhancementRequestRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dataApplicationRequest">
+          <Key>
+            <PropertyRef Name="AppRequestGUID" />
+          </Key>
+          <Property Name="AppRequestGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HelpDeskGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequestedAppName" Type="nvarchar" MaxLength="35" Nullable="false" />
+          <Property Name="IsNewDbForTracking" Type="bit" Nullable="false" />
+          <Property Name="IsToReplaceOldApp" Type="bit" Nullable="false" />
+          <Property Name="IsToAutomateManual" Type="bit" Nullable="false" />
+          <Property Name="PurposDescriptionBenefits" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ServerOrVM" Type="bit" Nullable="false" />
+          <Property Name="CPUDescription" Type="nvarchar(max)" />
+          <Property Name="RAMDescription" Type="nvarchar(max)" />
+          <Property Name="StorageDescription" Type="nvarchar(max)" />
+          <Property Name="OnsiteBackup" Type="bit" Nullable="false" />
+          <Property Name="OffsiteBackup" Type="bit" Nullable="false" />
+          <Property Name="OfflineVersion" Type="bit" />
+          <Property Name="AndroidVersion" Type="bit" />
+          <Property Name="IOSVersion" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataApplicationRequestRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataAppRequestAuthorization">
+          <Key>
+            <PropertyRef Name="AppRequestAuthorizationGUID" />
+          </Key>
+          <Property Name="AppRequestAuthorizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AppRequestGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApprovedByProfileGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApprovalStatusGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApprovalComments" Type="nvarchar(max)" />
+          <Property Name="EstimatedResourcesNum" Type="int" Nullable="false" />
+          <Property Name="EstimatedTime" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationStartDate" Type="datetime" Nullable="false" />
+          <Property Name="ApplicationEndDate" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataAppRequestAuthorizationRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataChangeRequest">
+          <Key>
+            <PropertyRef Name="ChangeRequestGUID" />
+          </Key>
+          <Property Name="ChangeRequestGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HelpDeskGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CRIntroduction" Type="nvarchar(max)" />
+          <Property Name="CROutcome" Type="nvarchar(max)" />
+          <Property Name="CRNotes" Type="nvarchar(max)" />
+          <Property Name="CRPrerequisites" Type="nvarchar(max)" />
+          <Property Name="CRRollbackPlan" Type="nvarchar(max)" />
+          <Property Name="CRApprovedBy" Type="nvarchar(max)" />
+          <Property Name="dataChangeRequestRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dataChangeRequestActionPlan">
+          <Key>
+            <PropertyRef Name="ChangeRequestAPGUID" />
+          </Key>
+          <Property Name="ChangeRequestAPGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ChangeRequestGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="APUnit" Type="uniqueidentifier" />
+          <Property Name="APWho" Type="uniqueidentifier" />
+          <Property Name="APWhat" Type="nvarchar(max)" />
+          <Property Name="APWhen" Type="datetime" />
+          <Property Name="APHow" Type="nvarchar(max)" />
+          <Property Name="APDuration" Type="uniqueidentifier" />
+          <Property Name="APComments" Type="nvarchar(max)" />
+          <Property Name="APCompleted" Type="bit" />
+          <Property Name="dataChangeRequestActionPlanRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dataHelpDesk">
+          <Key>
+            <PropertyRef Name="HelpDeskGUID" />
+          </Key>
+          <Property Name="HelpDeskGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequestNumber" Type="int" Nullable="false" />
+          <Property Name="RequestedByProfileGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConfigItemGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CriticalityGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WorkGroupGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequestStatusGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequestCreateDate" Type="datetime" Nullable="false" />
+          <Property Name="RequestUpdateDate" Type="datetime" />
+          <Property Name="AssignedToGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataHelpDeskRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataHelpDeskAttachement">
+          <Key>
+            <PropertyRef Name="HelpDeskAttachementGUID" />
+          </Key>
+          <Property Name="HelpDeskAttachementGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HelpDeskGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AttachementPath" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="dataHelpDeskAttachementRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_codeApplications_dataAppBugReport">
+          <End Role="codeApplications" Type="Self.codeApplications" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataAppBugReport" Type="Self.dataAppBugReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeApplications">
+              <PropertyRef Name="ApplicationGUID" />
+            </Principal>
+            <Dependent Role="dataAppBugReport">
+              <PropertyRef Name="ApplicationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeApplications_dataAppEnhancementRequest">
+          <End Role="codeApplications" Type="Self.codeApplications" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataAppEnhancementRequest" Type="Self.dataAppEnhancementRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeApplications">
+              <PropertyRef Name="ApplicationGUID" />
+            </Principal>
+            <Dependent Role="dataAppEnhancementRequest">
+              <PropertyRef Name="ApplicationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeApplicationsLanaguages_codeApplications">
+          <End Role="codeApplications" Type="Self.codeApplications" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeApplicationsLanguages" Type="Self.codeApplicationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeApplications">
+              <PropertyRef Name="ApplicationGUID" />
+            </Principal>
+            <Dependent Role="codeApplicationsLanguages">
+              <PropertyRef Name="ApplicationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDepartmentsLanguages_codeDepartments">
+          <End Role="codeDepartments" Type="Self.codeDepartments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDepartmentsLanguages" Type="Self.codeDepartmentsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeDepartmentsLanguages">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDutyStationsLanguages" Type="Self.codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeJobTitlesLanguages_codeJobTitles">
+          <End Role="codeJobTitles" Type="Self.codeJobTitles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeJobTitlesLanguages" Type="Self.codeJobTitlesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeJobTitles">
+              <PropertyRef Name="JobTitleGUID" />
+            </Principal>
+            <Dependent Role="codeJobTitlesLanguages">
+              <PropertyRef Name="JobTitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsOperationsDepartments_codeDepartments">
+          <End Role="codeDepartments" Type="Self.codeDepartments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDepartmentsConfigurations" Type="Self.codeDepartmentsConfigurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeDepartmentsConfigurations">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsOperationsDutyStations_codeDutyStations">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDutyStationsConfigurations" Type="Self.codeDutyStationsConfigurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsConfigurations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValues_codeTables">
+          <End Role="codeTables" Type="Self.codeTables" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeTablesValues" Type="Self.codeTablesValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTables">
+              <PropertyRef Name="TableGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValues">
+              <PropertyRef Name="TableGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Role="codeTablesValues" Type="Self.codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeTablesValuesLanguages" Type="Self.codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesOperations_codeTablesValues">
+          <End Role="codeTablesValues" Type="Self.codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeTablesValuesConfigurations" Type="Self.codeTablesValuesConfigurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesConfigurations">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppBugAuthorization_dataAppBugReport">
+          <End Role="dataAppBugReport" Type="Self.dataAppBugReport" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataAppBugAuthorization" Type="Self.dataAppBugAuthorization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataAppBugReport">
+              <PropertyRef Name="AppBugReportGUID" />
+            </Principal>
+            <Dependent Role="dataAppBugAuthorization">
+              <PropertyRef Name="AppBugReportGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppBugReport_dataHelpDesk">
+          <End Role="dataHelpDesk" Type="Self.dataHelpDesk" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataAppBugReport" Type="Self.dataAppBugReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataHelpDesk">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Principal>
+            <Dependent Role="dataAppBugReport">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppEnhancementAuthorization_dataAppEnhancementRequest">
+          <End Role="dataAppEnhancementRequest" Type="Self.dataAppEnhancementRequest" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataAppEnhancementAuthorization" Type="Self.dataAppEnhancementAuthorization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataAppEnhancementRequest">
+              <PropertyRef Name="AppEnhancementGUID" />
+            </Principal>
+            <Dependent Role="dataAppEnhancementAuthorization">
+              <PropertyRef Name="AppEnhancementGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppEnhancementRequest_dataHelpDesk">
+          <End Role="dataHelpDesk" Type="Self.dataHelpDesk" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataAppEnhancementRequest" Type="Self.dataAppEnhancementRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataHelpDesk">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Principal>
+            <Dependent Role="dataAppEnhancementRequest">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataApplicationRequest_dataHelpDesk">
+          <End Role="dataHelpDesk" Type="Self.dataHelpDesk" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataApplicationRequest" Type="Self.dataApplicationRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataHelpDesk">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Principal>
+            <Dependent Role="dataApplicationRequest">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppRequestAuthorization_dataApplicationRequest">
+          <End Role="dataApplicationRequest" Type="Self.dataApplicationRequest" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataAppRequestAuthorization" Type="Self.dataAppRequestAuthorization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataApplicationRequest">
+              <PropertyRef Name="AppRequestGUID" />
+            </Principal>
+            <Dependent Role="dataAppRequestAuthorization">
+              <PropertyRef Name="AppRequestGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataChangeRequest_dataHelpDesk">
+          <End Role="dataHelpDesk" Type="Self.dataHelpDesk" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataChangeRequest" Type="Self.dataChangeRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataHelpDesk">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Principal>
+            <Dependent Role="dataChangeRequest">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataChangeRequestActionPlan_dataChangeRequest">
+          <End Role="dataChangeRequest" Type="Self.dataChangeRequest" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataChangeRequestActionPlan" Type="Self.dataChangeRequestActionPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataChangeRequest">
+              <PropertyRef Name="ChangeRequestGUID" />
+            </Principal>
+            <Dependent Role="dataChangeRequestActionPlan">
+              <PropertyRef Name="ChangeRequestGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataHelpDeskAttachement_dataHelpDesk">
+          <End Role="dataHelpDesk" Type="Self.dataHelpDesk" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataHelpDeskAttachement" Type="Self.dataHelpDeskAttachement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataHelpDesk">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Principal>
+            <Dependent Role="dataHelpDeskAttachement">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userPersonalDetails_userAccounts">
+          <End Role="userAccounts" Type="Self.userAccounts" Multiplicity="1" />
+          <End Role="userPersonalDetails" Type="Self.userPersonalDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="userPersonalDetails">
+              <PropertyRef Name="UserGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userPersonalDetailsLanguage_userPersonalDetails">
+          <End Role="userPersonalDetails" Type="Self.userPersonalDetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userPersonalDetailsLanguage" Type="Self.userPersonalDetailsLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userPersonalDetails">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="userPersonalDetailsLanguage">
+              <PropertyRef Name="UserGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userProfiles_codeDepartments1">
+          <End Role="codeDepartments" Type="Self.codeDepartments" Multiplicity="0..1" />
+          <End Role="userProfiles" Type="Self.userProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="userProfiles">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userProfiles_codeDutyStations1">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="0..1" />
+          <End Role="userProfiles" Type="Self.userProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="userProfiles">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userProfiles_codeJobTitles1">
+          <End Role="codeJobTitles" Type="Self.codeJobTitles" Multiplicity="0..1" />
+          <End Role="userProfiles" Type="Self.userProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeJobTitles">
+              <PropertyRef Name="JobTitleGUID" />
+            </Principal>
+            <Dependent Role="userProfiles">
+              <PropertyRef Name="JobTitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userProfiles_userServiceHistory">
+          <End Role="userServiceHistory" Type="Self.userServiceHistory" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userProfiles" Type="Self.userProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userServiceHistory">
+              <PropertyRef Name="ServiceHistoryGUID" />
+            </Principal>
+            <Dependent Role="userProfiles">
+              <PropertyRef Name="ServiceHistoryGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userServiceHistory_userAccount">
+          <End Role="userAccounts" Type="Self.userAccounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userServiceHistory" Type="Self.userServiceHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="userServiceHistory">
+              <PropertyRef Name="UserGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SRSModelStoreContainer">
+          <EntitySet Name="userAccounts" EntityType="Self.userAccounts" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="userPersonalDetails" EntityType="Self.userPersonalDetails" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="userPersonalDetailsLanguage" EntityType="Self.userPersonalDetailsLanguage" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="userProfiles" EntityType="Self.userProfiles" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="userServiceHistory" EntityType="Self.userServiceHistory" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="codeApplications" EntityType="Self.codeApplications" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeApplicationsLanguages" EntityType="Self.codeApplicationsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDepartments" EntityType="Self.codeDepartments" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDepartmentsConfigurations" EntityType="Self.codeDepartmentsConfigurations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDepartmentsLanguages" EntityType="Self.codeDepartmentsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDutyStations" EntityType="Self.codeDutyStations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDutyStationsConfigurations" EntityType="Self.codeDutyStationsConfigurations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="Self.codeDutyStationsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeJobTitles" EntityType="Self.codeJobTitles" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeJobTitlesLanguages" EntityType="Self.codeJobTitlesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTables" EntityType="Self.codeTables" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValues" EntityType="Self.codeTablesValues" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValuesConfigurations" EntityType="Self.codeTablesValuesConfigurations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="Self.codeTablesValuesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="dataAppBugAuthorization" EntityType="Self.dataAppBugAuthorization" Schema="SRS" store:Type="Tables" />
+          <EntitySet Name="dataAppBugReport" EntityType="Self.dataAppBugReport" Schema="SRS" store:Type="Tables" />
+          <EntitySet Name="dataAppEnhancementAuthorization" EntityType="Self.dataAppEnhancementAuthorization" Schema="SRS" store:Type="Tables" />
+          <EntitySet Name="dataAppEnhancementRequest" EntityType="Self.dataAppEnhancementRequest" Schema="SRS" store:Type="Tables" />
+          <EntitySet Name="dataApplicationRequest" EntityType="Self.dataApplicationRequest" Schema="SRS" store:Type="Tables" />
+          <EntitySet Name="dataAppRequestAuthorization" EntityType="Self.dataAppRequestAuthorization" Schema="SRS" store:Type="Tables" />
+          <EntitySet Name="dataChangeRequest" EntityType="Self.dataChangeRequest" Schema="SRS" store:Type="Tables" />
+          <EntitySet Name="dataChangeRequestActionPlan" EntityType="Self.dataChangeRequestActionPlan" Schema="SRS" store:Type="Tables" />
+          <EntitySet Name="dataHelpDesk" EntityType="Self.dataHelpDesk" Schema="SRS" store:Type="Tables" />
+          <EntitySet Name="dataHelpDeskAttachement" EntityType="Self.dataHelpDeskAttachement" Schema="SRS" store:Type="Tables" />
+          <AssociationSet Name="FK_codeApplications_dataAppBugReport" Association="Self.FK_codeApplications_dataAppBugReport">
+            <End Role="codeApplications" EntitySet="codeApplications" />
+            <End Role="dataAppBugReport" EntitySet="dataAppBugReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeApplications_dataAppEnhancementRequest" Association="Self.FK_codeApplications_dataAppEnhancementRequest">
+            <End Role="codeApplications" EntitySet="codeApplications" />
+            <End Role="dataAppEnhancementRequest" EntitySet="dataAppEnhancementRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeApplicationsLanaguages_codeApplications" Association="Self.FK_codeApplicationsLanaguages_codeApplications">
+            <End Role="codeApplications" EntitySet="codeApplications" />
+            <End Role="codeApplicationsLanguages" EntitySet="codeApplicationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDepartmentsLanguages_codeDepartments" Association="Self.FK_codeDepartmentsLanguages_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeDepartmentsLanguages" EntitySet="codeDepartmentsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="Self.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeJobTitlesLanguages_codeJobTitles" Association="Self.FK_codeJobTitlesLanguages_codeJobTitles">
+            <End Role="codeJobTitles" EntitySet="codeJobTitles" />
+            <End Role="codeJobTitlesLanguages" EntitySet="codeJobTitlesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsOperationsDepartments_codeDepartments" Association="Self.FK_codeOrganizationsOperationsDepartments_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeDepartmentsConfigurations" EntitySet="codeDepartmentsConfigurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsOperationsDutyStations_codeDutyStations" Association="Self.FK_codeOrganizationsOperationsDutyStations_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsConfigurations" EntitySet="codeDutyStationsConfigurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValues_codeTables" Association="Self.FK_codeTablesValues_codeTables">
+            <End Role="codeTables" EntitySet="codeTables" />
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="Self.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesOperations_codeTablesValues" Association="Self.FK_codeTablesValuesOperations_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesConfigurations" EntitySet="codeTablesValuesConfigurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppBugAuthorization_dataAppBugReport" Association="Self.FK_dataAppBugAuthorization_dataAppBugReport">
+            <End Role="dataAppBugReport" EntitySet="dataAppBugReport" />
+            <End Role="dataAppBugAuthorization" EntitySet="dataAppBugAuthorization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppBugReport_dataHelpDesk" Association="Self.FK_dataAppBugReport_dataHelpDesk">
+            <End Role="dataHelpDesk" EntitySet="dataHelpDesk" />
+            <End Role="dataAppBugReport" EntitySet="dataAppBugReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppEnhancementAuthorization_dataAppEnhancementRequest" Association="Self.FK_dataAppEnhancementAuthorization_dataAppEnhancementRequest">
+            <End Role="dataAppEnhancementRequest" EntitySet="dataAppEnhancementRequest" />
+            <End Role="dataAppEnhancementAuthorization" EntitySet="dataAppEnhancementAuthorization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppEnhancementRequest_dataHelpDesk" Association="Self.FK_dataAppEnhancementRequest_dataHelpDesk">
+            <End Role="dataHelpDesk" EntitySet="dataHelpDesk" />
+            <End Role="dataAppEnhancementRequest" EntitySet="dataAppEnhancementRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataApplicationRequest_dataHelpDesk" Association="Self.FK_dataApplicationRequest_dataHelpDesk">
+            <End Role="dataHelpDesk" EntitySet="dataHelpDesk" />
+            <End Role="dataApplicationRequest" EntitySet="dataApplicationRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppRequestAuthorization_dataApplicationRequest" Association="Self.FK_dataAppRequestAuthorization_dataApplicationRequest">
+            <End Role="dataApplicationRequest" EntitySet="dataApplicationRequest" />
+            <End Role="dataAppRequestAuthorization" EntitySet="dataAppRequestAuthorization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataChangeRequest_dataHelpDesk" Association="Self.FK_dataChangeRequest_dataHelpDesk">
+            <End Role="dataHelpDesk" EntitySet="dataHelpDesk" />
+            <End Role="dataChangeRequest" EntitySet="dataChangeRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataChangeRequestActionPlan_dataChangeRequest" Association="Self.FK_dataChangeRequestActionPlan_dataChangeRequest">
+            <End Role="dataChangeRequest" EntitySet="dataChangeRequest" />
+            <End Role="dataChangeRequestActionPlan" EntitySet="dataChangeRequestActionPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataHelpDeskAttachement_dataHelpDesk" Association="Self.FK_dataHelpDeskAttachement_dataHelpDesk">
+            <End Role="dataHelpDesk" EntitySet="dataHelpDesk" />
+            <End Role="dataHelpDeskAttachement" EntitySet="dataHelpDeskAttachement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userPersonalDetails_userAccounts" Association="Self.FK_userPersonalDetails_userAccounts">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="userPersonalDetails" EntitySet="userPersonalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userPersonalDetailsLanguage_userPersonalDetails" Association="Self.FK_userPersonalDetailsLanguage_userPersonalDetails">
+            <End Role="userPersonalDetails" EntitySet="userPersonalDetails" />
+            <End Role="userPersonalDetailsLanguage" EntitySet="userPersonalDetailsLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userProfiles_codeDepartments1" Association="Self.FK_userProfiles_codeDepartments1">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="userProfiles" EntitySet="userProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userProfiles_codeDutyStations1" Association="Self.FK_userProfiles_codeDutyStations1">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="userProfiles" EntitySet="userProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userProfiles_codeJobTitles1" Association="Self.FK_userProfiles_codeJobTitles1">
+            <End Role="codeJobTitles" EntitySet="codeJobTitles" />
+            <End Role="userProfiles" EntitySet="userProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userProfiles_userServiceHistory" Association="Self.FK_userProfiles_userServiceHistory">
+            <End Role="userServiceHistory" EntitySet="userServiceHistory" />
+            <End Role="userProfiles" EntitySet="userProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userServiceHistory_userAccount" Association="Self.FK_userServiceHistory_userAccount">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="userServiceHistory" EntitySet="userServiceHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SRSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="userAccounts" EntityType="SRSModel.userAccounts" />
+          <EntitySet Name="userPersonalDetails" EntityType="SRSModel.userPersonalDetails" />
+          <EntitySet Name="userPersonalDetailsLanguage" EntityType="SRSModel.userPersonalDetailsLanguage" />
+          <EntitySet Name="userProfiles" EntityType="SRSModel.userProfiles" />
+          <EntitySet Name="userServiceHistory" EntityType="SRSModel.userServiceHistory" />
+          <EntitySet Name="codeApplications" EntityType="SRSModel.codeApplications" />
+          <EntitySet Name="codeApplicationsLanguages" EntityType="SRSModel.codeApplicationsLanguages" />
+          <EntitySet Name="codeDepartments" EntityType="SRSModel.codeDepartments" />
+          <EntitySet Name="codeDepartmentsConfigurations" EntityType="SRSModel.codeDepartmentsConfigurations" />
+          <EntitySet Name="codeDepartmentsLanguages" EntityType="SRSModel.codeDepartmentsLanguages" />
+          <EntitySet Name="codeDutyStations" EntityType="SRSModel.codeDutyStations" />
+          <EntitySet Name="codeDutyStationsConfigurations" EntityType="SRSModel.codeDutyStationsConfigurations" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="SRSModel.codeDutyStationsLanguages" />
+          <EntitySet Name="codeJobTitles" EntityType="SRSModel.codeJobTitles" />
+          <EntitySet Name="codeJobTitlesLanguages" EntityType="SRSModel.codeJobTitlesLanguages" />
+          <EntitySet Name="codeTables" EntityType="SRSModel.codeTables" />
+          <EntitySet Name="codeTablesValues" EntityType="SRSModel.codeTablesValues" />
+          <EntitySet Name="codeTablesValuesConfigurations" EntityType="SRSModel.codeTablesValuesConfigurations" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="SRSModel.codeTablesValuesLanguages" />
+          <AssociationSet Name="FK_userPersonalDetails_userAccounts" Association="SRSModel.FK_userPersonalDetails_userAccounts">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="userPersonalDetails" EntitySet="userPersonalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userServiceHistory_userAccount" Association="SRSModel.FK_userServiceHistory_userAccount">
+            <End Role="userAccounts" EntitySet="userAccounts" />
+            <End Role="userServiceHistory" EntitySet="userServiceHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userPersonalDetailsLanguage_userPersonalDetails" Association="SRSModel.FK_userPersonalDetailsLanguage_userPersonalDetails">
+            <End Role="userPersonalDetails" EntitySet="userPersonalDetails" />
+            <End Role="userPersonalDetailsLanguage" EntitySet="userPersonalDetailsLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userProfiles_codeDepartments1" Association="SRSModel.FK_userProfiles_codeDepartments1">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="userProfiles" EntitySet="userProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userProfiles_codeDutyStations1" Association="SRSModel.FK_userProfiles_codeDutyStations1">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="userProfiles" EntitySet="userProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userProfiles_codeJobTitles1" Association="SRSModel.FK_userProfiles_codeJobTitles1">
+            <End Role="codeJobTitles" EntitySet="codeJobTitles" />
+            <End Role="userProfiles" EntitySet="userProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userProfiles_userServiceHistory" Association="SRSModel.FK_userProfiles_userServiceHistory">
+            <End Role="userServiceHistory" EntitySet="userServiceHistory" />
+            <End Role="userProfiles" EntitySet="userProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeApplicationsLanaguages_codeApplications" Association="SRSModel.FK_codeApplicationsLanaguages_codeApplications">
+            <End Role="codeApplications" EntitySet="codeApplications" />
+            <End Role="codeApplicationsLanguages" EntitySet="codeApplicationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDepartmentsLanguages_codeDepartments" Association="SRSModel.FK_codeDepartmentsLanguages_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeDepartmentsLanguages" EntitySet="codeDepartmentsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsOperationsDepartments_codeDepartments" Association="SRSModel.FK_codeOrganizationsOperationsDepartments_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeDepartmentsConfigurations" EntitySet="codeDepartmentsConfigurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="SRSModel.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsOperationsDutyStations_codeDutyStations" Association="SRSModel.FK_codeOrganizationsOperationsDutyStations_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsConfigurations" EntitySet="codeDutyStationsConfigurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeJobTitlesLanguages_codeJobTitles" Association="SRSModel.FK_codeJobTitlesLanguages_codeJobTitles">
+            <End Role="codeJobTitles" EntitySet="codeJobTitles" />
+            <End Role="codeJobTitlesLanguages" EntitySet="codeJobTitlesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValues_codeTables" Association="SRSModel.FK_codeTablesValues_codeTables">
+            <End Role="codeTables" EntitySet="codeTables" />
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="SRSModel.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesOperations_codeTablesValues" Association="SRSModel.FK_codeTablesValuesOperations_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesConfigurations" EntitySet="codeTablesValuesConfigurations" />
+          </AssociationSet>
+          <EntitySet Name="dataAppBugAuthorization" EntityType="SRSModel.dataAppBugAuthorization" />
+          <EntitySet Name="dataAppBugReport" EntityType="SRSModel.dataAppBugReport" />
+          <EntitySet Name="dataAppEnhancementAuthorization" EntityType="SRSModel.dataAppEnhancementAuthorization" />
+          <EntitySet Name="dataAppEnhancementRequest" EntityType="SRSModel.dataAppEnhancementRequest" />
+          <EntitySet Name="dataAppRequestAuthorization" EntityType="SRSModel.dataAppRequestAuthorization" />
+          <EntitySet Name="dataHelpDesk" EntityType="SRSModel.dataHelpDesk" />
+          <EntitySet Name="dataHelpDeskAttachement" EntityType="SRSModel.dataHelpDeskAttachement" />
+          <AssociationSet Name="FK_codeApplications_dataAppBugReport" Association="SRSModel.FK_codeApplications_dataAppBugReport">
+            <End Role="codeApplications" EntitySet="codeApplications" />
+            <End Role="dataAppBugReport" EntitySet="dataAppBugReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeApplications_dataAppEnhancementRequest" Association="SRSModel.FK_codeApplications_dataAppEnhancementRequest">
+            <End Role="codeApplications" EntitySet="codeApplications" />
+            <End Role="dataAppEnhancementRequest" EntitySet="dataAppEnhancementRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppBugAuthorization_dataAppBugReport" Association="SRSModel.FK_dataAppBugAuthorization_dataAppBugReport">
+            <End Role="dataAppBugReport" EntitySet="dataAppBugReport" />
+            <End Role="dataAppBugAuthorization" EntitySet="dataAppBugAuthorization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppBugReport_dataHelpDesk" Association="SRSModel.FK_dataAppBugReport_dataHelpDesk">
+            <End Role="dataHelpDesk" EntitySet="dataHelpDesk" />
+            <End Role="dataAppBugReport" EntitySet="dataAppBugReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppEnhancementAuthorization_dataAppEnhancementRequest" Association="SRSModel.FK_dataAppEnhancementAuthorization_dataAppEnhancementRequest">
+            <End Role="dataAppEnhancementRequest" EntitySet="dataAppEnhancementRequest" />
+            <End Role="dataAppEnhancementAuthorization" EntitySet="dataAppEnhancementAuthorization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppEnhancementRequest_dataHelpDesk" Association="SRSModel.FK_dataAppEnhancementRequest_dataHelpDesk">
+            <End Role="dataHelpDesk" EntitySet="dataHelpDesk" />
+            <End Role="dataAppEnhancementRequest" EntitySet="dataAppEnhancementRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataHelpDeskAttachement_dataHelpDesk" Association="SRSModel.FK_dataHelpDeskAttachement_dataHelpDesk">
+            <End Role="dataHelpDesk" EntitySet="dataHelpDesk" />
+            <End Role="dataHelpDeskAttachement" EntitySet="dataHelpDeskAttachement" />
+          </AssociationSet>
+          <EntitySet Name="dataApplicationRequest" EntityType="SRSModel.dataApplicationRequest" />
+          <AssociationSet Name="FK_dataApplicationRequest_dataHelpDesk" Association="SRSModel.FK_dataApplicationRequest_dataHelpDesk">
+            <End Role="dataHelpDesk" EntitySet="dataHelpDesk" />
+            <End Role="dataApplicationRequest" EntitySet="dataApplicationRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppRequestAuthorization_dataApplicationRequest" Association="SRSModel.FK_dataAppRequestAuthorization_dataApplicationRequest">
+            <End Role="dataApplicationRequest" EntitySet="dataApplicationRequest" />
+            <End Role="dataAppRequestAuthorization" EntitySet="dataAppRequestAuthorization" />
+          </AssociationSet>
+          <EntitySet Name="dataChangeRequest" EntityType="SRSModel.dataChangeRequest" />
+          <EntitySet Name="dataChangeRequestActionPlan" EntityType="SRSModel.dataChangeRequestActionPlan" />
+          <AssociationSet Name="FK_dataChangeRequest_dataHelpDesk" Association="SRSModel.FK_dataChangeRequest_dataHelpDesk">
+            <End Role="dataHelpDesk" EntitySet="dataHelpDesk" />
+            <End Role="dataChangeRequest" EntitySet="dataChangeRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataChangeRequestActionPlan_dataChangeRequest" Association="SRSModel.FK_dataChangeRequestActionPlan_dataChangeRequest">
+            <End Role="dataChangeRequest" EntitySet="dataChangeRequest" />
+            <End Role="dataChangeRequestActionPlan" EntitySet="dataChangeRequestActionPlan" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="userAccounts">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="TimeZone" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RequestedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SecurityQuestionGUID" Type="Guid" Nullable="false" />
+          <Property Name="SecurityAnswer" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="AccountStatusID" Type="Int32" Nullable="false" />
+          <Property Name="IsFirstLogin" Type="Boolean" Nullable="false" />
+          <Property Name="HasPhoto" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userAccountsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="userPersonalDetails" Relationship="SRSModel.FK_userPersonalDetails_userAccounts" FromRole="userAccounts" ToRole="userPersonalDetails" />
+          <NavigationProperty Name="userServiceHistory" Relationship="SRSModel.FK_userServiceHistory_userAccount" FromRole="userAccounts" ToRole="userServiceHistory" />
+        </EntityType>
+        <EntityType Name="userPersonalDetails">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" />
+          <Property Name="GenderGUID" Type="Guid" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="PreferedLanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="BloodGroup" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userPersonalDetailsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="userAccounts" Relationship="SRSModel.FK_userPersonalDetails_userAccounts" FromRole="userPersonalDetails" ToRole="userAccounts" />
+          <NavigationProperty Name="userPersonalDetailsLanguage" Relationship="SRSModel.FK_userPersonalDetailsLanguage_userPersonalDetails" FromRole="userPersonalDetails" ToRole="userPersonalDetailsLanguage" />
+        </EntityType>
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GrandFatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="userPersonalDetails" Relationship="SRSModel.FK_userPersonalDetailsLanguage_userPersonalDetails" FromRole="userPersonalDetailsLanguage" ToRole="userPersonalDetails" />
+          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="userProfiles">
+          <Key>
+            <PropertyRef Name="UserProfileGUID" />
+          </Key>
+          <Property Name="UserProfileGUID" Type="Guid" Nullable="false" />
+          <Property Name="ProfileConfirmed" Type="Boolean" />
+          <Property Name="ServiceHistoryGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="DepartmentGUID" Type="Guid" />
+          <Property Name="SiteCategoryGUID" Type="Guid" />
+          <Property Name="PositionNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitleGUID" Type="Guid" />
+          <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Precision="0" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userProfilesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDepartments" Relationship="SRSModel.FK_userProfiles_codeDepartments1" FromRole="userProfiles" ToRole="codeDepartments" />
+          <NavigationProperty Name="codeDutyStations" Relationship="SRSModel.FK_userProfiles_codeDutyStations1" FromRole="userProfiles" ToRole="codeDutyStations" />
+          <NavigationProperty Name="codeJobTitles" Relationship="SRSModel.FK_userProfiles_codeJobTitles1" FromRole="userProfiles" ToRole="codeJobTitles" />
+          <NavigationProperty Name="userServiceHistory" Relationship="SRSModel.FK_userProfiles_userServiceHistory" FromRole="userProfiles" ToRole="userServiceHistory" />
+        </EntityType>
+        <EntityType Name="userServiceHistory">
+          <Key>
+            <PropertyRef Name="ServiceHistoryGUID" />
+          </Key>
+          <Property Name="ServiceHistoryGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="EmployeeNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IndexNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userServiceHistoryRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="userAccounts" Relationship="SRSModel.FK_userServiceHistory_userAccount" FromRole="userServiceHistory" ToRole="userAccounts" />
+          <NavigationProperty Name="userProfiles" Relationship="SRSModel.FK_userProfiles_userServiceHistory" FromRole="userServiceHistory" ToRole="userProfiles" />
+        </EntityType>
+        <EntityType Name="codeApplications">
+          <Key>
+            <PropertyRef Name="ApplicationGUID" />
+          </Key>
+          <Property Name="ApplicationGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationID" Type="Int32" Nullable="false" />
+          <Property Name="ApplicationAcrynom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationStatusGUID" Type="Guid" Nullable="false" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeApplicationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeApplicationsLanguages" Relationship="SRSModel.FK_codeApplicationsLanaguages_codeApplications" FromRole="codeApplications" ToRole="codeApplicationsLanguages" />
+          <NavigationProperty Name="dataAppBugReport" Relationship="SRSModel.FK_codeApplications_dataAppBugReport" FromRole="codeApplications" ToRole="dataAppBugReport" />
+          <NavigationProperty Name="dataAppEnhancementRequest" Relationship="SRSModel.FK_codeApplications_dataAppEnhancementRequest" FromRole="codeApplications" ToRole="dataAppEnhancementRequest" />
+        </EntityType>
+        <EntityType Name="codeApplicationsLanguages">
+          <Key>
+            <PropertyRef Name="ApplicationLanguageGUID" />
+          </Key>
+          <Property Name="ApplicationLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationDescription" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeApplicationsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeApplications" Relationship="SRSModel.FK_codeApplicationsLanaguages_codeApplications" FromRole="codeApplicationsLanguages" ToRole="codeApplications" />
+        </EntityType>
+        <EntityType Name="codeDepartments">
+          <Key>
+            <PropertyRef Name="DepartmentGUID" />
+          </Key>
+          <Property Name="DepartmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="FactorGUID" Type="Guid" />
+          <Property Name="DepartmentCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDepartmentsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="userProfiles" Relationship="SRSModel.FK_userProfiles_codeDepartments1" FromRole="codeDepartments" ToRole="userProfiles" />
+          <NavigationProperty Name="codeDepartmentsLanguages" Relationship="SRSModel.FK_codeDepartmentsLanguages_codeDepartments" FromRole="codeDepartments" ToRole="codeDepartmentsLanguages" />
+          <NavigationProperty Name="codeDepartmentsConfigurations" Relationship="SRSModel.FK_codeOrganizationsOperationsDepartments_codeDepartments" FromRole="codeDepartments" ToRole="codeDepartmentsConfigurations" />
+        </EntityType>
+        <EntityType Name="codeDepartmentsConfigurations">
+          <Key>
+            <PropertyRef Name="DepartmentConfigurationGUID" />
+          </Key>
+          <Property Name="DepartmentConfigurationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDepartmentsConfigurationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="DepartmentTypeGUID" Type="Guid" />
+          <Property Name="ParentDepartmentGUID" Type="Guid" />
+          <NavigationProperty Name="codeDepartments" Relationship="SRSModel.FK_codeOrganizationsOperationsDepartments_codeDepartments" FromRole="codeDepartmentsConfigurations" ToRole="codeDepartments" />
+          <Property Name="DepartmentParentStaffGUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="codeDepartmentsLanguages">
+          <Key>
+            <PropertyRef Name="DepartmentLanguageGUID" />
+          </Key>
+          <Property Name="DepartmentLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentDescription" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDepartmentsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDepartments" Relationship="SRSModel.FK_codeDepartmentsLanguages_codeDepartments" FromRole="codeDepartmentsLanguages" ToRole="codeDepartments" />
+        </EntityType>
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="userProfiles" Relationship="SRSModel.FK_userProfiles_codeDutyStations1" FromRole="codeDutyStations" ToRole="userProfiles" />
+          <NavigationProperty Name="codeDutyStationsLanguages" Relationship="SRSModel.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStations" ToRole="codeDutyStationsLanguages" />
+          <NavigationProperty Name="codeDutyStationsConfigurations" Relationship="SRSModel.FK_codeOrganizationsOperationsDutyStations_codeDutyStations" FromRole="codeDutyStations" ToRole="codeDutyStationsConfigurations" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsConfigurations">
+          <Key>
+            <PropertyRef Name="DutyStationConfigurationGUID" />
+          </Key>
+          <Property Name="DutyStationConfigurationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsConfigurationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStations" Relationship="SRSModel.FK_codeOrganizationsOperationsDutyStations_codeDutyStations" FromRole="codeDutyStationsConfigurations" ToRole="codeDutyStations" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DutyStationDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStations" Relationship="SRSModel.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStationsLanguages" ToRole="codeDutyStations" />
+        </EntityType>
+        <EntityType Name="codeJobTitles">
+          <Key>
+            <PropertyRef Name="JobTitleGUID" />
+          </Key>
+          <Property Name="JobTitleGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeJobTitlesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="userProfiles" Relationship="SRSModel.FK_userProfiles_codeJobTitles1" FromRole="codeJobTitles" ToRole="userProfiles" />
+          <NavigationProperty Name="codeJobTitlesLanguages" Relationship="SRSModel.FK_codeJobTitlesLanguages_codeJobTitles" FromRole="codeJobTitles" ToRole="codeJobTitlesLanguages" />
+        </EntityType>
+        <EntityType Name="codeJobTitlesLanguages">
+          <Key>
+            <PropertyRef Name="JobTitleLanguageGUID" />
+          </Key>
+          <Property Name="JobTitleLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="JobTitleGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitleDescription" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeJobTitlesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeJobTitles" Relationship="SRSModel.FK_codeJobTitlesLanguages_codeJobTitles" FromRole="codeJobTitlesLanguages" ToRole="codeJobTitles" />
+        </EntityType>
+        <EntityType Name="codeTables">
+          <Key>
+            <PropertyRef Name="TableGUID" />
+          </Key>
+          <Property Name="TableGUID" Type="Guid" Nullable="false" />
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="IndexSitemapGUID" Type="Guid" Nullable="false" />
+          <Property Name="DetailsSitemapGUID" Type="Guid" Nullable="false" />
+          <Property Name="SortID" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValues" Relationship="SRSModel.FK_codeTablesValues_codeTables" FromRole="codeTables" ToRole="codeTablesValues" />
+        </EntityType>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="TableGUID" Type="Guid" Nullable="false" />
+          <Property Name="FactorGUID" Type="Guid" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTables" Relationship="SRSModel.FK_codeTablesValues_codeTables" FromRole="codeTablesValues" ToRole="codeTables" />
+          <NavigationProperty Name="codeTablesValuesLanguages" Relationship="SRSModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValues" ToRole="codeTablesValuesLanguages" />
+          <NavigationProperty Name="codeTablesValuesConfigurations" Relationship="SRSModel.FK_codeTablesValuesOperations_codeTablesValues" FromRole="codeTablesValues" ToRole="codeTablesValuesConfigurations" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesConfigurations">
+          <Key>
+            <PropertyRef Name="TableValueConfigurationGUID" />
+          </Key>
+          <Property Name="TableValueConfigurationGUID" Type="Guid" Nullable="false" />
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesConfigurationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValues" Relationship="SRSModel.FK_codeTablesValuesOperations_codeTablesValues" FromRole="codeTablesValuesConfigurations" ToRole="codeTablesValues" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ValueDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValues" Relationship="SRSModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValuesLanguages" ToRole="codeTablesValues" />
+        </EntityType>
+        <Association Name="FK_userPersonalDetails_userAccounts">
+          <End Type="SRSModel.userAccounts" Role="userAccounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.userPersonalDetails" Role="userPersonalDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="userPersonalDetails">
+              <PropertyRef Name="UserGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userServiceHistory_userAccount">
+          <End Type="SRSModel.userAccounts" Role="userAccounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.userServiceHistory" Role="userServiceHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccounts">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="userServiceHistory">
+              <PropertyRef Name="UserGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userPersonalDetailsLanguage_userPersonalDetails">
+          <End Type="SRSModel.userPersonalDetails" Role="userPersonalDetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.userPersonalDetailsLanguage" Role="userPersonalDetailsLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userPersonalDetails">
+              <PropertyRef Name="UserGUID" />
+            </Principal>
+            <Dependent Role="userPersonalDetailsLanguage">
+              <PropertyRef Name="UserGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userProfiles_codeDepartments1">
+          <End Type="SRSModel.codeDepartments" Role="codeDepartments" Multiplicity="0..1" />
+          <End Type="SRSModel.userProfiles" Role="userProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="userProfiles">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userProfiles_codeDutyStations1">
+          <End Type="SRSModel.codeDutyStations" Role="codeDutyStations" Multiplicity="0..1" />
+          <End Type="SRSModel.userProfiles" Role="userProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="userProfiles">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userProfiles_codeJobTitles1">
+          <End Type="SRSModel.codeJobTitles" Role="codeJobTitles" Multiplicity="0..1" />
+          <End Type="SRSModel.userProfiles" Role="userProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeJobTitles">
+              <PropertyRef Name="JobTitleGUID" />
+            </Principal>
+            <Dependent Role="userProfiles">
+              <PropertyRef Name="JobTitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userProfiles_userServiceHistory">
+          <End Type="SRSModel.userServiceHistory" Role="userServiceHistory" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.userProfiles" Role="userProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userServiceHistory">
+              <PropertyRef Name="ServiceHistoryGUID" />
+            </Principal>
+            <Dependent Role="userProfiles">
+              <PropertyRef Name="ServiceHistoryGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeApplicationsLanaguages_codeApplications">
+          <End Type="SRSModel.codeApplications" Role="codeApplications" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.codeApplicationsLanguages" Role="codeApplicationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeApplications">
+              <PropertyRef Name="ApplicationGUID" />
+            </Principal>
+            <Dependent Role="codeApplicationsLanguages">
+              <PropertyRef Name="ApplicationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDepartmentsLanguages_codeDepartments">
+          <End Type="SRSModel.codeDepartments" Role="codeDepartments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.codeDepartmentsLanguages" Role="codeDepartmentsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeDepartmentsLanguages">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsOperationsDepartments_codeDepartments">
+          <End Type="SRSModel.codeDepartments" Role="codeDepartments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.codeDepartmentsConfigurations" Role="codeDepartmentsConfigurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeDepartmentsConfigurations">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Type="SRSModel.codeDutyStations" Role="codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.codeDutyStationsLanguages" Role="codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsOperationsDutyStations_codeDutyStations">
+          <End Type="SRSModel.codeDutyStations" Role="codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.codeDutyStationsConfigurations" Role="codeDutyStationsConfigurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsConfigurations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeJobTitlesLanguages_codeJobTitles">
+          <End Type="SRSModel.codeJobTitles" Role="codeJobTitles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.codeJobTitlesLanguages" Role="codeJobTitlesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeJobTitles">
+              <PropertyRef Name="JobTitleGUID" />
+            </Principal>
+            <Dependent Role="codeJobTitlesLanguages">
+              <PropertyRef Name="JobTitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValues_codeTables">
+          <End Type="SRSModel.codeTables" Role="codeTables" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.codeTablesValues" Role="codeTablesValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTables">
+              <PropertyRef Name="TableGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValues">
+              <PropertyRef Name="TableGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Type="SRSModel.codeTablesValues" Role="codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.codeTablesValuesLanguages" Role="codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesOperations_codeTablesValues">
+          <End Type="SRSModel.codeTablesValues" Role="codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.codeTablesValuesConfigurations" Role="codeTablesValuesConfigurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesConfigurations">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataAppBugAuthorization">
+          <Key>
+            <PropertyRef Name="AppBugAuthorizationGUID" />
+          </Key>
+          <Property Name="AppBugAuthorizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="AppBugReportGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApprovalStatusGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApprovedByProfileGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApprovalComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BugAnalysis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BugResolution" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EstimatedResourcesNum" Type="Int32" Nullable="false" />
+          <Property Name="EstimatedTime" Type="Guid" Nullable="false" />
+          <Property Name="BugFixStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BugFixEndDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataAppBugAuthorizationRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataAppBugReport" Relationship="SRSModel.FK_dataAppBugAuthorization_dataAppBugReport" FromRole="dataAppBugAuthorization" ToRole="dataAppBugReport" />
+        </EntityType>
+        <EntityType Name="dataAppBugReport">
+          <Key>
+            <PropertyRef Name="AppBugReportGUID" />
+          </Key>
+          <Property Name="AppBugReportGUID" Type="Guid" Nullable="false" />
+          <Property Name="HelpDeskGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="Guid" Nullable="false" />
+          <Property Name="BugDetails" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="dataAppBugReportRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="codeApplications" Relationship="SRSModel.FK_codeApplications_dataAppBugReport" FromRole="dataAppBugReport" ToRole="codeApplications" />
+          <NavigationProperty Name="dataAppBugAuthorization" Relationship="SRSModel.FK_dataAppBugAuthorization_dataAppBugReport" FromRole="dataAppBugReport" ToRole="dataAppBugAuthorization" />
+          <NavigationProperty Name="dataHelpDesk" Relationship="SRSModel.FK_dataAppBugReport_dataHelpDesk" FromRole="dataAppBugReport" ToRole="dataHelpDesk" />
+        </EntityType>
+        <EntityType Name="dataAppEnhancementAuthorization">
+          <Key>
+            <PropertyRef Name="AppEnhancementAuthorizationGUID" />
+          </Key>
+          <Property Name="AppEnhancementAuthorizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="AppEnhancementGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApprovedByProfileGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApprovalStatusGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApprovalComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EstimatedResourcesNum" Type="Int32" Nullable="false" />
+          <Property Name="EstimatedTime" Type="Guid" Nullable="false" />
+          <Property Name="EnhancementStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EnhancementEndDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataAppEnhancementAuthorizationRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataAppEnhancementRequest" Relationship="SRSModel.FK_dataAppEnhancementAuthorization_dataAppEnhancementRequest" FromRole="dataAppEnhancementAuthorization" ToRole="dataAppEnhancementRequest" />
+        </EntityType>
+        <EntityType Name="dataAppEnhancementRequest">
+          <Key>
+            <PropertyRef Name="AppEnhancementGUID" />
+          </Key>
+          <Property Name="AppEnhancementGUID" Type="Guid" Nullable="false" />
+          <Property Name="HelpDeskGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="Guid" Nullable="false" />
+          <Property Name="EnhancementPurpos" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnhancementDetails" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnhancementBenefits" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="dataAppEnhancementRequestRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="codeApplications" Relationship="SRSModel.FK_codeApplications_dataAppEnhancementRequest" FromRole="dataAppEnhancementRequest" ToRole="codeApplications" />
+          <NavigationProperty Name="dataAppEnhancementAuthorization" Relationship="SRSModel.FK_dataAppEnhancementAuthorization_dataAppEnhancementRequest" FromRole="dataAppEnhancementRequest" ToRole="dataAppEnhancementAuthorization" />
+          <NavigationProperty Name="dataHelpDesk" Relationship="SRSModel.FK_dataAppEnhancementRequest_dataHelpDesk" FromRole="dataAppEnhancementRequest" ToRole="dataHelpDesk" />
+        </EntityType>
+        <EntityType Name="dataAppRequestAuthorization">
+          <Key>
+            <PropertyRef Name="AppRequestAuthorizationGUID" />
+          </Key>
+          <Property Name="AppRequestAuthorizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="AppRequestGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApprovedByProfileGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApprovalStatusGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApprovalComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EstimatedResourcesNum" Type="Int32" Nullable="false" />
+          <Property Name="EstimatedTime" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ApplicationEndDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataAppRequestAuthorizationRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataApplicationRequest" Relationship="SRSModel.FK_dataAppRequestAuthorization_dataApplicationRequest" FromRole="dataAppRequestAuthorization" ToRole="dataApplicationRequest" />
+        </EntityType>
+        <EntityType Name="dataHelpDesk">
+          <Key>
+            <PropertyRef Name="HelpDeskGUID" />
+          </Key>
+          <Property Name="HelpDeskGUID" Type="Guid" Nullable="false" />
+          <Property Name="RequestNumber" Type="Int32" Nullable="false" />
+          <Property Name="RequestedByProfileGUID" Type="Guid" Nullable="false" />
+          <Property Name="ConfigItemGUID" Type="Guid" Nullable="false" />
+          <Property Name="CriticalityGUID" Type="Guid" Nullable="false" />
+          <Property Name="WorkGroupGUID" Type="Guid" Nullable="false" />
+          <Property Name="RequestStatusGUID" Type="Guid" Nullable="false" />
+          <Property Name="RequestCreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RequestUpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignedToGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataHelpDeskRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataAppBugReport" Relationship="SRSModel.FK_dataAppBugReport_dataHelpDesk" FromRole="dataHelpDesk" ToRole="dataAppBugReport" />
+          <NavigationProperty Name="dataAppEnhancementRequest" Relationship="SRSModel.FK_dataAppEnhancementRequest_dataHelpDesk" FromRole="dataHelpDesk" ToRole="dataAppEnhancementRequest" />
+          <NavigationProperty Name="dataHelpDeskAttachement" Relationship="SRSModel.FK_dataHelpDeskAttachement_dataHelpDesk" FromRole="dataHelpDesk" ToRole="dataHelpDeskAttachement" />
+          <NavigationProperty Name="dataApplicationRequest" Relationship="SRSModel.FK_dataApplicationRequest_dataHelpDesk" FromRole="dataHelpDesk" ToRole="dataApplicationRequest" />
+          <NavigationProperty Name="dataChangeRequest" Relationship="SRSModel.FK_dataChangeRequest_dataHelpDesk" FromRole="dataHelpDesk" ToRole="dataChangeRequest" />
+        </EntityType>
+        <EntityType Name="dataHelpDeskAttachement">
+          <Key>
+            <PropertyRef Name="HelpDeskAttachementGUID" />
+          </Key>
+          <Property Name="HelpDeskAttachementGUID" Type="Guid" Nullable="false" />
+          <Property Name="HelpDeskGUID" Type="Guid" Nullable="false" />
+          <Property Name="AttachementPath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="dataHelpDeskAttachementRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="dataHelpDesk" Relationship="SRSModel.FK_dataHelpDeskAttachement_dataHelpDesk" FromRole="dataHelpDeskAttachement" ToRole="dataHelpDesk" />
+        </EntityType>
+        <Association Name="FK_codeApplications_dataAppBugReport">
+          <End Type="SRSModel.codeApplications" Role="codeApplications" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.dataAppBugReport" Role="dataAppBugReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeApplications">
+              <PropertyRef Name="ApplicationGUID" />
+            </Principal>
+            <Dependent Role="dataAppBugReport">
+              <PropertyRef Name="ApplicationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeApplications_dataAppEnhancementRequest">
+          <End Type="SRSModel.codeApplications" Role="codeApplications" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.dataAppEnhancementRequest" Role="dataAppEnhancementRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeApplications">
+              <PropertyRef Name="ApplicationGUID" />
+            </Principal>
+            <Dependent Role="dataAppEnhancementRequest">
+              <PropertyRef Name="ApplicationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppBugAuthorization_dataAppBugReport">
+          <End Type="SRSModel.dataAppBugReport" Role="dataAppBugReport" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.dataAppBugAuthorization" Role="dataAppBugAuthorization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataAppBugReport">
+              <PropertyRef Name="AppBugReportGUID" />
+            </Principal>
+            <Dependent Role="dataAppBugAuthorization">
+              <PropertyRef Name="AppBugReportGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppBugReport_dataHelpDesk">
+          <End Type="SRSModel.dataHelpDesk" Role="dataHelpDesk" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.dataAppBugReport" Role="dataAppBugReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataHelpDesk">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Principal>
+            <Dependent Role="dataAppBugReport">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppEnhancementAuthorization_dataAppEnhancementRequest">
+          <End Type="SRSModel.dataAppEnhancementRequest" Role="dataAppEnhancementRequest" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.dataAppEnhancementAuthorization" Role="dataAppEnhancementAuthorization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataAppEnhancementRequest">
+              <PropertyRef Name="AppEnhancementGUID" />
+            </Principal>
+            <Dependent Role="dataAppEnhancementAuthorization">
+              <PropertyRef Name="AppEnhancementGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppEnhancementRequest_dataHelpDesk">
+          <End Type="SRSModel.dataHelpDesk" Role="dataHelpDesk" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.dataAppEnhancementRequest" Role="dataAppEnhancementRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataHelpDesk">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Principal>
+            <Dependent Role="dataAppEnhancementRequest">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataHelpDeskAttachement_dataHelpDesk">
+          <End Type="SRSModel.dataHelpDesk" Role="dataHelpDesk" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.dataHelpDeskAttachement" Role="dataHelpDeskAttachement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataHelpDesk">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Principal>
+            <Dependent Role="dataHelpDeskAttachement">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataApplicationRequest">
+          <Key>
+            <PropertyRef Name="AppRequestGUID" />
+          </Key>
+          <Property Name="AppRequestGUID" Type="Guid" Nullable="false" />
+          <Property Name="HelpDeskGUID" Type="Guid" Nullable="false" />
+          <Property Name="RequestedAppName" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="IsNewDbForTracking" Type="Boolean" Nullable="false" />
+          <Property Name="IsToReplaceOldApp" Type="Boolean" Nullable="false" />
+          <Property Name="IsToAutomateManual" Type="Boolean" Nullable="false" />
+          <Property Name="PurposDescriptionBenefits" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ServerOrVM" Type="Boolean" Nullable="false" />
+          <Property Name="CPUDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RAMDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StorageDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OnsiteBackup" Type="Boolean" Nullable="false" />
+          <Property Name="OffsiteBackup" Type="Boolean" Nullable="false" />
+          <Property Name="OfflineVersion" Type="Boolean" />
+          <Property Name="AndroidVersion" Type="Boolean" />
+          <Property Name="IOSVersion" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataApplicationRequestRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataHelpDesk" Relationship="SRSModel.FK_dataApplicationRequest_dataHelpDesk" FromRole="dataApplicationRequest" ToRole="dataHelpDesk" />
+          <NavigationProperty Name="dataAppRequestAuthorization" Relationship="SRSModel.FK_dataAppRequestAuthorization_dataApplicationRequest" FromRole="dataApplicationRequest" ToRole="dataAppRequestAuthorization" />
+        </EntityType>
+        <Association Name="FK_dataApplicationRequest_dataHelpDesk">
+          <End Type="SRSModel.dataHelpDesk" Role="dataHelpDesk" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.dataApplicationRequest" Role="dataApplicationRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataHelpDesk">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Principal>
+            <Dependent Role="dataApplicationRequest">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppRequestAuthorization_dataApplicationRequest">
+          <End Type="SRSModel.dataApplicationRequest" Role="dataApplicationRequest" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.dataAppRequestAuthorization" Role="dataAppRequestAuthorization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataApplicationRequest">
+              <PropertyRef Name="AppRequestGUID" />
+            </Principal>
+            <Dependent Role="dataAppRequestAuthorization">
+              <PropertyRef Name="AppRequestGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataChangeRequest">
+          <Key>
+            <PropertyRef Name="ChangeRequestGUID" />
+          </Key>
+          <Property Name="ChangeRequestGUID" Type="Guid" Nullable="false" />
+          <Property Name="HelpDeskGUID" Type="Guid" Nullable="false" />
+          <Property Name="CRIntroduction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CROutcome" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CRNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CRPrerequisites" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CRRollbackPlan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CRApprovedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dataChangeRequestRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="dataHelpDesk" Relationship="SRSModel.FK_dataChangeRequest_dataHelpDesk" FromRole="dataChangeRequest" ToRole="dataHelpDesk" />
+          <NavigationProperty Name="dataChangeRequestActionPlan" Relationship="SRSModel.FK_dataChangeRequestActionPlan_dataChangeRequest" FromRole="dataChangeRequest" ToRole="dataChangeRequestActionPlan" />
+        </EntityType>
+        <EntityType Name="dataChangeRequestActionPlan">
+          <Key>
+            <PropertyRef Name="ChangeRequestAPGUID" />
+          </Key>
+          <Property Name="ChangeRequestAPGUID" Type="Guid" Nullable="false" />
+          <Property Name="ChangeRequestGUID" Type="Guid" Nullable="false" />
+          <Property Name="APUnit" Type="Guid" />
+          <Property Name="APWho" Type="Guid" />
+          <Property Name="APWhat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="APWhen" Type="DateTime" Precision="3" />
+          <Property Name="APHow" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="APDuration" Type="Guid" />
+          <Property Name="APComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="APCompleted" Type="Boolean" />
+          <Property Name="dataChangeRequestActionPlanRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="dataChangeRequest" Relationship="SRSModel.FK_dataChangeRequestActionPlan_dataChangeRequest" FromRole="dataChangeRequestActionPlan" ToRole="dataChangeRequest" />
+        </EntityType>
+        <Association Name="FK_dataChangeRequest_dataHelpDesk">
+          <End Type="SRSModel.dataHelpDesk" Role="dataHelpDesk" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.dataChangeRequest" Role="dataChangeRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataHelpDesk">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Principal>
+            <Dependent Role="dataChangeRequest">
+              <PropertyRef Name="HelpDeskGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataChangeRequestActionPlan_dataChangeRequest">
+          <End Type="SRSModel.dataChangeRequest" Role="dataChangeRequest" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SRSModel.dataChangeRequestActionPlan" Role="dataChangeRequestActionPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataChangeRequest">
+              <PropertyRef Name="ChangeRequestGUID" />
+            </Principal>
+            <Dependent Role="dataChangeRequestActionPlan">
+              <PropertyRef Name="ChangeRequestGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SRSModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="userAccounts">
+            <EntityTypeMapping TypeName="SRSModel.userAccounts">
+              <MappingFragment StoreEntitySet="userAccounts">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="userAccountsRowVersion" ColumnName="userAccountsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="HasPhoto" ColumnName="HasPhoto" />
+                <ScalarProperty Name="IsFirstLogin" ColumnName="IsFirstLogin" />
+                <ScalarProperty Name="AccountStatusID" ColumnName="AccountStatusID" />
+                <ScalarProperty Name="SecurityAnswer" ColumnName="SecurityAnswer" />
+                <ScalarProperty Name="SecurityQuestionGUID" ColumnName="SecurityQuestionGUID" />
+                <ScalarProperty Name="RequestedOn" ColumnName="RequestedOn" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userPersonalDetails">
+            <EntityTypeMapping TypeName="SRSModel.userPersonalDetails">
+              <MappingFragment StoreEntitySet="userPersonalDetails">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="userPersonalDetailsRowVersion" ColumnName="userPersonalDetailsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="PreferedLanguageID" ColumnName="PreferedLanguageID" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="GenderGUID" ColumnName="GenderGUID" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userPersonalDetailsLanguage">
+            <EntityTypeMapping TypeName="SRSModel.userPersonalDetailsLanguage">
+              <MappingFragment StoreEntitySet="userPersonalDetailsLanguage">
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="userPersonalDetailsLanguageRowVersion" ColumnName="userPersonalDetailsLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="GrandFatherName" ColumnName="GrandFatherName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="PersonalDetailsLanguageGUID" ColumnName="PersonalDetailsLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userProfiles">
+            <EntityTypeMapping TypeName="SRSModel.userProfiles">
+              <MappingFragment StoreEntitySet="userProfiles">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="userProfilesRowVersion" ColumnName="userProfilesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="JobTitleGUID" ColumnName="JobTitleGUID" />
+                <ScalarProperty Name="PositionNumber" ColumnName="PositionNumber" />
+                <ScalarProperty Name="SiteCategoryGUID" ColumnName="SiteCategoryGUID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="ServiceHistoryGUID" ColumnName="ServiceHistoryGUID" />
+                <ScalarProperty Name="ProfileConfirmed" ColumnName="ProfileConfirmed" />
+                <ScalarProperty Name="UserProfileGUID" ColumnName="UserProfileGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userServiceHistory">
+            <EntityTypeMapping TypeName="SRSModel.userServiceHistory">
+              <MappingFragment StoreEntitySet="userServiceHistory">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="userServiceHistoryRowVersion" ColumnName="userServiceHistoryRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="IndexNumber" ColumnName="IndexNumber" />
+                <ScalarProperty Name="EmployeeNumber" ColumnName="EmployeeNumber" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="ServiceHistoryGUID" ColumnName="ServiceHistoryGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeApplications">
+            <EntityTypeMapping TypeName="SRSModel.codeApplications">
+              <MappingFragment StoreEntitySet="codeApplications">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeApplicationsRowVersion" ColumnName="codeApplicationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="ApplicationStatusGUID" ColumnName="ApplicationStatusGUID" />
+                <ScalarProperty Name="ApplicationAcrynom" ColumnName="ApplicationAcrynom" />
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+                <ScalarProperty Name="ApplicationGUID" ColumnName="ApplicationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeApplicationsLanguages">
+            <EntityTypeMapping TypeName="SRSModel.codeApplicationsLanguages">
+              <MappingFragment StoreEntitySet="codeApplicationsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeApplicationsLanguagesRowVersion" ColumnName="codeApplicationsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ApplicationDescription" ColumnName="ApplicationDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ApplicationGUID" ColumnName="ApplicationGUID" />
+                <ScalarProperty Name="ApplicationLanguageGUID" ColumnName="ApplicationLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDepartments">
+            <EntityTypeMapping TypeName="SRSModel.codeDepartments">
+              <MappingFragment StoreEntitySet="codeDepartments">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDepartmentsRowVersion" ColumnName="codeDepartmentsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDepartmentsConfigurations">
+            <EntityTypeMapping TypeName="SRSModel.codeDepartmentsConfigurations">
+              <MappingFragment StoreEntitySet="codeDepartmentsConfigurations">
+                <ScalarProperty Name="DepartmentParentStaffGUID" ColumnName="DepartmentParentStaffGUID" />
+                <ScalarProperty Name="ParentDepartmentGUID" ColumnName="ParentDepartmentGUID" />
+                <ScalarProperty Name="DepartmentTypeGUID" ColumnName="DepartmentTypeGUID" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDepartmentsConfigurationsRowVersion" ColumnName="codeDepartmentsConfigurationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="DepartmentConfigurationGUID" ColumnName="DepartmentConfigurationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDepartmentsLanguages">
+            <EntityTypeMapping TypeName="SRSModel.codeDepartmentsLanguages">
+              <MappingFragment StoreEntitySet="codeDepartmentsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDepartmentsLanguagesRowVersion" ColumnName="codeDepartmentsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DepartmentDescription" ColumnName="DepartmentDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+                <ScalarProperty Name="DepartmentLanguageGUID" ColumnName="DepartmentLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStations">
+            <EntityTypeMapping TypeName="SRSModel.codeDutyStations">
+              <MappingFragment StoreEntitySet="codeDutyStations">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsRowVersion" ColumnName="codeDutyStationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStationsConfigurations">
+            <EntityTypeMapping TypeName="SRSModel.codeDutyStationsConfigurations">
+              <MappingFragment StoreEntitySet="codeDutyStationsConfigurations">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsConfigurationsRowVersion" ColumnName="codeDutyStationsConfigurationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="DutyStationConfigurationGUID" ColumnName="DutyStationConfigurationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStationsLanguages">
+            <EntityTypeMapping TypeName="SRSModel.codeDutyStationsLanguages">
+              <MappingFragment StoreEntitySet="codeDutyStationsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsLanguagesRowVersion" ColumnName="codeDutyStationsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DutyStationDescription" ColumnName="DutyStationDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="DutyStationLanguageGUID" ColumnName="DutyStationLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeJobTitles">
+            <EntityTypeMapping TypeName="SRSModel.codeJobTitles">
+              <MappingFragment StoreEntitySet="codeJobTitles">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeJobTitlesRowVersion" ColumnName="codeJobTitlesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="JobTitleGUID" ColumnName="JobTitleGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeJobTitlesLanguages">
+            <EntityTypeMapping TypeName="SRSModel.codeJobTitlesLanguages">
+              <MappingFragment StoreEntitySet="codeJobTitlesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeJobTitlesLanguagesRowVersion" ColumnName="codeJobTitlesLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="JobTitleDescription" ColumnName="JobTitleDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="JobTitleGUID" ColumnName="JobTitleGUID" />
+                <ScalarProperty Name="JobTitleLanguageGUID" ColumnName="JobTitleLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTables">
+            <EntityTypeMapping TypeName="SRSModel.codeTables">
+              <MappingFragment StoreEntitySet="codeTables">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesRowVersion" ColumnName="codeTablesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="DetailsSitemapGUID" ColumnName="DetailsSitemapGUID" />
+                <ScalarProperty Name="IndexSitemapGUID" ColumnName="IndexSitemapGUID" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="TableGUID" ColumnName="TableGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValues">
+            <EntityTypeMapping TypeName="SRSModel.codeTablesValues">
+              <MappingFragment StoreEntitySet="codeTablesValues">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesRowVersion" ColumnName="codeTablesValuesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="TableGUID" ColumnName="TableGUID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValuesConfigurations">
+            <EntityTypeMapping TypeName="SRSModel.codeTablesValuesConfigurations">
+              <MappingFragment StoreEntitySet="codeTablesValuesConfigurations">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesConfigurationsRowVersion" ColumnName="codeTablesValuesConfigurationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+                <ScalarProperty Name="TableValueConfigurationGUID" ColumnName="TableValueConfigurationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValuesLanguages">
+            <EntityTypeMapping TypeName="SRSModel.codeTablesValuesLanguages">
+              <MappingFragment StoreEntitySet="codeTablesValuesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesLanguagesRowVersion" ColumnName="codeTablesValuesLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ValueDescription" ColumnName="ValueDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+                <ScalarProperty Name="TableValueLanguageGUID" ColumnName="TableValueLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataAppBugAuthorization">
+            <EntityTypeMapping TypeName="SRSModel.dataAppBugAuthorization">
+              <MappingFragment StoreEntitySet="dataAppBugAuthorization">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataAppBugAuthorizationRowVersion" ColumnName="dataAppBugAuthorizationRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="BugFixEndDate" ColumnName="BugFixEndDate" />
+                <ScalarProperty Name="BugFixStartDate" ColumnName="BugFixStartDate" />
+                <ScalarProperty Name="EstimatedTime" ColumnName="EstimatedTime" />
+                <ScalarProperty Name="EstimatedResourcesNum" ColumnName="EstimatedResourcesNum" />
+                <ScalarProperty Name="BugResolution" ColumnName="BugResolution" />
+                <ScalarProperty Name="BugAnalysis" ColumnName="BugAnalysis" />
+                <ScalarProperty Name="ApprovalComments" ColumnName="ApprovalComments" />
+                <ScalarProperty Name="ApprovedByProfileGUID" ColumnName="ApprovedByProfileGUID" />
+                <ScalarProperty Name="ApprovalStatusGUID" ColumnName="ApprovalStatusGUID" />
+                <ScalarProperty Name="AppBugReportGUID" ColumnName="AppBugReportGUID" />
+                <ScalarProperty Name="AppBugAuthorizationGUID" ColumnName="AppBugAuthorizationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataAppBugReport">
+            <EntityTypeMapping TypeName="SRSModel.dataAppBugReport">
+              <MappingFragment StoreEntitySet="dataAppBugReport">
+                <ScalarProperty Name="dataAppBugReportRowVersion" ColumnName="dataAppBugReportRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="BugDetails" ColumnName="BugDetails" />
+                <ScalarProperty Name="ApplicationGUID" ColumnName="ApplicationGUID" />
+                <ScalarProperty Name="HelpDeskGUID" ColumnName="HelpDeskGUID" />
+                <ScalarProperty Name="AppBugReportGUID" ColumnName="AppBugReportGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataAppEnhancementAuthorization">
+            <EntityTypeMapping TypeName="SRSModel.dataAppEnhancementAuthorization">
+              <MappingFragment StoreEntitySet="dataAppEnhancementAuthorization">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataAppEnhancementAuthorizationRowVersion" ColumnName="dataAppEnhancementAuthorizationRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="EnhancementEndDate" ColumnName="EnhancementEndDate" />
+                <ScalarProperty Name="EnhancementStartDate" ColumnName="EnhancementStartDate" />
+                <ScalarProperty Name="EstimatedTime" ColumnName="EstimatedTime" />
+                <ScalarProperty Name="EstimatedResourcesNum" ColumnName="EstimatedResourcesNum" />
+                <ScalarProperty Name="ApprovalComments" ColumnName="ApprovalComments" />
+                <ScalarProperty Name="ApprovalStatusGUID" ColumnName="ApprovalStatusGUID" />
+                <ScalarProperty Name="ApprovedByProfileGUID" ColumnName="ApprovedByProfileGUID" />
+                <ScalarProperty Name="AppEnhancementGUID" ColumnName="AppEnhancementGUID" />
+                <ScalarProperty Name="AppEnhancementAuthorizationGUID" ColumnName="AppEnhancementAuthorizationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataAppEnhancementRequest">
+            <EntityTypeMapping TypeName="SRSModel.dataAppEnhancementRequest">
+              <MappingFragment StoreEntitySet="dataAppEnhancementRequest">
+                <ScalarProperty Name="dataAppEnhancementRequestRowVersion" ColumnName="dataAppEnhancementRequestRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="EnhancementBenefits" ColumnName="EnhancementBenefits" />
+                <ScalarProperty Name="EnhancementDetails" ColumnName="EnhancementDetails" />
+                <ScalarProperty Name="EnhancementPurpos" ColumnName="EnhancementPurpos" />
+                <ScalarProperty Name="ApplicationGUID" ColumnName="ApplicationGUID" />
+                <ScalarProperty Name="HelpDeskGUID" ColumnName="HelpDeskGUID" />
+                <ScalarProperty Name="AppEnhancementGUID" ColumnName="AppEnhancementGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataAppRequestAuthorization">
+            <EntityTypeMapping TypeName="SRSModel.dataAppRequestAuthorization">
+              <MappingFragment StoreEntitySet="dataAppRequestAuthorization">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataAppRequestAuthorizationRowVersion" ColumnName="dataAppRequestAuthorizationRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ApplicationEndDate" ColumnName="ApplicationEndDate" />
+                <ScalarProperty Name="ApplicationStartDate" ColumnName="ApplicationStartDate" />
+                <ScalarProperty Name="EstimatedTime" ColumnName="EstimatedTime" />
+                <ScalarProperty Name="EstimatedResourcesNum" ColumnName="EstimatedResourcesNum" />
+                <ScalarProperty Name="ApprovalComments" ColumnName="ApprovalComments" />
+                <ScalarProperty Name="ApprovalStatusGUID" ColumnName="ApprovalStatusGUID" />
+                <ScalarProperty Name="ApprovedByProfileGUID" ColumnName="ApprovedByProfileGUID" />
+                <ScalarProperty Name="AppRequestGUID" ColumnName="AppRequestGUID" />
+                <ScalarProperty Name="AppRequestAuthorizationGUID" ColumnName="AppRequestAuthorizationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataHelpDesk">
+            <EntityTypeMapping TypeName="SRSModel.dataHelpDesk">
+              <MappingFragment StoreEntitySet="dataHelpDesk">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataHelpDeskRowVersion" ColumnName="dataHelpDeskRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AssignedToGUID" ColumnName="AssignedToGUID" />
+                <ScalarProperty Name="RequestUpdateDate" ColumnName="RequestUpdateDate" />
+                <ScalarProperty Name="RequestCreateDate" ColumnName="RequestCreateDate" />
+                <ScalarProperty Name="RequestStatusGUID" ColumnName="RequestStatusGUID" />
+                <ScalarProperty Name="WorkGroupGUID" ColumnName="WorkGroupGUID" />
+                <ScalarProperty Name="CriticalityGUID" ColumnName="CriticalityGUID" />
+                <ScalarProperty Name="ConfigItemGUID" ColumnName="ConfigItemGUID" />
+                <ScalarProperty Name="RequestedByProfileGUID" ColumnName="RequestedByProfileGUID" />
+                <ScalarProperty Name="RequestNumber" ColumnName="RequestNumber" />
+                <ScalarProperty Name="HelpDeskGUID" ColumnName="HelpDeskGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataHelpDeskAttachement">
+            <EntityTypeMapping TypeName="SRSModel.dataHelpDeskAttachement">
+              <MappingFragment StoreEntitySet="dataHelpDeskAttachement">
+                <ScalarProperty Name="dataHelpDeskAttachementRowVersion" ColumnName="dataHelpDeskAttachementRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="AttachementPath" ColumnName="AttachementPath" />
+                <ScalarProperty Name="HelpDeskGUID" ColumnName="HelpDeskGUID" />
+                <ScalarProperty Name="HelpDeskAttachementGUID" ColumnName="HelpDeskAttachementGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataApplicationRequest">
+            <EntityTypeMapping TypeName="SRSModel.dataApplicationRequest">
+              <MappingFragment StoreEntitySet="dataApplicationRequest">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataApplicationRequestRowVersion" ColumnName="dataApplicationRequestRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IOSVersion" ColumnName="IOSVersion" />
+                <ScalarProperty Name="AndroidVersion" ColumnName="AndroidVersion" />
+                <ScalarProperty Name="OfflineVersion" ColumnName="OfflineVersion" />
+                <ScalarProperty Name="OffsiteBackup" ColumnName="OffsiteBackup" />
+                <ScalarProperty Name="OnsiteBackup" ColumnName="OnsiteBackup" />
+                <ScalarProperty Name="StorageDescription" ColumnName="StorageDescription" />
+                <ScalarProperty Name="RAMDescription" ColumnName="RAMDescription" />
+                <ScalarProperty Name="CPUDescription" ColumnName="CPUDescription" />
+                <ScalarProperty Name="ServerOrVM" ColumnName="ServerOrVM" />
+                <ScalarProperty Name="PurposDescriptionBenefits" ColumnName="PurposDescriptionBenefits" />
+                <ScalarProperty Name="IsToAutomateManual" ColumnName="IsToAutomateManual" />
+                <ScalarProperty Name="IsToReplaceOldApp" ColumnName="IsToReplaceOldApp" />
+                <ScalarProperty Name="IsNewDbForTracking" ColumnName="IsNewDbForTracking" />
+                <ScalarProperty Name="RequestedAppName" ColumnName="RequestedAppName" />
+                <ScalarProperty Name="HelpDeskGUID" ColumnName="HelpDeskGUID" />
+                <ScalarProperty Name="AppRequestGUID" ColumnName="AppRequestGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataChangeRequest">
+            <EntityTypeMapping TypeName="SRSModel.dataChangeRequest">
+              <MappingFragment StoreEntitySet="dataChangeRequest">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataChangeRequestRowVersion" ColumnName="dataChangeRequestRowVersion" />
+                <ScalarProperty Name="CRApprovedBy" ColumnName="CRApprovedBy" />
+                <ScalarProperty Name="CRRollbackPlan" ColumnName="CRRollbackPlan" />
+                <ScalarProperty Name="CRPrerequisites" ColumnName="CRPrerequisites" />
+                <ScalarProperty Name="CRNotes" ColumnName="CRNotes" />
+                <ScalarProperty Name="CROutcome" ColumnName="CROutcome" />
+                <ScalarProperty Name="CRIntroduction" ColumnName="CRIntroduction" />
+                <ScalarProperty Name="HelpDeskGUID" ColumnName="HelpDeskGUID" />
+                <ScalarProperty Name="ChangeRequestGUID" ColumnName="ChangeRequestGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataChangeRequestActionPlan">
+            <EntityTypeMapping TypeName="SRSModel.dataChangeRequestActionPlan">
+              <MappingFragment StoreEntitySet="dataChangeRequestActionPlan">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataChangeRequestActionPlanRowVersion" ColumnName="dataChangeRequestActionPlanRowVersion" />
+                <ScalarProperty Name="APCompleted" ColumnName="APCompleted" />
+                <ScalarProperty Name="APComments" ColumnName="APComments" />
+                <ScalarProperty Name="APDuration" ColumnName="APDuration" />
+                <ScalarProperty Name="APHow" ColumnName="APHow" />
+                <ScalarProperty Name="APWhen" ColumnName="APWhen" />
+                <ScalarProperty Name="APWhat" ColumnName="APWhat" />
+                <ScalarProperty Name="APWho" ColumnName="APWho" />
+                <ScalarProperty Name="APUnit" ColumnName="APUnit" />
+                <ScalarProperty Name="ChangeRequestGUID" ColumnName="ChangeRequestGUID" />
+                <ScalarProperty Name="ChangeRequestAPGUID" ColumnName="ChangeRequestAPGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

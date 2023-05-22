@@ -1,0 +1,78 @@
+﻿@model dataPersonalHistoryConfirmationAndConsentUpdateModel
+@using (Html.BeginForm("ConfirmationAndConsentWizard", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "ConfirmationAndConsentWizardForm", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.GTPPHConfirmationConsentGUID)
+    @Html.AntiForgeryToken()
+    <div class="tab-pane" id="tab1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><b>CONFIRMATION AND CONSENT </b> (Mandatory to complete)</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12" style="padding-bottom:10px;">
+                        <span>
+                            To complete your application you are required to confirm the following:
+                        </span>
+                        <br />
+                        <br />
+                        <span>
+                            <b>
+                                ACCURACY OF CONTENT:
+                            </b>
+                            The content of this application is accurate and contains no false information;
+                        </span>
+                        <br />
+                        <span>
+                            <b>
+                                EDUCATION INFORMATION
+                            </b>
+                            - You give your full consent and authorize the Office of the United Nations High Commissioner for Refugees (UNHCR) to contact each of your educational institutions listed in this  application for the purpose of conducting required reference checks with regard to your educational background, and to confirm the diploma or degrees you have received at each educational institution.
+                            You also authorize the mentioned educational institutions to provide requested information directly to UNHCR. Any information received from your educational institutions will be treated with due regard to all confidentiality requirements; and,
+                        </span>
+                        <br />
+                        <span>
+                            <b>WORK EXPERIENCE</b> - You are aware UNHCR will contact former and current employers, if applicable, regarding Work Experience, as well as check your three Professional References.
+                        </span>
+                        <br />
+                        <br />
+                        <span>
+                            <b>Finally, you understand that submission of false information or misrepresentation and/or submission of falsified documentation constitutes serious misconduct for which severe disciplinary sanctions can be imposed.</b>
+                        </span>
+                    </div>
+                    <div class="col-md-12">
+                        I consent to all of the foregoing as part of the process of evaluation of my application.
+                        @Html.EditorFor(model => model.IsConfirmedByUser, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right">
+                            @if (!Model.FormHasError)
+                            {
+                                if (Model.GTPPHConfirmationConsentGUID == Guid.Empty)
+                                {
+                                    <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Save & Complete' data-next-url="END" />
+                                }
+                                else
+                                {
+                                    <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Update" name='next' value='Update & Complete' data-next-url="END" />
+                                }
+                            }
+                            else
+                            {
+                                <input type='button' class='btn btn-danger ActionControl' name='next' value='Fill missing information before finalizing the form' />
+                            }
+                        </div>
+                        <div style="float:left">
+                            <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/QuestionnaireWizard/Create" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

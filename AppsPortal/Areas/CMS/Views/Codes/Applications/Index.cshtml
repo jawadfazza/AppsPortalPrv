@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Applications";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("854bd947-eee6-428e-8f05-30c2f64de0f3")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.ApplicationsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ApplicationAcrynom, DbColumnName = "ApplicationAcrynom", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SortID, DbColumnName = "SortID", FilterForDataType = FilterDataTypes.Number })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ApplicationDescription, DbColumnName = "ApplicationDescription", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ApplicationStatusGUID, DbColumnName = "ApplicationStatusGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().ApplicationStatus() })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ApplicationID, DbColumnName = "ApplicationID", FilterForDataType = FilterDataTypes.Number })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.ApplicationsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.ApplicationsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.ApplicationsDataTable)
+        @Html.IndexDatatableCreate(Permissions.Applications.Create, Apps.CMS, Url.Action("Applications/Create/", "Codes", new { Area = "CMS" }))
+        @Html.IndexDatatableDelete(Permissions.Applications.Delete, Apps.CMS, DataTableNames.ApplicationsDataTable)
+        @Html.IndexDatatableRestor(Permissions.Applications.Restore, Apps.CMS, DataTableNames.ApplicationsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.ApplicationsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ApplicationsDataTable, FormController = "Codes", Area="CMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿<div class="form-group">
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+            </div>
+            <div class="box-body">
+
+                <select class="form-control" id="MetaDataGUIDsmy" multiple
+                        data-ng-model="MetaDataGUIDs"
+                        data-ng-options="p.Guid as p.Name for p in codeMetaDatas ">
+                    <option value="">----</option>
+                </select>
+
+                <div class="modal-footer">
+                    <div class="input-group pull-right">
+                        <button type="button" class="btn btn-primary pull-right" id="saveImageMetaDataID" ng-click="SaveImageMetaData()">
+                            Save Changes
+                        </button>
+
+                        <button type="button" id="closeScannerId" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+﻿@model HomeAddressModel
+<div class="row section">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-right pull-right col-nopadding-left">
+        <a class="btn Edit-Link" onclick="EditSection(this, '@Url.Action("HomeAddressUpdate","Profile")', 'PanelForHomeAddressForm');">Edit</a>
+    </div>
+    <div class="col-lg-2 col-md-8 col-sm-8 col-xs-8">
+        <h3 class="Title">@resxPages.HomeAddress</h3>
+    </div>
+    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+        @if (Model == null)
+        {
+            <h4>No Home Address has been added yet.</h4>
+        }
+        else
+        {
+            <div id="pnlHomeAddress" class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.HomeAddress</h5>
+                        <span>@Model.HomeAddress&nbsp;</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.HomePhoneNumber</h5>
+                        <span>@Model.HomePhone&nbsp;</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

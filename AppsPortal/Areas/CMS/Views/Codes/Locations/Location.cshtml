@@ -1,0 +1,18 @@
+﻿@model LocationsUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("c78ff73d-ece8-48c5-a094-d28a85b4e1fe")
+@{string PageTitle = (Model.LocationGUID == Guid.Empty) ? "New Location" : "Edit Location";}
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/Locations/_LocationForm.cshtml")
+        <div id="Container">
+            @if (Model.LocationGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/Locations/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.LocationGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

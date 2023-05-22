@@ -1,0 +1,249 @@
+﻿
+<style>
+    img:hover {
+        cursor: pointer;
+    }
+    /* Context menu */
+    .context-menu {
+        display: none;
+        position: sticky;
+        border: 1px solid black;
+        border-radius: 10px;
+        width: 200px;
+        background: white;
+        box-shadow: 15px 10px 5px #888888;
+        text-align: center;
+        opacity: 0.8;
+        z-index: 9;
+        margin-block: 60px;
+        top: auto !important;
+        margin-bottom: -0px;
+    }
+
+        .context-menu ul {
+            list-style: none;
+            padding: 2px;
+        }
+
+            .context-menu ul li {
+                padding: 5px 2px;
+                margin-bottom: 3px;
+                color: white;
+                font-weight: bold;
+                background-color: cornflowerblue;
+            }
+
+                .context-menu ul li:hover {
+                    cursor: pointer;
+                    background-color: darkblue;
+                }
+</style>
+
+
+<link rel="stylesheet" href="https://unpkg.com/viewerjs/dist/viewer.css" crossorigin="anonymous">
+<link rel="stylesheet" href="~/Assets/Plugin/jquery-viewer-master/docs/css/main.css">
+<link type="text/css" rel="stylesheet" href="~/Assets/Plugin/jQueryLoading/waitMe.css">
+
+@model ArchiveTemplateDocumentUpdateModel
+@Html.HiddenFor(m => m.ArchiveTemplateDocumentGUID)
+
+<div class="panel-group">
+    @if (Model.TotalImages == 0)
+    {
+        <div class="panel panel-default" ng-show="NewCaseShow">
+            <div class="panel-heading">
+                File Cabient
+                *
+            </div>
+            <div class="panel-body">
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="col-xs-1">
+
+                                <label for="IndicatorTypemenu">Cabinet</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="cabinet" ng-change="CabientChange()"
+                                        data-ng-model="CabinetGUID"
+                                        data-ng-options="p.Guid as p.Name for p in  codeCabinets">
+                                    <option value="">----</option>
+                                </select>
+
+
+                            </div>
+                            <div class="col-xs-1">
+
+                                <label for="IndicatorTypemenu">Shelf</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="shelf"
+                                        data-ng-model="ShelfGUID"
+                                        data-ng-options="p.Guid as p.Name for p in  codeCabinetShelfs">
+                                    <option value="">----</option>
+                                </select>
+
+                            </div>
+                            @Html.HiddenFor(m => m.DocumentName)
+
+                            <div class="col-xs-2">
+                                <label for="IndicatorTypemenu">Tag Document</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="MetaDataDocumentsGUIDs" multiple
+                                        data-ng-model="MetaDataDocumentsGUIDs"
+                                        data-ng-options="p.Guid as p.Name for p in  codeMetaDatas">
+                                    <option value="">----</option>
+                                </select>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+            <div class="panel-footer pull-right">
+
+
+                <input class="btn btn-primary"
+                       type="button" value="Scan Document" id="Scannid" ng-click="ScannDocument()" />
+
+                <input class="btn btn-primary Modal-Link "
+                       type="button" value="Scanner Setting" id="scannerSettings"
+                       data-url="/DAS/ScanDocument/GetScannerSettings" />
+                <input class=" btn btn-primary" type="button" value="Merge File" id="MergeFile"
+                       ng-click="getmergefile()" />
+
+
+
+            </div>
+        </div>
+    }
+
+
+    <div class="panel panel-default" ng-show="documentImagesShow">
+
+        <div class="panel-body">
+            @*<div class="docs-galley mb-3" id="DisplayImages">
+                    <ul class="docs-pictures clearfix" >
+                        <li ng-repeat="item in filename"  id="{{item}}"><img data-original="~/Areas/DAS/DEC_Icons/{{mysearchKey}}/{{item}}" src="~/Areas/DAS/DEC_Icons/{{mysearchKey}}/{{item}}" ></li>
+
+                    </ul>
+                </div>*@
+
+            <div id="myDiv" style="overflow-x:auto; position: relative; height: 410px;">
+
+                <div class="col-md-12 " id="DisplayImages" style="position: absolute; ">
+                    <table class="table table-striped table-bordered ">
+                        <tbody>
+                            <tr class="context-menu-one" id="image-list">
+                                <td ng-repeat="item in filename" class="image-gallery" id="{{item}}">
+                                    <input class="select_this_image" type="checkbox" name="ImageCheckbox" value="{{item}}" style="width:20px;height:20px;cursor:pointer;" />
+                                    @*<a ng-href="../ArchivedDocument/ShowImage?id={{item}}&&_GUID={{mysearchKey}}" target="_blank">*@
+                                    <a ng-href="../ArchivedDocument/ShowImage?id={{item}}&&_GUID={{mysearchKey}}" data-fancybox="gallery">
+                                        <img class="imageSX" style="margin:1px;border:solid;padding:10px;height:250px" data-original="~/Areas/DAS/DEC_Icons/{{mysearchKey}}/{{item}}" src="~/Areas/DAS/DEC_Icons/{{mysearchKey}}/{{item}}?v={{date}}" width="200px" />
+                                        @*</a>*@
+                                    </a>
+                                    <h5 style="text-align:center;">{{$index}}</h5>
+                                </td>
+                                <td ng-show="false"></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <table>
+                        <tr>
+                            <td ng-repeat="img in filenames" id="{{img}}">
+                                <a ng-href="../ArchivedDocument/ShowImage?id={{img}}&&_GUID={{FileNumber}}">
+                                    <img ng-src="~/DEC_MERGE/{{FileNumber}}/{{img}}?v=" width="100" />
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+
+                <div class='context-menu'>
+                    <ul class="form-group-lg form-control-highlight">
+                        <li><span class='NewScanafter'></span><span>New Scan after</span> </li>
+                        <li><span class='NewScanbefor'></span><span>New Scan before</span> </li>
+                        @*<li><span class='MetaData'></span><span>Add Meta Data</span></li>*@
+                        <li><span class='Delete'></span><span>Delete </span></li>
+                        <li><span class='DeleteSlected'></span><span>Delete Selected</span></li>
+                        <li><span class='Print'></span><span>Print Selected</span></li>
+                        <li><span class='MoveSlected'></span><span>Move Selected</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-12 pull-right">
+                    <br />
+                    <br />
+                    <input class="btn btn-primary" type="button" value="Scan document" id="Scannid" ng-click="ScannDocument()" />
+                    <input class="btn btn-primary Modal-Link " type="button" value="User preferences" id="scannerSettings" data-url="/DAS/ScanDocument/GetScannerSettings" />
+                    @if (Model.LastVerificationStatusGUID == null || Model.LastVerificationStatusGUID != DocumentVerificationStatus.Confirmed)
+                    {
+
+                        <input type="button" class=" btn btn-primary" value="Verify Document" ng-click="SendDocumentForVerification()" />
+                    }
+                    <input type="button" class=" btn btn-primary SelectAll" value="Select All" ng-click="SelectAllImages()" />
+                    <br />
+                    <br />
+                    @Html.Label("Total Scanned Images")
+                    @Html.DisplayFor(model => model.TotalImages)
+                    <hr />
+                    @Html.Label(resxDbFields.CreateBy)
+                    @Html.DisplayFor(model => model.CreatedBy)
+                    @Html.Label(resxDbFields.CreateDate)
+                    @Html.DisplayFor(model => model.CreateDate)
+
+                    <hr />
+                    @if (Model.UpdateBy != "")
+                    {
+                        @Html.Label(resxDbFields.UpdateBy)
+                        @Html.DisplayFor(model => model.UpdateBy)
+                        @Html.Label(resxDbFields.UpdateDate)
+                        @Html.DisplayFor(model => model.UpdateDate)
+                    }
+                    @if (Model.VerifiedUser != null)
+                    {
+                        <br />
+                        <hr />
+                        @Html.Label("Last Verfied By")
+                        @Html.DisplayFor(model => model.VerifiedUser)
+
+                        @Html.Label(" - Verfied Datetime")
+                        @Html.DisplayFor(model => model.VerifiedDatetime)
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+<!-- Scripts -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+<!-- your HTML code goes here -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-rotate/2.2/jquery.rotate.min.js"></script>
+
+<script src="~/Assets/Plugin/jQueryLoading/waitMe.min.js"></script>
+
+
+
+
+
+
+

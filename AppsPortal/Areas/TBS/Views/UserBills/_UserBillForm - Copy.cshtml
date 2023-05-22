@@ -1,0 +1,287 @@
+﻿@model UserBillsUpdateModel
+@{
+    ViewBag.Title = "My Bill";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@*@Html.PageHeader("72ce9b93-df7b-4c89-a58e-d5e7a1375793")*@
+<style>
+    table#tblReportResultsDemographics thead {
+        visibility: collapse;
+    }
+</style>
+<div class="page--header" style="display:inline-flex;width:100%">
+    <div class="page--banner" style="margin-left: 0px;">
+        <h2 id="PageTitle" style="font-size: 30px;">Phone Bill Summary</h2>
+        <div id="sitemap" class="sitemap ">
+            <div class="nav--content row">
+                <ul>
+                    <li><a href="/Home/">Home</a></li>
+                    <li><a href="/TBS/">Telephones Billing System</a></li>
+                    <li><a href="/TBS/UserBills/MyBills">My Phone Bills</a></li>
+                    <li class="SitemapLastNode">Phone Bill Summary</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="billSummary" style="width:100%;">
+        <div class="col-md-4">
+            <h3>Total:</h3>
+            <span>Total Duration In Minutes:</span><span id="span_totalMinutes">@Model.TotalMinutes</span><br />
+            <span>Total Duration In Seconds:</span><span id="span_totalSeconds">@Model.TotalSeconds</span><br />
+            <span>Total Cost:</span><span id="span_totalCost">@Model.TotalCost</span><br />
+        </div>
+        <div class="col-md-4">
+            <h3>Official Total:</h3>
+            <span>Total Duration In Minutes:</span><span id="span_officialMinutes">@Model.OfficialMinutes</span><br />
+            <span>Total Duration In Seconds:</span><span id="span_officialSeconds">@Model.OfficialSeconds</span><br />
+            <span>Total Cost:</span><span id="span_officialCost">@Model.OfficialCost</span><br />
+        </div>
+        <div class="col-md-4">
+            <h3>Private Total:</h3>
+            <span>Total Duration In Minutes:</span><span id="span_privateMinutes">@Model.PrivateMinutes</span><br />
+            <span>Total Duration In Seconds:</span><span id="span_privateSeconds">@Model.PrivateSeconds</span><br />
+            <span>Total Cost:</span><span id="span_privateCost">@Model.PrivateCost</span><br />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("UserBillDetails", "UserBills", new { Area = "TBS" }, FormMethod.Post, new { @Id = "UserBillForm" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => Model.BillGUID)
+            @Html.HiddenFor(model => Model.UserBillGUID)
+            @Html.HiddenFor(model => Model.UserGUID)
+
+            @Html.HiddenFor(model => Model.IsConfirmed)
+            @Html.HiddenFor(model => Model.Active)
+            @Html.HiddenFor(model => Model.dataUserBillRowVersion)
+
+            @Html.HiddenFor(model => model.TotalCost)
+            @Html.HiddenFor(model => model.TotalMinutes)
+            @Html.HiddenFor(model => model.TotalSeconds)
+
+            @Html.HiddenFor(model => model.PrivateCost)
+            @Html.HiddenFor(model => model.PrivateMinutes)
+            @Html.HiddenFor(model => model.PrivateSeconds)
+
+            @Html.HiddenFor(model => model.OfficialCost)
+            @Html.HiddenFor(model => model.OfficialMinutes)
+            @Html.HiddenFor(model => model.OfficialSeconds)
+
+            <input type="hidden" id="hf_TotalCost" value="@Model.dataUserBillDetailModel.Sum(x=>x.CallCost)" />
+            <input type="hidden" id="hf_TotalMinutes" value="@Model.dataUserBillDetailModel.Sum(x=>x.DurationInMinutes)" />
+            <input type="hidden" id="hf_TotalSeconds" value="@Model.dataUserBillDetailModel.Sum(x=>x.DurationInSeconds)" />
+
+
+            <table id="tblReportResultsDemographics" class="display" width="100%">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="ChkAllPrivate" /> Is Private</th>
+                        <th>Calling GSM</th>
+                        <th>Called GSM</th>
+                        <th>Called Contact</th>
+                        <th>UTC Call Time</th>
+                        <th>Local Call Time</th>
+                        @*<th>dateTimeDisconnect</th>
+                        <th>LocaldateTimeDisconnect</th>*@
+                        <th>Call Type</th>
+                        <th>Call Source</th>
+                        <th>Service</th>
+                        <th>Duration (seconds)</th>
+                        <th>Duration (minutes)</th>
+                        <th>Cost</th>
+                        <th>Comments</th>
+                        @*<th>Active</th>
+                        <th>DeletedOn</th>
+                        <th>LocalDeletedOn</th>
+                        <th>dataUserBillDetailRowVersion</th>*@
+                        <th>Call Type Description</th>
+                    </tr>
+                </thead>
+            </table>
+
+            <div class="form-group col-sm-4 col-xs-12">
+                <br />
+                <div class="input-group">
+                    <span class="input-group-btn" style="padding-top:26px;">
+                       
+                    </span>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+       
+
+
+
+
+<script type="text/javascript">
+    var TotalCost;
+    var TotalMinutes;
+    var TotalSeconds;
+
+    var OfficialCost;
+    var OfficialMinutes;
+    var OfficialSeconds;
+
+    var PrivateCost;
+    var PrivateMinutes;
+    var PrivateSeconds;
+    $(function () {
+        ProcessTableData();
+        TotalCost = $('#TotalCost').val();
+        TotalMinutes = $('#TotalMinutes').val();
+        TotalSeconds = $('#TotalSeconds').val();
+
+        OfficialCost = $('#OfficialCost').val();
+        OfficialMinutes = $('#OfficialMinutes').val();
+        OfficialSeconds = $('#OfficialSeconds').val();
+
+        PrivateCost = $('#PrivateCost').val();
+        PrivateMinutes = $('#PrivateMinutes').val();
+        PrivateSeconds = $('#PrivateSeconds').val();
+
+        $('.DestinationHolderName').keyup(function (e) {
+            e.preventDefault();
+            var cname = $(this).val();
+            var calledNum = $(this).parent('td').parent('tr').find('.CalledNumber').attr('data-CalledNumber');
+            var listToChange = $("td[data-CalledNumber='" + calledNum + "']");
+            $("td[data-CalledNumber='" + calledNum + "']").each(function () {
+                $(this).parent('tr').find('.DestinationHolderName').val(cname);
+            })
+        });
+    });
+
+
+    $(document).on('ifChecked ifUnchecked', '.IsPrivateChkNode', function (event) {
+
+        var thisDurationInMinutes = $(this).parents('tr').find('.td_DurationInMinutes').html() * 1;
+        var thisDurationInSeconds = $(this).parents('tr').find('.td_DurationInSeconds').html() * 1;
+        var thisCallCost = $(this).parents('tr').find('.td_CallCost').html() * 1;
+        var dataCalledNumber = $(this).attr('data-CalledNumber');
+
+
+        if (event.type == 'ifChecked') {
+
+            //private checked
+
+            //add to private
+            $('#span_privateMinutes').html(($('#span_privateMinutes').html() * 1) + thisDurationInMinutes);
+            $('#span_privateSeconds').html(($('#span_privateSeconds').html() * 1) + thisDurationInSeconds);
+            $('#span_privateCost').html(($('#span_privateCost').html() * 1) + thisCallCost);
+
+            //substract from official
+            $('#span_officialMinutes').html(($('#span_officialMinutes').html() * 1) - thisDurationInMinutes);
+            $('#span_officialSeconds').html(($('#span_officialSeconds').html() * 1) - thisDurationInSeconds);
+            $('#span_officialCost').html(($('#span_officialCost').html() * 1) - thisCallCost);
+            //
+            debugger;
+            $("input[data-CalledNumber='" + dataCalledNumber + "']").each(function () {
+                $(this).iCheck('check');
+            })
+        }
+        else {
+            //(private unchecked) official checked
+
+            //add to official
+            $('#span_officialMinutes').html(($('#span_officialMinutes').html() * 1) + thisDurationInMinutes);
+            $('#span_officialSeconds').html(($('#span_officialSeconds').html() * 1) + thisDurationInSeconds);
+            $('#span_officialCost').html(($('#span_officialCost').html() * 1) + thisCallCost);
+
+            //substract from private
+            $('#span_privateMinutes').html(($('#span_privateMinutes').html() * 1) - thisDurationInMinutes);
+            $('#span_privateSeconds').html(($('#span_privateSeconds').html() * 1) - thisDurationInSeconds);
+            $('#span_privateCost').html(($('#span_privateCost').html() * 1) - thisCallCost);
+
+            //
+            $("input[data-CalledNumber='" + dataCalledNumber + "']").each(function () {
+                $(this).iCheck('uncheck');
+            })
+        }
+    });
+    $(document).on('ifChecked ifUnchecked', '#ChkAllPrivate', function (event) {
+        if (event.type == 'ifChecked') {
+            //check and count all is private
+            $('.IsPrivateChkNode').iCheck('check');
+            //add to private
+            $('#span_privateMinutes').html($('#span_totalMinutes').html());
+            $('#span_privateSeconds').html($('#span_totalSeconds').html());
+            $('#span_privateCost').html($('#span_totalCost').html());
+
+            //official = 0
+            $('#span_officialMinutes').html("0");
+            $('#span_officialSeconds').html("0");
+            $('#span_officialCost').html("0");
+
+
+        }
+        else {
+            $('.IsPrivateChkNode').iCheck('uncheck');
+
+            //add to official
+            $('#span_officialMinutes').html($('#span_totalMinutes').html());
+            $('#span_officialSeconds').html($('#span_totalSeconds').html());
+            $('#span_officialCost').html($('#span_totalCost').html());
+
+            //official = 0
+            $('#span_privateMinutes').html("0");
+            $('#span_privateSeconds').html("0");
+            $('#span_privateCost').html("0");
+        }
+    });
+
+    function ProcessTableData() {
+        $.ajax({
+            type: "GET",
+            url: "/TBS/UserBills/GetUserBillDetailsJson",
+            data: { PK: $('#UserBillGUID').val() },
+            success: function (jsonResult) {
+                console.log('jsonResult', jsonResult);
+                console.log('DataTable Data', jsonResult["TableData"]["dataUserBillDetailModel"]);
+                //var jsonString = JSON.stringify(jsonResult["TableData"]["dataUserBillDetailModel"]) //for testing
+                //console.log('jsonString', jsonString);
+                var oTblReport = $("#tblReportResultsDemographics")
+
+                oTblReport.DataTable({
+                    "scrollX": true,
+                    "scrollY": "500px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                    "data": jsonResult["TableData"]["dataUserBillDetailModel"],
+                    "columns": [
+                        { "data": "UserBillDetailGUID", "render": function (data, type, full, meta) { return "<input type='checkbox' name= 'UserBillDetailGUID'  class='chkNode' value='" + full.UserBillDetailGUID + "' /> "; } },
+                        { "data": "CallingNumber" },
+                        { "data": "CalledNumber" },
+                        { "data": "DestinationHolderName", "render": function (data, type, full, meta) { return "<input type='text' name= 'DestinationHolderName'  class='chkNode' value='" + full.DestinationHolderName + "' /> "; } },
+                        { "data": "dateTimeConnect", "render": function (data, type, full, meta) { return moment(data).format('LLL'); } },
+                        { "data": "LocaldateTimeConnect", "render": function (data, type, full, meta) { return moment(data).format('LLL'); } },
+                        //{ "data": "dateTimeDisconnect" },
+                        //{ "data": "LocaldateTimeDisconnect" },
+                        { "data": "CallType" },
+                        { "data": "CallSource" },
+                        { "data": "Service" },
+                        { "data": "DurationInSeconds" },
+                        { "data": "DurationInMinutes" },
+                        { "data": "CallCost" },
+                        { "data": "Comments" },
+                        //{ "data": "Active" },
+                        //{ "data": "DeletedOn" },
+                        //{ "data": "LocalDeletedOn" },
+                        //{ "data": "dataUserBillDetailRowVersion" },
+                        { "data": "CallTypeDescription" },
+                    ]
+                });
+
+                InitiCheck($('#tblReportResultsDemographics'));
+            }
+        });
+    }
+</script>

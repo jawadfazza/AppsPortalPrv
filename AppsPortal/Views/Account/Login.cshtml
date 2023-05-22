@@ -1,0 +1,66 @@
+﻿@model LoginModel
+@{
+    ViewBag.Title = @resxPages.WelcomeTitle;
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<div class="page--header">
+    <div class="page--banner">
+        <h2>@resxPages.WelcomeTitle</h2>
+        <div class="row">
+            <div class="col-md-5">
+                <article>
+                    @resxPages.WelcomeParagraph
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page--content">
+    <div class="page--body">
+        <div class="forms-fadeIn">
+            <br />
+
+            <h3 style="margin-bottom:10px;">@resxPages.Login</h3>
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "LoginForm"}))
+            {
+                @*Enable it on production phase
+                    <div style="opacity:0;position:absolute;top:0;left:0;">
+                        <input autocomplete="off" class="ays-ignore" id="fakeEmailAddress" type="email" value="abc@xyz">
+                        <input autocomplete="off" class="ays-ignore" id="fakePassword" type="password" value="123">
+                    </div>
+                *@
+                @Html.AntiForgeryToken()
+                @Html.ErrorSummary()
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EmailAddress)
+                            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control ays-ignore" } })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password)
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control ays-ignore"} })
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 col-nopadding">
+                            <input type="submit" id="submit" value="@resxUIControls.Login" class="btn btn-primary" />
+                        </div>
+                        @*<div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 col-nopadding text-right checkbox-field">
+                            <label class="checkbox-label">
+                                @Html.CheckBoxFor(model => model.RememberMe,new { @class= "col-form-label" })@resxUIControls.RememberMe
+
+                            </label>
+                        </div>*@
+                        <div class="col-lg-12 sp"></div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 col-nopadding">
+                            <a class='Modal-Link' href='#' data-url='/Registration/RegisterNew'>Create New Account</a>
+
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 col-nopadding text-right">
+                            @*@Html.ActionLink(resxUIControls.ForgetPassword, "ForgetPassword", "Account", null, new { @class = "modal-link pull-right" })*@
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

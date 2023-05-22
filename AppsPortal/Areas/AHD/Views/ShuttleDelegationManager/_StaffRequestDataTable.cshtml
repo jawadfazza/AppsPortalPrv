@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">Staff Requests</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.BlomShuttleDelegationStaffRequestDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.BlomShuttleDelegationStaffRequestDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.BlomShuttleDelegationStaffRequestDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.BlomShuttleDelegationStaffRequestDataTable)
+                @*@Html.FieldDataTableCreate(Permissions.StaffShuttleDelegation.Create, Apps.AHD, Url.Action("DelegationTravelerCreate", "StaffDelegation", new { FK = Model.ParentGUID }))*@
+                @Html.FieldDataTableDelete(Permissions.StaffShuttleDelegation.Delete, Apps.AHD, DataTableNames.BlomShuttleDelegationStaffRequestDataTable)
+                @Html.FieldDataTableRestore(Permissions.StaffShuttleDelegation.Restore, Apps.AHD, DataTableNames.BlomShuttleDelegationStaffRequestDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.BlomShuttleDelegationStaffRequestDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.BlomShuttleDelegationStaffRequestDataTable, FormController = "StaffDelegation", Area = "AHD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

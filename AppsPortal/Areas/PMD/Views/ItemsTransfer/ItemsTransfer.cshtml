@@ -1,0 +1,21 @@
+﻿@model ItemsTransferUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ItemsTransferGUID == Guid.Empty) ? "New Items Transfer" : "Edit Items Transfer"; }
+
+@Html.PageHeader("26d1d75e-a7b9-4b49-8bb4-8ead28b17a62")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/PMD/Views/ItemsTransfer/_ItemsTransferForm.cshtml")
+        <div id="ItemsTransferDetailContainer">
+            @if (Model.ItemsTransferGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/PMD/Views/ItemsTransfer/_ItemsTransferDetailDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ItemsTransferGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,205 @@
+﻿@model ItemsTransferUpdateModel
+@using (Html.BeginForm("ItemsTransfer", "ItemsTransfer", new { Area = "PMD" }, FormMethod.Post, new { id = "ItemsTransferForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.ItemsTransferGUID)
+    @Html.HiddenFor(model => model.FromGovernorateGUID)
+    @Html.HiddenFor(model => model.ToGovernorateGUID)
+
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ItemsTransferDate)
+                @Html.EditorFor(model => model.ItemsTransferDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FromOrganizationInstanceGUID)
+                @Html.DropDownListFor(model => model.FromOrganizationInstanceGUID, new DropDownList().PMDImplementingPartners(), "", new
+           {
+                    style = "width:100%",
+                    @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$('#Fromadmin1Pcode').val()+'|'+$('#FromOrganizationInstanceGUID').val()], [{ DropDownListID : 'FromPmdWarehouseGUID', Action : 'RemotePMDWarehouse'}]);"
+           })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.Fromadmin1Pcode)
+                @Html.DropDownListFor(model => model.Fromadmin1Pcode, new DropDownList().PMDGovernorates(), "", new
+                {
+                    style = "width:100%",
+               @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'FromDistrict', Action : 'RemotePMDDistricts'}]);" +
+              "showHideDivFrom();"
+
+           })
+            </div>
+            <div id="hiddenDivFrom" style="display:none;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FromDistrict)
+                    @Html.DropDownListFor(model => model.FromDistrict, new DropDownList().PMDDistricts(Model.Fromadmin1Pcode), "",
+                   new
+                   {
+                       @class = "form-control select2-basic-search",
+                       style = "width:100%",
+                       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'FromSubDistrict', Action : 'RemotePMDSubDistricts'}]);"
+                   })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FromSubDistrict)
+                    @Html.DropDownListFor(model => model.FromSubDistrict, new DropDownList().PMDSubDistricts(Model.FromDistrict), "",
+                       new
+                       {
+                           @class = "form-control select2-basic-search",
+                           style = "width:100%",
+                           onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'Fromadmin4Pcode', Action : 'RemotePMDCommunities'}]);"
+                       })
+                </div>
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.Fromadmin4Pcode)
+                @Html.DropDownListFor(model => model.Fromadmin4Pcode, new DropDownList().PMDCommunitiesByAdmin1Pcode(Model.Fromadmin1Pcode), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+               onchange =  "UpdateDropDownList([$('#Fromadmin4Pcode').val()+'|'+$('#FromOrganizationInstanceGUID').val()], [{ DropDownListID : 'FromPmdWarehouseGUID', Action : 'RemotePMDWarehouse'}]);"
+
+           })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.FromPmdWarehouseGUID)
+                @Html.DropDownListFor(model => model.FromPmdWarehouseGUID, new DropDownList().PMDWarehouse(Model.Fromadmin4Pcode, Model.FromOrganizationInstanceGUID), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+
+            <div id="ItemsTransferFormControls" class="form-group form-footer">
+                @if (Model.ItemsTransferGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.PMDItemsTransfer.Create, Apps.PMD)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.PMDItemsTransfer.Update, Apps.PMD)
+                        @Html.CreateNewButton(Permissions.PMDItemsTransfer.Create, Apps.PMD, Url.Action("/Create", new { Area = "PMD" }))
+                        @Html.DeleteButton(Permissions.PMDItemsTransfer.Delete, Apps.PMD)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.PMDItemsTransfer.Restore, Apps.PMD)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "ItemsTransfer", new { Area = "PMD" }))
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ToOrganizationInstanceGUID)
+                @Html.DropDownListFor(model => model.ToOrganizationInstanceGUID, new DropDownList().PMDImplementingPartners(), "", new
+           {
+                    style = "width:100%",
+                    @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$('#Toadmin1Pcode').val()+'|'+$('#ToOrganizationInstanceGUID').val()], [{ DropDownListID : 'ToPmdWarehouseGUID', Action : 'RemotePMDWarehouse'}]);"
+           })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.Toadmin1Pcode)
+                @Html.DropDownListFor(model => model.Toadmin1Pcode, new DropDownList().PMDGovernorates(), "", new
+                {
+                    style = "width:100%",
+               @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'ToDistrict', Action : 'RemotePMDDistricts'}]);" +
+               "showHideDivTo();"
+
+           })
+            </div>
+            <div id="hiddenDivTo" style="display:none;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ToDistrict)
+                    @Html.DropDownListFor(model => model.ToDistrict, new DropDownList().PMDDistricts(Model.Toadmin1Pcode), "",
+                   new
+                   {
+                       @class = "form-control select2-basic-search",
+                       style = "width:100%",
+                       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'ToSubDistrict', Action : 'RemotePMDSubDistricts'}]);"
+                   })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ToSubDistrict)
+                    @Html.DropDownListFor(model => model.ToSubDistrict, new DropDownList().PMDSubDistricts(Model.ToDistrict), "",
+                       new
+                       {
+                           @class = "form-control select2-basic-search",
+                           style = "width:100%",
+                           onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'Toadmin4Pcode', Action : 'RemotePMDCommunities'}]);"
+                       })
+                </div>
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.Toadmin4Pcode)
+                @Html.DropDownListFor(model => model.Toadmin4Pcode, new DropDownList().PMDCommunitiesByAdmin1Pcode(Model.Toadmin1Pcode), "",
+               new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-search",
+                   onchange = "UpdateDropDownList([$('#Toadmin4Pcode').val()+'|'+$('#ToOrganizationInstanceGUID').val()], [{ DropDownListID : 'ToPmdWarehouseGUID', Action : 'RemotePMDWarehouse'}]);"
+
+               })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ToPmdWarehouseGUID)
+                @Html.DropDownListFor(model => model.ToPmdWarehouseGUID, new DropDownList().PMDWarehouse(Model.Toadmin4Pcode, Model.ToOrganizationInstanceGUID), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+
+        </div>
+    </div>
+}
+<script >
+    var vlaueChangedFrom = "";
+    function showHideDivFrom() {
+        var dropdown = document.getElementById("Fromadmin1Pcode");
+
+        var selectedValue = dropdown.options[dropdown.selectedIndex].value;
+        var divElement = document.getElementById("hiddenDivFrom");
+
+        if (selectedValue != vlaueChangedFrom && vlaueChangedFrom != "") {
+            divElement.style.display = "block";
+            vlaueChangedFrom = selectedValue;
+        } else if (selectedValue == "" && vlaueChangedFrom == "") {
+            divElement.style.display = "block";
+        } else {
+            vlaueChangedFrom = selectedValue;            //
+
+        }
+    }
+
+    var vlaueChangedTo = "";
+    function showHideDivTo() {
+        var dropdown = document.getElementById("Toadmin1Pcode");
+
+        var selectedValue = dropdown.options[dropdown.selectedIndex].value;
+        var divElement = document.getElementById("hiddenDivTo");
+
+        if (selectedValue != vlaueChangedTo && vlaueChangedTo != "") {
+            divElement.style.display = "block";
+            vlaueChangedTo = selectedValue;
+        } else if (selectedValue == "" && vlaueChangedTo == "") {
+            divElement.style.display = "block";
+        } else {
+            vlaueChangedTo = selectedValue;
+        }
+    }
+
+    window.onload = function () {
+        showHideDivFrom();
+        showHideDivTo();
+    }
+</script>

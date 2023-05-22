@@ -1,0 +1,18 @@
+﻿@Html.Partial("_ModalHeader", "Verify Records")
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">Verify Selected Record(s).</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="PartnersContributionsUploadFormControl" class="modal-footer form-footer">
+    @if (new CMS().HasAction(Permissions.COVIDRecordVerify.Create, Apps.COV))
+    {
+        <input id="btn-validate-data" type="submit" class="btn btn-primary" onclick="SubmitForm(this)" value="Verify Data" data-submittype="Verify" data-refreshdatatable="CovidUNHCRResponseDataTable" form="CovidUNHCRResponseDataTableForm">
+    }
+    @Html.CloseModalButton()
+</div>

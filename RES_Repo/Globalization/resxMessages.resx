@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeleteNotify" xml:space="preserve">
+    <value>Delete Successfully</value>
+  </data>
+  <data name="FailNotify" xml:space="preserve">
+    <value>Fail </value>
+  </data>
+  <data name="SaveNotify" xml:space="preserve">
+    <value>Save Successfully</value>
+  </data>
+  <data name="InvalidNumber" xml:space="preserve">
+    <value>Invalid Number</value>
+  </data>
+  <data name="RangeConditionValue" xml:space="preserve">
+    <value>Condition Value not in the match range</value>
+  </data>
+  <data name="RequiredCloseDate" xml:space="preserve">
+    <value>Required Close Date</value>
+  </data>
+  <data name="RequiredDutyStationGUID" xml:space="preserve">
+    <value>Required Duty Station</value>
+  </data>
+  <data name="RequiredOrganizationInstanceGUID" xml:space="preserve">
+    <value>Required Organization</value>
+  </data>
+  <data name="RequiredStartDate" xml:space="preserve">
+    <value>Required Start Date</value>
+  </data>
+  <data name="RequiredTimeZone" xml:space="preserve">
+    <value>Required Time Zone</value>
+  </data>
+  <data name="RequiredTitle" xml:space="preserve">
+    <value>Required Title</value>
+  </data>
+  <data name="StartDateGreaterCloseDate" xml:space="preserve">
+    <value>Start Date must be Greater than Close Date</value>
+  </data>
+  <data name="VoteAlreadyDone" xml:space="preserve">
+    <value>You already voted for this election</value>
+  </data>
+  <data name="VoteComplete" xml:space="preserve">
+    <value>Vote Completed</value>
+  </data>
+  <data name="VoteError" xml:space="preserve">
+    <value>Vote Error</value>
+  </data>
+  <data name="VoteNotExist" xml:space="preserve">
+    <value>This vote is not exists</value>
+  </data>
+  <data name="VoteSucessMessage" xml:space="preserve">
+    <value>Thank your for your time ,your vote is saved successfully</value>
+  </data>
+  <data name="VoteExpired" xml:space="preserve">
+    <value>Sorry,the time allowed to vote for this election has been expired</value>
+  </data>
+  <data name="CheckMinimumVotes" xml:space="preserve">
+    <value>The Minimum number of votes allowed is bigger than the maximum number of votes allowed</value>
+  </data>
+  <data name="ConfirmResponsibility" xml:space="preserve">
+    <value>Confirm Responsibility</value>
+  </data>
+  <data name="InvalidEmailAddress" xml:space="preserve">
+    <value>Invalid Email Address</value>
+  </data>
+  <data name="ElecetionAlreadyExists" xml:space="preserve">
+    <value>Election Name in selected language already exists</value>
+  </data>
+  <data name="ChoseAppropriateNumberOFCanidates" xml:space="preserve">
+    <value>You have to chose at least </value>
+  </data>
+  <data name="ElectionExceedAllowedCandidates" xml:space="preserve">
+    <value>You exceed the allowed maximum number of Candidates which is</value>
+  </data>
+  <data name="ElectionStartMessage" xml:space="preserve">
+    <value>To Start this Election kindly click on the button below</value>
+  </data>
+  <data name="ElectionTotalCandidates" xml:space="preserve">
+    <value>Total Candidates for this election is</value>
+  </data>
+  <data name="ElectionWelcomeMessage" xml:space="preserve">
+    <value>Welcome To Election</value>
+  </data>
+  <data name="FileImportStaffWarning" xml:space="preserve">
+    <value>The file to be imported must contain two columns. The first column is the full name of the vote and the second column must be his email</value>
+  </data>
+  <data name="NoCandidateChosen" xml:space="preserve">
+    <value>You don't chose Any candidate</value>
+  </data>
+  <data name="NotAllowedToVote" xml:space="preserve">
+    <value>You are not allowed to vote</value>
+  </data>
+  <data name="CheckMaxmimumCandiates" xml:space="preserve">
+    <value>This value is not allowed for maximum candidates</value>
+  </data>
+  <data name="CheckMaxmimumFemaleCandiates" xml:space="preserve">
+    <value>This value is not allowed for total female candidates</value>
+  </data>
+  <data name="CheckMaxmimumMaleCandiates" xml:space="preserve">
+    <value>This value is not allowed for total male candidates</value>
+  </data>
+  <data name="CheckMinimumCandiates" xml:space="preserve">
+    <value>This value is not allowed for minimum candidates</value>
+  </data>
+  <data name="ReuiredEntry" xml:space="preserve">
+    <value>Required Entry</value>
+  </data>
+</root>

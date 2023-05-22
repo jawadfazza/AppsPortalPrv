@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.Globalization</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.MedicalGenericNameLanguagesDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.MedicalGenericNameLanguagesDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.MedicalGenericNameLanguagesDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.MedicalGenericNameLanguagesDataTable)
+                @Html.FieldDataTableCreate(Permissions.MedicalGenericName.Create, Apps.EMT, Url.Action("MedicalGenericNameLanguageCreate", "MedicalGenericNames", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.MedicalGenericName.Delete, Apps.EMT, DataTableNames.MedicalGenericNameLanguagesDataTable)
+                @Html.FieldDataTableRestore(Permissions.MedicalGenericName.Restore, Apps.EMT, DataTableNames.MedicalGenericNameLanguagesDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.MedicalGenericNameLanguagesDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MedicalGenericNameLanguagesDataTable, FormController = "MedicalGenericNames", Area = "EMT", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

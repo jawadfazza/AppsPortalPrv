@@ -1,0 +1,60 @@
+﻿@model MedicalBeneficiaryItemOutDetailsUpdateModel
+@using (Html.BeginForm("MedicalBeneficiaryItemOutDetail", "MedicalBeneficiaryItemOuts", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalBeneficiaryItemOutDetailForm" }))
+{
+    string ModalTitle = Model.MedicalBeneficiaryItemOutDetailGUID.ToString() == Guid.Empty.ToString() ? "New Item" : "Edit Item";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.MedicalBeneficiaryItemOutDetailGUID)
+    @Html.HiddenFor(model => model.MedicalBeneficiaryItemOutGUID)
+    @Html.HiddenFor(model => model.MedicalPharmacyGUID)
+    <div class="form-group HANDLER">
+        @Html.LabelFor(model => model.MedicalItemGUID)
+        @Html.DropDownListFor(model => model.MedicalItemGUID, new DropDownList().MedicalItems(), "",
+       new {
+           style = "width:100%",
+           @class = "form-control select2-basic-search" ,
+           onchange = "UpdateDropDownList([$(this).val()+','+$('#MedicalPharmacyGUID').val()], [{ DropDownListID : 'MedicalItemTransferDetailGUID', Action : 'RemoteMedicalItemTransferDetails'}]);"
+       })
+    </div>
+    <div style="margin: 10px 0; padding: 7px; border: solid 1px #ccc; background-color:#fff; min-height: 135px;" id="SourceBeneficiary">
+        <span class="userInfoInPermissions">Please select a Beneficiary from above</span>
+        <span class="userInfoInPermissions lblFullName"></span>
+        <span class="userInfoInPermissions lblNationality"></span>
+        <span class="userInfoInPermissions lblBrithday"></span>
+    </div>
+    <div class="form-group HANDLER">
+        @Html.Label(resxDbFields.BatchNumber)
+        @Html.DropDownListFor(model => model.MedicalItemTransferDetailGUID, new DropDownList().MedicalItemTransferDetailOne(Model.MedicalItemTransferDetailGUID),"", new {
+       style = "width:100%",
+       @class = "form-control select2-basic-search"
+       })
+    </div>
+    @*@if (Model.MedicalBeneficiaryItemOutDetailGUID == Guid.Empty)*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.QuantityByPackingUnit)
+        @Html.EditorFor(model => model.QuantityByPackingUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.MedicalBeneficiaryItemOutDetailGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.MedicalBeneficiaryItemOut.Create, Apps.EMT)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.MedicalBeneficiaryItemOut.Update, Apps.EMT)
+                @Html.DeleteSwitchButton(Permissions.MedicalBeneficiaryItemOut.Delete, Apps.EMT)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.MedicalBeneficiaryItemOut.Delete, Apps.EMT)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

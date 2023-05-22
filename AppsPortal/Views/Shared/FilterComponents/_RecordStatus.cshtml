@@ -1,0 +1,19 @@
+﻿@model string
+@{
+    string CssClass = "form-control FilterValue";
+    CssClass += " MustHasInitValue";
+}
+<div class="FilterField">
+    <label for="filter_Active" class="col-lg-3 col-form-label">@resxDbFields.RecordStatus</label>
+    <div class="form-group form-inline hidden">
+        @Html.Partial("_FilterOperation", "Boolean")
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group form-inline">
+            @Html.DropDownList("filter_Active", new DropDownList().RecordStatus(), new { data = "Active", onchange = "ApplyFilter('" + Model + "')", @class = string.Format("{0} select2-basic-single", CssClass),  style = "width:100%" })
+        </div>
+    </div>
+    <div class="col-lg-3 text-right">
+        <input type="button" value="@resxUIControls.Close" class="btn btn-default" onclick="ToggleFilter('@Model');" />
+    </div>
+</div>

@@ -1,0 +1,229 @@
+﻿
+@model LicenseSubscriptionContractUpdateModel
+
+<div class="panel panel-default">
+    @*<div class="panel-heading">
+            <h3>@resxPages.Details</h3>
+
+        </div>*@
+    <div class="panel-body">
+        <div class="col-md-12">
+
+            @using (Html.BeginForm("LicenseSubscriptionContract", "LicenseSubscription", new { Area = "WMS" }, FormMethod.Post, new { id = "LicenseSubscriptionForm", @class = "main-form" }))
+            {
+
+                @Html.FormHiddenFields(model => model.LicenseSubscriptionContractGUID)
+               
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group HANDLER">
+                            @Html.LabelFor(model => model.ContractClassGUID)
+                            @Html.DropDownListFor(model => model.ContractClassGUID, new DropDownList().WarehoueLicenseSubscriptionContractClass(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ContractTypeGUID)
+                            @Html.DropDownListFor(model => model.ContractTypeGUID, new DropDownList().WarehoueLicenseSubscriptionContractType(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group HANDLER">
+                            @Html.LabelFor(model => model.ContractCategoryGUID)
+                            @Html.DropDownListFor(model => model.ContractCategoryGUID, new DropDownList().WarehoueLicenseSubscriptionContractCategory(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                        @*@Html.HiddenFor(model => model.ItemModelWarehouseGUID)*@
+                    </div>
+                </div>
+                
+      
+                <div class="row">
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LocationGUID)
+                            @Html.DropDownListFor(model => model.LocationGUID, new DropDownList().SyriaStaffDutyStation(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model=>model.ContractNumber)
+                            @Html.EditorFor(model => model.ContractNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                           
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ContractCode)
+                            @Html.EditorFor(model => model.ContractCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            
+                        </div>
+
+                    </div>
+                    
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PurchaseDate)
+                            @Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StartDate)
+                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ExpiryDate)
+                            @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+
+                    </div>
+             
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RemindDateType)
+                            @Html.DropDownListFor(model => model.RemindDateType, new DropDownList().WarehoueLicenseSubscriptionRemindDateType(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RemindValue)
+                            @Html.EditorFor(model => model.RemindValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NextRemindDate)
+                            @Html.EditorFor(model => model.NextRemindDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LocalExchangeRate)
+                            @Html.EditorFor(model => model.LocalExchangeRate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LocalCurrencyContractCost)
+                            @Html.EditorFor(model => model.LocalCurrencyContractCost, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DollarCurrencyContractCost)
+                            @Html.EditorFor(model => model.DollarCurrencyContractCost, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.BrandGUID)
+                        @Html.DropDownListFor(model => model.BrandGUID, new DropDownList().Brands(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.LatestPONumber)
+                        @Html.EditorFor(model => model.LatestPONumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.VendorGUID)
+                        @Html.DropDownListFor(model => model.VendorGUID, new DropDownList().WMSContractVendors(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                    @*<div class="col-md-4">
+            @Html.LabelFor(model => model.FlowStatusGUID)
+            @Html.DropDownListFor(model => model.FlowStatusGUID, new DropDownList().WarehouseItemInputParentKit(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>*@
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.VendorInformation)
+                        @Html.EditorFor(model => model.VendorInformation, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ContractDescription)
+                            @Html.EditorFor(model => model.ContractDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Comments)
+                            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ItemModelFormControls" class="form-group form-footer">
+                    @if (Model.LicenseSubscriptionContractGUID == Guid.Empty)
+                    {
+                        @Html.CreateButton(Permissions.LicenseandSubscriptionContracts.Create, Apps.WMS)
+                    }
+                    else
+                    {
+                        if (Model.Active)
+                        {
+                            @Html.UpdateButton(Permissions.LicenseandSubscriptionContracts.Update, Apps.WMS)
+                            @*@Html.DeleteSwitchButton(Permissions.WarehouseItemsEntry.Delete, Apps.WMS)*@
+                        }
+                        else
+                        {
+                            @Html.RestoreSwitchButton(Permissions.LicenseandSubscriptionContracts.Delete, Apps.WMS)
+                        }
+                    }
+                </div>
+
+            }
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function LoadModelDeterminats(ItemModelWarehouseGUID) {
+        if (ItemModelWarehouseGUID == null) {
+
+
+            $("#ModelDeterminant").html("");
+
+        }
+        if (ItemModelWarehouseGUID != null) {
+            var URL = "/WMS/ModelMovements/GetModelDeterminats?ItemModelWarehouseGUID=" + ItemModelWarehouseGUID;
+
+            $('#ModelDeterminant').load(URL,
+                function () { });
+        }
+    };
+</script>

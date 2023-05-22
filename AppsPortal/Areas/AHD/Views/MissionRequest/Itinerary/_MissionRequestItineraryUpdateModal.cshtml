@@ -1,0 +1,117 @@
+﻿@model MissionRequestItineraryUpdateModel
+@using (Html.BeginForm("MissionRequestItinerary", "MissionRequest", new { Area = "AHD" }, FormMethod.Post, new { id = "MissionRequestItineraryForm" }))
+{
+    string ModalTitle = Model.MissionRequestItineraryGUID.ToString() == Guid.Empty.ToString() ? "New Itinerary" : "Edit Itinerary";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.MissionRequestItineraryGUID)
+    @Html.HiddenFor(model => model.MissionRequestGUID)
+    @Html.HiddenFor(model => model.ItineraryTypeGUID)
+    <div class="form-group">
+            @Html.LabelFor(model => model.IsPrivate)
+
+            @Html.CheckBoxFor(model => model.IsPrivate, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TravelTypeGUID) *
+        @Html.DropDownListFor(model => model.TravelTypeGUID, new DropDownList().MissionItineraryTravelTypes(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TravelDate) *
+        @Html.EditorFor(model => model.TravelDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.ReturnDate)
+            @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.FromLocationGUID) *
+        @Html.DropDownListFor(model => model.FromLocationGUID, new DropDownList().DutyStations(), "",
+       new { style = "width:100%", @class = "form-control select2-basic-search" })
+        @*<span class="input-group-btn">
+                <i class="fa fa-plus-square fa-3x NewLocation FromLocation" title="New Location" style="margin-top:17px;margin-left: 1px;margin-right: 0px;cursor: pointer;"></i>
+            </span>*@
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ToLocationGUID) *
+        @Html.DropDownListFor(model => model.ToLocationGUID, new DropDownList().DutyStations(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+    </div>
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.TravelModeGUID) *
+        @Html.DropDownListFor(model => model.TravelModeGUID, new DropDownList().AHDMissionModeOfTravel(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+    </div>*@
+    @*<div class="form-group" >
+            @Html.LabelFor(model => model.AccommodationProvidedGUID)
+            @Html.DropDownListFor(model => model.AccommodationProvidedGUID, new DropDownList().AHDMissionAccommodationProvided(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        <div class="form-group" >
+            @Html.LabelFor(model => model.MealsProvidedGUID)
+            @Html.DropDownListFor(model => model.MealsProvidedGUID, new DropDownList().AHDMissionMealsProvided(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>*@
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Description)
+
+            @Html.CheckBoxFor(model => model.IsMandatury, new { htmlAttributes = new { @class = "form-control" } })
+        </div>*@
+
+
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.Comments)
+        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>*@
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.EmailAddress)
+            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullName)
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>*@
+</div>
+<div class="modal-footer form-footer">
+    @if (Model.IsMissionOwner==true)
+    {
+        if (Model.MissionRequestItineraryGUID == null || Model.MissionRequestItineraryGUID == Guid.Empty)
+        {
+            @Html.CreateButtonNoPermission(Permissions.StaffMissionRequest.Create, Apps.AHD)
+        }
+        else if (Model.MissionRequestItineraryGUID != null || Model.MissionRequestItineraryGUID != Guid.Empty)
+        {
+            if (Model.Active)
+            {
+
+                @Html.UpdateButtonNoPermission(Permissions.StaffMissionRequest.Update, Apps.AHD)
+
+            }
+            else
+            {
+                @Html.RestoreButton(Permissions.StaffMissionRequest.Delete, Apps.AHD)
+            }
+        }
+
+    }
+
+    @Html.CloseModalButton()
+</div>
+}
+<script>
+    //$('#sourcelistId').hide();
+    $('#TravelModeGUID').change(function (e) {
+
+        e.preventDefault();
+        var val = $(this).val();
+        
+        if (val == 'de719230-8a19-4c85-9f73-b6509a2e1b03') {
+
+
+            Notify(NotificationType.Warning, 'Travel by private car for the convenience of the SM is not covered by Appendix D to the Staff Rules ');
+        }
+        
+
+    });
+</script>

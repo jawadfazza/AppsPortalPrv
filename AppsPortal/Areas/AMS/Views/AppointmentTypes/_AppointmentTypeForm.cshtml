@@ -1,0 +1,48 @@
+﻿@model AppointmentTypeUpdateModel
+@using (Html.BeginForm("AppointmentType", "AppointmentTypes", new { Area = "AMS" }, FormMethod.Post, new { id = "AppointmentTypeForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+   
+    @Html.FormHiddenFields(model => model.AppointmentTypeGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Code)
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AppointmentTypeDescription)
+                @Html.EditorFor(model => model.AppointmentTypeDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.DepartmentGUID)
+                @Html.DropDownListFor(model => model.DepartmentGUID, new DropDownList().Departments(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sort)
+                @Html.EditorFor(model => model.Sort, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="AppointmentTypeFormControls" class="form-group form-footer">
+                @if (Model.AppointmentTypeGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.AppointmentType.Create, Apps.AMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.AppointmentType.Update, Apps.AMS)
+                        @Html.CreateNewButton(Permissions.AppointmentType.Create, Apps.AMS, Url.Action("/Create", new { Area = "AMS" }))
+                        @Html.DeleteButton(Permissions.AppointmentType.Delete, Apps.AMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.AppointmentType.Restore, Apps.AMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index","AppointmentTypes", new { Area = "AMS" }))
+            </div>
+        </div>
+    </div>
+}

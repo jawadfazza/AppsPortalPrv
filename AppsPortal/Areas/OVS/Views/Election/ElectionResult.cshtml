@@ -1,0 +1,35 @@
+﻿@model ElectionResulteModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("0448d7a2-0933-429f-b7d1-2849ea4150e5")
+<div class="page--content">
+    <div class="row" id="@string.Format("{0}ActionsContainer", DataTableNames.ElectionResultsDataTable)" style="padding: 15px;">
+        @Html.ActionLink(resxDbFields.ExportElectionResult, "ExportVoteResult", "Election", new { FK = Model.ElectionGUID }, new { @class = "btnExcel  btn btn-sm btn-primary",@style="color:white;" })
+    </div>
+    <div class="col-md-12" style="padding: 10px;">
+        @Html.Label(resxDbFields.totalInvitedElection)
+        @Html.DisplayTextFor(model => model.TotalInvitedForElection),
+        @Html.Label(resxDbFields.TotalStaffVoted)
+        @Html.DisplayTextFor(model => model.TotalVotedForElection),
+        @Html.Label(resxDbFields.TotalNotVotedForEelcetion)
+        
+        @Html.DisplayTextFor(model => model.TotalNotVotedForElection)
+    </div>
+    <div class="forms-fadeIn">
+        <div id="ResultContainer">
+            @if (Model.ElectionGUID != Guid.Empty && Model.Active)
+            {
+              @Html.Partial("~/Areas/OVS/Views/Election/_ResultsDataTable.cshtml", new MasterRecordStatus {ParentGUID = Model.ElectionGUID, IsParentActive = Model.Active})
+            }
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        @*@Html.FieldImportExcel(Permissions.ActionCategories.Create, Apps.OVS, Url.Action("VoteResultExcelExport", "Election", new { FK = Model.ElectionGUID }))*@
+       
+        
+    </div>
+</div>
+

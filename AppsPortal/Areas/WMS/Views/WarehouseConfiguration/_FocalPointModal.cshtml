@@ -1,0 +1,40 @@
+﻿@model codeWarehouseFocalPoint
+@using (Html.BeginForm("WarehouseFocalPoint", "WarehouseConfiguration", new { Area = "WMS" }, FormMethod.Post, new { id = "WarehouseFocalPointForm" }))
+{
+    string ModalTitle = Model.WarehouseFocalPointGUID.ToString() == Guid.Empty.ToString() ? "New Model Warehouse" : "Edit Model Warehouse";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.WarehouseFocalPointGUID)
+        @Html.HiddenFor(model => model.WarehouseGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserGUID)
+            @Html.DropDownListFor(model => model.UserGUID, new DropDownList().Warehouses(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsFocalPoint)
+            @Html.CheckBoxFor(model =>(bool) model.IsFocalPoint, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+   
+   
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.WarehouseFocalPointGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.STIConfiguration.Create, Apps.WMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.STIConfiguration.Update, Apps.WMS)
+                @Html.DeleteSwitchButton(Permissions.STIConfiguration.Delete, Apps.WMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.STIConfiguration.Delete, Apps.WMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

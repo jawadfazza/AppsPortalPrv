@@ -1,0 +1,25 @@
+﻿@model EntryModelUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ItemInputGUID == Guid.Empty) ? "New  Entry " : "Edit Entry"; }
+
+@Html.PageHeader("60f22f53-8b04-498a-beee-4e283dd290e9")
+<div class="page--content">
+    <div class="forms-fadeIn">
+
+        @Html.Partial("~/Areas/WMS/Views/ConsumableItem/_ConsumableItemEntryForm.cshtml")
+        <div id="ItemEntryDetailContainer">
+            @if (Model.ItemInputGUID != Guid.Empty && Model.Active)
+            {
+
+                @Html.Partial("~/Areas/WMS/Views/ConsumableItemEntryDetail/_ConsumableItemEntryDetailDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ItemInputGUID, IsParentActive = Model.Active })
+
+            }
+        </div>
+
+
+        </div>
+</div>
+

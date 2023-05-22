@@ -1,0 +1,74 @@
+﻿@model InternationalStaffEntitlDetailementUpdateModel
+@using (Html.BeginForm("InternationalStaffEntitlementDetail", "InternationalStaffEntitlement", new { Area = "AHD" }, FormMethod.Post, new { id = "InternationalStaffEntitlementForm" }))
+{
+    string ModalTitle = Model.InternationalStaffEntitlementDetailGUID.ToString() == Guid.Empty.ToString() ? "New Record" : "Edit Record";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.InternationalStaffEntitlementDetailGUID)
+    @Html.HiddenFor(model => model.InternationalStaffEntitlementGUID)
+    @Html.HiddenFor(model => model.BasePeriodAmount)
+    
+    @Html.HiddenFor(model => model.StaffGUID)
+
+    @*<div class="form-group">
+
+            @Html.LabelFor(model => model.StaffGUID)
+            @Html.DropDownListFor(model => model.StaffGUID, new DropDownList().Users(true), "", new
+                        {
+                        @class = "form-control select2-basic-search",
+                        style = "width:100%",
+
+                        })
+        </div>*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.EntitlementTypeGUID, htmlAttributes: new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.EntitlementTypeGUID, new DropDownList().AHDEntitlementTypes(), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search"
+   })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TotalAmount)
+        @Html.EditorFor(model => model.TotalAmount, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsToAdd)
+        @Html.CheckBoxFor(m => Model.IsToAdd, new { @class = "chkNode-accordion" })
+
+        @*@Html.CheckBoxFor(model => model.IsToAdd, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })*@
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comments)
+        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TotalDays)
+        @Html.EditorFor(model => model.TotalDays, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.InternationalStaffEntitlementDetailGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.InternationalStaffEntitlements.Create, Apps.AHD)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.InternationalStaffEntitlements.Update, Apps.AHD)
+                @Html.DeleteSwitchButton(Permissions.InternationalStaffEntitlements.Delete, Apps.AHD)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.InternationalStaffEntitlements.Delete, Apps.AHD)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

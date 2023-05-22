@@ -1,0 +1,2268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="dataAppointment">
+          <Key>
+            <PropertyRef Name="AppointmentGUID" />
+          </Key>
+          <Property Name="AppointmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CaseGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AppointmentWithUserGUID" Type="uniqueidentifier" />
+          <Property Name="AppointmentTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AppointmentDateTime" Type="datetime" Nullable="false" />
+          <Property Name="Arrived" Type="bit" Nullable="false" />
+          <Property Name="Cancelled" Type="bit" Nullable="false" />
+          <Property Name="Priority" Type="uniqueidentifier" />
+          <Property Name="TokenNumber" Type="varchar" MaxLength="50" />
+          <Property Name="TokenColourGUID" Type="uniqueidentifier" />
+          <Property Name="StatusGUID" Type="uniqueidentifier" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="Sequence" Type="varchar" MaxLength="50" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="ArrivedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ArrivedDate" Type="datetime" />
+          <Property Name="CancelledBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CancelledDate" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataAppointmentRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataAppointmentCalendarHolded">
+          <Key>
+            <PropertyRef Name="AppointmentCalendarHoldedGUID" />
+          </Key>
+          <Property Name="AppointmentCalendarHoldedGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AppointmentTypeCalenderGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AppointmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataAppointmentCalendarHoldedRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataAppointmentReschedul">
+          <Key>
+            <PropertyRef Name="AppointmentReschedulGUID" />
+          </Key>
+          <Property Name="AppointmentReschedulGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AppointmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LastApointmentDate" Type="datetime" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="300" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataAppointmentReschedulRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataAppointmentTypeCalendar">
+          <Key>
+            <PropertyRef Name="AppointmentTypeCalenderGUID" />
+          </Key>
+          <Property Name="AppointmentTypeCalenderGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AppointmentTypeGUID" Type="uniqueidentifier" />
+          <Property Name="EventStartDate" Type="datetime" Nullable="false" />
+          <Property Name="EventEndDate" Type="datetime" Nullable="false" />
+          <Property Name="SlotAvailable" Type="int" Nullable="false" />
+          <Property Name="SlotClosed" Type="int" Nullable="false" />
+          <Property Name="PreventAppointments" Type="bit" Nullable="false" />
+          <Property Name="PublicHolday" Type="bit" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="250" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataAppointmentTypeCalendarRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataCase">
+          <Key>
+            <PropertyRef Name="CaseGUID" />
+          </Key>
+          <Property Name="CaseGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HouseHold" Type="nvarchar" MaxLength="50" />
+          <Property Name="FileNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ICNameOtherLanguages" Type="nvarchar" MaxLength="250" />
+          <Property Name="ICNameEN" Type="nvarchar" MaxLength="250" />
+          <Property Name="CaseSize" Type="int" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataCaseRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="CaseID" Type="int" />
+        </EntityType>
+        <EntityType Name="dataContactInfo">
+          <Key>
+            <PropertyRef Name="ContactInfoGUID" />
+          </Key>
+          <Property Name="ContactInfoGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CaseGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneType" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataContactInfoRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="StaffCoreData">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="IsInternational" Type="bit" />
+          <Property Name="StaffPhoto" Type="nvarchar(max)" />
+          <Property Name="PositionInOrganigram" Type="nvarchar(max)" />
+          <Property Name="JobTitleGUID" Type="uniqueidentifier" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReportToGUID" Type="uniqueidentifier" />
+          <Property Name="NationalityGUID" Type="uniqueidentifier" />
+          <Property Name="Nationality2GUID" Type="uniqueidentifier" />
+          <Property Name="Nationality3GUID" Type="uniqueidentifier" />
+          <Property Name="ExpiryOfResidencyVisa" Type="datetime" />
+          <Property Name="SyrianNationalIDNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="SyrianNationalIDPhoto" Type="nvarchar(max)" />
+          <Property Name="StaffPrefix" Type="nvarchar" MaxLength="10" />
+          <Property Name="PlaceOfBirthGUID" Type="uniqueidentifier" />
+          <Property Name="EmploymentID" Type="int" />
+          <Property Name="UNHCRIDNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="CallSign" Type="nvarchar(max)" />
+          <Property Name="StaffLastWork" Type="nvarchar" MaxLength="200" />
+          <Property Name="UNLPNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="UNLPDateOfIssue" Type="datetime" />
+          <Property Name="UNLPDateOfExpiry" Type="datetime" />
+          <Property Name="UNLPPhoto" Type="nvarchar(max)" />
+          <Property Name="NationalPassportNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="NationalPassportDateOfIssue" Type="datetime" />
+          <Property Name="NationalPassportDateOfExpiry" Type="datetime" />
+          <Property Name="IsEligibileForNationalDangerPay" Type="bit" />
+          <Property Name="NationalPassportNumber2" Type="nvarchar" MaxLength="200" />
+          <Property Name="NationalPassportDateOfIssue2" Type="datetime" />
+          <Property Name="NationalPassportDateOfExpiry2" Type="datetime" />
+          <Property Name="NationalPassportNumber3" Type="nvarchar" MaxLength="200" />
+          <Property Name="NationalPassportDateOfIssue3" Type="datetime" />
+          <Property Name="NationalPassportDateOfExpiry3" Type="datetime" />
+          <Property Name="NationalPassportPhoto" Type="nvarchar(max)" />
+          <Property Name="BankLebNameGUID" Type="uniqueidentifier" />
+          <Property Name="BankNameARLeb" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountHolderNameLebEN" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountHolderNameLebAR" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankNameLeb" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountNumberLeb" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankNameSyrGUID" Type="uniqueidentifier" />
+          <Property Name="BankNameSyr" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountNumberSyr" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountHolderNameEn" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountHolderNameAr" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountNumberSyr2" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankNameSyrGUID2" Type="uniqueidentifier" />
+          <Property Name="BankSYRNameEN2" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameAR2" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameEn2" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameAr2" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountNumberSyr3" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameGUID3" Type="uniqueidentifier" />
+          <Property Name="BankSYRNameEN3" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameAR3" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameEn3" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameAr3" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountNumberSyr4" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameGUID4" Type="uniqueidentifier" />
+          <Property Name="BankSYRNameEN4" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameAR4" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameEn4" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameAr4" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountNumberSyr5" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameGUID5" Type="uniqueidentifier" />
+          <Property Name="BankSYRNameEN5" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameAR5" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameEn5" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameAr5" Type="nvarchar" MaxLength="200" />
+          <Property Name="ContractTypeGUID" Type="uniqueidentifier" />
+          <Property Name="RecruitmentTypeGUID" Type="uniqueidentifier" />
+          <Property Name="StaffGradeGUID" Type="uniqueidentifier" />
+          <Property Name="ContractStartDate" Type="datetime" />
+          <Property Name="ContractEndDate" Type="datetime" />
+          <Property Name="StaffEOD" Type="datetime" />
+          <Property Name="PositionNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="PermanentAddressEn" Type="nvarchar(max)" />
+          <Property Name="PermanentAddressAr" Type="nvarchar(max)" />
+          <Property Name="CurrentAddressEn" Type="nvarchar(max)" />
+          <Property Name="CurrentAddressAr" Type="nvarchar(max)" />
+          <Property Name="HomeTelephoneNumberLandline" Type="nvarchar" MaxLength="100" />
+          <Property Name="HomeTelephoneNumberMobile" Type="nvarchar" MaxLength="100" />
+          <Property Name="OfficialMobileNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="OfficialExtensionNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="OfficeGUID" Type="uniqueidentifier" />
+          <Property Name="OfficeFloorGUID" Type="uniqueidentifier" />
+          <Property Name="OfficeRoomGUID" Type="uniqueidentifier" />
+          <Property Name="IsOld" Type="bit" />
+          <Property Name="Gender" Type="uniqueidentifier" />
+          <Property Name="IDNumber" Type="nvarchar(max)" />
+          <Property Name="PersonalIDPhoto" Type="nvarchar(max)" />
+          <Property Name="PassportPhoto" Type="nvarchar(max)" />
+          <Property Name="AttendancePhoto" Type="nvarchar(max)" />
+          <Property Name="DangerPay" Type="nvarchar(max)" />
+          <Property Name="WifeHusbandName" Type="nvarchar(max)" />
+          <Property Name="AssignmentDuration" Type="nvarchar(max)" />
+          <Property Name="BankAccountNumber" Type="nvarchar(max)" />
+          <Property Name="CurrentLocationByDate" Type="nvarchar(max)" />
+          <Property Name="StaffMemberOnGTA" Type="bit" />
+          <Property Name="GTAStartDate" Type="datetime" />
+          <Property Name="GTAEndDate" Type="datetime" />
+          <Property Name="Accommodation" Type="nvarchar(max)" />
+          <Property Name="AccommodationStartingDate" Type="datetime" />
+          <Property Name="StartOfMissionAssignmentDate" Type="datetime" />
+          <Property Name="EndOfMissionAssignmentDate" Type="datetime" />
+          <Property Name="DetailsOfMissionAssignment" Type="nvarchar(max)" />
+          <Property Name="DurationOfStayInSyria" Type="nvarchar(max)" />
+          <Property Name="EmploymentType" Type="uniqueidentifier" />
+          <Property Name="StaffAccessCategoryGUID" Type="uniqueidentifier" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="PlaceBirthCityEn" Type="nvarchar" MaxLength="500" />
+          <Property Name="PlaceBirthCityAr" Type="nvarchar" MaxLength="500" />
+          <Property Name="LastJobEn" Type="nvarchar" MaxLength="500" />
+          <Property Name="LastJobAr" Type="nvarchar" MaxLength="500" />
+          <Property Name="SATPhoneNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="OfficeRoomNumberBuilding" Type="nvarchar" MaxLength="300" />
+          <Property Name="DegreeAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="DegreeEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="ReturnDateFromLastRAndRLeave" Type="datetime" />
+          <Property Name="StaffStatus" Type="bit" />
+          <Property Name="BloodGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastUpdatedByGUID" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedOn" Type="datetime" />
+          <Property Name="LastConfirmedByGUID" Type="uniqueidentifier" />
+          <Property Name="LastConfirmedOn" Type="datetime" />
+          <Property Name="ConfirmationStatusGUID" Type="uniqueidentifier" />
+          <Property Name="ConfirmationComment" Type="nvarchar" MaxLength="100" />
+          <Property Name="StaffStatusGUID" Type="uniqueidentifier" />
+          <Property Name="IsOldRecord" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="StaffCoreDataRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="StaffPrefixGUID" Type="uniqueidentifier" />
+          <Property Name="TitleEnglishMSRP" Type="nvarchar" MaxLength="500" />
+          <Property Name="TitleArabicMSRP" Type="nvarchar" MaxLength="500" />
+          <Property Name="TitleEnglishMOFA" Type="nvarchar" MaxLength="500" />
+          <Property Name="TitleArabicMOFA" Type="nvarchar" MaxLength="500" />
+          <Property Name="PersonalEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="HQExtensionNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="DamascusExtensionNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastConfirmationStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastConfirmationStatusGUID" Type="uniqueidentifier" />
+          <Property Name="OfficeTypeGUID" Type="uniqueidentifier" />
+          <Property Name="ICTComments" Type="nvarchar" MaxLength="2000" />
+          <Property Name="NextOfKinName" Type="nvarchar" MaxLength="300" />
+          <Property Name="KinMobileNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="BSAFECertAcquired" Type="bit" />
+          <Property Name="BSAFEExpiryDate" Type="datetime" />
+          <Property Name="NumberOfDependants" Type="int" />
+          <Property Name="DependantsName" Type="nvarchar" MaxLength="500" />
+          <Property Name="LastDepartureDate" Type="datetime" />
+          <Property Name="StaffPositionGUID" Type="uniqueidentifier" />
+          <Property Name="ICTServiceProvidedCount" Type="int" />
+          <Property Name="VendorID" Type="int" />
+          <Property Name="PaymentEligibilityStatusGUID" Type="uniqueidentifier" />
+          <Property Name="Photo" Type="image" />
+          <Property Name="WorkingOutsideSyriaGUID" Type="uniqueidentifier" />
+          <Property Name="HasToDeductFSHBreakfastFromEntitlementGUID" Type="uniqueidentifier" />
+          <Property Name="StaffFunctionality" Type="nvarchar" MaxLength="1000" />
+          <Property Name="HasFixedOfficalNumber" Type="bit" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" />
+          <Property Name="OfficialMobileNumber2" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="userPermissions">
+          <Key>
+            <PropertyRef Name="PermissionGUID" />
+          </Key>
+          <Property Name="PermissionGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserProfileGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ActionGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorsToken" Type="nvarchar" MaxLength="512" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userPermissionsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeAppointmentType">
+          <Key>
+            <PropertyRef Name="AppointmentTypeGUID" />
+          </Key>
+          <Property Name="AppointmentTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" />
+          <Property Name="Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeAppointmentTypeRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeAppointmentTypeLanguage">
+          <Key>
+            <PropertyRef Name="AppointmentTypeLanguageGUID" />
+          </Key>
+          <Property Name="AppointmentTypeLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AppointmentTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AppointmentTypeDescription" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="3" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeAppointmentTypeLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeCountries">
+          <Key>
+            <PropertyRef Name="CountryGUID" />
+          </Key>
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryA2Code" Type="nvarchar" MaxLength="2" />
+          <Property Name="CountryA3Code" Type="nvarchar" MaxLength="3" />
+          <Property Name="PhoneCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeCountriesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="CountryNameCIMT" Type="nvarchar" MaxLength="300" />
+          <Property Name="CountryA3CodeCIMT" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="codeCountriesLanguages">
+          <Key>
+            <PropertyRef Name="CountryLanguageGUID" />
+          </Key>
+          <Property Name="CountryLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="CountryDescription" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeCountriesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDepartments">
+          <Key>
+            <PropertyRef Name="DepartmentGUID" />
+          </Key>
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" />
+          <Property Name="DepartmentCode" Type="nvarchar" MaxLength="150" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDepartmentsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="SectionGUID" Type="uniqueidentifier" />
+          <Property Name="SubSort" Type="int" />
+          <Property Name="NodeId" Type="int" />
+          <Property Name="SubNodeId" Type="int" />
+        </EntityType>
+        <EntityType Name="codeDepartmentsLanguages">
+          <Key>
+            <PropertyRef Name="DepartmentLanguageGUID" />
+          </Key>
+          <Property Name="DepartmentLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DepartmentDescription" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDepartmentsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="IsDutyStation" Type="bit" />
+          <Property Name="OrderID" Type="int" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DutyStationDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstances">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OperationGUID" Type="uniqueidentifier" />
+          <Property Name="codeOrganizationsInstancesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsLanguages">
+          <Key>
+            <PropertyRef Name="OrganizationLanguageGUID" />
+          </Key>
+          <Property Name="OrganizationLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="OrganizationDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeOrganizationsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TableGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ValueDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeWorkingDaysConfigurations">
+          <Key>
+            <PropertyRef Name="WorkingDaysConfigurationGUID" />
+          </Key>
+          <Property Name="WorkingDaysConfigurationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationConfigurationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DayGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FromTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="ToTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeWorkingDaysConfigurationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataFile">
+          <Key>
+            <PropertyRef Name="FileGUID" />
+          </Key>
+          <Property Name="FileGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DocumentSourceTypeGUID" Type="uniqueidentifier" />
+          <Property Name="FileNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProcessStatusName" Type="nvarchar" MaxLength="10" />
+          <Property Name="RefugeeStatus" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrigionCountry" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataFileRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="Archived" Type="bit" />
+          <Property Name="LastCustodianType" Type="nvarchar" MaxLength="300" />
+          <Property Name="LastCustodianTypeName" Type="nvarchar" MaxLength="300" />
+          <Property Name="LastFlowStatusName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastFlowStatusGUID" Type="uniqueidentifier" />
+          <Property Name="LastCustodianTypeGUID" Type="uniqueidentifier" />
+          <Property Name="LastCustodianTypeNameGUID" Type="uniqueidentifier" />
+          <Property Name="LastTransferFromName" Type="nvarchar" MaxLength="300" />
+          <Property Name="LastTransferFromNameGUID" Type="uniqueidentifier" />
+          <Property Name="IsRequested" Type="bit" />
+          <Property Name="LastRequesterName" Type="nvarchar" MaxLength="300" />
+          <Property Name="LastRequesterNameGUID" Type="uniqueidentifier" />
+          <Property Name="LatestAppointmentDate" Type="datetime" />
+          <Property Name="TotalDaysReminigForAppointment" Type="int" />
+          <Property Name="RequestStatusGUID" Type="uniqueidentifier" />
+          <Property Name="RequestStatusName" Type="nvarchar" MaxLength="300" />
+          <Property Name="CaseSize" Type="int" />
+          <Property Name="CaseCategory" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastOwnerUnitGUID" Type="uniqueidentifier" />
+          <Property Name="LastOwnerName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastTransferLocationGUID" Type="uniqueidentifier" />
+          <Property Name="LastTransferLocationName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastUnitName" Type="nvarchar" MaxLength="300" />
+          <Property Name="LastDestinationUnitGUID" Type="uniqueidentifier" />
+          <Property Name="SiteOwnerName" Type="nvarchar" MaxLength="15" />
+          <Property Name="FileMergeStatusGUID" Type="uniqueidentifier" />
+          <Property Name="FileMergeStatus" Type="nvarchar" MaxLength="100" />
+          <Property Name="FileMergeComments" Type="nvarchar" MaxLength="500" />
+          <Property Name="SiteCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="SiteGUID" Type="uniqueidentifier" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalDB.AMS.v_AppointmentContactNumber' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_AppointmentContactNumber">
+          <Key>
+            <PropertyRef Name="CaseGUID" />
+          </Key>
+          <Property Name="CaseGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalDB.AMS.v_CaseAppointments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_CaseAppointments">
+          <Key>
+            <PropertyRef Name="CaseGUID" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="dataCaseRowVersion" />
+            <PropertyRef Name="CountryDescription" />
+            <PropertyRef Name="CountryGUID" />
+          </Key>
+          <Property Name="CaseGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FileNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ICNameOtherLanguages" Type="nvarchar" MaxLength="250" />
+          <Property Name="ICNameEN" Type="nvarchar" MaxLength="250" />
+          <Property Name="CaseSize" Type="int" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataCaseRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="CountryDescription" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_codeAppointmentType_codeDepartments">
+          <End Role="codeDepartments" Type="Self.codeDepartments" Multiplicity="0..1" />
+          <End Role="codeAppointmentType" Type="Self.codeAppointmentType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeAppointmentType">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeAppointmentTypeLanguage_codeAppointmentType">
+          <End Role="codeAppointmentType" Type="Self.codeAppointmentType" Multiplicity="1" />
+          <End Role="codeAppointmentTypeLanguage" Type="Self.codeAppointmentTypeLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeAppointmentType">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Principal>
+            <Dependent Role="codeAppointmentTypeLanguage">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeCountriesLanguages_codeCountries">
+          <End Role="codeCountries" Type="Self.codeCountries" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeCountriesLanguages" Type="Self.codeCountriesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCountries">
+              <PropertyRef Name="CountryGUID" />
+            </Principal>
+            <Dependent Role="codeCountriesLanguages">
+              <PropertyRef Name="CountryGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDepartmentsLanguages_codeDepartments">
+          <End Role="codeDepartments" Type="Self.codeDepartments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDepartmentsLanguages" Type="Self.codeDepartmentsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeDepartmentsLanguages">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDutyStationsLanguages" Type="Self.codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Role="codeTablesValues" Type="Self.codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeTablesValuesLanguages" Type="Self.codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppointment_codeDutyStations">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="0..1" />
+          <End Role="dataAppointment" Type="Self.dataAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="dataAppointment">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppointmentCalendarHolded_dataAppointmentTypeCalendar">
+          <End Role="dataAppointmentTypeCalendar" Type="Self.dataAppointmentTypeCalendar" Multiplicity="1" />
+          <End Role="dataAppointmentCalendarHolded" Type="Self.dataAppointmentCalendarHolded" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataAppointmentTypeCalendar">
+              <PropertyRef Name="AppointmentTypeCalenderGUID" />
+            </Principal>
+            <Dependent Role="dataAppointmentCalendarHolded">
+              <PropertyRef Name="AppointmentTypeCalenderGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppointmentReschedul_dataAppointment">
+          <End Role="dataAppointment" Type="Self.dataAppointment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataAppointmentReschedul" Type="Self.dataAppointmentReschedul" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataAppointment">
+              <PropertyRef Name="AppointmentGUID" />
+            </Principal>
+            <Dependent Role="dataAppointmentReschedul">
+              <PropertyRef Name="AppointmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppointments_codeAppointmentType">
+          <End Role="codeAppointmentType" Type="Self.codeAppointmentType" Multiplicity="1" />
+          <End Role="dataAppointment" Type="Self.dataAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeAppointmentType">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Principal>
+            <Dependent Role="dataAppointment">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppointments_dataCases">
+          <End Role="dataCase" Type="Self.dataCase" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataAppointment" Type="Self.dataAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataCase">
+              <PropertyRef Name="CaseGUID" />
+            </Principal>
+            <Dependent Role="dataAppointment">
+              <PropertyRef Name="CaseGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppointmentTypeCalendar_codeAppointmentType">
+          <End Role="codeAppointmentType" Type="Self.codeAppointmentType" Multiplicity="0..1" />
+          <End Role="dataAppointmentTypeCalendar" Type="Self.dataAppointmentTypeCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeAppointmentType">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Principal>
+            <Dependent Role="dataAppointmentTypeCalendar">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataCalendarHolded_dataAppointments1">
+          <End Role="dataAppointment" Type="Self.dataAppointment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataAppointmentCalendarHolded" Type="Self.dataAppointmentCalendarHolded" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataAppointment">
+              <PropertyRef Name="AppointmentGUID" />
+            </Principal>
+            <Dependent Role="dataAppointmentCalendarHolded">
+              <PropertyRef Name="AppointmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataCase_codeCountries">
+          <End Role="codeCountries" Type="Self.codeCountries" Multiplicity="0..1" />
+          <End Role="dataCase" Type="Self.dataCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCountries">
+              <PropertyRef Name="CountryGUID" />
+            </Principal>
+            <Dependent Role="dataCase">
+              <PropertyRef Name="CountryGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataContactInfo_dataCases">
+          <End Role="dataCase" Type="Self.dataCase" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataContactInfo" Type="Self.dataContactInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataCase">
+              <PropertyRef Name="CaseGUID" />
+            </Principal>
+            <Dependent Role="dataContactInfo">
+              <PropertyRef Name="CaseGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AMSModelStoreContainer">
+          <EntitySet Name="dataAppointment" EntityType="Self.dataAppointment" Schema="AMS" store:Type="Tables" />
+          <EntitySet Name="dataAppointmentCalendarHolded" EntityType="Self.dataAppointmentCalendarHolded" Schema="AMS" store:Type="Tables" />
+          <EntitySet Name="dataAppointmentReschedul" EntityType="Self.dataAppointmentReschedul" Schema="AMS" store:Type="Tables" />
+          <EntitySet Name="dataAppointmentTypeCalendar" EntityType="Self.dataAppointmentTypeCalendar" Schema="AMS" store:Type="Tables" />
+          <EntitySet Name="dataCase" EntityType="Self.dataCase" Schema="AMS" store:Type="Tables" />
+          <EntitySet Name="dataContactInfo" EntityType="Self.dataContactInfo" Schema="AMS" store:Type="Tables" />
+          <EntitySet Name="StaffCoreData" EntityType="Self.StaffCoreData" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="userPermissions" EntityType="Self.userPermissions" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="codeAppointmentType" EntityType="Self.codeAppointmentType" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeAppointmentTypeLanguage" EntityType="Self.codeAppointmentTypeLanguage" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeCountries" EntityType="Self.codeCountries" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeCountriesLanguages" EntityType="Self.codeCountriesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDepartments" EntityType="Self.codeDepartments" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDepartmentsLanguages" EntityType="Self.codeDepartmentsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDutyStations" EntityType="Self.codeDutyStations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="Self.codeDutyStationsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOrganizationsInstances" EntityType="Self.codeOrganizationsInstances" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOrganizationsLanguages" EntityType="Self.codeOrganizationsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValues" EntityType="Self.codeTablesValues" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="Self.codeTablesValuesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeWorkingDaysConfigurations" EntityType="Self.codeWorkingDaysConfigurations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="dataFile" EntityType="Self.dataFile" Schema="DAS" store:Type="Tables" />
+          <EntitySet Name="v_AppointmentContactNumber" EntityType="Self.v_AppointmentContactNumber" store:Type="Views" store:Schema="AMS">
+            <DefiningQuery>SELECT 
+    [v_AppointmentContactNumber].[CaseGUID] AS [CaseGUID], 
+    [v_AppointmentContactNumber].[PhoneNumber] AS [PhoneNumber]
+    FROM [AMS].[v_AppointmentContactNumber] AS [v_AppointmentContactNumber]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="v_CaseAppointments" EntityType="Self.v_CaseAppointments" store:Type="Views" store:Schema="AMS">
+            <DefiningQuery>SELECT 
+    [v_CaseAppointments].[CaseGUID] AS [CaseGUID], 
+    [v_CaseAppointments].[FileNumber] AS [FileNumber], 
+    [v_CaseAppointments].[ICNameOtherLanguages] AS [ICNameOtherLanguages], 
+    [v_CaseAppointments].[ICNameEN] AS [ICNameEN], 
+    [v_CaseAppointments].[CaseSize] AS [CaseSize], 
+    [v_CaseAppointments].[DutyStationGUID] AS [DutyStationGUID], 
+    [v_CaseAppointments].[Comments] AS [Comments], 
+    [v_CaseAppointments].[Active] AS [Active], 
+    [v_CaseAppointments].[dataCaseRowVersion] AS [dataCaseRowVersion], 
+    [v_CaseAppointments].[CountryDescription] AS [CountryDescription], 
+    [v_CaseAppointments].[Nationality] AS [Nationality], 
+    [v_CaseAppointments].[CountryGUID] AS [CountryGUID], 
+    [v_CaseAppointments].[PhoneNumber] AS [PhoneNumber]
+    FROM [AMS].[v_CaseAppointments] AS [v_CaseAppointments]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_codeAppointmentType_codeDepartments" Association="Self.FK_codeAppointmentType_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeAppointmentType" EntitySet="codeAppointmentType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeAppointmentTypeLanguage_codeAppointmentType" Association="Self.FK_codeAppointmentTypeLanguage_codeAppointmentType">
+            <End Role="codeAppointmentType" EntitySet="codeAppointmentType" />
+            <End Role="codeAppointmentTypeLanguage" EntitySet="codeAppointmentTypeLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeCountriesLanguages_codeCountries" Association="Self.FK_codeCountriesLanguages_codeCountries">
+            <End Role="codeCountries" EntitySet="codeCountries" />
+            <End Role="codeCountriesLanguages" EntitySet="codeCountriesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDepartmentsLanguages_codeDepartments" Association="Self.FK_codeDepartmentsLanguages_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeDepartmentsLanguages" EntitySet="codeDepartmentsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="Self.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="Self.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppointment_codeDutyStations" Association="Self.FK_dataAppointment_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="dataAppointment" EntitySet="dataAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppointmentCalendarHolded_dataAppointmentTypeCalendar" Association="Self.FK_dataAppointmentCalendarHolded_dataAppointmentTypeCalendar">
+            <End Role="dataAppointmentTypeCalendar" EntitySet="dataAppointmentTypeCalendar" />
+            <End Role="dataAppointmentCalendarHolded" EntitySet="dataAppointmentCalendarHolded" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppointmentReschedul_dataAppointment" Association="Self.FK_dataAppointmentReschedul_dataAppointment">
+            <End Role="dataAppointment" EntitySet="dataAppointment" />
+            <End Role="dataAppointmentReschedul" EntitySet="dataAppointmentReschedul" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppointments_codeAppointmentType" Association="Self.FK_dataAppointments_codeAppointmentType">
+            <End Role="codeAppointmentType" EntitySet="codeAppointmentType" />
+            <End Role="dataAppointment" EntitySet="dataAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppointments_dataCases" Association="Self.FK_dataAppointments_dataCases">
+            <End Role="dataCase" EntitySet="dataCase" />
+            <End Role="dataAppointment" EntitySet="dataAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppointmentTypeCalendar_codeAppointmentType" Association="Self.FK_dataAppointmentTypeCalendar_codeAppointmentType">
+            <End Role="codeAppointmentType" EntitySet="codeAppointmentType" />
+            <End Role="dataAppointmentTypeCalendar" EntitySet="dataAppointmentTypeCalendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataCalendarHolded_dataAppointments1" Association="Self.FK_dataCalendarHolded_dataAppointments1">
+            <End Role="dataAppointment" EntitySet="dataAppointment" />
+            <End Role="dataAppointmentCalendarHolded" EntitySet="dataAppointmentCalendarHolded" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataCase_codeCountries" Association="Self.FK_dataCase_codeCountries">
+            <End Role="codeCountries" EntitySet="codeCountries" />
+            <End Role="dataCase" EntitySet="dataCase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataContactInfo_dataCases" Association="Self.FK_dataContactInfo_dataCases">
+            <End Role="dataCase" EntitySet="dataCase" />
+            <End Role="dataContactInfo" EntitySet="dataContactInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="dataContactInfo" EntityType="AMSModel.dataContactInfo" />
+          <EntitySet Name="codeAppointmentType" EntityType="AMSModel.codeAppointmentType" />
+          <EntitySet Name="codeAppointmentTypeLanguage" EntityType="AMSModel.codeAppointmentTypeLanguage" />
+          <EntitySet Name="codeDepartments" EntityType="AMSModel.codeDepartments" />
+          <EntitySet Name="codeDepartmentsLanguages" EntityType="AMSModel.codeDepartmentsLanguages" />
+          <AssociationSet Name="FK_codeAppointmentType_codeDepartments" Association="AMSModel.FK_codeAppointmentType_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeAppointmentType" EntitySet="codeAppointmentType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeAppointmentTypeLanguage_codeAppointmentType" Association="AMSModel.FK_codeAppointmentTypeLanguage_codeAppointmentType">
+            <End Role="codeAppointmentType" EntitySet="codeAppointmentType" />
+            <End Role="codeAppointmentTypeLanguage" EntitySet="codeAppointmentTypeLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDepartmentsLanguages_codeDepartments" Association="AMSModel.FK_codeDepartmentsLanguages_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeDepartmentsLanguages" EntitySet="codeDepartmentsLanguages" />
+          </AssociationSet>
+          <EntitySet Name="codeCountries" EntityType="AMSModel.codeCountries" />
+          <EntitySet Name="codeCountriesLanguages" EntityType="AMSModel.codeCountriesLanguages" />
+          <AssociationSet Name="FK_codeCountriesLanguages_codeCountries" Association="AMSModel.FK_codeCountriesLanguages_codeCountries">
+            <End Role="codeCountries" EntitySet="codeCountries" />
+            <End Role="codeCountriesLanguages" EntitySet="codeCountriesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="codeDutyStations" EntityType="AMSModel.codeDutyStations" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="AMSModel.codeDutyStationsLanguages" />
+          <EntitySet Name="codeOrganizationsInstances" EntityType="AMSModel.codeOrganizationsInstances" />
+          <EntitySet Name="codeOrganizationsLanguages" EntityType="AMSModel.codeOrganizationsLanguages" />
+          <EntitySet Name="codeTablesValues" EntityType="AMSModel.codeTablesValues" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="AMSModel.codeTablesValuesLanguages" />
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="AMSModel.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="AMSModel.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="codeWorkingDaysConfigurations" EntityType="AMSModel.codeWorkingDaysConfigurations" />
+          <EntitySet Name="dataAppointmentCalendarHolded" EntityType="AMSModel.dataAppointmentCalendarHolded" />
+          <EntitySet Name="dataAppointmentReschedul" EntityType="AMSModel.dataAppointmentReschedul" />
+          <EntitySet Name="userPermissions" EntityType="AMSModel.userPermissions" />
+          <EntitySet Name="dataAppointment" EntityType="AMSModel.dataAppointment" />
+          <AssociationSet Name="FK_dataAppointment_codeDutyStations" Association="AMSModel.FK_dataAppointment_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="dataAppointment" EntitySet="dataAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppointmentReschedul_dataAppointment" Association="AMSModel.FK_dataAppointmentReschedul_dataAppointment">
+            <End Role="dataAppointment" EntitySet="dataAppointment" />
+            <End Role="dataAppointmentReschedul" EntitySet="dataAppointmentReschedul" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppointments_codeAppointmentType" Association="AMSModel.FK_dataAppointments_codeAppointmentType">
+            <End Role="codeAppointmentType" EntitySet="codeAppointmentType" />
+            <End Role="dataAppointment" EntitySet="dataAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataCalendarHolded_dataAppointments1" Association="AMSModel.FK_dataCalendarHolded_dataAppointments1">
+            <End Role="dataAppointment" EntitySet="dataAppointment" />
+            <End Role="dataAppointmentCalendarHolded" EntitySet="dataAppointmentCalendarHolded" />
+          </AssociationSet>
+          <EntitySet Name="dataCase" EntityType="AMSModel.dataCase" />
+          <AssociationSet Name="FK_dataAppointments_dataCases" Association="AMSModel.FK_dataAppointments_dataCases">
+            <End Role="dataCase" EntitySet="dataCase" />
+            <End Role="dataAppointment" EntitySet="dataAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataCase_codeCountries" Association="AMSModel.FK_dataCase_codeCountries">
+            <End Role="codeCountries" EntitySet="codeCountries" />
+            <End Role="dataCase" EntitySet="dataCase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataCase_codeOrganizationsInstances" Association="AMSModel.FK_dataCase_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="dataCase" EntitySet="dataCase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataContactInfo_dataCases" Association="AMSModel.FK_dataContactInfo_dataCases">
+            <End Role="dataCase" EntitySet="dataCase" />
+            <End Role="dataContactInfo" EntitySet="dataContactInfo" />
+          </AssociationSet>
+          <EntitySet Name="v_CaseAppointments" EntityType="AMSModel.v_CaseAppointments" />
+          <EntitySet Name="dataAppointmentTypeCalendar" EntityType="AMSModel.dataAppointmentTypeCalendar" />
+          <AssociationSet Name="FK_dataAppointmentCalendarHolded_dataAppointmentTypeCalendar" Association="AMSModel.FK_dataAppointmentCalendarHolded_dataAppointmentTypeCalendar">
+            <End Role="dataAppointmentTypeCalendar" EntitySet="dataAppointmentTypeCalendar" />
+            <End Role="dataAppointmentCalendarHolded" EntitySet="dataAppointmentCalendarHolded" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataAppointmentTypeCalendar_codeAppointmentType" Association="AMSModel.FK_dataAppointmentTypeCalendar_codeAppointmentType">
+            <End Role="codeAppointmentType" EntitySet="codeAppointmentType" />
+            <End Role="dataAppointmentTypeCalendar" EntitySet="dataAppointmentTypeCalendar" />
+          </AssociationSet>
+          <EntitySet Name="v_AppointmentContactNumber" EntityType="AMSModel.v_AppointmentContactNumber" />
+          <EntitySet Name="dataFile" EntityType="AMSModel.dataFile" />
+          <EntitySet Name="StaffCoreData" EntityType="AMSModel.StaffCoreData" />
+        </EntityContainer>
+        <EntityType Name="dataContactInfo">
+          <Key>
+            <PropertyRef Name="ContactInfoGUID" />
+          </Key>
+          <Property Name="ContactInfoGUID" Type="Guid" Nullable="false" />
+          <Property Name="CaseGUID" Type="Guid" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneType" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataContactInfoRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataCase" Relationship="AMSModel.FK_dataContactInfo_dataCases" FromRole="dataContactInfo" ToRole="dataCase" />
+        </EntityType>
+        <EntityType Name="codeAppointmentType">
+          <Key>
+            <PropertyRef Name="AppointmentTypeGUID" />
+          </Key>
+          <Property Name="AppointmentTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="Guid" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeAppointmentTypeRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDepartments" Relationship="AMSModel.FK_codeAppointmentType_codeDepartments" FromRole="codeAppointmentType" ToRole="codeDepartments" />
+          <NavigationProperty Name="codeAppointmentTypeLanguage" Relationship="AMSModel.FK_codeAppointmentTypeLanguage_codeAppointmentType" FromRole="codeAppointmentType" ToRole="codeAppointmentTypeLanguage" />
+          <NavigationProperty Name="dataAppointment" Relationship="AMSModel.FK_dataAppointments_codeAppointmentType" FromRole="codeAppointmentType" ToRole="dataAppointment" />
+          <NavigationProperty Name="dataAppointmentTypeCalendar" Relationship="AMSModel.FK_dataAppointmentTypeCalendar_codeAppointmentType" FromRole="codeAppointmentType" ToRole="dataAppointmentTypeCalendar" />
+        </EntityType>
+        <EntityType Name="codeAppointmentTypeLanguage">
+          <Key>
+            <PropertyRef Name="AppointmentTypeLanguageGUID" />
+          </Key>
+          <Property Name="AppointmentTypeLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="AppointmentTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="AppointmentTypeDescription" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageID" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeAppointmentTypeLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeAppointmentType" Relationship="AMSModel.FK_codeAppointmentTypeLanguage_codeAppointmentType" FromRole="codeAppointmentTypeLanguage" ToRole="codeAppointmentType" />
+        </EntityType>
+        <EntityType Name="codeDepartments">
+          <Key>
+            <PropertyRef Name="DepartmentGUID" />
+          </Key>
+          <Property Name="DepartmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="FactorGUID" Type="Guid" />
+          <Property Name="DepartmentCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDepartmentsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeAppointmentType" Relationship="AMSModel.FK_codeAppointmentType_codeDepartments" FromRole="codeDepartments" ToRole="codeAppointmentType" />
+          <NavigationProperty Name="codeDepartmentsLanguages" Relationship="AMSModel.FK_codeDepartmentsLanguages_codeDepartments" FromRole="codeDepartments" ToRole="codeDepartmentsLanguages" />
+          <Property Name="SectionGUID" Type="Guid" />
+          <Property Name="SubSort" Type="Int32" />
+          <Property Name="NodeId" Type="Int32" />
+          <Property Name="SubNodeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="codeDepartmentsLanguages">
+          <Key>
+            <PropertyRef Name="DepartmentLanguageGUID" />
+          </Key>
+          <Property Name="DepartmentLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentDescription" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDepartmentsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDepartments" Relationship="AMSModel.FK_codeDepartmentsLanguages_codeDepartments" FromRole="codeDepartmentsLanguages" ToRole="codeDepartments" />
+        </EntityType>
+        <Association Name="FK_codeAppointmentType_codeDepartments">
+          <End Type="AMSModel.codeDepartments" Role="codeDepartments" Multiplicity="0..1" />
+          <End Type="AMSModel.codeAppointmentType" Role="codeAppointmentType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeAppointmentType">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeAppointmentTypeLanguage_codeAppointmentType">
+          <End Type="AMSModel.codeAppointmentType" Role="codeAppointmentType" Multiplicity="1" />
+          <End Type="AMSModel.codeAppointmentTypeLanguage" Role="codeAppointmentTypeLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeAppointmentType">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Principal>
+            <Dependent Role="codeAppointmentTypeLanguage">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDepartmentsLanguages_codeDepartments">
+          <End Type="AMSModel.codeDepartments" Role="codeDepartments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AMSModel.codeDepartmentsLanguages" Role="codeDepartmentsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeDepartmentsLanguages">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeCountries">
+          <Key>
+            <PropertyRef Name="CountryGUID" />
+          </Key>
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryA2Code" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="CountryA3Code" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeCountriesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeCountriesLanguages" Relationship="AMSModel.FK_codeCountriesLanguages_codeCountries" FromRole="codeCountries" ToRole="codeCountriesLanguages" />
+          <Property Name="CountryNameCIMT" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CountryA3CodeCIMT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dataCase" Relationship="AMSModel.FK_dataCase_codeCountries" FromRole="codeCountries" ToRole="dataCase" />
+        </EntityType>
+        <EntityType Name="codeCountriesLanguages">
+          <Key>
+            <PropertyRef Name="CountryLanguageGUID" />
+          </Key>
+          <Property Name="CountryLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CountryDescription" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeCountriesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeCountries" Relationship="AMSModel.FK_codeCountriesLanguages_codeCountries" FromRole="codeCountriesLanguages" ToRole="codeCountries" />
+        </EntityType>
+        <Association Name="FK_codeCountriesLanguages_codeCountries">
+          <End Type="AMSModel.codeCountries" Role="codeCountries" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AMSModel.codeCountriesLanguages" Role="codeCountriesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCountries">
+              <PropertyRef Name="CountryGUID" />
+            </Principal>
+            <Dependent Role="codeCountriesLanguages">
+              <PropertyRef Name="CountryGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStationsLanguages" Relationship="AMSModel.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStations" ToRole="codeDutyStationsLanguages" />
+          <Property Name="IsDutyStation" Type="Boolean" />
+          <Property Name="OrderID" Type="Int32" />
+          <NavigationProperty Name="dataAppointment" Relationship="AMSModel.FK_dataAppointment_codeDutyStations" FromRole="codeDutyStations" ToRole="dataAppointment" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DutyStationDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStations" Relationship="AMSModel.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStationsLanguages" ToRole="codeDutyStations" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstances">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OperationGUID" Type="Guid" />
+          <Property Name="codeOrganizationsInstancesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataCase" Relationship="AMSModel.FK_dataCase_codeOrganizationsInstances" FromRole="codeOrganizationsInstances" ToRole="dataCase" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsLanguages">
+          <Key>
+            <PropertyRef Name="OrganizationLanguageGUID" />
+          </Key>
+          <Property Name="OrganizationLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeOrganizationsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="TableGUID" Type="Guid" Nullable="false" />
+          <Property Name="FactorGUID" Type="Guid" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValuesLanguages" Relationship="AMSModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValues" ToRole="codeTablesValuesLanguages" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ValueDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValues" Relationship="AMSModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValuesLanguages" ToRole="codeTablesValues" />
+        </EntityType>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Type="AMSModel.codeDutyStations" Role="codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AMSModel.codeDutyStationsLanguages" Role="codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Type="AMSModel.codeTablesValues" Role="codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AMSModel.codeTablesValuesLanguages" Role="codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeWorkingDaysConfigurations">
+          <Key>
+            <PropertyRef Name="WorkingDaysConfigurationGUID" />
+          </Key>
+          <Property Name="WorkingDaysConfigurationGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationConfigurationGUID" Type="Guid" Nullable="false" />
+          <Property Name="DayGUID" Type="Guid" Nullable="false" />
+          <Property Name="FromTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="ToTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeWorkingDaysConfigurationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="dataAppointmentCalendarHolded">
+          <Key>
+            <PropertyRef Name="AppointmentCalendarHoldedGUID" />
+          </Key>
+          <Property Name="AppointmentCalendarHoldedGUID" Type="Guid" Nullable="false" />
+          <Property Name="AppointmentTypeCalenderGUID" Type="Guid" Nullable="false" />
+          <Property Name="AppointmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataAppointmentCalendarHoldedRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataAppointment" Relationship="AMSModel.FK_dataCalendarHolded_dataAppointments1" FromRole="dataAppointmentCalendarHolded" ToRole="dataAppointment" />
+          <NavigationProperty Name="dataAppointmentTypeCalendar" Relationship="AMSModel.FK_dataAppointmentCalendarHolded_dataAppointmentTypeCalendar" FromRole="dataAppointmentCalendarHolded" ToRole="dataAppointmentTypeCalendar" />
+        </EntityType>
+        <EntityType Name="dataAppointmentReschedul">
+          <Key>
+            <PropertyRef Name="AppointmentReschedulGUID" />
+          </Key>
+          <Property Name="AppointmentReschedulGUID" Type="Guid" Nullable="false" />
+          <Property Name="AppointmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="LastApointmentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Reason" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataAppointmentReschedulRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataAppointment" Relationship="AMSModel.FK_dataAppointmentReschedul_dataAppointment" FromRole="dataAppointmentReschedul" ToRole="dataAppointment" />
+        </EntityType>
+        <EntityType Name="userPermissions">
+          <Key>
+            <PropertyRef Name="PermissionGUID" />
+          </Key>
+          <Property Name="PermissionGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserProfileGUID" Type="Guid" Nullable="false" />
+          <Property Name="ActionGUID" Type="Guid" Nullable="false" />
+          <Property Name="FactorsToken" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userPermissionsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="dataAppointment">
+          <Key>
+            <PropertyRef Name="AppointmentGUID" />
+          </Key>
+          <Property Name="AppointmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="CaseGUID" Type="Guid" Nullable="false" />
+          <Property Name="AppointmentWithUserGUID" Type="Guid" />
+          <Property Name="AppointmentTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="AppointmentDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Arrived" Type="Boolean" Nullable="false" />
+          <Property Name="Cancelled" Type="Boolean" Nullable="false" />
+          <Property Name="Priority" Type="Guid" />
+          <Property Name="TokenNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TokenColourGUID" Type="Guid" />
+          <Property Name="StatusGUID" Type="Guid" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="Sequence" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ArrivedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArrivedDate" Type="DateTime" Precision="3" />
+          <Property Name="CancelledBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CancelledDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataAppointmentRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStations" Relationship="AMSModel.FK_dataAppointment_codeDutyStations" FromRole="dataAppointment" ToRole="codeDutyStations" />
+          <NavigationProperty Name="dataAppointmentReschedul" Relationship="AMSModel.FK_dataAppointmentReschedul_dataAppointment" FromRole="dataAppointment" ToRole="dataAppointmentReschedul" />
+          <NavigationProperty Name="codeAppointmentType" Relationship="AMSModel.FK_dataAppointments_codeAppointmentType" FromRole="dataAppointment" ToRole="codeAppointmentType" />
+          <NavigationProperty Name="dataAppointmentCalendarHolded" Relationship="AMSModel.FK_dataCalendarHolded_dataAppointments1" FromRole="dataAppointment" ToRole="dataAppointmentCalendarHolded" />
+          <NavigationProperty Name="dataCase" Relationship="AMSModel.FK_dataAppointments_dataCases" FromRole="dataAppointment" ToRole="dataCase" />
+        </EntityType>
+        <Association Name="FK_dataAppointment_codeDutyStations">
+          <End Type="AMSModel.codeDutyStations" Role="codeDutyStations" Multiplicity="0..1" />
+          <End Type="AMSModel.dataAppointment" Role="dataAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="dataAppointment">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppointmentReschedul_dataAppointment">
+          <End Type="AMSModel.dataAppointment" Role="dataAppointment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AMSModel.dataAppointmentReschedul" Role="dataAppointmentReschedul" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataAppointment">
+              <PropertyRef Name="AppointmentGUID" />
+            </Principal>
+            <Dependent Role="dataAppointmentReschedul">
+              <PropertyRef Name="AppointmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppointments_codeAppointmentType">
+          <End Type="AMSModel.codeAppointmentType" Role="codeAppointmentType" Multiplicity="1" />
+          <End Type="AMSModel.dataAppointment" Role="dataAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeAppointmentType">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Principal>
+            <Dependent Role="dataAppointment">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataCalendarHolded_dataAppointments1">
+          <End Type="AMSModel.dataAppointment" Role="dataAppointment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AMSModel.dataAppointmentCalendarHolded" Role="dataAppointmentCalendarHolded" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataAppointment">
+              <PropertyRef Name="AppointmentGUID" />
+            </Principal>
+            <Dependent Role="dataAppointmentCalendarHolded">
+              <PropertyRef Name="AppointmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataCase">
+          <Key>
+            <PropertyRef Name="CaseGUID" />
+          </Key>
+          <Property Name="CaseGUID" Type="Guid" Nullable="false" />
+          <Property Name="HouseHold" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ICNameOtherLanguages" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ICNameEN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CaseSize" Type="Int32" />
+          <Property Name="CountryGUID" Type="Guid" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataCaseRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="CaseID" Type="Int32" />
+          <NavigationProperty Name="dataAppointment" Relationship="AMSModel.FK_dataAppointments_dataCases" FromRole="dataCase" ToRole="dataAppointment" />
+          <NavigationProperty Name="codeCountries" Relationship="AMSModel.FK_dataCase_codeCountries" FromRole="dataCase" ToRole="codeCountries" />
+          <NavigationProperty Name="codeOrganizationsInstances" Relationship="AMSModel.FK_dataCase_codeOrganizationsInstances" FromRole="dataCase" ToRole="codeOrganizationsInstances" />
+          <NavigationProperty Name="dataContactInfo" Relationship="AMSModel.FK_dataContactInfo_dataCases" FromRole="dataCase" ToRole="dataContactInfo" />
+        </EntityType>
+        <Association Name="FK_dataAppointments_dataCases">
+          <End Type="AMSModel.dataCase" Role="dataCase" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AMSModel.dataAppointment" Role="dataAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataCase">
+              <PropertyRef Name="CaseGUID" />
+            </Principal>
+            <Dependent Role="dataAppointment">
+              <PropertyRef Name="CaseGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataCase_codeCountries">
+          <End Type="AMSModel.codeCountries" Role="codeCountries" Multiplicity="0..1" />
+          <End Type="AMSModel.dataCase" Role="dataCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCountries">
+              <PropertyRef Name="CountryGUID" />
+            </Principal>
+            <Dependent Role="dataCase">
+              <PropertyRef Name="CountryGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataCase_codeOrganizationsInstances">
+          <End Type="AMSModel.codeOrganizationsInstances" Role="codeOrganizationsInstances" Multiplicity="0..1" />
+          <End Type="AMSModel.dataCase" Role="dataCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="dataCase">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataContactInfo_dataCases">
+          <End Type="AMSModel.dataCase" Role="dataCase" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AMSModel.dataContactInfo" Role="dataContactInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataCase">
+              <PropertyRef Name="CaseGUID" />
+            </Principal>
+            <Dependent Role="dataContactInfo">
+              <PropertyRef Name="CaseGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="v_CaseAppointments">
+          <Key>
+            <PropertyRef Name="CaseGUID" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="dataCaseRowVersion" />
+            <PropertyRef Name="CountryDescription" />
+            <PropertyRef Name="CountryGUID" />
+          </Key>
+          <Property Name="CaseGUID" Type="Guid" Nullable="false" />
+          <Property Name="FileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ICNameOtherLanguages" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ICNameEN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CaseSize" Type="Int32" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataCaseRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="CountryDescription" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="dataAppointmentTypeCalendar">
+          <Key>
+            <PropertyRef Name="AppointmentTypeCalenderGUID" />
+          </Key>
+          <Property Name="AppointmentTypeCalenderGUID" Type="Guid" Nullable="false" />
+          <Property Name="AppointmentTypeGUID" Type="Guid" />
+          <Property Name="EventStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventEndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SlotAvailable" Type="Int32" Nullable="false" />
+          <Property Name="SlotClosed" Type="Int32" Nullable="false" />
+          <Property Name="PreventAppointments" Type="Boolean" Nullable="false" />
+          <Property Name="PublicHolday" Type="Boolean" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataAppointmentTypeCalendarRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataAppointmentCalendarHolded" Relationship="AMSModel.FK_dataAppointmentCalendarHolded_dataAppointmentTypeCalendar" FromRole="dataAppointmentTypeCalendar" ToRole="dataAppointmentCalendarHolded" />
+          <NavigationProperty Name="codeAppointmentType" Relationship="AMSModel.FK_dataAppointmentTypeCalendar_codeAppointmentType" FromRole="dataAppointmentTypeCalendar" ToRole="codeAppointmentType" />
+        </EntityType>
+        <Association Name="FK_dataAppointmentCalendarHolded_dataAppointmentTypeCalendar">
+          <End Type="AMSModel.dataAppointmentTypeCalendar" Role="dataAppointmentTypeCalendar" Multiplicity="1" />
+          <End Type="AMSModel.dataAppointmentCalendarHolded" Role="dataAppointmentCalendarHolded" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataAppointmentTypeCalendar">
+              <PropertyRef Name="AppointmentTypeCalenderGUID" />
+            </Principal>
+            <Dependent Role="dataAppointmentCalendarHolded">
+              <PropertyRef Name="AppointmentTypeCalenderGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataAppointmentTypeCalendar_codeAppointmentType">
+          <End Type="AMSModel.codeAppointmentType" Role="codeAppointmentType" Multiplicity="0..1" />
+          <End Type="AMSModel.dataAppointmentTypeCalendar" Role="dataAppointmentTypeCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeAppointmentType">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Principal>
+            <Dependent Role="dataAppointmentTypeCalendar">
+              <PropertyRef Name="AppointmentTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="v_AppointmentContactNumber">
+          <Key>
+            <PropertyRef Name="CaseGUID" />
+          </Key>
+          <Property Name="CaseGUID" Type="Guid" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="dataFile">
+          <Key>
+            <PropertyRef Name="FileGUID" />
+          </Key>
+          <Property Name="FileGUID" Type="Guid" Nullable="false" />
+          <Property Name="DocumentSourceTypeGUID" Type="Guid" />
+          <Property Name="FileNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessStatusName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RefugeeStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OrigionCountry" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataFileRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="Archived" Type="Boolean" />
+          <Property Name="LastCustodianType" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LastCustodianTypeName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LastFlowStatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastFlowStatusGUID" Type="Guid" />
+          <Property Name="LastCustodianTypeGUID" Type="Guid" />
+          <Property Name="LastCustodianTypeNameGUID" Type="Guid" />
+          <Property Name="LastTransferFromName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LastTransferFromNameGUID" Type="Guid" />
+          <Property Name="IsRequested" Type="Boolean" />
+          <Property Name="LastRequesterName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LastRequesterNameGUID" Type="Guid" />
+          <Property Name="LatestAppointmentDate" Type="DateTime" Precision="3" />
+          <Property Name="TotalDaysReminigForAppointment" Type="Int32" />
+          <Property Name="RequestStatusGUID" Type="Guid" />
+          <Property Name="RequestStatusName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CaseSize" Type="Int32" />
+          <Property Name="CaseCategory" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastOwnerUnitGUID" Type="Guid" />
+          <Property Name="LastOwnerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastTransferLocationGUID" Type="Guid" />
+          <Property Name="LastTransferLocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastUnitName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LastDestinationUnitGUID" Type="Guid" />
+          <Property Name="SiteOwnerName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="FileMergeStatusGUID" Type="Guid" />
+          <Property Name="FileMergeStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FileMergeComments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SiteCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SiteGUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="StaffCoreData">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IsInternational" Type="Boolean" />
+          <Property Name="StaffPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PositionInOrganigram" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitleGUID" Type="Guid" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReportToGUID" Type="Guid" />
+          <Property Name="NationalityGUID" Type="Guid" />
+          <Property Name="Nationality2GUID" Type="Guid" />
+          <Property Name="Nationality3GUID" Type="Guid" />
+          <Property Name="ExpiryOfResidencyVisa" Type="DateTime" Precision="3" />
+          <Property Name="SyrianNationalIDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SyrianNationalIDPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StaffPrefix" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceOfBirthGUID" Type="Guid" />
+          <Property Name="EmploymentID" Type="Int32" />
+          <Property Name="UNHCRIDNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CallSign" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StaffLastWork" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UNLPNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UNLPDateOfIssue" Type="DateTime" Precision="3" />
+          <Property Name="UNLPDateOfExpiry" Type="DateTime" Precision="3" />
+          <Property Name="UNLPPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NationalPassportNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NationalPassportDateOfIssue" Type="DateTime" Precision="3" />
+          <Property Name="NationalPassportDateOfExpiry" Type="DateTime" Precision="3" />
+          <Property Name="IsEligibileForNationalDangerPay" Type="Boolean" />
+          <Property Name="NationalPassportNumber2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NationalPassportDateOfIssue2" Type="DateTime" Precision="3" />
+          <Property Name="NationalPassportDateOfExpiry2" Type="DateTime" Precision="3" />
+          <Property Name="NationalPassportNumber3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NationalPassportDateOfIssue3" Type="DateTime" Precision="3" />
+          <Property Name="NationalPassportDateOfExpiry3" Type="DateTime" Precision="3" />
+          <Property Name="NationalPassportPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BankLebNameGUID" Type="Guid" />
+          <Property Name="BankNameARLeb" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountHolderNameLebEN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountHolderNameLebAR" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankNameLeb" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountNumberLeb" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankNameSyrGUID" Type="Guid" />
+          <Property Name="BankNameSyr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountNumberSyr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountHolderNameEn" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountHolderNameAr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountNumberSyr2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankNameSyrGUID2" Type="Guid" />
+          <Property Name="BankSYRNameEN2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameAR2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameEn2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameAr2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountNumberSyr3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameGUID3" Type="Guid" />
+          <Property Name="BankSYRNameEN3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameAR3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameEn3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameAr3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountNumberSyr4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameGUID4" Type="Guid" />
+          <Property Name="BankSYRNameEN4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameAR4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameEn4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameAr4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountNumberSyr5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameGUID5" Type="Guid" />
+          <Property Name="BankSYRNameEN5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameAR5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameEn5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameAr5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ContractTypeGUID" Type="Guid" />
+          <Property Name="RecruitmentTypeGUID" Type="Guid" />
+          <Property Name="StaffGradeGUID" Type="Guid" />
+          <Property Name="ContractStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ContractEndDate" Type="DateTime" Precision="3" />
+          <Property Name="StaffEOD" Type="DateTime" Precision="3" />
+          <Property Name="PositionNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentAddressEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentAddressAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HomeTelephoneNumberLandline" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HomeTelephoneNumberMobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialMobileNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialExtensionNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeGUID" Type="Guid" />
+          <Property Name="OfficeFloorGUID" Type="Guid" />
+          <Property Name="OfficeRoomGUID" Type="Guid" />
+          <Property Name="IsOld" Type="Boolean" />
+          <Property Name="Gender" Type="Guid" />
+          <Property Name="IDNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PersonalIDPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PassportPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AttendancePhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DangerPay" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WifeHusbandName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AssignmentDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentLocationByDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StaffMemberOnGTA" Type="Boolean" />
+          <Property Name="GTAStartDate" Type="DateTime" Precision="3" />
+          <Property Name="GTAEndDate" Type="DateTime" Precision="3" />
+          <Property Name="Accommodation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccommodationStartingDate" Type="DateTime" Precision="3" />
+          <Property Name="StartOfMissionAssignmentDate" Type="DateTime" Precision="3" />
+          <Property Name="EndOfMissionAssignmentDate" Type="DateTime" Precision="3" />
+          <Property Name="DetailsOfMissionAssignment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DurationOfStayInSyria" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmploymentType" Type="Guid" />
+          <Property Name="StaffAccessCategoryGUID" Type="Guid" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="PlaceBirthCityEn" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceBirthCityAr" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastJobEn" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastJobAr" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SATPhoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeRoomNumberBuilding" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DegreeAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DegreeEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ReturnDateFromLastRAndRLeave" Type="DateTime" Precision="3" />
+          <Property Name="StaffStatus" Type="Boolean" />
+          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdatedByGUID" Type="Guid" />
+          <Property Name="LastUpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="LastConfirmedByGUID" Type="Guid" />
+          <Property Name="LastConfirmedOn" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmationStatusGUID" Type="Guid" />
+          <Property Name="ConfirmationComment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StaffStatusGUID" Type="Guid" />
+          <Property Name="IsOldRecord" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="StaffCoreDataRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="StaffPrefixGUID" Type="Guid" />
+          <Property Name="TitleEnglishMSRP" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TitleArabicMSRP" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TitleEnglishMOFA" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TitleArabicMOFA" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PersonalEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HQExtensionNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DamascusExtensionNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastConfirmationStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastConfirmationStatusGUID" Type="Guid" />
+          <Property Name="OfficeTypeGUID" Type="Guid" />
+          <Property Name="ICTComments" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="NextOfKinName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="KinMobileNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BSAFECertAcquired" Type="Boolean" />
+          <Property Name="BSAFEExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="NumberOfDependants" Type="Int32" />
+          <Property Name="DependantsName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastDepartureDate" Type="DateTime" Precision="3" />
+          <Property Name="StaffPositionGUID" Type="Guid" />
+          <Property Name="ICTServiceProvidedCount" Type="Int32" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="PaymentEligibilityStatusGUID" Type="Guid" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="WorkingOutsideSyriaGUID" Type="Guid" />
+          <Property Name="HasToDeductFSHBreakfastFromEntitlementGUID" Type="Guid" />
+          <Property Name="StaffFunctionality" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="HasFixedOfficalNumber" Type="Boolean" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" />
+          <Property Name="OfficialMobileNumber2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AMSModelStoreContainer" CdmEntityContainer="AMSEntities">
+          <EntitySetMapping Name="dataContactInfo">
+            <EntityTypeMapping TypeName="AMSModel.dataContactInfo">
+              <MappingFragment StoreEntitySet="dataContactInfo">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataContactInfoRowVersion" ColumnName="dataContactInfoRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PhoneType" ColumnName="PhoneType" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CaseGUID" ColumnName="CaseGUID" />
+                <ScalarProperty Name="ContactInfoGUID" ColumnName="ContactInfoGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeAppointmentType">
+            <EntityTypeMapping TypeName="AMSModel.codeAppointmentType">
+              <MappingFragment StoreEntitySet="codeAppointmentType">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeAppointmentTypeRowVersion" ColumnName="codeAppointmentTypeRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+                <ScalarProperty Name="AppointmentTypeGUID" ColumnName="AppointmentTypeGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeAppointmentTypeLanguage">
+            <EntityTypeMapping TypeName="AMSModel.codeAppointmentTypeLanguage">
+              <MappingFragment StoreEntitySet="codeAppointmentTypeLanguage">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeAppointmentTypeLanguageRowVersion" ColumnName="codeAppointmentTypeLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="AppointmentTypeDescription" ColumnName="AppointmentTypeDescription" />
+                <ScalarProperty Name="AppointmentTypeGUID" ColumnName="AppointmentTypeGUID" />
+                <ScalarProperty Name="AppointmentTypeLanguageGUID" ColumnName="AppointmentTypeLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDepartments">
+            <EntityTypeMapping TypeName="AMSModel.codeDepartments">
+              <MappingFragment StoreEntitySet="codeDepartments">
+                <ScalarProperty Name="SubNodeId" ColumnName="SubNodeId" />
+                <ScalarProperty Name="NodeId" ColumnName="NodeId" />
+                <ScalarProperty Name="SubSort" ColumnName="SubSort" />
+                <ScalarProperty Name="SectionGUID" ColumnName="SectionGUID" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDepartmentsRowVersion" ColumnName="codeDepartmentsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDepartmentsLanguages">
+            <EntityTypeMapping TypeName="AMSModel.codeDepartmentsLanguages">
+              <MappingFragment StoreEntitySet="codeDepartmentsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDepartmentsLanguagesRowVersion" ColumnName="codeDepartmentsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DepartmentDescription" ColumnName="DepartmentDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+                <ScalarProperty Name="DepartmentLanguageGUID" ColumnName="DepartmentLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeCountries">
+            <EntityTypeMapping TypeName="AMSModel.codeCountries">
+              <MappingFragment StoreEntitySet="codeCountries">
+                <ScalarProperty Name="CountryA3CodeCIMT" ColumnName="CountryA3CodeCIMT" />
+                <ScalarProperty Name="CountryNameCIMT" ColumnName="CountryNameCIMT" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeCountriesRowVersion" ColumnName="codeCountriesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="PhoneCode" ColumnName="PhoneCode" />
+                <ScalarProperty Name="CountryA3Code" ColumnName="CountryA3Code" />
+                <ScalarProperty Name="CountryA2Code" ColumnName="CountryA2Code" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeCountriesLanguages">
+            <EntityTypeMapping TypeName="AMSModel.codeCountriesLanguages">
+              <MappingFragment StoreEntitySet="codeCountriesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeCountriesLanguagesRowVersion" ColumnName="codeCountriesLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="CountryDescription" ColumnName="CountryDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="CountryLanguageGUID" ColumnName="CountryLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStations">
+            <EntityTypeMapping TypeName="AMSModel.codeDutyStations">
+              <MappingFragment StoreEntitySet="codeDutyStations">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="IsDutyStation" ColumnName="IsDutyStation" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsRowVersion" ColumnName="codeDutyStationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStationsLanguages">
+            <EntityTypeMapping TypeName="AMSModel.codeDutyStationsLanguages">
+              <MappingFragment StoreEntitySet="codeDutyStationsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsLanguagesRowVersion" ColumnName="codeDutyStationsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DutyStationDescription" ColumnName="DutyStationDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="DutyStationLanguageGUID" ColumnName="DutyStationLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizationsInstances">
+            <EntityTypeMapping TypeName="AMSModel.codeOrganizationsInstances">
+              <MappingFragment StoreEntitySet="codeOrganizationsInstances">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeOrganizationsInstancesRowVersion" ColumnName="codeOrganizationsInstancesRowVersion" />
+                <ScalarProperty Name="OperationGUID" ColumnName="OperationGUID" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizationsLanguages">
+            <EntityTypeMapping TypeName="AMSModel.codeOrganizationsLanguages">
+              <MappingFragment StoreEntitySet="codeOrganizationsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeOrganizationsLanguagesRowVersion" ColumnName="codeOrganizationsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OrganizationDescription" ColumnName="OrganizationDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+                <ScalarProperty Name="OrganizationLanguageGUID" ColumnName="OrganizationLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValues">
+            <EntityTypeMapping TypeName="AMSModel.codeTablesValues">
+              <MappingFragment StoreEntitySet="codeTablesValues">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesRowVersion" ColumnName="codeTablesValuesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="TableGUID" ColumnName="TableGUID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValuesLanguages">
+            <EntityTypeMapping TypeName="AMSModel.codeTablesValuesLanguages">
+              <MappingFragment StoreEntitySet="codeTablesValuesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesLanguagesRowVersion" ColumnName="codeTablesValuesLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ValueDescription" ColumnName="ValueDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+                <ScalarProperty Name="TableValueLanguageGUID" ColumnName="TableValueLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeWorkingDaysConfigurations">
+            <EntityTypeMapping TypeName="AMSModel.codeWorkingDaysConfigurations">
+              <MappingFragment StoreEntitySet="codeWorkingDaysConfigurations">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeWorkingDaysConfigurationsRowVersion" ColumnName="codeWorkingDaysConfigurationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ToTime" ColumnName="ToTime" />
+                <ScalarProperty Name="FromTime" ColumnName="FromTime" />
+                <ScalarProperty Name="DayGUID" ColumnName="DayGUID" />
+                <ScalarProperty Name="DutyStationConfigurationGUID" ColumnName="DutyStationConfigurationGUID" />
+                <ScalarProperty Name="WorkingDaysConfigurationGUID" ColumnName="WorkingDaysConfigurationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataAppointmentCalendarHolded">
+            <EntityTypeMapping TypeName="AMSModel.dataAppointmentCalendarHolded">
+              <MappingFragment StoreEntitySet="dataAppointmentCalendarHolded">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataAppointmentCalendarHoldedRowVersion" ColumnName="dataAppointmentCalendarHoldedRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AppointmentGUID" ColumnName="AppointmentGUID" />
+                <ScalarProperty Name="AppointmentTypeCalenderGUID" ColumnName="AppointmentTypeCalenderGUID" />
+                <ScalarProperty Name="AppointmentCalendarHoldedGUID" ColumnName="AppointmentCalendarHoldedGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataAppointmentReschedul">
+            <EntityTypeMapping TypeName="AMSModel.dataAppointmentReschedul">
+              <MappingFragment StoreEntitySet="dataAppointmentReschedul">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataAppointmentReschedulRowVersion" ColumnName="dataAppointmentReschedulRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="LastApointmentDate" ColumnName="LastApointmentDate" />
+                <ScalarProperty Name="AppointmentGUID" ColumnName="AppointmentGUID" />
+                <ScalarProperty Name="AppointmentReschedulGUID" ColumnName="AppointmentReschedulGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userPermissions">
+            <EntityTypeMapping TypeName="AMSModel.userPermissions">
+              <MappingFragment StoreEntitySet="userPermissions">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="userPermissionsRowVersion" ColumnName="userPermissionsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="FactorsToken" ColumnName="FactorsToken" />
+                <ScalarProperty Name="ActionGUID" ColumnName="ActionGUID" />
+                <ScalarProperty Name="UserProfileGUID" ColumnName="UserProfileGUID" />
+                <ScalarProperty Name="PermissionGUID" ColumnName="PermissionGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataAppointment">
+            <EntityTypeMapping TypeName="AMSModel.dataAppointment">
+              <MappingFragment StoreEntitySet="dataAppointment">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataAppointmentRowVersion" ColumnName="dataAppointmentRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CancelledDate" ColumnName="CancelledDate" />
+                <ScalarProperty Name="CancelledBy" ColumnName="CancelledBy" />
+                <ScalarProperty Name="ArrivedDate" ColumnName="ArrivedDate" />
+                <ScalarProperty Name="ArrivedBy" ColumnName="ArrivedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="StatusGUID" ColumnName="StatusGUID" />
+                <ScalarProperty Name="TokenColourGUID" ColumnName="TokenColourGUID" />
+                <ScalarProperty Name="TokenNumber" ColumnName="TokenNumber" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+                <ScalarProperty Name="Arrived" ColumnName="Arrived" />
+                <ScalarProperty Name="AppointmentDateTime" ColumnName="AppointmentDateTime" />
+                <ScalarProperty Name="AppointmentTypeGUID" ColumnName="AppointmentTypeGUID" />
+                <ScalarProperty Name="AppointmentWithUserGUID" ColumnName="AppointmentWithUserGUID" />
+                <ScalarProperty Name="CaseGUID" ColumnName="CaseGUID" />
+                <ScalarProperty Name="AppointmentGUID" ColumnName="AppointmentGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataCase">
+            <EntityTypeMapping TypeName="AMSModel.dataCase">
+              <MappingFragment StoreEntitySet="dataCase">
+                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataCaseRowVersion" ColumnName="dataCaseRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="CaseSize" ColumnName="CaseSize" />
+                <ScalarProperty Name="ICNameEN" ColumnName="ICNameEN" />
+                <ScalarProperty Name="ICNameOtherLanguages" ColumnName="ICNameOtherLanguages" />
+                <ScalarProperty Name="FileNumber" ColumnName="FileNumber" />
+                <ScalarProperty Name="HouseHold" ColumnName="HouseHold" />
+                <ScalarProperty Name="CaseGUID" ColumnName="CaseGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_CaseAppointments">
+            <EntityTypeMapping TypeName="AMSModel.v_CaseAppointments">
+              <MappingFragment StoreEntitySet="v_CaseAppointments">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="CountryDescription" ColumnName="CountryDescription" />
+                <ScalarProperty Name="dataCaseRowVersion" ColumnName="dataCaseRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="CaseSize" ColumnName="CaseSize" />
+                <ScalarProperty Name="ICNameEN" ColumnName="ICNameEN" />
+                <ScalarProperty Name="ICNameOtherLanguages" ColumnName="ICNameOtherLanguages" />
+                <ScalarProperty Name="FileNumber" ColumnName="FileNumber" />
+                <ScalarProperty Name="CaseGUID" ColumnName="CaseGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataAppointmentTypeCalendar">
+            <EntityTypeMapping TypeName="AMSModel.dataAppointmentTypeCalendar">
+              <MappingFragment StoreEntitySet="dataAppointmentTypeCalendar">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataAppointmentTypeCalendarRowVersion" ColumnName="dataAppointmentTypeCalendarRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="PublicHolday" ColumnName="PublicHolday" />
+                <ScalarProperty Name="PreventAppointments" ColumnName="PreventAppointments" />
+                <ScalarProperty Name="SlotClosed" ColumnName="SlotClosed" />
+                <ScalarProperty Name="SlotAvailable" ColumnName="SlotAvailable" />
+                <ScalarProperty Name="EventEndDate" ColumnName="EventEndDate" />
+                <ScalarProperty Name="EventStartDate" ColumnName="EventStartDate" />
+                <ScalarProperty Name="AppointmentTypeGUID" ColumnName="AppointmentTypeGUID" />
+                <ScalarProperty Name="AppointmentTypeCalenderGUID" ColumnName="AppointmentTypeCalenderGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_AppointmentContactNumber">
+            <EntityTypeMapping TypeName="AMSModel.v_AppointmentContactNumber">
+              <MappingFragment StoreEntitySet="v_AppointmentContactNumber">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CaseGUID" ColumnName="CaseGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataFile">
+            <EntityTypeMapping TypeName="AMSModel.dataFile">
+              <MappingFragment StoreEntitySet="dataFile">
+                <ScalarProperty Name="SiteGUID" ColumnName="SiteGUID" />
+                <ScalarProperty Name="SiteCode" ColumnName="SiteCode" />
+                <ScalarProperty Name="FileMergeComments" ColumnName="FileMergeComments" />
+                <ScalarProperty Name="FileMergeStatus" ColumnName="FileMergeStatus" />
+                <ScalarProperty Name="FileMergeStatusGUID" ColumnName="FileMergeStatusGUID" />
+                <ScalarProperty Name="SiteOwnerName" ColumnName="SiteOwnerName" />
+                <ScalarProperty Name="LastDestinationUnitGUID" ColumnName="LastDestinationUnitGUID" />
+                <ScalarProperty Name="LastUnitName" ColumnName="LastUnitName" />
+                <ScalarProperty Name="LastTransferLocationName" ColumnName="LastTransferLocationName" />
+                <ScalarProperty Name="LastTransferLocationGUID" ColumnName="LastTransferLocationGUID" />
+                <ScalarProperty Name="LastOwnerName" ColumnName="LastOwnerName" />
+                <ScalarProperty Name="LastOwnerUnitGUID" ColumnName="LastOwnerUnitGUID" />
+                <ScalarProperty Name="CaseCategory" ColumnName="CaseCategory" />
+                <ScalarProperty Name="CaseSize" ColumnName="CaseSize" />
+                <ScalarProperty Name="RequestStatusName" ColumnName="RequestStatusName" />
+                <ScalarProperty Name="RequestStatusGUID" ColumnName="RequestStatusGUID" />
+                <ScalarProperty Name="TotalDaysReminigForAppointment" ColumnName="TotalDaysReminigForAppointment" />
+                <ScalarProperty Name="LatestAppointmentDate" ColumnName="LatestAppointmentDate" />
+                <ScalarProperty Name="LastRequesterNameGUID" ColumnName="LastRequesterNameGUID" />
+                <ScalarProperty Name="LastRequesterName" ColumnName="LastRequesterName" />
+                <ScalarProperty Name="IsRequested" ColumnName="IsRequested" />
+                <ScalarProperty Name="LastTransferFromNameGUID" ColumnName="LastTransferFromNameGUID" />
+                <ScalarProperty Name="LastTransferFromName" ColumnName="LastTransferFromName" />
+                <ScalarProperty Name="LastCustodianTypeNameGUID" ColumnName="LastCustodianTypeNameGUID" />
+                <ScalarProperty Name="LastCustodianTypeGUID" ColumnName="LastCustodianTypeGUID" />
+                <ScalarProperty Name="LastFlowStatusGUID" ColumnName="LastFlowStatusGUID" />
+                <ScalarProperty Name="LastFlowStatusName" ColumnName="LastFlowStatusName" />
+                <ScalarProperty Name="LastCustodianTypeName" ColumnName="LastCustodianTypeName" />
+                <ScalarProperty Name="LastCustodianType" ColumnName="LastCustodianType" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataFileRowVersion" ColumnName="dataFileRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OrigionCountry" ColumnName="OrigionCountry" />
+                <ScalarProperty Name="RefugeeStatus" ColumnName="RefugeeStatus" />
+                <ScalarProperty Name="ProcessStatusName" ColumnName="ProcessStatusName" />
+                <ScalarProperty Name="FileNumber" ColumnName="FileNumber" />
+                <ScalarProperty Name="DocumentSourceTypeGUID" ColumnName="DocumentSourceTypeGUID" />
+                <ScalarProperty Name="FileGUID" ColumnName="FileGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaffCoreData">
+            <EntityTypeMapping TypeName="AMSModel.StaffCoreData">
+              <MappingFragment StoreEntitySet="StaffCoreData">
+                <ScalarProperty Name="OfficialMobileNumber2" ColumnName="OfficialMobileNumber2" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="HasFixedOfficalNumber" ColumnName="HasFixedOfficalNumber" />
+                <ScalarProperty Name="StaffFunctionality" ColumnName="StaffFunctionality" />
+                <ScalarProperty Name="HasToDeductFSHBreakfastFromEntitlementGUID" ColumnName="HasToDeductFSHBreakfastFromEntitlementGUID" />
+                <ScalarProperty Name="WorkingOutsideSyriaGUID" ColumnName="WorkingOutsideSyriaGUID" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="PaymentEligibilityStatusGUID" ColumnName="PaymentEligibilityStatusGUID" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="ICTServiceProvidedCount" ColumnName="ICTServiceProvidedCount" />
+                <ScalarProperty Name="StaffPositionGUID" ColumnName="StaffPositionGUID" />
+                <ScalarProperty Name="LastDepartureDate" ColumnName="LastDepartureDate" />
+                <ScalarProperty Name="DependantsName" ColumnName="DependantsName" />
+                <ScalarProperty Name="NumberOfDependants" ColumnName="NumberOfDependants" />
+                <ScalarProperty Name="BSAFEExpiryDate" ColumnName="BSAFEExpiryDate" />
+                <ScalarProperty Name="BSAFECertAcquired" ColumnName="BSAFECertAcquired" />
+                <ScalarProperty Name="KinMobileNumber" ColumnName="KinMobileNumber" />
+                <ScalarProperty Name="NextOfKinName" ColumnName="NextOfKinName" />
+                <ScalarProperty Name="ICTComments" ColumnName="ICTComments" />
+                <ScalarProperty Name="OfficeTypeGUID" ColumnName="OfficeTypeGUID" />
+                <ScalarProperty Name="LastConfirmationStatusGUID" ColumnName="LastConfirmationStatusGUID" />
+                <ScalarProperty Name="LastConfirmationStatus" ColumnName="LastConfirmationStatus" />
+                <ScalarProperty Name="DamascusExtensionNumber" ColumnName="DamascusExtensionNumber" />
+                <ScalarProperty Name="HQExtensionNumber" ColumnName="HQExtensionNumber" />
+                <ScalarProperty Name="PersonalEmail" ColumnName="PersonalEmail" />
+                <ScalarProperty Name="TitleArabicMOFA" ColumnName="TitleArabicMOFA" />
+                <ScalarProperty Name="TitleEnglishMOFA" ColumnName="TitleEnglishMOFA" />
+                <ScalarProperty Name="TitleArabicMSRP" ColumnName="TitleArabicMSRP" />
+                <ScalarProperty Name="TitleEnglishMSRP" ColumnName="TitleEnglishMSRP" />
+                <ScalarProperty Name="StaffPrefixGUID" ColumnName="StaffPrefixGUID" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="StaffCoreDataRowVersion" ColumnName="StaffCoreDataRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IsOldRecord" ColumnName="IsOldRecord" />
+                <ScalarProperty Name="StaffStatusGUID" ColumnName="StaffStatusGUID" />
+                <ScalarProperty Name="ConfirmationComment" ColumnName="ConfirmationComment" />
+                <ScalarProperty Name="ConfirmationStatusGUID" ColumnName="ConfirmationStatusGUID" />
+                <ScalarProperty Name="LastConfirmedOn" ColumnName="LastConfirmedOn" />
+                <ScalarProperty Name="LastConfirmedByGUID" ColumnName="LastConfirmedByGUID" />
+                <ScalarProperty Name="LastUpdatedOn" ColumnName="LastUpdatedOn" />
+                <ScalarProperty Name="LastUpdatedByGUID" ColumnName="LastUpdatedByGUID" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="StaffStatus" ColumnName="StaffStatus" />
+                <ScalarProperty Name="ReturnDateFromLastRAndRLeave" ColumnName="ReturnDateFromLastRAndRLeave" />
+                <ScalarProperty Name="DegreeEn" ColumnName="DegreeEn" />
+                <ScalarProperty Name="DegreeAr" ColumnName="DegreeAr" />
+                <ScalarProperty Name="OfficeRoomNumberBuilding" ColumnName="OfficeRoomNumberBuilding" />
+                <ScalarProperty Name="SATPhoneNumber" ColumnName="SATPhoneNumber" />
+                <ScalarProperty Name="LastJobAr" ColumnName="LastJobAr" />
+                <ScalarProperty Name="LastJobEn" ColumnName="LastJobEn" />
+                <ScalarProperty Name="PlaceBirthCityAr" ColumnName="PlaceBirthCityAr" />
+                <ScalarProperty Name="PlaceBirthCityEn" ColumnName="PlaceBirthCityEn" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="StaffAccessCategoryGUID" ColumnName="StaffAccessCategoryGUID" />
+                <ScalarProperty Name="EmploymentType" ColumnName="EmploymentType" />
+                <ScalarProperty Name="DurationOfStayInSyria" ColumnName="DurationOfStayInSyria" />
+                <ScalarProperty Name="DetailsOfMissionAssignment" ColumnName="DetailsOfMissionAssignment" />
+                <ScalarProperty Name="EndOfMissionAssignmentDate" ColumnName="EndOfMissionAssignmentDate" />
+                <ScalarProperty Name="StartOfMissionAssignmentDate" ColumnName="StartOfMissionAssignmentDate" />
+                <ScalarProperty Name="AccommodationStartingDate" ColumnName="AccommodationStartingDate" />
+                <ScalarProperty Name="Accommodation" ColumnName="Accommodation" />
+                <ScalarProperty Name="GTAEndDate" ColumnName="GTAEndDate" />
+                <ScalarProperty Name="GTAStartDate" ColumnName="GTAStartDate" />
+                <ScalarProperty Name="StaffMemberOnGTA" ColumnName="StaffMemberOnGTA" />
+                <ScalarProperty Name="CurrentLocationByDate" ColumnName="CurrentLocationByDate" />
+                <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
+                <ScalarProperty Name="AssignmentDuration" ColumnName="AssignmentDuration" />
+                <ScalarProperty Name="WifeHusbandName" ColumnName="WifeHusbandName" />
+                <ScalarProperty Name="DangerPay" ColumnName="DangerPay" />
+                <ScalarProperty Name="AttendancePhoto" ColumnName="AttendancePhoto" />
+                <ScalarProperty Name="PassportPhoto" ColumnName="PassportPhoto" />
+                <ScalarProperty Name="PersonalIDPhoto" ColumnName="PersonalIDPhoto" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IsOld" ColumnName="IsOld" />
+                <ScalarProperty Name="OfficeRoomGUID" ColumnName="OfficeRoomGUID" />
+                <ScalarProperty Name="OfficeFloorGUID" ColumnName="OfficeFloorGUID" />
+                <ScalarProperty Name="OfficeGUID" ColumnName="OfficeGUID" />
+                <ScalarProperty Name="OfficialExtensionNumber" ColumnName="OfficialExtensionNumber" />
+                <ScalarProperty Name="OfficialMobileNumber" ColumnName="OfficialMobileNumber" />
+                <ScalarProperty Name="HomeTelephoneNumberMobile" ColumnName="HomeTelephoneNumberMobile" />
+                <ScalarProperty Name="HomeTelephoneNumberLandline" ColumnName="HomeTelephoneNumberLandline" />
+                <ScalarProperty Name="CurrentAddressAr" ColumnName="CurrentAddressAr" />
+                <ScalarProperty Name="CurrentAddressEn" ColumnName="CurrentAddressEn" />
+                <ScalarProperty Name="PermanentAddressAr" ColumnName="PermanentAddressAr" />
+                <ScalarProperty Name="PermanentAddressEn" ColumnName="PermanentAddressEn" />
+                <ScalarProperty Name="PositionNumber" ColumnName="PositionNumber" />
+                <ScalarProperty Name="StaffEOD" ColumnName="StaffEOD" />
+                <ScalarProperty Name="ContractEndDate" ColumnName="ContractEndDate" />
+                <ScalarProperty Name="ContractStartDate" ColumnName="ContractStartDate" />
+                <ScalarProperty Name="StaffGradeGUID" ColumnName="StaffGradeGUID" />
+                <ScalarProperty Name="RecruitmentTypeGUID" ColumnName="RecruitmentTypeGUID" />
+                <ScalarProperty Name="ContractTypeGUID" ColumnName="ContractTypeGUID" />
+                <ScalarProperty Name="BankSYRAccountHolderNameAr5" ColumnName="BankSYRAccountHolderNameAr5" />
+                <ScalarProperty Name="BankSYRAccountHolderNameEn5" ColumnName="BankSYRAccountHolderNameEn5" />
+                <ScalarProperty Name="BankSYRNameAR5" ColumnName="BankSYRNameAR5" />
+                <ScalarProperty Name="BankSYRNameEN5" ColumnName="BankSYRNameEN5" />
+                <ScalarProperty Name="BankSYRNameGUID5" ColumnName="BankSYRNameGUID5" />
+                <ScalarProperty Name="BankSYRAccountNumberSyr5" ColumnName="BankSYRAccountNumberSyr5" />
+                <ScalarProperty Name="BankSYRAccountHolderNameAr4" ColumnName="BankSYRAccountHolderNameAr4" />
+                <ScalarProperty Name="BankSYRAccountHolderNameEn4" ColumnName="BankSYRAccountHolderNameEn4" />
+                <ScalarProperty Name="BankSYRNameAR4" ColumnName="BankSYRNameAR4" />
+                <ScalarProperty Name="BankSYRNameEN4" ColumnName="BankSYRNameEN4" />
+                <ScalarProperty Name="BankSYRNameGUID4" ColumnName="BankSYRNameGUID4" />
+                <ScalarProperty Name="BankSYRAccountNumberSyr4" ColumnName="BankSYRAccountNumberSyr4" />
+                <ScalarProperty Name="BankSYRAccountHolderNameAr3" ColumnName="BankSYRAccountHolderNameAr3" />
+                <ScalarProperty Name="BankSYRAccountHolderNameEn3" ColumnName="BankSYRAccountHolderNameEn3" />
+                <ScalarProperty Name="BankSYRNameAR3" ColumnName="BankSYRNameAR3" />
+                <ScalarProperty Name="BankSYRNameEN3" ColumnName="BankSYRNameEN3" />
+                <ScalarProperty Name="BankSYRNameGUID3" ColumnName="BankSYRNameGUID3" />
+                <ScalarProperty Name="BankSYRAccountNumberSyr3" ColumnName="BankSYRAccountNumberSyr3" />
+                <ScalarProperty Name="BankSYRAccountHolderNameAr2" ColumnName="BankSYRAccountHolderNameAr2" />
+                <ScalarProperty Name="BankSYRAccountHolderNameEn2" ColumnName="BankSYRAccountHolderNameEn2" />
+                <ScalarProperty Name="BankSYRNameAR2" ColumnName="BankSYRNameAR2" />
+                <ScalarProperty Name="BankSYRNameEN2" ColumnName="BankSYRNameEN2" />
+                <ScalarProperty Name="BankNameSyrGUID2" ColumnName="BankNameSyrGUID2" />
+                <ScalarProperty Name="BankSYRAccountNumberSyr2" ColumnName="BankSYRAccountNumberSyr2" />
+                <ScalarProperty Name="BankAccountHolderNameAr" ColumnName="BankAccountHolderNameAr" />
+                <ScalarProperty Name="BankAccountHolderNameEn" ColumnName="BankAccountHolderNameEn" />
+                <ScalarProperty Name="BankAccountNumberSyr" ColumnName="BankAccountNumberSyr" />
+                <ScalarProperty Name="BankNameSyr" ColumnName="BankNameSyr" />
+                <ScalarProperty Name="BankNameSyrGUID" ColumnName="BankNameSyrGUID" />
+                <ScalarProperty Name="BankAccountNumberLeb" ColumnName="BankAccountNumberLeb" />
+                <ScalarProperty Name="BankNameLeb" ColumnName="BankNameLeb" />
+                <ScalarProperty Name="BankAccountHolderNameLebAR" ColumnName="BankAccountHolderNameLebAR" />
+                <ScalarProperty Name="BankAccountHolderNameLebEN" ColumnName="BankAccountHolderNameLebEN" />
+                <ScalarProperty Name="BankNameARLeb" ColumnName="BankNameARLeb" />
+                <ScalarProperty Name="BankLebNameGUID" ColumnName="BankLebNameGUID" />
+                <ScalarProperty Name="NationalPassportPhoto" ColumnName="NationalPassportPhoto" />
+                <ScalarProperty Name="NationalPassportDateOfExpiry3" ColumnName="NationalPassportDateOfExpiry3" />
+                <ScalarProperty Name="NationalPassportDateOfIssue3" ColumnName="NationalPassportDateOfIssue3" />
+                <ScalarProperty Name="NationalPassportNumber3" ColumnName="NationalPassportNumber3" />
+                <ScalarProperty Name="NationalPassportDateOfExpiry2" ColumnName="NationalPassportDateOfExpiry2" />
+                <ScalarProperty Name="NationalPassportDateOfIssue2" ColumnName="NationalPassportDateOfIssue2" />
+                <ScalarProperty Name="NationalPassportNumber2" ColumnName="NationalPassportNumber2" />
+                <ScalarProperty Name="IsEligibileForNationalDangerPay" ColumnName="IsEligibileForNationalDangerPay" />
+                <ScalarProperty Name="NationalPassportDateOfExpiry" ColumnName="NationalPassportDateOfExpiry" />
+                <ScalarProperty Name="NationalPassportDateOfIssue" ColumnName="NationalPassportDateOfIssue" />
+                <ScalarProperty Name="NationalPassportNumber" ColumnName="NationalPassportNumber" />
+                <ScalarProperty Name="UNLPPhoto" ColumnName="UNLPPhoto" />
+                <ScalarProperty Name="UNLPDateOfExpiry" ColumnName="UNLPDateOfExpiry" />
+                <ScalarProperty Name="UNLPDateOfIssue" ColumnName="UNLPDateOfIssue" />
+                <ScalarProperty Name="UNLPNumber" ColumnName="UNLPNumber" />
+                <ScalarProperty Name="StaffLastWork" ColumnName="StaffLastWork" />
+                <ScalarProperty Name="CallSign" ColumnName="CallSign" />
+                <ScalarProperty Name="UNHCRIDNumber" ColumnName="UNHCRIDNumber" />
+                <ScalarProperty Name="EmploymentID" ColumnName="EmploymentID" />
+                <ScalarProperty Name="PlaceOfBirthGUID" ColumnName="PlaceOfBirthGUID" />
+                <ScalarProperty Name="StaffPrefix" ColumnName="StaffPrefix" />
+                <ScalarProperty Name="SyrianNationalIDPhoto" ColumnName="SyrianNationalIDPhoto" />
+                <ScalarProperty Name="SyrianNationalIDNumber" ColumnName="SyrianNationalIDNumber" />
+                <ScalarProperty Name="ExpiryOfResidencyVisa" ColumnName="ExpiryOfResidencyVisa" />
+                <ScalarProperty Name="Nationality3GUID" ColumnName="Nationality3GUID" />
+                <ScalarProperty Name="Nationality2GUID" ColumnName="Nationality2GUID" />
+                <ScalarProperty Name="NationalityGUID" ColumnName="NationalityGUID" />
+                <ScalarProperty Name="ReportToGUID" ColumnName="ReportToGUID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="JobTitleGUID" ColumnName="JobTitleGUID" />
+                <ScalarProperty Name="PositionInOrganigram" ColumnName="PositionInOrganigram" />
+                <ScalarProperty Name="StaffPhoto" ColumnName="StaffPhoto" />
+                <ScalarProperty Name="IsInternational" ColumnName="IsInternational" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

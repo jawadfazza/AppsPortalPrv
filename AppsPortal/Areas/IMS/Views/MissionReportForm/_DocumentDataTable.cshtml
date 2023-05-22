@@ -1,0 +1,23 @@
+﻿@model MasterRecordStatus
+@*<h3 class="Title">Bank Accounts</h3>*@
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      
+            <div id=@string.Format("{0}Filter", DataTableNames.MissionReportDocumentDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.MissionReportDocumentDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.MissionReportDocumentDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.MissionReportDocumentDataTable)
+                @Html.FieldDataTableCreate(Permissions.MissionReportForm.Create, Apps.IMS, Url.Action("MissionReportDocumentCreate", "MissionReportForm", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.MissionReportForm.Delete, Apps.IMS, DataTableNames.MissionReportDocumentDataTable)
+                @*@Html.FieldDataTableRestore(Permissions.MissionReportForm.Restore, Apps.IMS, DataTableNames.MissionReportDocumentDataTable)*@
+                @Html.FieldDataTableRefresh(DataTableNames.MissionReportDocumentDataTable)
+            </div>
+        
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MissionReportDocumentDataTable, FormController = "MissionReportForm", Area = "IMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

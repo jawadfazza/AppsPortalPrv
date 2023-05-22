@@ -1,0 +1,30 @@
+﻿@model IEnumerable<UserNotificationViewModel>
+@using (Html.BeginForm("Notification", "AccountSettings", FormMethod.Post, new { id = "NotificationForm" }))
+{
+    string ModalTitle = "Block Notifications";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.FirstOrDefault().ApplicationGUID)
+        @foreach (var item in Model)
+        {
+            <div class="form-group ">
+               
+                @if (item.Block)
+                {
+                    <input type="checkbox" name="FK" checked data-toggle="toggle" value="@item.NotificationGUID" class="Toggle">
+                }
+                else
+                {
+                    <input type="checkbox" name="FK" data-toggle="toggle" value="@item.NotificationGUID" class="Toggle">
+                }
+
+                <label>@item.TitleTemplete</label>
+            </div>
+                }
+    </div>
+            <div class="modal-footer form-footer">
+                <input class="btn btn-primary SLAME ActionControl" data-submittype="Block" onclick="SubmitForm(this);" type="submit" value="Confirm Changes">
+                @Html.CloseModalButton()
+            </div>
+        }

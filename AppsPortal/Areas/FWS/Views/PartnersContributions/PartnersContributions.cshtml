@@ -1,0 +1,13 @@
+﻿@model PartnersContributionsUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.PartnerContributionGUID == Guid.Empty) ? "New Entry" : "Edit Entry"; }
+
+@Html.PageHeader("9e5d10d0-47f7-4f63-9428-c5de2c9aeeda")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/FWS/Views/PartnersContributions/_PartnersContributionsForm.cshtml")
+    </div>
+</div>

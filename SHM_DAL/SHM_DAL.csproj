@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{76755DA9-4529-4C81-A3F3-9A6FAF4EF5A5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SHM_DAL</RootNamespace>
+    <AssemblyName>SHM_DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.0.0\lib\net40\EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
+    <Reference Include="Portal_BL">
+      <HintPath>..\Portal_BL\bin\Debug\Portal_BL.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8854.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8854.1\lib\net40\System.Data.SqlServerCe.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\codeCountries.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountriesLanguages.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStations.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStationsLanguages.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeJobTitlesLanguages.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeLocations.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeLocationsLanguages.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsInstances.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsInstancesLanguages.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeOrganizationsLanguages.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeReferralStatus.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeReferralStatusLanguage.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeShuttleTravelPurpose.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeShuttleTravelPurposeLanguage.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeVehicle.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttle.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttleRequest.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttleRequestBoxState.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttleRequestRoute.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttleRequestRouteStep.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttleRequestStaff.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttleStaff.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataShuttleVehicle.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RP_ShuttleReport_Result.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SHMModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SHMModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SHMModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SHMModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SHMModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\StaffCoreData.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userContactDetails.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetails.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetailsLanguage.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userServiceHistory.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModels.cs" />
+    <Compile Include="Model\v_StaffCurrentContact.cs">
+      <DependentUpon>SHMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="Model\SHMModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SHMModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\SHMModel.edmx.diagram">
+      <DependentUpon>SHMModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\SHMModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SHMModel.edmx</DependentUpon>
+      <LastGenOutput>SHMModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\SHMModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SHMModel.edmx</DependentUpon>
+      <LastGenOutput>SHMModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RES_Repo\RES_Repo.csproj">
+      <Project>{A12AA199-2E39-4FAC-AFE3-83A718AA5D40}</Project>
+      <Name>RES_Repo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8854.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8854.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

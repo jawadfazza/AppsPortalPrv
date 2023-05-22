@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@model ConfirmReceivingFileModel
+
+
+@*@Html.PageHeader("b075fc3a-6328-4b14-8273-be8bf3c11975")*@
+<br />
+<div class="page--content myOptions" id="checkAll">
+    @if (Model.DocumentFlowStatusGUID == ScanDocumentTransferFlowStatus.Pending)
+    {
+
+        <div class="form-group">
+            <h3>Kindly confirm receving file number: @Model.FileNumber</h3>
+            <input type="button" id="btn" value="Click here To Confirm" onclick="ConfirmReceivingFile()" />
+        </div>
+
+
+
+        <input type="hidden" id="ScannDocumentTransferGUID" value="@Model.ScannDocumentTransferGUID" />
+
+
+
+    }
+    else
+    {
+        <div id="confirmData">
+            <div class="col-md-4 col-lg-offset-2">
+                <a href="/Account/Logout" title="Logout">Sign Out </a>
+            </div>
+        </div>
+
+
+    }
+
+</div>
+<div class="page--content " id="savedSuccessfully">
+    <div >
+        <h1>Saved Successfully</h1>
+        <a href="/Account/Logout" title="Logout">Log out</a>
+    </div>
+    </div>
+    <script>
+
+
+        $("#savedSuccessfully").hide();
+        var ConfirmReceivingFile = function () {
+
+            var url = "/DAS/ScanDocument/ConfirmReceivingFileCreate/";
+
+            var id = $("#ScannDocumentTransferGUID").val();
+
+            $.ajax({
+                url: url,
+                method: "Post",
+                data: {
+                    guid: id
+                },
+                success: function (data) {
+                    if (data.success = 1) {
+                        Notify(NotificationType.Success, 'Your request been submitted');
+                        $("#savedSuccessfully").show();
+                        $("#checkAll").hide();
+
+                    }
+                    else {
+                        Notify(NotificationType.Success, 'Your request already submitted');
+                    }
+                }
+            });
+        }
+
+
+    </script>

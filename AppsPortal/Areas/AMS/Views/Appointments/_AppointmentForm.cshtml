@@ -1,0 +1,199 @@
+﻿@model AppointmentUpdateModel
+@using (Html.BeginForm("Appointment", "Appointments", new { Area = "AMS" }, FormMethod.Post, new { id = "AppointmentForm" }))
+{
+
+    string ModalTitle = Model.AppointmentGUID.ToString() == Guid.Empty.ToString() ? "New Appointment" : "Edit Appointment";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.AppointmentGUID)
+    @Html.HiddenFor(model => model.CaseGUID)
+    @Html.HiddenFor(model => model.DutyStationGUID)
+    @if (Model.AppointmentGUID != Guid.Empty)
+    {
+        <div class="form-group">
+            <b>
+                @Html.LabelFor(model => model.FileNumber, htmlAttributes: new { @class = "control-label" })
+                @Html.DisplayFor(model => model.FileNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </b>
+        </div>
+        <div class="form-group">
+            <b>
+                @Html.LabelFor(model => model.ICNameEN, htmlAttributes: new { @class = "control-label" })
+                @Html.DisplayFor(model => model.ICNameEN, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.DisplayFor(model => model.ICNameOtherLanguages, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </b>
+        </div>
+    }
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppointmentTypeGUID, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.AppointmentTypeGUID, new DropDownList().AppointmentTypes(), "", new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-search",
+           onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'AppointmentWithUserGUID', Action : 'RemoteOrganizationsInstancesDepartmentStaff'},{ DropDownListID : 'AppointmentTypeCalenderGUID', Action : 'RemoteAppointmentTypeCalender'}]);"
+       })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppointmentWithUserGUID, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.AppointmentWithUserGUID, new DropDownList().OrganizationsInstancesDepartmentStaff(Model.AppointmentTypeGUID), "", new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-search"
+       })
+        </div>
+        @if (Model.AppointmentGUID == Guid.Empty)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.AppointmentTypeCalenderGUID)
+                @Html.DropDownListFor(model => model.AppointmentTypeCalenderGUID, new DropDownList().AppointmentTypeCalender(Model.AppointmentTypeGUID), "",
+                     new
+                     {
+                         style = "width:100%",
+                         @class = "form-control select2-basic-search",
+                         onchange = "GetAppointmentSlote($(this).val());"
+                     })
+            </div>
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppointmentDateTime)
+            @Html.EditorFor(model => model.AppointmentDateTime, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        @*@if (Model.AppointmentGUID != Guid.Empty)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Reason)
+                    @Html.TextAreaFor(model => model.Reason, new { @class = "form-control", rows = 2 })
+                    <a href="#" id="history" onclick="ShowRescheduledHistory();" data-content="@Html.Raw(@Model.ReasonHistory)">Show History</a>
+
+
+                </div>
+
+            }*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.TokenColourGUID)
+            @Html.DropDownListFor(model => model.TokenColourGUID, new DropDownList().TokenColour(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TokenNumber)
+            @Html.EditorFor(model => model.TokenNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StatusGUID)
+            @Html.DropDownListFor(model => model.StatusGUID, new DropDownList().ReferralStatus(Apps.AMS), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comments)
+            @Html.TextAreaFor(model => model.Comments, new { @class = "form-control", rows = 2 })
+        </div>
+        <div class="form-group">
+            @Html.CheckBoxFor(m => Model.Arrived, new { @class = "chkNode-accordion" })
+            @Html.LabelFor(model => model.Arrived)
+
+            @Html.CheckBoxFor(model => model.Cancelled, new { @class = "chkNode-accordion" })
+            @Html.LabelFor(model => model.Cancelled)
+        </div>
+        @if (Model.AppointmentGUID != Guid.Empty)
+        {
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.CreatedBy)
+                @Html.DisplayFor(m => Model.CreatedBy, new { @class = "chkNode-accordion" })
+                @Html.HiddenFor(model => model.CreatedBy)
+
+
+                @Html.LabelFor(model => model.CreatedDate)
+                @Html.DisplayFor(m => Model.CreatedDate, new { @class = "chkNode-accordion" })
+                @Html.HiddenFor(model => model.CreatedDate)
+            </div>
+            if (Model.UpdatedBy != "")
+            {
+                <div class="form-group">
+                    @Html.Label("App Change By")
+                    @Html.DisplayFor(m => Model.UpdatedBy, new { @class = "chkNode-accordion" })
+                    @Html.HiddenFor(model => model.UpdatedBy)
+
+                    @Html.Label("App Change Date")
+                    @Html.DisplayFor(m => Model.UpdatedDate, new { @class = "chkNode-accordion" })
+                    @Html.HiddenFor(model => model.UpdatedDate)
+                </div>
+            }
+            if (Model.ArrivedBy != "")
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ArrivedBy)
+                    @Html.DisplayFor(m => Model.ArrivedBy, new { @class = "chkNode-accordion" })
+                    @Html.HiddenFor(model => model.ArrivedBy)
+
+                    @Html.LabelFor(model => model.ArrivedDate)
+                    @Html.DisplayFor(m => Model.ArrivedDate, new { @class = "chkNode-accordion" })
+                    @Html.HiddenFor(model => model.ArrivedDate)
+                </div>
+            }
+            if (Model.CancelledBy != "")
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CancelledBy)
+                    @Html.DisplayFor(m => Model.CancelledBy, new { @class = "chkNode-accordion" })
+                    @Html.HiddenFor(model => model.CancelledBy)
+
+                    @Html.LabelFor(model => model.CancelledDate)
+                    @Html.DisplayFor(m => Model.CancelledDate, new { @class = "chkNode-accordion" })
+                    @Html.HiddenFor(model => model.CancelledDate)
+                </div>
+            }
+        }
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.AppointmentGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.Appointment.Create, Apps.AMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.Appointment.Update, Apps.AMS)
+                @Html.DeleteSwitchButton(Permissions.Appointment.Delete, Apps.AMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.Appointment.Delete, Apps.AMS)
+            }
+        }
+        @Html.CloseModalButton()
+        <a target="_blank" onclick=" w.print();" href="/AMS/Reports/AppointmentsSlip/@Model.AppointmentGUID" title="Report Appointment Slep" class="btn btn-default valid pull-right"><i class="fa fa-book" aria-hidden="true"></i></a>
+    </div>
+
+}
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+    function GetAppointmentSlote(AppointmentTypeCalenderGUID) {
+        $.ajax({
+            type: "POST",
+            url: '/AMS/Appointments/AppointmentSlote?PK=' + AppointmentTypeCalenderGUID,
+            success: function (data) {
+                $('#AppointmentDateTime').val(moment(data.EventStartDate).format('MMMM DD, YYYY hh:mm:ss A'));
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function ShowRescheduledHistory() {
+        if ($("#Reason").val() == "") {
+            $("#Reason").val($("#history").data("content"));
+            $("#Reason").prop('disabled', true);
+            $("#history").html("Hide History");
+        } else {
+            $("#Reason").val("");
+            $("#Reason").prop('disabled', false);
+            $("#history").html("Show History");
+        }
+    }
+</script>

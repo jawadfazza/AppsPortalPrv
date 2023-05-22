@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="64e37c8d11fc42e39318b612e6d9cc26" Name="Diagram1">
+        <EntityTypeShape EntityType="RMSModel.codeReferralStatusLanguage" Width="1.5" PointX="7.625" PointY="6" />
+        <EntityTypeShape EntityType="RMSModel.codeOrganizationsInstances" Width="1.5" PointX="8.375" PointY="1" />
+        <EntityTypeShape EntityType="RMSModel.codeOrganizationsInstancesLanguages" Width="1.5" PointX="10.625" PointY="1" />
+        <AssociationConnector Association="RMSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" />
+        <EntityTypeShape EntityType="RMSModel.codeDutyStations" Width="1.5" PointX="0.5" PointY="12.25" />
+        <EntityTypeShape EntityType="RMSModel.codeDutyStationsLanguages" Width="1.5" PointX="3.125" PointY="13.125" />
+        <AssociationConnector Association="RMSModel.FK_codeDutyStationsLanguages_codeDutyStations" />
+        <EntityTypeShape EntityType="RMSModel.codeReferralStatus" Width="1.5" PointX="0.75" PointY="3.75" />
+        <AssociationConnector Association="RMSModel.FK_codeReferralStatusLanguage_codeReferralStatus" />
+        <EntityTypeShape EntityType="RMSModel.codeTablesValues" Width="1.5" PointX="7.375" PointY="10" />
+        <EntityTypeShape EntityType="RMSModel.codeTablesValuesLanguages" Width="1.5" PointX="9.625" PointY="10" />
+        <AssociationConnector Association="RMSModel.FK_codeTablesValuesLanguages_codeTablesValues" />
+        <EntityTypeShape EntityType="RMSModel.dataPrinterLog" Width="1.5" PointX="5" PointY="11.25" />
+        <EntityTypeShape EntityType="RMSModel.dataPrinterInkCartridge" Width="1.5" PointX="10.25" PointY="4.625" />
+        <EntityTypeShape EntityType="RMSModel.dataPrinterOID" Width="1.5" PointX="5.625" PointY="2.375" />
+        <EntityTypeShape EntityType="RMSModel.codeOID" Width="1.5" PointX="12.375" PointY="5" />
+        <AssociationConnector Association="RMSModel.FK_dataPrinterInkCartridge_codeOID" />
+        <AssociationConnector Association="RMSModel.FK_dataPrinterOID_codeOID" />
+        <EntityTypeShape EntityType="RMSModel.dataOidReferralStatus" Width="1.5" PointX="3" PointY="3.875" />
+        <AssociationConnector Association="RMSModel.FK_dataOidReferralStatus_codeReferralStatus" />
+        <EntityTypeShape EntityType="RMSModel.codeOffices" Width="1.5" PointX="12.375" PointY="10" />
+        <EntityTypeShape EntityType="RMSModel.codeOfficesLanguages" Width="1.5" PointX="14.625" PointY="10.375" />
+        <AssociationConnector Association="RMSModel.FK_codeOfficesLanguages_codeOffices" />
+        <EntityTypeShape EntityType="RMSModel.dataPrinterConfiguration" Width="1.5" PointX="2.75" PointY="7" />
+        <AssociationConnector Association="RMSModel.FK_dataPrinterInkCartridge_dataPrinterConfiguration" />
+        <AssociationConnector Association="RMSModel.FK_dataPrinterLog_dataPrinterConfiguration" />
+        <AssociationConnector Association="RMSModel.FK_dataPrinterOID_dataPrinterConfiguration" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

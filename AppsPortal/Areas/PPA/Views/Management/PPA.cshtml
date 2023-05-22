@@ -1,0 +1,37 @@
+﻿@model PPAUpdateModel
+@{
+    ViewBag.Title = "PPA";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.PPAGUID == Guid.Empty) ? "New Record" : "Edit Record"; }
+
+@Html.PageHeader("ee41fb9d-2f0d-46c4-ac35-1214da059249")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                @Html.Partial("~/Areas/PPA/Views/Management/_PPAForm.cshtml")
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div id="FilesContainer">
+                    @if (Model.PPAGUID != Guid.Empty && Model.Active)
+                    {
+                        @Html.Partial("~/Areas/PPA/Views/PPAFiles/_PPAFilesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.PPAGUID, IsParentActive = Model.Active })
+                    }
+                </div>
+                <div id="DistributionListContainer">
+                    @if (Model.PPAGUID != Guid.Empty && Model.Active)
+                    {
+                        @Html.Partial("~/Areas/PPA/Views/PPADistributionList/_PPADistributionListDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.PPAGUID, IsParentActive = Model.Active })
+                    }
+                </div>
+                @*<div id="ReviewerListContainer">
+                    @if (Model.PPAGUID != Guid.Empty && Model.Active)
+                    {
+                        @Html.Partial("~/Areas/PPA/Views/PPAReviewerList/_PPAReviewerListDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.PPAGUID, IsParentActive = Model.Active })
+                    }
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+﻿@model LookupTable
+@{
+    ViewBag.Title = "TablesValues";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader(Model.IndexSitemapID.ToString())
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.TableValuesDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ValueDescription, DbColumnName = "ValueDescription", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.TableValuesDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.TableValuesDataTable)">
+        @{
+            string FactorsToken = Model.TableID.ToString(); //new CMS().LookupValueFactorsCollector(Model.TableID);
+        }
+
+        @Html.IndexDatatableFilter(DataTableNames.TableValuesDataTable)
+        @Html.IndexDatatableCreate(Permissions.LookupValues.Create, Apps.CMS, Url.Action("/Create/" + Model.TableID, "Codes",new { Area = "CMS" } ), FactorsToken)
+        @Html.IndexDatatableDelete(Permissions.LookupValues.Delete, Apps.CMS, DataTableNames.TableValuesDataTable, FactorsToken)
+        @Html.IndexDatatableRestor(Permissions.LookupValues.Restore, Apps.CMS, DataTableNames.TableValuesDataTable, FactorsToken)
+        @Html.IndexDatatableRefresh(DataTableNames.TableValuesDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.TableValuesDataTable, FormController = "Codes", Area="CMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 2, PK = Model.TableID })
+    </div>
+</div>

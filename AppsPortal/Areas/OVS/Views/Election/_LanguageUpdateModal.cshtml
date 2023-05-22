@@ -1,0 +1,43 @@
+﻿@model dataElectionLanguage
+@using (Html.BeginForm("ElectionLanguage", "Election", new { Area = "OVS" }, FormMethod.Post, new { id = "ElectionLanguageForm" }))
+{
+    string ModalTitle = Model.ElectionLanguageGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ElectionLanguageGUID)
+        @Html.HiddenFor(model => model.ElectionGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.LanguageID)
+            @Html.DropDownListFor(model => model.LanguageID, new DropDownList().Languages(false), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+  
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title)
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Details)
+            @Html.TextAreaFor(model => model.Details, new { @class = "form-control", rows = 5 })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ElectionLanguageGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ElectionsManagement.Create, Apps.OVS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ElectionsManagement.Update, Apps.OVS)
+                @Html.DeleteSwitchButton(Permissions.ElectionsManagement.Delete, Apps.OVS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ElectionsManagement.Delete, Apps.OVS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

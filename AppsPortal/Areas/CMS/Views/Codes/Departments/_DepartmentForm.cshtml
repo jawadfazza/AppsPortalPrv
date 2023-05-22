@@ -1,0 +1,43 @@
+﻿@model DepartmentUpdateModel
+@using (Html.BeginForm("Department", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "DepartmentForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.DepartmentGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartmentDescription)
+                @Html.EditorFor(model => model.DepartmentDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartmentCode)
+                @Html.EditorFor(model => model.DepartmentCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SortID)
+                @Html.EditorFor(model => model.SortID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="DepartmentFormControls" class="form-group form-footer">
+                @if (Model.DepartmentGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Departments.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Departments.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.Departments.Create,Apps.CMS, Url.Action("Departments/Create", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.Departments.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Departments.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Departments", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+}

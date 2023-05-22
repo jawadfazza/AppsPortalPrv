@@ -1,0 +1,135 @@
+﻿@model List<PPAProgressTrackingReportModel>
+@{
+    PPA_DAL.Model.PPAEntities DbPPA = new PPAEntities();
+}
+<style>
+    .padding-left-25 {
+        padding-left: 25px !important;
+    }
+
+    .width-12 {
+        width: 15% !important;
+    }
+
+    .padding-bot-10 {
+        padding-bottom: 10px !important;
+    }
+
+    .padding-bot-5 {
+        padding-bottom: 5px !important;
+    }
+</style>
+<div class="panel-group portalConfig overrideEnabled" id="accordion" role="tablist" aria-multiselectable="true">
+
+    @if (Model.Count == 0)
+    {
+
+    }
+    @foreach (var ppaAgreement in Model)
+    {
+        int downloadersCount = 0;
+        downloadersCount = (from a in DbPPA.PPAOriginalFile.Where(x => x.PPAGUID == ppaAgreement.PPAGUID)
+                            join b in DbPPA.PPAFileVersion.Where(x => x.Active) on a.PPAOriginalFileGUID equals b.PPAOriginalFileGUID
+                            where b.FileActionType == "Download"
+                            select new
+                            {
+                                b.FileActionByUserGUID,
+                                b.FileActionType
+                            }).Distinct().Count();
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="CountriesHeader" data-url="@Url.Action("GetPPAFiles","Reports",new {Area = "PPA", FK = @ppaAgreement.PPAGUID})" data-toggle="collapse" data-parent="#accordion" href="#@ppaAgreement.PPAGUID" aria-expanded="false">
+                <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#@ppaAgreement.PPAGUID">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table style="width:100%">
+                                <tr>
+                                    <td class="padding-bot-10" colspan="4"><b>@ppaAgreement.PPADescription</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="width-12">Implementing Partner:</td>
+                                    <td class="padding-left-25">@ppaAgreement.OrganizationDescription</td>
+                                </tr>
+                                <tr>
+                                    <td class="width-12">Area of implementation:</td>
+                                    <td class="padding-left-25">@ppaAgreement.PPATypeDescription</td>
+                                </tr>
+                                <tr>
+                                    <td class="width-12">Deadline for review:</td>
+                                    <td class="padding-left-25">@ppaAgreement.PPADeadline</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="width-12">Uploaded by:</td>
+                                    <td class="padding-left-25">@ppaAgreement.StaffName / @ppaAgreement.DepartmentDescription</td>
+                                </tr>
+                                <tr>
+                                    <td class="width-12">Uploaded to:</td>
+                                    <td class="padding-left-25">@ppaAgreement.UploadedToDepartment</td>
+                                </tr>
+                                <tr>
+                                    <td class="width-12">Status:</td>
+                                    <td class="padding-left-25"><a class="clickLinkClassToReplace" data-PPAGUID="@ppaAgreement.PPAGUID" href="javascript:void(0)">@downloadersCount of @ppaAgreement.UploadedToCount Downloaded the package (click for more details)</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                </span>
+            </div>
+            <div id="@ppaAgreement.PPAGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+                <div class="panel-body panel-body-accordion">
+                    @resxPages.Loading
+                    @*<div class="panel-group portalConfig overrideEnabled" id="accordionLVL2" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="CountriesHeader" data-toggle="collapse" data-parent="#accordionLVL2" href="#originalFilePPAOriginalFileGUID" aria-expanded="false">
+                                    <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL2" href="#originalFilePPAOriginalFileGUID">
+                                        @@originalFile.FileName
+                                    </span>
+                                </div>
+                                <div id="originalFilePPAOriginalFileGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+                                    <div class="panel-body">
+                                        <div class="panel-group portalConfig overrideEnabled" id="accordionLVL3" role="tablist" aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="CountriesHeader" data-toggle="collapse" data-parent="#accordionLVL3" href="#someParamGUID" aria-expanded="false">
+                                                    <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL3" href="#someParamGUID">
+                                                        @@FileActionByUserName
+                                                    </span>
+                                                </div>
+                                                <div id="someParamGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+                                                    <div class="panel-body">
+                                                        <div class="panel-group portalConfig overrideEnabled" id="accordionLVL4" role="tablist" aria-multiselectable="true">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading" role="tab" id="CountriesHeader" data-toggle="collapse" data-parent="#accordionLVL4" href="#PPAFileVersionGUID" aria-expanded="false">
+                                                                    <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL4" href="#PPAFileVersionGUID">
+                                                                        Downloaded original version on:
+                                                                        <br />
+                                                                        Uploaded version:
+
+                                                                    </span>
+                                                                </div>
+                                                                <div id="PPAFileVersionGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+                                                                    <div class="panel-body">
+                                                                        more details will be here soon.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+

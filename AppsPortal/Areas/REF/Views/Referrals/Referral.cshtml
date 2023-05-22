@@ -1,0 +1,20 @@
+﻿@model ReferralUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ReferralGUID == Guid.Empty) ? "New Referral" : "Edit Referral"; }
+
+@Html.PageHeader("62fc71c3-9576-468a-b4a0-7a2b1135e499")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/REF/Views/Referrals/_ReferralForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.ReferralGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/REF/Views/Referrals/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ReferralGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

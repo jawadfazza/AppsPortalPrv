@@ -1,0 +1,68 @@
+﻿@model ItemInputDetailModel
+<div class=" checkboxs-form">
+    <div class="row">
+        
+        @Html.HiddenFor(model => model.ItemInputDetailGUID)
+        @if (Model.ModelDeterminantVM.Count > 0)
+        {
+            <div class=" col-md-12" data-mcs-theme="rounded-dark">   
+                @for (int i = 0; i < Model.ModelDeterminantVM.Count; i++)
+                {
+                    <div class="col-md-4">
+                        @Html.HiddenFor(m => Model.ModelDeterminantVM[i].WarehouseItemModelDeterminantGUID)
+                        @Html.HiddenFor(m => Model.ModelDeterminantVM[i].DeterminantName)
+                        <label class="black ClearFindTextBox" style="margin-bottom:0!important">
+                            @Html.DisplayFor(m => Model.ModelDeterminantVM[i].DeterminantName)
+                            @Html.EditorFor(model => Model.ModelDeterminantVM[i].DeterminantValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </label>
+
+                    </div>
+                }
+            </div>
+        }
+        else if (Model.ItemInputDetailGUID != null && Model.ModelDeterminantVM.Count == 0)
+        {
+            <span></span>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Qunatity)
+                @Html.EditorFor(model => model.Qunatity, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @Value = 1 } })
+            </div>
+        }
+    </div>
+</div>
+<br />
+<div class="col-md-12">
+    <div class="dt-controls-index pull-right" id="@string.Format("{0}ActionsContainer", DataTableNames.WarehouseModelEntryMovementsDataTable)">
+        @*<input type="button" value="Add Other" id="ShowOtherDeterminantid" onclick="addOtherDeterminants()" />*@
+        @if (Model.ItemInputDetailGUID != null && Model.ItemInputDetailGUID != Guid.Empty)
+        {
+        @Html.FieldDataTableCreate(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("ItemDeterminantUpdate", "ModelMovements", new { FK = Model.ItemInputDetailGUID }))
+        }
+    </div>
+
+</div>
+<script>
+    var addOtherDeterminants = function() {
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/WMS/ModelMovements/Add',
+             
+            success: function (data) {
+                if (data.totalPending > 0) {
+                    Notify(NotificationType.Warning,
+                        'Kindly check pending requests ');
+                }
+               
+             
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    }
+        
+</script>

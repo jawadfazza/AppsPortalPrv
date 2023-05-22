@@ -1,0 +1,31 @@
+﻿@model MasterRecordStatus
+
+@using (Html.BeginForm("", "", new { Area = "OSA" }, FormMethod.Post, new { id = "AttendanceStatffImportForm", enctype = "multipart/form-data" }))
+{
+    string ModalTitle = "Notify Direct supervisor";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+
+        <div class="form-group">
+            @Html.Label(resxDbFields.DirectSupervisor, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model=>model.ParentGUID, new DropDownList().CoreUsers(true), "", new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-search"
+       })
+        </div>
+
+
+    </div>
+    <div class="modal-footer form-footer">
+        <input class="btn btn-primary " type="button" id="ProcessId" value="@resxUIControls.Submit"  onclick="InformSupervisor();">
+        @Html.CloseModalButton()
+    </div>
+}
+
+<script>
+
+ 
+
+</script>
+

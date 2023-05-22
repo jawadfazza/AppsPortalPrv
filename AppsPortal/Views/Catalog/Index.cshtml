@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Portal Catalog";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@*@Html.Raw("<script> var Columns = " + ViewBag.JSON + " </script>")*@
+<script>
+    var Columns = [{ "name": "IndividualID", "data": "IndividualID", "orderable": false, "searchable": false, "targets": 0, "responsivePriority": 0, "width": "10px", "render": function (data, type, full, meta) { return "<input type='checkbox' name='DeleteID' class='chkNode' value='" + data + "'>"; }, "defaultContent": "" },
+        { "name": "GivenName", "data": "GivenName", "orderable": true, "searchable": true, "targets": 1, "responsivePriority": 1, "width": "300px", "render": function (data, type, full, meta) { return "<a class='Modal-Link' href='#' data-url='/Catalog/Partial/" + full.IndividualID + "'>" + data + "</a>"; }, "defaultContent": "" },
+        { "name": "DateOfBirth", "data": "DateOfBirth", "orderable": true, "searchable": true, "targets": 2, "responsivePriority": 3, "width": "100px", "render": function (data, type, full, meta) { return "<a href='/Controller/Action/" + full.IndividualID + "'>" + moment(data).format('DD MMMM YYYY') + "</a>"; }, "defaultContent": "" },
+        { "name": "GenderDescription", "data": "GenderDescription", "orderable": true, "searchable": true, "targets": 3, "responsivePriority": 3, "width": "100px", "render": null, "defaultContent": "" },
+        { "name": "OriginCountryCode", "data": "OriginCountryCode", "orderable": true, "searchable": true, "targets": 4, "responsivePriority": 3, "width": "60px", "render": null, "defaultContent": "" },
+        { "name": "RegistrationDate", "data": "RegistrationDate", "orderable": true, "searchable": true, "targets": 5, "responsivePriority": 3, "width": "100px", "render": function (data, type, full, meta) { return moment(data).format('DD MMMM YYYY'); }, "defaultContent": "" },
+        { "name": "", "data": "", "orderable": false, "searchable": false, "targets": -1, "responsivePriority": 2, "width": "10px", "render": "", "defaultContent": "<i class='fa fa-angle-right fa-15x dt-arrow'></i>" }] </script>
+
+<div class="page--content">
+    <div class="page--banner">
+        <h2>Applications Portal Catalog</h2>
+        <div id="sitemap" class="sitemap">
+            <div class="nav--content row">
+                <ul>
+                    <li><a herf="#">Portal</a></li>
+                    <li><a herf="#">Level I</a></li>
+                    <li><a herf="#">Level II</a></li>
+                    <li>Last Level</li>
+                </ul>
+            </div>
+        </div>
+        <div id=@string.Format("{0}Filter",DataTableNames.TestDataTable) class="filter-section" style="display:none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.GivenName, DbColumnName = "GivenName", FilterForDataType = "Text" })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DateOfBirth, DbColumnName = "DateOfBirth", FilterForDataType = "Date" })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.sexcode, DbColumnName = "sexcode", FilterForDataType = "Options", DataList = new SelectList(ViewBag.GenderList, "ValueGUID", "ValueDescription"), IsMultiple = false })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OriginCountryCode, DbColumnName = "OriginCountryCode", FilterForDataType = "Text", DataList = new SelectList(ViewBag.Countries, "ValueGUID", "ValueDescription"), IsMultiple = true })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new SelectList(new CMS().ddlRecordStatus(), "Value", "Description") })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.RegistrationDate, DbColumnName = "RegistrationDate", FilterForDataType = "DateTime" })
+                </div>
+            </div>
+            <div class="form-group filter-actions">
+                <input type="button" id="btnSearch" value="Find" class="btn btn-success" onclick="ApplyFilter('@DataTableNames.TestDataTable');" />
+                <input type="button" id="secondid" value="Clear Filter" class="btn btn-default" onclick="ClearFilter('@DataTableNames.TestDataTable');" />
+                <input type="button" value="@resxUIControls.Close" class="btn btn-default" onclick="ToggleFilter('@DataTableNames.TestDataTable');" />
+            </div>
+        </div>
+    </div>
+    <div id="pageActions">
+        <a  class="dt-button btnfilter" title="Filter" onclick="ToggleFilter('@DataTableNames.TestDataTable');">
+            <span>
+                <i class="fa fa-filter"></i>
+            </span>
+        </a>
+        <a  class="dt-button Modal-Link" data-url="/Catalog/Partial/" title="Add New Record">
+            <span>
+                <i class="fa fa-plus"></i>
+            </span>
+        </a>
+        @*ID of button refresh should not be changed as it is used as a flag to insert the dt buttons after it!*@
+        <a id="dt-flag" class="dt-button" tabindex="0" aria-controls="@DataTableNames.TestDataTable" title="Refresh" onclick="DataTableRefresh('@DataTableNames.TestDataTable');">
+            <span>
+                <i class="fa fa-refresh"></i>
+            </span>
+        </a>
+        <a  class="dt-button Confirm" title="Delete Selected Records" data-url="/Catalog/DeleteXXXXXXXX" data-datatable="@DataTableNames.TestDataTable">
+            <span>
+                <i class="fa fa-trash-o fa-trash-o"></i>
+            </span>
+        </a>
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.TestDataTable, FormController = "Catalog", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Modal })
+    </div>
+</div>

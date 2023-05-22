@@ -1,0 +1,23 @@
+﻿@model WarehouseUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.WarehouseGUID == Guid.Empty) ? "New  Warehouse " : "Edit Warehouse"; }
+
+@Html.PageHeader("9cc2f9d2-964c-421c-8cf1-66c09c61bbc4")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/WMS/Views/WarehouseConfiguration/_WarehouseForm.cshtml")
+
+            @if (Model.WarehouseGUID != Guid.Empty && Model.Active)
+            {
+                <div id="ItemModelLanguagesFormControls">
+                    @Html.Partial("~/Areas/WMS/Views/WarehouseConfiguration/_FocalPointDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.WarehouseGUID, IsParentActive = Model.Active })
+                </div>
+            }
+           
+     
+    </div>
+</div>
+

@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "ItemModels";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("993fb3d0-042b-427e-87e2-f2d4a9657d6e")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.ISSItemDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemDescription, DbColumnName = "ItemDescription", FilterForDataType = "Text" })
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemDescription, DbColumnName = "ItemDescription", FilterForDataType = "Text" })*@
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStationDescription, DbColumnName = "DutyStationGUID", FilterForDataType = "Options", DataList = new DropDownList().DutyStationsByProfile(), IsMultiple = true })*@
+
+            </div>
+
+            <div class="col-lg-12">
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationInstanceDescription, DbColumnName = "OrganizationInstanceGUID", FilterForDataType = "Options", DataList = new DropDownList().OrganizationsInstancesByProfile(), IsMultiple = true })*@
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.ISSItemDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.ISSItemDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.ISSItemDataTable)
+        @Html.IndexDatatableCreate(Permissions.StockItemDistribution.Create, Apps.ISS, "/ISS/ISSItem/Create")
+        @Html.IndexDatatableDelete(Permissions.StockItemDistribution.Delete, Apps.ISS, DataTableNames.ISSItemDataTable)
+        @Html.IndexDatatableRestor(Permissions.StockItemDistribution.Restore, Apps.ISS, DataTableNames.ISSItemDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.ISSItemDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ISSItemDataTable, Area = "ISS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

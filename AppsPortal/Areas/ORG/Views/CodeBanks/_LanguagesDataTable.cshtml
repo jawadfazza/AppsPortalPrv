@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.Globalization</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.CodeBankLanguagesDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.CodeBankLanguagesDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.CodeBankLanguagesDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.CodeBankLanguagesDataTable)
+                @Html.FieldDataTableCreate(Permissions.WarehouseItemsEntry.Create, Apps.ORG, Url.Action("CodeBankLanguageCreate", "CodeBanks", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.WarehouseItemsEntry.Delete, Apps.ORG, DataTableNames.CodeBankLanguagesDataTable)
+                @Html.FieldDataTableRestore(Permissions.WarehouseItemsEntry.Restore, Apps.ORG, DataTableNames.CodeBankLanguagesDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.CodeBankLanguagesDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.CodeBankLanguagesDataTable, FormController = "CodeBanks", Area = "ORG", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>`

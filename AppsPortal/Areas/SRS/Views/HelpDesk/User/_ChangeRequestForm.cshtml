@@ -1,0 +1,252 @@
+﻿@model HelpDeskModel
+
+@Html.HiddenFor(model => model.helpDeskChangeRequestModel.ChangeRequestGUID)
+@Html.HiddenFor(model => model.helpDeskChangeRequestModel.HelpDeskGUID)
+@Html.HiddenFor(model => model.helpDeskChangeRequestModel.Active)
+@Html.HiddenFor(model => model.helpDeskChangeRequestModel.dataChangeRequestRowVersion)
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Details</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(model => model.helpDeskChangeRequestModel.CRIntroduction)
+                @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRIntroduction, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.helpDeskChangeRequestModel.CROutcome)
+                @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CROutcome, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.helpDeskChangeRequestModel.CRPrerequisites)
+                @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRPrerequisites, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.helpDeskChangeRequestModel.CRRollbackPlan)
+                @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRRollbackPlan, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.helpDeskChangeRequestModel.CRNotes)
+                @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRNotes, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+            <div class="form-group">
+                <br />
+                <h4>Action plan list <input id="btn-addAP" type="button" class="btn btn-primary Modal-Link" data-url="@Url.Action("HelpDeskCRActionPlan","HelpDesk")" value="Add action plan element" /></h4>
+                <br />
+
+                <input id="btn-addAPDirect" type="button" class="btn btn-primary" value="Add action plan element direct" />
+
+                <table id="tbl-actionPlan" style="width:100%;table-layout: fixed" class="table dataTable no-footer dtr-inline">
+                    <thead>
+                        <tr>
+                            <th>Completed</th>
+                            <th style="width:10%">Unit</th>
+                            <th style="width:10%">Who</th>
+                            <th>What</th>
+                            <th>When</th>
+                            <th>How</th>
+                            <th>Duration</th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cr-ap-tableBody">
+                        @for (int i = 0; i < 1; i++)
+                        {
+                            <tr id="tr_clone">
+                                <td>
+                                    @Html.CheckBoxFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[i].APCompleted.Value, new { htmlAttributes = new { @class = "form-control APCompleted", autocomplete = "off" } })
+                                </td>
+                                <td style="width:10%">
+                                    @Html.DropDownListFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[i].APUnit, new DropDownList().Departments(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new { @class = "form-control select2-basic-search APUnit", style = "width:100%" })
+
+                                </td>
+                                <td style="width:10%">
+                                    @Html.DropDownListFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[i].APWho, new DropDownList().Users(true), "", new { @class = "form-control select2-basic-search APWho", style = "width:100%" })
+                                </td>
+                                <td>
+                                    @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[i].APWhat, new { @class = "form-control group-control APWhat", autocomplete = "off", @style = "width:100%;", @rows = 1 })
+                                </td>
+                                <td>
+                                    @Html.EditorFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[i].APWhen, new { htmlAttributes = new { @class = "form-control APWhen", autocomplete = "off" } })
+                                </td>
+                                <td>
+                                    @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[i].APHow, new { @class = "form-control group-control APHow", autocomplete = "off", @style = "width:100%;", @rows = 1 })
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[i].APDuration, new DropDownList().NumbersList(4), "", new { @class = "form-control select2-basic-search APDuration", style = "width:100%" })
+                                </td>
+                                <td>
+                                    @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[i].APComments, new { @class = "form-control group-control APComments", autocomplete = "off", @style = "width:100%;", @rows = 1 })
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div id="tableRowTemplate" style="display:none;">
+        <table id="templateTable">
+            <tr id="trRowTemplate">
+                <td>
+                    @Html.CheckBoxFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APCompleted.Value, new { htmlAttributes = new { @class = "form-control APCompleted", autocomplete = "off" } })
+                </td>
+                <td style="width:10%">
+                    @Html.DropDownListFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APUnit, new DropDownList().Departments(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new { @class = "form-control select2-basic-search APUnit", style = "width:100%" })
+
+                </td>
+                <td style="width:10%">
+                    @Html.DropDownListFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APWho, new DropDownList().Users(true), "", new { @class = "form-control select2-basic-search APWho", style = "width:100%" })
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APWhat, new { @class = "form-control group-control APWhat", autocomplete = "off", @style = "width:100%;", @rows = 1 })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APWhen, new { htmlAttributes = new { @class = "form-control APWhen", autocomplete = "off" } })
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APHow, new { @class = "form-control group-control APHow", autocomplete = "off", @style = "width:100%;", @rows = 1 })
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APDuration, new DropDownList().NumbersList(4), "", new { @class = "form-control select2-basic-search APDuration", style = "width:100%" })
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APComments, new { @class = "form-control group-control APComments", autocomplete = "off", @style = "width:100%;", @rows = 1 })
+                </td>
+
+            </tr>
+        </table>
+
+    </div>*@
+
+<template id="rowTemplate">
+    <tr>
+        @Html.HiddenFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].ChangeRequestAPGUID)
+        <td>
+            @Html.CheckBoxFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APCompleted.Value, new { htmlAttributes = new { @class = "form-control APCompleted", autocomplete = "off" } })
+        </td>
+        <td style="width:10%">
+            @Html.DropDownListFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APUnit, new DropDownList().Departments(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new { @class = "form-control select2-basic-search APUnit", style = "width:100%" })
+
+        </td>
+        <td style="width:10%">
+            @Html.DropDownListFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APWho, new DropDownList().Users(true), "", new { @class = "form-control select2-basic-search APWho", style = "width:100%" })
+        </td>
+        <td>
+            @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APWhat, new { @class = "form-control group-control APWhat", autocomplete = "off", @style = "width:100%;", @rows = 1 })
+        </td>
+        <td>
+            @Html.EditorFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APWhen, new { htmlAttributes = new { @class = "form-control APWhen", autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APHow, new { @class = "form-control group-control APHow", autocomplete = "off", @style = "width:100%;", @rows = 1 })
+        </td>
+        <td>
+            @Html.DropDownListFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APDuration, new DropDownList().NumbersList(4), "", new { @class = "form-control select2-basic-search APDuration", style = "width:100%" })
+        </td>
+        <td>
+            @Html.TextAreaFor(model => model.helpDeskChangeRequestModel.CRActionPlanList[0].APComments, new { @class = "form-control group-control APComments", autocomplete = "off", @style = "width:100%;", @rows = 1 })
+        </td>
+
+    </tr>
+</template>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#CRAPFormModal').submit(function (e) {
+            e.preventDefault();
+        });
+
+        $('#btn-addAPDirect').click(function (e) {
+            e.preventDefault();
+
+            var template = document.querySelector('#rowTemplate');
+
+            // Clone the new row and insert it into the table
+            var tbody = document.querySelector("#cr-ap-tableBody");
+            var clone = document.importNode(template.content, true);
+
+            //var td = clone.querySelectorAll("td");
+            //td[0].textContent = "1235646565";
+            //td[1].textContent = "Stuff";
+
+            tbody.appendChild(clone);
+
+            InitPlugins($('#HelpDeskForm'));
+
+            var tableRows = $('#cr-ap-tableBody tr');
+
+            $.each(tableRows, function (idx, elm) {
+                //console.log('------------------------');
+                //console.log('row index', idx);
+                //console.log('row element', elm);
+
+                $(this).find('input, select, textarea').each(function (_idx, _elm) {
+                    //console.log('row inputs', _elm);
+                    debugger;
+
+                    if ($(_elm).attr('id') != undefined) {
+                        var id = $(_elm).attr('id');//helpDeskChangeRequestModel_CRActionPlanList_0__APWhen
+                        var newId = id.replace("_0__", "_" + idx + "__");
+                        $(_elm).attr('id', newId);
+                    }
+
+                    if ($(_elm).attr('name') != undefined) {
+                        var name = $(_elm).attr('name');//helpDeskChangeRequestModel.CRActionPlanList[0].APWhen
+                        var newName = name.replace("[0]", "[" + idx + "]");
+                        $(_elm).attr('name', newName);
+                    }
+
+                    //console.log('id', id);
+                    //console.log('name', name);
+                });
+            });
+
+
+            $('#tbl-actionPlan').find('input, select, textarea').each(function () {
+                //console.log(this);
+
+
+
+
+            });
+
+
+        });
+
+        $('#btn-addAPDirectXX').click(function (e) {
+            e.preventDefault();
+            debugger;
+            var rowCount = $('#cr-ap-tableBody tr').length;
+
+            var templateRow = $('#trRowTemplate');
+            var clonedRow = $(templateRow).clone();
+
+
+            var toCloneRow = $('#templateTable').find('tr')[0];
+            var clonedRow = $(toCloneRow).clone();
+            $('#cr-ap-tableBody').append(clonedRow);
+
+
+            //$(newRow).find('.APCompleted').val("true");
+            //$(newRow).find('.APUnit').val(null).trigger('change');
+            //$(newRow).find('.APWho').val(null).trigger('change');
+            //$(newRow).find('.APWhat').val("WHATTTT");
+            //$(newRow).find('.APWhen').val(null);
+            //$(newRow).find('.APHow').val("HOWWWWW");
+            //$(newRow).find('.APDuration').val(null).trigger('change');
+            //$(newRow).find('.APComments').val("COMMENTS");
+
+            //alert(rowCount);
+
+
+
+        });
+    })
+</script>

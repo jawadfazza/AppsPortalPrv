@@ -1,0 +1,46 @@
+﻿@model List<AuditModel>
+
+
+@foreach (var audit in Model)
+{
+
+    <div class="col-lg-12 AuditActionRecord" >
+
+        <div class="col-md-4">
+            <b>@audit.ActionDescription</b>
+        </div>
+        <div class="col-md-8 text-right text-left-xs">
+            @Html.DisplayFor(x => audit.ExecutionTime)
+        </div>
+        <div class="col-md-12">
+            <a class="AuditUserMoreInfo">@audit.ExecutedBy</a>
+        </div>        
+        <div class="UserMoreInfoPanel" style="display:none;">
+            <div class="col-md-12">
+                @audit.JobTitleDescription
+            </div>
+            <div class="col-md-12">
+                @audit.OrganizationInstanceDescription
+            </div>
+        </div>
+    </div>
+
+    if (audit.UpdatedFields.Where(x=>x.FieldName != null).Count() > 0 )
+    {
+        <div class="col-lg-12 col-nopadding AuditFieldsContainer">
+
+            <div class="col-md-4 hidden-xs"><span class="updateLabel">Field Name</span></div>
+            <div class="col-md-4 hidden-xs"><span class="updateLabel">Before Change</span></div>
+            <div class="col-md-4 hidden-xs"><span class="updateLabel">After Change</span></div>
+            @foreach (var field in audit.UpdatedFields)
+            {
+                <div class="col-lg-12 col-nopadding AuditFieldRecord">
+                    <div class="col-md-4">[@field.FieldName]</div>
+                    <div class="col-md-4"><span class="OldValueMobile visible-xs">Before change</span>@field.BeforeChange</div>
+                    <div class="col-md-4"><span class="NewValueMobile visible-xs">After change</span>@field.AfterChange</div>
+                </div>
+            }
+        </div>
+    }
+    <div class="Separator col-lg-12" style="margin-bottom:10px;"></div>
+}

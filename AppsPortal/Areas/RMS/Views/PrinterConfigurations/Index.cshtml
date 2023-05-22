@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Printers Configuration";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("dda1492a-6f56-4fd5-909c-037761feb504")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.PrintersConfigurationDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PrinterName, DbColumnName = "PrinterName", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.IpAddress, DbColumnName = "IPAddress", FilterForDataType = "Text" })
+            </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.PrintersConfigurationDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.PrintersConfigurationDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.PrintersConfigurationDataTable)
+        @Html.IndexDatatableCreate(Permissions.PrintersConfiguration.Create, Apps.RMS, "/RMS/printerconfiguration/Create")
+        @Html.IndexDatatableDelete(Permissions.PrintersConfiguration.Delete, Apps.RMS, DataTableNames.PrintersConfigurationDataTable)
+        @Html.IndexDatatableRestor(Permissions.PrintersConfiguration.Restore, Apps.RMS, DataTableNames.PrintersConfigurationDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.PrintersConfigurationDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.PrintersConfigurationDataTable, FormController = "printerconfiguration", Area = "RMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>
+
+<script>
+    function PrinterMoreDetails(Link) {
+        var table = $('#PrintersConfigurationDataTable').DataTable();
+    var tr = $(Link).parent().closest('tr');
+    var row = table.row(tr);
+    console.log(row.data());
+
+    if (row.child.isShown()) {
+        // This row is already open - close it
+        row.child.hide();
+        tr.removeClass('ExpandedLoginDetails');
+    }
+    else {
+        // Open this row
+        PrinterMoreDetailsTemplate(row.data(), row)
+        tr.addClass('ExpandedLoginDetails');
+    }
+}
+
+    function PrinterMoreDetailsTemplate(d, row) {
+
+        $.ajax({
+            method: 'post',
+            datatype: 'text',
+            url: "/RMS/PrinterConfiguration/LoadingOID/" + d.PrinterConfigurationGUID,
+            success: function (JsonResult, status, xhr) {
+                var strHTML =
+                    '<div class="row LoginMoreDetails">' +
+                    '<div class="col-lg-12" >' +
+                    '<div class="col-lg-1 col-xs-1 text-center">' +
+
+                    '</div>' +
+                    '<div class="col-lg-10 col-xs-10">';
+                if (JsonResult.oidsValues.length != 0) {
+                    JsonResult.oidsValues.forEach(function (row) {
+                        strHTML = strHTML + '<div class="row">' +
+                            '<label class="col-lg-4">' + row.OIDDescription + ':</label>' +
+                            '<div class="col-lg-8">' + row.OidsVal + '</div>' +
+                            '</div>';
+                    });
+                    // return strHTML;
+                } else{
+                    strHTML = strHTML +
+                        '<div class="row">' +
+                        '<label class="col-lg-1">Error : </label>' +
+                        '<div class="col-lg-8">kindly Check If The IP Address Correct or Reachable</div>' +
+                        '</div>';
+                }
+
+                strHTML = strHTML + '</div>' +
+                    '</div>' +
+                    '</div>';
+                row.child(strHTML).show();
+            },
+            error: function (ex) {
+                Notify(NotificationType.Error, "There was an error Loading Photo");
+                console.log("ex", ex);
+                console.log('Error: ' + ex.responseText);
+            }
+        });
+    return "";
+}
+</script>
+

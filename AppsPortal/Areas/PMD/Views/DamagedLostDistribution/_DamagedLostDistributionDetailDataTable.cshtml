@@ -1,0 +1,26 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxDbFields.DamagedLostDistributionDetailGUID</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.DamagedLostDistributionDetailDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.DamagedLostDistributionDetailDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.DamagedLostDistributionDetailDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.DamagedLostDistributionDetailDataTable)
+                @Html.FieldDataTableCreate(Permissions.PMDDamagedLostDistribution.Create, Apps.PMD, Url.Action("DamagedLostDistributionDetailCreate", "DamagedLostDistribution", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.PMDDamagedLostDistribution.Delete, Apps.PMD, DataTableNames.DamagedLostDistributionDetailDataTable)
+                @Html.FieldDataTableRestore(Permissions.PMDDamagedLostDistribution.Restore, Apps.PMD, DataTableNames.DamagedLostDistributionDetailDataTable)
+                <button type="button" title="DamagedLostDistribution Bluk Items" class="btnCreate Modal-Link btn pull-right btn-primary" data-url="@Url.Action("DamagedLostDistributionBlukItems", "DamagedLostDistribution", new { FK = Model.ParentGUID })"><i class="fa fa-plus-circle "></i></button>
+
+                @Html.FieldDataTableRefresh(DataTableNames.DamagedLostDistributionDetailDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.DamagedLostDistributionDetailDataTable, FormController = "DamagedLostDistribution", Area = "PMD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

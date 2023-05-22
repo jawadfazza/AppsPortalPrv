@@ -1,0 +1,43 @@
+﻿@model FactorUpdateModel
+@using (Html.BeginForm("Factor", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "FactorForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.FactorGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.FactorDescription)
+                @Html.EditorFor(model => model.FactorDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FactorColumnName)
+                @Html.EditorFor(model => model.FactorColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SortID)
+                @Html.EditorFor(model => model.SortID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="FactorFormControls" class="form-group form-footer">
+                @if (Model.FactorGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Factors.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Factors.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.Factors.Create, Apps.CMS, Url.Action("Factors/Create", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.Factors.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Factors.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Factors", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,35 @@
+﻿@model ActionVerbUpdateModel
+@using (Html.BeginForm("ActionVerb", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "ActionVerbForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.ActionVerbGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ActionVerbDescription)
+                @Html.EditorFor(model => model.ActionVerbDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="ActionVerbFormControls" class="form-group form-footer">
+                @if (Model.ActionVerbGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.ActionsVerbs.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.ActionsVerbs.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.ActionsVerbs.Create, Apps.CMS, Url.Action("Actions/Create", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.ActionsVerbs.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.ActionsVerbs.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("ActionsVerbs", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+}

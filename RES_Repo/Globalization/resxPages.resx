@@ -1,0 +1,994 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="WelcomeParagraph" xml:space="preserve">
+    <value>The application portal designed for UNHCR Staff and UNHCR Partners 
+If you don’t have account please click Create New Account link below</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Welcome to UNHCR Syria Applications Portal</value>
+  </data>
+  <data name="Dear" xml:space="preserve">
+    <value>Dear</value>
+  </data>
+  <data name="UNHCR" xml:space="preserve">
+    <value>United Nation High Commissioner for Refugees</value>
+  </data>
+  <data name="UNHCRAppsPortal" xml:space="preserve">
+    <value>UNHCR Applications Portal</value>
+  </data>
+  <data name="VerificationEmailSent" xml:space="preserve">
+    <value>We sent email to &lt;b&gt;$EmailAddress&lt;/b&gt; contains a verification link.
+If you don't receive email Subject: &lt;b&gt;Apps Portal Email Verification&lt;/b&gt; within two minutes, please check your &lt;b&gt;Spam&lt;/b&gt; folder.
+
+If you didn't receive email at all, please contact Help Desk via SYRDAIT@unhcr.org.
+You can &lt;b&gt;close&lt;/b&gt; this page now, the email you will get contains a link where you can continue your Registration process.
+
+Thank you!
+UNHCR Applications Portal Team</value>
+  </data>
+  <data name="AccessRequestSentMessage" xml:space="preserve">
+    <value>Your request has been sent successfully, please check your email for further information.</value>
+  </data>
+  <data name="AccessRequestSent" xml:space="preserve">
+    <value>Access Request Sent</value>
+  </data>
+  <data name="AccountRemoved" xml:space="preserve">
+    <value>Your email removed successfully, you will not receive any further emails.</value>
+  </data>
+  <data name="EnterSecurityAnswer" xml:space="preserve">
+    <value>Please enter your security answer to verify you are the same person who requested the access</value>
+  </data>
+  <data name="RequestProcessed" xml:space="preserve">
+    <value>This request is already processed!, your emails is not exists on our system anymore</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="CodeOrganizationTitle" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="AppCMS" xml:space="preserve">
+    <value>Portal</value>
+  </data>
+  <data name="CodeAdmin" xml:space="preserve">
+    <value>Code Admin</value>
+  </data>
+  <data name="CodeOrganizationEdit" xml:space="preserve">
+    <value>Edit Organization Details</value>
+  </data>
+  <data name="CodeOrganizationNew" xml:space="preserve">
+    <value>New Organization Details</value>
+  </data>
+  <data name="CodeApplicationNew" xml:space="preserve">
+    <value>New Application Details</value>
+  </data>
+  <data name="CodeApplicationTitle" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="CodeApplicationEdit" xml:space="preserve">
+    <value>Edit Application Details</value>
+  </data>
+  <data name="CodeApplicationMenuEdit" xml:space="preserve">
+    <value>Edit Application Menu Details</value>
+  </data>
+  <data name="CodeApplicationMenuNew" xml:space="preserve">
+    <value>New Application Menu Details</value>
+  </data>
+  <data name="CodeApplicationMenuTitle" xml:space="preserve">
+    <value>Application Menu</value>
+  </data>
+  <data name="OrganizationOperations" xml:space="preserve">
+    <value>Organization Operations</value>
+  </data>
+  <data name="OrganizationGlobalization" xml:space="preserve">
+    <value>Organization Globalization</value>
+  </data>
+  <data name="CodeDepartmentTitle" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="CodeCountryTitle" xml:space="preserve">
+    <value>Countries</value>
+  </data>
+  <data name="CountryOperations" xml:space="preserve">
+    <value>Country Operations</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Globalization" xml:space="preserve">
+    <value>Globalization</value>
+  </data>
+  <data name="ElectionResult" xml:space="preserve">
+    <value>Election Result</value>
+  </data>
+  <data name="RegistrationRequestRemove" xml:space="preserve">
+    <value>Registration Request Removed</value>
+  </data>
+  <data name="RegistrationRequestRemoveBody" xml:space="preserve">
+    <value>Your Registration Request Has Been Removed.</value>
+  </data>
+  <data name="GPScoordinates" xml:space="preserve">
+    <value>GPS coordinates</value>
+  </data>
+  <data name="AccessRequestSentBody" xml:space="preserve">
+    <value>More infomation has been sent to your email</value>
+  </data>
+  <data name="ConfirmNewAccount" xml:space="preserve">
+    <value>Confirm New Account</value>
+  </data>
+  <data name="ConfirmNewAccountArticle" xml:space="preserve">
+    <value>New Memeber Request Access to Applications Portal</value>
+  </data>
+  <data name="ContactDetailsNotFound" xml:space="preserve">
+    <value>No contact information has been added yet.</value>
+  </data>
+  <data name="ContactDetailsTitle" xml:space="preserve">
+    <value>Contact Details</value>
+  </data>
+  <data name="Hi" xml:space="preserve">
+    <value>Hi</value>
+  </data>
+  <data name="HomeAddress" xml:space="preserve">
+    <value>Home Address</value>
+  </data>
+  <data name="HomeAddressLangueages" xml:space="preserve">
+    <value>Your Home Address in other Languages</value>
+  </data>
+  <data name="NameLanguageEdit" xml:space="preserve">
+    <value>Edit Name in Language</value>
+  </data>
+  <data name="NameLanguageNew" xml:space="preserve">
+    <value>New Name in Language</value>
+  </data>
+  <data name="PleaseReadInfromationBelowCarefully" xml:space="preserve">
+    <value>Please read the infromation below carefully</value>
+  </data>
+  <data name="RegistrationFailed" xml:space="preserve">
+    <value>Registration Failed</value>
+  </data>
+  <data name="RegistrationFailedArticle" xml:space="preserve">
+    <value>Number of attempts exceed</value>
+  </data>
+  <data name="RegistrationFailedBody" xml:space="preserve">
+    <value>You failed to prove your identity!
+The Registration request has been deleted from the system&lt;br /&gt;  &lt;br /&gt;
+You can restart the process and register again, but please don't forget your security Answer! &lt;br /&gt;
+Thank you</value>
+  </data>
+  <data name="RegistrationResponse" xml:space="preserve">
+    <value>Registration Response</value>
+  </data>
+  <data name="RegistrationResponseArticle" xml:space="preserve">
+    <value>The System will Send the Your Response to the user</value>
+  </data>
+  <data name="RegistrationResponseBody" xml:space="preserve">
+    <value>Thank You to Prove User Identity!</value>
+  </data>
+  <data name="RegistrationStep1" xml:space="preserve">
+    <value>Step 1: Account Details</value>
+  </data>
+  <data name="RegistrationStep2" xml:space="preserve">
+    <value>Step 2: Email Verified</value>
+  </data>
+  <data name="RegistrationStep3" xml:space="preserve">
+    <value>Step 3: Organization Setup</value>
+  </data>
+  <data name="RegistrationStep4" xml:space="preserve">
+    <value>Step 4: Get Access Approval</value>
+  </data>
+  <data name="RegistrationStep5" xml:space="preserve">
+    <value>Step 5: Secure Account and Get Ready!</value>
+  </data>
+  <data name="RequestNewAccount" xml:space="preserve">
+    <value>Request New Account</value>
+  </data>
+  <data name="RequestNewAccountArticle" xml:space="preserve">
+    <value>Please tell us about yourself</value>
+  </data>
+  <data name="SecurityVerification" xml:space="preserve">
+    <value>Security Verification</value>
+  </data>
+  <data name="SetupOrganizationPartnerArticle" xml:space="preserve">
+    <value>To make sure only workforce of an organization will have access to the organization data,
+you need to select your organization and sponsor who will verify your affliation to that organization.
+ The system will send email to your sponsor informing him about your registration request.
+ You will not be able to login unless the sponsor approve your registration request.</value>
+  </data>
+  <data name="SetupOrganizationPartnerH2" xml:space="preserve">
+    <value>Setup Organization</value>
+  </data>
+  <data name="SetupOrganizationUnhcrAtricle" xml:space="preserve">
+    <value>Please enter the current UNHCR operation you are working on.&lt;br /&gt;
+                If you are at Head Quarter (Geneva, Budapest, Copenhagen etc..) Please select United Nations High Commissioner for Refugees Head Quarter from the Office drop down list.&lt;br /&gt;
+                If you are at Regional Bureau (Euorpe, Asia, MENA, Ameria or Africa) Please select the respective Bureau from the office drop down list.</value>
+  </data>
+  <data name="SetupOrganizationUnhcrH2" xml:space="preserve">
+    <value>Let us Know Where You Are</value>
+  </data>
+  <data name="ActivitiesLog" xml:space="preserve">
+    <value>Activities Log</value>
+  </data>
+  <data name="ActivitiesLogArticle" xml:space="preserve">
+    <value>View actions you did on the portal applications</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Applications</value>
+  </data>
+  <data name="ApplicationsArticle" xml:space="preserve">
+    <value>View default applications settings</value>
+  </data>
+  <data name="AuditHistory" xml:space="preserve">
+    <value>Audit History</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="ChangePhoto" xml:space="preserve">
+    <value>Change Photo</value>
+  </data>
+  <data name="CompleteProfile" xml:space="preserve">
+    <value>Complete Your Profile Information</value>
+  </data>
+  <data name="ExperienceEdit" xml:space="preserve">
+    <value>Edit Experience</value>
+  </data>
+  <data name="ExperienceNew" xml:space="preserve">
+    <value>New Experience</value>
+  </data>
+  <data name="Instructions" xml:space="preserve">
+    <value>Instructions</value>
+  </data>
+  <data name="JobEdit" xml:space="preserve">
+    <value>Edit Job</value>
+  </data>
+  <data name="JobNew" xml:space="preserve">
+    <value>New Job</value>
+  </data>
+  <data name="JobStepNotFound" xml:space="preserve">
+    <value>You didn't add any steps for this job yet.</value>
+  </data>
+  <data name="LastPasswordChanged" xml:space="preserve">
+    <value>Last time changed on</value>
+  </data>
+  <data name="LoadingPermissions" xml:space="preserve">
+    <value>Loading Your Permissions...</value>
+  </data>
+  <data name="ManagerEdit" xml:space="preserve">
+    <value>Edit Manager</value>
+  </data>
+  <data name="ManagerNew" xml:space="preserve">
+    <value>New Manager</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="NameLanguages" xml:space="preserve">
+    <value>Your name in other Languages</value>
+  </data>
+  <data name="NoApplicationSelected" xml:space="preserve">
+    <value>No Application Selected</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="NotificationsArticle" xml:space="preserve">
+    <value>Select The Application and Decide if you Want to receive or block the Notifications</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="PermissionsArticle" xml:space="preserve">
+    <value>Select application from the list below to see the permissions you have!</value>
+  </data>
+  <data name="PermissionsArticleView" xml:space="preserve">
+    <value>View permissions you have on the portal</value>
+  </data>
+  <data name="PermissionsFilter" xml:space="preserve">
+    <value>Permissions Filter</value>
+  </data>
+  <data name="PortalApplications" xml:space="preserve">
+    <value>Portal Applications</value>
+  </data>
+  <data name="ProfileToProfileInstruction" xml:space="preserve">
+    <value>Permissions on the destination profile will be overwritten by the source profile permissions.
+                        &lt;br /&gt;
+                        Click Submit to complete the action.</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="SelectTheUser" xml:space="preserve">
+    <value>Please select a user from above</value>
+  </data>
+  <data name="ServiceHistory" xml:space="preserve">
+    <value>Service History</value>
+  </data>
+  <data name="ServiceHistoryNotFound" xml:space="preserve">
+    <value>No service history has been added yet.</value>
+  </data>
+  <data name="StepEdit" xml:space="preserve">
+    <value>Step Edit</value>
+  </data>
+  <data name="StepNew" xml:space="preserve">
+    <value>Step New</value>
+  </data>
+  <data name="TimeZoneNotFound" xml:space="preserve">
+    <value>Time Zone is not set yet.</value>
+  </data>
+  <data name="UserToUserInstruction" xml:space="preserve">
+    <value>All permissions of the current profile of the right side user will be removed and replaced by the permissions of the current profile of the left side user.
+                    &lt;br /&gt;
+                    Click Submit to complete the action.</value>
+  </data>
+  <data name="WorkAddress" xml:space="preserve">
+    <value>Work Address</value>
+  </data>
+  <data name="WorkAddressNotFound" xml:space="preserve">
+    <value>No Work Address has been added yet.</value>
+  </data>
+  <data name="Agree" xml:space="preserve">
+    <value>I Agree</value>
+  </data>
+  <data name="Disagree" xml:space="preserve">
+    <value>I Disagree</value>
+  </data>
+  <data name="GettingReady" xml:space="preserve">
+    <value>Getting Ready</value>
+  </data>
+  <data name="NameLanguagesArticle" xml:space="preserve">
+    <value>Please make sure to enter you name in the current local language where you are assigned, if you don't have the language installed on your computer, or you dont know how to type your name in the local language, you can skip this now and ask your colleagues to assist you to fill these fields later.</value>
+  </data>
+  <data name="PersonalDetails" xml:space="preserve">
+    <value>Personal Details</value>
+  </data>
+  <data name="PersonalDetailsArticle" xml:space="preserve">
+    <value>Many applications on this portal required to get information from your profile, mising or incorrect information may lead to exclude your account from being accessable by applications.&lt;br /&gt;
+                        Please make sure to enter a vaild information to avoid any delay in service provided by the protal applications.</value>
+  </data>
+  <data name="TermOfUse" xml:space="preserve">
+    <value>Term of use</value>
+  </data>
+  <data name="ApplicationsMenus" xml:space="preserve">
+    <value>Applications Menus</value>
+  </data>
+  <data name="ApplicationsMenusArticle" xml:space="preserve">
+    <value>Manage the website navigations menus for the portal applications</value>
+  </data>
+  <data name="CodeTables" xml:space="preserve">
+    <value>Code Tables</value>
+  </data>
+  <data name="CodeTablesAritcle" xml:space="preserve">
+    <value>Manage the options of the portal drop down list</value>
+  </data>
+  <data name="CountriesConfigurations" xml:space="preserve">
+    <value>The countries below will be available in all applications drop down lists for all the users working on the above selected organizations instance.</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="DepartmentsHierarchy" xml:space="preserve">
+    <value>Departments Hierarchy</value>
+  </data>
+  <data name="DutyStation" xml:space="preserve">
+    <value>DutyStation</value>
+  </data>
+  <data name="DutyStationConfigurations" xml:space="preserve">
+    <value>The below duty stations will be available for all the users working with the above selected organizations instance. Click Add button to add new duty stations</value>
+  </data>
+  <data name="GenderOptions" xml:space="preserve">
+    <value>Gender Options</value>
+  </data>
+  <data name="IndexConfigurations" xml:space="preserve">
+    <value>Each organization working in a certain place has a different configurations, please select the organization instance and pick the necessary options will be available for its staff.</value>
+  </data>
+  <data name="OrganizationsSettings" xml:space="preserve">
+    <value>Organizations Settings</value>
+  </data>
+  <data name="OrganizationsSettingsArticle" xml:space="preserve">
+    <value>Manage orgniazations instance available options and configurations.</value>
+  </data>
+  <data name="Sitemap" xml:space="preserve">
+    <value>Sitemap</value>
+  </data>
+  <data name="SitemapArticle" xml:space="preserve">
+    <value>Manage the website sitemap links and pages hierarchy for the portal applications</value>
+  </data>
+  <data name="WorkingDays" xml:space="preserve">
+    <value>WorkingDays</value>
+  </data>
+  <data name="AccountAlmostReady" xml:space="preserve">
+    <value>Your account is almost ready</value>
+  </data>
+  <data name="AccountAlmostReadyArticle" xml:space="preserve">
+    <value>Enter a new password for the Applications Portal &lt;br /&gt;
+Please do not use your password or any other account password</value>
+  </data>
+  <data name="NumberAttemptsExceed" xml:space="preserve">
+    <value>Number of attempts exceed</value>
+  </data>
+  <data name="SecureAccount" xml:space="preserve">
+    <value>Secure Your Account</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Step</value>
+  </data>
+  <data name="VerifyEmail" xml:space="preserve">
+    <value>Verify Email Address</value>
+  </data>
+  <data name="VerifyEmailArticle" xml:space="preserve">
+    <value>Kindly Check Your Email Inbox to continue Changing Account Password</value>
+  </data>
+  <data name="ForgetPasswordStep1" xml:space="preserve">
+    <value>Forget Password Step 1/2</value>
+  </data>
+  <data name="ForgetPasswordStep2" xml:space="preserve">
+    <value>Forget Password Step 2/2</value>
+  </data>
+  <data name="ActiveEmail" xml:space="preserve">
+    <value>The Active Email Address in the System</value>
+  </data>
+  <data name="PasswordRecovery" xml:space="preserve">
+    <value>Password Recovery</value>
+  </data>
+  <data name="PasswordRecoveryArticle" xml:space="preserve">
+    <value>Enter your email address and click on Continue</value>
+  </data>
+  <data name="PasswordRecoveryEmailSend" xml:space="preserve">
+    <value>We sent email to &lt;b&gt;$EmailAddress&lt;/b&gt; contains a verification link.
+If you don't receive email Subject: &lt;b&gt;Your ID password has been reset.&lt;/b&gt; within two minutes, please check your &lt;b&gt;Spam&lt;/b&gt; folder.
+
+If you didn't receive email at all, please contact Help Desk via SYRDAIT@unhcr.org.
+You can &lt;b&gt;close&lt;/b&gt; this page now, the email you will get contains a link where you can continue your Registration process.
+
+Thank you!
+UNHCR Applications Portal Team</value>
+  </data>
+  <data name="Appointment" xml:space="preserve">
+    <value>Appointments</value>
+  </data>
+  <data name="PPAAccessList" xml:space="preserve">
+    <value>PPAAccessList</value>
+  </data>
+  <data name="PPADistributionList" xml:space="preserve">
+    <value>PPADistributionList</value>
+  </data>
+  <data name="PPAOriginalFiles" xml:space="preserve">
+    <value>PPAOriginalFiles</value>
+  </data>
+  <data name="StaffInShiftGroup" xml:space="preserve">
+    <value>Staff List</value>
+  </data>
+  <data name="ItemQuantityThresholds" xml:space="preserve">
+    <value>Item Quantity Thresholds</value>
+  </data>
+  <data name="MedicalItemInputDetail" xml:space="preserve">
+    <value>Dispatched  Item Details</value>
+  </data>
+  <data name="PartnerReport" xml:space="preserve">
+    <value>Partner Report</value>
+  </data>
+  <data name="MedicalItemTransferDetail" xml:space="preserve">
+    <value>Transfer Item Details</value>
+  </data>
+  <data name="MedicalBeneficiaryItemOutDetail" xml:space="preserve">
+    <value>Beneficiary Distribution Item  Details</value>
+  </data>
+  <data name="ReportParameters" xml:space="preserve">
+    <value>Report Parameters</value>
+  </data>
+  <data name="Determiners" xml:space="preserve">
+    <value>Determiners</value>
+  </data>
+  <data name="Warehouses" xml:space="preserve">
+    <value>Warehouses</value>
+  </data>
+  <data name="BarcodeNumber" xml:space="preserve">
+    <value>Barcode Number</value>
+  </data>
+  <data name="IME1" xml:space="preserve">
+    <value>IME1</value>
+  </data>
+  <data name="ModelsEntry" xml:space="preserve">
+    <value>Items Entry</value>
+  </data>
+  <data name="SerialNumber" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="ModelsMovements" xml:space="preserve">
+    <value>Item Movements</value>
+  </data>
+  <data name="ModelsRelease" xml:space="preserve">
+    <value>Item Release</value>
+  </data>
+  <data name="ItemsRequest" xml:space="preserve">
+    <value>Items Request</value>
+  </data>
+  <data name="ShuttleVehical" xml:space="preserve">
+    <value>Shuttle Vehical</value>
+  </data>
+  <data name="DamagedModel" xml:space="preserve">
+    <value>Lost Damaged Event Report</value>
+  </data>
+  <data name="ModelResveration" xml:space="preserve">
+    <value>Item Resveration</value>
+  </data>
+  <data name="ShuttleStaff" xml:space="preserve">
+    <value>Shuttle Staff</value>
+  </data>
+  <data name="ConfirmReceivingModel" xml:space="preserve">
+    <value>Confirm Receiving Item</value>
+  </data>
+  <data name="ModelReceiveConfirmation" xml:space="preserve">
+    <value>Item Receiving Confirmation</value>
+  </data>
+  <data name="ModelReceiveConfirmationArticle" xml:space="preserve">
+    <value>Item Receiving</value>
+  </data>
+  <data name="MissionReportComplete" xml:space="preserve">
+    <value>Your mission report been added</value>
+  </data>
+  <data name="ItemKitChlidren" xml:space="preserve">
+    <value>Item Kit Chlidren</value>
+  </data>
+  <data name="FileTransferHistory" xml:space="preserve">
+    <value>File Transfer History</value>
+  </data>
+  <data name="MedicalItemInputSupplyDetail" xml:space="preserve">
+    <value>Supply Contract Item Details</value>
+  </data>
+  <data name="MedicalItemsConfirmation" xml:space="preserve">
+    <value>Items Confirmation</value>
+  </data>
+  <data name="FileLocation" xml:space="preserve">
+    <value>File Location</value>
+  </data>
+  <data name="MedicalDiscrepancyDetail" xml:space="preserve">
+    <value>Inventory Details</value>
+  </data>
+  <data name="PartnerContributionForm" xml:space="preserve">
+    <value>Partners' Contribution Form</value>
+    <comment>4WS</comment>
+  </data>
+  <data name="Beneficiaries" xml:space="preserve">
+    <value>Beneficiaries</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="BeneficiariesDetails" xml:space="preserve">
+    <value>Beneficiaries Management Tool.</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="CodeTable" xml:space="preserve">
+    <value>Code Table</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="CodeTableDetails" xml:space="preserve">
+    <value>Code Tables Management Tool.</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="Dashboards" xml:space="preserve">
+    <value>Dashboards</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="DashboardsDetails" xml:space="preserve">
+    <value>Provide Over-All Data Statistics.</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="DispatchMedicinesToPartnersWarehouse" xml:space="preserve">
+    <value>Dispatch Medicines to Partners Warehouse</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="DispatchMedicinesToPartnersWarehouseDetails" xml:space="preserve">
+    <value>Medicines delivered by UNHCR Suppliers to partner warehouse.</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="DispensingMedicinesRestriction" xml:space="preserve">
+    <value>Dispensing Medicines Restriction</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="DispensingMedicinesRestrictionDetails" xml:space="preserve">
+    <value>Dispensing Medicines Restriction Management Tool.</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="DispensingMedicinesToPOC" xml:space="preserve">
+    <value>Dispensing Medicines to POC</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="DispensingMedicinesToPOCDetails" xml:space="preserve">
+    <value>Dispensing Medicines to POC Based on prescriptions.</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="MedicinesInventory" xml:space="preserve">
+    <value>Medicines Inventory</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="MedicinesInventoryDetails" xml:space="preserve">
+    <value>Medicines Inventory Management Tool.</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="ReportsBoard" xml:space="preserve">
+    <value>Reports Board</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="ReportsBoardDetails" xml:space="preserve">
+    <value>Reports Board Tool.</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="TransferMedicinesToPharmacies" xml:space="preserve">
+    <value>Transfer Medicines to Pharmacies</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="TransferMedicinesToPharmaciesDetails" xml:space="preserve">
+    <value>Medicines Transferred between Partners Warehouses and their pharmacies.</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="UNHCRMedicineContract" xml:space="preserve">
+    <value>UNHCR Medicine Contract</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="UNHCRMedicineContractDetails" xml:space="preserve">
+    <value>All The Medicines procured by UNHCR (Contract items).</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="AgencyAssessment" xml:space="preserve">
+    <value>Agency Assessment</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentCompleted" xml:space="preserve">
+    <value>UN Partners Capacity Assessment Completed</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentDescription" xml:space="preserve">
+    <value> The UN IP Protocol outlines requirements for the UN and its implementing partners to ensure adequate safeguards and appropriate actions related to SEA. This assessment is intended to give UN entities the necessary assurance of partners’ organizational capacities on PSEA, determine monitoring and support activities, and serve as a baseline for tracking progress, in line with the minimum standards of the UN IP Protocol.
+            Partners are required to self-complete the PSEA assessment (including self-rating) and submit the completed
+            assessment, together with relevant supporting documents, considered as proof of evidence of meeting the
+            required standard, to the UN entity.</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentEmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentName" xml:space="preserve">
+    <value>Name and functional title of person completing</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentNew" xml:space="preserve">
+    <value>New Assessment</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentNo" xml:space="preserve">
+    <value>No</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentPartnerName" xml:space="preserve">
+    <value>PSEA Assessment of (kindly enter the name of the partner)</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentPartnership" xml:space="preserve">
+    <value>Partnership with UN agencies</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentStep1" xml:space="preserve">
+    <value>Partner Info</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentStep2" xml:space="preserve">
+    <value>Partners Capacity Assessment</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentStep3" xml:space="preserve">
+    <value>Assessment completed</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentThanks" xml:space="preserve">
+    <value>Thanks</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentTitle" xml:space="preserve">
+    <value>Protection from Sexual Exploitation and Abuse - UN Partners Capacity Assessment - Syria</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentYes" xml:space="preserve">
+    <value>Yes</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="ProcessingDroppedFiles" xml:space="preserve">
+    <value>Processing dropped files</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="SupportDocIsMissing" xml:space="preserve">
+    <value>Support Doc is missing</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentFullCapacity" xml:space="preserve">
+    <value>the partner meets all standards and has full PSEA capacity</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentLowCapacity" xml:space="preserve">
+    <value>The partner does not meet the minimum standards and has low PSEA capacity. Immediate action is needed to strengthen PSEA capacity</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PartnersCapacityAssessmentMediumCapacity" xml:space="preserve">
+    <value>The partner meets most of the standards and has medium PSEA capacity. Support is required to address remaining gaps</value>
+    <comment>PCA</comment>
+  </data>
+  <data name="PMDAchievement" xml:space="preserve">
+    <value>Please upload the Total Monthly Achievement</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="PMDAgeGroup" xml:space="preserve">
+    <value>Please upload the total Monthly-Gender and Age Disaggregation of the achievement</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="PMDLocation" xml:space="preserve">
+    <value>Please include the date and location of the achievements</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="PMDObjective" xml:space="preserve">
+    <value>Please choose the objectives, output, and indicators of the achievements</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="PMDPartner" xml:space="preserve">
+    <value>Partner</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="PMDPopulation" xml:space="preserve">
+    <value>Please upload the total Monthly-Population Group of the achievement</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="Attachements" xml:space="preserve">
+    <value>Attachemments</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="CommentsAndFeedback" xml:space="preserve">
+    <value>Comments And Feedback</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="IndicatorGuidance" xml:space="preserve">
+    <value>Indicator Guidance</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="DistributionDate" xml:space="preserve">
+    <value>Distribution Date</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="PMDUnitOfAchievements" xml:space="preserve">
+    <value>Unit of Achievements</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="PMDUnitOfAchievementsGuidance" xml:space="preserve">
+    <value>Unit of Achievements Guidance</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>Response</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Stock</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="TotalAchievement" xml:space="preserve">
+    <value>TotalAchievement</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="DownloadCRIOfflineTemplates" xml:space="preserve">
+    <value>Download CRI Offline Templates</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="DownloadHealthOfflineTemplates" xml:space="preserve">
+    <value>Download Health Offline Templates</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="DownloadMainOfflineTemplates" xml:space="preserve">
+    <value>Download Main Offline Templates</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="UploadBulkData" xml:space="preserve">
+    <value>Upload Bulk Data</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="GenerateExcelVersion" xml:space="preserve">
+    <value>Generate Excel Version</value>
+    <comment>PMD</comment>
+  </data>
+  <data name="EditItem" xml:space="preserve">
+    <value>Edit Item</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="MedicalItemTransfer" xml:space="preserve">
+    <value>Medical Item Transfer</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="NewItem" xml:space="preserve">
+    <value>New Item</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="PharmacyOverview" xml:space="preserve">
+    <value>Pharmacy Overview</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="PharmacyTransferHistory" xml:space="preserve">
+    <value>Pharmacy Transfer History</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="TransferPartnerPharmaciesItemstoPartnerPharmaciesWarehouse" xml:space="preserve">
+    <value>Transfer Partner Pharmacies Items to Partner Pharmacies || Warehouse</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="TransferPartnerWarehouseItemstoPartnerPharmacies" xml:space="preserve">
+    <value>Transfer Partner Warehouse Items to Partner Pharmacies</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="WarehouseDispatchedHistory" xml:space="preserve">
+    <value>Warehouse Dispatched History</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="WarehouseOverview" xml:space="preserve">
+    <value>Warehouse Overview</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="AvailableMedicines" xml:space="preserve">
+    <value>Available Medicines</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="MedicinesPrescriptionsOfPOC" xml:space="preserve">
+    <value>Medicines Prescriptions Of POC</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="clearAll" xml:space="preserve">
+    <value>Clear All</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="CostOfDispensingMedicines" xml:space="preserve">
+    <value>Cost of Dispensing Medicines</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="DashboardSummary" xml:space="preserve">
+    <value>Dashboard Summary</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="DispatchedMedicinesToWarehouses" xml:space="preserve">
+    <value>Dispatched Medicines To Warehouses</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Generate Report</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="PrescriptionsDispensed" xml:space="preserve">
+    <value>Prescriptions Dispensed</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="ReportTopic" xml:space="preserve">
+    <value>Report Topic</value>
+    <comment>EMT</comment>
+  </data>
+  <data name="TransferredMedicinesToPharmacies" xml:space="preserve">
+    <value>Transferred Medicines To Pharmacies</value>
+    <comment>EMT</comment>
+  </data>
+</root>

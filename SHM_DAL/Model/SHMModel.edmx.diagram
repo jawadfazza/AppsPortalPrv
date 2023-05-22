@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a87b485435b34e9cb78350076a703b5b" Name="Diagram1" ZoomLevel="146">
+        <EntityTypeShape EntityType="SHMModel.codeShuttleTravelPurpose" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="SHMModel.codeShuttleTravelPurposeLanguage" Width="1.5" PointX="2.875" PointY="6.625" />
+        <AssociationConnector Association="SHMModel.FK_codeShuttleTravelPurposeLanguages_codeShuttleTravelPurpose" />
+        <EntityTypeShape EntityType="SHMModel.userPersonalDetailsLanguage" Width="1.5" PointX="7.625" PointY="6.75" />
+        <EntityTypeShape EntityType="SHMModel.codeLocations" Width="1.5" PointX="12.625" PointY="1" />
+        <EntityTypeShape EntityType="SHMModel.codeLocationsLanguages" Width="1.5" PointX="14.875" PointY="1.5" />
+        <EntityTypeShape EntityType="SHMModel.codeReferralStatus" Width="1.5" PointX="0.5" PointY="9.125" />
+        <EntityTypeShape EntityType="SHMModel.codeReferralStatusLanguage" Width="1.5" PointX="3" PointY="9.375" />
+        <AssociationConnector Association="SHMModel.FK_codeLocationsLanguages_codeLocations" />
+        <AssociationConnector Association="SHMModel.FK_codeReferralStatusLanguage_codeReferralStatus" />
+        <EntityTypeShape EntityType="SHMModel.codeDutyStations" Width="1.5" PointX="10.375" PointY="6" />
+        <EntityTypeShape EntityType="SHMModel.codeDutyStationsLanguages" Width="1.5" PointX="12.625" PointY="6" />
+        <AssociationConnector Association="SHMModel.FK_codeDutyStationsLanguages_codeDutyStations" />
+        <EntityTypeShape EntityType="SHMModel.codeOrganizationsInstances" Width="1.5" PointX="5.375" PointY="11" />
+        <EntityTypeShape EntityType="SHMModel.codeOrganizationsInstancesLanguages" Width="1.5" PointX="7.625" PointY="11" />
+        <EntityTypeShape EntityType="SHMModel.codeOrganizationsLanguages" Width="1.5" PointX="10.375" PointY="9.75" />
+        <AssociationConnector Association="SHMModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" />
+        <EntityTypeShape EntityType="SHMModel.userContactDetails" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="SHMModel.userPersonalDetails" Width="1.5" PointX="5.75" PointY="6.875" />
+        <EntityTypeShape EntityType="SHMModel.userServiceHistory" Width="1.5" PointX="2.75" PointY="12.75" />
+        <AssociationConnector Association="SHMModel.FK_userPersonalDetailsLanguage_userPersonalDetails" />
+        <EntityTypeShape EntityType="SHMModel.dataShuttleRequestStaff" Width="1.5" PointX="5.25" PointY="15.25" />
+        <EntityTypeShape EntityType="SHMModel.v_StaffCurrentContact" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SHMModel.codeJobTitlesLanguages" Width="1.5" PointX="6.75" PointY="1.125" />
+        <EntityTypeShape EntityType="SHMModel.codeCountriesLanguages" Width="1.5" PointX="9.625" PointY="18.25" />
+        <EntityTypeShape EntityType="SHMModel.codeCountries" Width="1.5" PointX="7.375" PointY="19.125" />
+        <AssociationConnector Association="SHMModel.FK_codeCountriesLanguages_codeCountries" />
+        <EntityTypeShape EntityType="SHMModel.dataShuttle" Width="1.5" PointX="14.625" PointY="10.625" />
+        <EntityTypeShape EntityType="SHMModel.dataShuttleRequest" Width="1.5" PointX="2.375" PointY="0.5" />
+        <EntityTypeShape EntityType="SHMModel.dataShuttleVehicle" Width="1.5" PointX="19.875" PointY="11" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttle_codeDutyStations" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttle_codeOrganizationsInstances" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttleRequest_codeReferralStatus" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttleRequest_codeShuttleTravelPurpose" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttleVehical_dataShuttle" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttleRequestStaff_dataShuttleRequest" />
+        <EntityTypeShape EntityType="SHMModel.dataShuttleRequestBoxState" Width="2.125" PointX="4.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SHMModel.dataShuttleRequestRoute" Width="1.5" PointX="7.5" PointY="8.625" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttleRequestBoxState_dataShuttleRequest" />
+        <EntityTypeShape EntityType="SHMModel.dataShuttleRequestRouteStep" Width="1.5" PointX="9.75" PointY="22.375" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttleRequestBoxState_dataShuttleRequestRouteStep" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttleRequestRouteStep_dataShuttleRequestRoute" />
+        <EntityTypeShape EntityType="SHMModel.codeVehicle" Width="1.5" PointX="12.375" PointY="17" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttleVehicle_codeVehicle" />
+        <EntityTypeShape EntityType="SHMModel.dataShuttleStaff" Width="1.5" PointX="22.125" PointY="8.125" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttleStaff_codeShuttleTravelPurpose" />
+        <AssociationConnector Association="SHMModel.FK_dataShuttleStaff_dataShuttleVehical" />
+        <EntityTypeShape EntityType="SHMModel.StaffCoreData" Width="1.5" PointX="14.375" PointY="16.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

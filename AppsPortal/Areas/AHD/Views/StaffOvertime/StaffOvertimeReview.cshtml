@@ -1,0 +1,212 @@
+﻿@model StaffOvertimeUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("a658db54-6d23-48a0-82aa-b5835f391399")
+<div class="page--content">
+    <div class="forms-fadeIn">
+
+
+        
+            @using (Html.BeginForm("UpdateStaffOvertimeReview", "StaffOvertime", new { Area = "AHD" }, FormMethod.Post, new { id = "UpdateStaffOvertimeReviewform", @class = "main-form", enctype = "multipart/form-data" }))
+            {
+
+                @Html.AntiForgeryToken()
+
+                @Html.FormHiddenFields(model => model.StaffOvertimeGUID)
+                <div class="box box-info " id="step1InfoBox">
+                    <div class="panel-heading beforstep1" style="background-color: #cbcece;border-color: #cbcece;">
+                        <h3 class="box-title"> Overtime Information</h3>
+                       
+                    </div>
+
+               
+                    <div class="box-body showstep1body">
+
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="form-group HANDLER">
+                                    @Html.LabelFor(model => model.UserGUID)
+
+
+                                    <br />
+                                    @Html.DisplayFor(model => model.StaffName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group HANDLER">
+                                    @Html.LabelFor(model => model.TimeIn)
+
+
+                                    <br />
+                                    @Html.DisplayFor(model => model.TimeIn, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TimeOut)
+
+                                    <br />
+                                    @Html.DisplayFor(model => model.TimeOut, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TotalHours)
+
+
+                                    <br />
+                                    @Html.DisplayFor(model => model.TotalHours, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group HANDLER" id="itemparenetId">
+                                    @Html.LabelFor(model => model.TotalPay)
+
+
+
+                                    <br />
+                                    @Html.DisplayFor(model => model.TotalPay, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("Day Type")
+
+                                    <br />
+                                    @Html.DisplayFor(model => model.DayWorkingType, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("Step")
+
+                                    <br />
+                                    @Html.DisplayFor(model => model.Step, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("Grade")
+
+                                    <br />
+                                    @Html.DisplayFor(model => model.Grade, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.Label("Status")
+
+                                    <br />
+                                    @Html.DisplayFor(model => model.LastFlowName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer showstep1body ">
+                        @*<i class="far fa-hand-point-down showfooterstep1"></i>*@
+                        @if (Model.LastFlowStatusGUID == OvertimeFlowStatus.PendingSupervisorReview)
+                        {
+                            if (new CMS().HasAction(76, Guid.Parse("F18DEA05-B3E5-43E4-B1BC-900D0B66D77E"), null))
+                            {
+                                <div class="input-group pull-left showfooterstep1">
+
+                                    <input type="button" class="btn btn-info" id="btnReviewStaffOvertimeid"
+                                           value="Verify And Confirm" />
+                                </div>
+                            }
+                        }
+                        @if (Model.LastFlowStatusGUID == OvertimeFlowStatus.PendingCertifying)
+                        {
+                            if (new CMS().HasAction(79, Guid.Parse("F18DEA05-B3E5-43E4-B1BC-900D0B66D77E"), null))
+                            {
+
+                                <div class="input-group pull-left showfooterstep2">
+
+                                    <input type="button" class="btn btn-info" id="btnCertifyStaffOvertimeid"
+                                           value="Save And Confirm" />
+                                </div>
+
+                            }
+                        }
+                </div>
+
+              
+            
+
+        </div>
+            }
+
+            
+
+
+</div>
+</div>
+
+<script>
+    var overtimeGUID = $("#StaffOvertimeGUID").val();
+    $("#btnReviewStaffOvertimeid").click(function () {
+        //var CertifierComment = $("#CertifierComment").val();
+        // alert(myInternationalStaffEntitlementGUID);
+        $('#btnReviewStaffOvertimeid').hide();
+        $.ajax({
+            url: "/AHD/StaffOvertime/ApproveOvertimeByReviewer",
+            dataType: 'json',
+            type: "post",
+            data: { overtimeGUID: overtimeGUID },
+            success: function (data) {
+                if (data.success == 1) {
+                    Notify(NotificationType.Success, 'Your request been submitted');
+                }
+            }
+
+        });
+    });
+    $("#btnCertifyStaffOvertimeid").click(function () {
+        //var CertifierComment = $("#CertifierComment").val();
+        // alert(myInternationalStaffEntitlementGUID);
+        $('#btnCertifyStaffOvertimeid').hide();
+        $.ajax({
+            url: "/AHD/StaffOvertime/ApproveOvertimeByCertifier",
+            dataType: 'json',
+            type: "post",
+            data: { overtimeGUID: overtimeGUID },
+            success: function (data) {
+                if (data.success == 1) {
+                    Notify(NotificationType.Success, 'Your request been submitted');
+                }
+            }
+
+        });
+    });
+</script>

@@ -1,0 +1,1152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MRSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GrandFatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DutyStationDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeLocations">
+          <Key>
+            <PropertyRef Name="LocationGUID" />
+          </Key>
+          <Property Name="LocationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LocationTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LocationParentGUID" Type="uniqueidentifier" />
+          <Property Name="LocationPCode" Type="nvarchar" MaxLength="150" />
+          <Property Name="LocationlevelID" Type="int" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="LocationPhoneCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeLocationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeLocationsLanguages">
+          <Key>
+            <PropertyRef Name="LocationLanguageGUID" />
+          </Key>
+          <Property Name="LocationLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LocationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="LocationDescription" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeLocationsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstances">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OperationGUID" Type="uniqueidentifier" />
+          <Property Name="codeOrganizationsInstancesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstancesLanguages">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceLanguageGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="OrganizationInstanceDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="codeOrganizationsInstancesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeReferralStatus">
+          <Key>
+            <PropertyRef Name="ReferralStatusGUID" />
+          </Key>
+          <Property Name="ReferralStatusGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="uniqueidentifier" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeReferralStatusRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeReferralStatusLanguage">
+          <Key>
+            <PropertyRef Name="ReferralStatusLanguageGUID" />
+          </Key>
+          <Property Name="ReferralStatusLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralStatusGUID" Type="uniqueidentifier" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeReferralStatusLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TableGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ValueDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeVehicle">
+          <Key>
+            <PropertyRef Name="VehicleGUID" />
+          </Key>
+          <Property Name="VehicleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="VehicleNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VehicleTypeGUID" Type="uniqueidentifier" />
+          <Property Name="VechileModelGUID" Type="uniqueidentifier" />
+          <Property Name="VehileColorGUID" Type="uniqueidentifier" />
+          <Property Name="ManufacturingYear" Type="int" />
+          <Property Name="PlateNumber" Type="int" />
+          <Property Name="ChassisNumber" Type="nvarchar" MaxLength="150" />
+          <Property Name="EngineNumber" Type="nvarchar" MaxLength="150" />
+          <Property Name="LastRenewalDate" Type="datetime" />
+          <Property Name="LicenseExpiryDate" Type="date" />
+          <Property Name="Available" Type="bit" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeVehicleRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataNoteVerbale">
+          <Key>
+            <PropertyRef Name="NoteVerbaleGUID" />
+          </Key>
+          <Property Name="NoteVerbaleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Reference" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="VisitDate" Type="date" Nullable="false" />
+          <Property Name="VisitPurpose_EN" Type="nvarchar(max)" />
+          <Property Name="VisitPurpose_AR" Type="nvarchar(max)" />
+          <Property Name="NoteVerbaleDate" Type="date" />
+          <Property Name="ReferralStatusGUID" Type="uniqueidentifier" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="MissionCategoryGUID" Type="uniqueidentifier" />
+          <Property Name="OrganizationMissionTypeGUID" Type="uniqueidentifier" />
+          <Property Name="ResponseDateMFA" Type="date" />
+          <Property Name="RescheduledDate" Type="date" />
+          <Property Name="TeamLeaderGUID" Type="uniqueidentifier" />
+          <Property Name="MissionAccomplished" Type="bit" Nullable="false" />
+          <Property Name="MissionReport" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataNoteVerbaleRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataNoteVerbaleOrganization">
+          <Key>
+            <PropertyRef Name="NoteVerbaleOrganizationGUID" />
+          </Key>
+          <Property Name="NoteVerbaleOrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NoteVerbaleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataNoteVerbaleOrganizationRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataNoteVerbaleStaff">
+          <Key>
+            <PropertyRef Name="NoteVerbaleStaffGUID" />
+          </Key>
+          <Property Name="NoteVerbaleStaffGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NoteVerbaleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Sequance" Type="int" />
+          <Property Name="dataNoteVerbaleStaffRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataNoteVerbaleVehicle">
+          <Key>
+            <PropertyRef Name="NoteVerbaleVehicleGUID" />
+          </Key>
+          <Property Name="NoteVerbaleVehicleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NoteVerbaleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="VehicleGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataNoteVerbaleVehicleRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_codeLocationsLanguages_codeLocations">
+          <End Role="codeLocations" Type="Self.codeLocations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeLocationsLanguages" Type="Self.codeLocationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeLocations">
+              <PropertyRef Name="LocationGUID" />
+            </Principal>
+            <Dependent Role="codeLocationsLanguages">
+              <PropertyRef Name="LocationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+          <End Role="codeOrganizationsInstances" Type="Self.codeOrganizationsInstances" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeOrganizationsInstancesLanguages" Type="Self.codeOrganizationsInstancesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="codeOrganizationsInstancesLanguages">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeReferralStatusLanguage_codeReferralStatus">
+          <End Role="codeReferralStatus" Type="Self.codeReferralStatus" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeReferralStatusLanguage" Type="Self.codeReferralStatusLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="codeReferralStatusLanguage">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Role="codeTablesValues" Type="Self.codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeTablesValuesLanguages" Type="Self.codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataNoteVerbale_codeLocations">
+          <End Role="codeLocations" Type="Self.codeLocations" Multiplicity="1" />
+          <End Role="dataNoteVerbale" Type="Self.dataNoteVerbale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeLocations">
+              <PropertyRef Name="LocationGUID" />
+            </Principal>
+            <Dependent Role="dataNoteVerbale">
+              <PropertyRef Name="LocationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataNoteVerbaleOrganization_dataNoteVerbale">
+          <End Role="dataNoteVerbale" Type="Self.dataNoteVerbale" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataNoteVerbaleOrganization" Type="Self.dataNoteVerbaleOrganization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataNoteVerbale">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Principal>
+            <Dependent Role="dataNoteVerbaleOrganization">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataNoteVerbaleStaff_dataNoteVerbale">
+          <End Role="dataNoteVerbale" Type="Self.dataNoteVerbale" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataNoteVerbaleStaff" Type="Self.dataNoteVerbaleStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataNoteVerbale">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Principal>
+            <Dependent Role="dataNoteVerbaleStaff">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataNoteVerbaleVehicle_codeVehicle">
+          <End Role="codeVehicle" Type="Self.codeVehicle" Multiplicity="0..1" />
+          <End Role="dataNoteVerbaleVehicle" Type="Self.dataNoteVerbaleVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeVehicle">
+              <PropertyRef Name="VehicleGUID" />
+            </Principal>
+            <Dependent Role="dataNoteVerbaleVehicle">
+              <PropertyRef Name="VehicleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataNoteVerbaleVehicle_dataNoteVerbale">
+          <End Role="dataNoteVerbale" Type="Self.dataNoteVerbale" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataNoteVerbaleVehicle" Type="Self.dataNoteVerbaleVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataNoteVerbale">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Principal>
+            <Dependent Role="dataNoteVerbaleVehicle">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="RP_NoteVerbale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="MRS">
+          <Parameter Name="NoteVerbaleGUID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Lan" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="RP_NoteVerbaleOrg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="MRS">
+          <Parameter Name="NoteVerbaleGUID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Lan" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="RP_NoteVerbaleOrganization" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="MRS">
+          <Parameter Name="NoteVerbaleGUID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Lan" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="RP_NoteVerbaleStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="MRS">
+          <Parameter Name="NoteVerbaleGUID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Lan" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="RP_NoteVerbaleVehicle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="MRS">
+          <Parameter Name="NoteVerbaleGUID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Lan" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="MRSModelStoreContainer">
+          <EntitySet Name="userPersonalDetailsLanguage" EntityType="Self.userPersonalDetailsLanguage" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="Self.codeDutyStationsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeLocations" EntityType="Self.codeLocations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeLocationsLanguages" EntityType="Self.codeLocationsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOrganizationsInstances" EntityType="Self.codeOrganizationsInstances" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOrganizationsInstancesLanguages" EntityType="Self.codeOrganizationsInstancesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeReferralStatus" EntityType="Self.codeReferralStatus" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeReferralStatusLanguage" EntityType="Self.codeReferralStatusLanguage" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValues" EntityType="Self.codeTablesValues" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="Self.codeTablesValuesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeVehicle" EntityType="Self.codeVehicle" Schema="code" store:Type="Tables" />
+          <EntitySet Name="dataNoteVerbale" EntityType="Self.dataNoteVerbale" Schema="MRS" store:Type="Tables" />
+          <EntitySet Name="dataNoteVerbaleOrganization" EntityType="Self.dataNoteVerbaleOrganization" Schema="MRS" store:Type="Tables" />
+          <EntitySet Name="dataNoteVerbaleStaff" EntityType="Self.dataNoteVerbaleStaff" Schema="MRS" store:Type="Tables" />
+          <EntitySet Name="dataNoteVerbaleVehicle" EntityType="Self.dataNoteVerbaleVehicle" Schema="MRS" store:Type="Tables" />
+          <AssociationSet Name="FK_codeLocationsLanguages_codeLocations" Association="Self.FK_codeLocationsLanguages_codeLocations">
+            <End Role="codeLocations" EntitySet="codeLocations" />
+            <End Role="codeLocationsLanguages" EntitySet="codeLocationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" Association="Self.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="codeOrganizationsInstancesLanguages" EntitySet="codeOrganizationsInstancesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeReferralStatusLanguage_codeReferralStatus" Association="Self.FK_codeReferralStatusLanguage_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="codeReferralStatusLanguage" EntitySet="codeReferralStatusLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="Self.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataNoteVerbale_codeLocations" Association="Self.FK_dataNoteVerbale_codeLocations">
+            <End Role="codeLocations" EntitySet="codeLocations" />
+            <End Role="dataNoteVerbale" EntitySet="dataNoteVerbale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataNoteVerbaleOrganization_dataNoteVerbale" Association="Self.FK_dataNoteVerbaleOrganization_dataNoteVerbale">
+            <End Role="dataNoteVerbale" EntitySet="dataNoteVerbale" />
+            <End Role="dataNoteVerbaleOrganization" EntitySet="dataNoteVerbaleOrganization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataNoteVerbaleStaff_dataNoteVerbale" Association="Self.FK_dataNoteVerbaleStaff_dataNoteVerbale">
+            <End Role="dataNoteVerbale" EntitySet="dataNoteVerbale" />
+            <End Role="dataNoteVerbaleStaff" EntitySet="dataNoteVerbaleStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataNoteVerbaleVehicle_codeVehicle" Association="Self.FK_dataNoteVerbaleVehicle_codeVehicle">
+            <End Role="codeVehicle" EntitySet="codeVehicle" />
+            <End Role="dataNoteVerbaleVehicle" EntitySet="dataNoteVerbaleVehicle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataNoteVerbaleVehicle_dataNoteVerbale" Association="Self.FK_dataNoteVerbaleVehicle_dataNoteVerbale">
+            <End Role="dataNoteVerbale" EntitySet="dataNoteVerbale" />
+            <End Role="dataNoteVerbaleVehicle" EntitySet="dataNoteVerbaleVehicle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MRSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MRSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="dataNoteVerbaleOrganization" EntityType="MRSModel.dataNoteVerbaleOrganization" />
+          <EntitySet Name="userPersonalDetailsLanguage" EntityType="MRSModel.userPersonalDetailsLanguage" />
+          <EntitySet Name="codeLocations" EntityType="MRSModel.codeLocations" />
+          <EntitySet Name="codeLocationsLanguages" EntityType="MRSModel.codeLocationsLanguages" />
+          <AssociationSet Name="FK_codeLocationsLanguages_codeLocations" Association="MRSModel.FK_codeLocationsLanguages_codeLocations">
+            <End Role="codeLocations" EntitySet="codeLocations" />
+            <End Role="codeLocationsLanguages" EntitySet="codeLocationsLanguages" />
+          </AssociationSet>
+          <EntitySet Name="codeReferralStatus" EntityType="MRSModel.codeReferralStatus" />
+          <EntitySet Name="codeReferralStatusLanguage" EntityType="MRSModel.codeReferralStatusLanguage" />
+          <AssociationSet Name="FK_codeReferralStatusLanguage_codeReferralStatus" Association="MRSModel.FK_codeReferralStatusLanguage_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="codeReferralStatusLanguage" EntitySet="codeReferralStatusLanguage" />
+          </AssociationSet>
+          <EntitySet Name="codeOrganizationsInstances" EntityType="MRSModel.codeOrganizationsInstances" />
+          <EntitySet Name="codeOrganizationsInstancesLanguages" EntityType="MRSModel.codeOrganizationsInstancesLanguages" />
+          <AssociationSet Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" Association="MRSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="codeOrganizationsInstancesLanguages" EntitySet="codeOrganizationsInstancesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="MRSModel.codeDutyStationsLanguages" />
+          <EntitySet Name="codeTablesValues" EntityType="MRSModel.codeTablesValues" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="MRSModel.codeTablesValuesLanguages" />
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="MRSModel.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="codeVehicle" EntityType="MRSModel.codeVehicle" />
+          <EntitySet Name="dataNoteVerbale" EntityType="MRSModel.dataNoteVerbale" />
+          <EntitySet Name="dataNoteVerbaleVehicle" EntityType="MRSModel.dataNoteVerbaleVehicle" />
+          <AssociationSet Name="FK_dataNoteVerbale_codeLocations" Association="MRSModel.FK_dataNoteVerbale_codeLocations">
+            <End Role="codeLocations" EntitySet="codeLocations" />
+            <End Role="dataNoteVerbale" EntitySet="dataNoteVerbale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataNoteVerbaleVehicle_codeVehicle" Association="MRSModel.FK_dataNoteVerbaleVehicle_codeVehicle">
+            <End Role="codeVehicle" EntitySet="codeVehicle" />
+            <End Role="dataNoteVerbaleVehicle" EntitySet="dataNoteVerbaleVehicle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataNoteVerbaleOrganization_dataNoteVerbale" Association="MRSModel.FK_dataNoteVerbaleOrganization_dataNoteVerbale">
+            <End Role="dataNoteVerbale" EntitySet="dataNoteVerbale" />
+            <End Role="dataNoteVerbaleOrganization" EntitySet="dataNoteVerbaleOrganization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataNoteVerbaleVehicle_dataNoteVerbale" Association="MRSModel.FK_dataNoteVerbaleVehicle_dataNoteVerbale">
+            <End Role="dataNoteVerbale" EntitySet="dataNoteVerbale" />
+            <End Role="dataNoteVerbaleVehicle" EntitySet="dataNoteVerbaleVehicle" />
+          </AssociationSet>
+          <FunctionImport Name="RP_NoteVerbaleOrganization" ReturnType="Collection(String)">
+            <Parameter Name="NoteVerbaleGUID" Mode="In" Type="Guid" />
+            <Parameter Name="Lan" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RP_NoteVerbaleStaff" ReturnType="Collection(MRSModel.RP_NoteVerbaleStaff_Result)">
+            <Parameter Name="NoteVerbaleGUID" Mode="In" Type="Guid" />
+            <Parameter Name="Lan" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RP_NoteVerbaleVehicle" ReturnType="Collection(MRSModel.RP_NoteVerbaleVehicle_Result)">
+            <Parameter Name="NoteVerbaleGUID" Mode="In" Type="Guid" />
+            <Parameter Name="Lan" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="dataNoteVerbaleStaff" EntityType="MRSModel.dataNoteVerbaleStaff" />
+          <AssociationSet Name="FK_dataNoteVerbaleStaff_dataNoteVerbale" Association="MRSModel.FK_dataNoteVerbaleStaff_dataNoteVerbale">
+            <End Role="dataNoteVerbale" EntitySet="dataNoteVerbale" />
+            <End Role="dataNoteVerbaleStaff" EntitySet="dataNoteVerbaleStaff" />
+          </AssociationSet>
+          <FunctionImport Name="RP_NoteVerbaleOrg" ReturnType="Collection(String)">
+            <Parameter Name="NoteVerbaleGUID" Mode="In" Type="Guid" />
+            <Parameter Name="Lan" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RP_NoteVerbale" ReturnType="Collection(MRSModel.RP_NoteVerbale_Result)">
+            <Parameter Name="NoteVerbaleGUID" Mode="In" Type="Guid" />
+            <Parameter Name="Lan" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="dataNoteVerbaleOrganization">
+          <Key>
+            <PropertyRef Name="NoteVerbaleOrganizationGUID" />
+          </Key>
+          <Property Name="NoteVerbaleOrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="NoteVerbaleGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataNoteVerbaleOrganizationRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataNoteVerbale" Relationship="MRSModel.FK_dataNoteVerbaleOrganization_dataNoteVerbale" FromRole="dataNoteVerbaleOrganization" ToRole="dataNoteVerbale" />
+        </EntityType>
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GrandFatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="codeLocations">
+          <Key>
+            <PropertyRef Name="LocationGUID" />
+          </Key>
+          <Property Name="LocationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LocationTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="LocationParentGUID" Type="Guid" />
+          <Property Name="LocationPCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LocationlevelID" Type="Int32" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="LocationPhoneCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeLocationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeLocationsLanguages" Relationship="MRSModel.FK_codeLocationsLanguages_codeLocations" FromRole="codeLocations" ToRole="codeLocationsLanguages" />
+          <NavigationProperty Name="dataNoteVerbale" Relationship="MRSModel.FK_dataNoteVerbale_codeLocations" FromRole="codeLocations" ToRole="dataNoteVerbale" />
+        </EntityType>
+        <EntityType Name="codeLocationsLanguages">
+          <Key>
+            <PropertyRef Name="LocationLanguageGUID" />
+          </Key>
+          <Property Name="LocationLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="LocationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="LocationDescription" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeLocationsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeLocations" Relationship="MRSModel.FK_codeLocationsLanguages_codeLocations" FromRole="codeLocationsLanguages" ToRole="codeLocations" />
+        </EntityType>
+        <Association Name="FK_codeLocationsLanguages_codeLocations">
+          <End Type="MRSModel.codeLocations" Role="codeLocations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MRSModel.codeLocationsLanguages" Role="codeLocationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeLocations">
+              <PropertyRef Name="LocationGUID" />
+            </Principal>
+            <Dependent Role="codeLocationsLanguages">
+              <PropertyRef Name="LocationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeReferralStatus">
+          <Key>
+            <PropertyRef Name="ReferralStatusGUID" />
+          </Key>
+          <Property Name="ReferralStatusGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="Guid" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeReferralStatusRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeReferralStatusLanguage" Relationship="MRSModel.FK_codeReferralStatusLanguage_codeReferralStatus" FromRole="codeReferralStatus" ToRole="codeReferralStatusLanguage" />
+        </EntityType>
+        <EntityType Name="codeReferralStatusLanguage">
+          <Key>
+            <PropertyRef Name="ReferralStatusLanguageGUID" />
+          </Key>
+          <Property Name="ReferralStatusLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralStatusGUID" Type="Guid" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeReferralStatusLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeReferralStatus" Relationship="MRSModel.FK_codeReferralStatusLanguage_codeReferralStatus" FromRole="codeReferralStatusLanguage" ToRole="codeReferralStatus" />
+        </EntityType>
+        <Association Name="FK_codeReferralStatusLanguage_codeReferralStatus">
+          <End Type="MRSModel.codeReferralStatus" Role="codeReferralStatus" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MRSModel.codeReferralStatusLanguage" Role="codeReferralStatusLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="codeReferralStatusLanguage">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeOrganizationsInstances">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OperationGUID" Type="Guid" />
+          <Property Name="codeOrganizationsInstancesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOrganizationsInstancesLanguages" Relationship="MRSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" FromRole="codeOrganizationsInstances" ToRole="codeOrganizationsInstancesLanguages" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstancesLanguages">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceLanguageGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationInstanceDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="codeOrganizationsInstancesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOrganizationsInstances" Relationship="MRSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" FromRole="codeOrganizationsInstancesLanguages" ToRole="codeOrganizationsInstances" />
+        </EntityType>
+        <Association Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+          <End Type="MRSModel.codeOrganizationsInstances" Role="codeOrganizationsInstances" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MRSModel.codeOrganizationsInstancesLanguages" Role="codeOrganizationsInstancesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="codeOrganizationsInstancesLanguages">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DutyStationDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="TableGUID" Type="Guid" Nullable="false" />
+          <Property Name="FactorGUID" Type="Guid" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValuesLanguages" Relationship="MRSModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValues" ToRole="codeTablesValuesLanguages" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ValueDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValues" Relationship="MRSModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValuesLanguages" ToRole="codeTablesValues" />
+        </EntityType>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Type="MRSModel.codeTablesValues" Role="codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MRSModel.codeTablesValuesLanguages" Role="codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeVehicle">
+          <Key>
+            <PropertyRef Name="VehicleGUID" />
+          </Key>
+          <Property Name="VehicleGUID" Type="Guid" Nullable="false" />
+          <Property Name="VehicleNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VehicleTypeGUID" Type="Guid" />
+          <Property Name="VechileModelGUID" Type="Guid" />
+          <Property Name="VehileColorGUID" Type="Guid" />
+          <Property Name="ManufacturingYear" Type="Int32" />
+          <Property Name="PlateNumber" Type="Int32" />
+          <Property Name="ChassisNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EngineNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LastRenewalDate" Type="DateTime" Precision="3" />
+          <Property Name="Available" Type="Boolean" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeVehicleRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataNoteVerbaleVehicle" Relationship="MRSModel.FK_dataNoteVerbaleVehicle_codeVehicle" FromRole="codeVehicle" ToRole="dataNoteVerbaleVehicle" />
+          <Property Name="LicenseExpiryDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="dataNoteVerbale">
+          <Key>
+            <PropertyRef Name="NoteVerbaleGUID" />
+          </Key>
+          <Property Name="NoteVerbaleGUID" Type="Guid" Nullable="false" />
+          <Property Name="Reference" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationGUID" Type="Guid" Nullable="false" />
+          <Property Name="VisitDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="VisitPurpose_EN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VisitPurpose_AR" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NoteVerbaleDate" Type="DateTime" Precision="0" />
+          <Property Name="ReferralStatusGUID" Type="Guid" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="MissionCategoryGUID" Type="Guid" />
+          <Property Name="OrganizationMissionTypeGUID" Type="Guid" />
+          <Property Name="ResponseDateMFA" Type="DateTime" Precision="0" />
+          <Property Name="RescheduledDate" Type="DateTime" Precision="0" />
+          <Property Name="TeamLeaderGUID" Type="Guid" />
+          <Property Name="MissionAccomplished" Type="Boolean" Nullable="false" />
+          <Property Name="MissionReport" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataNoteVerbaleRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeLocations" Relationship="MRSModel.FK_dataNoteVerbale_codeLocations" FromRole="dataNoteVerbale" ToRole="codeLocations" />
+          <NavigationProperty Name="dataNoteVerbaleOrganization" Relationship="MRSModel.FK_dataNoteVerbaleOrganization_dataNoteVerbale" FromRole="dataNoteVerbale" ToRole="dataNoteVerbaleOrganization" />
+          <NavigationProperty Name="dataNoteVerbaleVehicle" Relationship="MRSModel.FK_dataNoteVerbaleVehicle_dataNoteVerbale" FromRole="dataNoteVerbale" ToRole="dataNoteVerbaleVehicle" />
+          <NavigationProperty Name="dataNoteVerbaleStaff" Relationship="MRSModel.FK_dataNoteVerbaleStaff_dataNoteVerbale" FromRole="dataNoteVerbale" ToRole="dataNoteVerbaleStaff" />
+        </EntityType>
+        <EntityType Name="dataNoteVerbaleVehicle">
+          <Key>
+            <PropertyRef Name="NoteVerbaleVehicleGUID" />
+          </Key>
+          <Property Name="NoteVerbaleVehicleGUID" Type="Guid" Nullable="false" />
+          <Property Name="NoteVerbaleGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="VehicleGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataNoteVerbaleVehicleRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeVehicle" Relationship="MRSModel.FK_dataNoteVerbaleVehicle_codeVehicle" FromRole="dataNoteVerbaleVehicle" ToRole="codeVehicle" />
+          <NavigationProperty Name="dataNoteVerbale" Relationship="MRSModel.FK_dataNoteVerbaleVehicle_dataNoteVerbale" FromRole="dataNoteVerbaleVehicle" ToRole="dataNoteVerbale" />
+        </EntityType>
+        <Association Name="FK_dataNoteVerbale_codeLocations">
+          <End Type="MRSModel.codeLocations" Role="codeLocations" Multiplicity="1" />
+          <End Type="MRSModel.dataNoteVerbale" Role="dataNoteVerbale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeLocations">
+              <PropertyRef Name="LocationGUID" />
+            </Principal>
+            <Dependent Role="dataNoteVerbale">
+              <PropertyRef Name="LocationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataNoteVerbaleVehicle_codeVehicle">
+          <End Type="MRSModel.codeVehicle" Role="codeVehicle" Multiplicity="0..1" />
+          <End Type="MRSModel.dataNoteVerbaleVehicle" Role="dataNoteVerbaleVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeVehicle">
+              <PropertyRef Name="VehicleGUID" />
+            </Principal>
+            <Dependent Role="dataNoteVerbaleVehicle">
+              <PropertyRef Name="VehicleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataNoteVerbaleOrganization_dataNoteVerbale">
+          <End Type="MRSModel.dataNoteVerbale" Role="dataNoteVerbale" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MRSModel.dataNoteVerbaleOrganization" Role="dataNoteVerbaleOrganization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataNoteVerbale">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Principal>
+            <Dependent Role="dataNoteVerbaleOrganization">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataNoteVerbaleVehicle_dataNoteVerbale">
+          <End Type="MRSModel.dataNoteVerbale" Role="dataNoteVerbale" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MRSModel.dataNoteVerbaleVehicle" Role="dataNoteVerbaleVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataNoteVerbale">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Principal>
+            <Dependent Role="dataNoteVerbaleVehicle">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="RP_NoteVerbaleStaff_Result">
+          <Property Type="String" Name="Fullname" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="Nationality" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="JobTitleDescription" Nullable="true" MaxLength="512" />
+          <Property Type="String" Name="Gender" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="RP_NoteVerbaleVehicle_Result">
+          <Property Type="String" Name="DriversDetail" Nullable="true" />
+          <Property Type="String" Name="VehicleNumber" Nullable="true" />
+          <Property Type="String" Name="VehicalCount" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="dataNoteVerbaleStaff">
+          <Key>
+            <PropertyRef Name="NoteVerbaleStaffGUID" />
+          </Key>
+          <Property Name="NoteVerbaleStaffGUID" Type="Guid" Nullable="false" />
+          <Property Name="NoteVerbaleGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="Sequance" Type="Int32" />
+          <Property Name="dataNoteVerbaleStaffRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataNoteVerbale" Relationship="MRSModel.FK_dataNoteVerbaleStaff_dataNoteVerbale" FromRole="dataNoteVerbaleStaff" ToRole="dataNoteVerbale" />
+        </EntityType>
+        <Association Name="FK_dataNoteVerbaleStaff_dataNoteVerbale">
+          <End Type="MRSModel.dataNoteVerbale" Role="dataNoteVerbale" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MRSModel.dataNoteVerbaleStaff" Role="dataNoteVerbaleStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataNoteVerbale">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Principal>
+            <Dependent Role="dataNoteVerbaleStaff">
+              <PropertyRef Name="NoteVerbaleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="RP_NoteVerbale_Result">
+          <Property Type="Guid" Name="NoteVerbaleGUID" Nullable="false" />
+          <Property Type="String" Name="Reference" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="VisitDate" Nullable="false" />
+          <Property Type="DateTime" Name="NoteVerbaleDate" Nullable="true" />
+          <Property Type="String" Name="Location" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Gevernerate" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="VisitPurpose_EN" Nullable="true" />
+          <Property Type="String" Name="VisitPurpose_AR" Nullable="true" />
+          <Property Type="Guid" Name="DutyStationGUID" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MRSModelStoreContainer" CdmEntityContainer="MRSEntities">
+          <EntitySetMapping Name="dataNoteVerbaleOrganization">
+            <EntityTypeMapping TypeName="MRSModel.dataNoteVerbaleOrganization">
+              <MappingFragment StoreEntitySet="dataNoteVerbaleOrganization">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataNoteVerbaleOrganizationRowVersion" ColumnName="dataNoteVerbaleOrganizationRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="NoteVerbaleGUID" ColumnName="NoteVerbaleGUID" />
+                <ScalarProperty Name="NoteVerbaleOrganizationGUID" ColumnName="NoteVerbaleOrganizationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userPersonalDetailsLanguage">
+            <EntityTypeMapping TypeName="MRSModel.userPersonalDetailsLanguage">
+              <MappingFragment StoreEntitySet="userPersonalDetailsLanguage">
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="userPersonalDetailsLanguageRowVersion" ColumnName="userPersonalDetailsLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="GrandFatherName" ColumnName="GrandFatherName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="PersonalDetailsLanguageGUID" ColumnName="PersonalDetailsLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeLocations">
+            <EntityTypeMapping TypeName="MRSModel.codeLocations">
+              <MappingFragment StoreEntitySet="codeLocations">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeLocationsRowVersion" ColumnName="codeLocationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LocationPhoneCode" ColumnName="LocationPhoneCode" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="LocationlevelID" ColumnName="LocationlevelID" />
+                <ScalarProperty Name="LocationPCode" ColumnName="LocationPCode" />
+                <ScalarProperty Name="LocationParentGUID" ColumnName="LocationParentGUID" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="LocationTypeGUID" ColumnName="LocationTypeGUID" />
+                <ScalarProperty Name="LocationGUID" ColumnName="LocationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeLocationsLanguages">
+            <EntityTypeMapping TypeName="MRSModel.codeLocationsLanguages">
+              <MappingFragment StoreEntitySet="codeLocationsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeLocationsLanguagesRowVersion" ColumnName="codeLocationsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LocationDescription" ColumnName="LocationDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="LocationGUID" ColumnName="LocationGUID" />
+                <ScalarProperty Name="LocationLanguageGUID" ColumnName="LocationLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeReferralStatus">
+            <EntityTypeMapping TypeName="MRSModel.codeReferralStatus">
+              <MappingFragment StoreEntitySet="codeReferralStatus">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeReferralStatusRowVersion" ColumnName="codeReferralStatusRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ApplicationGUID" ColumnName="ApplicationGUID" />
+                <ScalarProperty Name="ReferralStatusGUID" ColumnName="ReferralStatusGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeReferralStatusLanguage">
+            <EntityTypeMapping TypeName="MRSModel.codeReferralStatusLanguage">
+              <MappingFragment StoreEntitySet="codeReferralStatusLanguage">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeReferralStatusLanguageRowVersion" ColumnName="codeReferralStatusLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ReferralStatusGUID" ColumnName="ReferralStatusGUID" />
+                <ScalarProperty Name="ReferralStatusLanguageGUID" ColumnName="ReferralStatusLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizationsInstances">
+            <EntityTypeMapping TypeName="MRSModel.codeOrganizationsInstances">
+              <MappingFragment StoreEntitySet="codeOrganizationsInstances">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeOrganizationsInstancesRowVersion" ColumnName="codeOrganizationsInstancesRowVersion" />
+                <ScalarProperty Name="OperationGUID" ColumnName="OperationGUID" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizationsInstancesLanguages">
+            <EntityTypeMapping TypeName="MRSModel.codeOrganizationsInstancesLanguages">
+              <MappingFragment StoreEntitySet="codeOrganizationsInstancesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeOrganizationsInstancesLanguagesRowVersion" ColumnName="codeOrganizationsInstancesLanguagesRowVersion" />
+                <ScalarProperty Name="OrganizationInstanceDescription" ColumnName="OrganizationInstanceDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="OrganizationInstanceLanguageGUID" ColumnName="OrganizationInstanceLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStationsLanguages">
+            <EntityTypeMapping TypeName="MRSModel.codeDutyStationsLanguages">
+              <MappingFragment StoreEntitySet="codeDutyStationsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsLanguagesRowVersion" ColumnName="codeDutyStationsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DutyStationDescription" ColumnName="DutyStationDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="DutyStationLanguageGUID" ColumnName="DutyStationLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValues">
+            <EntityTypeMapping TypeName="MRSModel.codeTablesValues">
+              <MappingFragment StoreEntitySet="codeTablesValues">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesRowVersion" ColumnName="codeTablesValuesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="TableGUID" ColumnName="TableGUID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValuesLanguages">
+            <EntityTypeMapping TypeName="MRSModel.codeTablesValuesLanguages">
+              <MappingFragment StoreEntitySet="codeTablesValuesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesLanguagesRowVersion" ColumnName="codeTablesValuesLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ValueDescription" ColumnName="ValueDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+                <ScalarProperty Name="TableValueLanguageGUID" ColumnName="TableValueLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeVehicle">
+            <EntityTypeMapping TypeName="MRSModel.codeVehicle">
+              <MappingFragment StoreEntitySet="codeVehicle">
+                <ScalarProperty Name="LicenseExpiryDate" ColumnName="LicenseExpiryDate" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeVehicleRowVersion" ColumnName="codeVehicleRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="LastRenewalDate" ColumnName="LastRenewalDate" />
+                <ScalarProperty Name="EngineNumber" ColumnName="EngineNumber" />
+                <ScalarProperty Name="ChassisNumber" ColumnName="ChassisNumber" />
+                <ScalarProperty Name="PlateNumber" ColumnName="PlateNumber" />
+                <ScalarProperty Name="ManufacturingYear" ColumnName="ManufacturingYear" />
+                <ScalarProperty Name="VehileColorGUID" ColumnName="VehileColorGUID" />
+                <ScalarProperty Name="VechileModelGUID" ColumnName="VechileModelGUID" />
+                <ScalarProperty Name="VehicleTypeGUID" ColumnName="VehicleTypeGUID" />
+                <ScalarProperty Name="VehicleNumber" ColumnName="VehicleNumber" />
+                <ScalarProperty Name="VehicleGUID" ColumnName="VehicleGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataNoteVerbale">
+            <EntityTypeMapping TypeName="MRSModel.dataNoteVerbale">
+              <MappingFragment StoreEntitySet="dataNoteVerbale">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataNoteVerbaleRowVersion" ColumnName="dataNoteVerbaleRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="MissionReport" ColumnName="MissionReport" />
+                <ScalarProperty Name="MissionAccomplished" ColumnName="MissionAccomplished" />
+                <ScalarProperty Name="TeamLeaderGUID" ColumnName="TeamLeaderGUID" />
+                <ScalarProperty Name="RescheduledDate" ColumnName="RescheduledDate" />
+                <ScalarProperty Name="ResponseDateMFA" ColumnName="ResponseDateMFA" />
+                <ScalarProperty Name="OrganizationMissionTypeGUID" ColumnName="OrganizationMissionTypeGUID" />
+                <ScalarProperty Name="MissionCategoryGUID" ColumnName="MissionCategoryGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="ReferralStatusGUID" ColumnName="ReferralStatusGUID" />
+                <ScalarProperty Name="NoteVerbaleDate" ColumnName="NoteVerbaleDate" />
+                <ScalarProperty Name="VisitPurpose_AR" ColumnName="VisitPurpose_AR" />
+                <ScalarProperty Name="VisitPurpose_EN" ColumnName="VisitPurpose_EN" />
+                <ScalarProperty Name="VisitDate" ColumnName="VisitDate" />
+                <ScalarProperty Name="LocationGUID" ColumnName="LocationGUID" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="NoteVerbaleGUID" ColumnName="NoteVerbaleGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataNoteVerbaleVehicle">
+            <EntityTypeMapping TypeName="MRSModel.dataNoteVerbaleVehicle">
+              <MappingFragment StoreEntitySet="dataNoteVerbaleVehicle">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataNoteVerbaleVehicleRowVersion" ColumnName="dataNoteVerbaleVehicleRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="VehicleGUID" ColumnName="VehicleGUID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="NoteVerbaleGUID" ColumnName="NoteVerbaleGUID" />
+                <ScalarProperty Name="NoteVerbaleVehicleGUID" ColumnName="NoteVerbaleVehicleGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RP_NoteVerbaleOrganization" FunctionName="MRSModel.Store.RP_NoteVerbaleOrganization" />
+          <FunctionImportMapping FunctionImportName="RP_NoteVerbaleStaff" FunctionName="MRSModel.Store.RP_NoteVerbaleStaff">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MRSModel.RP_NoteVerbaleStaff_Result">
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="JobTitleDescription" ColumnName="JobTitleDescription" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RP_NoteVerbaleVehicle" FunctionName="MRSModel.Store.RP_NoteVerbaleVehicle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MRSModel.RP_NoteVerbaleVehicle_Result">
+                <ScalarProperty Name="DriversDetail" ColumnName="DriversDetail" />
+                <ScalarProperty Name="VehicleNumber" ColumnName="VehicleNumber" />
+                <ScalarProperty Name="VehicalCount" ColumnName="VehicalCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="dataNoteVerbaleStaff">
+            <EntityTypeMapping TypeName="MRSModel.dataNoteVerbaleStaff">
+              <MappingFragment StoreEntitySet="dataNoteVerbaleStaff">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataNoteVerbaleStaffRowVersion" ColumnName="dataNoteVerbaleStaffRowVersion" />
+                <ScalarProperty Name="Sequance" ColumnName="Sequance" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="NoteVerbaleGUID" ColumnName="NoteVerbaleGUID" />
+                <ScalarProperty Name="NoteVerbaleStaffGUID" ColumnName="NoteVerbaleStaffGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RP_NoteVerbaleOrg" FunctionName="MRSModel.Store.RP_NoteVerbaleOrg" />
+          <FunctionImportMapping FunctionImportName="RP_NoteVerbale" FunctionName="MRSModel.Store.RP_NoteVerbale">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MRSModel.RP_NoteVerbale_Result">
+                <ScalarProperty Name="NoteVerbaleGUID" ColumnName="NoteVerbaleGUID" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="VisitDate" ColumnName="VisitDate" />
+                <ScalarProperty Name="NoteVerbaleDate" ColumnName="NoteVerbaleDate" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Gevernerate" ColumnName="Gevernerate" />
+                <ScalarProperty Name="VisitPurpose_EN" ColumnName="VisitPurpose_EN" />
+                <ScalarProperty Name="VisitPurpose_AR" ColumnName="VisitPurpose_AR" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

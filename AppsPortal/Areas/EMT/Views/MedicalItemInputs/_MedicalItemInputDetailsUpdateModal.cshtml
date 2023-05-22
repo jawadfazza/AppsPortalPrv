@@ -1,0 +1,131 @@
+﻿@model dataMedicalItemInputDetail
+@using (Html.BeginForm("MedicalItemInputDetail", "MedicalItemInputs", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalItemInputDetailForm" }))
+{
+    string ModalTitle = Model.MedicalItemInputDetailGUID.ToString() == Guid.Empty.ToString() ? resxPages.NewItem : resxPages.EditItem;
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.MedicalItemInputDetailGUID)
+    @Html.HiddenFor(model => model.MedicalItemInputGUID)
+    @Html.HiddenFor(model => model.MedicalItemInputSupplyDetailGUID)
+    @*@Html.HiddenFor(model => model.RemainingItems)*@
+    @Html.HiddenFor(model => model.PriceOfPackingUnit)
+    @Html.HiddenFor(model => model.PriceOfSmallestUnit)
+
+    @Html.HiddenFor(model => model.Confirmed)
+    <div class="form-group HANDLER">
+        @Html.LabelFor(model => model.MedicalItemGUID)
+        @Html.DropDownListFor(model => model.MedicalItemGUID, new DropDownList().MedicalItems(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.BatchNumber)
+        @Html.EditorFor(model => model.BatchNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ManufacturingDate)
+        @Html.EditorFor(model => model.ManufacturingDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ExpirationDate)
+        @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.QuantityBySmallestUnit)
+        @Html.DisplayFor(model => model.QuantityBySmallestUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    @if (Model.MedicalItemInputSupplyDetailGUID == null)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriceOfSmallestUnit)
+            @Html.EditorFor(model => model.PriceOfSmallestUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    }
+    @if (Model.MedicalItemInputSupplyDetailGUID == null)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriceOfPackingUnit)
+            @Html.EditorFor(model => model.PriceOfPackingUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.QuantityByPackingUnit)
+            @Html.DisplayFor(model => model.QuantityByPackingUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            @Html.HiddenFor(model => model.QuantityByPackingUnit)
+            @Html.HiddenFor(model => model.QuantityBySmallestUnit)
+        </div>
+    }
+    <div class="form-group">
+        @Html.LabelFor(model => model.QuantityByPackingUnit)
+        @Html.EditorFor(model => model.QuantityByPackingUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.QuantityByPackingTransfer)
+        @Html.EditorFor(model => model.QuantityByPackingTransfer, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.RemainingItems)
+        @Html.EditorFor(model => model.RemainingItems, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ConfirmedBy) :
+        @Html.DisplayFor(model => model.ConfirmedBy)
+
+        <hr />
+        @Html.LabelFor(model => model.ConfirmedDate) :
+        @Html.DisplayFor(model => model.ConfirmedDate)
+        <hr />
+        @Html.LabelFor(model => model.Comments) :
+        @Html.DisplayFor(model => model.Comments)
+    </div>
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.MedicalItemInputDetailGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.MedicalItemInput.Create, Apps.EMT)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.MedicalItemInput.Update, Apps.EMT)
+                @Html.DeleteSwitchButton(Permissions.MedicalItemInput.Delete, Apps.EMT)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.MedicalItemInput.Delete, Apps.EMT)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+
+@*<div class="modal-body">
+    <div id="exTab1">
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a href="#1a" data-toggle="tab">Warehouse To Warehouse Transfer</a>
+            </li>
+            <li>
+                <a href="#2a" data-toggle="tab">Warehouse To Pharmacy Transfer</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content clearfix">
+        <div class="tab-pane active" id="1a">
+            <article>
+                <div class="page--body">
+                    @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MedicalItemInputDetailsWarehouseTransferDataTable, FormController = "MedicalItemInputs", Area = "EMT", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.MedicalItemInputDetailGUID, OrderBy = 1 })
+
+                </div>
+            </article>
+        </div>
+        <div class="tab-pane " id="2a">
+            <article>
+                @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MedicalItemInputDetailsPharmacyTransferDataTable, FormController = "MedicalItemInputs", Area = "EMT", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.MedicalItemInputDetailGUID, OrderBy = 1 })
+
+            </article>
+        </div>
+    </div>
+</div>*@

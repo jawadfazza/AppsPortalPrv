@@ -1,0 +1,153 @@
+﻿@model dataPersonalHistoryContactInfoUpdateModel
+@using (Html.BeginForm("ContanctInformationWizard", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "ContanctInformationWizardForm", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.GTPPHContactInfoGUID)
+    @Html.AntiForgeryToken()
+    <div class="tab-pane" id="tab1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><b>3. CONTACT INFORMATION </b> (Mandatory to complete)</span>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12" style="padding-bottom:10px;">
+                            <span style="font-weight:bold;color:black;padding-bottom:10px;">Current Address</span>
+                        </div>
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.CurrentAddressLine1)   <span class="span-required-field">*</span>
+                            @Html.TextAreaFor(model => model.CurrentAddressLine1, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                        </div>
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.CurrentAddressLine2)
+                            @Html.TextAreaFor(model => model.CurrentAddressLine2, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                        </div>
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.CurrentAddressLine3)
+                            @Html.TextAreaFor(model => model.CurrentAddressLine3, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                        </div>
+                        <div class="div-country-city-container">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CurrentAddressCountryGUID) <span class="span-required-field">*</span>
+                                    @Html.DropDownListFor(model => model.CurrentAddressCountryGUID, new DropDownList().GTPCountries(), "",
+                                  new
+                                       {
+                                      @class = "form-control select2-basic-search",
+                                      style = "width:100%",
+                                      onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CurrentAddressCityGUID', Action : 'RemoteGTPCities'}]);"
+                                  })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CurrentAddressCityGUID)  <span class="span-required-field">*</span>
+                                    @if (Model.GTPPHContactInfoGUID != null)
+                                    {
+                                        @Html.DropDownListFor(model => model.CurrentAddressCityGUID, new DropDownList().GTPCities(Model.CurrentAddressCountryGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownListFor(model => model.CurrentAddressCityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CurrentAddressPostalCode)
+                                @Html.EditorFor(model => model.CurrentAddressPostalCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12" style="padding-bottom:10px;">
+                            <span style="font-weight:bold;color:black;padding-bottom:10px;">Permanent Address</span>
+                        </div>
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.PermanentAddressLine1)  <span class="span-required-field">*</span>
+                            @Html.TextAreaFor(model => model.PermanentAddressLine1, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                        </div>
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.PermanentAddressLine2)
+                            @Html.TextAreaFor(model => model.PermanentAddressLine2, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                        </div>
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.PermanentAddressLine3)
+                            @Html.TextAreaFor(model => model.PermanentAddressLine3, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                        </div>
+                        <div class="div-country-city-container">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PermanentAddressCountryGUID)    <span class="span-required-field">*</span>
+                                    @Html.DropDownListFor(model => model.PermanentAddressCountryGUID, new DropDownList().GTPCountries(), "",
+                                  new
+                                       {
+                                      @class = "form-control select2-basic-search",
+                                      style = "width:100%",
+                                      onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'PermanentAddressCityGUID', Action : 'RemoteGTPCities'}]);"
+                                  })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PermanentAddressCityGUID)  <span class="span-required-field">*</span>
+                                    @if (Model.GTPPHContactInfoGUID != null)
+                                    {
+                                        @Html.DropDownListFor(model => model.PermanentAddressCityGUID, new DropDownList().GTPCities(Model.PermanentAddressCountryGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownListFor(model => model.PermanentAddressCityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PermanentAddressPostalCode)
+                                @Html.EditorFor(model => model.PermanentAddressPostalCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PreferredContactMethod)   <span class="span-required-field">*</span>
+                                @Html.DropDownListFor(model => model.PreferredContactMethod, new DropDownList().GTPPreferredContactMethod(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right">
+                            @if (Model.GTPPHContactInfoGUID == Guid.Empty)
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Save & Next' data-next-url="/GTP/Applications/PhoneNumbersWizard/Create" />
+                            }
+                            else
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Update" name='next' value='Update & Next' data-next-url="/GTP/Applications/PhoneNumbersWizard/Create" />
+                            }
+                        </div>
+                        <div style="float:left">
+                            <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/PersonalInformationWizard/Create" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

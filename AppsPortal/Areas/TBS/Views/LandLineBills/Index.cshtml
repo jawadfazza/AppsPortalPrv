@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("f09b11d6-ef26-4918-847e-d334139b4464")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.DataLandLinsBillsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            @*<div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TelecomCompanyDescription, DbColumnName = "TelecomCompanyDescription", FilterForDataType = "Text" })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                </div>*@
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.DataLandLinsBillsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.DataLandLinsBillsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.DataLandLinsBillsDataTable)
+        <a class='Modal-Link btn btn-primary' href='#' data-url='/TBS/FTPAPI/ProcessNewCDRFiles'> Process New CDR Files </a>
+        @*<input id="btn-processCDR" data-url="" type="button" class="btn btn-primary ActionControl" value="Process New CDR Files">*@
+        @Html.IndexDatatableCreate(Permissions.TelecomCompanies.Create, Apps.TBS, "/TBS/BillManagement/Create")
+        @Html.IndexDatatableDelete(Permissions.TelecomCompanies.Delete, Apps.TBS, DataTableNames.DataLandLinsBillsDataTable)
+        @Html.IndexDatatableRestor(Permissions.TelecomCompanies.Restore, Apps.TBS, DataTableNames.DataLandLinsBillsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.DataLandLinsBillsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.DataLandLinsBillsDataTable, FormController = "BillManagement", Area = "TBS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#btn-processCDR').click(function (e) {
+            e.preventDefault();
+        });
+    })
+</script>

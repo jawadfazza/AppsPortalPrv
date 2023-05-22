@@ -1,0 +1,39 @@
+﻿@model JobTitleUpdateModel
+@using (Html.BeginForm("JobTitle", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "JobTitleForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.JobTitleGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.Label("Job Title")
+                @Html.EditorFor(model => model.JobTitleDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+
+         
+
+
+            <div id="JobTitleFormControls" class="form-group form-footer">
+                @if (Model.JobTitleGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.JobTitles.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.JobTitles.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.JobTitles.Create, Apps.CMS, Url.Action("JobTitles/Create", "Codes", new { Area = "CMS" }))
+                        @Html.DeleteButton(Permissions.JobTitles.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.JobTitles.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("JobTitles", "Codes", new { Area = "CMS" }))
+            </div>
+        </div>
+    </div>
+}

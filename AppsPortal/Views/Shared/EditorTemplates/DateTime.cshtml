@@ -1,0 +1,4 @@
+﻿@using AppsPortal.Extensions;
+@model DateTime?
+@Html.TextBox("", Model.HasValue ? Localization.NumberFormat(Model.Value.ToString(Localization.DateTime())) : "", new { @class = "form-control datetime-picker " + Languages.CurrentCulture(), autocomplete = "off" })
+<span class="fa fa-calendar datebox"></span>

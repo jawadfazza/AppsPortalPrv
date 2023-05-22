@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">Application Enhancement Attachement</h3>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter",DataTableNames.ApplicationRequestAttachementDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.ApplicationRequestAttachementDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer",DataTableNames.ApplicationRequestAttachementDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.ApplicationRequestAttachementDataTable)
+                @Html.FieldDataTableCreateNoPermission(Url.Action("ApplicationRequestAttachementCreate", "ServiceRequest", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDeleteNoPermission(DataTableNames.ApplicationRequestAttachementDataTable)
+                @Html.FieldDataTableRestoreNoPermission(DataTableNames.ApplicationRequestAttachementDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.ApplicationRequestAttachementDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ApplicationRequestAttachementDataTable, FormController = "ServiceRequest", Area = "SRS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 0 })
+    </div>
+</div>

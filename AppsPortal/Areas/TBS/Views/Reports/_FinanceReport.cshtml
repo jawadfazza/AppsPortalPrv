@@ -1,0 +1,57 @@
+﻿@model List<FinanceReportModel>
+
+
+<div class="row" style="height:1000px;">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Report Results
+            </div>
+            <div class="panel-body">
+                @if (Model.Count == 0)
+                {
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">No results found.</h4>
+                    </div>
+                }
+                else
+                {
+
+                    <table id="tbl-summary" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>DutyStation Name</th>
+                                <th>Phone Number</th>
+                                <th>Staff Name</th>
+                                <th>Official Charged Minutes\KB</th>
+                                <th>Official Charged Cost (SYP)</th>
+                                <th>Private Charged Minutes\KB</th>
+                                <th>Private Charged Cost (SYP)</th>
+                                <th>Deduct From Salary (SYP)</th>
+                                <th>Pay In Cash (SYP)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.SIMWarehouseDescription</td>
+                                    <td>@item.CallingNumber</td>
+                                    <td>@item.StaffName</td>
+                                    <td>@item.RecordDetails.Where(x => x.IsPrivate == false).Select(x => x.DurationInMinutes).Sum()</td>
+                                    <td style="font-weight:bold">@Convert.ToDouble(String.Format("{0:0.00}", item.RecordDetails.Where(x => x.IsPrivate == false).Select(x => x.CallCost).Sum()))</td>
+                                    <td>@item.RecordDetails.Where(x => x.IsPrivate == true).Select(x => x.DurationInMinutes).Sum()</td>
+                                    <td style="font-weight:bold">@Convert.ToDouble(String.Format("{0:0.00}", item.RecordDetails.Where(x => x.IsPrivate == true).Select(x => x.CallCost).Sum()))</td>
+                                    <td style="font-weight:bold">@item.DeductFromSalaryAmount</td>
+                                    <td style="font-weight:bold">@item.PayInCashAmount</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿@model ReferralStatusUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ReferralStatusGUID == Guid.Empty) ? "New Appointment Type" : "Edit Appointment Type"; }
+
+@Html.PageHeader("c64fa8bf-e13c-4a74-80c9-17caa0ded48a")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/REF/Views/ReferralStatus/_ReferralStatusForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.ReferralStatusGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/REF/Views/ReferralStatus/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ReferralStatusGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

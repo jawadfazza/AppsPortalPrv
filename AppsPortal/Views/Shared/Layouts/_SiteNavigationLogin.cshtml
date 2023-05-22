@@ -1,0 +1,86 @@
+﻿<nav class="primary--nav">
+    <ul>
+        @*@if (Session[SessionKeys.UserGUID] != null && Session[SessionKeys.CurrentApp] != null)
+        {
+            @Html.Raw(File.ReadAllText(Server.MapPath("~/UserFiles/" + Session[SessionKeys.UserGUID].ToString() + "/" + Session[SessionKeys.UserGUID].ToString() + "Menu.html")))
+        }
+        else
+        {
+            @Html.Raw(File.ReadAllText(Server.MapPath("~/UserFiles/" + Guid.Empty.ToString() + "/" + Guid.Empty.ToString() + Languages.CurrentLanguage().ToString() + "Menu.html")))
+        }*@
+        @*if (Session[SessionKeys.UserGUID] != null && Session[SessionKeys.CurrentApp] != null)
+            {
+               List<NavigationMenu> Menus = new CMS().ApplicationMenus(Guid.Parse(Session[SessionKeys.CurrentApp].ToString()));
+                foreach (var Menu in Menus)
+                {
+                 <li>
+                  <a href=@Menu.RootMenuUrl>@Menu.RootMenuDescription</a>
+                   <ul class="sub--menu" style="height: auto;">
+                   @foreach (var SubMenu in Menu.SubMenu)
+                   {
+                     <li><a href="@SubMenu.SubMenuUrl">@SubMenu.SubMenuDescription</a></li>
+                   }
+                   </ul>
+                 </li>
+              }
+             }*@
+
+        <li class="pull-right maximize">
+            <a class="expand" onclick="TogglePageWidth();">
+                <span>
+                    <i class="fa fa-television" style="color:#fff;"></i>
+                </span>
+            </a>
+        </li>
+        <li style="background-color:red;color:white;padding-bottom: 4px;padding-right: 20px;" class="pull-right">
+            <span>  Jump Server </span>
+        </li>
+    </ul>
+</nav>
+<div class="un--search">
+    <div class="search__wrapper">
+        <form action="#" method="get" id="frm-main-search">
+            <fieldset class="gbl--search">
+                <legend>Global UNHCR search</legend>
+                <div class="form--row">
+                    <label for="un--gbl-search" class="hidden">Search UNHCR</label>
+                    <input type="text" value="" class="gbl--search-text" id="un--gbl-search" />
+                    <input type="submit" class="icon--search" value="search" />
+                </div>
+            </fieldset>
+            <a href="#_" title="Close search" class="icon--close">Close search</a>
+        </form>
+    </div>
+</div>
+<div id="notificationPanel" class="notification-wrapper" style="display:none;">
+    <div class="notification-contents">
+        <ul id="PushNotification" class="notifications mScroll blueDataTableHeader" data-mcs-theme="rounded-dark" style="max-height:600px;">
+            <li class="notification">
+                <div class="media">
+                    <div class="media-left">
+                        <div class="media-object">
+                            <img src="/Assets/Images/img.png" width="50" class="img-circle" alt="Name">
+                        </div>
+                    </div>
+                    <div class="media-body">
+                        <strong class="notification-title"><a href="#">Dave Lister</a> commented on <a href="#">DWARF-13 - Maintenance</a></strong>
+                        <p class="notification-desc">I totally don't wanna do it. Rimmer can do it.</p>
+
+                        <div class="notification-meta">
+                            <small class="timestamp">27. 11. 2015, 15:00</small>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+    <div class="notification-contents">
+        <div class="notifications">
+            <div class="media-right"><a href="#">See All</a></div>
+            <div class="media-right"><a href="#">Mark All as Read</a></div>
+        </div>
+    </div>
+</div>
+

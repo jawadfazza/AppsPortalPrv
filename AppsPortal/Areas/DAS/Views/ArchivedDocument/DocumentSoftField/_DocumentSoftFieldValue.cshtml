@@ -1,0 +1,62 @@
+﻿@model ArchiveTemplateDocumentUpdateModel
+<div class=" checkboxs-form">
+    <div class="row">
+        
+        @Html.HiddenFor(model => model.ArchiveTemplateDocumentGUID)
+        @if (Model.DocumentSoftFieldVM.Count > 0)
+        {
+            <div class=" col-md-12" data-mcs-theme="rounded-dark">   
+                @for (int i = 0; i < Model.DocumentSoftFieldVM.Count; i++)
+                {
+                    <div class="col-md-4">
+                        @Html.HiddenFor(m => Model.DocumentSoftFieldVM[i].TemplateTypeDocumentSoftFieldGUID)
+                        @Html.HiddenFor(m => Model.DocumentSoftFieldVM[i].SoftFieldName)
+                        <label class="black ClearFindTextBox" style="margin-bottom:0!important">
+                            @Html.DisplayFor(m => Model.DocumentSoftFieldVM[i].SoftFieldName)
+                            @Html.EditorFor(model => Model.DocumentSoftFieldVM[i].SoftFieldNameValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </label>
+
+                    </div>
+                }
+            </div>
+        }
+        else if (Model.ArchiveTemplateDocumentGUID != null && Model.DocumentSoftFieldVM.Count == 0)
+        {
+            <span></span>
+        }
+  
+    </div>
+</div>
+<br />
+<div class="col-md-12">
+    <div class="dt-controls-index pull-right" id="@string.Format("{0}ActionsContainer", DataTableNames.WarehouseModelEntryMovementsDataTable)">
+        @*<input type="button" value="Add Other" id="ShowOtherDeterminantid" onclick="addOtherDeterminants()" />*@
+        @*@if (Model.ArchiveTemplateDocumentGUID != null && Model.ArchiveTemplateDocumentGUID != Guid.Empty)
+        {
+        @Html.FieldDataTableCreate(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("ItemDeterminantUpdate", "ModelMovements", new { FK = Model.ArchiveTemplateDocumentGUID }))
+        }*@
+    </div>
+
+</div>
+<script>
+    var addOtherDeterminants = function() {
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/WMS/ModelMovements/Add',
+             
+            success: function (data) {
+                if (data.totalPending > 0) {
+                    Notify(NotificationType.Warning,
+                        'Kindly check pending requests ');
+                }
+               
+             
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    }
+        
+</script>

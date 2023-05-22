@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "StaffAbsence";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("a87e113c-0d6d-44a9-9a0d-055b7d203829")
+<div class="page--content">
+   
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.OfficeStaffAttendanceConfirmationsDataTable)">
+        @Html.IndexDatatableRefresh(DataTableNames.OfficeStaffAttendanceConfirmationsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.OfficeStaffAttendanceConfirmationsDataTable, FormController = "OfficeStaffAttendances", Area = "OSA", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1
+   })
+    </div>
+</div>
+
+
+

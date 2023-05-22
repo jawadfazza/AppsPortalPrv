@@ -1,0 +1,60 @@
+﻿@model CountryUpdateModel
+@using (Html.BeginForm("Country", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "CountryForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.CountryGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group ">
+                @Html.LabelFor(model => model.CountryDescription)
+                @Html.EditorFor(model => model.CountryDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    @Html.LabelFor(model => model.CountryA3Code)
+                    @Html.EditorFor(model => model.CountryA3Code, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                </div>
+                <div class="form-group col-lg-6">
+                    @Html.LabelFor(model => model.CountryA2Code)
+                    @Html.EditorFor(model => model.CountryA2Code, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nationality)
+                @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group" >
+                @Html.LabelFor(model => model.PhoneCode)
+                @Html.EditorFor(model => model.PhoneCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-12">
+                        @Html.Partial("_SearchLocation", new MapModel { Height = "450px",Zoom=3, Latitude = Model.Latitude, Longitude = Model.Longitude })
+                    </div>
+                </div>
+            </div>
+            <div id="CountryFormControls" class="form-group form-footer">
+                @if (Model.CountryGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Countries.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Countries.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.Countries.Create, Apps.CMS, Url.Action("Countries/Create", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.Countries.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Countries.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Countries", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A86BF6D-6EF3-405C-A1D6-53EF04165291}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TTT_DAL</RootNamespace>
+    <AssemblyName>TTT_DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\WMS_DAL\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\WMS_DAL\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Portal_BL">
+      <HintPath>..\Portal_BL\bin\Debug\Portal_BL.dll</HintPath>
+    </Reference>
+    <Reference Include="RES_Repo">
+      <HintPath>..\RES_Repo\bin\Debug\RES_Repo.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\codeCountries.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountriesConfigurations.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeCountriesLanguages.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartments.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartmentsConfigurations.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartmentsLanguages.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStations.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStationsConfigurations.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStationsLanguages.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTables.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValues.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValuesConfigurations.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeTablesValuesLanguages.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPurchaseOrder.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPurchaseOrderItem.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPurchaseOrderVoucher.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataPurchasingReport.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataRequisition.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTender.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTenderAwardedCompanies.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTenderBOCs.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTenderContractInformation.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTenderEndorsementsAndApprovals.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTenderingAndEvaluation.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTenderObservationAndRemarks.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTenderRequisition.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataTenderRequisitionFocalPoints.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\StaffCoreData.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TTTModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TTTModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TTTModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TTTModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TTTModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetails.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetailsLanguage.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModels.cs" />
+    <Compile Include="Model\v_TrackingSheetReport.cs">
+      <DependentUpon>TTTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EntityDeploy Include="Model\TTTModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TTTModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Model\TTTModel.edmx.diagram">
+      <DependentUpon>TTTModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\TTTModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TTTModel.Context.cs</LastGenOutput>
+      <DependentUpon>TTTModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\TTTModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TTTModel.edmx</DependentUpon>
+      <LastGenOutput>TTTModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

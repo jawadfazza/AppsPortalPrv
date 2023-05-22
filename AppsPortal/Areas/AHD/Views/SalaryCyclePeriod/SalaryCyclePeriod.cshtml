@@ -1,0 +1,255 @@
+﻿@model SalaryCyclePeriodUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("09ab1921-2405-4cc3-ac95-2eeaeaa15de1")
+
+<style>
+    #wizard {
+        z-index: 1 !important;
+    }
+</style>
+
+
+
+
+@*<link href="~/Assets/Plugin/SmartWizard/smart_wizard_vertical.css" rel="stylesheet" />*@
+<link href="~/Assets/Plugin/SmartWizard/smart_wizard.css" rel="stylesheet" />
+<link href="~/Assets/Plugin/SmartWizard/demo_Style.css" rel="stylesheet" />
+<link href="~/Assets/Plugin/pageInro/pageintro.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/pageInro/pageintro.js"></script>
+<div class="page--content">
+
+
+    <div class="row" id="mainWizardid">
+
+
+        <div id="wizard" class="swMain sw-theme-circles" style="width:100%;height:450px;">
+
+            <ul class="nav nav-tabs step-anchor">
+                <li class="nav-item active"><a href="#step-1" class="nav-link">Step1<br><small>Notify Staff To Confirm Bank Information </small></a></li>
+                <li class="nav-item"><a href="#step-2" class="nav-link">Step 2<br><small>Import HQ Salary </small></a></li>
+                <li class="nav-item"><a href="#step-3" class="nav-link">Step 3<br><small>Danger Pay</small></a></li>
+                <li class="nav-item"><a href="#step-4" class="nav-link">Step 4<br><small>Overtime</small></a></li>
+
+
+                @*<li class="nav-item"><a href="#step-5" class="nav-link">Step 5<br><small>Salary In Advance</small></a></li>*@
+                <li class="nav-item"><a href="#step-5" class="nav-link">Step 6<br><small> MIP</small></a></li>
+                <li class="nav-item"><a href="#step-6" class="nav-link">Step 7<br><small> Billing</small></a></li>
+
+                @*<li class="nav-item"><a href="#step-8" class="nav-link">Step 8<br><small> Other</small></a></li>*@
+
+                <li class="nav-item"><a href="#step-7" class="nav-link">Step 9<br><small>Salary Overview</small></a></li>
+            </ul>
+
+
+            <div class="sw-container tab-content" style="height:800px;width:100%;">
+
+                <div id="step-1" class="tab-pane step-content" style="display: block;margin-top:10px!important;height:600px;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading pull-right" style="background-color:lightyellow;color:green;">Help:</div>
+
+                        <div class="panel-body">
+                            @*<h1 id="step1">This is step 1</h1>
+                            <p id="step2">This is step 2</p>
+                            <p id="step3">This is step 3</p>
+
+
+                            <hr />*@
+                            <div class="form-group">
+
+                            </div>
+                            <br /><br />
+                            <div class="col-md-12">
+                                <div class="from-group">
+                                    @Html.Partial("~/Areas/AHD/Views/SalaryCyclePeriod/_StaffBankDestinationDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.SalaryCycleGUID, IsParentActive = Model.Active })
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div id="step-2" class="tab-pane step-content" style="height: 800px;">
+                    <div class="panel panel-default">
+                        @*<div class="panel-heading pull-right" style="background-color:lightyellow;color:green;"></div>*@
+                        <div class="panel-body">
+
+                            <hr />
+                            <div class="form-group">
+
+                            </div>
+                            <br /><br />
+                            <div class="col-md-12">
+                                <div class="from-group">
+                                    @Html.Partial("~/Areas/AHD/Views/SalaryCyclePeriod/HQSalary/_HQSalaryDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.SalaryCycleGUID, IsParentActive = Model.Active })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="step-3" class="tab-pane step-content" style="height: 800px;">
+                    <div class="panel panel-default">
+                        @*<div class="panel-heading pull-right" style="background-color:lightyellow;color:green;"></div>*@
+                        <div class="panel-body">
+                            @Html.ActionLink(" Export Finance Report(Official Report)", "ExportStandardDangerPayStaffForMonth", "NationalStaffDangerPayCalcualtion", new { id = @ViewBag.DangerPayInformationGUID }, new { @class = " fa fa-file-o" })
+
+
+                            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.NationalStaffAllDangerPayDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = @ViewBag.DangerPayInformationGUID, OrderBy = 1 })
+                        </div>
+                    </div>
+
+                </div>
+                <div id="step-4" class="tab-pane step-content" style="margin-top:10px!important;height: 800px;">
+
+
+
+                    <div class="panel panel-default">
+                        @*<div class="panel-heading pull-right" style="background-color:lightyellow;color:green;">Help:</div>*@
+                        <div class="panel-body">
+                            @*@Html.ActionLink(" Export Finance Report(Official Report)", "ExportStandardDangerPayStaffForMonth", "NationalStaffDangerPayCalcualtion", new { id = @ViewBag.DangerPayInformationGUID }, new { @class = " fa fa-file-o" })*@
+
+
+                            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffOvertimeDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+
+                    </div>
+                </div>
+
+             
+
+
+                <div id="step-5" class="tab-pane step-content" style="margin-top:10px!important;height: 800px;">
+
+                    <div class="panel panel-default">
+
+                        @*<div class="panel-heading pull-right" style="background-color:lightyellow;color:green;">Help:</div>*@
+                        <div class="panel-body">
+                            @*@Html.ActionLink(" Export Finance Report(Official Report)", "ExportStandardDangerPayStaffForMonth", "NationalStaffDangerPayCalcualtion", new { id = @ViewBag.DangerPayInformationGUID }, new { @class = " fa fa-file-o" })*@
+
+
+                            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffMedicalPaymentPKDataTable, FormController = "StaffSalary", Area = "AHD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.SalaryCycleGUID, OrderBy = 1 })
+
+                        </div>
+                    </div>
+
+                </div>
+                <div id="step-6" class="tab-pane step-content" style="margin-top:10px!important;height: 800px;">
+
+
+
+
+
+                </div>
+               
+                <div id="step-7" class="tab-pane step-content" style="margin-top:10px!important;height: 800px;">
+                    <div class="col-md-12">
+                        <div class="from-group">
+                            @Html.Partial("~/Areas/AHD/Views/StaffSalary/_StaffSalaryPaymentDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.SalaryCycleGUID, IsParentActive = Model.Active })
+                        </div>
+
+                    </div>
+
+                </div>
+                @*<div id="step-9" class="tab-pane step-content" style="margin-top:10px!important;height: 800px;">
+
+                    </div>*@
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    @*<div class="row" id="backToIndexId">
+
+            @Html.BackToList(Url.Action("StaffLeavsIndex", "StaffRAndRLeave", new { Area = "AHD" }))
+        </div>*@
+</div>
+
+
+<script src="~/Assets/Plugin/SmartWizard/jquery.smartWizard.js"></script>
+
+<script>
+    //var options = {
+    //    container: 'body',
+    //    spacing: 20,
+    //    actions: {
+    //        next: {
+    //            text: 'Next step',
+    //            class: 'btn btn-default'
+    //        },
+    //        finish: {
+    //            text: 'OK! I know',
+    //            class: 'btn btn-success'
+    //        }
+    //    },
+    //    entries: [
+    //        {
+    //            selector: '#step1',
+    //            text: 'You know, this is title'
+    //        }, {
+    //            selector: '#step2',
+    //            text: 'This is description'
+    //        }, {
+    //            selector: '#step3',
+    //            text: 'This is example text',
+    //            onEnter: function () {
+    //                $('#step3').text('Good job!');
+    //            },
+    //            onExit: function () {
+    //                $('#step3').text('This example text is changed!');
+    //            }
+    //        }
+    //    ]
+    //};
+
+    //PageIntro.init(options);
+    //PageIntro.start();
+
+    $("#backToIndexId").hide();
+
+    $('#wizard').smartWizard({
+        selected: 0,
+        theme: 'dots',
+        transitionEffect: 'fade',
+
+        transition: {
+            animation: 'slide-vertical', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+            speed: '1500', // Transion animation speed
+            easing: '' // Transition animation easing. Not supported without a jQuery easing plugin
+        },
+    });
+    $('html, body').animate({
+        scrollTop: $('#step-1').offset().top - 1000 //#DIV_ID is an example. Use the id of your destination on the page
+    }, 'slow');
+
+
+
+    $("#smartwizard").on("leaveStep", function (e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
+        if (anchorObject.prevObject.length - 1 == nextStepIndex) {
+            alert('this is the last step');
+        } else {
+            alert('this is not the last step');
+        }
+    });
+
+
+
+
+
+
+</script>

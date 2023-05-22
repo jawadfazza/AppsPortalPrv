@@ -1,0 +1,1077 @@
+﻿@model SHMReportParameters
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("59b48b82-9b01-4be7-bbba-fd96d8e66c20")
+
+<div class="page--content">
+    @*<link href="~/Assets/Plugin/Highcharts-6.1.2/code/css/highcharts.css" rel="stylesheet" />
+        <script src="~/Assets/Plugin/Highcharts-6.1.2/code/js/highcharts.js"></script>
+        <script src="~/Assets/Plugin/Highcharts-6.1.2/code/js/modules/data.js"></script>
+        <script src="~/Assets/Plugin/Highcharts-6.1.2/code/js/modules/drilldown.js"></scrip
+        t>
+        <script src="~/Assets/Plugin/Highcharts-6.1.2/code/js/modules/heatmap.js"></script>*@
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
+    @using (Html.BeginForm("Chart", "Reports", new { Area = "SHM" }, FormMethod.Post, new { id = "ReportForm" }))
+    {
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="height:35px">
+                        <h3 class="panel-title" style="color:black;"><b>Filters</b> </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <div class="form-group">
+                                    @Html.Label("Report Topic")
+                                    @Html.DropDownListFor(model => model.Report, new DropDownList().ShuttleReportTopic(), "", new
+                               {
+                                   style = "width:100%",
+                                   @class = "form-control select2-basic-search",
+                                   onchange = "HideShowFilters();"
+                               })
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+                                    @Html.Label("Start Date")
+                                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+                                    @Html.Label("End Date")
+                                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                                <div class="form-group">
+                                    @Html.Label("Include Zero")
+                                    @Html.CheckBoxFor(model => model.IncludeZero, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="display: flex;margin-top: 25px;">
+                                <input id="btnCharts" type="button" name="btnCharts" class="btn btn-primary ActionControl" style="width:50%" onclick="InitDashboards();" value="Generate Report">
+                                <input type="reset" class="btn btn-default" style="width:50%" value="Clear All" onclick="ClearAll();">
+                            </div>
+                        </div>
+                        @*<div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                @Html.Label("Passenger")
+                                @Html.DropDownList("PassengerGUIDs", new DropDownList().Users(true),
+                                            new { multiple = "multiple", data = "nothing", @class = "form-control select2-basic-multiple", style = "width:100%", placeholder = "Passagnger" })
+
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                @Html.Label("Driver")
+                                @Html.DropDownList("DriverGUIDs", new DropDownList().ShuttleDrivers(),
+                                         new { multiple = "multiple", data = "nothing", @class = "form-control select2-basic-multiple", style = "width:100%" })
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                @Html.Label("AV Num")
+                                @Html.DropDownList("AVGUIDs", new DropDownList().Vehicles(),
+                                         new { multiple = "multiple", data = "nothing", @class = "form-control select2-basic-multiple", style = "width:100%" })
+
+                            </div>
+                        </div>
+                        <br />*@
+                        <div class="row">
+
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 " style="">
+                                <div class="form-group">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#DutyStationGUID').val([]); $('#DutyStationGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.DutyStationGUID)</b> </h3>
+
+                                        </div>
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.DutyStationGUID, new DropDownList().DutyStationsByProfile(), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                              // onchange = "FindPerent('DutyStationGUID','OrganizationInstanceGUID',0);"
+                                           })
+                                            </div>
+
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#DutyStationGUID option').prop('selected', true); $('#DutyStationGUID').trigger('change');FindPerent('DutyStationGUID','OrganizationInstanceGUID',0);">Select All</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#CountryGUID').val([]); $('#CountryGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.CountryGUID)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.CountryGUID, new DropDownList().CountriesSyriaShuttle(), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "UpdateDropDownListFromMultiple([$(this).val()], [{ DropDownListID : 'StartLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);"
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#CountryGUID option').prop('selected', true); $('#CountryGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#StartLocationGUID').val([]); $('#StartLocationGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.StartLocationGUID)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.StartLocationGUID, new DropDownList().LocationsByCountries(new DropDownList().CountriesSyriaShuttle().Select(x => x.Value).ToList().ConvertAll(Guid.Parse).ToArray(), Guid.Parse("C970DDF5-31E5-47A1-BE76-AF15833D4E6A")), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#StartLocationGUID option').prop('selected', true); $('#StartLocationGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#CountryGUID1').val([]); $('#CountryGUID1').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.CountryGUID1)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.CountryGUID1, new DropDownList().CountriesSyriaShuttle(), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "UpdateDropDownListFromMultiple([$(this).val()], [{ DropDownListID : 'EndLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);"
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#CountryGUID1 option').prop('selected', true); $('#CountryGUID1').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#EndLocationGUID').val([]); $('#EndLocationGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.EndLocationGUID)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.EndLocationGUID, new DropDownList().LocationsByCountries(new DropDownList().CountriesSyriaShuttle().Select(x => x.Value).ToList().ConvertAll(Guid.Parse).ToArray(), Guid.Parse("C970DDF5-31E5-47A1-BE76-AF15833D4E6A")), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#EndLocationGUID option').prop('selected', true); $('#EndLocationGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:none" id="ChartPanel">
+                <div id="exTab1">
+                    <ul class="nav nav-pills">
+                        <li>
+                            <a href="#1a" data-toggle="tab">Dashboard Summary</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="tab-content clearfix">
+                    <div class="tab-pane active table-bordered" id="1a">
+
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-4" style="border-right:10px">
+                                <div id="Tab1Container1" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-8 " style="border-right:10px">
+                                <div id="Tab1Container2" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <hr />
+                        <div class="row">
+                            <div class="col-lg-4" style="border-right:10px">
+                                <div id="Tab1Container3" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+                                </div>
+
+                            </div>
+                            <div class="col-lg-8">
+                                <div id="Tab1Container4" style="height:350px; width:100%; margin: 0 auto;border:solid;border-color: #e6dfdf;">
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <hr />
+                        <div class="row">
+                            <div class="col-lg-4 " style="border-right:10px">
+                                <div id="Tab1Container7" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-8 " style="border-right:10px">
+                                <div id="Tab1Container8" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <hr />
+                        <div class="row">
+                            <div class="col-lg-6 " style="border-right:10px">
+                                <div id="Tab1Container5" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 " style="border-right:10px">
+                                <div id="Tab1Container6" style="height:350px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <hr />
+                        <div class="row">
+                            <div class="col-lg-12 " style="border-right:10px">
+                                <div id="Tab1Container9" style="height:500px; width:100%;padding-right:10px;border:solid;border-color: #e6dfdf;">
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        //InitDashboards();
+        //UpdateDropDownList([""], [{ DropDownListID: 'MedicalPharmacyGUID', Action: 'RemoteMedicalPharmacyGrorp' }]);
+        //UpdateDropDownList([""], [{ DropDownListID: 'MedicalItemGUID', Action: 'RemoteMedicalItemGrorp' }]);
+    });
+
+    function NoSelectionSelectAll() {
+
+        if ($('#EndLocationGUID > option:selected').length == 0) {
+            $('#EndLocationGUID option').prop('selected', true);
+            if ($('#CountryGUID1 > option:selected').length != 0) {
+                 $('#EndLocationGUID option:first').prop('selected', false);
+            }
+        }
+        if ($('#StartLocationGUID > option:selected').length == 0) {
+            $('#StartLocationGUID option').prop('selected', true);
+            if ($('#CountryGUID > option:selected').length != 0) {
+                $('#StartLocationGUID option:first').prop('selected', false);
+            }
+        }
+       
+    }
+
+    var Process = '<center><img src="../Assets/Images/loading.gif" style="top: 50%;position: absolute;" /></center>'
+    var totalChartNumber = 0;
+    var numberOfChartCompletet = 0;
+
+    var activeTab = '';
+    function HideShowFilters() {
+        var IntReport = $("#Report").val();
+        $("#ChartPanel").hide();
+        $('.nav-pills a[href="#1a"]').prop('disabled', true);
+        //$('.nav-pills a[href="#2a"]').prop('disabled', true);
+
+        //if (IntReport == '1') {
+        //    $("#MedicalBeneficiaryGUID").prop('disabled', true);
+        //    $("#MedicalBeneficiaryGUID").text('');
+        //}
+
+
+    }
+
+    function DecideWhenLoadComplete() {
+        numberOfChartCompletet++;
+        if (numberOfChartCompletet == totalChartNumber) {
+            $('#btnCharts').prop('disabled', false);
+            $('#ChartsLoad').html('');
+
+        }
+    }
+
+    function ClearAll() {
+        $("#MedicalBeneficiaryGUID").text('');
+        $('#Report li:first-child').attr("selected", "selected");
+    }
+
+    function FindPerent(FromList, Tragetlist, SplitSeq) {
+        // $('#' + Tragetlist + ' option[value="' + GroupVal + '"]').show().fadeOut(100).fadeIn(100);
+        var selected = $('#' + FromList).find('option:selected', this);
+        var results = [];
+
+        selected.each(function () {
+            results.push($(this).data('group'));
+        });
+
+        $('#' + Tragetlist).val([]);
+        $('#' + Tragetlist).val(results);
+    }
+
+    function FindPerentMultiple(FromList, Tragetlist) {
+        // $('#' + Tragetlist + ' option[value="' + GroupVal + '"]').show().fadeOut(100).fadeIn(100);
+        var selected = $('#' + FromList).find('option:selected', this);
+        var results = [];
+
+        selected.each(function () {
+            var array = $(this).data('group').split(',');
+            $.each(array, function (i) {
+                results.push(array[i]);
+            });
+        });
+
+        $('#' + Tragetlist).val([]);
+        $('#' + Tragetlist).val(results);
+        return true;
+    }
+
+    function GetTodayDate() {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        var tdate = new Date();
+        var dd = tdate.getDate(); //yields day
+        var MM = monthNames[tdate.getMonth()]; //yields month
+        var yyyy = tdate.getFullYear(); //yields year
+        var currentDate = MM + " " + dd + ", " + yyyy;
+
+        return currentDate;
+    }
+
+    function GetStartOfYearDate() {
+        var tdate = new Date();
+        var dd = 1; //yields day
+        var MM = "January"; //yields month
+        var yyyy = tdate.getFullYear(); //yields year
+        var currentDate = MM + " " + dd + ", " + yyyy;
+
+        return currentDate;
+    }
+
+    function InitDashboards() {
+
+        if ($("#StartDate").val() == "") { $("#StartDate").val(GetStartOfYearDate()); }
+        if ($("#EndDate").val() == "") { $("#EndDate").val(GetTodayDate()); }
+        var IntReport = $("#Report").val();
+
+        totalChartNumber = 0;
+
+        $('#ChartsLoad').append('<span class="loadingSpan" style="margin-left:4px;margin-top:2px;"> Please wait...</span>');
+        $('#ChartPanel').show();
+        $('html,body').animate({
+            scrollTop: $("#ChartPanel").offset().top + 370
+        }, 'slow');
+        numberOfChartCompletet = 0;
+        Highcharts.setOptions({
+            lang: {
+                thousandsSep: ','
+            }
+        });
+
+        NoSelectionSelectAll();
+
+
+        //Items Distributed
+        if (IntReport == '1') {
+            totalChartNumber = 9;
+            $('.nav-pills a[href="#1a"]').prop('disabled', false);
+            $('.nav-pills a[href="#1a"]').tab('show');
+            //Add the Proccessing IMG
+            $('#Tab1Container1').html('').append(Process);
+            $('#Tab1Container2').html('').append(Process);
+            $('#Tab1Container3').html('').append(Process);
+            $('#Tab1Container4').html('').append(Process);
+            $('#Tab1Container5').html('').append(Process);
+            $('#Tab1Container6').html('').append(Process);
+            $('#Tab1Container7').html('').append(Process);
+            $('#Tab1Container8').html('').append(Process);
+            $('#Tab1Container9').html('').append(Process);
+
+            //Call the Methods
+            GeShuttleTravelPurposes();
+            ShuttleEndLocationPerMonths();
+            ShuttleStartLocationPerMonths();
+            ShuttleVehicles();
+            ShuttleVehiclePerMonths();
+            ShuttleStaffPurposePerMonths();
+            ShuttleDrivers();
+            ShuttleDriverPerMonths();
+            ShuttleRoutePerMonths();
+        }
+
+        $('#btnCharts').prop('disabled', true);
+    };
+
+    function GeShuttleTravelPurposes() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+
+        $.ajax({
+            type: "Post",
+            url: "/SHM/Dashboards/GeShuttleTravelPurposes",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+
+                $('#Tab1Container1').removeClass('loadingSpanChart');
+
+                // Create the chart
+                    Highcharts.chart('Tab1Container1', {
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: 'Shuttle Travel Purposes'
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                        style: {
+                                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                        }
+                                    },
+                                    showInLegend: false
+                                }
+                            },
+                            series: [{
+                                name: 'Total',
+                                colorByPoint: true,
+                                data: Result
+                            }]
+                        });
+
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });        
+    };
+    function ShuttleStaffPurposePerMonths() {
+                var form = $('#ReportForm');
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: "Post",
+                    url: "/SHM/Dashboards/ShuttleStaffPurposePerMonths",
+                    dataType: "json",
+                    data: formData,
+                    success: function (response) {
+                        DecideWhenLoadComplete();
+                        var Result = response["Result"];
+                        var categories = response["categories"];
+
+                        $('#Tab1Container2').removeClass('loadingSpanChart');
+
+
+
+                        Highcharts.chart('Tab1Container2', {
+                            chart: {
+                                type: 'area'
+                            },
+                            title: {
+                                text: 'Shuttle Staff Purpose Per Months'
+                            },
+                            subtitle: {
+                                text: ''
+                            },
+                            xAxis: {
+                                categories: categories,
+                                tickmarkPlacement: 'on',
+                                title: {
+                                    enabled: false
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: ''
+                                },
+                                labels: {
+                                    formatter: function () {
+                                        return this.value;
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                split: false,
+                                valueSuffix: ''
+                            },
+                            plotOptions: {
+                                area: {
+                                    stacking: 'normal',
+                                    lineColor: '#666666',
+                                    lineWidth: 1,
+                                    marker: {
+                                        lineWidth: 1,
+                                        lineColor: '#666666'
+                                    }
+                                }
+                            },
+                            series: Result
+                        });
+
+                    },
+                    error: function (errorStatus) {
+                        DecideWhenLoadComplete();
+                    }
+                });
+    };
+    function ShuttleVehicles() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+
+        $.ajax({
+            type: "Post",
+            url: "/SHM/Dashboards/ShuttleVehicles",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+
+                $('#Tab1Container3').removeClass('loadingSpanChart');
+
+                // Create the chart
+                    Highcharts.chart('Tab1Container3', {
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: 'Vehicles Use Per Shuttle'
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                        style: {
+                                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                        }
+                                    },
+                                    showInLegend: false
+                                }
+                            },
+                            series: [{
+                                name: 'Total',
+                                colorByPoint: true,
+                                data: Result
+                            }]
+                        });
+
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });        
+    };
+    function ShuttleVehiclePerMonths() {
+                var form = $('#ReportForm');
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: "Post",
+                    url: "/SHM/Dashboards/ShuttleVehiclePerMonths",
+                    dataType: "json",
+                    data: formData,
+                    success: function (response) {
+                        DecideWhenLoadComplete();
+                        var Result = response["Result"];
+                        var categories = response["categories"];
+
+                        $('#Tab1Container4').removeClass('loadingSpanChart');
+
+
+
+                        Highcharts.chart('Tab1Container4', {
+                            chart: {
+                                type: 'area'
+                            },
+                            title: {
+                                text: 'Shuttle Vehicle Per Months'
+                            },
+                            subtitle: {
+                                text: ''
+                            },
+                            xAxis: {
+                                categories: categories,
+                                tickmarkPlacement: 'on',
+                                title: {
+                                    enabled: false
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: ''
+                                },
+                                labels: {
+                                    formatter: function () {
+                                        return this.value;
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                split: false,
+                                valueSuffix: ''
+                            },
+                            plotOptions: {
+                                area: {
+                                    stacking: 'normal',
+                                    lineColor: '#666666',
+                                    lineWidth: 1,
+                                    marker: {
+                                        lineWidth: 1,
+                                        lineColor: '#666666'
+                                    }
+                                }
+                            },
+                            series: Result
+                        });
+
+                    },
+                    error: function (errorStatus) {
+                        DecideWhenLoadComplete();
+                    }
+                });
+    };
+    function ShuttleDrivers() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+
+        $.ajax({
+            type: "Post",
+            url: "/SHM/Dashboards/ShuttleDrivers",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Result = response["Result"];
+                var categories = response["categories"];
+
+                $('#Tab1Container7').removeClass('loadingSpanChart');
+
+                // Create the chart
+                    Highcharts.chart('Tab1Container7', {
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: 'Driver Shuttles'
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                        style: {
+                                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                        }
+                                    },
+                                    showInLegend: false
+                                }
+                            },
+                            series: [{
+                                name: 'Total',
+                                colorByPoint: true,
+                                data: Result
+                            }]
+                        });
+
+
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });        
+    };
+    function ShuttleDriverPerMonths() {
+                var form = $('#ReportForm');
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: "Post",
+                    url: "/SHM/Dashboards/ShuttleDriverPerMonths",
+                    dataType: "json",
+                    data: formData,
+                    success: function (response) {
+                        DecideWhenLoadComplete();
+                        var Result = response["Result"];
+                        var categories = response["categories"];
+
+                        $('#Tab1Container8').removeClass('loadingSpanChart');
+
+
+
+                        Highcharts.chart('Tab1Container8', {
+                            chart: {
+                                type: 'area'
+                            },
+                            title: {
+                                text: 'Shuttle Drivers Per Month'
+                            },
+                            subtitle: {
+                                text: ''
+                            },
+                            xAxis: {
+                                categories: categories,
+                                tickmarkPlacement: 'on',
+                                title: {
+                                    enabled: false
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: ''
+                                },
+                                labels: {
+                                    formatter: function () {
+                                        return this.value;
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                split: false,
+                                valueSuffix: ''
+                            },
+                            plotOptions: {
+                                area: {
+                                    stacking: 'normal',
+                                    lineColor: '#666666',
+                                    lineWidth: 1,
+                                    marker: {
+                                        lineWidth: 1,
+                                        lineColor: '#666666'
+                                    }
+                                }
+                            },
+                            series: Result
+                        });
+
+                    },
+                    error: function (errorStatus) {
+                        DecideWhenLoadComplete();
+                    }
+                });
+    };
+
+    function ShuttleEndLocationPerMonths() {
+                var form = $('#ReportForm');
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: "Post",
+                    url: "/SHM/Dashboards/ShuttleEndLocationPerMonths",
+                    dataType: "json",
+                    data: formData,
+                    success: function (response) {
+                        DecideWhenLoadComplete();
+                        var Result = response["Result"];
+                        var categories = response["categories"];
+
+                        $('#Tab1Container5').removeClass('loadingSpanChart');
+
+
+
+                        Highcharts.chart('Tab1Container5', {
+                            chart: {
+                                type: 'area'
+                            },
+                            title: {
+                                text: 'Shuttle Drop Point Per Months'
+                            },
+                            subtitle: {
+                                text: ''
+                            },
+                            xAxis: {
+                                categories: categories,
+                                tickmarkPlacement: 'on',
+                                title: {
+                                    enabled: false
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: ''
+                                },
+                                labels: {
+                                    formatter: function () {
+                                        return this.value;
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                split: false,
+                                valueSuffix: ''
+                            },
+                            plotOptions: {
+                                area: {
+                                    stacking: 'normal',
+                                    lineColor: '#666666',
+                                    lineWidth: 1,
+                                    marker: {
+                                        lineWidth: 1,
+                                        lineColor: '#666666'
+                                    }
+                                }
+                            },
+                            series: Result
+                        });
+
+                    },
+                    error: function (errorStatus) {
+                        DecideWhenLoadComplete();
+                    }
+                });
+    };
+    function ShuttleStartLocationPerMonths() {
+                var form = $('#ReportForm');
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: "Post",
+                    url: "/SHM/Dashboards/ShuttleStartLocationPerMonths",
+                    dataType: "json",
+                    data: formData,
+                    success: function (response) {
+                        DecideWhenLoadComplete();
+                        var Result = response["Result"];
+                        var categories = response["categories"];
+
+                        $('#Tab1Container6').removeClass('loadingSpanChart');
+
+
+
+                        Highcharts.chart('Tab1Container6', {
+                            chart: {
+                                type: 'area'
+                            },
+                            title: {
+                                text: 'Shuttle Departure Point Per Months'
+                            },
+                            subtitle: {
+                                text: ''
+                            },
+                            xAxis: {
+                                categories: categories,
+                                tickmarkPlacement: 'on',
+                                title: {
+                                    enabled: false
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: ''
+                                },
+                                labels: {
+                                    formatter: function () {
+                                        return this.value;
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                split: false,
+                                valueSuffix: ''
+                            },
+                            plotOptions: {
+                                area: {
+                                    stacking: 'normal',
+                                    lineColor: '#666666',
+                                    lineWidth: 1,
+                                    marker: {
+                                        lineWidth: 1,
+                                        lineColor: '#666666'
+                                    }
+                                }
+                            },
+                            series: Result
+                        });
+
+                    },
+                    error: function (errorStatus) {
+                        DecideWhenLoadComplete();
+                    }
+                });
+    };
+    function ShuttleRoutePerMonths() {
+                var form = $('#ReportForm');
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: "Post",
+                    url: "/SHM/Dashboards/ShuttleRoutePerMonths",
+                    dataType: "json",
+                    data: formData,
+                    success: function (response) {
+                        DecideWhenLoadComplete();
+                        var Result = response["Result"];
+                        var categories = response["categories"];
+
+                        $('#Tab1Container9').removeClass('loadingSpanChart');
+
+
+
+                        Highcharts.chart('Tab1Container9', {
+                            chart: {
+                                type: 'area'
+                            },
+                            title: {
+                                text: 'Shuttle Route Per Months'
+                            },
+                            subtitle: {
+                                text: ''
+                            },
+                            xAxis: {
+                                categories: categories,
+                                tickmarkPlacement: 'on',
+                                title: {
+                                    enabled: false
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: ''
+                                },
+                                labels: {
+                                    formatter: function () {
+                                        return this.value;
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                split: false,
+                                valueSuffix: ''
+                            },
+                            plotOptions: {
+                                area: {
+                                    stacking: 'normal',
+                                    lineColor: '#666666',
+                                    lineWidth: 1,
+                                    marker: {
+                                        lineWidth: 1,
+                                        lineColor: '#666666'
+                                    }
+                                }
+                            },
+                            series: Result
+                        });
+
+                    },
+                    error: function (errorStatus) {
+                        DecideWhenLoadComplete();
+                    }
+                });
+    };
+
+</script>

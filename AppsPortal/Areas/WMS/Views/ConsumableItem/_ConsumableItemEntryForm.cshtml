@@ -1,0 +1,53 @@
+﻿
+@model EntryModelUpdateModel
+@using (Html.BeginForm("ConsumableItemEntry", "ConsumableItem", new { Area = "WMS" }, FormMethod.Post, new { id = "WarehouseConsumableItemEntry", @class = "main-form" }))
+{
+    <h3>Item Entry</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.ItemInputGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+
+
+
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.BillNumber)
+                @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.SourceGUID)
+                @Html.DropDownListFor(model => model.SourceGUID, new DropDownList().WarehouseEntrySourceTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.InputDate)
+                @Html.EditorFor(model => model.InputDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+          
+
+
+
+            <div id="ItemModelFormControls" class="form-group form-footer">
+                @if (Model.ItemInputGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.WarehouseItemsEntry.Create, Apps.WMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.WarehouseItemsEntry.Update, Apps.WMS)
+                        @Html.CreateNewButton(Permissions.ItemModel.Create, Apps.WMS, Url.Action("/Create", new { Area = "WMS" }))
+                        @Html.DeleteButton(Permissions.WarehouseItemsEntry.Delete, Apps.WMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.WarehouseItemsEntry.Restore, Apps.WMS)
+                    }
+                }
+                <a class="black" href="/WMS/ConsumableItemOverview">Back</a>
+                @*@Html.BackToList(Url.Action("ItemClassifications", "ItemModels", new { Area = "WMS" }))*@
+            </div>
+        </div>
+    </div>
+}

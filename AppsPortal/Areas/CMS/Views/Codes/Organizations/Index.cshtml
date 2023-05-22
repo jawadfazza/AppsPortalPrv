@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Organizations";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("54d9ee2f-c235-44e0-b0d0-2117ee8fb9dd")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter",DataTableNames.OrganizationsDataTable) class="filter-section" style="display:none;">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationDescription, DbColumnName = "OrganizationDescription", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationShortName, DbColumnName = "OrganizationShortName", FilterForDataType = FilterDataTypes.Text })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationFocusCode, DbColumnName = "OrganizationFocusCode", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationTypeGUID, DbColumnName = "OrganizationType", FilterForDataType = "Text", DataList = new DropDownList().OrganizationTypes(true), IsMultiple = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.OrganizationsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer",DataTableNames.OrganizationsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.OrganizationsDataTable)
+        @Html.IndexDatatableCreate(Permissions.Organizations.Create, Apps.CMS, Url.Action("Organizations/Create", "Codes", new { Area = "CMS" } ))
+        @Html.IndexDatatableDelete(Permissions.Organizations.Delete, Apps.CMS, DataTableNames.OrganizationsDataTable)
+        @Html.IndexDatatableRestor(Permissions.Organizations.Restore, Apps.CMS, DataTableNames.OrganizationsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.OrganizationsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.OrganizationsDataTable, FormController = "Codes", Area="CMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page })
+    </div>
+</div>

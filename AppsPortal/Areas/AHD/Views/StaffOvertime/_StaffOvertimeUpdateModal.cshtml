@@ -1,0 +1,225 @@
+﻿@model StaffOvertimeUpdateModel
+<style>
+    .timepicker {
+     /*   position: absolute;
+        z-index: 1000;
+        float: left;
+        width: 160px;
+        padding-bottom: 5px;
+        margin: 2px 0 0 0;
+        list-style: none;
+        font-size: 14px;
+        text-align: center;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        background-clip: padding-box;*/
+    }
+</style>
+<link href="~/Assets/Plugin/user-friendly-time-picker/dist/css/timepicker.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/user-friendly-time-picker/dist/js/timepicker.js"></script>
+@using (Html.BeginForm("StaffOvertime", "StaffOvertime", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffOvertimeForm" }))
+{
+    string ModalTitle = Model.StaffOvertimeGUID.ToString() == Guid.Empty.ToString() ? "New Overtime " : "Edit Overtime";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.StaffOvertimeGUID)
+    @Html.HiddenFor(model => model.Year)
+    @Html.HiddenFor(model => model.Month)
+    @Html.HiddenFor(model => model.CreatedByGUID)
+    @Html.HiddenFor(model => model.CreateDate)
+    @Html.HiddenFor(model => model.TotalHours)
+    @Html.HiddenFor(model => model.TotalPay)
+    @Html.HiddenFor(model => model.PerformedHours)
+
+    @Html.HiddenFor(model => model.CTO)
+    @Html.HiddenFor(model => model.GradeGUID)
+    @Html.HiddenFor(model => model.JobtitleGUID)
+    @Html.HiddenFor(model => model.UserGUID)
+    @Html.HiddenFor(model => model.OvertimeMonthCycleStaffGUID)
+    @Html.HiddenFor(model => model.OvertimeMonthCycleGUID)
+    @Html.HiddenFor(model => model.ActionDate)
+    @Html.HiddenFor(model => model.LastFlowStatusGUID)
+
+
+
+
+    @*@Html.HiddenFor(model => model.BlomShuttleDelegationDateGUID)*@
+
+
+
+    @*<div class="form-group">
+            @Html.Label("Staff")
+            @Html.DropDownListFor(model => model.UserGUID, new DropDownList().AdminHRStaff(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+
+        </div>*@
+    @*<div class="form-group">
+            <input type="text" id="demo" />
+
+            @Html.LabelFor(model => model.test)
+            @Html.EditorFor(model => model.test, new { htmlAttributes = new { @class = "form-control timepicker", autocomplete = "off" } })
+            <input type="text" class="timepicker" id="basicExample" />
+
+
+        </div>*@
+    @*<input type="text" class="bs-timepicker" />*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.TimeIn)
+        @*@Html.EditorFor(model => model.TimeIn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })*@
+        @Html.EditorFor(model => model.TimeIn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+
+
+    </div>
+
+
+    <div class="form-group">
+        @Html.Label("Hour In")
+        @Html.EditorFor(model => model.HourIn, new { htmlAttributes = new { @class = "bs-timepicker", autocomplete = "off" } })
+        @*@Html.EditorFor(model => model.TimeOut, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })*@
+        @Html.Label("Hour Out")
+        @Html.EditorFor(model => model.HourOut, new { htmlAttributes = new { @class = "bs-timepicker", autocomplete = "off" } })
+
+
+    </div>
+
+    <div class="form-group">
+
+        @*@Html.EditorFor(model => model.TimeOut, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })*@
+
+
+
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Staff Current Step")
+        @Html.DropDownListFor(model => model.StepGUID, new DropDownList().AHDOvertivemStaffStep(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Day Working Type")
+        @Html.DropDownListFor(model => model.DayWorkingTypeGUID, new DropDownList().AHDOvertivemWorkingDayType(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Overtime Reason")*
+        @Html.EditorFor(model => model.OvertimeReason, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.LastFlowStatusGUID)
+            @Html.DropDownListFor(model => model.LastFlowStatusGUID, new DropDownList().AHDActionFlowStatus(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+        </div>*@
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.SyrianIDNumber)
+            @Html.EditorFor(model => model.SyrianIDNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DelgationStaffTypeGUID)
+            @Html.DropDownListFor(model => model.DelgationStaffTypeGUID, new DropDownList().SalaryCycleTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+        </div>*@
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comments)
+        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+    </div>
+
+
+
+</div>
+    <div class="modal-footer form-footer">
+
+        @if (Model.StaffOvertimeGUID == Guid.Empty)
+        {
+
+            @Html.CreateButtonNoPermission()
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                if (Model.LastFlowStatusGUID == OvertimeFlowStatus.Submitted && Model.UserGUID == ViewBag.UserGUID)
+                {
+                    @Html.UpdateButton()
+                    @Html.DeleteSwitchButton()
+                }
+                else if (Model.LastFlowStatusGUID == OvertimeFlowStatus.PendingSupervisorReview)
+                {
+                    if (new CMS().HasAction(76, Guid.Parse("F18DEA05-B3E5-43E4-B1BC-900D0B66D77E"), null))
+                    {
+                        using (Html.BeginForm("StaffOvertimeReview", "StaffOvertime", new { Area = "AHD" }, FormMethod.Post, new { id = "staffConfirmReview" }))
+                        {
+                            @Html.FormHiddenFields(model => model.StaffOvertimeGUID)
+                            @Html.UpdateButton()
+                        }
+                    }
+
+
+                }
+                else if (Model.LastFlowStatusGUID == OvertimeFlowStatus.PendingCertifying)
+                {
+                    if (new CMS().HasAction(79, Guid.Parse("F18DEA05-B3E5-43E4-B1BC-900D0B66D77E"), null))
+                    {
+                        using (Html.BeginForm("StaffOvertimeCertifying", "StaffOvertime", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffOvertimeCertifying" }))
+                        {
+                            @Html.FormHiddenFields(model => model.StaffOvertimeGUID)
+                            @Html.UpdateButton()
+                        }
+                    }
+
+
+                }
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.StaffOvertime.Update, Apps.AHD)
+            }
+        }
+        @Html.CloseModalButton()
+        <input type="button" class="btn btn-danger" value="Delete Record" id="deleteovertimeId" />
+    </div>
+}
+<script>
+    $(function () {
+        $('.bs-timepicker').timepicker();
+    });
+    $("#deleteovertimeId").click(function () {
+        //alert(9);
+        // alert(myInternationalStaffEntitlementGUID);
+        $('#deleteovertimeId').hide();
+        var _StaffOvertimeGUID = $("#StaffOvertimeGUID").val();
+        $.ajax({
+            url: "/AHD/StaffOvertime/DeleteOvertimeRecord",
+            dataType: 'json',
+            type: "post",
+            data: { _StaffOvertimeGUID: _StaffOvertimeGUID },
+            success: function (data) {
+                if (data.success == 1) {
+                    Notify(NotificationType.Success, 'Record been deleted');
+                    $('#FormModal').modal('hide');
+                    InitializeCalendarLeavs();
+                }
+            }
+
+        });
+    });
+
+</script>

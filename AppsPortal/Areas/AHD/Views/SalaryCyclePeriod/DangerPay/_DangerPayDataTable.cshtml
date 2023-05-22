@@ -1,0 +1,26 @@
+﻿@model MasterRecordStatus
+@*<h3 class="Title">Bank Accounts</h3>*@
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      
+            <div id=@string.Format("{0}Filter", DataTableNames.CycleSalaryNationalStaffAllDangerPayDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FlowStatus, DbColumnName = "ConfirmationStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().DangerPayStaffConfirmationStatus(), IsMultiple = true, IsSearchable = true })
+                        @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffName, DbColumnName = "UserGUID", FilterForDataType = "Text", DataList = new DropDownList().Users(true), IsMultiple = true, IsSearchable = true })
+
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.CycleSalaryNationalStaffAllDangerPayDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.CycleSalaryNationalStaffAllDangerPayDataTable)
+                @*@Html.IndexDatatableCreateNoPermission("/AHD/StaffRAndRLeave/RAndRDocumentsCreate")*@
+                @*@Html.FieldDataTableCreate(Permissions.SalaryCycle.Delete, Apps.AHD, Url.Action("StaffHQSalaryCreate", "StaffSalary", new { FK = Model.ParentGUID }))*@
+                @*@Html.FieldDataTableDelete(Permissions.SalaryCycle.Delete, Apps.AHD, DataTableNames.CycleSalaryNationalStaffAllDangerPayDataTable)
+                @Html.FieldDataTableRestore(Permissions.SalaryCycle.Restore, Apps.AHD, DataTableNames.CycleSalaryNationalStaffAllDangerPayDataTable)*@
+                @Html.FieldDataTableRefresh(DataTableNames.CycleSalaryNationalStaffAllDangerPayDataTable)
+            </div>
+        
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.CycleSalaryNationalStaffAllDangerPayDataTable, FormController = "NationalStaffDangerPayCalcualtion", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

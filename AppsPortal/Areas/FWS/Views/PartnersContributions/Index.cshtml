@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Bills";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("9e5d10d0-47f7-4f63-9428-c5de2c9aeeda")
+<style>
+    /*.dataTables_scrollBody {
+        transform: rotateX(180deg);
+    }
+
+        .dataTables_scrollBody table {
+            transform: rotateX(180deg);
+        }*/
+
+    th, td {
+        white-space: nowrap;
+    }
+
+    .wrapper1, .wrapper2 {
+        width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+
+    .wrapper1 {
+        height: 20px;
+    }
+
+    .div1 {
+        height: 20px;
+    }
+
+    .div2 {
+        overflow: none;
+    }
+
+    /*.dataTables_wrapper .dataTables_info {
+        clear: none;
+        float: left;
+        padding-top: 8px;
+        padding-left: 30px;
+    }*/
+</style>
+<div class="" style=" padding-left: 15px; padding-right: 15px; ">
+    <div id=@string.Format("{0}Filter", DataTableNames.PartnersContributionsDataTable) class="filter-section" style="display: none; " DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.AgencyGUID, DbColumnName = "AgencyGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().FWSPartners() })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ImplementingPartner, DbColumnName = "ImplementingPartnerGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().FWSPartners() })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LocationLong, DbColumnName = "LocationLong", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().FWSLocationLong() })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.IsDataApproved, DbColumnName = "IsDataApproved", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = false, DataList = new DropDownList().DataApprovalStatus() })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.PartnersContributionsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.PartnersContributionsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.PartnersContributionsDataTable)
+        @Html.IndexDatatableCreate(Permissions.PartnersContribution.Create, Apps.FWS, "/FWS/PartnersContributions/Create")
+        @Html.IndexDatatableDelete(Permissions.PartnersContribution.Delete, Apps.FWS, DataTableNames.PartnersContributionsDataTable)
+        @Html.IndexDatatableRestor(Permissions.PartnersContribution.Restore, Apps.FWS, DataTableNames.PartnersContributionsDataTable)
+
+        @Html.IndexDatatableRefresh(DataTableNames.PartnersContributionsDataTable)
+        <a class='Modal-Link btn btn-primary' style="width:270px" href='javascript:void(0)' data-url="/FWS/PartnersContributions/Validate">Approve Partners' Contribution Data</a>
+        @if (new CMS().HasAction(Permissions.PartnersContribution.Upload, Apps.FWS))
+        {
+            <a class='Modal-Link btn btn-primary' style="width:250px" href='javascript:void(0)' data-url="/FWS/PartnersContributions/Upload">Upload Partners' Contribution File</a>
+        }
+    </div>
+    <div class="page--body">
+        <div class="wrapper1">
+            <div class="div1"></div>
+        </div>
+        <div class="wrapper2">
+            <div class="div2">
+                @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.PartnersContributionsDataTable, FormController = "PartnersContributions", Area = "FWS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#PartnersContributionsDataTable tbody').on('click', 'tr', function () {
+            $(this).find('input:checkbox').iCheck('check');
+        });
+        $('.wrapper1').on('scroll', function (e) {
+            $('.wrapper2').scrollLeft($('.wrapper1').scrollLeft());
+        });
+        $('.wrapper2').on('scroll', function (e) {
+            $('.wrapper1').scrollLeft($('.wrapper2').scrollLeft());
+        });
+
+        $('.div1').width('13000px');
+        $('.div2').width($('#PartnersContributionsDataTable').width());
+    })
+</script>

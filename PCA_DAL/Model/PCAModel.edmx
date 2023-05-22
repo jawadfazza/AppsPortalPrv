@@ -1,0 +1,742 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PCAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="codeOrganizations">
+          <Key>
+            <PropertyRef Name="OrganizationGUID" />
+          </Key>
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" />
+          <Property Name="OrganizationFocusCode" Type="nvarchar" MaxLength="60" />
+          <Property Name="OrganizationShortName" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="OrganizationWebSite" Type="nvarchar" MaxLength="150" />
+          <Property Name="DirectorName" Type="nvarchar" MaxLength="100" />
+          <Property Name="DirectorEmail" Type="nvarchar" MaxLength="150" />
+          <Property Name="DirectorPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="HQAddress" Type="nvarchar" MaxLength="512" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeOrganizationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codePartnersCapacityAssessmentDoc">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AssessmentTitle" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="AssessmentDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Sort" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codePartnersCapacityAssessmentDocRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codePartnersCapacityAssessmentDocLanguage">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocLanguageGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentDocGUID" Type="uniqueidentifier" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codePartnersCapacityAssessmentDocLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codePartnersCapacityAssessmentDocTitle">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocTitleGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocTitleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentDocGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SupportDocTitle" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codePartnersCapacityAssessmentDocTitleRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codePartnersCapacityAssessmentDocTitleLanguage">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocTitleLanguageGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocTitleLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentDocTitleGUID" Type="uniqueidentifier" />
+          <Property Name="Language" Type="nvarchar" MaxLength="5" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codePartnersCapacityAssessmentDocTitleLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPartnersCapacityAssessment">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnerName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Name_JobTitleOfPersone" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="IssueDate" Type="datetime" Nullable="false" />
+          <Property Name="PartnerConfirm" Type="bit" Nullable="false" />
+          <Property Name="AgancyConfirm" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPartnersCapacityAssessmentRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPartnersCapacityAssessmentDocAttach">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocAttachGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocAttachGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentDocTitleGUID" Type="uniqueidentifier" />
+          <Property Name="PartnersCapacityAssessmentGUID" Type="uniqueidentifier" />
+          <Property Name="Checked" Type="bit" />
+          <Property Name="Ext" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupportDocTitle" Type="nvarchar" MaxLength="200" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="dataPartnersCapacityAssessmentDocAttachRowVersion" Type="nchar" MaxLength="10" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPartnersCapacityAssessmentDocEvaluation">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocEvaluationGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocEvaluationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentDocGUID" Type="uniqueidentifier" />
+          <Property Name="PartnersCapacityAssessmentGUID" Type="uniqueidentifier" />
+          <Property Name="PartnerEvaluation" Type="bit" />
+          <Property Name="AgancyEvaluation" Type="bit" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPartnersCapacityAssessmentDocEvaluationRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPartnersCapacityAssessmentPartnershipAgency">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentPartnershipAgencyGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentPartnershipAgencyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Checked" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPartnersCapacityAssessmentPartnershipAgencyRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_codePartnersCapacityAssessmentDocLanguage_codePartnersCapacityAssessmentDoc">
+          <End Role="codePartnersCapacityAssessmentDoc" Type="Self.codePartnersCapacityAssessmentDoc" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codePartnersCapacityAssessmentDocLanguage" Type="Self.codePartnersCapacityAssessmentDocLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnersCapacityAssessmentDoc">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Principal>
+            <Dependent Role="codePartnersCapacityAssessmentDocLanguage">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codePartnersCapacityAssessmentDocTitle_codePartnersCapacityAssessmentDoc">
+          <End Role="codePartnersCapacityAssessmentDoc" Type="Self.codePartnersCapacityAssessmentDoc" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codePartnersCapacityAssessmentDocTitle" Type="Self.codePartnersCapacityAssessmentDocTitle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnersCapacityAssessmentDoc">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Principal>
+            <Dependent Role="codePartnersCapacityAssessmentDocTitle">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codePartnersCapacityAssessmentDocTitleLanguage_codePartnersCapacityAssessmentDocTitle">
+          <End Role="codePartnersCapacityAssessmentDocTitle" Type="Self.codePartnersCapacityAssessmentDocTitle" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codePartnersCapacityAssessmentDocTitleLanguage" Type="Self.codePartnersCapacityAssessmentDocTitleLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnersCapacityAssessmentDocTitle">
+              <PropertyRef Name="PartnersCapacityAssessmentDocTitleGUID" />
+            </Principal>
+            <Dependent Role="codePartnersCapacityAssessmentDocTitleLanguage">
+              <PropertyRef Name="PartnersCapacityAssessmentDocTitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnersCapacityAssessmentDocAttach_codePartnersCapacityAssessmentDocTitle">
+          <End Role="codePartnersCapacityAssessmentDocTitle" Type="Self.codePartnersCapacityAssessmentDocTitle" Multiplicity="0..1" />
+          <End Role="dataPartnersCapacityAssessmentDocAttach" Type="Self.dataPartnersCapacityAssessmentDocAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnersCapacityAssessmentDocTitle">
+              <PropertyRef Name="PartnersCapacityAssessmentDocTitleGUID" />
+            </Principal>
+            <Dependent Role="dataPartnersCapacityAssessmentDocAttach">
+              <PropertyRef Name="PartnersCapacityAssessmentDocTitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnersCapacityAssessmentDocAttach_dataPartnersCapacityAssessment">
+          <End Role="dataPartnersCapacityAssessment" Type="Self.dataPartnersCapacityAssessment" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataPartnersCapacityAssessmentDocAttach" Type="Self.dataPartnersCapacityAssessmentDocAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPartnersCapacityAssessment">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Principal>
+            <Dependent Role="dataPartnersCapacityAssessmentDocAttach">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnersCapacityAssessmentDocEvaluation_codePartnersCapacityAssessmentDoc">
+          <End Role="codePartnersCapacityAssessmentDoc" Type="Self.codePartnersCapacityAssessmentDoc" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataPartnersCapacityAssessmentDocEvaluation" Type="Self.dataPartnersCapacityAssessmentDocEvaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnersCapacityAssessmentDoc">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Principal>
+            <Dependent Role="dataPartnersCapacityAssessmentDocEvaluation">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnersCapacityAssessmentDocEvaluation_dataPartnersCapacityAssessment">
+          <End Role="dataPartnersCapacityAssessment" Type="Self.dataPartnersCapacityAssessment" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataPartnersCapacityAssessmentDocEvaluation" Type="Self.dataPartnersCapacityAssessmentDocEvaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPartnersCapacityAssessment">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Principal>
+            <Dependent Role="dataPartnersCapacityAssessmentDocEvaluation">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnersCapacityAssessmentPartnershipAgency_dataPartnersCapacityAssessment">
+          <End Role="dataPartnersCapacityAssessment" Type="Self.dataPartnersCapacityAssessment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataPartnersCapacityAssessmentPartnershipAgency" Type="Self.dataPartnersCapacityAssessmentPartnershipAgency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPartnersCapacityAssessment">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Principal>
+            <Dependent Role="dataPartnersCapacityAssessmentPartnershipAgency">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PCAModelStoreContainer">
+          <EntitySet Name="codeOrganizations" EntityType="Self.codeOrganizations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codePartnersCapacityAssessmentDoc" EntityType="Self.codePartnersCapacityAssessmentDoc" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codePartnersCapacityAssessmentDocLanguage" EntityType="Self.codePartnersCapacityAssessmentDocLanguage" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codePartnersCapacityAssessmentDocTitle" EntityType="Self.codePartnersCapacityAssessmentDocTitle" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codePartnersCapacityAssessmentDocTitleLanguage" EntityType="Self.codePartnersCapacityAssessmentDocTitleLanguage" Schema="code" store:Type="Tables" />
+          <EntitySet Name="dataPartnersCapacityAssessment" EntityType="Self.dataPartnersCapacityAssessment" Schema="PCA" store:Type="Tables" />
+          <EntitySet Name="dataPartnersCapacityAssessmentDocAttach" EntityType="Self.dataPartnersCapacityAssessmentDocAttach" Schema="PCA" store:Type="Tables" />
+          <EntitySet Name="dataPartnersCapacityAssessmentDocEvaluation" EntityType="Self.dataPartnersCapacityAssessmentDocEvaluation" Schema="PCA" store:Type="Tables" />
+          <EntitySet Name="dataPartnersCapacityAssessmentPartnershipAgency" EntityType="Self.dataPartnersCapacityAssessmentPartnershipAgency" Schema="PCA" store:Type="Tables" />
+          <AssociationSet Name="FK_codePartnersCapacityAssessmentDocLanguage_codePartnersCapacityAssessmentDoc" Association="Self.FK_codePartnersCapacityAssessmentDocLanguage_codePartnersCapacityAssessmentDoc">
+            <End Role="codePartnersCapacityAssessmentDoc" EntitySet="codePartnersCapacityAssessmentDoc" />
+            <End Role="codePartnersCapacityAssessmentDocLanguage" EntitySet="codePartnersCapacityAssessmentDocLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codePartnersCapacityAssessmentDocTitle_codePartnersCapacityAssessmentDoc" Association="Self.FK_codePartnersCapacityAssessmentDocTitle_codePartnersCapacityAssessmentDoc">
+            <End Role="codePartnersCapacityAssessmentDoc" EntitySet="codePartnersCapacityAssessmentDoc" />
+            <End Role="codePartnersCapacityAssessmentDocTitle" EntitySet="codePartnersCapacityAssessmentDocTitle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codePartnersCapacityAssessmentDocTitleLanguage_codePartnersCapacityAssessmentDocTitle" Association="Self.FK_codePartnersCapacityAssessmentDocTitleLanguage_codePartnersCapacityAssessmentDocTitle">
+            <End Role="codePartnersCapacityAssessmentDocTitle" EntitySet="codePartnersCapacityAssessmentDocTitle" />
+            <End Role="codePartnersCapacityAssessmentDocTitleLanguage" EntitySet="codePartnersCapacityAssessmentDocTitleLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnersCapacityAssessmentDocAttach_codePartnersCapacityAssessmentDocTitle" Association="Self.FK_dataPartnersCapacityAssessmentDocAttach_codePartnersCapacityAssessmentDocTitle">
+            <End Role="codePartnersCapacityAssessmentDocTitle" EntitySet="codePartnersCapacityAssessmentDocTitle" />
+            <End Role="dataPartnersCapacityAssessmentDocAttach" EntitySet="dataPartnersCapacityAssessmentDocAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnersCapacityAssessmentDocAttach_dataPartnersCapacityAssessment" Association="Self.FK_dataPartnersCapacityAssessmentDocAttach_dataPartnersCapacityAssessment">
+            <End Role="dataPartnersCapacityAssessment" EntitySet="dataPartnersCapacityAssessment" />
+            <End Role="dataPartnersCapacityAssessmentDocAttach" EntitySet="dataPartnersCapacityAssessmentDocAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnersCapacityAssessmentDocEvaluation_codePartnersCapacityAssessmentDoc" Association="Self.FK_dataPartnersCapacityAssessmentDocEvaluation_codePartnersCapacityAssessmentDoc">
+            <End Role="codePartnersCapacityAssessmentDoc" EntitySet="codePartnersCapacityAssessmentDoc" />
+            <End Role="dataPartnersCapacityAssessmentDocEvaluation" EntitySet="dataPartnersCapacityAssessmentDocEvaluation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnersCapacityAssessmentDocEvaluation_dataPartnersCapacityAssessment" Association="Self.FK_dataPartnersCapacityAssessmentDocEvaluation_dataPartnersCapacityAssessment">
+            <End Role="dataPartnersCapacityAssessment" EntitySet="dataPartnersCapacityAssessment" />
+            <End Role="dataPartnersCapacityAssessmentDocEvaluation" EntitySet="dataPartnersCapacityAssessmentDocEvaluation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnersCapacityAssessmentPartnershipAgency_dataPartnersCapacityAssessment" Association="Self.FK_dataPartnersCapacityAssessmentPartnershipAgency_dataPartnersCapacityAssessment">
+            <End Role="dataPartnersCapacityAssessment" EntitySet="dataPartnersCapacityAssessment" />
+            <End Role="dataPartnersCapacityAssessmentPartnershipAgency" EntitySet="dataPartnersCapacityAssessmentPartnershipAgency" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PCAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="codePartnersCapacityAssessmentDoc">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocGUID" Type="Guid" Nullable="false" />
+          <Property Name="AssessmentTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AssessmentDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codePartnersCapacityAssessmentDocRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codePartnersCapacityAssessmentDocTitle" Relationship="Self.FK_codePartnersCapacityAssessmentDocTitle_codePartnersCapacityAssessmentDoc" FromRole="codePartnersCapacityAssessmentDoc" ToRole="codePartnersCapacityAssessmentDocTitle" />
+          <NavigationProperty Name="codePartnersCapacityAssessmentDocLanguage" Relationship="PCAModel.FK_codePartnersCapacityAssessmentDocLanguage_codePartnersCapacityAssessmentDoc" FromRole="codePartnersCapacityAssessmentDoc" ToRole="codePartnersCapacityAssessmentDocLanguage" />
+          <NavigationProperty Name="dataPartnersCapacityAssessmentDocEvaluation" Relationship="PCAModel.FK_dataPartnersCapacityAssessmentDocEvaluation_codePartnersCapacityAssessmentDoc" FromRole="codePartnersCapacityAssessmentDoc" ToRole="dataPartnersCapacityAssessmentDocEvaluation" />
+        </EntityType>
+        <EntityType Name="codePartnersCapacityAssessmentDocTitle">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocTitleGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocTitleGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentDocGUID" Type="Guid" Nullable="false" />
+          <Property Name="SupportDocTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codePartnersCapacityAssessmentDocTitleRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codePartnersCapacityAssessmentDoc" Relationship="Self.FK_codePartnersCapacityAssessmentDocTitle_codePartnersCapacityAssessmentDoc" FromRole="codePartnersCapacityAssessmentDocTitle" ToRole="codePartnersCapacityAssessmentDoc" />
+          <NavigationProperty Name="codePartnersCapacityAssessmentDocTitleLanguage" Relationship="PCAModel.FK_codePartnersCapacityAssessmentDocTitleLanguage_codePartnersCapacityAssessmentDocTitle" FromRole="codePartnersCapacityAssessmentDocTitle" ToRole="codePartnersCapacityAssessmentDocTitleLanguage" />
+          <NavigationProperty Name="dataPartnersCapacityAssessmentDocAttach" Relationship="PCAModel.FK_dataPartnersCapacityAssessmentDocAttach_codePartnersCapacityAssessmentDocTitle" FromRole="codePartnersCapacityAssessmentDocTitle" ToRole="dataPartnersCapacityAssessmentDocAttach" />
+        </EntityType>
+        <Association Name="FK_codePartnersCapacityAssessmentDocTitle_codePartnersCapacityAssessmentDoc">
+          <End Role="codePartnersCapacityAssessmentDoc" Type="Self.codePartnersCapacityAssessmentDoc" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codePartnersCapacityAssessmentDocTitle" Type="Self.codePartnersCapacityAssessmentDocTitle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnersCapacityAssessmentDoc">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Principal>
+            <Dependent Role="codePartnersCapacityAssessmentDocTitle">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PCAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="codePartnersCapacityAssessmentDoc" EntityType="Self.codePartnersCapacityAssessmentDoc" />
+          <EntitySet Name="codePartnersCapacityAssessmentDocTitle" EntityType="Self.codePartnersCapacityAssessmentDocTitle" />
+          <AssociationSet Name="FK_codePartnersCapacityAssessmentDocTitle_codePartnersCapacityAssessmentDoc" Association="Self.FK_codePartnersCapacityAssessmentDocTitle_codePartnersCapacityAssessmentDoc">
+            <End Role="codePartnersCapacityAssessmentDoc" EntitySet="codePartnersCapacityAssessmentDoc" />
+            <End Role="codePartnersCapacityAssessmentDocTitle" EntitySet="codePartnersCapacityAssessmentDocTitle" />
+          </AssociationSet>
+          <EntitySet Name="codeOrganizations" EntityType="PCAModel.codeOrganizations" />
+          <EntitySet Name="codePartnersCapacityAssessmentDocLanguage" EntityType="PCAModel.codePartnersCapacityAssessmentDocLanguage" />
+          <EntitySet Name="codePartnersCapacityAssessmentDocTitleLanguage" EntityType="PCAModel.codePartnersCapacityAssessmentDocTitleLanguage" />
+          <AssociationSet Name="FK_codePartnersCapacityAssessmentDocLanguage_codePartnersCapacityAssessmentDoc" Association="PCAModel.FK_codePartnersCapacityAssessmentDocLanguage_codePartnersCapacityAssessmentDoc">
+            <End Role="codePartnersCapacityAssessmentDoc" EntitySet="codePartnersCapacityAssessmentDoc" />
+            <End Role="codePartnersCapacityAssessmentDocLanguage" EntitySet="codePartnersCapacityAssessmentDocLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codePartnersCapacityAssessmentDocTitleLanguage_codePartnersCapacityAssessmentDocTitle" Association="PCAModel.FK_codePartnersCapacityAssessmentDocTitleLanguage_codePartnersCapacityAssessmentDocTitle">
+            <End Role="codePartnersCapacityAssessmentDocTitle" EntitySet="codePartnersCapacityAssessmentDocTitle" />
+            <End Role="codePartnersCapacityAssessmentDocTitleLanguage" EntitySet="codePartnersCapacityAssessmentDocTitleLanguage" />
+          </AssociationSet>
+          <EntitySet Name="dataPartnersCapacityAssessment" EntityType="PCAModel.dataPartnersCapacityAssessment" />
+          <EntitySet Name="dataPartnersCapacityAssessmentDocAttach" EntityType="PCAModel.dataPartnersCapacityAssessmentDocAttach" />
+          <EntitySet Name="dataPartnersCapacityAssessmentDocEvaluation" EntityType="PCAModel.dataPartnersCapacityAssessmentDocEvaluation" />
+          <EntitySet Name="dataPartnersCapacityAssessmentPartnershipAgency" EntityType="PCAModel.dataPartnersCapacityAssessmentPartnershipAgency" />
+          <AssociationSet Name="FK_dataPartnersCapacityAssessmentDocEvaluation_codePartnersCapacityAssessmentDoc" Association="PCAModel.FK_dataPartnersCapacityAssessmentDocEvaluation_codePartnersCapacityAssessmentDoc">
+            <End Role="codePartnersCapacityAssessmentDoc" EntitySet="codePartnersCapacityAssessmentDoc" />
+            <End Role="dataPartnersCapacityAssessmentDocEvaluation" EntitySet="dataPartnersCapacityAssessmentDocEvaluation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnersCapacityAssessmentDocAttach_codePartnersCapacityAssessmentDocTitle" Association="PCAModel.FK_dataPartnersCapacityAssessmentDocAttach_codePartnersCapacityAssessmentDocTitle">
+            <End Role="codePartnersCapacityAssessmentDocTitle" EntitySet="codePartnersCapacityAssessmentDocTitle" />
+            <End Role="dataPartnersCapacityAssessmentDocAttach" EntitySet="dataPartnersCapacityAssessmentDocAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnersCapacityAssessmentDocAttach_dataPartnersCapacityAssessment" Association="PCAModel.FK_dataPartnersCapacityAssessmentDocAttach_dataPartnersCapacityAssessment">
+            <End Role="dataPartnersCapacityAssessment" EntitySet="dataPartnersCapacityAssessment" />
+            <End Role="dataPartnersCapacityAssessmentDocAttach" EntitySet="dataPartnersCapacityAssessmentDocAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnersCapacityAssessmentDocEvaluation_dataPartnersCapacityAssessment" Association="PCAModel.FK_dataPartnersCapacityAssessmentDocEvaluation_dataPartnersCapacityAssessment">
+            <End Role="dataPartnersCapacityAssessment" EntitySet="dataPartnersCapacityAssessment" />
+            <End Role="dataPartnersCapacityAssessmentDocEvaluation" EntitySet="dataPartnersCapacityAssessmentDocEvaluation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnersCapacityAssessmentPartnershipAgency_dataPartnersCapacityAssessment" Association="PCAModel.FK_dataPartnersCapacityAssessmentPartnershipAgency_dataPartnersCapacityAssessment">
+            <End Role="dataPartnersCapacityAssessment" EntitySet="dataPartnersCapacityAssessment" />
+            <End Role="dataPartnersCapacityAssessmentPartnershipAgency" EntitySet="dataPartnersCapacityAssessmentPartnershipAgency" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="codeOrganizations">
+          <Key>
+            <PropertyRef Name="OrganizationGUID" />
+          </Key>
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" />
+          <Property Name="OrganizationFocusCode" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationShortName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationWebSite" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DirectorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DirectorEmail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DirectorPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HQAddress" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="FactorGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeOrganizationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="codePartnersCapacityAssessmentDocLanguage">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocLanguageGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentDocGUID" Type="Guid" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codePartnersCapacityAssessmentDocLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codePartnersCapacityAssessmentDoc" Relationship="PCAModel.FK_codePartnersCapacityAssessmentDocLanguage_codePartnersCapacityAssessmentDoc" FromRole="codePartnersCapacityAssessmentDocLanguage" ToRole="codePartnersCapacityAssessmentDoc" />
+        </EntityType>
+        <EntityType Name="codePartnersCapacityAssessmentDocTitleLanguage">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocTitleLanguageGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocTitleLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentDocTitleGUID" Type="Guid" />
+          <Property Name="Language" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codePartnersCapacityAssessmentDocTitleLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codePartnersCapacityAssessmentDocTitle" Relationship="PCAModel.FK_codePartnersCapacityAssessmentDocTitleLanguage_codePartnersCapacityAssessmentDocTitle" FromRole="codePartnersCapacityAssessmentDocTitleLanguage" ToRole="codePartnersCapacityAssessmentDocTitle" />
+        </EntityType>
+        <Association Name="FK_codePartnersCapacityAssessmentDocLanguage_codePartnersCapacityAssessmentDoc">
+          <End Type="PCAModel.codePartnersCapacityAssessmentDoc" Role="codePartnersCapacityAssessmentDoc" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCAModel.codePartnersCapacityAssessmentDocLanguage" Role="codePartnersCapacityAssessmentDocLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnersCapacityAssessmentDoc">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Principal>
+            <Dependent Role="codePartnersCapacityAssessmentDocLanguage">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codePartnersCapacityAssessmentDocTitleLanguage_codePartnersCapacityAssessmentDocTitle">
+          <End Type="PCAModel.codePartnersCapacityAssessmentDocTitle" Role="codePartnersCapacityAssessmentDocTitle" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCAModel.codePartnersCapacityAssessmentDocTitleLanguage" Role="codePartnersCapacityAssessmentDocTitleLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnersCapacityAssessmentDocTitle">
+              <PropertyRef Name="PartnersCapacityAssessmentDocTitleGUID" />
+            </Principal>
+            <Dependent Role="codePartnersCapacityAssessmentDocTitleLanguage">
+              <PropertyRef Name="PartnersCapacityAssessmentDocTitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataPartnersCapacityAssessment">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnerName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Name_JobTitleOfPersone" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PartnerConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="AgancyConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPartnersCapacityAssessmentRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataPartnersCapacityAssessmentDocAttach" Relationship="PCAModel.FK_dataPartnersCapacityAssessmentDocAttach_dataPartnersCapacityAssessment" FromRole="dataPartnersCapacityAssessment" ToRole="dataPartnersCapacityAssessmentDocAttach" />
+          <NavigationProperty Name="dataPartnersCapacityAssessmentDocEvaluation" Relationship="PCAModel.FK_dataPartnersCapacityAssessmentDocEvaluation_dataPartnersCapacityAssessment" FromRole="dataPartnersCapacityAssessment" ToRole="dataPartnersCapacityAssessmentDocEvaluation" />
+          <NavigationProperty Name="dataPartnersCapacityAssessmentPartnershipAgency" Relationship="PCAModel.FK_dataPartnersCapacityAssessmentPartnershipAgency_dataPartnersCapacityAssessment" FromRole="dataPartnersCapacityAssessment" ToRole="dataPartnersCapacityAssessmentPartnershipAgency" />
+        </EntityType>
+        <EntityType Name="dataPartnersCapacityAssessmentDocAttach">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocAttachGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocAttachGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentDocTitleGUID" Type="Guid" />
+          <Property Name="PartnersCapacityAssessmentGUID" Type="Guid" />
+          <Property Name="Checked" Type="Boolean" />
+          <Property Name="Ext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupportDocTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="dataPartnersCapacityAssessmentDocAttachRowVersion" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codePartnersCapacityAssessmentDocTitle" Relationship="PCAModel.FK_dataPartnersCapacityAssessmentDocAttach_codePartnersCapacityAssessmentDocTitle" FromRole="dataPartnersCapacityAssessmentDocAttach" ToRole="codePartnersCapacityAssessmentDocTitle" />
+          <NavigationProperty Name="dataPartnersCapacityAssessment" Relationship="PCAModel.FK_dataPartnersCapacityAssessmentDocAttach_dataPartnersCapacityAssessment" FromRole="dataPartnersCapacityAssessmentDocAttach" ToRole="dataPartnersCapacityAssessment" />
+        </EntityType>
+        <EntityType Name="dataPartnersCapacityAssessmentDocEvaluation">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentDocEvaluationGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentDocEvaluationGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentDocGUID" Type="Guid" />
+          <Property Name="PartnersCapacityAssessmentGUID" Type="Guid" />
+          <Property Name="PartnerEvaluation" Type="Boolean" />
+          <Property Name="AgancyEvaluation" Type="Boolean" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPartnersCapacityAssessmentDocEvaluationRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codePartnersCapacityAssessmentDoc" Relationship="PCAModel.FK_dataPartnersCapacityAssessmentDocEvaluation_codePartnersCapacityAssessmentDoc" FromRole="dataPartnersCapacityAssessmentDocEvaluation" ToRole="codePartnersCapacityAssessmentDoc" />
+          <NavigationProperty Name="dataPartnersCapacityAssessment" Relationship="PCAModel.FK_dataPartnersCapacityAssessmentDocEvaluation_dataPartnersCapacityAssessment" FromRole="dataPartnersCapacityAssessmentDocEvaluation" ToRole="dataPartnersCapacityAssessment" />
+        </EntityType>
+        <EntityType Name="dataPartnersCapacityAssessmentPartnershipAgency">
+          <Key>
+            <PropertyRef Name="PartnersCapacityAssessmentPartnershipAgencyGUID" />
+          </Key>
+          <Property Name="PartnersCapacityAssessmentPartnershipAgencyGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnersCapacityAssessmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="Checked" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPartnersCapacityAssessmentPartnershipAgencyRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataPartnersCapacityAssessment" Relationship="PCAModel.FK_dataPartnersCapacityAssessmentPartnershipAgency_dataPartnersCapacityAssessment" FromRole="dataPartnersCapacityAssessmentPartnershipAgency" ToRole="dataPartnersCapacityAssessment" />
+        </EntityType>
+        <Association Name="FK_dataPartnersCapacityAssessmentDocEvaluation_codePartnersCapacityAssessmentDoc">
+          <End Type="PCAModel.codePartnersCapacityAssessmentDoc" Role="codePartnersCapacityAssessmentDoc" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCAModel.dataPartnersCapacityAssessmentDocEvaluation" Role="dataPartnersCapacityAssessmentDocEvaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnersCapacityAssessmentDoc">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Principal>
+            <Dependent Role="dataPartnersCapacityAssessmentDocEvaluation">
+              <PropertyRef Name="PartnersCapacityAssessmentDocGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnersCapacityAssessmentDocAttach_codePartnersCapacityAssessmentDocTitle">
+          <End Type="PCAModel.codePartnersCapacityAssessmentDocTitle" Role="codePartnersCapacityAssessmentDocTitle" Multiplicity="0..1" />
+          <End Type="PCAModel.dataPartnersCapacityAssessmentDocAttach" Role="dataPartnersCapacityAssessmentDocAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnersCapacityAssessmentDocTitle">
+              <PropertyRef Name="PartnersCapacityAssessmentDocTitleGUID" />
+            </Principal>
+            <Dependent Role="dataPartnersCapacityAssessmentDocAttach">
+              <PropertyRef Name="PartnersCapacityAssessmentDocTitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnersCapacityAssessmentDocAttach_dataPartnersCapacityAssessment">
+          <End Type="PCAModel.dataPartnersCapacityAssessment" Role="dataPartnersCapacityAssessment" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCAModel.dataPartnersCapacityAssessmentDocAttach" Role="dataPartnersCapacityAssessmentDocAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPartnersCapacityAssessment">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Principal>
+            <Dependent Role="dataPartnersCapacityAssessmentDocAttach">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnersCapacityAssessmentDocEvaluation_dataPartnersCapacityAssessment">
+          <End Type="PCAModel.dataPartnersCapacityAssessment" Role="dataPartnersCapacityAssessment" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCAModel.dataPartnersCapacityAssessmentDocEvaluation" Role="dataPartnersCapacityAssessmentDocEvaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPartnersCapacityAssessment">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Principal>
+            <Dependent Role="dataPartnersCapacityAssessmentDocEvaluation">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnersCapacityAssessmentPartnershipAgency_dataPartnersCapacityAssessment">
+          <End Type="PCAModel.dataPartnersCapacityAssessment" Role="dataPartnersCapacityAssessment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCAModel.dataPartnersCapacityAssessmentPartnershipAgency" Role="dataPartnersCapacityAssessmentPartnershipAgency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPartnersCapacityAssessment">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Principal>
+            <Dependent Role="dataPartnersCapacityAssessmentPartnershipAgency">
+              <PropertyRef Name="PartnersCapacityAssessmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PCAModelStoreContainer" CdmEntityContainer="PCAEntities">
+          <EntitySetMapping Name="codePartnersCapacityAssessmentDoc">
+            <EntityTypeMapping TypeName="PCAModel.codePartnersCapacityAssessmentDoc">
+              <MappingFragment StoreEntitySet="codePartnersCapacityAssessmentDoc">
+                <ScalarProperty Name="PartnersCapacityAssessmentDocGUID" ColumnName="PartnersCapacityAssessmentDocGUID" />
+                <ScalarProperty Name="AssessmentTitle" ColumnName="AssessmentTitle" />
+                <ScalarProperty Name="AssessmentDescription" ColumnName="AssessmentDescription" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codePartnersCapacityAssessmentDocRowVersion" ColumnName="codePartnersCapacityAssessmentDocRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codePartnersCapacityAssessmentDocTitle">
+            <EntityTypeMapping TypeName="PCAModel.codePartnersCapacityAssessmentDocTitle">
+              <MappingFragment StoreEntitySet="codePartnersCapacityAssessmentDocTitle">
+                <ScalarProperty Name="PartnersCapacityAssessmentDocTitleGUID" ColumnName="PartnersCapacityAssessmentDocTitleGUID" />
+                <ScalarProperty Name="PartnersCapacityAssessmentDocGUID" ColumnName="PartnersCapacityAssessmentDocGUID" />
+                <ScalarProperty Name="SupportDocTitle" ColumnName="SupportDocTitle" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codePartnersCapacityAssessmentDocTitleRowVersion" ColumnName="codePartnersCapacityAssessmentDocTitleRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizations">
+            <EntityTypeMapping TypeName="PCAModel.codeOrganizations">
+              <MappingFragment StoreEntitySet="codeOrganizations">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeOrganizationsRowVersion" ColumnName="codeOrganizationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="HQAddress" ColumnName="HQAddress" />
+                <ScalarProperty Name="DirectorPhone" ColumnName="DirectorPhone" />
+                <ScalarProperty Name="DirectorEmail" ColumnName="DirectorEmail" />
+                <ScalarProperty Name="DirectorName" ColumnName="DirectorName" />
+                <ScalarProperty Name="OrganizationWebSite" ColumnName="OrganizationWebSite" />
+                <ScalarProperty Name="OrganizationShortName" ColumnName="OrganizationShortName" />
+                <ScalarProperty Name="OrganizationFocusCode" ColumnName="OrganizationFocusCode" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="OrganizationTypeGUID" ColumnName="OrganizationTypeGUID" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codePartnersCapacityAssessmentDocLanguage">
+            <EntityTypeMapping TypeName="PCAModel.codePartnersCapacityAssessmentDocLanguage">
+              <MappingFragment StoreEntitySet="codePartnersCapacityAssessmentDocLanguage">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codePartnersCapacityAssessmentDocLanguageRowVersion" ColumnName="codePartnersCapacityAssessmentDocLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="PartnersCapacityAssessmentDocGUID" ColumnName="PartnersCapacityAssessmentDocGUID" />
+                <ScalarProperty Name="PartnersCapacityAssessmentDocLanguageGUID" ColumnName="PartnersCapacityAssessmentDocLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codePartnersCapacityAssessmentDocTitleLanguage">
+            <EntityTypeMapping TypeName="PCAModel.codePartnersCapacityAssessmentDocTitleLanguage">
+              <MappingFragment StoreEntitySet="codePartnersCapacityAssessmentDocTitleLanguage">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codePartnersCapacityAssessmentDocTitleLanguageRowVersion" ColumnName="codePartnersCapacityAssessmentDocTitleLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="PartnersCapacityAssessmentDocTitleGUID" ColumnName="PartnersCapacityAssessmentDocTitleGUID" />
+                <ScalarProperty Name="PartnersCapacityAssessmentDocTitleLanguageGUID" ColumnName="PartnersCapacityAssessmentDocTitleLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPartnersCapacityAssessment">
+            <EntityTypeMapping TypeName="PCAModel.dataPartnersCapacityAssessment">
+              <MappingFragment StoreEntitySet="dataPartnersCapacityAssessment">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPartnersCapacityAssessmentRowVersion" ColumnName="dataPartnersCapacityAssessmentRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AgancyConfirm" ColumnName="AgancyConfirm" />
+                <ScalarProperty Name="PartnerConfirm" ColumnName="PartnerConfirm" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Name_JobTitleOfPersone" ColumnName="Name_JobTitleOfPersone" />
+                <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+                <ScalarProperty Name="PartnersCapacityAssessmentGUID" ColumnName="PartnersCapacityAssessmentGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPartnersCapacityAssessmentDocAttach">
+            <EntityTypeMapping TypeName="PCAModel.dataPartnersCapacityAssessmentDocAttach">
+              <MappingFragment StoreEntitySet="dataPartnersCapacityAssessmentDocAttach">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPartnersCapacityAssessmentDocAttachRowVersion" ColumnName="dataPartnersCapacityAssessmentDocAttachRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SupportDocTitle" ColumnName="SupportDocTitle" />
+                <ScalarProperty Name="Ext" ColumnName="Ext" />
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
+                <ScalarProperty Name="PartnersCapacityAssessmentGUID" ColumnName="PartnersCapacityAssessmentGUID" />
+                <ScalarProperty Name="PartnersCapacityAssessmentDocTitleGUID" ColumnName="PartnersCapacityAssessmentDocTitleGUID" />
+                <ScalarProperty Name="PartnersCapacityAssessmentDocAttachGUID" ColumnName="PartnersCapacityAssessmentDocAttachGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPartnersCapacityAssessmentDocEvaluation">
+            <EntityTypeMapping TypeName="PCAModel.dataPartnersCapacityAssessmentDocEvaluation">
+              <MappingFragment StoreEntitySet="dataPartnersCapacityAssessmentDocEvaluation">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPartnersCapacityAssessmentDocEvaluationRowVersion" ColumnName="dataPartnersCapacityAssessmentDocEvaluationRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="AgancyEvaluation" ColumnName="AgancyEvaluation" />
+                <ScalarProperty Name="PartnerEvaluation" ColumnName="PartnerEvaluation" />
+                <ScalarProperty Name="PartnersCapacityAssessmentGUID" ColumnName="PartnersCapacityAssessmentGUID" />
+                <ScalarProperty Name="PartnersCapacityAssessmentDocGUID" ColumnName="PartnersCapacityAssessmentDocGUID" />
+                <ScalarProperty Name="PartnersCapacityAssessmentDocEvaluationGUID" ColumnName="PartnersCapacityAssessmentDocEvaluationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPartnersCapacityAssessmentPartnershipAgency">
+            <EntityTypeMapping TypeName="PCAModel.dataPartnersCapacityAssessmentPartnershipAgency">
+              <MappingFragment StoreEntitySet="dataPartnersCapacityAssessmentPartnershipAgency">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPartnersCapacityAssessmentPartnershipAgencyRowVersion" ColumnName="dataPartnersCapacityAssessmentPartnershipAgencyRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
+                <ScalarProperty Name="PartnersCapacityAssessmentGUID" ColumnName="PartnersCapacityAssessmentGUID" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+                <ScalarProperty Name="PartnersCapacityAssessmentPartnershipAgencyGUID" ColumnName="PartnersCapacityAssessmentPartnershipAgencyGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

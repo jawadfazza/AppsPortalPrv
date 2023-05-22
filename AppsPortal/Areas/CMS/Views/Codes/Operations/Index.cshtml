@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Operations";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("f7840825-a0af-4b71-9920-c142798c4127")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter",DataTableNames.OperationsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OperationDescription, DbColumnName = "OperationName", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.OperationsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer",DataTableNames.OperationsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.OperationsDataTable)
+        @Html.IndexDatatableCreate(Permissions.Operations.Create, Apps.CMS, Url.Action("Operations/Create/", "Codes", new { Area = "CMS" } ))
+        @Html.IndexDatatableDelete(Permissions.Operations.Delete, Apps.CMS, DataTableNames.OperationsDataTable)
+        @Html.IndexDatatableRestor(Permissions.Operations.Restore, Apps.CMS, DataTableNames.OperationsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.OperationsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.OperationsDataTable, FormController = "Codes", Area="CMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 3 })
+    </div>
+</div>

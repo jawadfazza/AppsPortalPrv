@@ -1,0 +1,38 @@
+﻿
+<div id="testSideMenu" style="display:none;">
+    <div class="SideMenuHeader">
+        <img src="/Assets/Images/img.png" style="max-width:25%" alt="Online Users" class="img-thumbnail"><br>
+        <a href="#" target="_blank" class="navbar-link">Online Users</a>
+    </div>
+   
+    <div class="SideMenuBody" style="margin-top:20px;">
+
+        @{
+            List<UserModel> Users = new CMS().GetOnlineUsers();
+            foreach (var user in Users)
+            {
+                string profilePhoto = new Portal().ProfilePhoto(user.UserGUID);
+                <div class="OnlineUsersList" style="display:inline-block">
+                    <img src="@profilePhoto" style="max-width:10%; float:left" alt="Online Users" class="img-thumbnail"><br>
+                    <span style="float:left;margin-right:0px;margin-top: -20px;margin-left: 10px;" class="S_49a53be3-fca7-407d-8701-a6855c63774e"></span>
+                    <span style="float:left;margin-top: -20px;margin-left: 10px;">@user.FullName</span>
+                </div>
+            }
+        }
+
+       
+        
+        @*<div class="list-group-item">
+            <span style="" class="S_49a53be3-fca7-407d-8701-a6855c63774e"></span>
+            Ayas Al-Chalabee
+        </div>
+
+        <div class="list-group-item">
+            <span style="" class="S_49a53be3-fca7-407d-8701-a6855c63774e"></span>
+            Jawad Al-Fazzaa
+        </div>*@
+
+    </div>
+
+</div>
+<!--/Test -->

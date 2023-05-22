@@ -1,0 +1,23 @@
+﻿@model CodeBankUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.BankGUID == Guid.Empty) ? "New  Bank " : "Edit Bank"; }
+
+@Html.PageHeader("fedadd76-3265-4c70-b45e-06b9d87fe508")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/ORG/Views/CodeBanks/_CodeBankForm.cshtml")
+
+            @if (Model.BankGUID != Guid.Empty && Model.Active)
+            {
+                <div id="CodeBanksFormControls">
+                    @Html.Partial("~/Areas/ORG/Views/CodeBanks/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.BankGUID, IsParentActive = Model.Active })
+                </div>
+            }
+          
+     
+    </div>
+</div>
+

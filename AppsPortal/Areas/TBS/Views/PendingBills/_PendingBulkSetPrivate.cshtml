@@ -1,0 +1,15 @@
+﻿@Html.Partial("_ModalHeader", "Mark as private")
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">Mark selected record(s) bills as private.</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="PendingBillsDataTableFormControl" class="modal-footer form-footer">
+    <input id="btn-validate-data" type="submit" class="btn btn-primary" onclick="SubmitForm(this)" value="Mark as private" data-submittype="SetPrivate" data-refreshdatatable="PendingBillsDataTable" form="PendingBillsDataTableForm">
+    @Html.CloseModalButton()
+</div>

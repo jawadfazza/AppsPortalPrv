@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+
+<h3 class="Title">PPA Files</h3>
+@if (Model.IsParentActive)
+{
+    <div id=@string.Format("{0}Filter", DataTableNames.PPAUserFilesDataTable) class="filter-section" style="display:none;">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_RecordStatus", DataTableNames.PPAUserFilesDataTable)
+            </div>
+        </div>
+    </div>
+    <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.PPAUserFilesDataTable)">
+        @if (Model.OptionalParameter.Value == PPAUserAccessType.FullAccess || Model.OptionalParameter.Value == PPAUserAccessType.CC1WithAccess || new CMS().HasAction(Permissions.PPAManagement.FullReadWrite, Apps.PPA))
+        {
+            @Html.FieldDataTableFilter(DataTableNames.PPAUserFilesDataTable)
+            @Html.FieldDataTableCreate(Permissions.PPAManagement.Create, Apps.PPA, Url.Action("PPAFilesCreate", "FilesProcess", new { Area = "PPA", FK = Model.ParentGUID }))
+            @Html.FieldDataTableDelete(Permissions.PPAManagement.Delete, Apps.PPA, DataTableNames.PPAFilesDataTable)
+            @Html.FieldDataTableRestore(Permissions.PPAManagement.Restore, Apps.PPA, DataTableNames.PPAFilesDataTable)
+        }
+        @Html.FieldDataTableRefresh(DataTableNames.PPAUserFilesDataTable)
+    </div>
+}
+@Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.PPAUserFilesDataTable, FormController = "FilesProcess", Area = "PPA", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })

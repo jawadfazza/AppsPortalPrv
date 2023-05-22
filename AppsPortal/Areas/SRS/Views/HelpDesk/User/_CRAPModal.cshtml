@@ -1,0 +1,182 @@
+﻿@model HelpDeskChangeRequestActionPlanModel
+
+@using (Html.BeginForm("", "", new { Area = "SRS" }, FormMethod.Post, new { id = "CRAPFormModal" }))
+{
+    string ModalTitle = "Action Plan";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ChangeRequestAPGUID)
+        @Html.HiddenFor(model => model.ChangeRequestGUID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.APUnit)
+            @Html.DropDownListFor(model => model.APUnit, new DropDownList().Departments(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-single",
+           onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'APWho', Action : 'RemoteStaffByDepartment'}]);"
+       })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.APWho)
+            @Html.DropDownListFor(model => model.APWho, new DropDownList().Empty(), "", new
+      {
+          multiple = "multiple",
+          style = "width:100%",
+          @class = "form-control select2-basic-search",
+      })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.APWhat)
+            @Html.TextAreaFor(model => model.APWhat, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 3 })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.APWhen)
+            @Html.EditorFor(model => model.APWhen, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.APHow)
+            @Html.TextAreaFor(model => model.APHow, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 3 })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.APDuration)
+            @Html.DropDownListFor(model => model.APDuration, new DropDownList().NumbersList(4), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.APComments)
+            @Html.TextAreaFor(model => model.APComments, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 3 })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.APCompleted)
+            @Html.EditorFor(model => model.APCompleted, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        <input id="add-ap-list" type="button" value="Add" class="btn btn-primary" />
+        @Html.CloseModalButton()
+    </div>
+}
+<script type="text/javascript">
+
+    $(function () {
+        $('#CRAPFormModal').submit(function (e) {
+            e.preventDefault();
+        });
+
+        $('#add-ap-list').click(function (e) {
+            e.preventDefault();
+
+            var APUnitValue = $('#APUnit').val();
+            var APUnitDisplay = $('#APUnit :selected').text();
+
+            var APWhoValue = $('#APWho').val();
+            var APWhoDisplay = $('#APWho :selected').text();
+
+            var APWhatValue = $('#APWhat').val();
+            var APWhatDisplay = $('#APWhat').val();
+
+            var APWhenValue = $('#APWhen').val();
+            var APWhenDisplay = $('#APWhen').val();
+
+            var APHowValue = $('#APHow').val();
+            var APHowDisplay = $('#APHow').val();
+
+            var APDurationValue = $('#APDuration').val();
+            var APDurationDisplay = $('#APDuration :selected').text();
+
+            var APCommentsValue = $('#APComments').val();
+            var APCommentsDisplay = $('#APComments').val();
+
+            var APCompletedValue = $('#APCompleted').val();
+            var APCompletedDisplay = $('#APCompleted').val();
+
+
+            html = '<tr class="ap-rows">';
+
+            //APCompleted
+            html += '<td style="word-wrap:break-word">';
+            html += '' + APCompletedDisplay + '';
+            html += '<input type="hidden" id="helpDeskChangeRequestModel.CRActionPlanList[XXXXX].APCompleted" name="helpDeskChangeRequestModel.CRActionPlanList[0].APCompleted" value="" />';
+            html += '</td>';
+
+
+            //APUnit
+            html += '<td style="word-wrap:break-word">';
+            html += '' + APUnitDisplay + '';
+            html += '<input type="hidden" id="helpDeskChangeRequestModel.CRActionPlanList[XXXXX].APUnit" name="helpDeskChangeRequestModel.CRActionPlanList[0].APUnit" value="" />';
+            html += '</td>';
+
+
+
+            //APWho
+            html += '<td style="word-wrap:break-word">';
+            html += '' + APWhoDisplay + '';
+            html += '<input type="hidden" id="helpDeskChangeRequestModel.CRActionPlanList[XXXXX].APWho" name="helpDeskChangeRequestModel.CRActionPlanList[0].APWho" value="" />';
+            html += '</td>';
+
+
+
+            //APWhat
+            html += '<td style="word-wrap:break-word">';
+            html += '' + APWhatDisplay + '';
+            html += '<input type="hidden" id="helpDeskChangeRequestModel.CRActionPlanList[XXXXX].APWhat" name="helpDeskChangeRequestModel.CRActionPlanList[0].APWhat" value="" />';
+            html += '</td>';
+
+
+
+            //APWhen
+            html += '<td style="word-wrap:break-word">';
+            html += '' + APWhenDisplay + '';
+            html += '<input type="hidden" id="helpDeskChangeRequestModel.CRActionPlanList[XXXXX].APWhen" name="helpDeskChangeRequestModel.CRActionPlanList[0].APWhen" value="" />';
+            html += '</td>';
+
+
+
+            //APHow
+            html += '<td style="word-wrap:break-word">';
+            html += '' + APHowDisplay + '';
+            html += '<input type="hidden" id="helpDeskChangeRequestModel.CRActionPlanList[XXXXX].APHow" name="helpDeskChangeRequestModel.CRActionPlanList[0].APHow" value="" />';
+            html += '</td>';
+
+
+
+            //APDuration
+            html += '<td style="word-wrap:break-word">';
+            html += '' + APDurationDisplay + '';
+            html += '<input type="hidden" id="helpDeskChangeRequestModel.CRActionPlanList[XXXXX].APDuration" name="helpDeskChangeRequestModel.CRActionPlanList[0].APDuration" value="" />';
+            html += '</td>';
+
+
+
+            //APComments
+            html += '<td style="word-wrap:break-word">';
+            html += '' + APCommentsDisplay + '';
+            html += '<input type="hidden" id="helpDeskChangeRequestModel.CRActionPlanList[XXXXX].APComments" name="helpDeskChangeRequestModel.CRActionPlanList[0].APComments" value="" />';
+            html += '</td>';
+
+            html += '</tr>';
+
+            $('#cr-ap-tableBody').append(html);
+
+            $('.modal').modal('hide');
+        });
+    })
+
+    function reorganizeTableIndexes() {
+        var APRows = $('#cr-ap-tableBody').find('.ap-rows');
+        $.each(APRows, function (idx, element) {
+            debugger;
+            console.log('idx', idx);
+            console.log('element', element);
+        })
+
+    }
+
+
+    function LoadDepartmentStaff(DepartmentGUID) {
+
+
+    };
+
+</script>

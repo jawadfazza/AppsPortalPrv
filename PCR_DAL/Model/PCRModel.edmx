@@ -1,0 +1,1374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PCRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DutyStationDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOrganizations">
+          <Key>
+            <PropertyRef Name="OrganizationGUID" />
+          </Key>
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" />
+          <Property Name="OrganizationFocusCode" Type="nvarchar" MaxLength="60" />
+          <Property Name="OrganizationShortName" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="OrganizationWebSite" Type="nvarchar" MaxLength="150" />
+          <Property Name="DirectorName" Type="nvarchar" MaxLength="100" />
+          <Property Name="DirectorEmail" Type="nvarchar" MaxLength="150" />
+          <Property Name="DirectorPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="HQAddress" Type="nvarchar" MaxLength="512" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeOrganizationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstances">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OperationGUID" Type="uniqueidentifier" />
+          <Property Name="codeOrganizationsInstancesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstancesLanguages">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceLanguageGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="OrganizationInstanceDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="codeOrganizationsInstancesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codePartnerCenter">
+          <Key>
+            <PropertyRef Name="PartnerCenterGUID" />
+          </Key>
+          <Property Name="PartnerCenterGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Sequence" Type="int" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codePartnerCenterRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codePartnerCenterLanguage">
+          <Key>
+            <PropertyRef Name="PartnerCenterLanguageGUID" />
+          </Key>
+          <Property Name="PartnerCenterLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnerCenterGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="PartnerCenterDescription" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codePartnerCenterLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TableGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ValueDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeAggregation">
+          <Key>
+            <PropertyRef Name="AggregationGUID" />
+          </Key>
+          <Property Name="AggregationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReportGUID" Type="uniqueidentifier" />
+          <Property Name="GroupGUID" Type="uniqueidentifier" />
+          <Property Name="GenderGUID" Type="uniqueidentifier" />
+          <Property Name="AggregationDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ColumnCharacter" Type="nvarchar" MaxLength="5" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeAggregationRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeCategoryAggregation">
+          <Key>
+            <PropertyRef Name="CategoryAggregationGUID" />
+          </Key>
+          <Property Name="CategoryAggregationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CategoryReportGUID" Type="uniqueidentifier" />
+          <Property Name="AggregationGUID" Type="uniqueidentifier" />
+          <Property Name="ColumnCharacter" Type="nvarchar" MaxLength="5" />
+          <Property Name="RowSequance" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeCategoryAggregationRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeCategoryReport">
+          <Key>
+            <PropertyRef Name="CategoryReportGUID" />
+          </Key>
+          <Property Name="CategoryReportGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParentCategoryReportGUID" Type="uniqueidentifier" />
+          <Property Name="ReportGUID" Type="uniqueidentifier" />
+          <Property Name="CategoryDescription" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CategoryLevel" Type="int" Nullable="false" />
+          <Property Name="RowSequance" Type="int" />
+          <Property Name="ColumnCharacter" Type="nvarchar" MaxLength="5" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeCategoryReportRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataFileReport">
+          <Key>
+            <PropertyRef Name="FileReportGUID" />
+          </Key>
+          <Property Name="FileReportGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ErrorFound" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataFileReportRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="ShowReport" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dataPartnerReport">
+          <Key>
+            <PropertyRef Name="PartnerReportGUID" />
+          </Key>
+          <Property Name="PartnerReportGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnerCenterGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPartnerReportRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPartnerReportCompiled">
+          <Key>
+            <PropertyRef Name="PartnerReportCompiledGUID" />
+          </Key>
+          <Property Name="PartnerReportCompiledGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnerReportGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReportGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FileReportGUID" Type="uniqueidentifier" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="UploadDateTime" Type="datetime" />
+          <Property Name="UploadByUser" Type="varchar" MaxLength="100" />
+          <Property Name="ErrorFound" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPartnerReportCompiledRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPartnerReportDetail">
+          <Key>
+            <PropertyRef Name="PartnerMonthlyReportDetailGUID" />
+          </Key>
+          <Property Name="PartnerMonthlyReportDetailGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnerReportCompiledGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CategoryReportGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AggregationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AggregationValue" Type="int" Nullable="false" />
+          <Property Name="Details" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPartnerReportDetailRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_codeCategoryAggregation_codeAggregation">
+          <End Role="codeAggregation" Type="Self.codeAggregation" Multiplicity="0..1" />
+          <End Role="codeCategoryAggregation" Type="Self.codeCategoryAggregation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeAggregation">
+              <PropertyRef Name="AggregationGUID" />
+            </Principal>
+            <Dependent Role="codeCategoryAggregation">
+              <PropertyRef Name="AggregationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeCategoryAggregation_codeCategoryReport">
+          <End Role="codeCategoryReport" Type="Self.codeCategoryReport" Multiplicity="0..1" />
+          <End Role="codeCategoryAggregation" Type="Self.codeCategoryAggregation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCategoryReport">
+              <PropertyRef Name="CategoryReportGUID" />
+            </Principal>
+            <Dependent Role="codeCategoryAggregation">
+              <PropertyRef Name="CategoryReportGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDutyStationsLanguages" Type="Self.codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsInstances_codeOrganizations">
+          <End Role="codeOrganizations" Type="Self.codeOrganizations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeOrganizationsInstances" Type="Self.codeOrganizationsInstances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizations">
+              <PropertyRef Name="OrganizationGUID" />
+            </Principal>
+            <Dependent Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+          <End Role="codeOrganizationsInstances" Type="Self.codeOrganizationsInstances" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeOrganizationsInstancesLanguages" Type="Self.codeOrganizationsInstancesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="codeOrganizationsInstancesLanguages">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codePartnerCenter_codeDutyStations">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="1" />
+          <End Role="codePartnerCenter" Type="Self.codePartnerCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codePartnerCenter">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codePartnerCenter_codeOrganizationsInstances">
+          <End Role="codeOrganizationsInstances" Type="Self.codeOrganizationsInstances" Multiplicity="1" />
+          <End Role="codePartnerCenter" Type="Self.codePartnerCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="codePartnerCenter">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codePartnerCenterLanguage_codePartnerCenter">
+          <End Role="codePartnerCenter" Type="Self.codePartnerCenter" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codePartnerCenterLanguage" Type="Self.codePartnerCenterLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnerCenter">
+              <PropertyRef Name="PartnerCenterGUID" />
+            </Principal>
+            <Dependent Role="codePartnerCenterLanguage">
+              <PropertyRef Name="PartnerCenterGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Role="codeTablesValues" Type="Self.codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeTablesValuesLanguages" Type="Self.codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnerMonthlyReport_codePartnerCenter">
+          <End Role="codePartnerCenter" Type="Self.codePartnerCenter" Multiplicity="1" />
+          <End Role="dataPartnerReport" Type="Self.dataPartnerReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnerCenter">
+              <PropertyRef Name="PartnerCenterGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReport">
+              <PropertyRef Name="PartnerCenterGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnerMonthlyReportDetail_codeCategoryReport">
+          <End Role="codeCategoryReport" Type="Self.codeCategoryReport" Multiplicity="1" />
+          <End Role="dataPartnerReportDetail" Type="Self.dataPartnerReportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCategoryReport">
+              <PropertyRef Name="CategoryReportGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReportDetail">
+              <PropertyRef Name="CategoryReportGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnerReportCompiled_dataFileReport">
+          <End Role="dataFileReport" Type="Self.dataFileReport" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataPartnerReportCompiled" Type="Self.dataPartnerReportCompiled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataFileReport">
+              <PropertyRef Name="FileReportGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReportCompiled">
+              <PropertyRef Name="FileReportGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnerReportCompiled_dataPartnerReport">
+          <End Role="dataPartnerReport" Type="Self.dataPartnerReport" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataPartnerReportCompiled" Type="Self.dataPartnerReportCompiled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPartnerReport">
+              <PropertyRef Name="PartnerReportGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReportCompiled">
+              <PropertyRef Name="PartnerReportGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnerReportDetail_codeAggregation">
+          <End Role="codeAggregation" Type="Self.codeAggregation" Multiplicity="1" />
+          <End Role="dataPartnerReportDetail" Type="Self.dataPartnerReportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeAggregation">
+              <PropertyRef Name="AggregationGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReportDetail">
+              <PropertyRef Name="AggregationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnerReportDetail_dataPartnerReportCompiled">
+          <End Role="dataPartnerReportCompiled" Type="Self.dataPartnerReportCompiled" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataPartnerReportDetail" Type="Self.dataPartnerReportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPartnerReportCompiled">
+              <PropertyRef Name="PartnerReportCompiledGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReportDetail">
+              <PropertyRef Name="PartnerReportCompiledGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="RP_PartnerCenter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="PCR">
+          <Parameter Name="EndDate" Type="date" Mode="In" />
+          <Parameter Name="ReportGUID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="OrganizationInstanceGUID" Type="varchar(max)" Mode="In" />
+          <Parameter Name="PartnerCenterGUID" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CategoryGUID2" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CategoryGUID3" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="AggregationGUID" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="LanguageID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="RP_PartnerReports" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="PCR">
+          <Parameter Name="EndDate" Type="date" Mode="In" />
+          <Parameter Name="ReportGUID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="OrganizationInstanceGUID" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DutyStationGUID" Type="varchar(max)" Mode="In" />
+          <Parameter Name="LanguageID" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="PCRModelStoreContainer">
+          <EntitySet Name="codeDutyStations" EntityType="Self.codeDutyStations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="Self.codeDutyStationsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOrganizations" EntityType="Self.codeOrganizations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOrganizationsInstances" EntityType="Self.codeOrganizationsInstances" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOrganizationsInstancesLanguages" EntityType="Self.codeOrganizationsInstancesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codePartnerCenter" EntityType="Self.codePartnerCenter" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codePartnerCenterLanguage" EntityType="Self.codePartnerCenterLanguage" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValues" EntityType="Self.codeTablesValues" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="Self.codeTablesValuesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeAggregation" EntityType="Self.codeAggregation" Schema="PCR" store:Type="Tables" />
+          <EntitySet Name="codeCategoryAggregation" EntityType="Self.codeCategoryAggregation" Schema="PCR" store:Type="Tables" />
+          <EntitySet Name="codeCategoryReport" EntityType="Self.codeCategoryReport" Schema="PCR" store:Type="Tables" />
+          <EntitySet Name="dataFileReport" EntityType="Self.dataFileReport" Schema="PCR" store:Type="Tables" />
+          <EntitySet Name="dataPartnerReport" EntityType="Self.dataPartnerReport" Schema="PCR" store:Type="Tables" />
+          <EntitySet Name="dataPartnerReportCompiled" EntityType="Self.dataPartnerReportCompiled" Schema="PCR" store:Type="Tables" />
+          <EntitySet Name="dataPartnerReportDetail" EntityType="Self.dataPartnerReportDetail" Schema="PCR" store:Type="Tables" />
+          <AssociationSet Name="FK_codeCategoryAggregation_codeAggregation" Association="Self.FK_codeCategoryAggregation_codeAggregation">
+            <End Role="codeAggregation" EntitySet="codeAggregation" />
+            <End Role="codeCategoryAggregation" EntitySet="codeCategoryAggregation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeCategoryAggregation_codeCategoryReport" Association="Self.FK_codeCategoryAggregation_codeCategoryReport">
+            <End Role="codeCategoryReport" EntitySet="codeCategoryReport" />
+            <End Role="codeCategoryAggregation" EntitySet="codeCategoryAggregation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="Self.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsInstances_codeOrganizations" Association="Self.FK_codeOrganizationsInstances_codeOrganizations">
+            <End Role="codeOrganizations" EntitySet="codeOrganizations" />
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" Association="Self.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="codeOrganizationsInstancesLanguages" EntitySet="codeOrganizationsInstancesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codePartnerCenter_codeDutyStations" Association="Self.FK_codePartnerCenter_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codePartnerCenter" EntitySet="codePartnerCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codePartnerCenter_codeOrganizationsInstances" Association="Self.FK_codePartnerCenter_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="codePartnerCenter" EntitySet="codePartnerCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codePartnerCenterLanguage_codePartnerCenter" Association="Self.FK_codePartnerCenterLanguage_codePartnerCenter">
+            <End Role="codePartnerCenter" EntitySet="codePartnerCenter" />
+            <End Role="codePartnerCenterLanguage" EntitySet="codePartnerCenterLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="Self.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnerMonthlyReport_codePartnerCenter" Association="Self.FK_dataPartnerMonthlyReport_codePartnerCenter">
+            <End Role="codePartnerCenter" EntitySet="codePartnerCenter" />
+            <End Role="dataPartnerReport" EntitySet="dataPartnerReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnerMonthlyReportDetail_codeCategoryReport" Association="Self.FK_dataPartnerMonthlyReportDetail_codeCategoryReport">
+            <End Role="codeCategoryReport" EntitySet="codeCategoryReport" />
+            <End Role="dataPartnerReportDetail" EntitySet="dataPartnerReportDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnerReportCompiled_dataFileReport" Association="Self.FK_dataPartnerReportCompiled_dataFileReport">
+            <End Role="dataFileReport" EntitySet="dataFileReport" />
+            <End Role="dataPartnerReportCompiled" EntitySet="dataPartnerReportCompiled" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnerReportCompiled_dataPartnerReport" Association="Self.FK_dataPartnerReportCompiled_dataPartnerReport">
+            <End Role="dataPartnerReport" EntitySet="dataPartnerReport" />
+            <End Role="dataPartnerReportCompiled" EntitySet="dataPartnerReportCompiled" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnerReportDetail_codeAggregation" Association="Self.FK_dataPartnerReportDetail_codeAggregation">
+            <End Role="codeAggregation" EntitySet="codeAggregation" />
+            <End Role="dataPartnerReportDetail" EntitySet="dataPartnerReportDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnerReportDetail_dataPartnerReportCompiled" Association="Self.FK_dataPartnerReportDetail_dataPartnerReportCompiled">
+            <End Role="dataPartnerReportCompiled" EntitySet="dataPartnerReportCompiled" />
+            <End Role="dataPartnerReportDetail" EntitySet="dataPartnerReportDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PCRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStationsLanguages" Relationship="Self.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStations" ToRole="codeDutyStationsLanguages" />
+          <NavigationProperty Name="codePartnerCenter" Relationship="PCRModel.FK_codePartnerCenter_codeDutyStations" FromRole="codeDutyStations" ToRole="codePartnerCenter" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DutyStationDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStations" Relationship="Self.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStationsLanguages" ToRole="codeDutyStations" />
+        </EntityType>
+        <EntityType Name="codePartnerCenterLanguage">
+          <Key>
+            <PropertyRef Name="PartnerCenterLanguageGUID" />
+          </Key>
+          <Property Name="PartnerCenterLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnerCenterGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PartnerCenterDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codePartnerCenterLanguageRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codePartnerCenter" Relationship="PCRModel.FK_codePartnerCenterLanguage_codePartnerCenter" FromRole="codePartnerCenterLanguage" ToRole="codePartnerCenter" />
+        </EntityType>
+        <EntityType Name="codeAggregation">
+          <Key>
+            <PropertyRef Name="AggregationGUID" />
+          </Key>
+          <Property Name="AggregationGUID" Type="Guid" Nullable="false" />
+          <Property Name="GroupGUID" Type="Guid" />
+          <Property Name="GenderGUID" Type="Guid" />
+          <Property Name="AggregationDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ColumnCharacter" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeAggregationRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataPartnerReportDetail" Relationship="PCRModel.FK_dataPartnerReportDetail_codeAggregation" FromRole="codeAggregation" ToRole="dataPartnerReportDetail" />
+          <Property Name="ReportGUID" Type="Guid" />
+          <NavigationProperty Name="codeCategoryAggregation" Relationship="PCRModel.FK_codeCategoryAggregation_codeAggregation" FromRole="codeAggregation" ToRole="codeCategoryAggregation" />
+        </EntityType>
+        <EntityType Name="codeCategoryReport">
+          <Key>
+            <PropertyRef Name="CategoryReportGUID" />
+          </Key>
+          <Property Name="CategoryReportGUID" Type="Guid" Nullable="false" />
+          <Property Name="ParentCategoryReportGUID" Type="Guid" />
+          <Property Name="ReportGUID" Type="Guid" />
+          <Property Name="CategoryDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryLevel" Type="Int32" Nullable="false" />
+          <Property Name="RowSequance" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeCategoryReportRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataPartnerReportDetail" Relationship="PCRModel.FK_dataPartnerMonthlyReportDetail_codeCategoryReport" FromRole="codeCategoryReport" ToRole="dataPartnerReportDetail" />
+          <Property Name="ColumnCharacter" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="codeCategoryAggregation" Relationship="PCRModel.FK_codeCategoryAggregation_codeCategoryReport" FromRole="codeCategoryReport" ToRole="codeCategoryAggregation" />
+        </EntityType>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDutyStationsLanguages" Type="Self.codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PCREntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="codeDutyStations" EntityType="Self.codeDutyStations" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="Self.codeDutyStationsLanguages" />
+          <EntitySet Name="codePartnerCenterLanguage" EntityType="Self.codePartnerCenterLanguage" />
+          <EntitySet Name="codeAggregation" EntityType="Self.codeAggregation" />
+          <EntitySet Name="codeCategoryReport" EntityType="Self.codeCategoryReport" />
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="Self.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <EntitySet Name="codeOrganizationsInstances" EntityType="PCRModel.codeOrganizationsInstances" />
+          <EntitySet Name="codeOrganizationsInstancesLanguages" EntityType="PCRModel.codeOrganizationsInstancesLanguages" />
+          <AssociationSet Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" Association="PCRModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="codeOrganizationsInstancesLanguages" EntitySet="codeOrganizationsInstancesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="dataPartnerReportDetail" EntityType="PCRModel.dataPartnerReportDetail" />
+          <AssociationSet Name="FK_dataPartnerReportDetail_codeAggregation" Association="PCRModel.FK_dataPartnerReportDetail_codeAggregation">
+            <End Role="codeAggregation" EntitySet="codeAggregation" />
+            <End Role="dataPartnerReportDetail" EntitySet="dataPartnerReportDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnerMonthlyReportDetail_codeCategoryReport" Association="PCRModel.FK_dataPartnerMonthlyReportDetail_codeCategoryReport">
+            <End Role="codeCategoryReport" EntitySet="codeCategoryReport" />
+            <End Role="dataPartnerReportDetail" EntitySet="dataPartnerReportDetail" />
+          </AssociationSet>
+          <EntitySet Name="codeTablesValues" EntityType="PCRModel.codeTablesValues" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="PCRModel.codeTablesValuesLanguages" />
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="PCRModel.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="codeCategoryAggregation" EntityType="PCRModel.codeCategoryAggregation" />
+          <AssociationSet Name="FK_codeCategoryAggregation_codeAggregation" Association="PCRModel.FK_codeCategoryAggregation_codeAggregation">
+            <End Role="codeAggregation" EntitySet="codeAggregation" />
+            <End Role="codeCategoryAggregation" EntitySet="codeCategoryAggregation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeCategoryAggregation_codeCategoryReport" Association="PCRModel.FK_codeCategoryAggregation_codeCategoryReport">
+            <End Role="codeCategoryReport" EntitySet="codeCategoryReport" />
+            <End Role="codeCategoryAggregation" EntitySet="codeCategoryAggregation" />
+          </AssociationSet>
+          <EntitySet Name="codePartnerCenter" EntityType="PCRModel.codePartnerCenter" />
+          <AssociationSet Name="FK_codePartnerCenter_codeDutyStations" Association="PCRModel.FK_codePartnerCenter_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codePartnerCenter" EntitySet="codePartnerCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codePartnerCenter_codeOrganizationsInstances" Association="PCRModel.FK_codePartnerCenter_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="codePartnerCenter" EntitySet="codePartnerCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codePartnerCenterLanguage_codePartnerCenter" Association="PCRModel.FK_codePartnerCenterLanguage_codePartnerCenter">
+            <End Role="codePartnerCenter" EntitySet="codePartnerCenter" />
+            <End Role="codePartnerCenterLanguage" EntitySet="codePartnerCenterLanguage" />
+          </AssociationSet>
+          <FunctionImport Name="RP_PartnerCenter" ReturnType="Collection(PCRModel.RP_PartnerCenter_Result)">
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ReportGUID" Mode="In" Type="Guid" />
+            <Parameter Name="OrganizationInstanceGUID" Mode="In" Type="String" />
+            <Parameter Name="PartnerCenterGUID" Mode="In" Type="String" />
+            <Parameter Name="CategoryGUID2" Mode="In" Type="String" />
+            <Parameter Name="CategoryGUID3" Mode="In" Type="String" />
+            <Parameter Name="AggregationGUID" Mode="In" Type="String" />
+            <Parameter Name="LanguageID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RP_PartnerReports" ReturnType="Collection(PCRModel.RP_PartnerReports_Result)">
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ReportGUID" Mode="In" Type="Guid" />
+            <Parameter Name="OrganizationInstanceGUID" Mode="In" Type="String" />
+            <Parameter Name="DutyStationGUID" Mode="In" Type="String" />
+            <Parameter Name="LanguageID" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="dataPartnerReportCompiled" EntityType="PCRModel.dataPartnerReportCompiled" />
+          <AssociationSet Name="FK_dataPartnerReportDetail_dataPartnerReportCompiled" Association="PCRModel.FK_dataPartnerReportDetail_dataPartnerReportCompiled">
+            <End Role="dataPartnerReportCompiled" EntitySet="dataPartnerReportCompiled" />
+            <End Role="dataPartnerReportDetail" EntitySet="dataPartnerReportDetail" />
+          </AssociationSet>
+          <EntitySet Name="codeOrganizations" EntityType="PCRModel.codeOrganizations" />
+          <AssociationSet Name="FK_codeOrganizationsInstances_codeOrganizations" Association="PCRModel.FK_codeOrganizationsInstances_codeOrganizations">
+            <End Role="codeOrganizations" EntitySet="codeOrganizations" />
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+          </AssociationSet>
+          <EntitySet Name="dataPartnerReport" EntityType="PCRModel.dataPartnerReport" />
+          <AssociationSet Name="FK_dataPartnerMonthlyReport_codePartnerCenter" Association="PCRModel.FK_dataPartnerMonthlyReport_codePartnerCenter">
+            <End Role="codePartnerCenter" EntitySet="codePartnerCenter" />
+            <End Role="dataPartnerReport" EntitySet="dataPartnerReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPartnerReportCompiled_dataPartnerReport" Association="PCRModel.FK_dataPartnerReportCompiled_dataPartnerReport">
+            <End Role="dataPartnerReport" EntitySet="dataPartnerReport" />
+            <End Role="dataPartnerReportCompiled" EntitySet="dataPartnerReportCompiled" />
+          </AssociationSet>
+          <EntitySet Name="dataFileReport" EntityType="PCRModel.dataFileReport" />
+          <AssociationSet Name="FK_dataPartnerReportCompiled_dataFileReport" Association="PCRModel.FK_dataPartnerReportCompiled_dataFileReport">
+            <End Role="dataFileReport" EntitySet="dataFileReport" />
+            <End Role="dataPartnerReportCompiled" EntitySet="dataPartnerReportCompiled" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="codeOrganizationsInstances">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OperationGUID" Type="Guid" />
+          <Property Name="codeOrganizationsInstancesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOrganizationsInstancesLanguages" Relationship="PCRModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" FromRole="codeOrganizationsInstances" ToRole="codeOrganizationsInstancesLanguages" />
+          <NavigationProperty Name="codePartnerCenter" Relationship="PCRModel.FK_codePartnerCenter_codeOrganizationsInstances" FromRole="codeOrganizationsInstances" ToRole="codePartnerCenter" />
+          <NavigationProperty Name="codeOrganizations" Relationship="PCRModel.FK_codeOrganizationsInstances_codeOrganizations" FromRole="codeOrganizationsInstances" ToRole="codeOrganizations" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstancesLanguages">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceLanguageGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationInstanceDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="codeOrganizationsInstancesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOrganizationsInstances" Relationship="PCRModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" FromRole="codeOrganizationsInstancesLanguages" ToRole="codeOrganizationsInstances" />
+        </EntityType>
+        <Association Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+          <End Type="PCRModel.codeOrganizationsInstances" Role="codeOrganizationsInstances" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCRModel.codeOrganizationsInstancesLanguages" Role="codeOrganizationsInstancesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="codeOrganizationsInstancesLanguages">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataPartnerReportDetail">
+          <Key>
+            <PropertyRef Name="PartnerMonthlyReportDetailGUID" />
+          </Key>
+          <Property Name="PartnerMonthlyReportDetailGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnerReportCompiledGUID" Type="Guid" Nullable="false" />
+          <Property Name="CategoryReportGUID" Type="Guid" Nullable="false" />
+          <Property Name="AggregationGUID" Type="Guid" Nullable="false" />
+          <Property Name="AggregationValue" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPartnerReportDetailRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeAggregation" Relationship="PCRModel.FK_dataPartnerReportDetail_codeAggregation" FromRole="dataPartnerReportDetail" ToRole="codeAggregation" />
+          <NavigationProperty Name="codeCategoryReport" Relationship="PCRModel.FK_dataPartnerMonthlyReportDetail_codeCategoryReport" FromRole="dataPartnerReportDetail" ToRole="codeCategoryReport" />
+          <Property Name="Details" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dataPartnerReportCompiled" Relationship="PCRModel.FK_dataPartnerReportDetail_dataPartnerReportCompiled" FromRole="dataPartnerReportDetail" ToRole="dataPartnerReportCompiled" />
+        </EntityType>
+        <Association Name="FK_dataPartnerReportDetail_codeAggregation">
+          <End Type="PCRModel.codeAggregation" Role="codeAggregation" Multiplicity="1" />
+          <End Type="PCRModel.dataPartnerReportDetail" Role="dataPartnerReportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeAggregation">
+              <PropertyRef Name="AggregationGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReportDetail">
+              <PropertyRef Name="AggregationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnerMonthlyReportDetail_codeCategoryReport">
+          <End Type="PCRModel.codeCategoryReport" Role="codeCategoryReport" Multiplicity="1" />
+          <End Type="PCRModel.dataPartnerReportDetail" Role="dataPartnerReportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCategoryReport">
+              <PropertyRef Name="CategoryReportGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReportDetail">
+              <PropertyRef Name="CategoryReportGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="TableGUID" Type="Guid" Nullable="false" />
+          <Property Name="FactorGUID" Type="Guid" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValuesLanguages" Relationship="PCRModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValues" ToRole="codeTablesValuesLanguages" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ValueDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValues" Relationship="PCRModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValuesLanguages" ToRole="codeTablesValues" />
+        </EntityType>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Type="PCRModel.codeTablesValues" Role="codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCRModel.codeTablesValuesLanguages" Role="codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeCategoryAggregation">
+          <Key>
+            <PropertyRef Name="CategoryAggregationGUID" />
+          </Key>
+          <Property Name="CategoryAggregationGUID" Type="Guid" Nullable="false" />
+          <Property Name="CategoryReportGUID" Type="Guid" />
+          <Property Name="AggregationGUID" Type="Guid" />
+          <Property Name="ColumnCharacter" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="RowSequance" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeCategoryAggregationRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeAggregation" Relationship="PCRModel.FK_codeCategoryAggregation_codeAggregation" FromRole="codeCategoryAggregation" ToRole="codeAggregation" />
+          <NavigationProperty Name="codeCategoryReport" Relationship="PCRModel.FK_codeCategoryAggregation_codeCategoryReport" FromRole="codeCategoryAggregation" ToRole="codeCategoryReport" />
+        </EntityType>
+        <Association Name="FK_codeCategoryAggregation_codeAggregation">
+          <End Type="PCRModel.codeAggregation" Role="codeAggregation" Multiplicity="0..1" />
+          <End Type="PCRModel.codeCategoryAggregation" Role="codeCategoryAggregation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeAggregation">
+              <PropertyRef Name="AggregationGUID" />
+            </Principal>
+            <Dependent Role="codeCategoryAggregation">
+              <PropertyRef Name="AggregationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeCategoryAggregation_codeCategoryReport">
+          <End Type="PCRModel.codeCategoryReport" Role="codeCategoryReport" Multiplicity="0..1" />
+          <End Type="PCRModel.codeCategoryAggregation" Role="codeCategoryAggregation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeCategoryReport">
+              <PropertyRef Name="CategoryReportGUID" />
+            </Principal>
+            <Dependent Role="codeCategoryAggregation">
+              <PropertyRef Name="CategoryReportGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codePartnerCenter">
+          <Key>
+            <PropertyRef Name="PartnerCenterGUID" />
+          </Key>
+          <Property Name="PartnerCenterGUID" Type="Guid" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codePartnerCenterRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStations" Relationship="PCRModel.FK_codePartnerCenter_codeDutyStations" FromRole="codePartnerCenter" ToRole="codeDutyStations" />
+          <NavigationProperty Name="codeOrganizationsInstances" Relationship="PCRModel.FK_codePartnerCenter_codeOrganizationsInstances" FromRole="codePartnerCenter" ToRole="codeOrganizationsInstances" />
+          <NavigationProperty Name="codePartnerCenterLanguage" Relationship="PCRModel.FK_codePartnerCenterLanguage_codePartnerCenter" FromRole="codePartnerCenter" ToRole="codePartnerCenterLanguage" />
+          <NavigationProperty Name="dataPartnerReport" Relationship="PCRModel.FK_dataPartnerMonthlyReport_codePartnerCenter" FromRole="codePartnerCenter" ToRole="dataPartnerReport" />
+        </EntityType>
+        <Association Name="FK_codePartnerCenter_codeDutyStations">
+          <End Type="PCRModel.codeDutyStations" Role="codeDutyStations" Multiplicity="1" />
+          <End Type="PCRModel.codePartnerCenter" Role="codePartnerCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codePartnerCenter">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codePartnerCenter_codeOrganizationsInstances">
+          <End Type="PCRModel.codeOrganizationsInstances" Role="codeOrganizationsInstances" Multiplicity="1" />
+          <End Type="PCRModel.codePartnerCenter" Role="codePartnerCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="codePartnerCenter">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codePartnerCenterLanguage_codePartnerCenter">
+          <End Type="PCRModel.codePartnerCenter" Role="codePartnerCenter" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCRModel.codePartnerCenterLanguage" Role="codePartnerCenterLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnerCenter">
+              <PropertyRef Name="PartnerCenterGUID" />
+            </Principal>
+            <Dependent Role="codePartnerCenterLanguage">
+              <PropertyRef Name="PartnerCenterGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="RP_PartnerCenter_Result">
+          <Property Type="String" Name="Category1" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Category2" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Category3" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="AggregationDescription" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="AggregationValue" Nullable="false" />
+          <Property Type="String" Name="DutyStationDescription" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="OrganizationInstanceDescription" Nullable="false" MaxLength="256" />
+          <Property Type="Guid" Name="PartnerCenterGUID" Nullable="false" />
+          <Property Type="Guid" Name="OrganizationInstanceGUID" Nullable="false" />
+          <Property Type="Guid" Name="DutyStationGUID" Nullable="false" />
+          <Property Type="String" Name="PartnerCenterDescription" Nullable="false" MaxLength="200" />
+          <Property Type="Guid" Name="AggregationGUID" Nullable="false" />
+          <Property Type="Guid" Name="CategoryReportGUID" Nullable="false" />
+          <Property Type="String" Name="LanguageID" Nullable="false" MaxLength="5" />
+          <Property Type="Guid" Name="ParentCategoryReportGUID" Nullable="true" />
+          <Property Type="String" Name="Details" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="RP_PartnerReports_Result">
+          <Property Type="String" Name="Category1" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Category2" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Category3" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="AggregationDescription" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="AggregationValue" Nullable="false" />
+          <Property Type="String" Name="DutyStationDescription" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="OrganizationInstanceDescription" Nullable="false" MaxLength="256" />
+          <Property Type="Guid" Name="PartnerCenterGUID" Nullable="false" />
+          <Property Type="Guid" Name="OrganizationInstanceGUID" Nullable="false" />
+          <Property Type="Guid" Name="DutyStationGUID" Nullable="false" />
+          <Property Type="String" Name="PartnerCenterDescription" Nullable="false" MaxLength="200" />
+          <Property Type="Guid" Name="AggregationGUID" Nullable="false" />
+          <Property Type="Guid" Name="CategoryReportGUID" Nullable="false" />
+          <Property Type="String" Name="LanguageID" Nullable="false" MaxLength="5" />
+          <Property Type="Guid" Name="ParentCategoryReportGUID" Nullable="true" />
+          <Property Type="String" Name="Details" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="dataPartnerReportCompiled">
+          <Key>
+            <PropertyRef Name="PartnerReportCompiledGUID" />
+          </Key>
+          <Property Name="PartnerReportCompiledGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnerReportGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReportGUID" Type="Guid" Nullable="false" />
+          <Property Name="FileReportGUID" Type="Guid" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="UploadDateTime" Type="DateTime" Precision="3" />
+          <Property Name="UploadByUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ErrorFound" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPartnerReportCompiledRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataPartnerReportDetail" Relationship="PCRModel.FK_dataPartnerReportDetail_dataPartnerReportCompiled" FromRole="dataPartnerReportCompiled" ToRole="dataPartnerReportDetail" />
+          <NavigationProperty Name="dataPartnerReport" Relationship="PCRModel.FK_dataPartnerReportCompiled_dataPartnerReport" FromRole="dataPartnerReportCompiled" ToRole="dataPartnerReport" />
+          <NavigationProperty Name="dataFileReport" Relationship="PCRModel.FK_dataPartnerReportCompiled_dataFileReport" FromRole="dataPartnerReportCompiled" ToRole="dataFileReport" />
+        </EntityType>
+        <Association Name="FK_dataPartnerReportDetail_dataPartnerReportCompiled">
+          <End Type="PCRModel.dataPartnerReportCompiled" Role="dataPartnerReportCompiled" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCRModel.dataPartnerReportDetail" Role="dataPartnerReportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPartnerReportCompiled">
+              <PropertyRef Name="PartnerReportCompiledGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReportDetail">
+              <PropertyRef Name="PartnerReportCompiledGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeOrganizations">
+          <Key>
+            <PropertyRef Name="OrganizationGUID" />
+          </Key>
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" />
+          <Property Name="OrganizationFocusCode" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationShortName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationWebSite" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DirectorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DirectorEmail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DirectorPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HQAddress" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="FactorGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeOrganizationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOrganizationsInstances" Relationship="PCRModel.FK_codeOrganizationsInstances_codeOrganizations" FromRole="codeOrganizations" ToRole="codeOrganizationsInstances" />
+        </EntityType>
+        <Association Name="FK_codeOrganizationsInstances_codeOrganizations">
+          <End Type="PCRModel.codeOrganizations" Role="codeOrganizations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCRModel.codeOrganizationsInstances" Role="codeOrganizationsInstances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizations">
+              <PropertyRef Name="OrganizationGUID" />
+            </Principal>
+            <Dependent Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataPartnerReport">
+          <Key>
+            <PropertyRef Name="PartnerReportGUID" />
+          </Key>
+          <Property Name="PartnerReportGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnerCenterGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPartnerReportRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codePartnerCenter" Relationship="PCRModel.FK_dataPartnerMonthlyReport_codePartnerCenter" FromRole="dataPartnerReport" ToRole="codePartnerCenter" />
+          <NavigationProperty Name="dataPartnerReportCompiled" Relationship="PCRModel.FK_dataPartnerReportCompiled_dataPartnerReport" FromRole="dataPartnerReport" ToRole="dataPartnerReportCompiled" />
+        </EntityType>
+        <Association Name="FK_dataPartnerMonthlyReport_codePartnerCenter">
+          <End Type="PCRModel.codePartnerCenter" Role="codePartnerCenter" Multiplicity="1" />
+          <End Type="PCRModel.dataPartnerReport" Role="dataPartnerReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codePartnerCenter">
+              <PropertyRef Name="PartnerCenterGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReport">
+              <PropertyRef Name="PartnerCenterGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPartnerReportCompiled_dataPartnerReport">
+          <End Type="PCRModel.dataPartnerReport" Role="dataPartnerReport" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCRModel.dataPartnerReportCompiled" Role="dataPartnerReportCompiled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPartnerReport">
+              <PropertyRef Name="PartnerReportGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReportCompiled">
+              <PropertyRef Name="PartnerReportGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataFileReport">
+          <Key>
+            <PropertyRef Name="FileReportGUID" />
+          </Key>
+          <Property Name="FileReportGUID" Type="Guid" Nullable="false" />
+          <Property Name="ErrorFound" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataFileReportRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="ShowReport" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="dataPartnerReportCompiled" Relationship="PCRModel.FK_dataPartnerReportCompiled_dataFileReport" FromRole="dataFileReport" ToRole="dataPartnerReportCompiled" />
+        </EntityType>
+        <Association Name="FK_dataPartnerReportCompiled_dataFileReport">
+          <End Type="PCRModel.dataFileReport" Role="dataFileReport" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PCRModel.dataPartnerReportCompiled" Role="dataPartnerReportCompiled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataFileReport">
+              <PropertyRef Name="FileReportGUID" />
+            </Principal>
+            <Dependent Role="dataPartnerReportCompiled">
+              <PropertyRef Name="FileReportGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PCRModelStoreContainer" CdmEntityContainer="PCREntities">
+          <EntitySetMapping Name="codeDutyStations">
+            <EntityTypeMapping TypeName="PCRModel.codeDutyStations">
+              <MappingFragment StoreEntitySet="codeDutyStations">
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeDutyStationsRowVersion" ColumnName="codeDutyStationsRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStationsLanguages">
+            <EntityTypeMapping TypeName="PCRModel.codeDutyStationsLanguages">
+              <MappingFragment StoreEntitySet="codeDutyStationsLanguages">
+                <ScalarProperty Name="DutyStationLanguageGUID" ColumnName="DutyStationLanguageGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="DutyStationDescription" ColumnName="DutyStationDescription" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeDutyStationsLanguagesRowVersion" ColumnName="codeDutyStationsLanguagesRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codePartnerCenterLanguage">
+            <EntityTypeMapping TypeName="PCRModel.codePartnerCenterLanguage">
+              <MappingFragment StoreEntitySet="codePartnerCenterLanguage">
+                <ScalarProperty Name="PartnerCenterLanguageGUID" ColumnName="PartnerCenterLanguageGUID" />
+                <ScalarProperty Name="PartnerCenterGUID" ColumnName="PartnerCenterGUID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="PartnerCenterDescription" ColumnName="PartnerCenterDescription" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codePartnerCenterLanguageRowVersion" ColumnName="codePartnerCenterLanguageRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeAggregation">
+            <EntityTypeMapping TypeName="PCRModel.codeAggregation">
+              <MappingFragment StoreEntitySet="codeAggregation">
+                <ScalarProperty Name="ReportGUID" ColumnName="ReportGUID" />
+                <ScalarProperty Name="AggregationGUID" ColumnName="AggregationGUID" />
+                <ScalarProperty Name="GroupGUID" ColumnName="GroupGUID" />
+                <ScalarProperty Name="GenderGUID" ColumnName="GenderGUID" />
+                <ScalarProperty Name="AggregationDescription" ColumnName="AggregationDescription" />
+                <ScalarProperty Name="ColumnCharacter" ColumnName="ColumnCharacter" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeAggregationRowVersion" ColumnName="codeAggregationRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeCategoryReport">
+            <EntityTypeMapping TypeName="PCRModel.codeCategoryReport">
+              <MappingFragment StoreEntitySet="codeCategoryReport">
+                <ScalarProperty Name="ColumnCharacter" ColumnName="ColumnCharacter" />
+                <ScalarProperty Name="CategoryReportGUID" ColumnName="CategoryReportGUID" />
+                <ScalarProperty Name="ParentCategoryReportGUID" ColumnName="ParentCategoryReportGUID" />
+                <ScalarProperty Name="ReportGUID" ColumnName="ReportGUID" />
+                <ScalarProperty Name="CategoryDescription" ColumnName="CategoryDescription" />
+                <ScalarProperty Name="CategoryLevel" ColumnName="CategoryLevel" />
+                <ScalarProperty Name="RowSequance" ColumnName="RowSequance" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeCategoryReportRowVersion" ColumnName="codeCategoryReportRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizationsInstances">
+            <EntityTypeMapping TypeName="PCRModel.codeOrganizationsInstances">
+              <MappingFragment StoreEntitySet="codeOrganizationsInstances">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeOrganizationsInstancesRowVersion" ColumnName="codeOrganizationsInstancesRowVersion" />
+                <ScalarProperty Name="OperationGUID" ColumnName="OperationGUID" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizationsInstancesLanguages">
+            <EntityTypeMapping TypeName="PCRModel.codeOrganizationsInstancesLanguages">
+              <MappingFragment StoreEntitySet="codeOrganizationsInstancesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeOrganizationsInstancesLanguagesRowVersion" ColumnName="codeOrganizationsInstancesLanguagesRowVersion" />
+                <ScalarProperty Name="OrganizationInstanceDescription" ColumnName="OrganizationInstanceDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="OrganizationInstanceLanguageGUID" ColumnName="OrganizationInstanceLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPartnerReportDetail">
+            <EntityTypeMapping TypeName="PCRModel.dataPartnerReportDetail">
+              <MappingFragment StoreEntitySet="dataPartnerReportDetail">
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPartnerReportDetailRowVersion" ColumnName="dataPartnerReportDetailRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AggregationValue" ColumnName="AggregationValue" />
+                <ScalarProperty Name="AggregationGUID" ColumnName="AggregationGUID" />
+                <ScalarProperty Name="CategoryReportGUID" ColumnName="CategoryReportGUID" />
+                <ScalarProperty Name="PartnerReportCompiledGUID" ColumnName="PartnerReportCompiledGUID" />
+                <ScalarProperty Name="PartnerMonthlyReportDetailGUID" ColumnName="PartnerMonthlyReportDetailGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValues">
+            <EntityTypeMapping TypeName="PCRModel.codeTablesValues">
+              <MappingFragment StoreEntitySet="codeTablesValues">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesRowVersion" ColumnName="codeTablesValuesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="TableGUID" ColumnName="TableGUID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValuesLanguages">
+            <EntityTypeMapping TypeName="PCRModel.codeTablesValuesLanguages">
+              <MappingFragment StoreEntitySet="codeTablesValuesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesLanguagesRowVersion" ColumnName="codeTablesValuesLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ValueDescription" ColumnName="ValueDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+                <ScalarProperty Name="TableValueLanguageGUID" ColumnName="TableValueLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeCategoryAggregation">
+            <EntityTypeMapping TypeName="PCRModel.codeCategoryAggregation">
+              <MappingFragment StoreEntitySet="codeCategoryAggregation">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeCategoryAggregationRowVersion" ColumnName="codeCategoryAggregationRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="RowSequance" ColumnName="RowSequance" />
+                <ScalarProperty Name="ColumnCharacter" ColumnName="ColumnCharacter" />
+                <ScalarProperty Name="AggregationGUID" ColumnName="AggregationGUID" />
+                <ScalarProperty Name="CategoryReportGUID" ColumnName="CategoryReportGUID" />
+                <ScalarProperty Name="CategoryAggregationGUID" ColumnName="CategoryAggregationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codePartnerCenter">
+            <EntityTypeMapping TypeName="PCRModel.codePartnerCenter">
+              <MappingFragment StoreEntitySet="codePartnerCenter">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codePartnerCenterRowVersion" ColumnName="codePartnerCenterRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="PartnerCenterGUID" ColumnName="PartnerCenterGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RP_PartnerCenter" FunctionName="PCRModel.Store.RP_PartnerCenter">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCRModel.RP_PartnerCenter_Result">
+                <ScalarProperty Name="Category1" ColumnName="Category1" />
+                <ScalarProperty Name="Category2" ColumnName="Category2" />
+                <ScalarProperty Name="Category3" ColumnName="Category3" />
+                <ScalarProperty Name="AggregationDescription" ColumnName="AggregationDescription" />
+                <ScalarProperty Name="AggregationValue" ColumnName="AggregationValue" />
+                <ScalarProperty Name="DutyStationDescription" ColumnName="DutyStationDescription" />
+                <ScalarProperty Name="OrganizationInstanceDescription" ColumnName="OrganizationInstanceDescription" />
+                <ScalarProperty Name="PartnerCenterGUID" ColumnName="PartnerCenterGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="PartnerCenterDescription" ColumnName="PartnerCenterDescription" />
+                <ScalarProperty Name="AggregationGUID" ColumnName="AggregationGUID" />
+                <ScalarProperty Name="CategoryReportGUID" ColumnName="CategoryReportGUID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ParentCategoryReportGUID" ColumnName="ParentCategoryReportGUID" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RP_PartnerReports" FunctionName="PCRModel.Store.RP_PartnerReports">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCRModel.RP_PartnerReports_Result">
+                <ScalarProperty Name="Category1" ColumnName="Category1" />
+                <ScalarProperty Name="Category2" ColumnName="Category2" />
+                <ScalarProperty Name="Category3" ColumnName="Category3" />
+                <ScalarProperty Name="AggregationDescription" ColumnName="AggregationDescription" />
+                <ScalarProperty Name="AggregationValue" ColumnName="AggregationValue" />
+                <ScalarProperty Name="DutyStationDescription" ColumnName="DutyStationDescription" />
+                <ScalarProperty Name="OrganizationInstanceDescription" ColumnName="OrganizationInstanceDescription" />
+                <ScalarProperty Name="PartnerCenterGUID" ColumnName="PartnerCenterGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="PartnerCenterDescription" ColumnName="PartnerCenterDescription" />
+                <ScalarProperty Name="AggregationGUID" ColumnName="AggregationGUID" />
+                <ScalarProperty Name="CategoryReportGUID" ColumnName="CategoryReportGUID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ParentCategoryReportGUID" ColumnName="ParentCategoryReportGUID" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="dataPartnerReportCompiled">
+            <EntityTypeMapping TypeName="PCRModel.dataPartnerReportCompiled">
+              <MappingFragment StoreEntitySet="dataPartnerReportCompiled">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPartnerReportCompiledRowVersion" ColumnName="dataPartnerReportCompiledRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ErrorFound" ColumnName="ErrorFound" />
+                <ScalarProperty Name="UploadByUser" ColumnName="UploadByUser" />
+                <ScalarProperty Name="UploadDateTime" ColumnName="UploadDateTime" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="FileReportGUID" ColumnName="FileReportGUID" />
+                <ScalarProperty Name="ReportGUID" ColumnName="ReportGUID" />
+                <ScalarProperty Name="PartnerReportGUID" ColumnName="PartnerReportGUID" />
+                <ScalarProperty Name="PartnerReportCompiledGUID" ColumnName="PartnerReportCompiledGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizations">
+            <EntityTypeMapping TypeName="PCRModel.codeOrganizations">
+              <MappingFragment StoreEntitySet="codeOrganizations">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeOrganizationsRowVersion" ColumnName="codeOrganizationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="HQAddress" ColumnName="HQAddress" />
+                <ScalarProperty Name="DirectorPhone" ColumnName="DirectorPhone" />
+                <ScalarProperty Name="DirectorEmail" ColumnName="DirectorEmail" />
+                <ScalarProperty Name="DirectorName" ColumnName="DirectorName" />
+                <ScalarProperty Name="OrganizationWebSite" ColumnName="OrganizationWebSite" />
+                <ScalarProperty Name="OrganizationShortName" ColumnName="OrganizationShortName" />
+                <ScalarProperty Name="OrganizationFocusCode" ColumnName="OrganizationFocusCode" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="OrganizationTypeGUID" ColumnName="OrganizationTypeGUID" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPartnerReport">
+            <EntityTypeMapping TypeName="PCRModel.dataPartnerReport">
+              <MappingFragment StoreEntitySet="dataPartnerReport">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPartnerReportRowVersion" ColumnName="dataPartnerReportRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PartnerCenterGUID" ColumnName="PartnerCenterGUID" />
+                <ScalarProperty Name="PartnerReportGUID" ColumnName="PartnerReportGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataFileReport">
+            <EntityTypeMapping TypeName="PCRModel.dataFileReport">
+              <MappingFragment StoreEntitySet="dataFileReport">
+                <ScalarProperty Name="ShowReport" ColumnName="ShowReport" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataFileReportRowVersion" ColumnName="dataFileReportRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ErrorFound" ColumnName="ErrorFound" />
+                <ScalarProperty Name="FileReportGUID" ColumnName="FileReportGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

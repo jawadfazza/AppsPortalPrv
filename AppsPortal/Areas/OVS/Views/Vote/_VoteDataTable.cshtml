@@ -1,0 +1,26 @@
+﻿@model MasterRecordStatus
+<br />
+<h3 class="Title">@resxDbFields.ElectionVote</h3>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.ElectionCandidatesDataTable) class="filter-section" style="display: none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.ElectionCandidatesDataTable)
+                    </div>
+                </div>
+            </div>  
+       
+        }
+        @Html.Partial("DataTableControl", new DataTableControl {Name = DataTableNames.ElectionCandidatesDataTable, FormController = "Vote", Area = "OVS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Page, PK = Model.ParentGUID, SelectAll = true})
+        <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.ElectionCandidatesDataTable)">
+            @Html.IndexDataTableVote(DataTableNames.ElectionCandidatesDataTable)
+
+        </div>
+    </div>
+</div>
+
+

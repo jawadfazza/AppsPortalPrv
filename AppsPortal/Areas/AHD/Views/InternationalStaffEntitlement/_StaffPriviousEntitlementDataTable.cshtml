@@ -1,0 +1,20 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">Privious Periods</h3>
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      
+            <div id=@string.Format("{0}Filter", DataTableNames.InternationalMyStaffEntitlementPriviousDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.InternationalMyStaffEntitlementPriviousDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.InternationalMyStaffEntitlementPriviousDataTable)">
+                
+                
+            </div>
+        
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.InternationalMyStaffEntitlementPriviousDataTable, FormController = "InternationalStaffEntitlement", Area = "AHD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

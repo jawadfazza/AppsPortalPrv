@@ -1,0 +1,1327 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "Shuttle";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("04388632-c06d-4c22-b633-25bb5c7ef0e7")
+
+<link href="~/Assets/Plugin/DateRangePicke/daterangepicker.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/DateRangePicke/daterangepicker.js"></script>
+<link href="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.js"></script>
+<script src="~/Assets/Plugin/JQuery/jquery.ui.touch-punch.min.js"></script>
+<style type="text/css">
+    .DropBox {
+        font-weight: bold;
+        background: #fbf9f8;
+        padding-left: 15px;
+        cursor: pointer;
+        width: 91%;
+        height: 50px;
+        border: solid;
+        border-width: thin;
+        margin-left: 15px;
+        margin-top: 6px;
+        margin-bottom: 5px;
+        padding: 16px;
+        padding-left: 20%;
+        color: lightgray !important;
+        border-radius: 5px;
+    }
+    /*i.Modal-Link {
+        border-bottom: 0.2px solid;
+
+    }*/ /*i.Modal-Link {
+        border-bottom: 0.2px solid;
+
+    }*/
+    i span {
+        font-family: Arial !important;
+    }
+    /*.hover-link {
+        border-bottom: solid;
+        border-width: thin;
+    }*/
+    .hover-link:hover {
+        color: dodgerblue;
+        border-bottom: solid;
+        border-width: thin;
+    }
+
+    .cardShuttle {
+        background: #f5f5f5;
+        border-radius: 5px;
+        display: inline-block;
+        min-height: 80px;
+        margin: 7px;
+        position: relative;
+        width: 94%;
+        border: solid;
+        border-width: medium;
+        border-color: rgba(0,0,0,0.25);
+    }
+
+        .cardShuttle .fa {
+            color: black;
+        }
+
+    .cardShuttle-1 {
+        /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+        .cardShuttle-1:hover {
+            /*box-shadow:  0 14px 28px rgba(0,0,0,0.25), 0 2px 2px rgba(0,0,0,0.22);*/
+            border-color: #e8e8e8;
+        }
+
+    .cardVehicle {
+        background: #ffffff;
+        border-radius: 5px;
+        display: inline-block;
+        min-height: 50px;
+        margin: 7px;
+        position: relative;
+        width: 94%;
+        border: solid;
+        border-color: #ddd;
+        /*padding-bottom: 10px;*/
+    }
+
+        .cardVehicle .fa {
+            color: #666;
+        }
+
+    .cardVehicle-1 {
+        /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+        .cardVehicle-1:hover {
+            /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 2px 2px rgba(0,0,0,0.22);*/
+            border-color: #e8e8e8;
+        }
+
+    .cardStaff {
+        background: #ffffff;
+        border-radius: 5px;
+        display: inline-block;
+        /*min-height: 40px;*/
+        margin: 2px;
+        position: relative;
+        width: 90%;
+        /*border-width: medium;*/
+        /*border-color: #a7c8e4;*/
+        margin-left: 20px;
+    }
+
+    .cardStaffSearch {
+        min-height: 40px !important;
+        margin: 4px !important;
+        width: 95% !important;
+        border: solid !important;
+        border-width: medium !important;
+        border-color: #ddd !important;
+        border: solid;
+        border-width: medium;
+        border-color: #a7c8e4;
+    }
+
+    .cardStaff .fa {
+        color: #0072BC;
+    }
+
+    .cardStaff-1 {
+        /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+        .cardStaff-1:hover {
+            /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            border: solid;
+            border-width: medium;*/
+            border-color: black;
+            cursor: pointer;
+        }
+
+    .boxContainer {
+        /*background-color: #f5f7f9;*/
+        height: 400px;
+        z-index: 4;
+        overflow-y: auto;
+    }
+
+    .boxContainerShuttleRequest {
+        max-height: 650px;
+        z-index: 4;
+        overflow-y: auto;
+    }
+
+    .boxContainerVehicle {
+        height: 250px;
+        z-index: 4;
+        overflow-y: auto;
+    }
+
+    .boxContainerStaff {
+        height: 250px;
+        z-index: 4;
+        overflow-y: auto;
+    }
+</style>
+
+<br />
+
+
+<div class="col-lg-2 col-sm-2">
+    <div class="panel panel-default panel-homex">
+        <div class="panel-heading">
+
+            Shuttle Requests
+            <i class="fa fa-angle-up fa-2x pull-right pull angleShuttleRequestAll" aria-hidden="true" style="margin-top: -7px;display:none;"></i>
+        </div>
+        <div class="panel-body HomeApps boxContainerShuttleRequest" style="padding:0px;">
+
+        </div>
+    </div>
+</div>
+<div class="col-lg-8">
+    <div class="panel panel-default panel-homex">
+        <div class="panel-heading">
+            
+            <input class="form-control-static" id="txtShuttleSearch" type="text" placeholder="Shuttles Range" />
+            <button id="btnFilter" type="button" title="Filter" class="btnFilter  btn btn-success fa fa-filter form-control-static" onclick="ToggleAdvanceFilter('DivFilter','btnFilter');"></button>
+            <i class="fa fa-angle-up fa-2x pull-right angleShuttleAll" aria-hidden="true" style="display:none;"></i>
+            <i class="fa fa-window-maximize pull-right  windowMaximizeAll" aria-hidden="true" style="display:none;margin-top: 9px;" title="Maximized"></i>
+            <div id="DivFilter" style="width:100%;display:none;">
+                <h4>Advance Filter</h4>
+                <hr />
+                <div class="row" style="width:92%;">
+                    <div class="col-lg-4">
+                        @Html.Label("Passenger")
+                        @Html.DropDownList("PassengerGUIDs", new DropDownList().Users(true),
+                                    new { multiple = "multiple", data = "nothing", @class = "form-control select2-basic-multiple", style = "width:100%", placeholder = "Passagnger" })
+
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.Label("Driver")
+                        @Html.DropDownList("DriverGUIDs", new DropDownList().ShuttleDrivers(),
+                                 new { multiple = "multiple", data = "nothing", @class = "form-control select2-basic-multiple", style = "width:100%" })
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.Label("AV Num")
+                        @Html.DropDownList("AVGUIDs", new DropDownList().Vehicles(),
+                                 new { multiple = "multiple", data = "nothing", @class = "form-control select2-basic-multiple", style = "width:100%" })
+
+                    </div>
+                </div>
+                <br />
+                <div class="row" style="width:100%;">
+                    <div class="col-lg-12 ">
+                        <input type="button" value="Find" class="btnFind btn btn-success" id="btnFind" onclick="return ApplyAdvanceFilter();">&nbsp;
+                        <input type="button" value="Close" class="btnClose btn btn-default" onclick="ToggleAdvanceFilter('DivFilter','btnFilter');">&nbsp;
+                        <input type="button" value="Clear Filter" class="btnClear btn btn-default" onclick="CalendarRefresh();ToggleAdvanceFilter('DivFilter', 'btnFilter'); ">&nbsp;
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="mScroll blueDataTableHeader" data-mcs-theme="rounded-dark" style="max-height:650px;padding:10px;">
+            <div id="container" class="row" style="background-color:ghostwhite;">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-2">
+    <div class="col-lg-12 ">
+        <div class="panel panel-default panel-homex">
+            <div class="panel-heading">
+                <input class="form-control" id="txtVehicleSearch" type="text" placeholder="Search Vehicle" />
+            </div>
+            <div class="panel-body HomeApps boxContainerVehicle" style="padding:0px;">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 ">
+        <div class="panel panel-default panel-homex">
+            <div class="panel-heading">
+                <input class="form-control" id="txtStaffSearch" type="text" placeholder="Search Staff" />
+            </div>
+            <div class="panel-body HomeApps boxContainerStaff" style="padding:0px;">
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+    var startDate;
+    var endDate;
+    $(document).ready(function () {
+        init();
+        //Get all the Staff
+        StaffSearch();
+        //Get all the Vehicles
+        VehicleSearch();
+
+        $('#txtShuttleSearch').daterangepicker({
+            showDropdowns: true,
+            startDate: moment().startOf('month'),
+            endDate: moment().endOf('month'),
+            locale: {
+                format: 'DD MMM YYYY'
+            },
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'This Week': [moment().startOf('days'), moment().endOf('week')],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'This Year': [moment().startOf('year'), moment().endOf('year')]
+            },
+            "alwaysShowCalendars": true,
+        }).on('apply.daterangepicker', function (ev, picker) {
+            startDate = picker.startDate;
+            endDate = picker.endDate;
+            ShuttleRequests(picker.startDate.format('YYYY-MM-DD HH:mm'), picker.endDate.format('YYYY-MM-DD HH:mm'));
+            GenerateCalender(picker.startDate, picker.endDate);
+        });
+
+        startDate = moment().startOf('month');
+        endDate = moment().endOf('month');
+        ShuttleRequests(moment().startOf('month').format('YYYY-MM-DD HH:mm'), moment().endOf('month').format('YYYY-MM-DD HH:mm'));
+        GenerateCalender(moment().startOf('month'), moment().endOf('month'));
+    });
+    //Date Time Range
+
+
+
+
+    // Shuttles container window-maximize window-minimize
+    $(document).on('click', ".fa-window-maximize, .fa-window-minimize", function () {
+
+        var boxContainer = $(this).parent().parent().next();
+        if ($(this).hasClass('fa-window-maximize')) {
+            $(this).addClass('fa-window-minimize');
+            $(this).removeClass('fa-window-maximize');
+            boxContainer.css("height", "auto");
+        } else {
+            $(this).addClass('fa-window-maximize');
+            $(this).removeClass('fa-window-minimize');
+            boxContainer.css("height", "400px");
+        }
+    });
+
+
+    $(document).on('click', ".ShareAll, .ShareSelected, .ShareAll, .ShareSelected", function () {
+        var URLVal = "";
+        var $this = $(this);
+        var boxContainer = $(this).parent().parent().next();
+        var Date = boxContainer.attr("data-date");
+        var shuttleGUIDs = [];
+        if ($this.hasClass('ShareAll')) {
+
+            var shuttleList = $this.parent().parent().next().find(".cbShuttle");
+
+            shuttleList.each(function (index) {
+                if ($(this).prop("checked")) {
+                    shuttleGUIDs.push($(this).parent().parent().prop("id"));
+                }
+            });
+            URLVal = "/SHM/Shuttles/ShuttleSendAll?shuttleGUIDs=" + shuttleGUIDs.join(",");
+        } else {
+            URLVal = "/SHM/Shuttles/ShuttleSend?ShuttleGUID=" + $this.attr("data-ShuttleGUID");
+        }
+
+        $.confirm({
+            title: 'Confirm Message!',
+            content: 'Press OK to Share The Email?',
+            buttons: {
+                confirm: function () {
+                    $.ajax({
+                        url: URLVal + "&ShareWithMe=false",
+                        dataType: 'json',
+                        type: "post",
+                        success: function (result) {
+                            CalendarRefresh();
+                            Notify(NotificationType.Success, "Mail Shared Successfully");
+                        },
+                        error: function (Result) {
+                            Notify(NotificationType.Error, "Error: Check Shuttle Details");
+                        }
+                    });
+                },
+                cancel: function () {
+
+                },
+                somethingElse: {
+                    text: 'Let Me See!',
+                    btnClass: 'btn-blue',
+                    keys: ['enter', 'shift'],
+                    action: function () {
+                        $.ajax({
+                            url: URLVal + "&ShareWithMe=true",
+                            dataType: 'json',
+                            type: "post",
+                            success: function (result) {
+                                CalendarRefresh();
+                                Notify(NotificationType.Success, "Mail Shared Successfully");
+                            },
+                            error: function (Result) {
+                                Notify(NotificationType.Error, "Error: Check Shuttle Details");
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+
+    });
+    $(document).on('click', ".NotifySelected, .NotifySelected", function () {
+        var URLVal = "";
+        var $this = $(this);
+        var shuttlerequestGUID = $this.parent().parent().attr("id");
+        URLVal = "/SHM/Shuttles/ShuttleNotifyStaffRequest?shuttleRequestGUID=" + shuttlerequestGUID;
+
+        $.confirm({
+            title: 'Confirm Message!',
+            content: 'Press OK to Notify The Staff?',
+            buttons: {
+                confirm: function () {
+                    $.ajax({
+                        url: URLVal,
+                        dataType: 'json',
+                        type: "post",
+                        success: function (result) {
+                            CalendarRefresh();
+                            Notify(NotificationType.Success, "Mail Shared Successfully");
+                        },
+                        error: function (Result) {
+                            Notify(NotificationType.Error, "Error: Check Shuttle Request Details");
+                        }
+                    });
+                },
+                cancel: function () {
+
+                },
+            }
+        });
+
+
+    });
+    $(document).on('click', ".RemoveShuttleRequest, .RemoveShuttleRequest", function () {
+        var URLVal = "";
+        var $this = $(this);
+        var ShuttleRequestBoxStateGUID = $this.parent().parent().attr("id");
+        URLVal = "/SHM/Shuttles/RemoveShuttleRequest?ShuttleRequestBoxStateGUID=" + ShuttleRequestBoxStateGUID;
+
+        $.confirm({
+            title: 'Confirm Message!',
+            content: 'Press (OK) to remove the shuttle request!',
+            buttons: {
+                confirm: function () {
+                    $.ajax({
+                        url: URLVal,
+                        dataType: 'json',
+                        type: "post",
+                        success: function (result) {
+                            ShuttleRequests(moment().startOf('month').format('YYYY-MM-DD HH:mm'), moment().endOf('month').format('YYYY-MM-DD HH:mm'));
+
+                            Notify(NotificationType.Success, "Request Removed Successfully");
+                        },
+                        error: function (Result) {
+                            Notify(NotificationType.Error, "Error: Check Shuttle Request Details");
+                        }
+                    });
+                },
+                cancel: function () {
+
+                },
+            }
+        });
+
+
+    });
+    //angle up and down all Shuttles
+    $(document).on('click', ".angleShuttleAll, .angleShuttleRequestAll", function () {
+
+        var angle = $(this);
+        if (angle.hasClass('fa-angle-down')) {
+            angle.removeClass('fa-angle-down');
+            angle.addClass('fa-angle-up');
+        } else {
+            angle.addClass('fa-angle-down');
+            angle.removeClass('fa-angle-up');
+        }
+
+        var shuttles = $(this).parent().parent().find(".Shuttle").find(".angleShuttle");
+        if (shuttles.hasClass('fa-angle-down')) {
+            shuttles.removeClass('fa-angle-down');
+            shuttles.addClass('fa-angle-up');
+            $(this).parent().parent().find('.cardVehicle').show(100);
+            $(this).parent().parent().find('.DropBox').show(100);
+        } else {
+            shuttles.addClass('fa-angle-down');
+            shuttles.removeClass('fa-angle-up');
+            $(this).parent().parent().find('.cardVehicle').hide(100);
+            $(this).parent().parent().find('.DropBox').hide(100);
+        }
+    });
+
+    //window Maximize All  Shuttles
+    $(document).on('click', ".windowMaximizeAll", function () {
+        var boxContainer = $(this).parent().parent().find(".boxContainer");
+        var windowIcon = boxContainer.prev().find(".window")
+        if (windowIcon.hasClass('fa-window-maximize')) {
+            windowIcon.addClass('fa-window-minimize');
+            windowIcon.removeClass('fa-window-maximize');
+            boxContainer.css("height", "auto");
+        } else {
+            windowIcon.addClass('fa-window-maximize');
+            windowIcon.removeClass('fa-window-minimize');
+            boxContainer.css("height", "400px");
+        }
+    });
+
+    function ToggleAdvanceFilter(DivID, btnID) {
+        if ($('#' + btnID).hasClass('fa-exclamation-triangle')) {
+            $('#' + DivID).hide(500);
+            $('#' + btnID).removeClass('fa-exclamation-triangle');
+            $('#' + btnID).addClass('fa-filter');
+            $('#txtShuttleSearch').prop("disabled", false);
+
+        } else {
+            $('#' + DivID).show(500);
+            $('#' + btnID).addClass('fa-exclamation-triangle');
+            $('#' + btnID).removeClass('fa-filter');
+            $('#txtShuttleSearch').prop("disabled", true);
+        }
+    }
+
+    //angle up and down
+    $(document).on('click', ".angleShuttle", function () {
+        $(this).parent().parent().find('.cardVehicle').slideToggle(100);
+        $(this).parent().parent().find('.DropBox').slideToggle(100);
+        var angle = $(this);
+        if (angle.hasClass('fa-angle-down')) {
+            angle.removeClass('fa-angle-down');
+            angle.addClass('fa-angle-up');
+        } else {
+            angle.addClass('fa-angle-down');
+            angle.removeClass('fa-angle-up');
+        }
+    });
+
+    $(document).on('click', ".angleVehicle", function () {
+        $(this).parent().parent().find('.cardStaff').slideToggle(100);
+        $(this).parent().parent().find('.DropBox').slideToggle(100);
+        var angle = $(this);
+        if (angle.hasClass('fa-angle-down')) {
+            angle.removeClass('fa-angle-down');
+            angle.addClass('fa-angle-up');
+        } else {
+            angle.addClass('fa-angle-down');
+            angle.removeClass('fa-angle-up');
+        }
+    });
+
+
+    /////////////////////////////////////////////////DRAG AND DROP FUNCTIONS////////////////////////////////////////
+
+    function touchHandler(event) {
+        var touch = event.changedTouches[0];
+
+        var simulatedEvent = document.createEvent("MouseEvent");
+        simulatedEvent.initMouseEvent({
+            touchstart: "mousedown",
+            touchmove: "mousemove",
+            touchend: "mouseup"
+        }[event.type], true, true, window, 1,
+            touch.screenX, touch.screenY,
+            touch.clientX, touch.clientY, false,
+            false, false, false, 0, null);
+
+        touch.target.dispatchEvent(simulatedEvent);
+        event.preventDefault();
+    }
+
+    function init() {
+        document.addEventListener("touchstart", touchHandler, true);
+        document.addEventListener("touchmove", touchHandler, true);
+        document.addEventListener("touchend", touchHandler, true);
+        document.addEventListener("touchcancel", touchHandler, true);
+    }
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        //ev.dataTransfer.setData("text", ev.target.id);
+        ev.dataTransfer.effectAllowed = 'move';
+        ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+        ev.dataTransfer.setDragImage(ev.target, 0, 0);
+
+        return true;
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+
+        var DragDropDiv = $("#" + ev.dataTransfer.getData("Text"));
+        var ContainerDiv = $(ev.target);
+        //drop shuttle request
+        if (ContainerDiv.hasClass('boxContainer') && DragDropDiv.hasClass("Shuttle")) {
+            ev.target.appendChild(DragDropDiv[0]);
+            console.log("dragDrop Shuttle:" + ContainerDiv.parent().parent());
+            ev.stopPropagation();
+            console.log();
+            UpdateDropShuttle(DragDropDiv.attr('id'), ContainerDiv.attr("data-date"), DragDropDiv.attr("data-request"));
+            return false;
+        }
+        //drop Vehicle
+        if (ContainerDiv.hasClass('Shuttle') && DragDropDiv.hasClass("cardVehicle")) {
+            if (CheckShuttleVehicle(DragDropDiv.attr('id'), ContainerDiv.attr('id'), DragDropDiv.attr("data-VehicleGUID")) == true) {
+                ev.target.appendChild(DragDropDiv[0]/*.cloneNode(true)*/);
+                ev.stopPropagation();
+                console.log("dragDrop Vehicle:" + ContainerDiv.parent().parent());
+                AddDropVehicle(DragDropDiv.attr('id'), ContainerDiv.attr('id'), DragDropDiv.attr("data-VehicleGUID"), DragDropDiv.attr("data-update"));
+                return false;
+            }
+        }
+        if (ContainerDiv.hasClass('ShuttleDropBox') && DragDropDiv.hasClass("cardVehicle")) {
+            if (CheckShuttleVehicle(DragDropDiv.attr('id'), ContainerDiv.parent().attr('id'), DragDropDiv.attr("data-VehicleGUID")) == true) {
+                ContainerDiv.parent().append(DragDropDiv[0]/*.cloneNode(true)*/);
+                ev.stopPropagation();
+                console.log("dragDrop Vehicle:" + ContainerDiv.parent().parent().parent());
+                AddDropVehicle(DragDropDiv.attr('id'), ContainerDiv.parent().attr('id'), DragDropDiv.attr("data-VehicleGUID"), DragDropDiv.attr("data-update"));
+                return false;
+            }
+        }
+        //drop Staff
+        if (ContainerDiv.hasClass('cardVehicle') && DragDropDiv.hasClass("cardStaff")) {
+            if (CheckShuttleStaff(DragDropDiv.attr('id'), ContainerDiv.parent().parent().attr('id'), DragDropDiv.attr("data-UserPassengerGUID"), ContainerDiv.parent().attr('id')) == true) {
+                ev.target.appendChild(DragDropDiv[0]/*.cloneNode(true)*/);
+                ev.stopPropagation();
+                console.log("dragDrop Staff:" + ContainerDiv.parent().parent());
+                AddDropStaff(ContainerDiv.attr('id'), DragDropDiv.attr('id'), DragDropDiv.attr("data-UserPassengerGUID"), DragDropDiv.attr("data-update"))
+                return false;
+            }
+        }
+        //Vehicle Drop Box
+        if (ContainerDiv.hasClass('VehicleDropBox') && DragDropDiv.hasClass("cardStaff")) {
+            if (CheckShuttleStaff(DragDropDiv.attr('id'), ContainerDiv.parent().parent().attr('id'), DragDropDiv.attr("data-UserPassengerGUID"), ContainerDiv.parent().attr('id')) == true) {
+                ContainerDiv.parent().append(DragDropDiv[0]/*.cloneNode(true)*/);
+                ev.stopPropagation();
+                console.log("dragDrop Staff:" + ContainerDiv.parent().parent().parent());
+                AddDropStaff(ContainerDiv.parent().attr('id'), DragDropDiv.attr('id'), DragDropDiv.attr("data-UserPassengerGUID"), DragDropDiv.attr("data-update"))
+                return false;
+            }
+        }
+    }
+
+    /////////////////////////////////////////////////DRAG AND DROP FUNCTIONS////////////////////////////////////////
+
+    //Drag and drop functions
+
+
+    //generate UUID
+    function generateUUID() { // Public Domain/MIT
+        var d = new Date().getTime();//Timestamp
+        var d2 = (performance && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16;//random number between 0 and 16
+            if (d > 0) {//Use timestamp until depleted
+                r = (d + r) % 16 | 0;
+                d = Math.floor(d / 16);
+            } else {//Use microseconds since page-load if supported
+                r = (d2 + r) % 16 | 0;
+                d2 = Math.floor(d2 / 16);
+            }
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    }
+
+</script>
+
+<script type="text/javascript">
+
+///////////////////////////////////////////////////////Shuttle Actions,//////////////////////////////////////////////////////////////////
+
+    //Update Shuttle Date on drop between containers
+    function UpdateDropShuttle(ShuttleGUID, NewDate, ShuttleRequest) {
+        if (ShuttleRequest == "true") {
+            $.ajax({
+                url: "/SHM/Shuttles/ShuttleRequestShuttleCreate?ShuttleRequestBoxStateGUID=" + ShuttleGUID + "&DepartureDateTime=" + NewDate,
+                dataType: 'json',
+                type: "post",
+                success: function (result) {
+                    CalendarRefresh();
+                    Notify(NotificationType.Success, "Shuttle Request Created Successfully");
+                }
+            });
+        } else {
+            $.ajax({
+                url: "/SHM/Shuttles/ShuttleUpdateDate?ShuttleGUID=" + ShuttleGUID + "&DepartureDateTime=" + NewDate,
+                dataType: 'json',
+                type: "post",
+                success: function (result) {
+                    CalendarRefresh();
+                    Notify(NotificationType.Success, "Shuttle Date Updated Successfully");
+                }
+            });
+        }
+    }
+///////////////////////////////////////////////////////Shuttle Actions,//////////////////////////////////////////////////////////////////
+
+
+
+
+///////////////////////////////////////////Shttle Request Actions////////////////////////////////////////////////////////////
+
+
+//Return Shuttle Requests List
+    function ShuttleRequests(StartDate, EndDate) {
+        $.ajax({
+            url: "/SHM/Shuttles/ShuttleRequests?StartDate=" + StartDate + "&EndDate=" + EndDate,
+            dataType: 'json',
+            type: "post",
+            success: function (result) {
+                var container = "";
+                try {
+                    $.each(result["ShuttleRequest"], function (K, v) {
+                        //the Shuttle Request Div tag
+                        container += buildShuttleRequestTag(v,"Depart " );
+                        //The Vehiclee Div tag
+                        container += buildShuttleRequestVehicleTag();
+                        //The Staff Div tag
+                        var LinkedStaff = Enumerable.From(result["ShuttleRequestStaff"]).Where(function (x) { return x.ShuttleRequestGUID == v["ShuttleRequestGUID"] }).Select(function (x) { return x }).ToArray();
+                        $.each(LinkedStaff, function (K, v) {
+                            container += buildShuttleRequestStaffTag(v);
+                        });
+                        container += '</div>';
+                        container += '</div>';
+                    });
+                    $.each(result["ShuttleReturnRequest"], function (K, v) {
+                        //the Shuttle Request Div tag
+                        container += buildShuttleRequestTag(v, "Return ");
+                        //The Vehiclee Div tag
+                        container += buildShuttleRequestVehicleTag();
+                        //The Staff Div tag
+                        var LinkedStaff = Enumerable.From(result["ShuttleReturnRequestStaff"]).Where(function (x) { return x.ShuttleRequestGUID == v["ShuttleRequestGUID"] }).Select(function (x) { return x }).ToArray();
+                        $.each(LinkedStaff, function (K, v) {
+                            container += buildShuttleRequestStaffTag(v);
+                        });
+                        container += '</div>';
+                        container += '</div>';
+                    });
+
+                } catch (ex) { console.log(ex) }
+                $('.boxContainerShuttleRequest').html(container);
+
+                var angleShuttleAll = $('.angleShuttleRequestAll');
+                angleShuttleAll.css("display", "");
+                $(".windowMaximizeAll").css("display", "");
+                if (angleShuttleAll.hasClass('fa-angle-down')) {
+                    $('#boxContainerShuttleRequest').find('.cardVehicle').hide(0);
+                    $('#boxContainerShuttleRequest').find('.angleShuttle').removeClass('fa-angle-up');
+                    $('#boxContainerShuttleRequest').find('.angleShuttle').addClass('fa-angle-down');
+
+                } else {
+                    $('#boxContainerShuttleRequest').find('.cardVehicle').show(0);
+                    $('#boxContainerShuttleRequest').find('.angleShuttle').removeClass('fa-angle-down');
+                    $('#boxContainerShuttleRequest').find('.angleShuttle').addClass('fa-angle-up');
+                }
+
+            }
+        });
+    }
+    function buildShuttleRequestTag(v, type) {
+        var str = '<div id="' + v["ShuttleRequestBoxStateGUID"] + '" class="cardShuttle cardShuttle-1 Shuttle"  draggable="' + ((v["StartLocation"] == null || v["EndLocation"] == null) ? false : true) + '" ondragstart="drag(event)" data-request="true" ' + ((v["StartLocation"] == null || v["EndLocation"] == null) ? "style='border-color:red' " : "") + '>' +
+            '<div class="panel-heading">' +
+            '<i class="fa fa-bullhorn  fa-1x" aria-hidden="true"><span> ' + type + "(" + v["ShuttleTravelPurposeDescription"] + ')</span></i>' +
+            '<i class="fa fa-angle-up fa-1x pull-right angleShuttle" aria-hidden="true"></i>' +
+            '<i class="fa fa-trash-o RemoveShuttleRequest pull-right" aria-hidden="true" title="Delete Shuttle Request" style="padding-right: 6px;" ></i>' +
+            ((v["StartLocation"] == null || v["EndLocation"] == null) ? '<i class="fa fa-bell NotifySelected pull-right" aria-hidden="true" title="Notify Current Shuttle Request"  ></i>'  : "")+
+            '<hr style="height: 2px;border: none;backgpanel panel-default panel-homexround-color: #b8b8b8;margin-top: 2px;margin-bottom:5px;"/>' +
+            '<i class="fa fa-road   fa-1x" aria-hidden="true"><span>Route: <b>' + ((v["StartLocation"] == null || v["EndLocation"] == null) ?"No Route":(  v["StartLocation"] + '-' +  v["EndLocation"]  ))+ '</b></span></i>' +
+            '<i class="fa fa-calendar  fa-1x"  aria-hidden="true"> <span> Date: <b>' + moment(v["DepartureDate"]).format('LL') + '</b></span></i>' +
+            '<i class="fa fa-user-plus  fa-1x"  aria-hidden="true"> <span>Create By: <b>' + v["StaffName"]+ '</b></span></i>' +
+        '</div>';
+
+        return str;
+    }
+    function buildShuttleRequestVehicleTag() {
+        var str = '<div id="' + generateUUID() + '" class="cardVehicle cardVehicle-1" draggable="true" ondragstart="return drag(event)" style="padding: 8px;">';
+        return str;
+    }
+    function buildShuttleRequestStaffTag(v) {
+        var str = '<div id="' + v["ShuttleRequestStaffGUID"] + '" class="cardStaff cardStaff-1" draggable="true" ondragstart="return drag(event)">' +
+            '<i class="fa fa-user-circle fa-1x" aria - hidden="true" > <span>' + v["StaffName"] + '</span></i >' +
+            '</div>';
+
+        return str;
+    }
+///////////////////////////////////////////Shttle Request Actions////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////Vehicle Actions,////////////////////////////////////////////////////////////////
+
+    //Search Vehicle
+    $("#txtVehicleSearch").change(function () {
+        VehicleSearch();
+    });
+
+    function VehicleSearch() {
+        $.ajax({
+            url: "/SHM/Shuttles/getVehicle?txtStr=" + $("#txtVehicleSearch").val(),
+            dataType: 'json',
+            type: "post",
+            success: function (result) {
+                var container = "";
+                var model = result["model"];
+                for (i = 0; i < model.length; i++) {
+                    container += '<div id="' + generateUUID() + '" class="cardVehicle cardVehicle-1" draggable="true" ondragstart="drag(event)" data-VehicleGUID="' + model[i].value + '" data-update="false">' +
+                        '<div class="panel-heading"><i class="fa fa-car fa-1x" aria-hidden="true"><span> ' + model[i].text + '</span></i>' +
+                        '</div >' +
+                        '</div>';
+                }
+                $('.boxContainerVehicle').html(container);
+            }
+        });
+    }
+
+    //Check Shuttle eVehicle
+    function CheckShuttleVehicle(ShuttleVehicleGUID, ShuttleGUID, VehicleGUID) {
+        var bool = false;
+        $.ajax({
+            url: "/SHM/ShuttleVehicles/CheckShuttleVehicle?ShuttleVehicleGUID=" + ShuttleVehicleGUID + "&ShuttleGUID=" + ShuttleGUID + "&VehicleGUID=" + VehicleGUID + "&Active=True&LockViaShuttleDuration=False&IsUNAgencyVehicle=False",
+            dataType: 'json',
+            type: "post",
+            async: false,
+            success: function (result) {
+                if (result["MessageError"] != "") {
+                    Notify(NotificationType.Warning, result["MessageError"]);
+                    bool= false;
+                } else {
+                    bool= true;
+                }
+
+            }
+        });
+        return bool;
+    }
+    //Add New Vehicle
+    function AddDropVehicle(ShuttleVehicleGUID, ShuttleGUID, VehicleGUID, update) {
+        $.ajax({
+            url: "/SHM/ShuttleVehicles/ShuttleVehicle" + (update == "true" ? "UpdateShuttle" : "Create") + "?ShuttleVehicleGUID=" + ShuttleVehicleGUID + "&ShuttleGUID=" + ShuttleGUID + "&VehicleGUID=" + VehicleGUID +"&Active=True&LockViaShuttleDuration=False&IsUNAgencyVehicle=False",
+            dataType: 'json',
+            type: "post",
+            success: function (result) {
+                if (update=="false") {
+                    $('#FormModal').modal('show');
+                    $('#Partial-Container').load('/SHM/ShuttleVehicle/Update/' + ShuttleVehicleGUID, function () {
+                        $('#Loading-Container').hide();
+                        InitPlugins($('#Partial-Container'));
+                    });
+                } else {
+                    Notify(NotificationType.Success, "Vehicle Moved Successfully");
+                }
+            }
+        });
+    }
+
+ ///////////////////////////////////////////Vehicle Actions,////////////////////////////////////////////////////////////////
+
+
+
+////////////////////////./////////////////// Staff Actions,////////////////////////////////////////////////////////
+    //Check Shuttle Staff
+    function CheckShuttleStaff(ShuttleStaffGUID, ShuttleGUID, UserPassengerGUID, ShuttleVehicleGUID ) {
+        var bool = false;
+        $.ajax({
+            url: "/SHM/ShuttleStaffs/CheckShuttleStaff?ShuttleStaffGUID=" + ShuttleStaffGUID + "&ShuttleGUID=" + ShuttleGUID + "&UserPassengerGUID=" + UserPassengerGUID + "&ShuttleVehicleGUID=" + ShuttleVehicleGUID ,
+            dataType: 'json',
+            type: "post",
+            async: false,
+            success: function (result) {
+                if (result["MessageError"] != "") {
+                    Notify(NotificationType.Warning, result["MessageError"]);
+                    bool = false;
+                } else {
+                    bool = true;
+                }
+
+            }
+        });
+        return bool;
+    }
+    //Search Staff
+    $("#txtStaffSearch").change(function () {
+        StaffSearch();
+
+    });
+
+    function StaffSearch() {
+        $.ajax({
+            url: "/SHM/Shuttles/getStaff?txtStr=" + $("#txtStaffSearch").val(),
+            dataType: 'json',
+            type: "post",
+            success: function (result) {
+                var container = "";
+                //$.each(result["model"], function (K, v) {
+                var model = result["model"];
+                for (i = 0; i < model.length; i++) {
+                    container += '<div id="' + generateUUID() + '" class="cardStaff cardStaff-1 cardStaffSearch" draggable="true" ondragstart="return drag(event)" data-UserPassengerGUID="' + model[i].value + '" data-update="false">' +
+                        '<div class="panel-heading"><i class="fa fa-user-circle fa-1x" aria-hidden="true"> <span>' + model[i].text + '</span></i>' +
+                        // '<i class="fa fa fa-trash-o fa-1x pull-lg-right" aria-hidden="true" style="padding-right: 10px;"></i>' +
+                        '</div > ' +
+                        '</div>';
+                }
+
+                //});
+                $('.boxContainerStaff').html(container);
+            }
+        });
+
+    }
+    //Add New Staff
+    function AddDropStaff(ShuttleVehicleGUID, ShuttleStaffGUID , UserGUID,update) {
+        $.ajax({
+            url: "/SHM/ShuttleStaffs/ShuttleStaff" + (update == "true" ?"UpdateVehicle":"Create") + "?ShuttleVehicleGUID=" + ShuttleVehicleGUID + "&ShuttleStaffGUID=" + ShuttleStaffGUID + "&UserPassengerGUID=" + UserGUID + "&Active=True",
+            dataType: 'json',
+            type: "post",
+            success: function (result) {
+                if (update == "false") {
+                    $('#FormModal').modal('show');
+                    $('#Partial-Container').load('/SHM/ShuttleStaff/Update/' + ShuttleStaffGUID, function () {
+                        $('#Loading-Container').hide();
+                        InitPlugins($('#Partial-Container'));
+                    });
+                } else {
+                    Notify(NotificationType.Success, "Staff Moved Successfully");
+                }
+            }
+        });
+    }
+
+    //  Update Staff Confirmation
+     $(document).on('click', ".fa-question-circle, .fa-check-square", function () {
+
+        $.ajax({
+            url: "/SHM/ShuttleStaffs/UpdateStaffConfirmation" + "?ShuttleStaffGUID=" + $(this).parent().attr("id"),
+            dataType: 'json',
+            type: "post",
+            success: function (result) {
+                CalendarRefresh();
+                Notify(NotificationType.Success, "Update Successfully");
+            }
+        });
+    });
+////////////////////////./////////////////// Staff Actions,////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////// Generate Calender //////////////////////////////////////////////////////
+    //Return Shuttle List  Generate the Calender
+    function GenerateCalender(StartDate, EndDate) {
+        var container = "";
+        $.ajax({
+            url: "/SHM/Shuttles/AvtiveShuttles?StartDate=" + StartDate.format('YYYY-MM-DD HH:mm') + "&EndDate=" + EndDate.format('YYYY-MM-DD HH:mm'),
+            dataType: 'json',
+            type: "post",
+           // async: false,
+            success: function (result) {
+                var colCount = 0;
+                try {
+                    for (var d = StartDate; d < EndDate;) {
+                        colCount++;
+                        //  daysOfYear.push(new Date(d));
+                        container += BuildDateContainer(d);
+
+                        //the Shuttle Request Div tag
+                        var LinkedShuttle = Enumerable.From(result["Shuttle"]).Where(function (x) { return moment(x.DepartureDateTime).utc().format("DD/MM/YYYY") == d.format("DD/MM/YYYY") }).Select(function (x) { return x }).ToArray();                        $.each(LinkedShuttle, function (K, Result) {
+                            container += BuildShuttleTag(Result);
+
+                            //The Vehicle Div tag
+                            var LinkedVehicle = Enumerable.From(result["ShuttleVehicle"]).Where(function (x) { return x.ShuttleGUID == Result["ShuttleGUID"] }).Select(function (x) { return x }).ToArray();
+                            $.each(LinkedVehicle, function (K, Result) {
+                                container += BuildShuttleVehicleTag(Result);
+
+                                //The Staff Div tag
+                                var LinkedStaff = Enumerable.From(result["ShuttleStaff"]).Where(function (x) { return x.ShuttleVehicleGUID == Result["ShuttleVehicleGUID"] }).Select(function (x) { return x }).ToArray();
+                                $.each(LinkedStaff, function (K, Result) {
+                                    container += BuildShuttleStaffTag(Result);
+                                });
+                                container += '<br/>';
+                                container += '</div>';
+
+                            });
+
+                            container += '</div>';
+                        });
+
+                        container += '</div>';
+                        container += ' </div>';
+
+                        container += ' </div>';
+                        if (colCount == 3) {
+                            container += '<hr style=" width: 100%;;border-width: thin;border-color:black;padding-bottom: 20px;"/>';
+                            colCount = 0;
+                        }
+                        container += ' </div>';
+
+                        d = moment(d).add('days', 1);
+                    }
+
+                } catch (ex) { console.log(ex) }
+                $('#container').html(container);
+
+                var angleShuttleAll = $('.angleShuttleAll');
+                angleShuttleAll.css("display", "");
+                if (angleShuttleAll.hasClass('fa-angle-down')) {
+                    $('#container').find('.cardVehicle').hide(0);
+                    $('#container').find('.DropBox').hide(0);
+                    $('#container').find('.angleShuttle').removeClass('fa-angle-up');
+                    $('#container').find('.angleShuttle').addClass('fa-angle-down');
+
+                } else {
+                    $('#container').find('.cardVehicle').show(0);
+                    $('#container').find('.DropBox').show(0);
+                    $('#container').find('.angleShuttle').removeClass('fa-angle-down');
+                    $('#container').find('.angleShuttle').addClass('fa-angle-up');
+                }
+
+
+                var windowMaximizeAll = $('.windowMaximizeAll');
+                var boxContainer = $('#container').find(".boxContainer");
+                var windowIcon = $('#container').find(".window")
+                if (windowMaximizeAll.hasClass('fa-window-maximize')) {
+                     windowIcon.addClass('fa-window-maximize');
+                    windowIcon.removeClass('fa-window-minimize');
+                    boxContainer.css("height", "400px");
+                } else {
+
+                     windowIcon.addClass('fa-window-minimize');
+                    windowIcon.removeClass('fa-window-maximize');
+                    boxContainer.css("height", "auto");
+                }
+                //
+            }
+        });
+    }
+
+    function ApplyAdvanceFilter() {
+         var container = "";
+        $.ajax({
+            url: "/SHM/Shuttles/FilterShuttles?PassengerGUIDs=" + $("#PassengerGUIDs").val() + "&DriverGUIDs=" +$("#DriverGUIDs").val() +"&AVGUIDs=" +$("#AVGUIDs").val(),
+            dataType: 'json',
+            type: "post",
+           // async: false,
+            success: function (result) {
+                var colCount = 0;
+                try {
+                    $.each(result["dates"], function (a, Result) {
+                        colCount++;
+                        var d = moment(Result);
+                        //  daysOfYear.push(new Date(d));
+                        container += BuildDateContainer(d);
+
+                        //the Shuttle Request Div tag
+                        var LinkedShuttle = Enumerable.From(result["Shuttle"]).Where(function (x) { return moment(x.DepartureDateTime) >= d.utc() && moment(x.DepartureDateTime) <= moment(d).utc().add('hours', 23).add('minutes', 59).add('seconds', 59) }).Select(function (x) { return x }).ToArray();
+                        $.each(LinkedShuttle, function (K, Result) {
+                            container += BuildShuttleTag(Result);
+
+                            //The Vehicle Div tag
+                            var LinkedVehicle = Enumerable.From(result["ShuttleVehicle"]).Where(function (x) { return x.ShuttleGUID == Result["ShuttleGUID"] }).Select(function (x) { return x }).ToArray();
+                            $.each(LinkedVehicle, function (K, Result) {
+                                container += BuildShuttleVehicleTag(Result);
+
+                                //The Staff Div tag
+                                var LinkedStaff = Enumerable.From(result["ShuttleStaff"]).Where(function (x) { return x.ShuttleVehicleGUID == Result["ShuttleVehicleGUID"] }).Select(function (x) { return x }).ToArray();
+                                $.each(LinkedStaff, function (K, Result) {
+                                    container += BuildShuttleStaffTag(Result);
+                                });
+                                container += '<br/>';
+                                container += '</div>';
+
+                            });
+
+                            container += '</div>';
+                        });
+
+                        container += '</div>';
+                        container += ' </div>';
+
+                        container += ' </div>';
+                        if (colCount == 3) {
+                            container += '<hr style=" width: 100%;;border-width: thin;border-color:black;padding-bottom: 20px;"/>';
+                            colCount = 0;
+                        }
+                        container += ' </div>';
+
+                        // d = moment(d).add('days', 1);
+                    });
+
+                } catch (ex) { console.log(ex) }
+                $('#container').html(container);
+
+                var angleShuttleAll = $('.angleShuttleAll');
+                angleShuttleAll.css("display", "");
+                if (angleShuttleAll.hasClass('fa-angle-down')) {
+                    $('#container').find('.cardVehicle').hide(0);
+                    $('#container').find('.DropBox').hide(0);
+                    $('#container').find('.DropBox').prev().hide(0);
+                    $('#container').find('.angleShuttle').removeClass('fa-angle-up');
+                    $('#container').find('.angleShuttle').addClass('fa-angle-down');
+
+                }
+                else {
+                    $('#container').find('.cardVehicle').show(0);
+                    $('#container').find('.DropBox').prev().show(0);
+                    $('#container').find('.angleShuttle').removeClass('fa-angle-down');
+                    $('#container').find('.angleShuttle').addClass('fa-angle-up');
+                }
+
+
+                var windowMaximizeAll = $('.windowMaximizeAll');
+                var boxContainer = $('#container').find(".boxContainer");
+                var windowIcon = $('#container').find(".window")
+                if (windowMaximizeAll.hasClass('fa-window-maximize')) {
+                     windowIcon.addClass('fa-window-maximize');
+                    windowIcon.removeClass('fa-window-minimize');
+                    boxContainer.css("height", "400px");
+                } else {
+
+                     windowIcon.addClass('fa-window-minimize');
+                    windowIcon.removeClass('fa-window-maximize');
+                    boxContainer.css("height", "auto");
+                }
+                //
+            }
+
+        });
+    }
+
+    function BuildDateContainer(d) {
+        var str = '<div class="col-lg-4">' +
+            ' <div class="panel panel-default panel-homex">' +
+            ' <div class="panel-heading">' + moment(d).format('LL') + ' , ' + moment(d).format('dddd') +
+            ' <a class="pull-right" >' +
+            '<i class="fa fa-share-alt ShareAll" aria-hidden="true" style="margin-right: 10px" title="Share All Shuttles"></i>' +
+            '<i class="fa fa-window-maximize window" aria-hidden="true" style="margin-right: 10px" title="Maximized"></i>' +
+            '<span class="fa fa-plus Modal-Link" title="Add New Shuttle"  style="padding-top: 2px;"' +
+            ' data-url="@Url.Action("Create", "SHM/Shuttles")' + '?date=' + d.format('YYYY-MM-DD') + '"></span>' +
+            '</a>' +
+            '</div>' +
+
+            '<div class="panel-body HomeApps boxContainer"  style="padding:0px;width:100%;"   ondrop="drop(event)" ondragover="allowDrop(event)" data-date="' + d.format('YYYY-MM-DD HH:mm') + '">';
+                return str;
+            }
+    function BuildShuttleTag(Shuttle) {
+        var str = '<div id="' + Shuttle["ShuttleGUID"] + '" class="cardShuttle cardShuttle-1 Shuttle" draggable="true" ondragstart="return drag(event)" data-update="true" data-request="false">' +
+            '<div class="panel-heading">' +
+            '<input type="checkbox" checked="true" class="cbShuttle" /> ' +
+            '<i class="fa fa-suitcase  fa-1x Modal-Link" aria-hidden="true " data-url="@Url.Action("Update/", "SHM/Shuttles")' + Shuttle["ShuttleGUID"] + '"> <span class="hover-link">Edit Shuttle Info</span></i>' +
+
+            '<i class="fa fa-angle-up fa-1x pull-lg-right angleShuttle" aria-hidden="true"></i>' +
+            //the Status of the shuttle
+            (Shuttle["SharedBy"] != null ? (Shuttle["SharedBy"] == '0' ? '<span class="S_35dbe3fc-d075-47d3-8a65-10da98adc886" aria-hidden="true" style="margin-right: 0px !important;"></span>': '<span class="S_49a53be3-fca7-407d-8701-a6855c63774e" aria-hidden="true" style="margin-right: 0px !important;"></span>' )
+            :'<span class="S_35dbe3fc-d075-47d3-8a65-10da98adc885" aria-hidden="true" style="margin-right: 0px !important;"></span>') +
+            //'<i class="fa fa fa-trash-o fa-1x pull-lg-right" aria-hidden="true" style="padding-right: 10px;"></i>' +
+            '<i class="fa fa-share-alt ShareSelected pull-right" aria-hidden="true"  title="Share Current Shuttle" data-ShuttleGUID="' + Shuttle["ShuttleGUID"] +'"></i>' +
+            '</div>' +
+            ' <i class="fa fa-road  fa-1x" style="padding-left:15px" aria-hidden="true"> <span> Route: <b>' + Shuttle["StartLocation"] + ' - ' + Shuttle["EndLocation"] + '</b></span></i>' +
+            ' <i class="fa fa-calendar  fa-1x" style="padding-left:15px" aria-hidden="true"> <span> Departure Time: <b>' + moment(Shuttle["DepartureDateTime"]).utc().format('HH:mm:ss') + '</b></span></i>' +
+            '<br/>' +
+            '<hr style="width: 90%;margin-left: 15px;border-width:thin;"/>' +
+            '<br/>' +
+            ' <i class="fa fa-plus  fa-1x Modal-Link ShuttleDropBox DropBox" aria-hidden="true" data-url="@Url.Action("", "SHM/ShuttleVehicles/ShuttleVehicleCreate")' + '?FK=' + Shuttle["ShuttleGUID"] + '">' +
+
+            '<span class="hover-link"> Drop Vehicle</span></i>';
+                return str;
+    }
+
+    function BuildShuttleVehicleTag(Vehicle) {
+        var str = '<div id="' + Vehicle["ShuttleVehicleGUID"] + '" class="cardVehicle cardVehicle-1" draggable="true" ondragstart="return drag(event)" data-VehicleGUID="' + Vehicle["VehicleGUID"] + '" data-update="true">' +
+            '<div class="panel-heading"><i class="fa fa-car fa-1x Modal-Link" aria-hidden="true" data-url="@Url.Action("Update/", "SHM/ShuttleVehicle")' + Vehicle["ShuttleVehicleGUID"] + '"> <span class="hover-link">Edit Vehicle Info</span></i>' +
+            '<i class="fa fa-angle-up fa-1x pull-lg-right angleVehicle" aria-hidden="true"></i>' +
+            (Vehicle["VehicleNumber"] == null || Vehicle["DriverName"] == " " ? '<span class="S_35dbe3fc-d075-47d3-8a65-10da98adc000" aria-hidden="true" style="margin-right: 0px !important;"></span>' :
+                '<span class="S_49a53be3-fca7-407d-8701-a6855c63774e" aria-hidden="true" style="margin-right: 0px !important;"></span>') +
+            '</div>' +
+
+            ' <i class="fa fa-cogs  fa-1x" style="padding-left:15px" aria-hidden="true"> <span> Vehicle : <b>' + (Vehicle["VehicleNumber"] != null ? Vehicle["VehicleNumber"] : "No vehicle") + '</b></span></i>' +
+            ' <i class="fa fa-id-card  fa-1x" style="padding-left:15px" aria-hidden="true"> <span>Driver : <b>' + (Vehicle["DriverName"] != " " ? Vehicle["DriverName"] : "No driver") + '</b></span></i>' +
+            //
+            '<hr style="width: 90%;margin-left: 15px;border-width:thin;"/>' +
+            '<i class="fa fa-plus fa-1x Modal-Link VehicleDropBox DropBox" aria-hidden="true"  data-url="@Url.Action("", "SHM/ShuttleStaffs/ShuttleStaffCreate")' + '?FK=' + Vehicle["ShuttleVehicleGUID"] + '"><span class="hover-link"> Drop Traveler</span></i>' +
+
+            '<br/>' ;
+                return str;
+            }
+    function BuildShuttleStaffTag(Staff) {
+                var str = '<div id="' + Staff["ShuttleStaffGUID"] + '" class="cardStaff cardStaff-1" draggable="true" ondragstart="return drag(event)"  data-UserPassengerGUID="' + Staff["UserPassengerGUID"] + '" data-update="true">' +
+                  //  '<div class="panel-heading">' +
+                    (Staff.Confirmed ? '<i class="fa fa-check-square success" style="padding-right:5px;color:mediumseagreen;" title="Confirmed"></i>' :'<i class="fa fa-question-circle warning"  style="padding-right:5px;color:orangered;" title="Need to be Confirmed!"></i>')+
+                    '<i class="fa fa-user-circle fa-1x Modal-Link" aria-hidden="true"  data-url="@Url.Action("Update/", "SHM/ShuttleStaff")' + Staff["ShuttleStaffGUID"] + '"> <span class="hover-link">' + Staff["StaffName"] + '</span></i>' +
+                    //'<i class="fa fa fa-trash-o fa-1x pull-lg-right" aria-hidden="true" style="padding-right: 10px;"></i>' +
+                    //'</div> ' +
+                    '</div>';
+                return str;
+            }
+
+    ///Add New Cities
+
+    $(document).on('click', ".NewLocation", function () {
+        var Error = 0;
+        var DropDownUpdate = "";
+        var LocationlevelID = '0';
+        var LocationTypeGUID = '';
+        var CountryGUID = '';
+        var LocationParentGUID = '';
+        if ($(this).hasClass("DepartureCity")) {
+            DropDownUpdate = "DepartureCity";
+            LocationlevelID = 1;
+            LocationTypeGUID = 'c970ddf5-31e5-47a1-be76-af15833d4e6a';
+            if ($('#CountryGUID').val() == "") {
+                Notify(NotificationType.Warning, "Please Choose Departure Country!");
+                Error = 1;
+            } else{
+                CountryGUID = $('#CountryGUID').val();
+                LocationParentGUID = $('#CountryGUID').val();
+            }
+         }
+        if ($(this).hasClass("DropOffCity")) {
+             DropDownUpdate = "DropOffCity";
+            LocationlevelID = 1;
+            LocationTypeGUID = 'c970ddf5-31e5-47a1-be76-af15833d4e6a';
+             if ($('#CountryGUID1').val() == "") {
+                 Notify(NotificationType.Warning, "Please Choose Drop Off Country!");
+                 Error = 1;
+            } else{
+                CountryGUID = $('#CountryGUID1').val();
+                LocationParentGUID = $('#CountryGUID1').val();
+            }
+        }
+        if ($(this).hasClass("DropOffLocation")) {
+            DropDownUpdate = "DropOffLocation";
+            LocationlevelID = 2;
+            LocationTypeGUID = 'fcf6cde3-329a-42a2-82a2-d99909949f82';
+             if ($('#CountryGUID1').val() == "" || $('#EndLocationGUID').val() == "") {
+                 Notify(NotificationType.Warning, "Please Choose Drop Off Country && City!");
+                 Error = 1;
+            } else{
+               CountryGUID = $('#CountryGUID1').val();
+            LocationParentGUID = $('#EndLocationGUID').val();
+            }
+        }
+        if ($(this).hasClass("DepartureLocation")) {
+            DropDownUpdate = "DepartureLocation";
+            LocationlevelID = 2;
+            LocationTypeGUID = 'fcf6cde3-329a-42a2-82a2-d99909949f82';
+            if ($('#CountryGUID').val() == "" || $('#StartLocationGUID').val() == "") {
+                Notify(NotificationType.Warning, "Please Choose Departure Country && City!");
+                Error = 1;
+            } else {
+                CountryGUID = $('#CountryGUID').val();
+                LocationParentGUID = $('#StartLocationGUID').val();
+            }
+        }
+        if (Error != 1) {
+            $.confirm({
+                title: 'Add New Location',
+                content: '' +
+                    '<form action="" class="main-form"  id="LocationForm" method="post">' +
+                    '<div class="form-group">' +
+                    '<label>Location Description</label>' +
+                    '<input type="LocationDescription" id="LocationDescription" name="LocationDescription" placeholder="Location" class="name form-control" required />' +
+                    '</div>' +
+                    '<input class="PK" data-val="true" id="LocationGUID" name="LocationGUID" type="hidden" value="00000000-0000-0000-0000-000000000000">' +
+                    '<input data-val="true" id="Active" name="Active" type="hidden" value="False">' +
+                    '<input id="LocationlevelID" name="LocationlevelID" type="hidden" value="' + LocationlevelID + '">' +
+                    '<input id="LocationTypeGUID" name="LocationTypeGUID" type="hidden" value="' + LocationTypeGUID + '">' +
+                    '<input id="CountryGUID" name="CountryGUID" type="hidden" value="' + CountryGUID + '">' +
+                    '<input id="LocationParentGUID" name="LocationParentGUID" type="hidden" value="' + LocationParentGUID + '">' +
+                    '<input id="Latitude" name="Latitude" type="hidden" value="0">' +
+                    '<input id="Longitude" name="Longitude" type="hidden" value="0">' +
+                    '<input id="codeLocationsRowVersion" name="codeLocationsRowVersion" type="hidden" value="">' +
+                    '<input id="codeLocationsLanguagesRowVersion" name="codeLocationsLanguagesRowVersion" type="hidden" value="">' +
+                    '</form>',
+                buttons: {
+                    formSubmit: {
+                        text: 'Submit',
+                        btnClass: 'btn-blue',
+                        action: function () {
+                            var form = $('#LocationForm');
+                            var formData = form.serialize();
+
+                            $.ajax({
+                                type: "Post",
+                                url: "/SHM/Shuttles/LocationCreate",
+                                dataType: "json",
+                                data: formData,
+                                success: function (response) {
+                                    if (DropDownUpdate=="DepartureCity") {
+                                        UpdateDropDownList([$('#CountryGUID').val()], [{ DropDownListID: 'StartLocationGUID', Action: 'RemoteLocationsByGovernorate' }]);
+                                    }
+                                    if (DropDownUpdate=="DropOffCity") {
+                                        UpdateDropDownList([$('#CountryGUID1').val()], [{ DropDownListID: 'EndLocationGUID', Action: 'RemoteLocationsByGovernorate' }]);
+                                    }
+                                    if (DropDownUpdate=="DropOffLocation") {
+                                        UpdateDropDownList([$('#EndLocationGUID').val()], [{ DropDownListID: 'DropOffPointGUID', Action: 'RemoteLocationsByLocationType' }]);
+                                    }
+                                    if (DropDownUpdate=="DepartureLocation") {
+                                         UpdateDropDownList([$('#StartLocationGUID').val()], [{ DropDownListID: 'DeparturePointGUID', Action: 'RemoteLocationsByLocationType' }]);
+                                    }
+                                    Notify(NotificationType.Success, response.data);
+                                },
+                                error: function (errorStatus) {
+                                    DecideWhenLoadComplete();
+                                }
+                            });
+
+                        }
+                    },
+                    cancel: function () {
+                        //close
+                    },
+                },
+                onContentReady: function () {
+                    // bind to events
+                    var jc = this;
+                    this.$content.find('form').on('submit', function (e) {
+                        // if the user submits the form by pressing enter in the field.
+                        //e.preventDefault();
+                        jc.$$formSubmit.trigger('click'); // reference the button and click it
+                        alert("");
+                    });
+                }
+            });
+        }
+    });
+
+
+
+
+
+</script>
+
+@section scripts {
+    <script>
+        //Refresh Calender
+        function CalendarRefresh() {
+            GenerateCalender(startDate, endDate);
+        }
+    </script>
+}

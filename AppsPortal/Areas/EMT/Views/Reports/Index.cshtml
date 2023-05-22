@@ -1,0 +1,374 @@
+﻿@model EMTReportParametersList
+@{
+    ViewBag.Title = "Partner Reports";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("665d3eb2-5324-44b2-ab25-e51af6513c1d")
+@using (Html.BeginForm("ReportsBoard", "Reports", new { Area = "EMT" }, FormMethod.Post, new { id = "ReportForm" }))
+{
+    <style>
+        iframe {
+            border-width: 0px !important
+        }
+    </style>
+    <div class="page--content">
+        <br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="height:35px">
+                        <h3 class="panel-title" style="color:black;"><b>Filters</b> </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <div class="form-group">
+                                    @Html.Label("Report Topic")
+                                    @Html.DropDownListFor(model => model.Report, new DropDownList().MedicalReportTopicRELC(), "", new
+                               {
+                                   style = "width:100%",
+                                   @class = "form-control select2-basic-single",
+                                   onchange = "HideShowFilters();UpdateDropDownListFromMultiple([$('#OrganizationInstanceGUID').val()+'|'+$(this).val()+'|R'], [{ DropDownListID : 'MedicalPharmacyGUID', Action : 'RemotePharmacyByOrganizationInstance'}]);",
+                               })
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+                                    @Html.Label("Start Date")
+                                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+                                    @Html.Label("End Date")
+                                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MedicalBeneficiaryGUID)
+                                    @Html.DropDownListFor(model => model.MedicalBeneficiaryGUID, new DropDownList().Empty(), new { style = "width:100%", @class = "form-control s-data-example-ajax" })
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" style="display: flex;margin-top: 25px;">
+                                <input class="btn btn-primary " data-submittype="" onclick="InitDashboards();SubmitForm(this);" type="submit" value="Generate Report">
+                                <input type="reset" class="btn btn-default" style="width:50%" value="Clear All" onclick="ClearAll();">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#OrganizationInstanceGUID').val([]); $('#OrganizationInstanceGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.Label(resxDbFields.Partner)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+
+
+
+                                                @Html.ListBoxFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstancesPharmacyAcronymByProfileAll(), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "UpdateDropDownListFromMultiple([$(this).val()+'|'+$('#Report').val()+'|R'], [{ DropDownListID : 'MedicalPharmacyGUID', Action : 'RemotePharmacyByOrganizationInstance'}]);"
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#OrganizationInstanceGUID option').prop('selected', true); $('#OrganizationInstanceGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 " style="">
+                                <div class="form-group">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#MedicalPharmacyGUID').val([]); $('#MedicalPharmacyGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.MedicalPharmacyGUID)</b> </h3>
+                                        </div>
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.MedicalPharmacyGUID, new DropDownList().Empty(), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "FindPerent('MedicalPharmacyGUID','OrganizationInstanceGUID',0);"
+                                           })
+                                            </div>
+
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#MedicalPharmacyGUID option').prop('selected', true); $('#MedicalPharmacyGUID').trigger('change');FindPerent('MedicalPharmacyGUID','OrganizationInstanceGUID',0);">Select All</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#MedicalPharmacologicalFormGUID').val([]); $('#MedicalPharmacologicalFormGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.MedicalPharmacologicalFormGUID)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.MedicalPharmacologicalFormGUID, new DropDownList().LookupValues(LookupTables.MedicalPharmacologicalForm), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "UpdateDropDownListFromMultiple([$('#MedicalPharmacologicalFormGUID').val()+'|'+$('#MedicalTreatmentGUID').val()+'|'+$('#MedicalGenericNameGUID').val()], [{ DropDownListID : 'Sequance', Action : 'RemoteItemsByTreatmentByPharmacologicalForm'}]);"
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#MedicalPharmacologicalFormGUID option').prop('selected', true); $('#MedicalPharmacologicalFormGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#MedicalTreatmentGUID').val([]); $('#MedicalTreatmentGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.MedicalTreatmentGUID)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.MedicalTreatmentGUID, new DropDownList().LookupValues(LookupTables.MedicalTreatment), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "UpdateDropDownListFromMultiple([$('#MedicalPharmacologicalFormGUID').val()+'|'+$('#MedicalTreatmentGUID').val()+'|'+$('#MedicalGenericNameGUID').val()], [{ DropDownListID : 'Sequance', Action : 'RemoteItemsByTreatmentByPharmacologicalForm'}]);"
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#MedicalTreatmentGUID option').prop('selected', true); $('#MedicalTreatmentGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div class="form-group">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:35px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#MedicalGenericNameGUID').val([]); $('#MedicalGenericNameGUID').trigger('change');">Clear</a>
+                                            </span>
+                                            <h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.MedicalGenericNameGUID)</b> </h3>
+                                        </div>
+
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.MedicalGenericNameGUID, new DropDownList().MedicalGenericName(), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "UpdateDropDownListFromMultiple([$('#MedicalPharmacologicalFormGUID').val()+'|'+$('#MedicalTreatmentGUID').val()+'|'+$('#MedicalGenericNameGUID').val()], [{ DropDownListID : 'Sequance', Action : 'RemoteItemsByTreatmentByPharmacologicalForm'}]);"
+                                           })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#MedicalGenericNameGUID option').prop('selected', true); $('#MedicalGenericNameGUID').trigger('change');">Select All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 ">
+                                <div class="form-group">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" style="height:50px">
+                                            <span class="pull-right" style="margin-top: -8px;margin-right: -17px;">
+                                                <a style="font-size:9px;padding-bottom: 0px;margin-bottom: -3px;color:white" class="btn  pull-right" onclick="$('#Sequance').val([]); $('#Sequance').trigger('change');">Clear</a>
+                                            </span>
+                                            @*<h3 class="panel-title" style="margin-left: -10px;"><b>@Html.LabelFor(model => model.Sequance)</b> </h3>*@
+                                            <input class="form-control" id="txtMedicalItemSearch" type="text" placeholder="Brand Name" style="width:80%;" autocomplete="off"
+                                                   onchange="UpdateDropDownList([$(this).val()], [{ DropDownListID : 'Sequance', Action : 'RemoteFindMedicalItemsBy'}]);" />
+                                        </div>
+                                        <div class="panel-body" style="padding-top: 0px;height:200px">
+                                            <div class="row">
+                                                @Html.ListBoxFor(model => model.Sequance, new DropDownList().Empty(), new
+                                           {
+                                               style = "width:100%;height:200px;font-size:15px;",
+                                               @class = "form-control list--box",
+                                               onchange = "FindPerentMultiple('Sequance','MedicalPharmacologicalFormGUID,MedicalTreatmentGUID,MedicalGenericNameGUID');"
+                                           })
+                                            </div>
+
+                                        </div>
+                                        <div class="panel-footer" style="height: 26px;padding-top: 1px;">
+                                            <a onclick="$('#Sequance option').prop('selected', true); $('#Sequance').trigger('change');FindPerent('Sequance','MedicalPharmacologicalFormGUID',0);FindPerent('Sequance','MedicalTreatmentGUID',0);FindPerent('Sequance','MedicalGenericNameGUID',0);">Select All</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group" id="ReportViewer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+    <script>
+
+        $(document).ready(function () {
+            UpdateDropDownList([""], [{ DropDownListID: 'MedicalPharmacyGUID', Action: 'RemoteMedicalPharmacyGrorp' }]);
+            UpdateDropDownList([""], [{ DropDownListID: 'Sequance', Action: 'RemoteMedicalItemGrorp' }]);
+        });
+        //Autocompete Search By UNHCR ID
+        $('#MedicalBeneficiaryGUID').select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: function () {
+                    return '/DropDownList/RemoteFindBeneficiaryBy'
+                },
+                delay: 250,
+                data: function (params) {
+                    var query = {
+                        SearchKey: params.term
+                    }
+                    // Query parameters will be ?search=[term]&type=public
+                    return query;
+                },
+                processResults: function (data) {
+                    var res = data.items.map(function (item) {
+                        return { id: item.id, text: item.Text };
+                    });
+                    return {
+                        results: res
+                    };
+                }
+            }
+        });
+
+
+        function HideShowFilters() {
+            var IntReport = $("#Report").val();
+            
+            if (IntReport == '0' || IntReport == '1' || IntReport == '2') {
+                $("#MedicalBeneficiaryGUID").prop('disabled', false);
+                $("#MedicalBeneficiaryGUID").text('');
+
+            }else {
+                $("#MedicalBeneficiaryGUID").prop('disabled', true);
+                $("#MedicalBeneficiaryGUID").text('');
+            }
+
+        }
+
+        function ClearAll() {
+            $("#MedicalBeneficiaryGUID").text('');
+            $('#Report li:first-child').attr("selected", "selected");
+            $('#ReportViewer').hide();
+        }
+
+        function FindPerent(FromList, Tragetlist, SplitSeq) {
+            // $('#' + Tragetlist + ' option[value="' + GroupVal + '"]').show().fadeOut(100).fadeIn(100);
+            var selected = $('#' + FromList).find('option:selected', this);
+            var results = [];
+
+            selected.each(function () {
+                results.push($(this).data('group'));
+            });
+
+            $('#' + Tragetlist).val([]);
+            $('#' + Tragetlist).val(results);
+        }
+
+        function FindPerentMultiple(FromList, Tragetlist) {
+            debugger;
+            // $('#' + Tragetlist + ' option[value="' + GroupVal + '"]').show().fadeOut(100).fadeIn(100);
+            var selected = $('#' + FromList).find('option:selected', this);
+            var results0 = [];
+            var results1 = [];
+            var results2 = [];
+
+            selected.each(function () {
+                var array = $(this).data('group').split(',');
+                results0.push(array[0]);
+                results1.push(array[1]);
+                results2.push(array[2]);
+
+            });
+
+            var array1 = Tragetlist.split(',');
+            array1.forEach(function (element, index) { 
+                if (index == 0) {
+                    $('#' + element).val([]);
+                    $('#' + element).val(results0);
+                }
+                if (index == 1) {
+                    $('#' + element).val([]);
+                    $('#' + element).val(results1);
+                }
+                if (index == 2) {
+                    $('#' + element).val([]);
+                    $('#' + element).val(results2);
+                }
+            });
+            return true;
+        }
+
+        function NoSelectionSelectAll() {
+            if ($('#OrganizationInstanceGUID > option:selected').length == 0) {
+                $('#OrganizationInstanceGUID option').prop('selected', true);
+                // $('#OrganizationInstanceGUID option:first').prop('selected', false);
+            }
+            if ($('#MedicalPharmacyGUID > option:selected').length == 0) {
+                $('#MedicalPharmacyGUID option').prop('selected', true);
+                $('#MedicalPharmacyGUID option:first').prop('selected', false);
+            }
+            if ($('#MedicalPharmacologicalFormGUID > option:selected').length == 0) {
+                $('#MedicalPharmacologicalFormGUID option').prop('selected', true);
+            }
+            if ($('#MedicalTreatmentGUID > option:selected').length == 0) {
+                $('#MedicalTreatmentGUID option').prop('selected', true);
+            }
+            if ($('#MedicalGenericNameGUID > option:selected').length == 0) {
+                $('#MedicalGenericNameGUID option').prop('selected', true);
+            }
+            if ($('#Sequance > option:selected').length == 0) {
+                $('#Sequance option').prop('selected', true);
+                $('#Sequance option:first').prop('selected', false);
+            }
+
+            formDataCashed = $('#ReportForm').serialize();
+        }
+
+        var Process = '<center><img src="../Assets/Images/loading.gif" style="top: 50%;position: absolute;" /></center>'
+        function InitDashboards() {
+            NoSelectionSelectAll();
+            $('#ReportViewer').show();
+            $('#ReportViewer').html('').append(Process);
+            $('html,body').animate({
+                scrollTop: $("#ReportViewer").offset().top + 100
+            }, 'slow');
+        }
+    </script>

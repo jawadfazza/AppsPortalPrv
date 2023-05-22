@@ -1,0 +1,821 @@
+﻿@model List<OwnUserBillConfirmModel>
+@{
+    ViewBag.Title = "My Bill";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+<style>
+    .confirmBillTable td:last-child {
+        padding-left: 50px;
+    }
+
+    .panel-to-highlight {
+        -webkit-transition: all 0.30s ease-in-out;
+        -moz-transition: all 0.30s ease-in-out;
+        -ms-transition: all 0.30s ease-in-out;
+        -o-transition: all 0.30s ease-in-out;
+        outline: none;
+    }
+
+    .mCSB_dragger_bar {
+        background: #0072bc !important;
+    }
+</style>
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Complete and Notify</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="p-modal-body">1- Notify finance unit.</p>
+                <p id="p-modal-body">2- Lock bill cycle for editing.</p>
+                <p id="p-modal-body">For technical support, contact <a href="mailto:DLSyria-DamascusICTSu@unhcr.org">Syria – ICT Support</a></p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-confirm-e-sign" type="button" class="btn btn-primary">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page--header" style=" display: inline-flex; width: 100%">
+    <div class="page--banner" style="margin-left: 0px;">
+        <h2 id="PageTitle" style="font-size: 30px;">Phone Bill Summary</h2>
+        <div id="sitemap" class="sitemap ">
+            <div class="nav--content row">
+                <ul>
+                    <li><a href="/Home/">Home</a></li>
+                    <li><a href="/TBS/">Telephones Billing System</a></li>
+                    <li><a href="/TBS/UserBills/MyBills">My Phone Bills</a></li>
+                    <li class="SitemapLastNode">Phone Bill Summary</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="billSummary" style="width:100%;">
+
+        <div class="col-md-4">
+            <h3>Official Total:</h3>
+            <span>Total Duration In Minutes:</span><span id="span_officialMinutes">@Model.First().TotalBillOfficialMinutes</span><br />
+            @*<span>Total Duration In Seconds:</span><span id="span_officialSeconds">@Model.First().TotalBillOfficialSeconds</span><br />*@
+            <div style="font-size:18px"> <span>Total Cost:</span><span id="span_officialCost" style="font-weight:bold">@Model.First().TotalBillOfficialCost</span><span> SYP</span><br /> </div>
+        </div>
+        <div class="col-md-3">
+            <h3>Private Total:</h3>
+            <span>Total Duration In Minutes:</span><span id="span_privateMinutes">@Model.First().TotalBillPrivateMinutes</span><br />
+            @*<span>Total Duration In Seconds:</span><span id="span_privateSeconds">@Model.First().TotalBillPrivateSeconds</span><br />*@
+            <div style="font-size:18px"> <span>Total Cost:</span><span id="span_privateCost" style="font-weight:bold">@Model.First().TotalBillPrivateCost</span><span> SYP</span><br /></div>
+        </div>
+        <div class="col-md-3">
+            <h3>Total:</h3>
+            <span>Total Duration In Minutes:</span><span id="span_totalMinutes">@Model.First().TotalBillMinutes</span><br />
+            @*<span>Total Duration In Seconds:</span><span id="span_totalSeconds">@Model.First().TotalBillSeconds</span><br />*@
+            <div style="font-size:18px"><span>Total Cost:</span><span id="span_totalCost" style="font-weight:bold">@Model.First().TotalBillCost</span><span> SYP</span><br />  </div>
+        </div>
+        <div class="col-md-2">
+            <h3>Confirmation</h3>
+            <div>
+                Confirm all  <span id="span_pending_count" style="font-weight:bold"> @{int pendingRemaining = Model.Count - Model.First().RecordsConfirmedCount;} @pendingRemaining</span> Pending as
+            </div>
+            <button id="btn-confirm-all-official" class="btn btn-primary"><i style="display:none;" class="fas fa-spinner fa-1x fa-pulse"></i> <span class="this-btn-text"> Official</span></button>
+            <button id="btn-confirm-all-private" class="btn btn-primary"><i style="display:none;" class="fas fa-spinner fa-1x fa-pulse"></i> <span class="this-btn-text"> Private</span></button>
+        </div>
+        <div class="col-md-12">
+            <span style="color:red;font-weight:bold;">By default, all calls are considered Private unless otherwise specified below.</span>
+        </div>
+        <div class="col-md-12">
+            <span style="width:100%;display:flex;font-weight:bold;padding-top:5px;color:green;">
+                I hereby authorize deduction of <span id="span_deduct_from_sal_amount" style="margin-left: 10px;margin-right: 10px;color:black;"></span> SYP from my salary/entitlements.
+            </span>
+            <span style="width:100%;display:flex;font-weight:bold;padding-top:5px;color:green;">
+                I would like to pay <input type="text" id="txt_pay_in_cash_amount" class="form-control" style="width:10%;margin-top:-5px;margin-left: 10px;margin-right: 10px;" /> SYP in Cash.
+                <input id="btn-esign-complete" type="button" class="btn btn-primary" value="Complete and Notify" style="margin-left:33px;" />
+            </span>
+        </div>
+    </div>
+</div>
+<div class="row" style="padding-top:25px;">
+    <div class="col-md-12">
+        @using (Html.BeginForm("UserBillDetails", "UserBills", new { Area = "TBS" }, FormMethod.Post, new { @Id = "UserBillForm" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.First().UserBillGUID)
+            <input type="hidden" id="hdn-total-records" value="@Model.Count" />
+            <input type="hidden" id="hdn-confirmed-records" value="@Model.First().RecordsConfirmedCount" />
+            <input type="hidden" id="hdn-pay-cash" value="@Model.First().PayInCashAmount" />
+            <input type="hidden" id="hdn-deduct-cash" value="@Model.First().DeductFromSalaryAmount" />
+            <input type="hidden" id="hdn-bill-locked" value="@Model.First().IsBillLocked.ToString()" />
+            <div class="col-md-12" style="font-size:20px;display:flex;margin-top:-15px;margin-bottom: 5px;">
+                <div class="col-md-6">
+                    <span id="span-total-confirmed">@Model.First().RecordsConfirmedCount</span>&nbsp;out of&nbsp;<span id="all-to-confirm" class="all-to-confirm">@Model.Count</span>&nbsp;records has been confirmed,&nbsp;<a id="link-scroll-next-pending" href="javascript:void(0)">click here to scroll to the next record</a>&nbsp;
+                </div>
+                <div class="col-md-6" style="display:inline-flex">
+                    &nbsp;<input type="text" id="txt_search_number" placeholder="Search for specific called number" class="form-control" style="width:30%;margin-top:-5px;" /> &nbsp; <a href="javascript:void(0)" id="link_search_number"><i class="fas fa-search"></i></a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="bill-details-container" class="col-md-12" style="width:95%; height:600px; overflow:auto">
+                    @foreach (OwnUserBillConfirmModel record in Model.OrderByDescending(x => x.NumberOfCalls))
+                    {
+                        string confirmationType = "";
+                        if (record.IsPartiallyConfirmed && record.IsPrivate)
+                        {
+                            confirmationType = "Private";
+                        }
+                        else if (record.IsPartiallyConfirmed && !record.IsPrivate)
+                        {
+                            confirmationType = "Official";
+                        }
+                        else
+                        {
+                            confirmationType = "Pending";
+                        }
+                        <div class="col-md-12 panel-container" style="padding-bottom:2em;">
+
+                            @{
+                                string _class = "";
+                                if (confirmationType != "Pending")
+                                {
+                                    _class = "confirmed";
+                                }
+                            }
+                            <div class="panel panel-default panel-to-highlight @_class" data-confirmation="@confirmationType" data-CalledNumber="@record.CalledNumber">
+                                <div class="panel-heading">
+                                    <span>Calling Number: &nbsp;&nbsp; <span class="span-CallingNumber" style="font-weight:bold">@record.CallingNumber</span></span>
+                                    <span style="margin-left:25px;">Called Number:&nbsp;&nbsp;<span class="span-CalledNumber" style="font-weight:bold"> @record.CalledNumber</span></span>
+                                    <span style="margin-left:25px;">Total Number Of Calls:&nbsp;&nbsp; <span class="span-NumberOfCalls" style="font-weight:bold">@record.NumberOfCalls</span></span>
+                                    @if (!String.IsNullOrWhiteSpace(record.CalledStaffName))
+                                    {
+                                        <span style="margin-left:25px;">Called Staff:&nbsp;&nbsp; <span class="span-CalledStaffName" style="font-weight:bold">@record.CalledStaffName</span></span>
+                                    }
+                                </div>
+                                <div class="panel-body">
+                                    <table class="confirmBillTable">
+                                        <tbody>
+                                            <tr>
+                                                <td>Total Duration In Minutes:</td>
+                                                <td class="this-duration-minutes" style="font-weight:bold">@record.TotalDurationMinutes</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Duration In Seconds:</td>
+                                                <td class="this-duration-seconds" style="font-weight:bold">@record.TotalDurationInSeconds</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Call Cost:</td>
+                                                <td style="font-weight:bold"><span class="this-cost">@record.TotalCallCost</span><span> SYP</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Last Confirmation:</td>
+                                                <td class="" style="font-weight:bold">@record.LastConfirmation</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Status:</td>
+                                                @if (record.IsPartiallyConfirmed == true)
+                                                {
+                                                    if (record.IsPrivate)
+                                                    {
+                                                        <td><span style="color:green;font-weight:bold" class="this-is-confirmed">Confirmed Private</span></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><span style="color:green;font-weight:bold" class="this-is-confirmed">Confirmed Official</span></td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <td><span style="color:red;font-weight:bold" class="this-is-confirmed">Pending Confirmation</span></td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Comments:</td>
+                                                <td class="" style="font-weight:bold;display:inline-flex">
+                                                    <input type="text" placeholder="Comments / Tags" class="txt_this_comments form-control" data-CallingNumber="@record.CallingNumber" data-CalledNumber="@record.CalledNumber" style="width:400px;" value="@record.Comments" />  <span><i style="display:none;margin-top:8px;margin-left:5px;" class="fas fa-spinner fa-1x fa-pulse"></i></span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="panel-footer">
+                                    <button class="btn btn-primary btn-confirm-this-official" data-CallingNumber="@record.CallingNumber" data-CalledNumber="@record.CalledNumber"><i style="display:none;" class="fas fa-spinner fa-1x fa-pulse"></i> <span class="this-btn-text">Confirm Official</span></button>
+                                    <button class="btn btn-primary btn-confirm-this-private" data-CallingNumber="@record.CallingNumber" data-CalledNumber="@record.CalledNumber"><i style="display:none;" class="fas fa-spinner fa-1x fa-pulse"></i> <span class="this-btn-text">Confirm Private</span></button>
+                                    <button class="btn btn-primary btn-view-this-details ShowMore" data-CallingNumber="@record.CallingNumber" data-CalledNumber="@record.CalledNumber"><i style="display:none;" class="fas fa-spinner fa-1x fa-pulse"></i> <span class="this-btn-text">Show Detailed Info</span></button>
+                                    <div class="div-more-call-info"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    var TotalCost;
+    var TotalMinutes;
+    var TotalSeconds;
+
+    var OfficialCost;
+    var OfficialMinutes;
+    var OfficialSeconds;
+
+    var PrivateCost;
+    var PrivateMinutes;
+    var PrivateSeconds;
+    var scrollInitiator = "N/A";
+    $(function () {
+        if (IsBillLocked()) {
+            $('#btn-confirm-all-official').attr("disabled", true);
+            $('#btn-confirm-all-private').attr("disabled", true);
+            $('.btn-confirm-this-official').attr("disabled", true);
+            $('.btn-confirm-this-private').attr("disabled", true);
+            $('#btn-esign-complete').attr("disabled", true);
+        }
+        $('#UserBillForm').on('keyup keypress', function (e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                if ($("#txt_search_number").is(":focus")) {
+                    ScrollToNumber();
+                }
+                return false;
+
+            }
+        });
+        $("#bill-details-container").mCustomScrollbar({
+            scrollInertia: 400,
+            callbacks: {
+                onScroll: function () {
+                    if (scrollInitiator != "N/A") {
+                        scrollInitiator.css('background-color', '#ffe0e0');
+                        setTimeout(function () { scrollInitiator.css('background-color', '##fff'); scrollInitiator = "N/A" }, 300);
+                    }
+                    console.log('this onScroll', this);
+                    //alert("#onScroll");
+                },
+                alwaysTriggerOffsets: false
+            }
+        });
+        if ($('#hdn-bill-locked').val() == "True") {
+            $('#span_deduct_from_sal_amount').html($('#hdn-deduct-cash').val());
+            $('#txt_pay_in_cash_amount').val($('#hdn-pay-cash').val());
+        }
+        else {
+            $('#span_deduct_from_sal_amount').html($('#span_privateCost').html());
+            $('#txt_pay_in_cash_amount').val('0');
+        }
+
+        $('.btn-confirm-this-official').click(function (e) {
+            e.preventDefault();
+            if (IsBillLocked()) {
+                Notify(NotificationType.Error, "Sorry, modification are locked as the bill is already confirmed..");
+                return false;
+            }
+            var btn = $(this);
+            ConfirmThisOfficial(btn);
+        });
+        $('.btn-confirm-this-private').click(function (e) {
+            e.preventDefault();
+            if (IsBillLocked()) {
+                Notify(NotificationType.Error, "Sorry, modification are locked as the bill is already confirmed..");
+                return false;
+            }
+            var btn = $(this);
+            ConfirmThisPrivate(btn);
+        });
+        $('.btn-view-this-details').click(function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            ViewThisDetails(btn);
+        });
+        $('#btn-confirm-all-official').click(function (e) {
+            e.preventDefault();
+            if (IsBillLocked()) {
+                Notify(NotificationType.Error, "Sorry, modification are locked as the bill is already confirmed..");
+                return false;
+            }
+            var btn = $(this);
+            ConfirmAllOfficial(btn);
+        });
+        $('#btn-confirm-all-private').click(function (e) {
+            e.preventDefault();
+            if (IsBillLocked()) {
+                Notify(NotificationType.Error, "Sorry, modification are locked as the bill is already confirmed..");
+                return false;
+            }
+            var btn = $(this);
+            ConfirmAllPrivate(btn);
+        });
+        $('#btn-esign-complete').click(function (e) {
+            e.preventDefault();
+            if (IsBillLocked()) {
+                Notify(NotificationType.Error, "Sorry, modification are locked as the bill is already confirmed..");
+                return false;
+            }
+
+            var confirmedTotal = $('#span-total-confirmed').text() * 1;
+            var recordsTotal = $('#all-to-confirm').text() * 1;
+            if (confirmedTotal != recordsTotal) {
+                Notify(NotificationType.Error, 'Please, confirm all records before you specify the deduction amount.');
+            } else {
+                debugger;
+                var deductAmount = $('#span_deduct_from_sal_amount').text() * 1;
+                var payAmount = $('#txt_pay_in_cash_amount').val() * 1;
+                var privateTotalCost = $('#span_privateCost').text() * 1;
+
+                var trueVal = 0;
+                //if (privateTotalCost != Math.round(privateTotalCost)) {
+                //    trueVal = 1;
+                //}
+                //if (deductAmount + payAmount != Math.round(privateTotalCost) - trueVal) {
+                //    Notify(NotificationType.Error, 'The sum of the specifed amounts must be equal to the private cost');
+                //    return false;
+                //}
+                if (deductAmount < 0) {
+                    Notify(NotificationType.Error, 'The sum of the specifed amounts must be equal to the private cost');
+                    return false;
+                }
+                if (payAmount < 0) {
+                    Notify(NotificationType.Error, 'The sum of the specifed amounts must be equal to the private cost');
+                    return false;
+                }
+                if (deductAmount + payAmount != privateTotalCost) {
+                    Notify(NotificationType.Error, 'The sum of the specifed amounts must be equal to the private cost');
+                    return false;
+                }
+                $('.bd-example-modal-sm').modal('show');
+            }
+        });
+        $('#btn-confirm-e-sign').click(function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            var UserBillGUID = $('#UserBillGUID').val();
+            var confirmedTotal = $('#span-total-confirmed').text() * 1;
+            var recordsTotal = $('#all-to-confirm').text() * 1;
+            if (confirmedTotal == recordsTotal) {
+                var deductAmount = $('#span_deduct_from_sal_amount').text() * 1;
+                var payAmount = $('#txt_pay_in_cash_amount').val() * 1;
+                var privateTotalCost = $('#span_privateCost').text() * 1;
+                var trueVal = 0;
+
+                if (deductAmount + payAmount != privateTotalCost) {
+                    Notify(NotificationType.Error, 'The sum of the specifed amounts must be equal to the private cost');
+                    return false;
+                }
+                //if (privateTotalCost != Math.round(privateTotalCost)) {
+                //    trueVal = 1;
+                //}
+
+                //if (deductAmount + payAmount != Math.round(privateTotalCost) - trueVal) {
+                //    Notify(NotificationType.Error, 'The sum of the specifed amounts must be equal to the private cost');
+                //    return false;
+                //}
+                $.ajax({
+                    type: "POST",
+                    url: "/TBS/UserBills/AuthorizeDeductionAmounts",
+                    data: {
+                        UserBillGUID: UserBillGUID,
+                        DeductFromSalaryAmount: deductAmount,
+                        CashPayAmount: payAmount
+                    },
+                    success: function (jsonResult) {
+                        if (jsonResult.success == true) {
+                            debugger;
+                            $('.bd-example-modal-sm').modal('hide');
+                            Notify(NotificationType.Success, 'Confirmed');
+                            var ReceiptFileName = jsonResult.receiptFileName;
+
+                            var currentURL = window.location;
+
+
+                            window.open('/TBS/UserBills/ReceiptFileDownload?FileName=' + ReceiptFileName);
+
+                            location.reload(true);
+
+
+                        }
+                        else {
+                            Notify(NotificationType.Error, 'The sum of the specifed amounts must be equal to the private cost');
+                        }
+                    },
+                    error: function (statusErr) {console.log(statusErr) }
+                });
+            } else {
+                Notify(NotificationType.Error, 'Please, confirm the entire records before you specify the deduction amount.');
+            }
+
+
+        });
+
+        $('#link-scroll-next-pending').click(function (e) {
+            e.preventDefault();
+            ScrollToNextPendingRecord();
+        });
+        $('#link_search_number').click(function (e) {
+            e.preventDefault();
+            ScrollToNumber();
+        });
+        $('.txt_this_comments').keyup(function (e) {
+
+
+        });
+        $('.txt_this_comments').keyup(delay(function (e) {
+
+            var tag = this.value;
+            var callingNumber = $(this).attr('data-CallingNumber');
+            var calledNumber = $(this).attr('data-CalledNumber');
+            var container = $(this);
+            console.log('Time elapsed!', tag);
+            console.log('callingNumber!', callingNumber);
+            console.log('calledNumber!', calledNumber);
+            $(this).parents('td').find('.fas').show();
+            $.ajax({
+                type: "POST",
+                url: "/TBS/UserBills/UserTagsUpdage",
+                data: {
+                    Tag: tag,
+                    CallingNumber: callingNumber,
+                    CalledNumber: calledNumber
+                },
+                success: function (jsonResult) {
+                    if (jsonResult.success == true) {
+                        $(container).parents('td').find('.fas').hide();
+                    }
+
+                },
+                error: function () { }
+            });
+
+        }, 1000));
+    });
+    function delay(callback, ms) {
+        var timer = 0;
+        return function () {
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                callback.apply(context, args);
+            }, ms || 0);
+        };
+    }
+
+
+    function ConfirmThisOfficial(btn) {
+        var CallingNumber = $(btn).attr('data-CallingNumber');
+        var CalledNumber = $(btn).attr('data-CalledNumber');
+        var UserBillGUID = $('#UserBillGUID').val();
+        $(btn).find('.fas').show();
+        $(btn).find('.this-btn-text').html('Please Wait');
+        $(btn).attr("disabled", true);
+        $.ajax({
+            type: "POST",
+            url: "/TBS/UserBills/PartialConfirmPrivateOfficial",
+            data: {
+                UserBillGUID: UserBillGUID,
+                CallingNumber: CallingNumber,
+                CalledNumber: CalledNumber,
+                type: "official"
+            },
+            success: function (jsonResponse) {
+                if (jsonResponse.success == true) {
+                    $(btn).parents('div.panel').find('.this-is-confirmed').css('color', 'green').html('Confirmed Official');
+                    $(btn).find('.fas').hide();
+                    $(btn).find('.this-btn-text').html(' Confirm Official');
+                    $(btn).removeAttr("disabled");
+                    if (!$(btn).parents('div.panel').hasClass('confirmed')) {
+                        AddOneToConfirmed();
+                        $(btn).parents('div.panel').addClass('confirmed');
+                    }
+                    var minutes = $(btn).parents('div.panel').find('.this-duration-minutes').html() * 1;
+                    //var seconds = $(btn).parents('div.panel').find('.this-duration-seconds').html() * 1;
+                    var cost = $(btn).parents('div.panel').find('.this-cost').html() * 1;
+
+                    var privateMinutes = $('#span_privateMinutes').html() * 1;
+                    //var privateSeconds = $('#span_privateSeconds').html() * 1;
+                    var privateCost = $('#span_privateCost').html() * 1;
+
+                    var officialMinutes = $('#span_officialMinutes').html() * 1;
+                    //var officialSeconds = $('#span_officialSeconds').html() * 1;
+                    var officialCost = $('#span_officialCost').html() * 1;
+
+                    var confirmation = $(btn).parents('div.panel').attr('data-confirmation');
+                    if (confirmation == ConfirmationTypes.Pending) {
+
+                        $('#span_officialMinutes').html(officialMinutes + minutes);
+                        //$('#span_officialSeconds').html(officialSeconds + seconds);
+                        $('#span_officialCost').html(officialCost + cost);
+                    }
+                    else if (confirmation == ConfirmationTypes.Private) {
+                        $('#span_privateMinutes').html(privateMinutes - minutes);
+                        //$('#span_privateSeconds').html(privateSeconds - seconds);
+                        $('#span_privateCost').html(privateCost - cost);
+                        $('#span_deduct_from_sal_amount').html(privateCost - cost);
+                        $('#span_officialMinutes').html(officialMinutes + minutes);
+                        //$('#span_officialSeconds').html(officialSeconds + seconds);
+                        $('#span_officialCost').html(officialCost + cost);
+                    }
+                    else if (confirmation == ConfirmationTypes.Official) {
+
+                    }
+                    $(btn).parents('div.panel').attr('data-confirmation', ConfirmationTypes.Official);
+                    ScrollToNextPendingRecord();
+                }
+            }
+        });
+    }
+    function ConfirmThisPrivate(btn) {
+        var CallingNumber = $(btn).attr('data-CallingNumber');
+        var CalledNumber = $(btn).attr('data-CalledNumber');
+        var UserBillGUID = $('#UserBillGUID').val();
+        $(btn).find('.fas').show();
+        $(btn).find('.this-btn-text').html('Please Wait');
+        $(btn).attr("disabled", true);
+        $.ajax({
+            type: "POST",
+            url: "/TBS/UserBills/PartialConfirmPrivateOfficial",
+            data: {
+                UserBillGUID: UserBillGUID,
+                CallingNumber: CallingNumber,
+                CalledNumber: CalledNumber,
+                type: "private"
+            },
+            success: function (jsonResponse) {
+                if (jsonResponse.success == true) {
+                    $(btn).parents('div.panel').find('.this-is-confirmed').css('color', 'green').html('Confirmed Private');
+                    $(btn).find('.fas').hide();
+                    $(btn).find('.this-btn-text').html(' Confirm Private');
+                    $(btn).removeAttr("disabled");
+                    if (!$(btn).parents('div.panel').hasClass('confirmed')) {
+                        AddOneToConfirmed();
+                        $(btn).parents('div.panel').addClass('confirmed');
+                    }
+                    var minutes = $(btn).parents('div.panel').find('.this-duration-minutes').html() * 1;
+                    var seconds = $(btn).parents('div.panel').find('.this-duration-seconds').html() * 1;
+                    var cost = $(btn).parents('div.panel').find('.this-cost').html() * 1;
+
+
+                    var privateMinutes = $('#span_privateMinutes').html() * 1;
+                    //var privateSeconds = $('#span_privateSeconds').html() * 1;
+                    var privateCost = $('#span_privateCost').html() * 1;
+
+                    var officialMinutes = $('#span_officialMinutes').html() * 1;
+                    //var officialSeconds = $('#span_officialSeconds').html() * 1;
+                    var officialCost = $('#span_officialCost').html() * 1;
+
+
+                    var confirmation = $(btn).parents('div.panel').attr('data-confirmation');
+                    if (confirmation == ConfirmationTypes.Pending) {
+
+                        $('#span_privateMinutes').html(privateMinutes + minutes);
+                        //$('#span_privateSeconds').html(privateSeconds + seconds);
+                        $('#span_privateCost').html(privateCost + cost);
+                        $('#span_deduct_from_sal_amount').html(privateCost + cost);
+                    }
+                    else if (confirmation == ConfirmationTypes.Private) {
+
+                    }
+                    else if (confirmation == ConfirmationTypes.Official) {
+
+                        $('#span_officialMinutes').html(officialMinutes - minutes);
+                        //$('#span_officialSeconds').html(officialSeconds - seconds);
+                        $('#span_officialCost').html(officialCost - cost);
+
+                        $('#span_privateMinutes').html(privateMinutes + minutes);
+                        //$('#span_privateSeconds').html(privateSeconds + seconds);
+                        $('#span_privateCost').html(privateCost + cost);
+                        $('#span_deduct_from_sal_amount').html(privateCost + cost);
+
+                    }
+                    $(btn).parents('div.panel').attr('data-confirmation', ConfirmationTypes.Private);
+                    ScrollToNextPendingRecord();
+
+                }
+            }
+        });
+    }
+    function ViewThisDetails(btn) {
+        var CallingNumber = $(btn).attr('data-CallingNumber');
+        var CalledNumber = $(btn).attr('data-CalledNumber');
+        var UserBillGUID = $('#UserBillGUID').val();
+        $(btn).find('.fas').show();
+        $(btn).find('.this-btn-text').html('Please Wait');
+        $(btn).attr("disabled", true);
+        if ($(btn).hasClass('ShowMore')) {
+            $.ajax({
+                type: "GET",
+                url: "/TBS/UserBills/ShowMoreCallInfo",
+                data: {
+                    UserBillGUID: UserBillGUID,
+                    CallingNumber: CallingNumber,
+                    CalledNumber: CalledNumber
+                },
+                success: function (jsonResult) {
+                    var html = '<hr />';
+                    html += '<h3>Details</h3>';
+                    html += '<table style="width:100%">';
+                    html += '<thead>';
+                    html += '<tr>';
+                    html += '<th>Calling Number</th>';
+                    html += '<th>Called Number</th>';
+                    html += '<th>Call Date and Time</th>';
+                    html += '<th>Call Type</th>';
+                    html += '<th>Duration In Minutes</th>';
+                    html += '<th>Call Cost</th>';
+                    html += '</tr>';
+                    html += '</thead>';
+                    html += '<tbody>';
+                    $.each(jsonResult.result, function (idx, itm) {
+                        html += '<tr>';
+                        html += '<td>' + itm["CallingNumber"] + '</td>';
+                        html += '<td>' + itm["CalledNumber"] + '</td>';
+                        html += '<td>' + moment(itm["dateTimeConnect"]).format('LLL') + '</td>';
+                        html += '<td>' + itm["ValueDescription"] + '</td>';
+                        html += '<td>' + itm["DurationInMinutes"] + '</td>';
+                        html += '<td>' + itm["CallCost"] + '</td>';
+                        html += '</tr>';
+                    });
+                    html += '</tbody>';
+                    html += '</table>';
+
+                    console.log('jsonResult', jsonResult);
+                    console.log('jsonResult 0', jsonResult["result"][0]);
+                    console.log('jsonResult 1', jsonResult["result"][1]);
+                    //console.log('jsonResult 1', jsonResult["result"][1]["CallType"]);
+                    $(btn).removeClass('ShowMore');
+                    $(btn).addClass('HideMore');
+                    $(btn).find('.fas').hide();
+                    $(btn).find('.this-btn-text').html('Hide Detailed Info');
+                    $(btn).removeAttr("disabled");
+                    $(btn).parents('div.panel').find('.div-more-call-info').css('padding-top', '30px').html(html);
+                }
+            });
+        } else {
+            $(btn).addClass('ShowMore');
+            $(btn).removeClass('HideMore');
+            $(btn).find('.fas').hide();
+            $(btn).find('.this-btn-text').html('Show Detailed Info');
+            $(btn).removeAttr("disabled");
+            $(btn).parents('div.panel').find('.div-more-call-info').css('padding-top', '30px').html("");
+        }
+    }
+    function ConfirmAllOfficial(btn) {
+        var UserBillGUID = $('#UserBillGUID').val();
+        $(btn).find('.fas').show();
+        $(btn).find('.this-btn-text').html('Please Wait');
+        $(btn).attr("disabled", true);
+        $.ajax({
+            type: "POST",
+            url: "/TBS/UserBills/FullConfirmPrivateOfficial",
+            data: {
+                UserBillGUID: UserBillGUID,
+                type: "official"
+            },
+            success: function (jsonResponse) {
+                if (jsonResponse.success == true) {
+                    $(btn).find('.fas').hide();
+                    $(btn).find('.this-btn-text').html(' Official');
+                    $(btn).removeAttr("disabled");
+                    $('#span_officialMinutes').html($('#span_totalMinutes').html());
+                    //$('#span_officialSeconds').html($('#span_totalSeconds').html());
+                    $('#span_officialCost').html($('#span_totalCost').html());
+                    MarkAllAsConfirmed();
+                    $('#span_officialMinutes').html($('#span_totalMinutes').html() * 1);
+                    //$('#span_officialSeconds').html($('#span_totalSeconds').html() * 1);
+                    $('#span_officialCost').html($('#span_totalCost').html() * 1);
+                    $('#span_privateMinutes').html('0');
+                    //$('#span_privateSeconds').html('0');
+                    $('#span_privateCost').html('0');
+                    $('#span_deduct_from_sal_amount').html('0');
+                    location.reload(true);
+
+                }
+            }
+        });
+    }
+    function ConfirmAllPrivate(btn) {
+        var UserBillGUID = $('#UserBillGUID').val();
+        $(btn).find('.fas').show();
+        $(btn).find('.this-btn-text').html('Please Wait');
+        $(btn).attr("disabled", true);
+        $.ajax({
+            type: "POST",
+            url: "/TBS/UserBills/FullConfirmPrivateOfficial",
+            data: {
+                UserBillGUID: UserBillGUID,
+                type: "private"
+            },
+            success: function (jsonResponse) {
+                if (jsonResponse.success == true) {
+                    $(btn).find('.fas').hide();
+                    $(btn).find('.this-btn-text').html(' Private');
+                    $(btn).removeAttr("disabled");
+                    $('#span_privateMinutes').html($('#span_totalMinutes').html());
+                    //$('#span_privateSeconds').html($('#span_totalSeconds').html());
+                    $('#span_privateCost').html($('#span_totalCost').html());
+                    $('#span_deduct_from_sal_amount').html($('#span_totalCost').html());
+                    MarkAllAsConfirmed();
+                    $('#span_officialMinutes').html('0');
+                    //$('#span_officialSeconds').html('0');
+                    $('#span_officialCost').html('0');
+                    $('#span_privateMinutes').html($('#span_totalMinutes').html() * 1);
+                    //$('#span_privateSeconds').html($('#span_totalSeconds').html() * 1);
+                    $('#span_privateCost').html($('#span_totalCost').html() * 1);
+                    $('#span_deduct_from_sal_amount').html($('#span_totalCost').html() * 1);
+                    location.reload(true);
+                }
+            }
+        });
+    }
+    function AddOneToConfirmed() {
+        var totalConfirmed = $('#span-total-confirmed').html();
+        $('#span-total-confirmed').html((totalConfirmed * 1) + 1);
+        $('#hdn-confirmed-records').html((totalConfirmed * 1) + 1);
+
+        var totalPending = ($('#all-to-confirm').html() * 1) - ($('#span-total-confirmed').html() * 1);
+        $('#span_pending_count').html(totalPending);
+    }
+
+    function MarkAllAsConfirmed() {
+        var allToConfirm = $('#all-to-confirm').html();
+        $('#span-total-confirmed').html((allToConfirm * 1) + 1);
+        $('#span_pending_count').html('0');
+    }
+    function ScrollToNextPendingRecord() {
+        //var targetDiv = $("div.panel-container").find("[data-confirmation='" + ConfirmationTypes.Pending + "']").first().parents('div').first();
+        var containerDiv = $("div.panel-container").find("[data-confirmation='" + ConfirmationTypes.Pending + "']").first();
+        var targetDiv = containerDiv.parents('div').first();
+        if ($(targetDiv).length == 0) {
+            Notify(NotificationType.Warning, "No pending records.");
+            return false;
+        }
+        scrollInitiator = containerDiv;
+        var targetDivOffset = targetDiv.offset();
+
+        $('#bill-details-container').mCustomScrollbar("scrollTo", $(targetDiv).position().top, { scrollInertia: 1000 });
+
+        //$('#bill-details-container').animate({ scrollTop: targetDivOffset.top - 300 }, "slow");
+
+    }
+    function ScrollToNumber() {
+        var targetNumber = $.trim($('#txt_search_number').val());
+        var containerDiv = $("div.panel-container").find("[data-callednumber*='" + targetNumber + "']").first();
+        var targetDiv = containerDiv.parents('div').first();
+        if ($(targetDiv).length == 0) {
+            Notify(NotificationType.Warning, "Record not found.");
+            return false;
+        }
+        scrollInitiator = containerDiv;
+        var targetDivOffset = targetDiv.offset();
+
+        $("#bill-details-container").mCustomScrollbar("scrollTo", $(targetDiv).position().top, { scrollInertia: 1000 });
+
+        //$('#bill-details-container').mCustomScrollbar({
+        //    callbacks: {
+        //        onTotalScrollBack: function () { alert("onTotalScrollBack") },
+        //        onTotalScroll: function () { /* your callback */ alert("onTotalScroll") },
+
+        //    }
+        //});
+        //$('#bill-details-container').mCustomScrollbar("scrollTo", $(targetDiv).position().top, { scrollInertia: 1000 });
+
+
+
+
+
+
+        //#ffe0e0
+    }
+    //$('#span_deduct_from_sal_amount').on('keyup', function (e) {
+    //    e.preventDefault();
+    //    var privateCost = $('#span_privateCost').text() * 1;
+    //    var asd = $('#txt_pay_in_cash_amount').val() * 1;
+    //});
+    $('#txt_pay_in_cash_amount').on('keyup', function (e) {
+        e.preventDefault();
+        var privateCost = $('#span_privateCost').html() * 1;
+        var deductFromSalary = $('#span_deduct_from_sal_amount').html() * 1;
+        var payInCash = $(this).val() * 1;
+        var newDeductFromSalary = privateCost - payInCash;
+        $('#span_deduct_from_sal_amount').text(newDeductFromSalary);
+    });
+
+    function IsBillLocked() {
+        if ($('#hdn-bill-locked').val() == "True") { return true; }
+        else { return false; }
+    }
+
+    var ConfirmationTypes = {
+        Pending: "Pending",
+        Private: "Private",
+        Official: "Official"
+    }
+</script>

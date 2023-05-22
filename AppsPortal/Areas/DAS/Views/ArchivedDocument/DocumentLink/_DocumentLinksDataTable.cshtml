@@ -1,0 +1,25 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">Linked Files</h3>
+<div class="row ">
+    <div class="col-lg-8 col-md-12 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.DocumentLinksDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.DocumentLinksDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.DocumentLinksDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.DocumentLinksDataTable)
+                @Html.FieldDataTableCreate(Permissions.RefugeeScannedDocument.Create, Apps.DAS, Url.Action("DocumentLinkCreate", "DocumentLinks", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.RefugeeScannedDocument.Delete, Apps.DAS, DataTableNames.DocumentLinksDataTable)
+                @Html.FieldDataTableRestore(Permissions.RefugeeScannedDocument.Restore, Apps.DAS, DataTableNames.DocumentLinksDataTable)
+
+                @Html.FieldDataTableRefresh(DataTableNames.DocumentLinksDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.DocumentLinksDataTable, FormController = "DocumentLinks", Area = "DAS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

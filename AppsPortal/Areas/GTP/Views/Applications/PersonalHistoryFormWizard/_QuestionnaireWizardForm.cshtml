@@ -1,0 +1,531 @@
+﻿@model dataPersonalHistoryQuestionnaireWithRelativesUpdateModel
+<style>
+    .hrQuestions {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-top: 3px solid #e8eaea;
+    }
+</style>
+@using (Html.BeginForm("QuestionnaireWizard", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "QuestionnaireWizardForm", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.GTPPHQuestionnaireGUID)
+    @Html.AntiForgeryToken()
+    <div class="tab-pane" id="tab1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><b>15. QUESTIONNAIRE </b> (Mandatory to complete)</span>
+            </div>
+            <div class="panel-body">
+                <div class="row" style="padding-bottom:10px;">
+                    <div class="col-md-12">
+                        <span>1.	Are you now, or have you ever been, a permanent civil servant in your government's employ? If the answer is yes, please provide the dates below.</span>
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px;">
+                        @Html.DropDownListFor(model => model.FirstQuestionAnswer, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.FirstQuestionAnswerFromDate)
+                        @Html.EditorFor(model => model.FirstQuestionAnswerFromDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.FirstQuestionAnswerToDate)
+                        @Html.EditorFor(model => model.FirstQuestionAnswerToDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>2.	Have you ever been arrested, indicted or summoned in court as a defendant in a criminal proceeding, or convicted, fined or imprisoned for the violation of any law (excluding minor traffic violations)? If the answer is yes, please provide details below.</span>
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px;">
+                        @Html.DropDownListFor(model => model.SecondQuestionAnswer, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                    <div class="col-md-9">
+                        @Html.LabelFor(model => model.SecondQuestionAnswerDetails)
+                        @Html.TextAreaFor(model => model.SecondQuestionAnswerDetails, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>3.	Have you ever been the subject of an investigation into allegations of misconduct?</span>
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px;">
+                        @Html.DropDownListFor(model => model.ThirdQuestionAnswer, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>4.	Have you ever been subject to disciplinary proceedings or measures?</span>
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px;">
+                        @Html.DropDownListFor(model => model.FourthQuestionAnswer, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>5.	Would you accept employment for less than six months?</span>
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px;">
+                        @Html.DropDownListFor(model => model.FifthQuestionAnswer, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>6.	Entry in United Nations service might require assignment to any area of the world in which United Nations might have responsibilities. Are there any limitations on your ability to engage in  your prospective field of work? If yes, please add details below.</span>
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px;">
+                        @Html.DropDownListFor(model => model.SixthQuestionAnswer, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                    <div class="col-md-9">
+                        @Html.LabelFor(model => model.SixthQuestionAnswerDetails)
+                        @Html.TextAreaFor(model => model.SixthQuestionAnswerDetails, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>7.	Entry in United Nations service might require assignment to any area of the world in which the United Nations might have responsibilities. Are there any limitations on your engage in all travel? If the answer is yes, please add details below.</span>
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px;">
+                        @Html.DropDownListFor(model => model.SeventhQuestionAnswer, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                    <div class="col-md-9">
+                        @Html.LabelFor(model => model.SeventhQuestionAnswerDetails)
+                        @Html.TextAreaFor(model => model.SeventhQuestionAnswerDetails, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>8.	Do you have a spouse or any children? If yes, please provide below the names, dates of birth and the relationships.</span>
+
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px; display:inline-flex">
+                        @Html.DropDownListFor(model => model.EighthQuestionAnswerDetails, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        <input id="btn-add-relative" type="button" class="btn btn-primary" value="+ Add Details" />
+                    </div>
+                    <div id="div_spousechildern_container" class="col-md-12">
+                        @if (Model.GTPPHQuestionnaireGUID != Guid.Empty)
+                        {
+                            if (Model.EighthQuestionAnswerDetails && Model.dataPersonalHistoryRelatives.Count > 0)
+                            {
+                                for (int i = 0; i < Model.dataPersonalHistoryRelatives.Count; i++)
+                                {
+                                    <div class="panel panel-default" style="margin-top:5px;">
+                                        <div class="panel-heading">
+                                            <span><b>Relative # @(i + 1) </b> <input type="button" data-url="/GTP/Applications/RelativesUpdate/@Model.dataPersonalHistoryRelatives[i].GTPPHRelativeGUID" class="btn btn-success lgModal Modal-Link pull-right" style="margin-top:-6px" value="Update / Delete record" /></span>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-md-12">
+                                                <div class="row" style="padding-top:10px;">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeName)
+                                                            @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeBirthDate)
+                                                            @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeBirthDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeRelationship)
+                                                            @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeRelationship, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                        else if (Model.dataPersonalHistoryRelatives != null && Model.dataPersonalHistoryRelatives.Count > 0)
+                        {
+                            for (int i = 0; i < Model.dataPersonalHistoryRelatives.Count; i++)
+                            {
+                                <div class="panel panel-default" style="margin-top:5px;">
+                                    <div class="panel-heading">
+                                        <span><b>Relative # @(i + 1) </b> <input type="button" data-url="/GTP/Applications/RelativesUpdate/@Model.dataPersonalHistoryRelatives[i].GTPPHRelativeGUID" class="btn btn-success lgModal Modal-Link pull-right" style="margin-top:-6px" value="Update / Delete record" /></span>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-md-12">
+                                            <div class="row" style="padding-top:10px;">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeName)
+                                                        @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeBirthDate)
+                                                        @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeBirthDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeRelationship)
+                                                        @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeRelationship, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>
+                            9.	Have you taken up legal permanent residence status in any country other than that of your nationality?
+                            <br />
+                            If the answer is yes, please indicate the country.
+                        </span>
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px;">
+                        @Html.DropDownListFor(model => model.NinthQuestionAnswer, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                    <div class="col-md-9">
+                        @Html.LabelFor(model => model.NinthQuestionAnswerDetails)
+                        @Html.TextAreaFor(model => model.NinthQuestionAnswerDetails, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>
+                            10.	State any other relevant facts. Include information regarding any residence outside the country of your nationality.
+                        </span>
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px;">
+                        @Html.DropDownListFor(model => model.TenthQuestionAnswer, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                    <div class="col-md-9">
+                        @Html.LabelFor(model => model.TenthQuestionAnswerDetails)
+                        @Html.TextAreaFor(model => model.TenthQuestionAnswerDetails, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>
+                            11.	Have you taken any legal steps towards changing your present nationality?
+                            <br />
+                            If the answer is yes, please add details below.
+                        </span>
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px;">
+                        @Html.DropDownListFor(model => model.ElevenQuestionAnswer, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                    </div>
+                    <div class="col-md-9">
+                        @Html.LabelFor(model => model.ElevenQuestionAnswerDetails)
+                        @Html.TextAreaFor(model => model.ElevenQuestionAnswerDetails, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>
+                            12.	Are any of your relatives, or is your spouse employed by a UN organization or Specialized Agency?
+                            <br />
+                            If the answer is yes, please indicate Name, Relationship, and Name of International Organization.
+                        </span>
+                    </div>
+                    <div class="col-md-3" style="padding-top:26px; display:inline-flex">
+                        @Html.DropDownListFor(model => model.TwelveQuestionAnswerDetails, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        <input id="btn-add-relativeWorker" type="button" class="btn btn-primary" value="+ Add Details" />
+                    </div>
+                    <div id="div_relativeWorker_container" class="col-md-12">
+                        @if (Model.GTPPHQuestionnaireGUID != Guid.Empty)
+                        {
+                            if (Model.TwelveQuestionAnswerDetails && Model.dataPersonalHistoryRelativeWorkers.Count > 0)
+                            {
+                                for (int i = 0; i < Model.dataPersonalHistoryRelativeWorkers.Count; i++)
+                                {
+                                    <div class="panel panel-default" style="margin-top:5px;">
+                                        <div class="panel-heading">
+                                            <span><b>Relative # @(i + 1) </b> <input type="button" data-url="/GTP/Applications/RelativesWorkersUpdate/@Model.dataPersonalHistoryRelativeWorkers[i].GTPPHRelativeWorkerGUID" class="btn btn-success lgModal Modal-Link pull-right" style="margin-top:-6px" value="Update / Delete record" /></span>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-md-12">
+                                                <div class="row" style="padding-top:10px;">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeName)
+                                                            @Html.EditorFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeRelationship)
+                                                            @Html.EditorFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeRelationship, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeOrganization)
+                                                            @Html.EditorFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeOrganization, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                        else if (Model.dataPersonalHistoryRelativeWorkers != null && Model.dataPersonalHistoryRelativeWorkers.Count > 0)
+                        {
+                            for (int i = 0; i < Model.dataPersonalHistoryRelativeWorkers.Count; i++)
+                            {
+                                <div class="panel panel-default" style="margin-top:5px;">
+                                    <div class="panel-heading">
+                                        <span><b>Relative # @(i + 1) </b> <input type="button" data-url="/GTP/Applications/RelativesWorkersUpdate/@Model.dataPersonalHistoryRelativeWorkers[i].GTPPHRelativeWorkerGUID" class="btn btn-success lgModal Modal-Link pull-right" style="margin-top:-6px" value="Update / Delete record" /></span>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-md-12">
+                                            <div class="row" style="padding-top:10px;">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeName)
+                                                        @Html.EditorFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeRelationship)
+                                                        @Html.EditorFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeRelationship, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeOrganization)
+                                                        @Html.EditorFor(model => model.dataPersonalHistoryRelativeWorkers[i].RelativeOrganization, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="hrQuestions" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>
+                            13.	How did you hear about this vacancy?
+                        </span>
+                    </div>
+                    <div class="col-md-12" style="padding-top:26px;">
+                        @Html.DropDownListFor(model => model.ThirteenQuestionAnswer, new DropDownList().GTPVacancyHears(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right">
+                            @if (Model.GTPPHQuestionnaireGUID == Guid.Empty)
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Save & Next' data-next-url="/GTP/Applications/ConfirmationAndConsentWizard/Create" />
+                            }
+                            else
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Update" name='next' value='Update & Next' data-next-url="/GTP/Applications/ConfirmationAndConsentWizard/Create" />
+                            }
+                        </div>
+                        <div style="float:left">
+                            <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/ProfessionalReferencesWizard/Create" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+    $(function () {
+        if ($('#GTPPHQuestionnaireGUID').val() == "00000000-0000-0000-0000-000000000000") {
+            var errorDiv = $('#QuestionnaireWizardForm').find('.ErrorSummary');
+            if ($(errorDiv).css('display') == 'none') {
+                $.each($('#QuestionnaireWizardForm').find('.select2-hidden-accessible'), function (idx, elm) {
+                    $(elm).val(null).trigger('change');
+                })
+            } else {
+
+            }
+        }
+
+
+        //$('#btn-add-relative').click(function (e) {
+        //    $('#FormModal').modal('show');
+        //    var largeModal = false;
+
+        //    if ($(this).hasClass('lgModal')) {
+        //        largeModal = true;
+        //    }
+        //    e.preventDefault();
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "",
+        //        data: $('#QuestionnaireWizardForm').serialize(),
+        //        success: function (result) {
+
+        //            $('#Partial-Container').html(result);
+        //            $('#Loading-Container').hide();
+        //            InitPlugins($('#Partial-Container'));
+        //            if (largeModal) {
+        //                $('.modal-content').css('width', '150%');
+        //                $('.modal-content').css('margin-left', '-175px');
+        //            } else {
+        //                $('.modal-content').css('width', 'inherit');
+
+        //                $('.modal-content').css('margin-left', '0px');
+        //            }
+        //        }
+        //    });
+        //});
+
+        $('#btn-add-relative').click(function (e) {
+            e.preventDefault();
+            if ($('#EighthQuestionAnswerDetails').val() == 'true') {
+
+                $('#FormModal').modal('show');
+                var largeModal = false;
+
+                if ($(this).hasClass('lgModal')) {
+                    largeModal = true;
+                }
+
+                $('#Partial-Container').load('/GTP/Applications/RelativesCreate', function () {
+                    $('#Loading-Container').hide();
+                    InitPlugins($('#Partial-Container'));
+
+                    if (largeModal) {
+                        $('.modal-content').css('width', '150%');
+                        $('.modal-content').css('margin-left', '-175px');
+                    } else {
+                        $('.modal-content').css('width', 'inherit');
+
+                        $('.modal-content').css('margin-left', '0px');
+                    }
+
+                });
+
+
+
+
+            } else {
+                Notify(NotificationType.Info, 'Your answer should be yes to the related question.');
+            }
+        });
+        $('#btn-add-relativeWorker').click(function (e) {
+            e.preventDefault();
+            if ($('#TwelveQuestionAnswerDetails').val() == 'true') {
+
+                $('#FormModal').modal('show');
+                var largeModal = false;
+
+                if ($(this).hasClass('lgModal')) {
+                    largeModal = true;
+                }
+
+                $('#Partial-Container').load('/GTP/Applications/RelativesWorkersCreate', function () {
+                    $('#Loading-Container').hide();
+                    InitPlugins($('#Partial-Container'));
+
+                    if (largeModal) {
+                        $('.modal-content').css('width', '150%');
+                        $('.modal-content').css('margin-left', '-175px');
+                    } else {
+                        $('.modal-content').css('width', 'inherit');
+
+                        $('.modal-content').css('margin-left', '0px');
+                    }
+
+                });
+
+
+
+
+            } else {
+                Notify(NotificationType.Info, 'Your answer should be yes to the related question.');
+            }
+        });
+    })
+
+</script>

@@ -1,0 +1,98 @@
+﻿@model dataMedicalBeneficiary
+@using (Html.BeginForm("MedicalBeneficiary", "MedicalBeneficiarys", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalBeneficiaryForm" }))
+{
+    string ModalTitle = Model.MedicalBeneficiaryGUID.ToString() == Guid.Empty.ToString() ? "New Beneficiarys" : "Edit Beneficiarys";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.MedicalBeneficiaryGUID)
+        @if (Model.MedicalBeneficiaryGUID == Guid.Empty)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.IDNumber)
+                @Html.EditorFor(model => model.IDNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+        }
+        @if (Model.IDNumber != null)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.IDNumber)
+                @Html.EditorFor(model => model.IDNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+        }
+        @if (Model.UNHCRNumber != null)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.UNHCRNumber)
+                @Html.EditorFor(model => model.UNHCRNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+        }
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.DocumentType)
+            @Html.DropDownListFor(model => model.DocumentType, new DropDownList().DocumentType(), "", new
+            {
+           style = "width:100%",
+           @class = "form-control select2-basic-search"
+           })
+        </div>
+
+        <div class="form-group">
+
+            @Html.Label("Full Name")
+            @Html.EditorFor(model => model.RefugeeFullName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Brithday)
+            @Html.EditorFor(model => model.Brithday, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.BeneficiaryTypeGUID)
+            @Html.DropDownListFor(model => model.BeneficiaryTypeGUID, new DropDownList().BeneficiaryType(), "",
+           new
+                {
+               style = "width:100%",
+               @class = "form-control select2-basic-search"
+           })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.GenderGUID)
+            @Html.DropDownListFor(model => model.GenderGUID, new DropDownList().LookupValues(LookupTables.Gender), "", new
+            {
+           style = "width:100%",
+           @class = "form-control select2-basic-search"
+           })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.NationalityCode)
+            @Html.DropDownListFor(model => model.NationalityCode, new DropDownList().CountriesA3Code(), "", new
+            {
+           style = "width:100%",
+           @class = "form-control select2-basic-search"
+       })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.Label(resxDbFields.Partner)
+            @Html.DropDownListFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstancesByProfile(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.MedicalBeneficiaryGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.MedicalBeneficiary.Create, Apps.EMT)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.MedicalBeneficiary.Update, Apps.EMT)
+                @Html.DeleteSwitchButton(Permissions.MedicalBeneficiary.Delete, Apps.EMT)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.MedicalBeneficiary.Delete, Apps.EMT)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

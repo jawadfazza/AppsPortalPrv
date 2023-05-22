@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.ModelsEntry</h3>
+<div class="row">
+    <div class="col-lg-12 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.WarehouseItemEntryDetailsDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.WarehouseItemEntryDetailsDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.WarehouseItemEntryDetailsDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.WarehouseItemEntryDetailsDataTable)
+                @Html.FieldDataTableCreate(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("WarehouseItemEntryDetailCreate", "EntryModels", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.WarehouseItemsEntry.Delete, Apps.WMS, DataTableNames.WarehouseItemEntryDetailsDataTable)
+                @Html.FieldDataTableRestore(Permissions.WarehouseItemsEntry.Restore, Apps.WMS, DataTableNames.WarehouseItemEntryDetailsDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.WarehouseItemEntryDetailsDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseItemEntryDetailsDataTable, FormController = "EntryModels", Area = "WMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

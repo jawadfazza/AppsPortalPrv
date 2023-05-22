@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="OSADataSet" targetNamespace="http://tempuri.org/OSADataSet.xsd" xmlns:mstns="http://tempuri.org/OSADataSet.xsd" xmlns="http://tempuri.org/OSADataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="PortalDBConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="PortalDBConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.PortalDBConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="StaffPresenceTableAdapter" GeneratorDataComponentClassName="StaffPresenceTableAdapter" Name="StaffPresence" UserDataComponentName="StaffPresenceTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="PortalDBConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        CMS.userPersonalDetailsLanguage.FirstName + ' ' + CMS.userPersonalDetailsLanguage.Surname AS Full_Name, OSA.dataOfficeStaffAttendance.AttendanceFromDatetime, OSA.dataOfficeStaffAttendance.IsAttend, 
+                         code.codeDepartmentsLanguages.DepartmentDescription, code.codeDutyStationsLanguages.DutyStationDescription, code.codeOfficesLanguages.OfficeDescription, code.codeOfficeFloor.FloorNumber, 
+                         code.codeOfficeFloorRoom.RoomNumber, OSA.dataOfficeStaffAttendanceConfirmation.ConfirmedBy, OSA.dataOfficeStaffAttendanceConfirmation.ConfirmedDate, CMS.StaffCoreData.EmploymentID, 
+                         CMS.StaffCoreData.UNHCRIDNumber, codeTablesValuesLanguages_1.ValueDescription AS RecruitmentType, code.codeTablesValuesLanguages.LanguageID, 
+                         code.codeTablesValuesLanguages.ValueDescription AS ContractType, codeTablesValuesLanguages_2.ValueDescription AS OfficeType, OSA.dataOfficeStaffAttendanceConfirmation.PaymentConfirmedDate, 
+                         OSA.dataOfficeStaffAttendanceConfirmation.PaymentConfirmedBy
+FROM            code.codeDutyStationsLanguages LEFT OUTER JOIN
+                         code.codeTablesValuesLanguages LEFT OUTER JOIN
+                         CMS.StaffCoreData LEFT OUTER JOIN
+                         OSA.dataOfficeStaffAttendance LEFT OUTER JOIN
+                         CMS.userPersonalDetailsLanguage ON OSA.dataOfficeStaffAttendance.UserGUID = CMS.userPersonalDetailsLanguage.UserGUID ON CMS.StaffCoreData.UserGUID = OSA.dataOfficeStaffAttendance.UserGUID LEFT OUTER JOIN
+                         code.codeTablesValuesLanguages AS codeTablesValuesLanguages_1 ON CMS.StaffCoreData.RecruitmentTypeGUID = codeTablesValuesLanguages_1.ValueGUID ON 
+                         code.codeTablesValuesLanguages.ValueGUID = CMS.StaffCoreData.ContractTypeGUID LEFT OUTER JOIN
+                         code.codeTablesValuesLanguages AS codeTablesValuesLanguages_2 ON CMS.StaffCoreData.OfficeTypeGUID = codeTablesValuesLanguages_2.ValueGUID LEFT OUTER JOIN
+                         OSA.dataOfficeStaffAttendanceConfirmation ON OSA.dataOfficeStaffAttendance.OfficeStaffAttendanceConfirmationGUID = OSA.dataOfficeStaffAttendanceConfirmation.OfficeStaffAttendanceConfirmationGUID LEFT OUTER JOIN
+                         code.codeDepartmentsLanguages ON CMS.StaffCoreData.DepartmentGUID = code.codeDepartmentsLanguages.DepartmentGUID ON 
+                         code.codeDutyStationsLanguages.DutyStationGUID = CMS.StaffCoreData.DutyStationGUID FULL OUTER JOIN
+                         code.codeOfficesLanguages LEFT OUTER JOIN
+                         code.codeOfficeFloorRoom LEFT OUTER JOIN
+                         code.codeOfficeFloor ON code.codeOfficeFloorRoom.OfficeFloorGUID = code.codeOfficeFloor.OfficeFloorGUID AND code.codeOfficeFloorRoom.OfficeFloorGUID = code.codeOfficeFloor.OfficeFloorGUID AND 
+                         code.codeOfficeFloorRoom.OfficeFloorGUID = code.codeOfficeFloor.OfficeFloorGUID ON code.codeOfficesLanguages.OfficeGUID = code.codeOfficeFloor.OfficeGUID ON 
+                         OSA.dataOfficeStaffAttendance.OfficeFloorRoomGUID = code.codeOfficeFloorRoom.OfficeFloorRoomGUID
+WHERE        (OSA.dataOfficeStaffAttendance.Active = 1)
+          AND 
+		  (CMS.userPersonalDetailsLanguage.Active = 1 OR CMS.userPersonalDetailsLanguage.Active IS NULL)
+		  AND (CMS.userPersonalDetailsLanguage.LanguageID = N'EN' OR CMS.userPersonalDetailsLanguage.LanguageID IS NULL)
+		AND (code.codeDutyStationsLanguages.LanguageID = N'EN' OR code.codeDutyStationsLanguages.LanguageID IS NULL)
+		AND (code.codeDepartmentsLanguages.LanguageID = N'EN' OR code.codeDepartmentsLanguages.LanguageID IS NULL) 
+		AND (code.codeDutyStationsLanguages.Active = 1 OR code.codeDutyStationsLanguages.Active IS NULL)
+		AND (MONTH(OSA.dataOfficeStaffAttendance.AttendanceFromDatetime) = @month) AND (YEAR(OSA.dataOfficeStaffAttendance.AttendanceFromDatetime) = @year) 
+		AND  (code.codeOfficeFloor.Active IS NULL OR code.codeOfficeFloor.Active = 1)
+		AND (code.codeOfficeFloorRoom.Active IS NULL OR code.codeOfficeFloorRoom.Active = 1)
+		AND (code.codeOfficesLanguages.LanguageID IS NULL OR code.codeOfficesLanguages.LanguageID = N'EN') 
+		AND (OSA.dataOfficeStaffAttendance.AttendanceFromDatetime &gt; '6 Feb 2021')
+		AND (codeTablesValuesLanguages_1.LanguageID IS NULL OR  codeTablesValuesLanguages_1.LanguageID = N'EN') 
+		AND (code.codeTablesValuesLanguages.LanguageID = N'EN' OR code.codeTablesValuesLanguages.LanguageID IS NULL
+		AND (codeTablesValuesLanguages_2.LanguageID IS NULL OR codeTablesValuesLanguages_2.LanguageID = N'EN'))
+		and (CMS.userPersonalDetailsLanguage.FirstName + ' ' + CMS.userPersonalDetailsLanguage.Surname )='Jiana nakouz'
+		and  codeTablesValuesLanguages_1.ValueDescription='National'</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="month" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="Decimal" Direction="Input" ParameterName="@month" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="year" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="Decimal" Direction="Input" ParameterName="@year" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Full_Name" DataSetColumn="Full_Name" />
+              <Mapping SourceColumn="AttendanceFromDatetime" DataSetColumn="AttendanceFromDatetime" />
+              <Mapping SourceColumn="IsAttend" DataSetColumn="IsAttend" />
+              <Mapping SourceColumn="DepartmentDescription" DataSetColumn="DepartmentDescription" />
+              <Mapping SourceColumn="DutyStationDescription" DataSetColumn="DutyStationDescription" />
+              <Mapping SourceColumn="OfficeDescription" DataSetColumn="OfficeDescription" />
+              <Mapping SourceColumn="FloorNumber" DataSetColumn="FloorNumber" />
+              <Mapping SourceColumn="RoomNumber" DataSetColumn="RoomNumber" />
+              <Mapping SourceColumn="ConfirmedBy" DataSetColumn="ConfirmedBy" />
+              <Mapping SourceColumn="ConfirmedDate" DataSetColumn="ConfirmedDate" />
+              <Mapping SourceColumn="EmploymentID" DataSetColumn="EmploymentID" />
+              <Mapping SourceColumn="UNHCRIDNumber" DataSetColumn="UNHCRIDNumber" />
+              <Mapping SourceColumn="RecruitmentType" DataSetColumn="RecruitmentType" />
+              <Mapping SourceColumn="LanguageID" DataSetColumn="LanguageID" />
+              <Mapping SourceColumn="ContractType" DataSetColumn="ContractType" />
+              <Mapping SourceColumn="OfficeType" DataSetColumn="OfficeType" />
+              <Mapping SourceColumn="PaymentConfirmedDate" DataSetColumn="PaymentConfirmedDate" />
+              <Mapping SourceColumn="PaymentConfirmedBy" DataSetColumn="PaymentConfirmedBy" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="OSADataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="OSADataSet" msprop:Generator_UserDSName="OSADataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="StaffPresence" msprop:Generator_TableClassName="StaffPresenceDataTable" msprop:Generator_TableVarName="tableStaffPresence" msprop:Generator_TablePropName="StaffPresence" msprop:Generator_RowDeletingName="StaffPresenceRowDeleting" msprop:Generator_RowChangingName="StaffPresenceRowChanging" msprop:Generator_RowEvHandlerName="StaffPresenceRowChangeEventHandler" msprop:Generator_RowDeletedName="StaffPresenceRowDeleted" msprop:Generator_UserTableName="StaffPresence" msprop:Generator_RowChangedName="StaffPresenceRowChanged" msprop:Generator_RowEvArgName="StaffPresenceRowChangeEvent" msprop:Generator_RowClassName="StaffPresenceRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Full_Name" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFull_Name" msprop:Generator_ColumnPropNameInRow="Full_Name" msprop:Generator_ColumnPropNameInTable="Full_NameColumn" msprop:Generator_UserColumnName="Full_Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="101" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AttendanceFromDatetime" msprop:Generator_ColumnVarNameInTable="columnAttendanceFromDatetime" msprop:Generator_ColumnPropNameInRow="AttendanceFromDatetime" msprop:Generator_ColumnPropNameInTable="AttendanceFromDatetimeColumn" msprop:Generator_UserColumnName="AttendanceFromDatetime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IsAttend" msprop:Generator_ColumnVarNameInTable="columnIsAttend" msprop:Generator_ColumnPropNameInRow="IsAttend" msprop:Generator_ColumnPropNameInTable="IsAttendColumn" msprop:Generator_UserColumnName="IsAttend" type="xs:boolean" minOccurs="0" />
+              <xs:element name="DepartmentDescription" msprop:Generator_ColumnVarNameInTable="columnDepartmentDescription" msprop:Generator_ColumnPropNameInRow="DepartmentDescription" msprop:Generator_ColumnPropNameInTable="DepartmentDescriptionColumn" msprop:Generator_UserColumnName="DepartmentDescription" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DutyStationDescription" msprop:Generator_ColumnVarNameInTable="columnDutyStationDescription" msprop:Generator_ColumnPropNameInRow="DutyStationDescription" msprop:Generator_ColumnPropNameInTable="DutyStationDescriptionColumn" msprop:Generator_UserColumnName="DutyStationDescription" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OfficeDescription" msprop:Generator_ColumnVarNameInTable="columnOfficeDescription" msprop:Generator_ColumnPropNameInRow="OfficeDescription" msprop:Generator_ColumnPropNameInTable="OfficeDescriptionColumn" msprop:Generator_UserColumnName="OfficeDescription" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="256" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FloorNumber" msprop:Generator_ColumnVarNameInTable="columnFloorNumber" msprop:Generator_ColumnPropNameInRow="FloorNumber" msprop:Generator_ColumnPropNameInTable="FloorNumberColumn" msprop:Generator_UserColumnName="FloorNumber" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RoomNumber" msprop:Generator_ColumnVarNameInTable="columnRoomNumber" msprop:Generator_ColumnPropNameInRow="RoomNumber" msprop:Generator_ColumnPropNameInTable="RoomNumberColumn" msprop:Generator_UserColumnName="RoomNumber" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ConfirmedBy" msprop:Generator_ColumnVarNameInTable="columnConfirmedBy" msprop:Generator_ColumnPropNameInRow="ConfirmedBy" msprop:Generator_ColumnPropNameInTable="ConfirmedByColumn" msprop:Generator_UserColumnName="ConfirmedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ConfirmedDate" msprop:Generator_ColumnVarNameInTable="columnConfirmedDate" msprop:Generator_ColumnPropNameInRow="ConfirmedDate" msprop:Generator_ColumnPropNameInTable="ConfirmedDateColumn" msprop:Generator_UserColumnName="ConfirmedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="EmploymentID" msprop:Generator_ColumnVarNameInTable="columnEmploymentID" msprop:Generator_ColumnPropNameInRow="EmploymentID" msprop:Generator_ColumnPropNameInTable="EmploymentIDColumn" msprop:Generator_UserColumnName="EmploymentID" type="xs:int" minOccurs="0" />
+              <xs:element name="UNHCRIDNumber" msprop:Generator_ColumnVarNameInTable="columnUNHCRIDNumber" msprop:Generator_ColumnPropNameInRow="UNHCRIDNumber" msprop:Generator_ColumnPropNameInTable="UNHCRIDNumberColumn" msprop:Generator_UserColumnName="UNHCRIDNumber" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RecruitmentType" msprop:Generator_ColumnVarNameInTable="columnRecruitmentType" msprop:Generator_ColumnPropNameInRow="RecruitmentType" msprop:Generator_ColumnPropNameInTable="RecruitmentTypeColumn" msprop:Generator_UserColumnName="RecruitmentType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="256" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LanguageID" msprop:Generator_ColumnVarNameInTable="columnLanguageID" msprop:Generator_ColumnPropNameInRow="LanguageID" msprop:Generator_ColumnPropNameInTable="LanguageIDColumn" msprop:Generator_UserColumnName="LanguageID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ContractType" msprop:Generator_ColumnVarNameInTable="columnContractType" msprop:Generator_ColumnPropNameInRow="ContractType" msprop:Generator_ColumnPropNameInTable="ContractTypeColumn" msprop:Generator_UserColumnName="ContractType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="256" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OfficeType" msprop:Generator_ColumnVarNameInTable="columnOfficeType" msprop:Generator_ColumnPropNameInRow="OfficeType" msprop:Generator_ColumnPropNameInTable="OfficeTypeColumn" msprop:Generator_UserColumnName="OfficeType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="256" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PaymentConfirmedDate" msprop:Generator_ColumnVarNameInTable="columnPaymentConfirmedDate" msprop:Generator_ColumnPropNameInRow="PaymentConfirmedDate" msprop:Generator_ColumnPropNameInTable="PaymentConfirmedDateColumn" msprop:Generator_UserColumnName="PaymentConfirmedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PaymentConfirmedBy" msprop:Generator_ColumnVarNameInTable="columnPaymentConfirmedBy" msprop:Generator_ColumnPropNameInRow="PaymentConfirmedBy" msprop:Generator_ColumnPropNameInTable="PaymentConfirmedByColumn" msprop:Generator_UserColumnName="PaymentConfirmedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,25 @@
+﻿@model MasterRecordStatus
+
+@if (Model.IsParentActive)
+{<h3 class="Title">Staff List</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+
+        <div id=@string.Format("{0}Filter", DataTableNames.ShuttleRequestStaffsDataTable) class="filter-section" style="display:none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_RecordStatus", DataTableNames.ShuttleRequestStaffsDataTable)
+                </div>
+            </div>
+        </div>
+        <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.ShuttleRequestStaffsDataTable)">
+            @Html.FieldDataTableFilter(DataTableNames.ShuttleRequestStaffsDataTable)
+            @Html.FieldDataTableCreateNoPermission(Url.Action("ShuttleRequestStaffCreate", "ShuttleRequest", new { FK = Model.ParentGUID }))
+            @Html.FieldDataTableDeleteNoPermission(DataTableNames.ShuttleRequestStaffsDataTable)
+            @Html.FieldDataTableRestoreNoPermission(DataTableNames.ShuttleRequestStaffsDataTable)
+            @Html.FieldDataTableRefresh(DataTableNames.ShuttleRequestStaffsDataTable)
+        </div>
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ShuttleRequestStaffsDataTable, FormController = "ShuttleRequest", Area = "SHM", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>
+}

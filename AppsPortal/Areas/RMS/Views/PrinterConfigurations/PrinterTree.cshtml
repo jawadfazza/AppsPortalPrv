@@ -1,0 +1,253 @@
+﻿@{
+    ViewBag.Title = "Printers Configuration";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("0978dbf7-be39-4b1f-a287-b70066bba844")
+<div class="page--content">
+    <br />
+        <div class="row">
+            <div class="col-lg-3 col-md-4 ">
+
+
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="heading01" data-toggle="collapse" data-parent="#accordion" href="#Tab01" aria-expanded="true" style="background-color:#ddd;">
+                            <span class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#Tab01">
+                                <b>Duty Stations</b>
+                            </span>
+                        </div>
+                        <div id="Tab01" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading01">
+                            <div class="panel-body" style="padding:0;">
+                                @{
+                                    var Apps = new DropDownList().PrinterAccessByDutyStations();
+                                    foreach (var app in Apps)
+                                    {
+                                        <div onclick="BuildPrintersTree('@app.Value',this)" class="MenuElement">@app.Text</div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="col-lg-12" style="background-color:#ddd;padding:10px 15px;border:1px solid #ccc;">
+                    <div class="col-lg-9">
+                        <b><span id="uiApplicationName" class="hidden-sm hidden-xs">No Duty Station Selcted</span></b>
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="button" id="CheckPrinter" class="btn btn-default pull-right" style="width:100%;" value="Check Printer Now" onclick="CheckPrinters();">
+                        </div>
+                    </div>
+                    <div class="col-lg-12" style="border: 1px solid #ccc;border-top:none; background-color: #f8f8f8;min-height:210px;">
+                        <div id="LoadingPermissions" style="display:none;">
+                            <span class="loadingSpan" style="margin-left:4px;margin-top:2px;">Loading Printers</span>
+                        </div>
+                        <div id="TreeStuff" style="padding:5px 0;display:none;">
+                            <div id="divNodesTotal" style="margin:10px 0;">
+                                <span id="lblNodesTotal"></span>
+                            </div>
+                            <input class="form-control form-group" style="margin-bottom:0px;width:100%;display:inline-block;" type=text name="search_field" id="search_field" placeholder="Find Printer" />
+                            <br /> <br />
+                            <input type="button" id="Problem" class="btn btn-warning" value="Status Warning" onclick="$('#search_field').val('Warning').trigger('keyup');">
+                            <input type="button" id="Problem" class="btn btn-danger" value="Status Error" onclick="$('#search_field').val('Error').trigger('keyup');">
+                            <hr /> <br />
+                            <div style="margin-top:10px;" id="TreeLevelController">
+                                <table style="width:100%">
+                                    <tr>
+                                        <td style="width:1px">
+                                            <button id="btnExpandCollapseTree" class="collapsedTree btn-level" type="button" onmousedown="ExpandCollapseTree(this,'#PermissionsTree')"></button>
+                                        </td>
+                                        <td>
+                                            <input id="TreeLevelsSlider" type="text" style="width:98%" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="jsTreeMyPermissions">
+                                <div data-key="TreeKey" id="PermissionsTree"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+</div>
+
+<script>
+
+    function CheckPrinters() {
+        $('#uiApplicationName').html('<span class="loadingSpan" style="margin-left:4px;margin-top:2px;"> Please wait...</span>');
+        $('#CheckPrinter').prop("disabled", true);
+        $.ajax({
+            type: "GET",
+            url: '/RMS/PrinterConfiguration/CheckPrinters/' ,
+            success: function (data) {
+                Notify(NotificationType.Success, "Printers Checked Successfully");
+                $('#CheckPrinter').prop("disabled", false);
+                $('#uiApplicationName').html("No Duty Station Selcted");
+                $('#PermissionsTree').html("");
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function InitPrinterTree(Element) {
+
+        $('#' + Element).jstree({
+            core: {
+                expand_selected_onload: false,
+                themes: { "icons": false },
+                animation: 10,
+                strings: { 'Loading ...': 'Building the tree' },
+                dblclick_toggle: true,
+            },
+            search: {
+                // search_leaves_only: true,//treeSettings.SelectOnlyLeafes
+                //search_callback: searchContainsAll,//search-function that checks for multiple search-terms (every term has to occur)
+                //show_only_matches: true,//filtering
+                show_only_matches_children: false
+            },
+            plugins: ["search"],
+        }).on('open_all.jstree', function () {
+            $('#btnExpandCollapseTree').removeClass('ExpandSpining fa fa-spin fa-15x');
+        }).on("open_node.jstree", function (e, data) {
+            // alert("Open node_id: " + data.node.id);
+            }).on("select_node.jstree", function (e, data) {
+                if (data.node.parents.length == 3) {
+                    $.ajax({
+                        type: "GET",
+                        url: '/RMS/PrinterConfiguration/UpdateTree/' + data.node.id,
+                        success: function (data) {
+                            $('#FormModal').modal('show');
+                            // inject your content into the "placeholder" div
+                            $('#Partial-Container').html(data);
+                            $('#Loading-Container').hide();
+                            InitPlugins($('#Partial-Container'));
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            });
+    }
+
+    function BuildPrintersTree(AppID, Div) {
+        $('#uiApplicationName').text($(Div).text());
+        $('.SelectedApplication').removeClass('SelectedApplication');
+        $('#TreeStuff').hide();
+        $('#LoadingPermissions').show();
+        $('#CheckPrinter').show();
+        $('#PermissionsTree').html('').append('<span class="loadingSpan" style="margin-left:4px;margin-top:2px;">Fetching Tree nodes... Please wait</span>');
+
+        $(Div).addClass('SelectedApplication');
+        $.ajax({
+            url: '/RMS/PrinterConfiguration/GetPrintersTree',
+            type: 'GET',
+            data: { DutyStaionGUID: AppID },
+
+            contentType: "application/json",
+            traditional: true,
+            success: function (RowMaterials) {
+                $('.loadingSpan', '#PermissionsTree').text('Building the tree...');
+                setTimeout(function () {
+                    UserPermissions = RowMaterials[4];
+                    TotalActions = 0;
+                    if ($('#PermissionsTree').jstree(true) != false) {
+                        $('#PermissionsTree').jstree().destroy();
+                    }
+                    $('#jsTreeMyPermissions').empty().append('<div data-key="TreeKey" id="PermissionsTree"></div>');
+                    PrinterBuild(RowMaterials, 0, null);
+                    $('#PermissionsTree').html(strHtml);
+
+                    InitPrinterTree('PermissionsTree');
+                    strHtml = '';
+                    $("#PermissionContainer *").prop('disabled', false);
+                    $('.slider').css('margin-left', '15px').show();
+                }, 10);
+                $('#TreeStuff').show();
+                $('#LoadingPermissions').hide();
+
+            }
+        });
+    }
+
+    function PrinterBuild(RowMaterials, Index, PID) {
+        var TrayStatus = "8D749720-9036-4D53-A90D-002E6621A002";
+        var FunctionStatus = "8D749720-9036-4D53-A90D-002E6621A006";
+        var SupplyLevel = "8D749720-9036-4D53-A90D-002E6621A004";
+
+        var Current = Enumerable.From(RowMaterials[Index]).Where(function (x) { return x.ParentID == PID || PID == null }).Select(function (x) { return x }).ToArray();
+        strHtml += '<ul>';
+        $.each(Current, function (i, v) {
+            Mother = [];
+            var Icon = "";
+            if (Index == 0) { Icon = 'Building'; } if (Index == 1) { Icon = 'Floor'; } if (Index == 2) { Icon = 'Printer'; }
+            if (Index == 3) { //2 means action level
+                Icon = OIDStatus(v["Type"], v["Value"]);
+
+                if (v["Type"].toUpperCase() == FunctionStatus || v["Type"].toUpperCase() == TrayStatus) {
+                    strHtml += '<li class="' + Icon + '" OID="' + v["ID"] + '">' + v["Text"] + " <span class='pull-right'>" + Icon+ "";
+                }else if (v["Type"].toUpperCase() == SupplyLevel) {
+                    var val = v["Value"];
+                    if (val > 1000) {
+                        val = val / 100;
+                    }
+                    if (val <= 1000 && val > 100) {
+                        val = val / 10;
+                    }
+                    if (val == 0 || val == -2) { val = "Value=" + val + ", Error Change or Check The Cartridge"; }
+                    if (val <= 10) { val =  val + ", warning"; }
+                    strHtml += '<li class="' + Icon + '" OID="' + v["ID"] + '">' + v["Text"] + " <span class='pull-right'>" + val + "";
+                } else {
+                    strHtml += '<li class="' + Icon + '" OID="' + v["ID"] + '">' + v["Text"] + " <span class='pull-right'>" + v["Value"] + "";
+                }
+                strHtml += '</span></li>';
+            }
+            else {
+                strHtml += '<li class="' + Icon + '" id="' + v["ID"] + '">' + v["Text"];
+            }
+            PrinterBuild(RowMaterials, Index + 1, v["ID"]);
+            strHtml += '</ul>';
+        });
+    }
+
+    function OIDStatus(Type, Value) {
+        var RunningTimeStatus = "8D749720-9036-4D53-A90D-002E6621A001";
+        var TrayStatus = "8D749720-9036-4D53-A90D-002E6621A002";
+        var CartridgeType = "8D749720-9036-4D53-A90D-002E6621A003";
+        var SupplyLevel = "8D749720-9036-4D53-A90D-002E6621A004";
+        var PrinterName = "8D749720-9036-4D53-A90D-002E6621A005";
+        var FunctionStatus = "8D749720-9036-4D53-A90D-002E6621A006";
+        var PaperCount = "8D749720-9036-4D53-A90D-002E6621A007";
+
+        if (FunctionStatus == Type.toUpperCase()) {
+            if (Value == 1) { return "warning"; }
+            if (Value == 2) { return "Fine"; }
+            if (Value == 3) { return "warning"; }
+            if (Value == 4) { return "Fine"; }
+            if (Value ==5) { return "Error"; }
+        }
+        if (TrayStatus == Type.toUpperCase()) {
+            if (Value == 1) { return "warning"; }
+            if (Value == 2) { return "Fine"; }
+            if (Value == 3) { return "warning"; }
+            if (Value == 4) { return "Fine"; }
+            if (Value == 5) { return "Error"; }
+        }
+        if (SupplyLevel == Type.toUpperCase()) {
+            if (Value < 1) { return "Error"; }
+            if (Value <= 10) {
+                return "warning";
+            }
+            else { return "Fine"; }
+
+        }
+        return "Fine";
+    }
+  
+</script>

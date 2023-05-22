@@ -1,0 +1,1552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FWSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GrandFatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSAccessStatus">
+          <Key>
+            <PropertyRef Name="FWSAccessStatusGUID" />
+          </Key>
+          <Property Name="FWSAccessStatusGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LocationCode" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="HTR_BS_status" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSAccessStatusRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSActivity">
+          <Key>
+            <PropertyRef Name="FWSActivityGUID" />
+          </Key>
+          <Property Name="FWSActivityGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SubActivity" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SubSectorID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SubSectorEn" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ActivityID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ActivityEn" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="SubActivityID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FWSUnit" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FWSUnitDetails" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="SubActivityOrg" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="HRPIndicator" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PWD" Type="bit" Nullable="false" />
+          <Property Name="Hub" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Instructions" Type="nvarchar" MaxLength="500" />
+          <Property Name="CrossCuttingActivity" Type="nvarchar" MaxLength="500" />
+          <Property Name="DeliveryModality" Type="nvarchar" MaxLength="100" />
+          <Property Name="DirectAddition" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSActivityRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSActivityTag">
+          <Key>
+            <PropertyRef Name="ActivityTagGUID" />
+          </Key>
+          <Property Name="ActivityTagGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ActivityTagDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSActivityTagRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSBeneficiaryType">
+          <Key>
+            <PropertyRef Name="BeneficiaryTypeGUID" />
+          </Key>
+          <Property Name="BeneficiaryTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BeneficiaryTypeDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSBeneficiaryTypeRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSCamps">
+          <Key>
+            <PropertyRef Name="CampGUID" />
+          </Key>
+          <Property Name="CampGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CampID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CampName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CommCode" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CommName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="SDName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSCampsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSFacility">
+          <Key>
+            <PropertyRef Name="FacilityGUID" />
+          </Key>
+          <Property Name="FacilityGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FacilityOperatedBy" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="FacilityCode" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="FacilityAbbreviation" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FacilityType" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Governorate" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="SubDistrict" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Community" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSFacilityRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSFunding">
+          <Key>
+            <PropertyRef Name="FundingGUID" />
+          </Key>
+          <Property Name="FundingGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FundingOrganizationType" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSFundingRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSHub">
+          <Key>
+            <PropertyRef Name="HubGUID" />
+          </Key>
+          <Property Name="HubGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HubDescription" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSHubRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSLocation">
+          <Key>
+            <PropertyRef Name="LocationGUID" />
+          </Key>
+          <Property Name="LocationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="200" />
+          <Property Name="NeibourhoodPcode2" Type="nvarchar" MaxLength="50" />
+          <Property Name="NeibourhoodRefName" Type="nvarchar" MaxLength="200" />
+          <Property Name="neibourhoodName_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="neibourhoodName_ar" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin4Pcode2" Type="nvarchar" MaxLength="200" />
+          <Property Name="Admin4RefName" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin4Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin4Name_ar" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin3Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Admin3RefName" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin3Name_en" Type="nvarchar" MaxLength="100" />
+          <Property Name="admin3Name_ar" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin2Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Admin2RefName" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin2Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin2Name_ar" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin1Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Admin1RefName" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin1Name_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="admin1Name_ar" Type="nvarchar" MaxLength="200" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSPartnerRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSOrgTypeByHub">
+          <Key>
+            <PropertyRef Name="FWSOrgTypeByHubGUID" />
+          </Key>
+          <Property Name="FWSOrgTypeByHubGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Hub_Org_IP" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="OrgType" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSOrgTypeByHubRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSPartner">
+          <Key>
+            <PropertyRef Name="PartnerGUID" />
+          </Key>
+          <Property Name="PartnerGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnerDescription" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="PartnerCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="PartnerType" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSPartnerRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSSeverityRanking">
+          <Key>
+            <PropertyRef Name="SeverityRankingGUID" />
+          </Key>
+          <Property Name="SeverityRankingGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Sd_pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Mohafaza_pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Mohafaza_EN" Type="nvarchar" MaxLength="200" />
+          <Property Name="Nahya_EN" Type="nvarchar" MaxLength="200" />
+          <Property Name="FinalSR" Type="nvarchar" MaxLength="50" />
+          <Property Name="SRPIN" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSSeverityRankingRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="code4WSSubSector">
+          <Key>
+            <PropertyRef Name="SubSectorGUID" />
+          </Key>
+          <Property Name="SubSectorGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SubSectorID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubSectorDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="code4WSSubSectorRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataMasterTable">
+          <Key>
+            <PropertyRef Name="MasterTableGUID" />
+          </Key>
+          <Property Name="MasterTableGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnerContributionGUID" Type="uniqueidentifier" />
+          <Property Name="HubGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AgencyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ImplementingPartnerGUID" Type="uniqueidentifier" />
+          <Property Name="Funding_UN" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Admin1RefName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Admin2RefName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Admin3RefName" Type="nvarchar" MaxLength="500" />
+          <Property Name="NeibourhoodRefName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Camps" Type="nvarchar" MaxLength="500" />
+          <Property Name="ReportingYear" Type="int" Nullable="false" />
+          <Property Name="ReportingMonth" Type="int" Nullable="false" />
+          <Property Name="HRPProject" Type="bit" Nullable="false" />
+          <Property Name="FWSSubSector" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FWSActivity" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FWSSubActivity" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="DeliveryMode" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="DeliveryFacility" Type="nvarchar" MaxLength="500" />
+          <Property Name="FWSUnit" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="TotalReach" Type="int" Nullable="false" />
+          <Property Name="BeneficiariesTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PWD" Type="bit" />
+          <Property Name="SurvivorsOfExplosiveHazards" Type="bit" />
+          <Property Name="Instructions" Type="nvarchar" MaxLength="500" />
+          <Property Name="TotalSumBreakdown" Type="int" />
+          <Property Name="Girls" Type="int" />
+          <Property Name="Boys" Type="int" />
+          <Property Name="AdolescentGirls" Type="int" />
+          <Property Name="AdolescentBoys" Type="int" />
+          <Property Name="Women" Type="int" />
+          <Property Name="Men" Type="int" />
+          <Property Name="ElderlyWomen" Type="int" />
+          <Property Name="ElderlyMen" Type="int" />
+          <Property Name="Total_Women" Type="int" />
+          <Property Name="Total_Men" Type="int" />
+          <Property Name="NewTotalSumBreakdownNew" Type="int" />
+          <Property Name="GirlsNew" Type="int" />
+          <Property Name="BoysNew" Type="int" />
+          <Property Name="AdolescentGirlsNew" Type="int" />
+          <Property Name="AdolescentBoysNew" Type="int" />
+          <Property Name="WomenNew" Type="int" />
+          <Property Name="MenNew" Type="int" />
+          <Property Name="ElderlyWomenNew" Type="int" />
+          <Property Name="ElderlyMenNew" Type="int" />
+          <Property Name="Total_New_Women" Type="int" />
+          <Property Name="Total_New_Men" Type="int" />
+          <Property Name="Admin1Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Admin2Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Admin3Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Admin4Pcode2" Type="nvarchar" MaxLength="200" />
+          <Property Name="NeibourhoodPcode2" Type="nvarchar" MaxLength="200" />
+          <Property Name="Code_Camps" Type="nvarchar" MaxLength="100" />
+          <Property Name="SubSectorGUID" Type="uniqueidentifier" />
+          <Property Name="SubSectorID" Type="nvarchar" MaxLength="200" />
+          <Property Name="ActivityID" Type="nvarchar" MaxLength="100" />
+          <Property Name="SubActivityID" Type="nvarchar" MaxLength="100" />
+          <Property Name="FWSAnalysisUnit" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PWDActivity" Type="bit" Nullable="false" />
+          <Property Name="ImplementingPartner_ALL" Type="nvarchar" MaxLength="500" />
+          <Property Name="Organization" Type="nvarchar" MaxLength="500" />
+          <Property Name="IPs" Type="nvarchar" MaxLength="500" />
+          <Property Name="Organization_Type" Type="nvarchar" MaxLength="500" />
+          <Property Name="ImplementingPartner_Type" Type="nvarchar" MaxLength="500" />
+          <Property Name="Access_Status" Type="nvarchar" MaxLength="500" />
+          <Property Name="Delivery_Modality" Type="nvarchar" MaxLength="500" />
+          <Property Name="Severity_Ranking" Type="nvarchar" MaxLength="500" />
+          <Property Name="Cross_AoR_Category" Type="nvarchar" MaxLength="500" />
+          <Property Name="HRP_Indicator" Type="nvarchar" MaxLength="500" />
+          <Property Name="Direct_Addition" Type="nvarchar" MaxLength="500" />
+          <Property Name="Total_Cumulative_Interventions" Type="int" />
+          <Property Name="Girls_Cumu" Type="int" />
+          <Property Name="Boys_Cumu" Type="int" />
+          <Property Name="Adolesc_Girls_Cumu" Type="int" />
+          <Property Name="Adolesc_Boys_Cumu" Type="int" />
+          <Property Name="Women_Cumu" Type="int" />
+          <Property Name="Men_Cumu" Type="int" />
+          <Property Name="Elderly_Women_Cumu" Type="int" />
+          <Property Name="Elderly_Men_Cumu" Type="int" />
+          <Property Name="Total_Women_Cumu" Type="int" />
+          <Property Name="Total_Men_Cumu" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataMasterTableRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPartnerContribution">
+          <Key>
+            <PropertyRef Name="PartnerContributionGUID" />
+          </Key>
+          <Property Name="PartnerContributionGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartnerContributionFileGUID" Type="uniqueidentifier" />
+          <Property Name="AgencyGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ImplementingPartnerGUID" Type="uniqueidentifier" />
+          <Property Name="HubGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LocationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LocationLong" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ReportingYear" Type="int" Nullable="false" />
+          <Property Name="ReportingMonth" Type="int" Nullable="false" />
+          <Property Name="HRPProject" Type="bit" Nullable="false" />
+          <Property Name="ActivityLong" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ActivityDetails" Type="nvarchar" MaxLength="500" />
+          <Property Name="DeliveryMode" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="DeliveryModeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FacilityGUID" Type="uniqueidentifier" />
+          <Property Name="DeliveryFacility" Type="nvarchar" MaxLength="500" />
+          <Property Name="FWSUnit" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FWSAnalysisUnit" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="BeneficiariesTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PWD" Type="bit" />
+          <Property Name="SurvivorsOfExplosiveHazards" Type="bit" />
+          <Property Name="TotalReach" Type="int" Nullable="false" />
+          <Property Name="SumBreakdown" Type="int" />
+          <Property Name="Girls" Type="int" />
+          <Property Name="Boys" Type="int" />
+          <Property Name="AdolescentGirls" Type="int" />
+          <Property Name="AdolescentBoys" Type="int" />
+          <Property Name="Women" Type="int" />
+          <Property Name="Men" Type="int" />
+          <Property Name="ElderlyWomen" Type="int" />
+          <Property Name="ElderlyMen" Type="int" />
+          <Property Name="SumBreakdownNew" Type="int" />
+          <Property Name="GirlsNew" Type="int" />
+          <Property Name="BoysNew" Type="int" />
+          <Property Name="AdolescentGirlsNew" Type="int" />
+          <Property Name="AdolescentBoysNew" Type="int" />
+          <Property Name="WomenNew" Type="int" />
+          <Property Name="MenNew" Type="int" />
+          <Property Name="ElderlyWomenNew" Type="int" />
+          <Property Name="ElderlyMenNew" Type="int" />
+          <Property Name="Admin1Code" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Admin2Code" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Admin3Code" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Admin4Code" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="LocationCode" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Admin1Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Admin2Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Admin3Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Admin4Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="SubSectorGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SubSectorID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="FWSSubSector" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FWSActivity" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FWSSubActivity" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsDataApproved" Type="bit" Nullable="false" />
+          <Property Name="ApprovedBy" Type="uniqueidentifier" />
+          <Property Name="ApprovedOn" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPartnerContributionRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPartnerContributionFile">
+          <Key>
+            <PropertyRef Name="PartnerContributionFileGUID" />
+          </Key>
+          <Property Name="PartnerContributionFileGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UploadedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UploadedOn" Type="datetime" Nullable="false" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPartnerContributionFileRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PortalDB.4WS.v_MasterTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_MasterTable">
+          <Key>
+            <PropertyRef Name="EDMXID" />
+            <PropertyRef Name="MasterTableGUID" />
+            <PropertyRef Name="HubDescription" />
+            <PropertyRef Name="Agency" />
+            <PropertyRef Name="ImplementingPartner" />
+            <PropertyRef Name="Funding_UN" />
+            <PropertyRef Name="ReportingMonth" />
+            <PropertyRef Name="HRPProject" />
+            <PropertyRef Name="FWSSubSector" />
+            <PropertyRef Name="FWSActivity" />
+            <PropertyRef Name="FWSSubActivity" />
+            <PropertyRef Name="DeliveryMode" />
+            <PropertyRef Name="FWSUnit" />
+            <PropertyRef Name="TotalReach" />
+            <PropertyRef Name="BeneficiaryTypeDescription" />
+            <PropertyRef Name="TotalSumBreakdown" />
+            <PropertyRef Name="Girls" />
+            <PropertyRef Name="Boys" />
+            <PropertyRef Name="Women" />
+            <PropertyRef Name="Men" />
+            <PropertyRef Name="ElderlyWomen" />
+            <PropertyRef Name="ElderlyMen" />
+            <PropertyRef Name="NewTotalSumBreakdownNew" />
+            <PropertyRef Name="GirlsNew" />
+            <PropertyRef Name="BoysNew" />
+            <PropertyRef Name="WomenNew" />
+            <PropertyRef Name="MenNew" />
+            <PropertyRef Name="ElderlyWomenNew" />
+            <PropertyRef Name="ElderlyMenNew" />
+            <PropertyRef Name="FWSAnalysisUnit" />
+            <PropertyRef Name="PWDActivity" />
+            <PropertyRef Name="Total_Cumulative_Interventions" />
+            <PropertyRef Name="Girls_Cumu" />
+            <PropertyRef Name="Boys_Cumu" />
+            <PropertyRef Name="Women_Cumu" />
+            <PropertyRef Name="Men_Cumu" />
+          </Key>
+          <Property Name="EDMXID" Type="int" Nullable="false" />
+          <Property Name="MasterTableGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HubDescription" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Agency" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ImplementingPartner" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Funding_UN" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Admin1RefName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Admin2RefName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Admin3RefName" Type="nvarchar" MaxLength="500" />
+          <Property Name="NeibourhoodRefName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Camps" Type="nvarchar" MaxLength="500" />
+          <Property Name="ReportingMonth" Type="int" Nullable="false" />
+          <Property Name="HRPProject" Type="bit" Nullable="false" />
+          <Property Name="FWSSubSector" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FWSActivity" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FWSSubActivity" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="DeliveryMode" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FWSUnit" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="TotalReach" Type="int" Nullable="false" />
+          <Property Name="BeneficiaryTypeDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PWD" Type="bit" />
+          <Property Name="Instructions" Type="nvarchar" MaxLength="500" />
+          <Property Name="TotalSumBreakdown" Type="int" Nullable="false" />
+          <Property Name="Girls" Type="int" Nullable="false" />
+          <Property Name="Boys" Type="int" Nullable="false" />
+          <Property Name="Women" Type="int" Nullable="false" />
+          <Property Name="Men" Type="int" Nullable="false" />
+          <Property Name="ElderlyWomen" Type="int" Nullable="false" />
+          <Property Name="ElderlyMen" Type="int" Nullable="false" />
+          <Property Name="NewTotalSumBreakdownNew" Type="int" Nullable="false" />
+          <Property Name="GirlsNew" Type="int" Nullable="false" />
+          <Property Name="BoysNew" Type="int" Nullable="false" />
+          <Property Name="WomenNew" Type="int" Nullable="false" />
+          <Property Name="MenNew" Type="int" Nullable="false" />
+          <Property Name="ElderlyWomenNew" Type="int" Nullable="false" />
+          <Property Name="ElderlyMenNew" Type="int" Nullable="false" />
+          <Property Name="Admin1Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Admin2Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Admin3Pcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="Admin4Pcode2" Type="nvarchar" MaxLength="200" />
+          <Property Name="NeibourhoodPcode2" Type="nvarchar" MaxLength="200" />
+          <Property Name="Code_Camps" Type="nvarchar" MaxLength="100" />
+          <Property Name="SubSectorID" Type="nvarchar" MaxLength="200" />
+          <Property Name="ActivityID" Type="nvarchar" MaxLength="100" />
+          <Property Name="SubActivityID" Type="nvarchar" MaxLength="100" />
+          <Property Name="FWSAnalysisUnit" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PWDActivity" Type="bit" Nullable="false" />
+          <Property Name="ImplementingPartner_ALL" Type="nvarchar" MaxLength="500" />
+          <Property Name="Organization" Type="nvarchar" MaxLength="500" />
+          <Property Name="IPs" Type="nvarchar" MaxLength="500" />
+          <Property Name="Organization_Type" Type="nvarchar" MaxLength="500" />
+          <Property Name="ImplementingPartner_Type" Type="nvarchar" MaxLength="500" />
+          <Property Name="Access_Status" Type="nvarchar" MaxLength="500" />
+          <Property Name="Delivery_Modality" Type="nvarchar" MaxLength="500" />
+          <Property Name="Severity_Ranking" Type="nvarchar" MaxLength="500" />
+          <Property Name="Cross_AoR_Category" Type="nvarchar" MaxLength="500" />
+          <Property Name="HRP_Indicator" Type="nvarchar" MaxLength="500" />
+          <Property Name="Direct_Addition" Type="nvarchar" MaxLength="500" />
+          <Property Name="Total_Cumulative_Interventions" Type="int" Nullable="false" />
+          <Property Name="Girls_Cumu" Type="int" Nullable="false" />
+          <Property Name="Boys_Cumu" Type="int" Nullable="false" />
+          <Property Name="Women_Cumu" Type="int" Nullable="false" />
+          <Property Name="Men_Cumu" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="FWSModelStoreContainer">
+          <EntitySet Name="userPersonalDetailsLanguage" EntityType="Self.userPersonalDetailsLanguage" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="code4WSAccessStatus" EntityType="Self.code4WSAccessStatus" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSActivity" EntityType="Self.code4WSActivity" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSActivityTag" EntityType="Self.code4WSActivityTag" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSBeneficiaryType" EntityType="Self.code4WSBeneficiaryType" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSCamps" EntityType="Self.code4WSCamps" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSFacility" EntityType="Self.code4WSFacility" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSFunding" EntityType="Self.code4WSFunding" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSHub" EntityType="Self.code4WSHub" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSLocation" EntityType="Self.code4WSLocation" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSOrgTypeByHub" EntityType="Self.code4WSOrgTypeByHub" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSPartner" EntityType="Self.code4WSPartner" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSSeverityRanking" EntityType="Self.code4WSSeverityRanking" Schema="code" store:Type="Tables" />
+          <EntitySet Name="code4WSSubSector" EntityType="Self.code4WSSubSector" Schema="code" store:Type="Tables" />
+          <EntitySet Name="dataMasterTable" EntityType="Self.dataMasterTable" Schema="FWS" store:Type="Tables" />
+          <EntitySet Name="dataPartnerContribution" EntityType="Self.dataPartnerContribution" Schema="FWS" store:Type="Tables" />
+          <EntitySet Name="dataPartnerContributionFile" EntityType="Self.dataPartnerContributionFile" Schema="FWS" store:Type="Tables" />
+          <EntitySet Name="v_MasterTable" EntityType="Self.v_MasterTable" store:Type="Views" store:Schema="4WS">
+            <DefiningQuery>SELECT 
+    [v_MasterTable].[EDMXID] AS [EDMXID], 
+    [v_MasterTable].[MasterTableGUID] AS [MasterTableGUID], 
+    [v_MasterTable].[HubDescription] AS [HubDescription], 
+    [v_MasterTable].[Agency] AS [Agency], 
+    [v_MasterTable].[ImplementingPartner] AS [ImplementingPartner], 
+    [v_MasterTable].[Funding_UN] AS [Funding_UN], 
+    [v_MasterTable].[Admin1RefName] AS [Admin1RefName], 
+    [v_MasterTable].[Admin2RefName] AS [Admin2RefName], 
+    [v_MasterTable].[Admin3RefName] AS [Admin3RefName], 
+    [v_MasterTable].[NeibourhoodRefName] AS [NeibourhoodRefName], 
+    [v_MasterTable].[Camps] AS [Camps], 
+    [v_MasterTable].[ReportingMonth] AS [ReportingMonth], 
+    [v_MasterTable].[HRPProject] AS [HRPProject], 
+    [v_MasterTable].[FWSSubSector] AS [FWSSubSector], 
+    [v_MasterTable].[FWSActivity] AS [FWSActivity], 
+    [v_MasterTable].[FWSSubActivity] AS [FWSSubActivity], 
+    [v_MasterTable].[DeliveryMode] AS [DeliveryMode], 
+    [v_MasterTable].[FWSUnit] AS [FWSUnit], 
+    [v_MasterTable].[TotalReach] AS [TotalReach], 
+    [v_MasterTable].[BeneficiaryTypeDescription] AS [BeneficiaryTypeDescription], 
+    [v_MasterTable].[PWD] AS [PWD], 
+    [v_MasterTable].[Instructions] AS [Instructions], 
+    [v_MasterTable].[TotalSumBreakdown] AS [TotalSumBreakdown], 
+    [v_MasterTable].[Girls] AS [Girls], 
+    [v_MasterTable].[Boys] AS [Boys], 
+    [v_MasterTable].[Women] AS [Women], 
+    [v_MasterTable].[Men] AS [Men], 
+    [v_MasterTable].[ElderlyWomen] AS [ElderlyWomen], 
+    [v_MasterTable].[ElderlyMen] AS [ElderlyMen], 
+    [v_MasterTable].[NewTotalSumBreakdownNew] AS [NewTotalSumBreakdownNew], 
+    [v_MasterTable].[GirlsNew] AS [GirlsNew], 
+    [v_MasterTable].[BoysNew] AS [BoysNew], 
+    [v_MasterTable].[WomenNew] AS [WomenNew], 
+    [v_MasterTable].[MenNew] AS [MenNew], 
+    [v_MasterTable].[ElderlyWomenNew] AS [ElderlyWomenNew], 
+    [v_MasterTable].[ElderlyMenNew] AS [ElderlyMenNew], 
+    [v_MasterTable].[Admin1Pcode] AS [Admin1Pcode], 
+    [v_MasterTable].[Admin2Pcode] AS [Admin2Pcode], 
+    [v_MasterTable].[Admin3Pcode] AS [Admin3Pcode], 
+    [v_MasterTable].[Admin4Pcode2] AS [Admin4Pcode2], 
+    [v_MasterTable].[NeibourhoodPcode2] AS [NeibourhoodPcode2], 
+    [v_MasterTable].[Code_Camps] AS [Code_Camps], 
+    [v_MasterTable].[SubSectorID] AS [SubSectorID], 
+    [v_MasterTable].[ActivityID] AS [ActivityID], 
+    [v_MasterTable].[SubActivityID] AS [SubActivityID], 
+    [v_MasterTable].[FWSAnalysisUnit] AS [FWSAnalysisUnit], 
+    [v_MasterTable].[PWDActivity] AS [PWDActivity], 
+    [v_MasterTable].[ImplementingPartner_ALL] AS [ImplementingPartner_ALL], 
+    [v_MasterTable].[Organization] AS [Organization], 
+    [v_MasterTable].[IPs] AS [IPs], 
+    [v_MasterTable].[Organization_Type] AS [Organization_Type], 
+    [v_MasterTable].[ImplementingPartner_Type] AS [ImplementingPartner_Type], 
+    [v_MasterTable].[Access_Status] AS [Access_Status], 
+    [v_MasterTable].[Delivery_Modality] AS [Delivery_Modality], 
+    [v_MasterTable].[Severity_Ranking] AS [Severity_Ranking], 
+    [v_MasterTable].[Cross_AoR_Category] AS [Cross_AoR_Category], 
+    [v_MasterTable].[HRP_Indicator] AS [HRP_Indicator], 
+    [v_MasterTable].[Direct_Addition] AS [Direct_Addition], 
+    [v_MasterTable].[Total_Cumulative_Interventions] AS [Total_Cumulative_Interventions], 
+    [v_MasterTable].[Girls_Cumu] AS [Girls_Cumu], 
+    [v_MasterTable].[Boys_Cumu] AS [Boys_Cumu], 
+    [v_MasterTable].[Women_Cumu] AS [Women_Cumu], 
+    [v_MasterTable].[Men_Cumu] AS [Men_Cumu]
+    FROM [4WS].[v_MasterTable] AS [v_MasterTable]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FWSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FWSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="code4WSAccessStatus" EntityType="FWSModel.code4WSAccessStatus" />
+          <EntitySet Name="code4WSActivity" EntityType="FWSModel.code4WSActivity" />
+          <EntitySet Name="code4WSActivityTag" EntityType="FWSModel.code4WSActivityTag" />
+          <EntitySet Name="code4WSBeneficiaryType" EntityType="FWSModel.code4WSBeneficiaryType" />
+          <EntitySet Name="code4WSCamps" EntityType="FWSModel.code4WSCamps" />
+          <EntitySet Name="code4WSFunding" EntityType="FWSModel.code4WSFunding" />
+          <EntitySet Name="code4WSHub" EntityType="FWSModel.code4WSHub" />
+          <EntitySet Name="code4WSLocation" EntityType="FWSModel.code4WSLocation" />
+          <EntitySet Name="code4WSOrgTypeByHub" EntityType="FWSModel.code4WSOrgTypeByHub" />
+          <EntitySet Name="code4WSPartner" EntityType="FWSModel.code4WSPartner" />
+          <EntitySet Name="code4WSSeverityRanking" EntityType="FWSModel.code4WSSeverityRanking" />
+          <EntitySet Name="v_MasterTable" EntityType="FWSModel.v_MasterTable" />
+          <EntitySet Name="userPersonalDetailsLanguages" EntityType="FWSModel.userPersonalDetailsLanguage" />
+          <EntitySet Name="code4WSFacility" EntityType="FWSModel.code4WSFacility" />
+          <EntitySet Name="code4WSSubSector" EntityType="FWSModel.code4WSSubSector" />
+          <EntitySet Name="dataMasterTables" EntityType="FWSModel.dataMasterTable" />
+          <EntitySet Name="dataPartnerContributions" EntityType="FWSModel.dataPartnerContribution" />
+          <EntitySet Name="dataPartnerContributionFiles" EntityType="FWSModel.dataPartnerContributionFile" />
+        </EntityContainer>
+        <EntityType Name="code4WSAccessStatus">
+          <Key>
+            <PropertyRef Name="FWSAccessStatusGUID" />
+          </Key>
+          <Property Name="FWSAccessStatusGUID" Type="Guid" Nullable="false" />
+          <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HTR_BS_status" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSAccessStatusRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSActivity">
+          <Key>
+            <PropertyRef Name="FWSActivityGUID" />
+          </Key>
+          <Property Name="FWSActivityGUID" Type="Guid" Nullable="false" />
+          <Property Name="SubActivity" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SubSectorID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SubSectorEn" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityEn" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SubActivityID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FWSUnit" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FWSUnitDetails" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SubActivityOrg" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="HRPIndicator" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PWD" Type="Boolean" Nullable="false" />
+          <Property Name="Hub" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Instructions" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CrossCuttingActivity" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryModality" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DirectAddition" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSActivityRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSActivityTag">
+          <Key>
+            <PropertyRef Name="ActivityTagGUID" />
+          </Key>
+          <Property Name="ActivityTagGUID" Type="Guid" Nullable="false" />
+          <Property Name="ActivityTagDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSActivityTagRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSBeneficiaryType">
+          <Key>
+            <PropertyRef Name="BeneficiaryTypeGUID" />
+          </Key>
+          <Property Name="BeneficiaryTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="BeneficiaryTypeDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSBeneficiaryTypeRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSCamps">
+          <Key>
+            <PropertyRef Name="CampGUID" />
+          </Key>
+          <Property Name="CampGUID" Type="Guid" Nullable="false" />
+          <Property Name="CampID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CampName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CommCode" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CommName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SDName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSCampsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSFunding">
+          <Key>
+            <PropertyRef Name="FundingGUID" />
+          </Key>
+          <Property Name="FundingGUID" Type="Guid" Nullable="false" />
+          <Property Name="FundingOrganizationType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSFundingRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSHub">
+          <Key>
+            <PropertyRef Name="HubGUID" />
+          </Key>
+          <Property Name="HubGUID" Type="Guid" Nullable="false" />
+          <Property Name="HubDescription" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSHubRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSLocation">
+          <Key>
+            <PropertyRef Name="LocationGUID" />
+          </Key>
+          <Property Name="LocationGUID" Type="Guid" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NeibourhoodPcode2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NeibourhoodRefName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="neibourhoodName_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="neibourhoodName_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin4Pcode2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin4RefName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin4Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin4Name_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin3Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin3RefName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin3Name_en" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="admin3Name_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin2Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin2RefName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin2Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin2Name_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin1Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin1RefName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin1Name_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="admin1Name_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSPartnerRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSOrgTypeByHub">
+          <Key>
+            <PropertyRef Name="FWSOrgTypeByHubGUID" />
+          </Key>
+          <Property Name="FWSOrgTypeByHubGUID" Type="Guid" Nullable="false" />
+          <Property Name="Hub_Org_IP" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="OrgType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSOrgTypeByHubRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSPartner">
+          <Key>
+            <PropertyRef Name="PartnerGUID" />
+          </Key>
+          <Property Name="PartnerGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnerDescription" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSPartnerRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSSeverityRanking">
+          <Key>
+            <PropertyRef Name="SeverityRankingGUID" />
+          </Key>
+          <Property Name="SeverityRankingGUID" Type="Guid" Nullable="false" />
+          <Property Name="Sd_pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Mohafaza_pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Mohafaza_EN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Nahya_EN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FinalSR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SRPIN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSSeverityRankingRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="v_MasterTable">
+          <Key>
+            <PropertyRef Name="EDMXID" />
+            <PropertyRef Name="MasterTableGUID" />
+            <PropertyRef Name="HubDescription" />
+            <PropertyRef Name="Agency" />
+            <PropertyRef Name="ImplementingPartner" />
+            <PropertyRef Name="Funding_UN" />
+            <PropertyRef Name="ReportingMonth" />
+            <PropertyRef Name="HRPProject" />
+            <PropertyRef Name="FWSSubSector" />
+            <PropertyRef Name="FWSActivity" />
+            <PropertyRef Name="FWSSubActivity" />
+            <PropertyRef Name="DeliveryMode" />
+            <PropertyRef Name="FWSUnit" />
+            <PropertyRef Name="TotalReach" />
+            <PropertyRef Name="BeneficiaryTypeDescription" />
+            <PropertyRef Name="TotalSumBreakdown" />
+            <PropertyRef Name="Girls" />
+            <PropertyRef Name="Boys" />
+            <PropertyRef Name="Women" />
+            <PropertyRef Name="Men" />
+            <PropertyRef Name="ElderlyWomen" />
+            <PropertyRef Name="ElderlyMen" />
+            <PropertyRef Name="NewTotalSumBreakdownNew" />
+            <PropertyRef Name="GirlsNew" />
+            <PropertyRef Name="BoysNew" />
+            <PropertyRef Name="WomenNew" />
+            <PropertyRef Name="MenNew" />
+            <PropertyRef Name="ElderlyWomenNew" />
+            <PropertyRef Name="ElderlyMenNew" />
+            <PropertyRef Name="FWSAnalysisUnit" />
+            <PropertyRef Name="PWDActivity" />
+            <PropertyRef Name="Total_Cumulative_Interventions" />
+            <PropertyRef Name="Girls_Cumu" />
+            <PropertyRef Name="Boys_Cumu" />
+            <PropertyRef Name="Women_Cumu" />
+            <PropertyRef Name="Men_Cumu" />
+          </Key>
+          <Property Name="EDMXID" Type="Int32" Nullable="false" />
+          <Property Name="MasterTableGUID" Type="Guid" Nullable="false" />
+          <Property Name="HubDescription" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Agency" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ImplementingPartner" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Funding_UN" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin1RefName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Admin2RefName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Admin3RefName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NeibourhoodRefName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Camps" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ReportingMonth" Type="Int32" Nullable="false" />
+          <Property Name="HRPProject" Type="Boolean" Nullable="false" />
+          <Property Name="FWSSubSector" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FWSActivity" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FWSSubActivity" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryMode" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FWSUnit" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TotalReach" Type="Int32" Nullable="false" />
+          <Property Name="BeneficiaryTypeDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PWD" Type="Boolean" />
+          <Property Name="Instructions" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TotalSumBreakdown" Type="Int32" Nullable="false" />
+          <Property Name="Girls" Type="Int32" Nullable="false" />
+          <Property Name="Boys" Type="Int32" Nullable="false" />
+          <Property Name="Women" Type="Int32" Nullable="false" />
+          <Property Name="Men" Type="Int32" Nullable="false" />
+          <Property Name="ElderlyWomen" Type="Int32" Nullable="false" />
+          <Property Name="ElderlyMen" Type="Int32" Nullable="false" />
+          <Property Name="NewTotalSumBreakdownNew" Type="Int32" Nullable="false" />
+          <Property Name="GirlsNew" Type="Int32" Nullable="false" />
+          <Property Name="BoysNew" Type="Int32" Nullable="false" />
+          <Property Name="WomenNew" Type="Int32" Nullable="false" />
+          <Property Name="MenNew" Type="Int32" Nullable="false" />
+          <Property Name="ElderlyWomenNew" Type="Int32" Nullable="false" />
+          <Property Name="ElderlyMenNew" Type="Int32" Nullable="false" />
+          <Property Name="Admin1Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin2Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin3Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin4Pcode2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NeibourhoodPcode2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Camps" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SubSectorID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SubActivityID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FWSAnalysisUnit" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PWDActivity" Type="Boolean" Nullable="false" />
+          <Property Name="ImplementingPartner_ALL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Organization" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IPs" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Organization_Type" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ImplementingPartner_Type" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Access_Status" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Delivery_Modality" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Severity_Ranking" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Cross_AoR_Category" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="HRP_Indicator" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Direct_Addition" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Cumulative_Interventions" Type="Int32" Nullable="false" />
+          <Property Name="Girls_Cumu" Type="Int32" Nullable="false" />
+          <Property Name="Boys_Cumu" Type="Int32" Nullable="false" />
+          <Property Name="Women_Cumu" Type="Int32" Nullable="false" />
+          <Property Name="Men_Cumu" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GrandFatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSFacility">
+          <Key>
+            <PropertyRef Name="FacilityGUID" />
+          </Key>
+          <Property Name="FacilityGUID" Type="Guid" Nullable="false" />
+          <Property Name="FacilityOperatedBy" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="FacilityCode" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="FacilityAbbreviation" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FacilityType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Governorate" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SubDistrict" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Community" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSFacilityRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code4WSSubSector">
+          <Key>
+            <PropertyRef Name="SubSectorGUID" />
+          </Key>
+          <Property Name="SubSectorGUID" Type="Guid" Nullable="false" />
+          <Property Name="SubSectorID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SubSectorDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="code4WSSubSectorRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="dataMasterTable">
+          <Key>
+            <PropertyRef Name="MasterTableGUID" />
+          </Key>
+          <Property Name="MasterTableGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnerContributionGUID" Type="Guid" />
+          <Property Name="HubGUID" Type="Guid" Nullable="false" />
+          <Property Name="AgencyGUID" Type="Guid" Nullable="false" />
+          <Property Name="ImplementingPartnerGUID" Type="Guid" />
+          <Property Name="Funding_UN" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin1RefName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Admin2RefName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Admin3RefName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NeibourhoodRefName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Camps" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ReportingYear" Type="Int32" Nullable="false" />
+          <Property Name="ReportingMonth" Type="Int32" Nullable="false" />
+          <Property Name="HRPProject" Type="Boolean" Nullable="false" />
+          <Property Name="FWSSubSector" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FWSActivity" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FWSSubActivity" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryMode" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryFacility" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FWSUnit" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TotalReach" Type="Int32" Nullable="false" />
+          <Property Name="BeneficiariesTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="PWD" Type="Boolean" />
+          <Property Name="SurvivorsOfExplosiveHazards" Type="Boolean" />
+          <Property Name="Instructions" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TotalSumBreakdown" Type="Int32" />
+          <Property Name="Girls" Type="Int32" />
+          <Property Name="Boys" Type="Int32" />
+          <Property Name="AdolescentGirls" Type="Int32" />
+          <Property Name="AdolescentBoys" Type="Int32" />
+          <Property Name="Women" Type="Int32" />
+          <Property Name="Men" Type="Int32" />
+          <Property Name="ElderlyWomen" Type="Int32" />
+          <Property Name="ElderlyMen" Type="Int32" />
+          <Property Name="Total_Women" Type="Int32" />
+          <Property Name="Total_Men" Type="Int32" />
+          <Property Name="NewTotalSumBreakdownNew" Type="Int32" />
+          <Property Name="GirlsNew" Type="Int32" />
+          <Property Name="BoysNew" Type="Int32" />
+          <Property Name="AdolescentGirlsNew" Type="Int32" />
+          <Property Name="AdolescentBoysNew" Type="Int32" />
+          <Property Name="WomenNew" Type="Int32" />
+          <Property Name="MenNew" Type="Int32" />
+          <Property Name="ElderlyWomenNew" Type="Int32" />
+          <Property Name="ElderlyMenNew" Type="Int32" />
+          <Property Name="Total_New_Women" Type="Int32" />
+          <Property Name="Total_New_Men" Type="Int32" />
+          <Property Name="Admin1Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin2Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin3Pcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Admin4Pcode2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NeibourhoodPcode2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Camps" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SubSectorGUID" Type="Guid" />
+          <Property Name="SubSectorID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SubActivityID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FWSAnalysisUnit" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PWDActivity" Type="Boolean" Nullable="false" />
+          <Property Name="ImplementingPartner_ALL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Organization" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IPs" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Organization_Type" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ImplementingPartner_Type" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Access_Status" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Delivery_Modality" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Severity_Ranking" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Cross_AoR_Category" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="HRP_Indicator" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Direct_Addition" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Cumulative_Interventions" Type="Int32" />
+          <Property Name="Girls_Cumu" Type="Int32" />
+          <Property Name="Boys_Cumu" Type="Int32" />
+          <Property Name="Adolesc_Girls_Cumu" Type="Int32" />
+          <Property Name="Adolesc_Boys_Cumu" Type="Int32" />
+          <Property Name="Women_Cumu" Type="Int32" />
+          <Property Name="Men_Cumu" Type="Int32" />
+          <Property Name="Elderly_Women_Cumu" Type="Int32" />
+          <Property Name="Elderly_Men_Cumu" Type="Int32" />
+          <Property Name="Total_Women_Cumu" Type="Int32" />
+          <Property Name="Total_Men_Cumu" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataMasterTableRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="dataPartnerContribution">
+          <Key>
+            <PropertyRef Name="PartnerContributionGUID" />
+          </Key>
+          <Property Name="PartnerContributionGUID" Type="Guid" Nullable="false" />
+          <Property Name="PartnerContributionFileGUID" Type="Guid" />
+          <Property Name="AgencyGUID" Type="Guid" Nullable="false" />
+          <Property Name="ImplementingPartnerGUID" Type="Guid" />
+          <Property Name="HubGUID" Type="Guid" Nullable="false" />
+          <Property Name="LocationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LocationLong" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ReportingYear" Type="Int32" Nullable="false" />
+          <Property Name="ReportingMonth" Type="Int32" Nullable="false" />
+          <Property Name="HRPProject" Type="Boolean" Nullable="false" />
+          <Property Name="ActivityLong" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryMode" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryModeGUID" Type="Guid" Nullable="false" />
+          <Property Name="FacilityGUID" Type="Guid" />
+          <Property Name="DeliveryFacility" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FWSUnit" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FWSAnalysisUnit" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BeneficiariesTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="PWD" Type="Boolean" />
+          <Property Name="SurvivorsOfExplosiveHazards" Type="Boolean" />
+          <Property Name="TotalReach" Type="Int32" Nullable="false" />
+          <Property Name="SumBreakdown" Type="Int32" />
+          <Property Name="Girls" Type="Int32" />
+          <Property Name="Boys" Type="Int32" />
+          <Property Name="AdolescentGirls" Type="Int32" />
+          <Property Name="AdolescentBoys" Type="Int32" />
+          <Property Name="Women" Type="Int32" />
+          <Property Name="Men" Type="Int32" />
+          <Property Name="ElderlyWomen" Type="Int32" />
+          <Property Name="ElderlyMen" Type="Int32" />
+          <Property Name="SumBreakdownNew" Type="Int32" />
+          <Property Name="GirlsNew" Type="Int32" />
+          <Property Name="BoysNew" Type="Int32" />
+          <Property Name="AdolescentGirlsNew" Type="Int32" />
+          <Property Name="AdolescentBoysNew" Type="Int32" />
+          <Property Name="WomenNew" Type="Int32" />
+          <Property Name="MenNew" Type="Int32" />
+          <Property Name="ElderlyWomenNew" Type="Int32" />
+          <Property Name="ElderlyMenNew" Type="Int32" />
+          <Property Name="Admin1Code" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Admin2Code" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Admin3Code" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Admin4Code" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Admin1Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Admin2Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Admin3Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Admin4Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LocationName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SubSectorGUID" Type="Guid" Nullable="false" />
+          <Property Name="SubSectorID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FWSSubSector" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FWSActivity" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FWSSubActivity" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsDataApproved" Type="Boolean" Nullable="false" />
+          <Property Name="ApprovedBy" Type="Guid" />
+          <Property Name="ApprovedOn" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPartnerContributionRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="dataPartnerContributionFile">
+          <Key>
+            <PropertyRef Name="PartnerContributionFileGUID" />
+          </Key>
+          <Property Name="PartnerContributionFileGUID" Type="Guid" Nullable="false" />
+          <Property Name="UploadedBy" Type="Guid" Nullable="false" />
+          <Property Name="UploadedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FilePath" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPartnerContributionFileRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FWSModelStoreContainer" CdmEntityContainer="FWSEntities">
+          <EntitySetMapping Name="code4WSAccessStatus">
+            <EntityTypeMapping TypeName="FWSModel.code4WSAccessStatus">
+              <MappingFragment StoreEntitySet="code4WSAccessStatus">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSAccessStatusRowVersion" ColumnName="code4WSAccessStatusRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="HTR_BS_status" ColumnName="HTR_BS_status" />
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="FWSAccessStatusGUID" ColumnName="FWSAccessStatusGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSActivity">
+            <EntityTypeMapping TypeName="FWSModel.code4WSActivity">
+              <MappingFragment StoreEntitySet="code4WSActivity">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSActivityRowVersion" ColumnName="code4WSActivityRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DirectAddition" ColumnName="DirectAddition" />
+                <ScalarProperty Name="DeliveryModality" ColumnName="DeliveryModality" />
+                <ScalarProperty Name="CrossCuttingActivity" ColumnName="CrossCuttingActivity" />
+                <ScalarProperty Name="Instructions" ColumnName="Instructions" />
+                <ScalarProperty Name="Hub" ColumnName="Hub" />
+                <ScalarProperty Name="PWD" ColumnName="PWD" />
+                <ScalarProperty Name="HRPIndicator" ColumnName="HRPIndicator" />
+                <ScalarProperty Name="SubActivityOrg" ColumnName="SubActivityOrg" />
+                <ScalarProperty Name="FWSUnitDetails" ColumnName="FWSUnitDetails" />
+                <ScalarProperty Name="FWSUnit" ColumnName="FWSUnit" />
+                <ScalarProperty Name="SubActivityID" ColumnName="SubActivityID" />
+                <ScalarProperty Name="ActivityEn" ColumnName="ActivityEn" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="SubSectorEn" ColumnName="SubSectorEn" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+                <ScalarProperty Name="SubActivity" ColumnName="SubActivity" />
+                <ScalarProperty Name="FWSActivityGUID" ColumnName="FWSActivityGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSActivityTag">
+            <EntityTypeMapping TypeName="FWSModel.code4WSActivityTag">
+              <MappingFragment StoreEntitySet="code4WSActivityTag">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSActivityTagRowVersion" ColumnName="code4WSActivityTagRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ActivityTagDescription" ColumnName="ActivityTagDescription" />
+                <ScalarProperty Name="ActivityTagGUID" ColumnName="ActivityTagGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSBeneficiaryType">
+            <EntityTypeMapping TypeName="FWSModel.code4WSBeneficiaryType">
+              <MappingFragment StoreEntitySet="code4WSBeneficiaryType">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSBeneficiaryTypeRowVersion" ColumnName="code4WSBeneficiaryTypeRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="BeneficiaryTypeDescription" ColumnName="BeneficiaryTypeDescription" />
+                <ScalarProperty Name="BeneficiaryTypeGUID" ColumnName="BeneficiaryTypeGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSCamps">
+            <EntityTypeMapping TypeName="FWSModel.code4WSCamps">
+              <MappingFragment StoreEntitySet="code4WSCamps">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSCampsRowVersion" ColumnName="code4WSCampsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SDName" ColumnName="SDName" />
+                <ScalarProperty Name="CommName" ColumnName="CommName" />
+                <ScalarProperty Name="CommCode" ColumnName="CommCode" />
+                <ScalarProperty Name="CampName" ColumnName="CampName" />
+                <ScalarProperty Name="CampID" ColumnName="CampID" />
+                <ScalarProperty Name="CampGUID" ColumnName="CampGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSFunding">
+            <EntityTypeMapping TypeName="FWSModel.code4WSFunding">
+              <MappingFragment StoreEntitySet="code4WSFunding">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSFundingRowVersion" ColumnName="code4WSFundingRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="FundingOrganizationType" ColumnName="FundingOrganizationType" />
+                <ScalarProperty Name="FundingGUID" ColumnName="FundingGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSHub">
+            <EntityTypeMapping TypeName="FWSModel.code4WSHub">
+              <MappingFragment StoreEntitySet="code4WSHub">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSHubRowVersion" ColumnName="code4WSHubRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="HubDescription" ColumnName="HubDescription" />
+                <ScalarProperty Name="HubGUID" ColumnName="HubGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSLocation">
+            <EntityTypeMapping TypeName="FWSModel.code4WSLocation">
+              <MappingFragment StoreEntitySet="code4WSLocation">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSPartnerRowVersion" ColumnName="code4WSPartnerRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="admin1Name_ar" ColumnName="admin1Name_ar" />
+                <ScalarProperty Name="admin1Name_en" ColumnName="admin1Name_en" />
+                <ScalarProperty Name="Admin1RefName" ColumnName="Admin1RefName" />
+                <ScalarProperty Name="admin1Pcode" ColumnName="admin1Pcode" />
+                <ScalarProperty Name="admin2Name_ar" ColumnName="admin2Name_ar" />
+                <ScalarProperty Name="admin2Name_en" ColumnName="admin2Name_en" />
+                <ScalarProperty Name="Admin2RefName" ColumnName="Admin2RefName" />
+                <ScalarProperty Name="admin2Pcode" ColumnName="admin2Pcode" />
+                <ScalarProperty Name="admin3Name_ar" ColumnName="admin3Name_ar" />
+                <ScalarProperty Name="admin3Name_en" ColumnName="admin3Name_en" />
+                <ScalarProperty Name="Admin3RefName" ColumnName="Admin3RefName" />
+                <ScalarProperty Name="admin3Pcode" ColumnName="admin3Pcode" />
+                <ScalarProperty Name="admin4Name_ar" ColumnName="admin4Name_ar" />
+                <ScalarProperty Name="admin4Name_en" ColumnName="admin4Name_en" />
+                <ScalarProperty Name="Admin4RefName" ColumnName="Admin4RefName" />
+                <ScalarProperty Name="admin4Pcode2" ColumnName="admin4Pcode2" />
+                <ScalarProperty Name="neibourhoodName_ar" ColumnName="neibourhoodName_ar" />
+                <ScalarProperty Name="neibourhoodName_en" ColumnName="neibourhoodName_en" />
+                <ScalarProperty Name="NeibourhoodRefName" ColumnName="NeibourhoodRefName" />
+                <ScalarProperty Name="NeibourhoodPcode2" ColumnName="NeibourhoodPcode2" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="LocationGUID" ColumnName="LocationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSOrgTypeByHub">
+            <EntityTypeMapping TypeName="FWSModel.code4WSOrgTypeByHub">
+              <MappingFragment StoreEntitySet="code4WSOrgTypeByHub">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSOrgTypeByHubRowVersion" ColumnName="code4WSOrgTypeByHubRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OrgType" ColumnName="OrgType" />
+                <ScalarProperty Name="Hub_Org_IP" ColumnName="Hub_Org_IP" />
+                <ScalarProperty Name="FWSOrgTypeByHubGUID" ColumnName="FWSOrgTypeByHubGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSPartner">
+            <EntityTypeMapping TypeName="FWSModel.code4WSPartner">
+              <MappingFragment StoreEntitySet="code4WSPartner">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSPartnerRowVersion" ColumnName="code4WSPartnerRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PartnerType" ColumnName="PartnerType" />
+                <ScalarProperty Name="PartnerCode" ColumnName="PartnerCode" />
+                <ScalarProperty Name="PartnerDescription" ColumnName="PartnerDescription" />
+                <ScalarProperty Name="PartnerGUID" ColumnName="PartnerGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSSeverityRanking">
+            <EntityTypeMapping TypeName="FWSModel.code4WSSeverityRanking">
+              <MappingFragment StoreEntitySet="code4WSSeverityRanking">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSSeverityRankingRowVersion" ColumnName="code4WSSeverityRankingRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SRPIN" ColumnName="SRPIN" />
+                <ScalarProperty Name="FinalSR" ColumnName="FinalSR" />
+                <ScalarProperty Name="Nahya_EN" ColumnName="Nahya_EN" />
+                <ScalarProperty Name="Mohafaza_EN" ColumnName="Mohafaza_EN" />
+                <ScalarProperty Name="Mohafaza_pcode" ColumnName="Mohafaza_pcode" />
+                <ScalarProperty Name="Sd_pcode" ColumnName="Sd_pcode" />
+                <ScalarProperty Name="SeverityRankingGUID" ColumnName="SeverityRankingGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_MasterTable">
+            <EntityTypeMapping TypeName="FWSModel.v_MasterTable">
+              <MappingFragment StoreEntitySet="v_MasterTable">
+                <ScalarProperty Name="Men_Cumu" ColumnName="Men_Cumu" />
+                <ScalarProperty Name="Women_Cumu" ColumnName="Women_Cumu" />
+                <ScalarProperty Name="Boys_Cumu" ColumnName="Boys_Cumu" />
+                <ScalarProperty Name="Girls_Cumu" ColumnName="Girls_Cumu" />
+                <ScalarProperty Name="Total_Cumulative_Interventions" ColumnName="Total_Cumulative_Interventions" />
+                <ScalarProperty Name="Direct_Addition" ColumnName="Direct_Addition" />
+                <ScalarProperty Name="HRP_Indicator" ColumnName="HRP_Indicator" />
+                <ScalarProperty Name="Cross_AoR_Category" ColumnName="Cross_AoR_Category" />
+                <ScalarProperty Name="Severity_Ranking" ColumnName="Severity_Ranking" />
+                <ScalarProperty Name="Delivery_Modality" ColumnName="Delivery_Modality" />
+                <ScalarProperty Name="Access_Status" ColumnName="Access_Status" />
+                <ScalarProperty Name="ImplementingPartner_Type" ColumnName="ImplementingPartner_Type" />
+                <ScalarProperty Name="Organization_Type" ColumnName="Organization_Type" />
+                <ScalarProperty Name="IPs" ColumnName="IPs" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="ImplementingPartner_ALL" ColumnName="ImplementingPartner_ALL" />
+                <ScalarProperty Name="PWDActivity" ColumnName="PWDActivity" />
+                <ScalarProperty Name="FWSAnalysisUnit" ColumnName="FWSAnalysisUnit" />
+                <ScalarProperty Name="SubActivityID" ColumnName="SubActivityID" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+                <ScalarProperty Name="Code_Camps" ColumnName="Code_Camps" />
+                <ScalarProperty Name="NeibourhoodPcode2" ColumnName="NeibourhoodPcode2" />
+                <ScalarProperty Name="Admin4Pcode2" ColumnName="Admin4Pcode2" />
+                <ScalarProperty Name="Admin3Pcode" ColumnName="Admin3Pcode" />
+                <ScalarProperty Name="Admin2Pcode" ColumnName="Admin2Pcode" />
+                <ScalarProperty Name="Admin1Pcode" ColumnName="Admin1Pcode" />
+                <ScalarProperty Name="ElderlyMenNew" ColumnName="ElderlyMenNew" />
+                <ScalarProperty Name="ElderlyWomenNew" ColumnName="ElderlyWomenNew" />
+                <ScalarProperty Name="MenNew" ColumnName="MenNew" />
+                <ScalarProperty Name="WomenNew" ColumnName="WomenNew" />
+                <ScalarProperty Name="BoysNew" ColumnName="BoysNew" />
+                <ScalarProperty Name="GirlsNew" ColumnName="GirlsNew" />
+                <ScalarProperty Name="NewTotalSumBreakdownNew" ColumnName="NewTotalSumBreakdownNew" />
+                <ScalarProperty Name="ElderlyMen" ColumnName="ElderlyMen" />
+                <ScalarProperty Name="ElderlyWomen" ColumnName="ElderlyWomen" />
+                <ScalarProperty Name="Men" ColumnName="Men" />
+                <ScalarProperty Name="Women" ColumnName="Women" />
+                <ScalarProperty Name="Boys" ColumnName="Boys" />
+                <ScalarProperty Name="Girls" ColumnName="Girls" />
+                <ScalarProperty Name="TotalSumBreakdown" ColumnName="TotalSumBreakdown" />
+                <ScalarProperty Name="Instructions" ColumnName="Instructions" />
+                <ScalarProperty Name="PWD" ColumnName="PWD" />
+                <ScalarProperty Name="BeneficiaryTypeDescription" ColumnName="BeneficiaryTypeDescription" />
+                <ScalarProperty Name="TotalReach" ColumnName="TotalReach" />
+                <ScalarProperty Name="FWSUnit" ColumnName="FWSUnit" />
+                <ScalarProperty Name="DeliveryMode" ColumnName="DeliveryMode" />
+                <ScalarProperty Name="FWSSubActivity" ColumnName="FWSSubActivity" />
+                <ScalarProperty Name="FWSActivity" ColumnName="FWSActivity" />
+                <ScalarProperty Name="FWSSubSector" ColumnName="FWSSubSector" />
+                <ScalarProperty Name="HRPProject" ColumnName="HRPProject" />
+                <ScalarProperty Name="ReportingMonth" ColumnName="ReportingMonth" />
+                <ScalarProperty Name="Camps" ColumnName="Camps" />
+                <ScalarProperty Name="NeibourhoodRefName" ColumnName="NeibourhoodRefName" />
+                <ScalarProperty Name="Admin3RefName" ColumnName="Admin3RefName" />
+                <ScalarProperty Name="Admin2RefName" ColumnName="Admin2RefName" />
+                <ScalarProperty Name="Admin1RefName" ColumnName="Admin1RefName" />
+                <ScalarProperty Name="Funding_UN" ColumnName="Funding_UN" />
+                <ScalarProperty Name="ImplementingPartner" ColumnName="ImplementingPartner" />
+                <ScalarProperty Name="Agency" ColumnName="Agency" />
+                <ScalarProperty Name="HubDescription" ColumnName="HubDescription" />
+                <ScalarProperty Name="MasterTableGUID" ColumnName="MasterTableGUID" />
+                <ScalarProperty Name="EDMXID" ColumnName="EDMXID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userPersonalDetailsLanguages">
+            <EntityTypeMapping TypeName="FWSModel.userPersonalDetailsLanguage">
+              <MappingFragment StoreEntitySet="userPersonalDetailsLanguage">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="userPersonalDetailsLanguageRowVersion" ColumnName="userPersonalDetailsLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="GrandFatherName" ColumnName="GrandFatherName" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="PersonalDetailsLanguageGUID" ColumnName="PersonalDetailsLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSFacility">
+            <EntityTypeMapping TypeName="FWSModel.code4WSFacility">
+              <MappingFragment StoreEntitySet="code4WSFacility">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSFacilityRowVersion" ColumnName="code4WSFacilityRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Community" ColumnName="Community" />
+                <ScalarProperty Name="SubDistrict" ColumnName="SubDistrict" />
+                <ScalarProperty Name="Governorate" ColumnName="Governorate" />
+                <ScalarProperty Name="FacilityType" ColumnName="FacilityType" />
+                <ScalarProperty Name="FacilityAbbreviation" ColumnName="FacilityAbbreviation" />
+                <ScalarProperty Name="FacilityCode" ColumnName="FacilityCode" />
+                <ScalarProperty Name="FacilityOperatedBy" ColumnName="FacilityOperatedBy" />
+                <ScalarProperty Name="FacilityGUID" ColumnName="FacilityGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code4WSSubSector">
+            <EntityTypeMapping TypeName="FWSModel.code4WSSubSector">
+              <MappingFragment StoreEntitySet="code4WSSubSector">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="code4WSSubSectorRowVersion" ColumnName="code4WSSubSectorRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SubSectorDescription" ColumnName="SubSectorDescription" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+                <ScalarProperty Name="SubSectorGUID" ColumnName="SubSectorGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataMasterTables">
+            <EntityTypeMapping TypeName="FWSModel.dataMasterTable">
+              <MappingFragment StoreEntitySet="dataMasterTable">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataMasterTableRowVersion" ColumnName="dataMasterTableRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Total_Men_Cumu" ColumnName="Total_Men_Cumu" />
+                <ScalarProperty Name="Total_Women_Cumu" ColumnName="Total_Women_Cumu" />
+                <ScalarProperty Name="Elderly_Men_Cumu" ColumnName="Elderly_Men_Cumu" />
+                <ScalarProperty Name="Elderly_Women_Cumu" ColumnName="Elderly_Women_Cumu" />
+                <ScalarProperty Name="Men_Cumu" ColumnName="Men_Cumu" />
+                <ScalarProperty Name="Women_Cumu" ColumnName="Women_Cumu" />
+                <ScalarProperty Name="Adolesc_Boys_Cumu" ColumnName="Adolesc_Boys_Cumu" />
+                <ScalarProperty Name="Adolesc_Girls_Cumu" ColumnName="Adolesc_Girls_Cumu" />
+                <ScalarProperty Name="Boys_Cumu" ColumnName="Boys_Cumu" />
+                <ScalarProperty Name="Girls_Cumu" ColumnName="Girls_Cumu" />
+                <ScalarProperty Name="Total_Cumulative_Interventions" ColumnName="Total_Cumulative_Interventions" />
+                <ScalarProperty Name="Direct_Addition" ColumnName="Direct_Addition" />
+                <ScalarProperty Name="HRP_Indicator" ColumnName="HRP_Indicator" />
+                <ScalarProperty Name="Cross_AoR_Category" ColumnName="Cross_AoR_Category" />
+                <ScalarProperty Name="Severity_Ranking" ColumnName="Severity_Ranking" />
+                <ScalarProperty Name="Delivery_Modality" ColumnName="Delivery_Modality" />
+                <ScalarProperty Name="Access_Status" ColumnName="Access_Status" />
+                <ScalarProperty Name="ImplementingPartner_Type" ColumnName="ImplementingPartner_Type" />
+                <ScalarProperty Name="Organization_Type" ColumnName="Organization_Type" />
+                <ScalarProperty Name="IPs" ColumnName="IPs" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="ImplementingPartner_ALL" ColumnName="ImplementingPartner_ALL" />
+                <ScalarProperty Name="PWDActivity" ColumnName="PWDActivity" />
+                <ScalarProperty Name="FWSAnalysisUnit" ColumnName="FWSAnalysisUnit" />
+                <ScalarProperty Name="SubActivityID" ColumnName="SubActivityID" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+                <ScalarProperty Name="SubSectorGUID" ColumnName="SubSectorGUID" />
+                <ScalarProperty Name="Code_Camps" ColumnName="Code_Camps" />
+                <ScalarProperty Name="NeibourhoodPcode2" ColumnName="NeibourhoodPcode2" />
+                <ScalarProperty Name="Admin4Pcode2" ColumnName="Admin4Pcode2" />
+                <ScalarProperty Name="Admin3Pcode" ColumnName="Admin3Pcode" />
+                <ScalarProperty Name="Admin2Pcode" ColumnName="Admin2Pcode" />
+                <ScalarProperty Name="Admin1Pcode" ColumnName="Admin1Pcode" />
+                <ScalarProperty Name="Total_New_Men" ColumnName="Total_New_Men" />
+                <ScalarProperty Name="Total_New_Women" ColumnName="Total_New_Women" />
+                <ScalarProperty Name="ElderlyMenNew" ColumnName="ElderlyMenNew" />
+                <ScalarProperty Name="ElderlyWomenNew" ColumnName="ElderlyWomenNew" />
+                <ScalarProperty Name="MenNew" ColumnName="MenNew" />
+                <ScalarProperty Name="WomenNew" ColumnName="WomenNew" />
+                <ScalarProperty Name="AdolescentBoysNew" ColumnName="AdolescentBoysNew" />
+                <ScalarProperty Name="AdolescentGirlsNew" ColumnName="AdolescentGirlsNew" />
+                <ScalarProperty Name="BoysNew" ColumnName="BoysNew" />
+                <ScalarProperty Name="GirlsNew" ColumnName="GirlsNew" />
+                <ScalarProperty Name="NewTotalSumBreakdownNew" ColumnName="NewTotalSumBreakdownNew" />
+                <ScalarProperty Name="Total_Men" ColumnName="Total_Men" />
+                <ScalarProperty Name="Total_Women" ColumnName="Total_Women" />
+                <ScalarProperty Name="ElderlyMen" ColumnName="ElderlyMen" />
+                <ScalarProperty Name="ElderlyWomen" ColumnName="ElderlyWomen" />
+                <ScalarProperty Name="Men" ColumnName="Men" />
+                <ScalarProperty Name="Women" ColumnName="Women" />
+                <ScalarProperty Name="AdolescentBoys" ColumnName="AdolescentBoys" />
+                <ScalarProperty Name="AdolescentGirls" ColumnName="AdolescentGirls" />
+                <ScalarProperty Name="Boys" ColumnName="Boys" />
+                <ScalarProperty Name="Girls" ColumnName="Girls" />
+                <ScalarProperty Name="TotalSumBreakdown" ColumnName="TotalSumBreakdown" />
+                <ScalarProperty Name="Instructions" ColumnName="Instructions" />
+                <ScalarProperty Name="SurvivorsOfExplosiveHazards" ColumnName="SurvivorsOfExplosiveHazards" />
+                <ScalarProperty Name="PWD" ColumnName="PWD" />
+                <ScalarProperty Name="BeneficiariesTypeGUID" ColumnName="BeneficiariesTypeGUID" />
+                <ScalarProperty Name="TotalReach" ColumnName="TotalReach" />
+                <ScalarProperty Name="FWSUnit" ColumnName="FWSUnit" />
+                <ScalarProperty Name="DeliveryFacility" ColumnName="DeliveryFacility" />
+                <ScalarProperty Name="DeliveryMode" ColumnName="DeliveryMode" />
+                <ScalarProperty Name="FWSSubActivity" ColumnName="FWSSubActivity" />
+                <ScalarProperty Name="FWSActivity" ColumnName="FWSActivity" />
+                <ScalarProperty Name="FWSSubSector" ColumnName="FWSSubSector" />
+                <ScalarProperty Name="HRPProject" ColumnName="HRPProject" />
+                <ScalarProperty Name="ReportingMonth" ColumnName="ReportingMonth" />
+                <ScalarProperty Name="ReportingYear" ColumnName="ReportingYear" />
+                <ScalarProperty Name="Camps" ColumnName="Camps" />
+                <ScalarProperty Name="NeibourhoodRefName" ColumnName="NeibourhoodRefName" />
+                <ScalarProperty Name="Admin3RefName" ColumnName="Admin3RefName" />
+                <ScalarProperty Name="Admin2RefName" ColumnName="Admin2RefName" />
+                <ScalarProperty Name="Admin1RefName" ColumnName="Admin1RefName" />
+                <ScalarProperty Name="Funding_UN" ColumnName="Funding_UN" />
+                <ScalarProperty Name="ImplementingPartnerGUID" ColumnName="ImplementingPartnerGUID" />
+                <ScalarProperty Name="AgencyGUID" ColumnName="AgencyGUID" />
+                <ScalarProperty Name="HubGUID" ColumnName="HubGUID" />
+                <ScalarProperty Name="PartnerContributionGUID" ColumnName="PartnerContributionGUID" />
+                <ScalarProperty Name="MasterTableGUID" ColumnName="MasterTableGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPartnerContributions">
+            <EntityTypeMapping TypeName="FWSModel.dataPartnerContribution">
+              <MappingFragment StoreEntitySet="dataPartnerContribution">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPartnerContributionRowVersion" ColumnName="dataPartnerContributionRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ApprovedOn" ColumnName="ApprovedOn" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="IsDataApproved" ColumnName="IsDataApproved" />
+                <ScalarProperty Name="FWSSubActivity" ColumnName="FWSSubActivity" />
+                <ScalarProperty Name="FWSActivity" ColumnName="FWSActivity" />
+                <ScalarProperty Name="FWSSubSector" ColumnName="FWSSubSector" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+                <ScalarProperty Name="SubSectorGUID" ColumnName="SubSectorGUID" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="Admin4Name" ColumnName="Admin4Name" />
+                <ScalarProperty Name="Admin3Name" ColumnName="Admin3Name" />
+                <ScalarProperty Name="Admin2Name" ColumnName="Admin2Name" />
+                <ScalarProperty Name="Admin1Name" ColumnName="Admin1Name" />
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="Admin4Code" ColumnName="Admin4Code" />
+                <ScalarProperty Name="Admin3Code" ColumnName="Admin3Code" />
+                <ScalarProperty Name="Admin2Code" ColumnName="Admin2Code" />
+                <ScalarProperty Name="Admin1Code" ColumnName="Admin1Code" />
+                <ScalarProperty Name="ElderlyMenNew" ColumnName="ElderlyMenNew" />
+                <ScalarProperty Name="ElderlyWomenNew" ColumnName="ElderlyWomenNew" />
+                <ScalarProperty Name="MenNew" ColumnName="MenNew" />
+                <ScalarProperty Name="WomenNew" ColumnName="WomenNew" />
+                <ScalarProperty Name="AdolescentBoysNew" ColumnName="AdolescentBoysNew" />
+                <ScalarProperty Name="AdolescentGirlsNew" ColumnName="AdolescentGirlsNew" />
+                <ScalarProperty Name="BoysNew" ColumnName="BoysNew" />
+                <ScalarProperty Name="GirlsNew" ColumnName="GirlsNew" />
+                <ScalarProperty Name="SumBreakdownNew" ColumnName="SumBreakdownNew" />
+                <ScalarProperty Name="ElderlyMen" ColumnName="ElderlyMen" />
+                <ScalarProperty Name="ElderlyWomen" ColumnName="ElderlyWomen" />
+                <ScalarProperty Name="Men" ColumnName="Men" />
+                <ScalarProperty Name="Women" ColumnName="Women" />
+                <ScalarProperty Name="AdolescentBoys" ColumnName="AdolescentBoys" />
+                <ScalarProperty Name="AdolescentGirls" ColumnName="AdolescentGirls" />
+                <ScalarProperty Name="Boys" ColumnName="Boys" />
+                <ScalarProperty Name="Girls" ColumnName="Girls" />
+                <ScalarProperty Name="SumBreakdown" ColumnName="SumBreakdown" />
+                <ScalarProperty Name="TotalReach" ColumnName="TotalReach" />
+                <ScalarProperty Name="SurvivorsOfExplosiveHazards" ColumnName="SurvivorsOfExplosiveHazards" />
+                <ScalarProperty Name="PWD" ColumnName="PWD" />
+                <ScalarProperty Name="BeneficiariesTypeGUID" ColumnName="BeneficiariesTypeGUID" />
+                <ScalarProperty Name="FWSAnalysisUnit" ColumnName="FWSAnalysisUnit" />
+                <ScalarProperty Name="FWSUnit" ColumnName="FWSUnit" />
+                <ScalarProperty Name="DeliveryFacility" ColumnName="DeliveryFacility" />
+                <ScalarProperty Name="FacilityGUID" ColumnName="FacilityGUID" />
+                <ScalarProperty Name="DeliveryModeGUID" ColumnName="DeliveryModeGUID" />
+                <ScalarProperty Name="DeliveryMode" ColumnName="DeliveryMode" />
+                <ScalarProperty Name="ActivityDetails" ColumnName="ActivityDetails" />
+                <ScalarProperty Name="ActivityLong" ColumnName="ActivityLong" />
+                <ScalarProperty Name="HRPProject" ColumnName="HRPProject" />
+                <ScalarProperty Name="ReportingMonth" ColumnName="ReportingMonth" />
+                <ScalarProperty Name="ReportingYear" ColumnName="ReportingYear" />
+                <ScalarProperty Name="LocationLong" ColumnName="LocationLong" />
+                <ScalarProperty Name="LocationGUID" ColumnName="LocationGUID" />
+                <ScalarProperty Name="HubGUID" ColumnName="HubGUID" />
+                <ScalarProperty Name="ImplementingPartnerGUID" ColumnName="ImplementingPartnerGUID" />
+                <ScalarProperty Name="AgencyGUID" ColumnName="AgencyGUID" />
+                <ScalarProperty Name="PartnerContributionFileGUID" ColumnName="PartnerContributionFileGUID" />
+                <ScalarProperty Name="PartnerContributionGUID" ColumnName="PartnerContributionGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPartnerContributionFiles">
+            <EntityTypeMapping TypeName="FWSModel.dataPartnerContributionFile">
+              <MappingFragment StoreEntitySet="dataPartnerContributionFile">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPartnerContributionFileRowVersion" ColumnName="dataPartnerContributionFileRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="UploadedOn" ColumnName="UploadedOn" />
+                <ScalarProperty Name="UploadedBy" ColumnName="UploadedBy" />
+                <ScalarProperty Name="PartnerContributionFileGUID" ColumnName="PartnerContributionFileGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

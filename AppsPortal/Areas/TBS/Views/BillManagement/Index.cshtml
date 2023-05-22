@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Bills";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("0da463cb-88da-4380-82be-f06ba86b1de8")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.DataBillsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            @*<div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TelecomCompanyDescription, DbColumnName = "TelecomCompanyDescription", FilterForDataType = "Text" })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                </div>*@
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.DataBillsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.DataBillsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.DataBillsDataTable)
+        @Html.IndexDatatableCreate(Permissions.TelecomCompanies.Create, Apps.TBS, "/TBS/BillManagement/Create")
+        @Html.IndexDatatableDelete(Permissions.TelecomCompanies.Delete, Apps.TBS, DataTableNames.DataBillsDataTable)
+        @Html.IndexDatatableRestor(Permissions.TelecomCompanies.Restore, Apps.TBS, DataTableNames.DataBillsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.DataBillsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.DataBillsDataTable, FormController = "BillManagement", Area = "TBS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>
+@*<script type="text/javascript">
+        function DownloadBillOriginalFile(link) {
+            var bilLGUID = $(link).attr('data-billguid');
+            alert(bilLGUID);
+            $.ajax({
+                type: "GET",
+                url: '/BillManagement/BillOriginalFileDownload',
+                data: { BillGUID: bilLGUID },
+                success: function (downloadLink) {
+                    var win = window.open(downloadLink, '_blank');
+                    if (!win) {
+                        //Browser has allowed it to be opened
+                        //win.focus();
+                    } else {
+                        //Browser has blocked it
+                        alert('Please allow popups for this website');
+                    }
+                },
+                error: function () { }
+            });
+        }
+    </script>*@

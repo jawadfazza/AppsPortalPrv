@@ -1,0 +1,1171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DutyStationDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOffices">
+          <Key>
+            <PropertyRef Name="OfficeGUID" />
+          </Key>
+          <Property Name="OfficeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OfficePhoneCountryCode" Type="nvarchar" MaxLength="5" />
+          <Property Name="OfficePhoneNumber" Type="nvarchar" MaxLength="12" />
+          <Property Name="VTCIP" Type="nvarchar" MaxLength="15" />
+          <Property Name="OfficeTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeOfficesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOfficesLanguages">
+          <Key>
+            <PropertyRef Name="OfficeLanguageGUID" />
+          </Key>
+          <Property Name="OfficeLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OfficeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="OfficeDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="OfficeAddress" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeOfficesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOID">
+          <Key>
+            <PropertyRef Name="OidGUID" />
+          </Key>
+          <Property Name="OidGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PrinterModelGUID" Type="uniqueidentifier" />
+          <Property Name="PrinterTypeGUID" Type="uniqueidentifier" />
+          <Property Name="OIDTypeGUID" Type="uniqueidentifier" />
+          <Property Name="OIDDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="OIDNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ValueType" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsImport" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeOIDRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstances">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OperationGUID" Type="uniqueidentifier" />
+          <Property Name="codeOrganizationsInstancesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstancesLanguages">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceLanguageGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="OrganizationInstanceDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="codeOrganizationsInstancesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeReferralStatus">
+          <Key>
+            <PropertyRef Name="ReferralStatusGUID" />
+          </Key>
+          <Property Name="ReferralStatusGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="uniqueidentifier" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeReferralStatusRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeReferralStatusLanguage">
+          <Key>
+            <PropertyRef Name="ReferralStatusLanguageGUID" />
+          </Key>
+          <Property Name="ReferralStatusLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralStatusGUID" Type="uniqueidentifier" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeReferralStatusLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TableGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ValueDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataOidReferralStatus">
+          <Key>
+            <PropertyRef Name="OidReferralStatus" />
+          </Key>
+          <Property Name="OidReferralStatus" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OidTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralStatusGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataOidReferralStatusRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPrinterConfiguration">
+          <Key>
+            <PropertyRef Name="PrinterConfigurationGUID" />
+          </Key>
+          <Property Name="PrinterConfigurationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PrinterName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="PrinterModelGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PrinterTypeGUID" Type="uniqueidentifier" />
+          <Property Name="IpAddress" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BuildingGUID" Type="uniqueidentifier" />
+          <Property Name="OfficeNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="FloorNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsContainProblem" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPrinterConfigurationRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPrinterInkCartridge">
+          <Key>
+            <PropertyRef Name="PrinterInkCartridgeGUID" />
+          </Key>
+          <Property Name="PrinterInkCartridgeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PrinterConfigurationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OidGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ChangeDate" Type="date" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPrinterInkCartridgeRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPrinterLog">
+          <Key>
+            <PropertyRef Name="PrinterLogGUID" />
+          </Key>
+          <Property Name="PrinterLogGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PrinterConfigurationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OidGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LogDateTime" Type="datetime" Nullable="false" />
+          <Property Name="OidValue" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPrinterLogRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataPrinterOID">
+          <Key>
+            <PropertyRef Name="PrinterOidGUID" />
+          </Key>
+          <Property Name="PrinterOidGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PrinterConfigurationGUID" Type="uniqueidentifier" />
+          <Property Name="OidGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MuteEmailNotification" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataPrinterOIDRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDutyStationsLanguages" Type="Self.codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOfficesLanguages_codeOffices">
+          <End Role="codeOffices" Type="Self.codeOffices" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeOfficesLanguages" Type="Self.codeOfficesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOffices">
+              <PropertyRef Name="OfficeGUID" />
+            </Principal>
+            <Dependent Role="codeOfficesLanguages">
+              <PropertyRef Name="OfficeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+          <End Role="codeOrganizationsInstances" Type="Self.codeOrganizationsInstances" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeOrganizationsInstancesLanguages" Type="Self.codeOrganizationsInstancesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="codeOrganizationsInstancesLanguages">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeReferralStatusLanguage_codeReferralStatus">
+          <End Role="codeReferralStatus" Type="Self.codeReferralStatus" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeReferralStatusLanguage" Type="Self.codeReferralStatusLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="codeReferralStatusLanguage">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Role="codeTablesValues" Type="Self.codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeTablesValuesLanguages" Type="Self.codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataOidReferralStatus_codeReferralStatus">
+          <End Role="codeReferralStatus" Type="Self.codeReferralStatus" Multiplicity="1" />
+          <End Role="dataOidReferralStatus" Type="Self.dataOidReferralStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="dataOidReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPrinterInkCartridge_codeOID">
+          <End Role="codeOID" Type="Self.codeOID" Multiplicity="1" />
+          <End Role="dataPrinterInkCartridge" Type="Self.dataPrinterInkCartridge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOID">
+              <PropertyRef Name="OidGUID" />
+            </Principal>
+            <Dependent Role="dataPrinterInkCartridge">
+              <PropertyRef Name="OidGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPrinterInkCartridge_dataPrinterConfiguration">
+          <End Role="dataPrinterConfiguration" Type="Self.dataPrinterConfiguration" Multiplicity="1" />
+          <End Role="dataPrinterInkCartridge" Type="Self.dataPrinterInkCartridge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPrinterConfiguration">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Principal>
+            <Dependent Role="dataPrinterInkCartridge">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPrinterLog_dataPrinterConfiguration">
+          <End Role="dataPrinterConfiguration" Type="Self.dataPrinterConfiguration" Multiplicity="1" />
+          <End Role="dataPrinterLog" Type="Self.dataPrinterLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPrinterConfiguration">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Principal>
+            <Dependent Role="dataPrinterLog">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPrinterOID_codeOID">
+          <End Role="codeOID" Type="Self.codeOID" Multiplicity="1" />
+          <End Role="dataPrinterOID" Type="Self.dataPrinterOID" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOID">
+              <PropertyRef Name="OidGUID" />
+            </Principal>
+            <Dependent Role="dataPrinterOID">
+              <PropertyRef Name="OidGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPrinterOID_dataPrinterConfiguration">
+          <End Role="dataPrinterConfiguration" Type="Self.dataPrinterConfiguration" Multiplicity="0..1" />
+          <End Role="dataPrinterOID" Type="Self.dataPrinterOID" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPrinterConfiguration">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Principal>
+            <Dependent Role="dataPrinterOID">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="PrinterLogs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="RMS">
+          <Parameter Name="LogDateTimeStart" Type="date" Mode="In" />
+          <Parameter Name="LogDateTimeEnd" Type="date" Mode="In" />
+          <Parameter Name="PrinterConfigurationGUID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="OIDTypeGUID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <EntityContainer Name="RMSModelStoreContainer">
+          <EntitySet Name="codeDutyStations" EntityType="Self.codeDutyStations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="Self.codeDutyStationsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOffices" EntityType="Self.codeOffices" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOfficesLanguages" EntityType="Self.codeOfficesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOID" EntityType="Self.codeOID" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOrganizationsInstances" EntityType="Self.codeOrganizationsInstances" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOrganizationsInstancesLanguages" EntityType="Self.codeOrganizationsInstancesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeReferralStatus" EntityType="Self.codeReferralStatus" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeReferralStatusLanguage" EntityType="Self.codeReferralStatusLanguage" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValues" EntityType="Self.codeTablesValues" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="Self.codeTablesValuesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="dataOidReferralStatus" EntityType="Self.dataOidReferralStatus" Schema="RMS" store:Type="Tables" />
+          <EntitySet Name="dataPrinterConfiguration" EntityType="Self.dataPrinterConfiguration" Schema="RMS" store:Type="Tables" />
+          <EntitySet Name="dataPrinterInkCartridge" EntityType="Self.dataPrinterInkCartridge" Schema="RMS" store:Type="Tables" />
+          <EntitySet Name="dataPrinterLog" EntityType="Self.dataPrinterLog" Schema="RMS" store:Type="Tables" />
+          <EntitySet Name="dataPrinterOID" EntityType="Self.dataPrinterOID" Schema="RMS" store:Type="Tables" />
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="Self.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOfficesLanguages_codeOffices" Association="Self.FK_codeOfficesLanguages_codeOffices">
+            <End Role="codeOffices" EntitySet="codeOffices" />
+            <End Role="codeOfficesLanguages" EntitySet="codeOfficesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" Association="Self.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="codeOrganizationsInstancesLanguages" EntitySet="codeOrganizationsInstancesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeReferralStatusLanguage_codeReferralStatus" Association="Self.FK_codeReferralStatusLanguage_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="codeReferralStatusLanguage" EntitySet="codeReferralStatusLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="Self.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataOidReferralStatus_codeReferralStatus" Association="Self.FK_dataOidReferralStatus_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="dataOidReferralStatus" EntitySet="dataOidReferralStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPrinterInkCartridge_codeOID" Association="Self.FK_dataPrinterInkCartridge_codeOID">
+            <End Role="codeOID" EntitySet="codeOID" />
+            <End Role="dataPrinterInkCartridge" EntitySet="dataPrinterInkCartridge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPrinterInkCartridge_dataPrinterConfiguration" Association="Self.FK_dataPrinterInkCartridge_dataPrinterConfiguration">
+            <End Role="dataPrinterConfiguration" EntitySet="dataPrinterConfiguration" />
+            <End Role="dataPrinterInkCartridge" EntitySet="dataPrinterInkCartridge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPrinterLog_dataPrinterConfiguration" Association="Self.FK_dataPrinterLog_dataPrinterConfiguration">
+            <End Role="dataPrinterConfiguration" EntitySet="dataPrinterConfiguration" />
+            <End Role="dataPrinterLog" EntitySet="dataPrinterLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPrinterOID_codeOID" Association="Self.FK_dataPrinterOID_codeOID">
+            <End Role="codeOID" EntitySet="codeOID" />
+            <End Role="dataPrinterOID" EntitySet="dataPrinterOID" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPrinterOID_dataPrinterConfiguration" Association="Self.FK_dataPrinterOID_dataPrinterConfiguration">
+            <End Role="dataPrinterConfiguration" EntitySet="dataPrinterConfiguration" />
+            <End Role="dataPrinterOID" EntitySet="dataPrinterOID" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="RMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="codeReferralStatusLanguage" EntityType="RMSModel.codeReferralStatusLanguage" />
+          <EntitySet Name="codeOrganizationsInstances" EntityType="RMSModel.codeOrganizationsInstances" />
+          <EntitySet Name="codeOrganizationsInstancesLanguages" EntityType="RMSModel.codeOrganizationsInstancesLanguages" />
+          <AssociationSet Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" Association="RMSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="codeOrganizationsInstancesLanguages" EntitySet="codeOrganizationsInstancesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="codeDutyStations" EntityType="RMSModel.codeDutyStations" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="RMSModel.codeDutyStationsLanguages" />
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="RMSModel.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <EntitySet Name="codeReferralStatus" EntityType="RMSModel.codeReferralStatus" />
+          <AssociationSet Name="FK_codeReferralStatusLanguage_codeReferralStatus" Association="RMSModel.FK_codeReferralStatusLanguage_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="codeReferralStatusLanguage" EntitySet="codeReferralStatusLanguage" />
+          </AssociationSet>
+          <EntitySet Name="codeTablesValues" EntityType="RMSModel.codeTablesValues" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="RMSModel.codeTablesValuesLanguages" />
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="RMSModel.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="dataPrinterLog" EntityType="RMSModel.dataPrinterLog" />
+          <EntitySet Name="dataPrinterInkCartridge" EntityType="RMSModel.dataPrinterInkCartridge" />
+          <EntitySet Name="dataPrinterOID" EntityType="RMSModel.dataPrinterOID" />
+          <EntitySet Name="codeOID" EntityType="RMSModel.codeOID" />
+          <AssociationSet Name="FK_dataPrinterInkCartridge_codeOID" Association="RMSModel.FK_dataPrinterInkCartridge_codeOID">
+            <End Role="codeOID" EntitySet="codeOID" />
+            <End Role="dataPrinterInkCartridge" EntitySet="dataPrinterInkCartridge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPrinterOID_codeOID" Association="RMSModel.FK_dataPrinterOID_codeOID">
+            <End Role="codeOID" EntitySet="codeOID" />
+            <End Role="dataPrinterOID" EntitySet="dataPrinterOID" />
+          </AssociationSet>
+          <EntitySet Name="dataOidReferralStatus" EntityType="RMSModel.dataOidReferralStatus" />
+          <AssociationSet Name="FK_dataOidReferralStatus_codeReferralStatus" Association="RMSModel.FK_dataOidReferralStatus_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="dataOidReferralStatus" EntitySet="dataOidReferralStatus" />
+          </AssociationSet>
+          <EntitySet Name="codeOffices" EntityType="RMSModel.codeOffices" />
+          <EntitySet Name="codeOfficesLanguages" EntityType="RMSModel.codeOfficesLanguages" />
+          <AssociationSet Name="FK_codeOfficesLanguages_codeOffices" Association="RMSModel.FK_codeOfficesLanguages_codeOffices">
+            <End Role="codeOffices" EntitySet="codeOffices" />
+            <End Role="codeOfficesLanguages" EntitySet="codeOfficesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="dataPrinterConfiguration" EntityType="RMSModel.dataPrinterConfiguration" />
+          <AssociationSet Name="FK_dataPrinterInkCartridge_dataPrinterConfiguration" Association="RMSModel.FK_dataPrinterInkCartridge_dataPrinterConfiguration">
+            <End Role="dataPrinterConfiguration" EntitySet="dataPrinterConfiguration" />
+            <End Role="dataPrinterInkCartridge" EntitySet="dataPrinterInkCartridge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPrinterLog_dataPrinterConfiguration" Association="RMSModel.FK_dataPrinterLog_dataPrinterConfiguration">
+            <End Role="dataPrinterConfiguration" EntitySet="dataPrinterConfiguration" />
+            <End Role="dataPrinterLog" EntitySet="dataPrinterLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPrinterOID_dataPrinterConfiguration" Association="RMSModel.FK_dataPrinterOID_dataPrinterConfiguration">
+            <End Role="dataPrinterConfiguration" EntitySet="dataPrinterConfiguration" />
+            <End Role="dataPrinterOID" EntitySet="dataPrinterOID" />
+          </AssociationSet>
+          <FunctionImport Name="PrinterLogs" ReturnType="Collection(RMSModel.PrinterLogs_Result)">
+            <Parameter Name="LogDateTimeStart" Mode="In" Type="DateTime" />
+            <Parameter Name="LogDateTimeEnd" Mode="In" Type="DateTime" />
+            <Parameter Name="PrinterConfigurationGUID" Mode="In" Type="Guid" />
+            <Parameter Name="OIDTypeGUID" Mode="In" Type="Guid" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="codeReferralStatusLanguage">
+          <Key>
+            <PropertyRef Name="ReferralStatusLanguageGUID" />
+          </Key>
+          <Property Name="ReferralStatusLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralStatusGUID" Type="Guid" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeReferralStatusLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeReferralStatus" Relationship="RMSModel.FK_codeReferralStatusLanguage_codeReferralStatus" FromRole="codeReferralStatusLanguage" ToRole="codeReferralStatus" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstances">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OperationGUID" Type="Guid" />
+          <Property Name="codeOrganizationsInstancesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOrganizationsInstancesLanguages" Relationship="RMSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" FromRole="codeOrganizationsInstances" ToRole="codeOrganizationsInstancesLanguages" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstancesLanguages">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceLanguageGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationInstanceDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="codeOrganizationsInstancesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOrganizationsInstances" Relationship="RMSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" FromRole="codeOrganizationsInstancesLanguages" ToRole="codeOrganizationsInstances" />
+        </EntityType>
+        <Association Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+          <End Type="RMSModel.codeOrganizationsInstances" Role="codeOrganizationsInstances" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RMSModel.codeOrganizationsInstancesLanguages" Role="codeOrganizationsInstancesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="codeOrganizationsInstancesLanguages">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStationsLanguages" Relationship="RMSModel.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStations" ToRole="codeDutyStationsLanguages" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DutyStationDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStations" Relationship="RMSModel.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStationsLanguages" ToRole="codeDutyStations" />
+        </EntityType>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Type="RMSModel.codeDutyStations" Role="codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RMSModel.codeDutyStationsLanguages" Role="codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeReferralStatus">
+          <Key>
+            <PropertyRef Name="ReferralStatusGUID" />
+          </Key>
+          <Property Name="ReferralStatusGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="Guid" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeReferralStatusRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeReferralStatusLanguage" Relationship="RMSModel.FK_codeReferralStatusLanguage_codeReferralStatus" FromRole="codeReferralStatus" ToRole="codeReferralStatusLanguage" />
+          <NavigationProperty Name="dataOidReferralStatus" Relationship="RMSModel.FK_dataOidReferralStatus_codeReferralStatus" FromRole="codeReferralStatus" ToRole="dataOidReferralStatus" />
+        </EntityType>
+        <Association Name="FK_codeReferralStatusLanguage_codeReferralStatus">
+          <End Type="RMSModel.codeReferralStatus" Role="codeReferralStatus" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RMSModel.codeReferralStatusLanguage" Role="codeReferralStatusLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="codeReferralStatusLanguage">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="TableGUID" Type="Guid" Nullable="false" />
+          <Property Name="FactorGUID" Type="Guid" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValuesLanguages" Relationship="RMSModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValues" ToRole="codeTablesValuesLanguages" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ValueDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValues" Relationship="RMSModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValuesLanguages" ToRole="codeTablesValues" />
+        </EntityType>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Type="RMSModel.codeTablesValues" Role="codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RMSModel.codeTablesValuesLanguages" Role="codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataPrinterLog">
+          <Key>
+            <PropertyRef Name="PrinterLogGUID" />
+          </Key>
+          <Property Name="PrinterLogGUID" Type="Guid" Nullable="false" />
+          <Property Name="PrinterConfigurationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OidGUID" Type="Guid" Nullable="false" />
+          <Property Name="LogDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OidValue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPrinterLogRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataPrinterConfiguration" Relationship="RMSModel.FK_dataPrinterLog_dataPrinterConfiguration" FromRole="dataPrinterLog" ToRole="dataPrinterConfiguration" />
+        </EntityType>
+        <EntityType Name="dataPrinterInkCartridge">
+          <Key>
+            <PropertyRef Name="PrinterInkCartridgeGUID" />
+          </Key>
+          <Property Name="PrinterInkCartridgeGUID" Type="Guid" Nullable="false" />
+          <Property Name="PrinterConfigurationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OidGUID" Type="Guid" Nullable="false" />
+          <Property Name="ChangeDate" Type="DateTime" Precision="0" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPrinterInkCartridgeRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOID" Relationship="RMSModel.FK_dataPrinterInkCartridge_codeOID" FromRole="dataPrinterInkCartridge" ToRole="codeOID" />
+          <NavigationProperty Name="dataPrinterConfiguration" Relationship="RMSModel.FK_dataPrinterInkCartridge_dataPrinterConfiguration" FromRole="dataPrinterInkCartridge" ToRole="dataPrinterConfiguration" />
+        </EntityType>
+        <EntityType Name="dataPrinterOID">
+          <Key>
+            <PropertyRef Name="PrinterOidGUID" />
+          </Key>
+          <Property Name="PrinterOidGUID" Type="Guid" Nullable="false" />
+          <Property Name="PrinterConfigurationGUID" Type="Guid" />
+          <Property Name="OidGUID" Type="Guid" Nullable="false" />
+          <Property Name="MuteEmailNotification" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPrinterOIDRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOID" Relationship="RMSModel.FK_dataPrinterOID_codeOID" FromRole="dataPrinterOID" ToRole="codeOID" />
+          <NavigationProperty Name="dataPrinterConfiguration" Relationship="RMSModel.FK_dataPrinterOID_dataPrinterConfiguration" FromRole="dataPrinterOID" ToRole="dataPrinterConfiguration" />
+        </EntityType>
+        <EntityType Name="codeOID">
+          <Key>
+            <PropertyRef Name="OidGUID" />
+          </Key>
+          <Property Name="OidGUID" Type="Guid" Nullable="false" />
+          <Property Name="PrinterModelGUID" Type="Guid" />
+          <Property Name="PrinterTypeGUID" Type="Guid" />
+          <Property Name="OIDTypeGUID" Type="Guid" />
+          <Property Name="OIDDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OIDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ValueType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsImport" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeOIDRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataPrinterInkCartridge" Relationship="RMSModel.FK_dataPrinterInkCartridge_codeOID" FromRole="codeOID" ToRole="dataPrinterInkCartridge" />
+          <NavigationProperty Name="dataPrinterOID" Relationship="RMSModel.FK_dataPrinterOID_codeOID" FromRole="codeOID" ToRole="dataPrinterOID" />
+        </EntityType>
+        <Association Name="FK_dataPrinterInkCartridge_codeOID">
+          <End Type="RMSModel.codeOID" Role="codeOID" Multiplicity="1" />
+          <End Type="RMSModel.dataPrinterInkCartridge" Role="dataPrinterInkCartridge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOID">
+              <PropertyRef Name="OidGUID" />
+            </Principal>
+            <Dependent Role="dataPrinterInkCartridge">
+              <PropertyRef Name="OidGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPrinterOID_codeOID">
+          <End Type="RMSModel.codeOID" Role="codeOID" Multiplicity="1" />
+          <End Type="RMSModel.dataPrinterOID" Role="dataPrinterOID" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOID">
+              <PropertyRef Name="OidGUID" />
+            </Principal>
+            <Dependent Role="dataPrinterOID">
+              <PropertyRef Name="OidGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataOidReferralStatus">
+          <Key>
+            <PropertyRef Name="OidReferralStatus" />
+          </Key>
+          <Property Name="OidReferralStatus" Type="Guid" Nullable="false" />
+          <Property Name="OidTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralStatusGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataOidReferralStatusRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeReferralStatus" Relationship="RMSModel.FK_dataOidReferralStatus_codeReferralStatus" FromRole="dataOidReferralStatus" ToRole="codeReferralStatus" />
+        </EntityType>
+        <Association Name="FK_dataOidReferralStatus_codeReferralStatus">
+          <End Type="RMSModel.codeReferralStatus" Role="codeReferralStatus" Multiplicity="1" />
+          <End Type="RMSModel.dataOidReferralStatus" Role="dataOidReferralStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="dataOidReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeOffices">
+          <Key>
+            <PropertyRef Name="OfficeGUID" />
+          </Key>
+          <Property Name="OfficeGUID" Type="Guid" Nullable="false" />
+          <Property Name="OfficePhoneCountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="OfficePhoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="VTCIP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeOfficesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOfficesLanguages" Relationship="RMSModel.FK_codeOfficesLanguages_codeOffices" FromRole="codeOffices" ToRole="codeOfficesLanguages" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="codeOfficesLanguages">
+          <Key>
+            <PropertyRef Name="OfficeLanguageGUID" />
+          </Key>
+          <Property Name="OfficeLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="OfficeGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeAddress" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeOfficesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOffices" Relationship="RMSModel.FK_codeOfficesLanguages_codeOffices" FromRole="codeOfficesLanguages" ToRole="codeOffices" />
+        </EntityType>
+        <Association Name="FK_codeOfficesLanguages_codeOffices">
+          <End Type="RMSModel.codeOffices" Role="codeOffices" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RMSModel.codeOfficesLanguages" Role="codeOfficesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOffices">
+              <PropertyRef Name="OfficeGUID" />
+            </Principal>
+            <Dependent Role="codeOfficesLanguages">
+              <PropertyRef Name="OfficeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataPrinterConfiguration">
+          <Key>
+            <PropertyRef Name="PrinterConfigurationGUID" />
+          </Key>
+          <Property Name="PrinterConfigurationGUID" Type="Guid" Nullable="false" />
+          <Property Name="PrinterName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PrinterModelGUID" Type="Guid" Nullable="false" />
+          <Property Name="PrinterTypeGUID" Type="Guid" />
+          <Property Name="IpAddress" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="BuildingGUID" Type="Guid" />
+          <Property Name="OfficeNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FloorNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsContainProblem" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataPrinterConfigurationRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataPrinterInkCartridge" Relationship="RMSModel.FK_dataPrinterInkCartridge_dataPrinterConfiguration" FromRole="dataPrinterConfiguration" ToRole="dataPrinterInkCartridge" />
+          <NavigationProperty Name="dataPrinterLog" Relationship="RMSModel.FK_dataPrinterLog_dataPrinterConfiguration" FromRole="dataPrinterConfiguration" ToRole="dataPrinterLog" />
+          <NavigationProperty Name="dataPrinterOID" Relationship="RMSModel.FK_dataPrinterOID_dataPrinterConfiguration" FromRole="dataPrinterConfiguration" ToRole="dataPrinterOID" />
+        </EntityType>
+        <Association Name="FK_dataPrinterInkCartridge_dataPrinterConfiguration">
+          <End Type="RMSModel.dataPrinterConfiguration" Role="dataPrinterConfiguration" Multiplicity="1" />
+          <End Type="RMSModel.dataPrinterInkCartridge" Role="dataPrinterInkCartridge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPrinterConfiguration">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Principal>
+            <Dependent Role="dataPrinterInkCartridge">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPrinterLog_dataPrinterConfiguration">
+          <End Type="RMSModel.dataPrinterConfiguration" Role="dataPrinterConfiguration" Multiplicity="1" />
+          <End Type="RMSModel.dataPrinterLog" Role="dataPrinterLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPrinterConfiguration">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Principal>
+            <Dependent Role="dataPrinterLog">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPrinterOID_dataPrinterConfiguration">
+          <End Type="RMSModel.dataPrinterConfiguration" Role="dataPrinterConfiguration" Multiplicity="0..1" />
+          <End Type="RMSModel.dataPrinterOID" Role="dataPrinterOID" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataPrinterConfiguration">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Principal>
+            <Dependent Role="dataPrinterOID">
+              <PropertyRef Name="PrinterConfigurationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="PrinterLogs_Result">
+          <Property Type="Guid" Name="PrinterConfigurationGUID" Nullable="false" />
+          <Property Type="Guid" Name="OidGUID" Nullable="false" />
+          <Property Type="DateTime" Name="LogDateTime" Nullable="false" Precision="23" />
+          <Property Type="String" Name="OidValue" Nullable="true" MaxLength="100" />
+          <Property Type="Guid" Name="PrinterModelGUID" Nullable="false" />
+          <Property Type="Guid" Name="PrinterTypeGUID" Nullable="true" />
+          <Property Type="String" Name="IpAddress" Nullable="false" MaxLength="20" />
+          <Property Type="Guid" Name="OrganizationInstanceGUID" Nullable="false" />
+          <Property Type="Guid" Name="DutyStationGUID" Nullable="false" />
+          <Property Type="Guid" Name="BuildingGUID" Nullable="true" />
+          <Property Type="String" Name="OfficeNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FloorNumber" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsContainProblem" Nullable="true" />
+          <Property Type="String" Name="OIDDescription" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="OIDNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ValueType" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsImport" Nullable="false" />
+          <Property Type="Guid" Name="OIDTypeGUID" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RMSModelStoreContainer" CdmEntityContainer="RMSEntities">
+          <EntitySetMapping Name="codeReferralStatusLanguage">
+            <EntityTypeMapping TypeName="RMSModel.codeReferralStatusLanguage">
+              <MappingFragment StoreEntitySet="codeReferralStatusLanguage">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeReferralStatusLanguageRowVersion" ColumnName="codeReferralStatusLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ReferralStatusGUID" ColumnName="ReferralStatusGUID" />
+                <ScalarProperty Name="ReferralStatusLanguageGUID" ColumnName="ReferralStatusLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizationsInstances">
+            <EntityTypeMapping TypeName="RMSModel.codeOrganizationsInstances">
+              <MappingFragment StoreEntitySet="codeOrganizationsInstances">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeOrganizationsInstancesRowVersion" ColumnName="codeOrganizationsInstancesRowVersion" />
+                <ScalarProperty Name="OperationGUID" ColumnName="OperationGUID" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizationsInstancesLanguages">
+            <EntityTypeMapping TypeName="RMSModel.codeOrganizationsInstancesLanguages">
+              <MappingFragment StoreEntitySet="codeOrganizationsInstancesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeOrganizationsInstancesLanguagesRowVersion" ColumnName="codeOrganizationsInstancesLanguagesRowVersion" />
+                <ScalarProperty Name="OrganizationInstanceDescription" ColumnName="OrganizationInstanceDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="OrganizationInstanceLanguageGUID" ColumnName="OrganizationInstanceLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStations">
+            <EntityTypeMapping TypeName="RMSModel.codeDutyStations">
+              <MappingFragment StoreEntitySet="codeDutyStations">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsRowVersion" ColumnName="codeDutyStationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStationsLanguages">
+            <EntityTypeMapping TypeName="RMSModel.codeDutyStationsLanguages">
+              <MappingFragment StoreEntitySet="codeDutyStationsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsLanguagesRowVersion" ColumnName="codeDutyStationsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DutyStationDescription" ColumnName="DutyStationDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="DutyStationLanguageGUID" ColumnName="DutyStationLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeReferralStatus">
+            <EntityTypeMapping TypeName="RMSModel.codeReferralStatus">
+              <MappingFragment StoreEntitySet="codeReferralStatus">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeReferralStatusRowVersion" ColumnName="codeReferralStatusRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ApplicationGUID" ColumnName="ApplicationGUID" />
+                <ScalarProperty Name="ReferralStatusGUID" ColumnName="ReferralStatusGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValues">
+            <EntityTypeMapping TypeName="RMSModel.codeTablesValues">
+              <MappingFragment StoreEntitySet="codeTablesValues">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesRowVersion" ColumnName="codeTablesValuesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="TableGUID" ColumnName="TableGUID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValuesLanguages">
+            <EntityTypeMapping TypeName="RMSModel.codeTablesValuesLanguages">
+              <MappingFragment StoreEntitySet="codeTablesValuesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesLanguagesRowVersion" ColumnName="codeTablesValuesLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ValueDescription" ColumnName="ValueDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+                <ScalarProperty Name="TableValueLanguageGUID" ColumnName="TableValueLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPrinterLog">
+            <EntityTypeMapping TypeName="RMSModel.dataPrinterLog">
+              <MappingFragment StoreEntitySet="dataPrinterLog">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPrinterLogRowVersion" ColumnName="dataPrinterLogRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OidValue" ColumnName="OidValue" />
+                <ScalarProperty Name="LogDateTime" ColumnName="LogDateTime" />
+                <ScalarProperty Name="OidGUID" ColumnName="OidGUID" />
+                <ScalarProperty Name="PrinterConfigurationGUID" ColumnName="PrinterConfigurationGUID" />
+                <ScalarProperty Name="PrinterLogGUID" ColumnName="PrinterLogGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPrinterInkCartridge">
+            <EntityTypeMapping TypeName="RMSModel.dataPrinterInkCartridge">
+              <MappingFragment StoreEntitySet="dataPrinterInkCartridge">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPrinterInkCartridgeRowVersion" ColumnName="dataPrinterInkCartridgeRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="OidGUID" ColumnName="OidGUID" />
+                <ScalarProperty Name="PrinterConfigurationGUID" ColumnName="PrinterConfigurationGUID" />
+                <ScalarProperty Name="PrinterInkCartridgeGUID" ColumnName="PrinterInkCartridgeGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPrinterOID">
+            <EntityTypeMapping TypeName="RMSModel.dataPrinterOID">
+              <MappingFragment StoreEntitySet="dataPrinterOID">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPrinterOIDRowVersion" ColumnName="dataPrinterOIDRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="MuteEmailNotification" ColumnName="MuteEmailNotification" />
+                <ScalarProperty Name="OidGUID" ColumnName="OidGUID" />
+                <ScalarProperty Name="PrinterConfigurationGUID" ColumnName="PrinterConfigurationGUID" />
+                <ScalarProperty Name="PrinterOidGUID" ColumnName="PrinterOidGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOID">
+            <EntityTypeMapping TypeName="RMSModel.codeOID">
+              <MappingFragment StoreEntitySet="codeOID">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeOIDRowVersion" ColumnName="codeOIDRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IsImport" ColumnName="IsImport" />
+                <ScalarProperty Name="ValueType" ColumnName="ValueType" />
+                <ScalarProperty Name="OIDNumber" ColumnName="OIDNumber" />
+                <ScalarProperty Name="OIDDescription" ColumnName="OIDDescription" />
+                <ScalarProperty Name="OIDTypeGUID" ColumnName="OIDTypeGUID" />
+                <ScalarProperty Name="PrinterTypeGUID" ColumnName="PrinterTypeGUID" />
+                <ScalarProperty Name="PrinterModelGUID" ColumnName="PrinterModelGUID" />
+                <ScalarProperty Name="OidGUID" ColumnName="OidGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataOidReferralStatus">
+            <EntityTypeMapping TypeName="RMSModel.dataOidReferralStatus">
+              <MappingFragment StoreEntitySet="dataOidReferralStatus">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataOidReferralStatusRowVersion" ColumnName="dataOidReferralStatusRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ReferralStatusGUID" ColumnName="ReferralStatusGUID" />
+                <ScalarProperty Name="OidTypeGUID" ColumnName="OidTypeGUID" />
+                <ScalarProperty Name="OidReferralStatus" ColumnName="OidReferralStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOffices">
+            <EntityTypeMapping TypeName="RMSModel.codeOffices">
+              <MappingFragment StoreEntitySet="codeOffices">
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeOfficesRowVersion" ColumnName="codeOfficesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="OfficeTypeGUID" ColumnName="OfficeTypeGUID" />
+                <ScalarProperty Name="VTCIP" ColumnName="VTCIP" />
+                <ScalarProperty Name="OfficePhoneNumber" ColumnName="OfficePhoneNumber" />
+                <ScalarProperty Name="OfficePhoneCountryCode" ColumnName="OfficePhoneCountryCode" />
+                <ScalarProperty Name="OfficeGUID" ColumnName="OfficeGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOfficesLanguages">
+            <EntityTypeMapping TypeName="RMSModel.codeOfficesLanguages">
+              <MappingFragment StoreEntitySet="codeOfficesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeOfficesLanguagesRowVersion" ColumnName="codeOfficesLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OfficeAddress" ColumnName="OfficeAddress" />
+                <ScalarProperty Name="OfficeDescription" ColumnName="OfficeDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="OfficeGUID" ColumnName="OfficeGUID" />
+                <ScalarProperty Name="OfficeLanguageGUID" ColumnName="OfficeLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPrinterConfiguration">
+            <EntityTypeMapping TypeName="RMSModel.dataPrinterConfiguration">
+              <MappingFragment StoreEntitySet="dataPrinterConfiguration">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataPrinterConfigurationRowVersion" ColumnName="dataPrinterConfigurationRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IsContainProblem" ColumnName="IsContainProblem" />
+                <ScalarProperty Name="FloorNumber" ColumnName="FloorNumber" />
+                <ScalarProperty Name="OfficeNumber" ColumnName="OfficeNumber" />
+                <ScalarProperty Name="BuildingGUID" ColumnName="BuildingGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="PrinterTypeGUID" ColumnName="PrinterTypeGUID" />
+                <ScalarProperty Name="PrinterModelGUID" ColumnName="PrinterModelGUID" />
+                <ScalarProperty Name="PrinterName" ColumnName="PrinterName" />
+                <ScalarProperty Name="PrinterConfigurationGUID" ColumnName="PrinterConfigurationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PrinterLogs" FunctionName="RMSModel.Store.PrinterLogs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RMSModel.PrinterLogs_Result">
+                <ScalarProperty Name="PrinterConfigurationGUID" ColumnName="PrinterConfigurationGUID" />
+                <ScalarProperty Name="OidGUID" ColumnName="OidGUID" />
+                <ScalarProperty Name="LogDateTime" ColumnName="LogDateTime" />
+                <ScalarProperty Name="OidValue" ColumnName="OidValue" />
+                <ScalarProperty Name="PrinterModelGUID" ColumnName="PrinterModelGUID" />
+                <ScalarProperty Name="PrinterTypeGUID" ColumnName="PrinterTypeGUID" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="BuildingGUID" ColumnName="BuildingGUID" />
+                <ScalarProperty Name="OfficeNumber" ColumnName="OfficeNumber" />
+                <ScalarProperty Name="FloorNumber" ColumnName="FloorNumber" />
+                <ScalarProperty Name="IsContainProblem" ColumnName="IsContainProblem" />
+                <ScalarProperty Name="OIDDescription" ColumnName="OIDDescription" />
+                <ScalarProperty Name="OIDNumber" ColumnName="OIDNumber" />
+                <ScalarProperty Name="ValueType" ColumnName="ValueType" />
+                <ScalarProperty Name="IsImport" ColumnName="IsImport" />
+                <ScalarProperty Name="OIDTypeGUID" ColumnName="OIDTypeGUID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

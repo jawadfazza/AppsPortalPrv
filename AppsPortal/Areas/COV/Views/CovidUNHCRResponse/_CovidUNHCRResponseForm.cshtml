@@ -1,0 +1,504 @@
+﻿@model DataCovidUNHCRResponseStrategyUpdateModel
+
+@using (Html.BeginForm("CovidUNHCRResponse", "CovidUNHCRResponse", new { Area = "COV" }, FormMethod.Post, new { id = "CovidUNHCRResponseForm", @class = "main-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.CovidUNHCRResponseStrategyGUID)
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.CreatedOn)
+    @Html.HiddenFor(model => model.CovIndicatorTechnicalUnitGUID)
+
+    <div class="row">
+        <br />
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Details</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UNHCRStrategy)
+                                @Html.DropDownListFor(model => model.UNHCRStrategy, new DropDownList().COVUNHCRStrategies(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DateOfReport)
+                                @Html.EditorFor(model => model.DateOfReport, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CovStatus)
+                                @Html.DropDownListFor(model => model.CovStatus, new DropDownList().COVStatuses(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Governorate)
+                                @Html.DropDownListFor(model => model.Governorate, new DropDownList().COVGovernorates(), "",
+                               new
+                               {
+                                   @class = "form-control select2-basic-search",
+                                   style = "width:100%",
+                                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'District', Action : 'RemoteCOVDistricts'}]);"
+                               })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.District)
+                                @if (Model.CovidUNHCRResponseStrategyGUID != null)
+                                {
+                                    @Html.DropDownListFor(model => model.District, new DropDownList().COVDistricts(Model.Governorate), "",
+                            new
+                            {
+                                @class = "form-control select2-basic-search",
+                                style = "width:100%",
+                                onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'SubDistrict', Action : 'RemoteCOVSubDistricts'}]);"
+                            })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.District, new DropDownList().Empty(), "",
+                             new
+                             {
+                                 @class = "form-control select2-basic-search",
+                                 style = "width:100%",
+                                 onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'SubDistrict', Action : 'RemoteCOVSubDistricts'}]);"
+                             })
+                                }
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SubDistrict)
+                                @if (Model.CovidUNHCRResponseStrategyGUID != null)
+                                {
+                                    @Html.DropDownListFor(model => model.SubDistrict, new DropDownList().COVSubDistricts(Model.District), "",
+                             new
+                             {
+                                 @class = "form-control select2-basic-search",
+                                 style = "width:100%",
+                                 onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CommunityName', Action : 'RemoteCOVCommunities'}]);"
+                             })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.SubDistrict, new DropDownList().Empty(), "",
+                               new
+                               {
+                                   @class = "form-control select2-basic-search",
+                                   style = "width:100%",
+                                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CommunityName', Action : 'RemoteCOVCommunities'}]);"
+                               })
+                                }
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CommunityName)
+                                @if (Model.CovidUNHCRResponseStrategyGUID != null)
+                                {
+                                    @Html.DropDownListFor(model => model.CommunityName, new DropDownList().COVCommunities(Model.SubDistrict), "",
+                              new
+                                   {
+                                  @class = "form-control select2-basic-search",
+                                  style = "width:100%",
+                                  onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'Neighborhood', Action : 'RemoteCOVNeighborhoods'}]);"
+                              })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.CommunityName, new DropDownList().Empty(), "",
+                                new
+                                     {
+                                    @class = "form-control select2-basic-search",
+                                    style = "width:100%",
+                                    onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'Neighborhood', Action : 'RemoteCOVNeighborhoods'}]);"
+                                })
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Neighborhood)
+                                @if (Model.CovidUNHCRResponseStrategyGUID != null)
+                                {
+                                    @Html.DropDownListFor(model => model.Neighborhood, new DropDownList().COVNeighborhoods(Model.CommunityName), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.Neighborhood, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Location)
+                                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Longitude)
+                                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Latitude)
+                                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ObjectiveGUID)
+                                @Html.DropDownListFor(model => model.ObjectiveGUID, new DropDownList().COVObjectives(), "",
+                               new
+                                    {
+                                   @class = "form-control select2-basic-search",
+                                   style = "width:100%",
+                                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'OutputGUID', Action : 'RemoteCOVOutputs'}]);"
+                               })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OutputGUID)
+                                @if (Model.CovidUNHCRResponseStrategyGUID != null)
+                                {
+                                    @Html.DropDownListFor(model => model.OutputGUID, new DropDownList().COVOutputs(Model.ObjectiveGUID), "",
+                                new
+                                     {
+                                    @class = "form-control select2-basic-single",
+                                    style = "width:100%",
+                                    onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'IndicatorGUID', Action : 'RemoteCOVIndicators'}]);"
+                                })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.OutputGUID, new DropDownList().Empty(), "",
+                                new
+                                     {
+                                    @class = "form-control select2-basic-single",
+                                    style = "width:100%",
+                                    onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'IndicatorGUID', Action : 'RemoteCOVIndicators'}]);"
+                                })
+                                }
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IndicatorGUID)
+                                @if (Model.CovidUNHCRResponseStrategyGUID != null)
+                                {
+                                    @Html.DropDownListFor(model => model.IndicatorGUID, new DropDownList().COVIndicators(Model.OutputGUID), "",
+                                   new
+                                        {
+                                       @class = "form-control select2-basic-single",
+                                       style = "width:100%",
+                                       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CovUnitGUID', Action : 'RemoteCOVIndicatorUnit'}]);"
+                                        })
+
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.IndicatorGUID, new DropDownList().Empty(), "",
+                                    new
+                                         {
+                                       @class = "form-control select2-basic-single",
+                                       style = "width:100%",
+                                       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CovUnitGUID', Action : 'RemoteCOVIndicatorUnit'}]);"
+                                         })
+
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @if (Model.CovidUNHCRResponseStrategyGUID != null)
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CovUnitGUID)
+                                    @Html.DropDownListFor(model => model.CovUnitGUID, new DropDownList().COVIndicatorUnit(Model.IndicatorGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CovUnitGUID)
+                                    @Html.DropDownListFor(model => model.CovUnitGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Measure_Achievments)
+                                @Html.EditorFor(model => model.Measure_Achievments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DirectActivities)
+                                @Html.DropDownListFor(model => model.DirectActivities, new DropDownList().COVDirectActivities(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Associated)
+                                @Html.DropDownListFor(model => model.Associated, new DropDownList().COVAssociated(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ImplementingPartner)
+                                @Html.EditorFor(model => model.ImplementingPartner, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    @*<div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Quantity)
+                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.UnitCost)
+                                    @Html.EditorFor(model => model.UnitCost, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Month)
+                                    @Html.EditorFor(model => model.Month, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CostEstimationThreeMonthes)
+                                    @Html.EditorFor(model => model.CostEstimationThreeMonthes, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                        </div>*@
+                    @if (new CMS().HasAction(Permissions.CovidRecordFeedback.Create, Apps.COV))
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Feedback)
+                                    @Html.TextAreaFor(model => model.Feedback, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 3 })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.HiddenFor(model => model.Feedback)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Feedback)
+                                    @Html.TextAreaFor(model => model.Feedback, new { @readonly = true, @disabled = "disabled", @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 3 })
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="CovidUNHCRResponseFormControls" class="form-group form-footer">
+                @if (Model.CovidUNHCRResponseStrategyGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.COVIDUNHCRResponse.Create, Apps.COV)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.COVIDUNHCRResponse.Update, Apps.COV, Model.GovernorateGUID.ToString())
+                        @Html.CreateNewButton(Permissions.COVIDUNHCRResponse.Create, Apps.COV, Url.Action("Create", "CovidUNHCRResponse", new { Area = "COV" }))
+                        @Html.DeleteButton(Permissions.COVIDUNHCRResponse.Delete, Apps.COV, Model.GovernorateGUID.ToString())
+
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.COVIDUNHCRResponse.Restore, Apps.COV)
+                    }
+                }
+                @if (Model.CovidUNHCRResponseStrategyGUID != Guid.Empty && Model.Active)
+                {
+                    if (new CMS().HasAction(Permissions.COVIDRecordVerify.Create, Apps.COV))
+                    {
+                        <input id="btn-verifyRecord" type="button" value="Verify Record" class="btn btn-primary" />
+                    }
+                    if (new CMS().HasAction(Permissions.CovidRecordFeedback.Create, Apps.COV))
+                    {
+                        <input id="btn-submitFeedback" type="button" value="Submit Feedback" class="btn btn-primary" />
+
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "CovidUNHCRResponse", new { Area = "COV" }))
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#CommunityName').change(function (e) {
+            var admin4Pcode = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/COV/CovidUNHCRResponse/GetCoordinates/",
+                data: { admin4Pcode: admin4Pcode },
+                success: function (JsonResult) {
+                    $('#Longitude').val(JsonResult["Longitude"]);
+                    $('#Latitude').val(JsonResult["Latitude"]);
+                }
+            });
+
+        });
+        function delay(callback, ms) {
+            var timer = 0;
+            return function () {
+                var context = this, args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    callback.apply(context, args);
+                }, ms || 0);
+            };
+        }
+
+
+        // Example usage:
+
+        //$('#Quantity').keyup(delay(function (e) {
+        //    var Quantity = $(this).val();
+        //    var _CovUnitGUID = $('#CovUnitGUID').val();
+        //    console.log('Time elapsed!', this.value);
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "/COV/CovidUNHCRResponse/GetUnitCost",
+        //        data: {
+        //            CovUnitGUID: _CovUnitGUID
+        //        },
+        //        success: function (JsonResult) {
+        //            $('#UnitCost').val((JsonResult["CovUnitCost"] * 1) * (Quantity * 1));
+        //            $('#CostEstimationThreeMonthes').val((JsonResult["CovUnitCost"] * 1) * (Quantity * 1) * (3));
+        //        },
+        //    });
+        //}, 500));
+
+        $('#CovUnitGUID').change(function (e) {
+            e.preventDefault();
+            $('#Quantity').val('');
+            $('#UnitCost').val('');
+            $('#CostEstimationThreeMonthes').val('');
+        });
+
+        $(document).on('click', '.btnNewRecord', function (e) {
+            e.preventDefault();
+            var UNHCRStrategy = $('#UNHCRStrategy').val();
+            var DateOfReport = $('#DateOfReport').val();
+            var Governorate = $('#Governorate').val();
+            var District = $('#District').val();
+            var SubDistrict = $('#SubDistrict').val();
+            var CommunityName = $('#CommunityName').val();
+            var Neighborhood = $('#Neighborhood').val();
+            var Location = $('#Location').val();
+            var Longitude = $('#Longitude').val();
+            var Latitude = $('#Latitude').val();
+            var ObjectiveGUID = $('#ObjectiveGUID').val();
+            var url = '/COV/CovidUNHCRResponse/CreateNew?';
+            url += "UNHCRStrategy=" + UNHCRStrategy;
+            url += "&DateOfReport=" + DateOfReport;
+            url += "&Governorate=" + Governorate;
+            url += "&District=" + District;
+            url += "&SubDistrict=" + SubDistrict;
+            url += "&CommunityName=" + CommunityName;
+            url += "&Neighborhood=" + Neighborhood;
+            url += "&Location=" + Location;
+            url += "&Longitude=" + Longitude;
+            url += "&Latitude=" + Latitude;
+            url += "&ObjectiveGUID=" + ObjectiveGUID;
+            debugger;
+            $(location).attr('href', url)
+        });
+
+        $(document).on('click', '#btn-verifyRecord', function (e) {
+            e.preventDefault();
+            var CovidUNHCRResponseStrategyGUID = $('#CovidUNHCRResponseStrategyGUID').val();
+            $.ajax({
+                type: "POST",
+                url: "/COV/CovidUNHCRResponse/CovidUNHCRResponseVerify",
+                data: { CovidUNHCRResponseStrategyGUID: CovidUNHCRResponseStrategyGUID },
+                success: function (JsonResult) {
+                    if (JsonResult["success"] == true) {
+                        Notify(NotificationType.Success, 'Record is verified.');
+                    } else {
+                        Notify(NotificationType.Error, 'Access Denied.');
+                    }
+                }
+            });
+
+        });
+
+        $(document).on('click', '#btn-submitFeedback', function (e) {
+            e.preventDefault();
+            var CovidUNHCRResponseStrategyGUID = $('#CovidUNHCRResponseStrategyGUID').val();
+            var Feedback = $('#Feedback').val();
+            $.ajax({
+                type: "POST",
+                url: "/COV/CovidUNHCRResponse/CovidUNHCRResponseFeedback",
+                data: {
+                    CovidUNHCRResponseStrategyGUID: CovidUNHCRResponseStrategyGUID,
+                    Feedback: Feedback
+                },
+                success: function (JsonResult) {
+                    if (JsonResult["success"] == true) {
+                        Notify(NotificationType.Success, 'Feedback is submitted.');
+                    }
+                }
+            });
+
+        });
+    });
+</script>

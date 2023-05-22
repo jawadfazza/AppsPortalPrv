@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="117a044d43eb4ec4ab625fe9d999d500" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="TTTModel.userPersonalDetails" Width="1.5" PointX="10.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.userPersonalDetailsLanguage" Width="1.5" PointX="13" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.codeCountries" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.codeCountriesConfigurations" Width="1.5" PointX="3" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.codeCountriesLanguages" Width="1.5" PointX="3" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.codeDepartmentsConfigurations" Width="1.5" PointX="3" PointY="33.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.codeDepartmentsLanguages" Width="1.5" PointX="3" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.codeDutyStationsConfigurations" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.codeDutyStationsLanguages" Width="1.5" PointX="3" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.codeTables" Width="1.5" PointX="10.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.codeTablesValues" Width="1.5" PointX="13" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.codeTablesValuesConfigurations" Width="1.5" PointX="15.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTTModel.codeTablesValuesLanguages" Width="1.5" PointX="15.25" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="TTTModel.FK_userPersonalDetailsLanguage_userPersonalDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="TTTModel.FK_codeCountriesLanguages_codeCountries" ManuallyRouted="false" />
+        <AssociationConnector Association="TTTModel.FK_codeCountriesOperations_codeCountries" ManuallyRouted="false" />
+        <AssociationConnector Association="TTTModel.FK_codeTablesValues_codeTables" ManuallyRouted="false" />
+        <AssociationConnector Association="TTTModel.FK_codeTablesValuesLanguages_codeTablesValues" ManuallyRouted="false" />
+        <AssociationConnector Association="TTTModel.FK_codeTablesValuesOperations_codeTablesValues" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TTTModel.dataTenderBOCs" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TTTModel.dataTenderAwardedCompanies" Width="1.5" PointX="7.625" PointY="26.5" />
+        <EntityTypeShape EntityType="TTTModel.dataTenderContractInformation" Width="1.5" PointX="7.625" PointY="13.875" />
+        <EntityTypeShape EntityType="TTTModel.dataTenderObservationAndRemarks" Width="1.5" PointX="7.625" PointY="33.125" />
+        <EntityTypeShape EntityType="TTTModel.dataTenderEndorsementsAndApprovals" Width="1.5" PointX="7.625" PointY="36.25" />
+        <EntityTypeShape EntityType="TTTModel.dataTenderingAndEvaluation" Width="1.5" PointX="7.625" PointY="40.375" />
+        <EntityTypeShape EntityType="TTTModel.dataTenderRequisition" Width="1.5" PointX="7.625" PointY="20.5" />
+        <EntityTypeShape EntityType="TTTModel.dataTenderRequisitionFocalPoints" Width="1.5" PointX="9.875" PointY="20.875" />
+        <AssociationConnector Association="TTTModel.FK_dataTenderRequisitionFocalPoints_dataTenderRequisition" />
+        <EntityTypeShape EntityType="TTTModel.codeDutyStations" Width="1.5" PointX="0.75" PointY="15" />
+        <AssociationConnector Association="TTTModel.FK_codeDutyStationsLanguages_codeDutyStations" />
+        <AssociationConnector Association="TTTModel.FK_codeOrganizationsOperationsDutyStations_codeDutyStations" />
+        <EntityTypeShape EntityType="TTTModel.dataPurchaseOrder" Width="1.5" PointX="19.375" PointY="1.5" />
+        <EntityTypeShape EntityType="TTTModel.dataPurchaseOrderItem" Width="1.5" PointX="21.625" PointY="1.125" />
+        <EntityTypeShape EntityType="TTTModel.dataPurchaseOrderVoucher" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="TTTModel.dataPurchasingReport" Width="1.5" PointX="10.375" PointY="13.5" />
+        <EntityTypeShape EntityType="TTTModel.dataRequisition" Width="1.5" PointX="12.625" PointY="13" />
+        <AssociationConnector Association="TTTModel.FK_dataPurchaseOrderItem_dataPurchaseOrder1" />
+        <AssociationConnector Association="TTTModel.FK_dataRequisition_dataPurchasingReport" />
+        <EntityTypeShape EntityType="TTTModel.StaffCoreData" Width="1.5" PointX="15.375" PointY="7.75" />
+        <EntityTypeShape EntityType="TTTModel.codeDepartments" Width="1.5" PointX="0.75" PointY="35.25" />
+        <AssociationConnector Association="TTTModel.FK_codeDepartmentsLanguages_codeDepartments" />
+        <AssociationConnector Association="TTTModel.FK_codeOrganizationsOperationsDepartments_codeDepartments" />
+        <EntityTypeShape EntityType="TTTModel.dataTender" Width="1.5" PointX="5.375" PointY="26.25" />
+        <AssociationConnector Association="TTTModel.FK_dataTenderAwardedCompanies_dataTender" />
+        <AssociationConnector Association="TTTModel.FK_dataTenderContractInformation_dataTender" />
+        <AssociationConnector Association="TTTModel.FK_dataTenderEndorsementsAndApprovals_dataTender" />
+        <AssociationConnector Association="TTTModel.FK_dataTenderingAndEvaluation_dataTender" />
+        <AssociationConnector Association="TTTModel.FK_dataTenderObservationAndRemarks_dataTender" />
+        <AssociationConnector Association="TTTModel.FK_dataTenderRequisition_dataTender" />
+        <EntityTypeShape EntityType="TTTModel.v_TrackingSheetReport" Width="1.5" PointX="7.375" PointY="0.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

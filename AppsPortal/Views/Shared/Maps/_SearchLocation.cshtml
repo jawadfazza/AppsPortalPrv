@@ -1,0 +1,106 @@
+﻿@model MapModel
+<script>
+    google.maps.event.addDomListener(window, 'load', Initilize);
+    var map;
+    var marker;
+    var markers = [];
+    function Initilize() {
+        // map
+        map = new google.maps.Map(document.getElementById('map'), {
+            mapTypeId: 'roadmap',
+            zoom: @Model.Zoom,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                position: isRTL() ? google.maps.ControlPosition.TOP_LEFT : google.maps.ControlPosition.TOP_RIGHT
+            },
+        });
+        // Locations search autocomplete
+        var autocomplete = new google.maps.places.Autocomplete(document.getElementById('txtCountryDescription'));
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            var place = autocomplete.getPlace();
+            var lat = place.geometry.location.lat().toString().substring(0, 9);
+            var lng = place.geometry.location.lng().toString().substring(0, 9);
+            $('#Latitude').val(lat.toString().substring(0, 9));
+            $('#Longitude').val(lng.toString().substring(0, 9));
+            map.setCenter(new google.maps.LatLng(lat, lng));
+            //Clear all markers
+            DeleteMarkers();
+            placeMarker(new google.maps.LatLng(lat, lng));
+        });
+        InitCurrentLocation();
+    }
+    var InitCurrentLocation = function () {
+        var lat = document.getElementById('Latitude').value;
+        var log = document.getElementById('Longitude').value;
+        if (lat != '' && log != '' && lat != '0' && log != '0') {
+            //google.maps.event.trigger(map, 'resize');
+            map.setCenter(new google.maps.LatLng(lat, log));
+            placeMarker(new google.maps.LatLng(lat, log));
+        } else {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+                //placeMarker(new google.maps.LatLng(lat, log));
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    }
+    var placeMarker = function (location) {
+        var lat = location.lat();
+        var lng = location.lng();
+        if (marker != null) {
+            marker.setMap(null);
+        }
+        marker = new google.maps.Marker({
+            position: { lat: lat, lng: lng },
+            draggable: true,
+            map: map
+        });
+        SetPosition(marker);
+        DeleteMarkers();
+        markers.push(marker);
+    }
+    var showPosition = function (position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        map.setCenter(new google.maps.LatLng(lat, lng));
+        //Adding a marker
+        marker = new google.maps.Marker({
+            position: { lat: lat, lng: lng },
+            draggable: true,
+            map: map
+        });
+        SetPosition(marker);
+    }
+    function DeleteMarkers() {
+        //Loop through all the markers and remove them
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        //markers = [];
+    };
+    function SetPosition(marker) {
+        $("#Latitude").val(marker.getPosition().lat().toString().substring(0, 9));
+        $("#Longitude").val(marker.getPosition().lng().toString().substring(0, 9));
+        google.maps.event.addListener(marker, 'drag', function () {
+            $("#Latitude").val(marker.getPosition().lat().toString().substring(0, 9));
+            $("#Longitude").val(marker.getPosition().lng().toString().substring(0, 9));
+        });
+        google.maps.event.addListener(marker, 'dragend', function () {
+            $('input:submit').prop('disabled', false);
+        });
+    }
+    $(document).ready(function () {
+        Initilize();
+    });
+</script>
+<label>@resxPages.GPScoordinates</label>
+<div class="form-group">
+    <div class="autocomplete-google">
+        <input autocomplete="off" class="form-control" style="margin-bottom:5px;max-width:400px;" id="txtCountryDescription" type="text" value="" placeholder="Enter Location Name to get the GPS Coordinates">
+        <input autocomplete="off" readonly="readonly" placeholder="Latitude" title="Latitude" style="max-width:50%;float:left" class="form-control text-box" name="Latitude" id="Latitude" value="@Model.Latitude">
+        <input autocomplete="off" readonly="readonly" placeholder="Longitude" title="Longitude" style="max-width:50%;float:left" class="form-control text-box" name="Longitude" id="Longitude" value="@Model.Longitude">
+    </div>
+    <div id="map" style="height:@Model.Height; padding-top:10px; border: solid 1px #ccc;">
+    </div>
+</div>

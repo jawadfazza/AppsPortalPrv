@@ -1,0 +1,39 @@
+﻿@model userServiceHistory
+<div class="row sRowHeader">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 shHeader">
+        <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
+            <span style="font-size:1.2em; font-weight:bold;">@Model.codeOrganizations.codeOrganizationsLanguages.Where(s => s.LanguageID == Languages.CurrentLanguage().ToString()).FirstOrDefault().OrganizationDescription</span>
+        <div>
+            <a class='Modal-Link' href='#' data-url='/Profile/ExperienceUpdate/@Model.ServiceHistoryGUID'>Manage</a>&nbsp;|&nbsp;
+            <a class='Modal-Link' href='#' data-url='/Profile/JobCreate/@Model.ServiceHistoryGUID'>Add New Job</a>
+        </div>
+        </div>
+    </div>
+    <div class="col-xs-12 shRecord">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <span class="factsheet-label">@resxDbFields.EmailAddress:</span>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            <span>@Model.EmailAddress</span>
+        </div>
+    </div>
+    <div class="col-xs-12 shRecord">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <span class="factsheet-label">@resxDbFields.EmployeeNumber</span>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            <span>@Model.EmployeeNumber</span>
+        </div>
+    </div>
+    <div class="col-xs-12 shRecord">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <span class="factsheet-label">@resxDbFields.IndexNumber</span>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            <span>@Model.IndexNumber</span>
+        </div>
+    </div>
+</div>
+<div id="@string.Format("{0}JobSection",Model.ServiceHistoryGUID)">
+    <div id="@string.Format("{0}NewJob",Model.ServiceHistoryGUID)"></div>
+</div>

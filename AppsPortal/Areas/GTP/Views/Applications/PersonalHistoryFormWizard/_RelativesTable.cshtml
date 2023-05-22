@@ -1,0 +1,75 @@
+﻿@model dataPersonalHistoryQuestionnaireWithRelativesUpdateModel
+
+@if (Model.GTPPHQuestionnaireGUID != Guid.Empty)
+{
+    if (Model.EighthQuestionAnswerDetails && Model.dataPersonalHistoryRelatives.Count > 0)
+    {
+        for (int i = 0; i < Model.dataPersonalHistoryRelatives.Count; i++)
+        {
+            <div class="panel panel-default" style="margin-top:5px;">
+                <div class="panel-heading">
+                    <span><b>Relative # @(i + 1) </b> <input type="button" data-url="/GTP/Applications/RelativesUpdate/@Model.dataPersonalHistoryRelatives[i].GTPPHRelativeGUID" class="btn btn-success lgModal Modal-Link pull-right" style="margin-top:-6px" value="Update / Delete record" /></span>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="row" style="padding-top:10px;">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeName)
+                                    @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeBirthDate)
+                                    @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeBirthDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeRelationship)
+                                    @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeRelationship, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+else if (Model.dataPersonalHistoryRelatives != null && Model.dataPersonalHistoryRelatives.Count > 0)
+{
+    for (int i = 0; i < Model.dataPersonalHistoryRelatives.Count; i++)
+    {
+        <div class="panel panel-default" style="margin-top:5px;">
+            <div class="panel-heading">
+                <span><b>Relative # @(i + 1) </b> <input type="button" data-url="/GTP/Applications/RelativesUpdate/@Model.dataPersonalHistoryRelatives[i].GTPPHRelativeGUID" class="btn btn-success lgModal Modal-Link pull-right" style="margin-top:-6px" value="Update / Delete record" /></span>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <div class="row" style="padding-top:10px;">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeName)
+                                @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeBirthDate)
+                                @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeBirthDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.dataPersonalHistoryRelatives[i].RelativeRelationship)
+                                @Html.EditorFor(model => model.dataPersonalHistoryRelatives[i].RelativeRelationship, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

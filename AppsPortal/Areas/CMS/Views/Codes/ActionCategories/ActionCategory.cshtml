@@ -1,0 +1,24 @@
+﻿@model ActionCategoryUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ActionCategoryGUID == Guid.Empty) ? "New Action Category" : "Edit Action Category";}
+@Html.PageHeader("5c7c5899-eb0c-4278-8f39-6fa3d0f53d57")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/ActionCategories/_ActionCategoryForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.ActionCategoryGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/ActionCategories/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ActionCategoryGUID, IsParentActive = Model.Active })
+            }
+        </div>
+        <div id="FactorsContainer">
+            @if (Model.ActionCategoryGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/ActionCategories/_FactorsDependencyDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ActionCategoryGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

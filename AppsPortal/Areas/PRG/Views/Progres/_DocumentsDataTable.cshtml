@@ -1,0 +1,35 @@
+﻿@model MasterRecordStatus
+@{
+    @Html.Partial("_ModalHeader", "Individual Details")
+}
+<div class="modal-body">
+
+        <div id="exTab1">
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#1a" data-toggle="tab">@resxPages.Appointment</a>
+                </li>
+                <li>
+                    <a href="#2a" data-toggle="tab">TAB TWO</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content clearfix">
+            <div class="tab-pane active mScroll" id="1a" style="max-height:400px;font-size: 11px">
+                <article>
+                    @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.DocumentsDataTable, FormController = "Progres", Area = "PRG", Type = DataTableTypes.Field, EditMode = DataTableEditMode.NoCheckBox, PK = Model.ParentGUID, OrderBy = 3 })
+                </article>
+            </div>
+            <div class="tab-pane" id="2a">
+                <article>
+                    <h3>Ludwig van Beethoven</h3>
+                    Ludwig van Beethoven, baptised 17 December 1770[1] – 26 March 1827) was a German composer and pianist. A crucial figure in the transition between the Classical and Romantic eras in Western art music, he remains one of the most famous and influential of all composers. His best-known compositions include 9 symphonies, 5 piano concertos, 1 violin concerto, 32 piano sonatas, 16 string quartets, his great Mass the Missa solemnis, and one opera, Fidelio.
+                    Born in Bonn, then the capital of the Electorate of Cologne and part of the Holy Roman Empire, Beethoven displayed his musical talents at an early age and was taught by his father Johann van Beethoven and by composer and conductor Christian Gottlob Neefe. At the age of 21 he moved to Vienna, where he began studying composition with Joseph Haydn and gained a reputation as a virtuoso pianist. He lived in Vienna until his death. By his late 20s his hearing began to deteriorate, and by the last decade of his life he was almost completely deaf. In 1811 he gave up conducting and performing in public but continued to compose; many of his most admired works come from these last 15 years of his life.
+                </article>
+            </div>
+        </div>
+    </div>
+
+<div class="modal-footer form-footer">
+    @Html.CloseModalButton()
+</div>

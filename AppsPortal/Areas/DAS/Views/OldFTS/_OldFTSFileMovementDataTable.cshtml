@@ -1,0 +1,23 @@
+﻿@model ScannNewDocumentModel
+<h3 class="Title">@resxPages.FileLocation</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.Active)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.DASOLDFTSFileMovementsDataHistoryDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.DASOLDFTSFileMovementsDataHistoryDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.DASOLDFTSFileMovementsDataHistoryDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.DASOLDFTSFileMovementsDataHistoryDataTable)
+              
+              
+                @Html.FieldDataTableRefresh(DataTableNames.DASOLDFTSFileMovementsDataHistoryDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.DASOLDFTSFileMovementsDataHistoryDataTable, FormController = "ScanDocument", Area = "DAS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.FileGUID, OrderBy = 1 })
+    </div>
+</div>

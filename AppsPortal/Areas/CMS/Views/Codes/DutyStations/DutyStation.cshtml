@@ -1,0 +1,22 @@
+﻿@model DutyStationsUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.DutyStationGUID == null) ? "New Duty Station" : "Edit Duty Station";}
+@Html.PageHeader("560e99c2-ec63-4347-ba19-eebcf901de8a")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+                @Html.Partial("~/Areas/CMS/Views/Codes/DutyStations/_DutyStationForm.cshtml")
+                <div id="LanguagesContainer">
+                    @if (Model.DutyStationGUID != Guid.Empty && Model.Active)
+                    {
+                        @Html.Partial("~/Areas/CMS/Views/Codes/DutyStations/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.DutyStationGUID, IsParentActive = Model.Active })
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

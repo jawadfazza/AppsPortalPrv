@@ -1,0 +1,52 @@
+﻿@model InternationalStaffEntitlementUpdateModel
+@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("96d883c5-5f0f-4738-8be9-7a1d4c99d7fa")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.InternationalMyStaffEntitlementDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LeaveNumber, DbColumnName = "LeaveNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SubmittedDate, DbColumnName = "SubmittedDate", FilterForDataType = "Text" })
+
+            </div>
+            <div class="col-lg-12">
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffGUID, DbColumnName = "StaffGUID", FilterForDataType = "Text", DataList = new DropDownList().InternationalStaffUsers(true), IsMultiple = true, IsSearchable = true })*@
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FlowStatusGUID, DbColumnName = "FlowStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().InternationalStaffLeaveFlowStatus(), IsMultiple = true, IsSearchable = true })
+
+            </div>
+            @*<div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStation, DbColumnName = "DutyStationGUID", FilterForDataType = "Text", DataList = new DropDownList().SyriaDutyStations(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DepartmentGUID, DbColumnName = "DepartmentGUID", FilterForDataType = "Text", DataList = new DropDownList().Departments(), IsMultiple = true, IsSearchable = true })
+
+            </div>*@
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.InternationalMyStaffEntitlementDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.InternationalMyStaffEntitlementDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.InternationalMyStaffEntitlementDataTable)
+
+        @*@Html.IndexDatatableCreate(Permissions.InternationalStaffEntitlements.Create, Apps.AHD, "/AHD/StaffRAndRLeaveRequest/Create")*@
+
+
+        @*@Html.FieldDataTableCreate(Permissions.InternationalStaffEntitlements.Create, Apps.AHD, Url.Action("InternationalStaffEntitlementPeriodCreate", "InternationalStaffEntitlement"))*@
+
+        @*@Html.IndexDatatableDelete(Permissions.InternationalStaffEntitlements.Delete, Apps.AHD, DataTableNames.InternationalMyStaffEntitlementDataTable)*@
+        @*@Html.IndexDatatableRestor(Permissions.InternationalStaffEntitlements.Restore, Apps.AHD, DataTableNames.InternationalMyStaffEntitlementDataTable)*@
+        @Html.IndexDatatableRefresh(DataTableNames.InternationalMyStaffEntitlementDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.InternationalMyStaffEntitlementDataTable, FormController = "InternationalStaffEntitlement", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.StaffGUID, OrderBy = 1 })
+
+
+        @*@Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.InternationalMyStaffEntitlementDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })*@
+    </div>
+
+
+</div>

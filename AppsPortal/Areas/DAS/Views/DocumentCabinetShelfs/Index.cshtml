@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "DocumentCabinetShelf";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("90218d05-832d-4e67-aa1c-cf00b8c56ccd")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.DocumentCabinetShelfsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ShelfNumber, DbColumnName = "ShelfNumber", FilterForDataType = "Text" })
+            </div>
+          
+            
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.DocumentCabinetShelfsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.DocumentCabinetShelfsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.DocumentCabinetShelfsDataTable)
+        @Html.IndexDatatableCreate(Permissions.DocumentCabinetShelf.Create, Apps.DAS, "/DAS/DocumentCabinetShelfs/Create")
+        @Html.IndexDatatableDelete(Permissions.DocumentCabinetShelf.Delete, Apps.DAS, DataTableNames.DocumentCabinetShelfsDataTable)
+        @Html.IndexDatatableRestor(Permissions.DocumentCabinetShelf.Restore, Apps.DAS, DataTableNames.DocumentCabinetShelfsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.DocumentCabinetShelfsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.DocumentCabinetShelfsDataTable, FormController = "DocumentCabinetShelf", Area = "DAS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>
+

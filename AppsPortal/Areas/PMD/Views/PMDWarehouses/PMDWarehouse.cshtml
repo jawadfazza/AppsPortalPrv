@@ -1,0 +1,20 @@
+﻿@model PMDWarehouseUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.PmdWarehouseGUID == Guid.Empty) ? "New Appointment Type" : "Edit Appointment Type"; }
+
+@Html.PageHeader("a4d01e53-4e62-4f62-a0a6-9bc328796903")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/PMD/Views/PMDWarehouses/_PMDWarehouseForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.PmdWarehouseGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/PMD/Views/PMDWarehouses/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.PmdWarehouseGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

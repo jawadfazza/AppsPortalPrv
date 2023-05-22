@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "TelecomCompanies";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("bdd7d980-713b-44c4-ae8a-6547bfa13bd4")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.TelecomCompaniesDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TelecomCompanyDescription, DbColumnName = "TelecomCompanyDescription", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TelecomCompanyAcronym, DbColumnName = "TelecomCompanyAcrony", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.TelecomCompaniesDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.TelecomCompaniesDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.TelecomCompaniesDataTable)
+        @Html.IndexDatatableCreate(Permissions.TelecomCompanies.Create, Apps.TBS, "/TBS/Configuration/TelecomCompanies/Create")
+        @Html.IndexDatatableDelete(Permissions.TelecomCompanies.Delete, Apps.TBS, DataTableNames.TelecomCompaniesDataTable)
+        @Html.IndexDatatableRestor(Permissions.TelecomCompanies.Restore, Apps.TBS, DataTableNames.TelecomCompaniesDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.TelecomCompaniesDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.TelecomCompaniesDataTable, FormController = "Configuration", Area = "TBS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

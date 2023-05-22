@@ -1,0 +1,18 @@
+﻿@model ActionEntityUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ActionEntityGUID == Guid.Empty) ? "New Action Entity" : "Edit Action Entity";}
+@Html.PageHeader("398f5ab6-72e4-49a0-ade1-a9feeaf8e789")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/ActionsEntities/_ActionEntityForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.ActionEntityGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/ActionsEntities/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ActionEntityGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

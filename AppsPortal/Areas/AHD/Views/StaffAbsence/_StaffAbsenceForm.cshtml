@@ -1,0 +1,176 @@
+﻿@model StaffAbsenceUpdateModel
+@using (Html.BeginForm("StaffAbsence", "StaffAbsences", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffAbsenceForm" }))
+{
+
+    string ModalTitle = Model.dataStaffAbsenceGuid.ToString() == Guid.Empty.ToString() ? "New Office Staff Absence UNOPS" : "Edit Office Staff Absence UNOPS";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.dataStaffAbsenceGuid)
+    @Html.HiddenFor(model => model.DutyStationGUID)
+    @Html.HiddenFor(model => model.AbsenceDays)
+    @if (Model.DirectSupervisor != Model.CurrentUserGUID.ToString())
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserGUID, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.UserGUID, new DropDownList().CoreUsers(true), "", new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-search",
+           //onchange = "UpdateDropDownListFromMultiple([$(this).val()], [{ DropDownListID : 'DirectSupervisor', Action : 'RemoteUpdateDirectSupervisor'}]);"
+       })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DirectSupervisor, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.DirectSupervisor, new DropDownList().CoreUsers(false), "", new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-search"
+       })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AbsenceDuration, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.AbsenceDuration, new DropDownList().AbsenceDuration(), "", new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-search"
+       })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AbsenceFrom)
+            @Html.EditorFor(model => model.AbsenceFrom, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AbsenceTo)
+            @Html.EditorFor(model => model.AbsenceTo, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AbsenceTypeGuid)
+            @Html.DropDownListFor(model => model.AbsenceTypeGuid, new DropDownList().LookupValues(LookupTables.AbsenceType), "",
+           new
+           {
+               @class = "form-control select2-basic-search",
+               style = "width:100%",
+               onchange = "RemoteBusinessDaysUntil()"
+           })
+        </div>
+        <div class="form-group">
+            <h5 id="AbsenceValid"></h5>
+        </div>
+
+    }
+    else
+    {
+<div class="form-group">
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserGUID, htmlAttributes: new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.UserGUID, new DropDownList().CoreUsers(true), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search",
+       disabled = "disabled"
+   })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AbsenceTypeGuid)
+        @Html.DropDownListFor(model => model.AbsenceTypeGuid, new DropDownList().LookupValues(LookupTables.AbsenceType), "",
+       new
+       {
+           @class = "form-control select2-basic-search",
+           style = "width:100%",
+           onchange = "RemoteBusinessDaysUntil()",
+           disabled = "disabled"
+       })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AbsenceDuration, htmlAttributes: new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.AbsenceDuration, new DropDownList().AbsenceDuration(), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search",
+       disabled = "disabled"
+   })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AbsenceFrom)
+        @Html.DisplayFor(model => model.AbsenceFrom, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AbsenceTo)
+        @Html.DisplayFor(model => model.AbsenceTo, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    @if (!Model.SupervisorComfirmed)
+    {
+        <div class="form-group">
+            <hr />
+            @Html.CheckBoxFor(m => Model.SupervisorComfirmed, new { @class = "chkNode-accordion" })
+            @Html.LabelFor(model => model.SupervisorComfirmed)
+        </div>
+    }
+    else
+    {
+<div class="form-group">
+    <hr />
+    @Html.Label(resxDbFields.ConfirmedBy)
+    @Html.DisplayFor(model=>model.StaffName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })<br />
+    @Html.Label(resxDbFields.ConfirmedDate)
+    @Html.DisplayFor(model => model.SupervisorComfirmedDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+</div>
+    }
+    @Html.HiddenFor(model => model.UserGUID)
+    @Html.HiddenFor(model => model.AbsenceFrom)
+    @Html.HiddenFor(model => model.AbsenceTo)
+    @Html.HiddenFor(model => model.DutyStationGUID)
+    @Html.HiddenFor(model => model.DirectSupervisor)
+
+    @Html.HiddenFor(model => model.SupervisorComfirmedDate)
+    @Html.HiddenFor(model => model.AbsenceDuration)
+    @Html.HiddenFor(model => model.AbsenceTypeGuid)
+    @Html.HiddenFor(model => model.Active)
+
+
+</div>
+    }
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.dataStaffAbsenceGuid == Guid.Empty)
+        {
+            @Html.CreateButtonNoPermission()
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButtonNoPermission()
+                @Html.DeleteSwitchButtonNoPermission()
+            }
+            else
+            {
+                @Html.RestoreSwitchButtonNoPermission()
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+
+}
+
+<script>
+
+    function RemoteBusinessDaysUntil() {
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/AHD/StaffAbsences/RemoteBusinessDaysUntil?PK=' + $('#AbsenceTypeGuid').val() + "&DateFrom=" + $('#AbsenceFrom').val() + "&DateTo=" + $('#AbsenceTo').val() + "&AbsenceDuration=" + $('#AbsenceDuration').val() + "&CurrentUserGUID=" + $('#UserGUID').val(),
+            success: function (data) {
+                $("#AbsenceValid").text(data.Message);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+</script>
+
+

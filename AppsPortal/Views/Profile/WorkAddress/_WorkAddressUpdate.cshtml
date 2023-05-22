@@ -1,0 +1,38 @@
+﻿@model userWorkAddress
+<div class="forms-fadeIn">
+    @using (Html.BeginForm("WorkAddress", "Profile", FormMethod.Post, new { id = "WorkAddressForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.UserGUID)
+        <div class="row section EditSection">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 text-right pull-right col-nopadding-left">
+                <div class="panel-action">
+                    @Html.DoneLink()
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-8 col-sm-8 col-xs-8">
+                <h3 class="Title">@resxPages.WorkAddress</h3>
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.OfficeGUID, new { @class = "SubTitle" })
+                            @Html.DropDownListFor(model => model.OfficeGUID, new DropDownList().Offices(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.RoomNumber, new { @class = "SubTitle" })
+                            @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control group-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.FloorNumber, new { @class = "SubTitle" })
+                            @Html.EditorFor(model => model.FloorNumber, new { htmlAttributes = new { @class = "form-control group-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,59 @@
+﻿@model dataPersonalHistoryGeneralInfoUpdateModel
+@using (Html.BeginForm("GeneralInformationWizard", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "GeneralInformationWizardForm", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.GTPPHGeneralInfoGUID)
+    @Html.AntiForgeryToken()
+    <div class="tab-pane" id="tab1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><b>1. GENERAL INFORMATION </b> (Mandatory to complete) </span>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FirstName) <span class="span-required-field">*</span>
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LastName)     <span class="span-required-field">*</span>
+                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MiddleName)
+                        @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MaidenName)
+                        @Html.EditorFor(model => model.MaidenName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right">
+                            @if (Model.GTPPHGeneralInfoGUID == Guid.Empty)
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Save & Next' data-next-url="/GTP/Applications/PersonalInformationWizard/Create" />
+                            }
+                            else
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Update" name='next' value='Update & Next' data-next-url="/GTP/Applications/PersonalInformationWizard/Create" />
+                            }
+                        </div>
+                        <div style="float:left">
+                            <input type='button' class='btn btn-primary wizard-button-previous disabled' name='previous' value='Previous' data-previous-url="-1" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

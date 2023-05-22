@@ -1,0 +1,28 @@
+﻿@model TelecomCompanyUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.TelecomCompanyGUID == Guid.Empty) ? "New TelecomCompany" : "Edit TelecomCompany"; }
+
+@Html.PageHeader("3a72a540-453d-4d9f-bd1b-81868c2b1752")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/TBS/Views/Configuration/TelecomCompany/_TelecomCompanyForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.TelecomCompanyGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/TBS/Views/Configuration/TelecomCompany/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.TelecomCompanyGUID, IsParentActive = Model.Active })
+            }
+        </div>
+
+    </div>
+    <div id="OperationsContainer">
+        @if (Model.TelecomCompanyGUID != Guid.Empty && Model.Active)
+        {
+            @Html.Partial("~/Areas/TBS/Views/Configuration/TelecomCompany/_OperationsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.TelecomCompanyGUID, IsParentActive = Model.Active })
+        }
+    </div>
+
+</div>
+

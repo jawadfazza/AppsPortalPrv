@@ -1,0 +1,44 @@
+﻿@model dataItemQuantityThreshold
+@using (Html.BeginForm("ItemQuantityThreshold", "MedicalItems", new { Area = "EMT" }, FormMethod.Post, new { id = "ItemQuantityThresholdForm" }))
+{
+    string ModalTitle = Model.ItemQuantityThresholdGUID.ToString() == Guid.Empty.ToString() ? "New Item Quantity Threshold" : "Edit Item Quantity Threshold";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.ItemQuantityThresholdGUID)
+    @Html.HiddenFor(model => model.MedicalItemGUID)
+    @Html.HiddenFor(model => model.QuantityTotalRemainingItems)
+    <div class="form-group">
+        @Html.LabelFor(model => model.MedicalPharmacyGUID, htmlAttributes: new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.MedicalPharmacyGUID, new DropDownList().MedicalPharmacy(), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search",
+   })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.QuantityThreshold)
+        @Html.EditorFor(model => model.QuantityThreshold, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.ItemQuantityThresholdGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.MedicalItem.Create, Apps.EMT)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.MedicalItem.Update, Apps.EMT)
+                @Html.DeleteSwitchButton(Permissions.MedicalItem.Delete, Apps.EMT)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.MedicalItem.Delete, Apps.EMT)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

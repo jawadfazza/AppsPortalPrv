@@ -1,0 +1,46 @@
+﻿@model FileModel
+@using (Html.BeginForm("UpdateBulkShelf", "ArchivedDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "CreateFileForm" }))
+{
+    string ModalTitle = "Update Bulk Shelfs";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FileNumber)
+        @Html.TextAreaFor(model => model.FileNumbers, new { @class = "form-control group-control", autocomplete = "off", style = "width:100%;", rows = 6 })
+
+    </div>
+    <div class="form-group HANDLER">
+        @Html.LabelFor(model => model.CabinetGUID)
+        @Html.DropDownListFor(model => model.CabinetGUID, new DropDownList().DASDocumentCabinets(), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search",
+       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DocumentCabinetShelfGUID', Action : 'RemoteCabientsShelfs'}]);"
+   })
+
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.DocumentCabinetShelfGUID)
+            @Html.DropDownListFor(model => model.DocumentCabinetShelfGUID, new DropDownList().Empty(), "", new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-search",
+
+           //onchange = "UpdateDropDownList([$('#TemplateTypeDocumentGUID').val()], [{ DropDownListID : 'DocumentTagGUIDs', Action : 'RemoteDASDocumentTags'}]);"
+
+       })
+        </div>
+
+    </div>
+
+
+</div>
+<div class="modal-footer form-footer">
+
+    @Html.CreateButton(Permissions.RefugeeScannedDocument.Update, Apps.DAS)
+
+    @Html.CloseModalButton()
+</div>
+}

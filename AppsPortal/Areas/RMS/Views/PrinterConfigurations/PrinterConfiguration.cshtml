@@ -1,0 +1,21 @@
+﻿
+@model PrintersConfigUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.PrinterConfigurationGUID == Guid.Empty) ? "New Printer Configuration" : "Edit Printer Configuration"; }
+
+@Html.PageHeader("e575db2d-5a2b-424c-8d9b-9f7198ab5130")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/RMS/Views/PrinterConfigurations/_PrinterConfigurationForm.cshtml")
+        <div id="PrinterOidsContainer">
+            @if (Model.PrinterConfigurationGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/RMS/Views/PrinterConfigurations/_PrinterOidsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.PrinterConfigurationGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

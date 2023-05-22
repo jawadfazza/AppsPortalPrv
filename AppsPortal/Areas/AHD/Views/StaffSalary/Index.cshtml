@@ -1,0 +1,74 @@
+﻿@model SalaryCyclePeriodUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = "Staff Salary For " + Model.CycleName; }
+
+@Html.PageHeader("09ab1921-2405-4cc3-ac95-2eeaeaa15de1")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.StaffSalaryCyclePaymentDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStationGUID, DbColumnName = "DutyStationGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsSearchable = true, DataList = new DropDownList().SyriaStaffDutyStation() })
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.UserGUID, DbColumnName = "UserGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsSearchable = true, DataList = new DropDownList().AdminHRStaff() })
+
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.StaffSalaryCyclePaymentDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffSalaryCyclePaymentDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.StaffSalaryCyclePaymentDataTable)
+
+
+
+        @Html.IndexDatatableDelete(Permissions.SalaryCycle.Delete, Apps.AHD, DataTableNames.StaffSalaryCyclePaymentDataTable)
+        @Html.IndexDatatableRestor(Permissions.SalaryCycle.Restore, Apps.AHD, DataTableNames.StaffSalaryCyclePaymentDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.StaffSalaryCyclePaymentDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffSalaryCyclePaymentDataTable, FormController = "StaffSalary", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.SalaryCycleGUID, OrderBy = 1 })
+
+    </div>
+    <button type="button" class="btn btn-info" id="updateTotalSalaryToSalaryPaymentId">
+        Calculate Total Salary
+        <i id="updateTotalSalaryToSalaryPaymentloaderId" class="fa fa-refresh fa-spin"></i>
+    </button>
+
+</div>
+<script>
+    $("#updateTotalSalaryToSalaryPaymentloaderId").hide();
+    $("#updateTotalSalaryToSalaryPaymentId").click(function () {
+
+
+        $("#updateTotalSalaryToSalaryPaymentloaderId").show();
+        $("#updateTotalSalaryToSalaryPaymentId").prop('disabled', true);
+        var _SalaryCycleGUID = "@Model.SalaryCycleGUID";
+        $.ajax({
+
+            url: "/AHD/StaffSalary/CalculateStaffSalary",
+            dataType: 'json',
+            type: "post",
+            data: {
+                _SalaryCycleGUID: _SalaryCycleGUID,
+
+            },
+            success: function (data) {
+                $("#updateTotalSalaryToSalaryPaymentloaderId").hide();
+                $("#updateTotalSalaryToSalaryPaymentId").prop('disabled', false);
+                if (data.success == 1) {
+                    Notify(NotificationType.Success, 'Your request has been submitted');
+                    //$('.certifiy').hide();
+                }
+                else {
+                    Notify(NotificationType.Error, 'Error during saving ');
+                }
+            }
+
+        });
+    });
+</script>

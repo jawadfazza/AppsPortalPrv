@@ -1,0 +1,148 @@
+﻿@model StaffSalaryUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("a658db54-6d23-48a0-82aa-b5835f391399")
+<div class="page--content">
+    <h3>Staff Bank Information</h3>
+    <div class="forms-fadeIn">
+
+
+
+        @using (Html.BeginForm("UpdateStaffOvertimeReview", "StaffSalary", new { Area = "AHD" }, FormMethod.Post, new { id = "UpdateStaffOvertimeReviewform", @class = "main-form", enctype = "multipart/form-data" }))
+        {
+
+            @Html.AntiForgeryToken()
+
+            @Html.FormHiddenFields(model => model.StaffSalaryGUID)
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-primary newPanelSettings">
+                    <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+                        <h3 class="box-title">Salary Bank Information</h3>
+
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="col-md-6 col-lg-offset-3">
+                                    <div class="form-group HANDLER">
+                                        @Html.LabelFor(model => model.BankGUID)
+
+
+                                        <br />
+                                        @Html.DropDownListFor(model => model.BankGUID, new DropDownList().BanksNames(), "",
+                            new
+                            {
+                                @class = "form-control select2-basic-search",
+                                onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'BankBranchGUID', Action : 'RemoteBankBranches'}]);",
+                                style = "width:100%"
+                            })
+
+
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-6 col-lg-offset-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BranchName)
+
+                                        <br />
+                                        @Html.DropDownListFor(model => model.BankBranchGUID, new DropDownList().Empty(), "",
+                                           new
+                                           {
+                                               style = "width:100%",
+
+                                               @class = "form-control select2-basic-search"
+                                           })
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-6 col-lg-offset-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AccountNumber)
+
+
+                                        <br />
+                                        @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel-footer  ">
+                        @*<i class="far fa-hand-point-down showfooterstep1"></i>*@
+                        @if (Model.StaffConfirmationStatusGUID == StaffSalaryFlowStatus.PendingBankConfirmation)
+                        {
+
+                            <div class="form-group form-footer col-lg-offset-5">
+
+                                <input type="button" class="btn btn-info" id="btnSaveBankInformation"
+                                       value="Save And Confirm" />
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+
+    </div>
+</div>
+
+            <script>
+
+                $("#btnSaveBankInformation").click(function () {
+                    var _staffSalaryGUID = $("#StaffSalaryGUID").val();
+                    var _bankGUID = $("#BankGUID").val();
+                    var _bankBranchGUID = $("#BankBranchGUID").val();
+                    var _accountNumber = $("#AccountNumber").val();
+                    //var CertifierComment = $("#CertifierComment").val();
+                    // alert(myInternationalStaffEntitlementGUID);
+                    $('#btnSaveBankInformation').hide();
+                    alert(_staffSalaryGUID);
+                    alert(_bankGUID);
+                    alert(_bankBranchGUID);
+                    alert(_accountNumber);
+                    $.ajax({
+                        url: "/AHD/StaffSalary/ConfirmStaffSalaryBankDestination",
+                        dataType: 'json',
+                        type: "post",
+                        data: { _staffSalaryGUID: _staffSalaryGUID, _bankGUID: _bankGUID, _bankBranchGUID: _bankBranchGUID, _accountNumber: _accountNumber },
+                        success: function (data) {
+                            if (data.success == 1) {
+                                Notify(NotificationType.Success, 'Your request been submitted');
+                            }
+                        }
+
+                    });
+                });
+
+            </script>

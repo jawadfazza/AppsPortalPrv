@@ -1,0 +1,29 @@
+﻿@model ElectionResultDataTableModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{ string PageTitle = resxDbFields.ElectionResult; }
+
+@Html.PageHeader("3529ad4c-5228-4d0e-9e30-9bc1cd28e365")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.ElectionsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Title, DbColumnName = "Title", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.ElectionsDataTable)
+        </div>
+    </div>
+
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ElectionResultsDataTable, FormController = "Election", Area = "OVS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1})
+       
+    </div>
+</div>
+

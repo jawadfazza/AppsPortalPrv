@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("0c44822f-a898-476d-b291-caf1b055aac5")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("", "", new { Area = "PPA" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-table fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>
+                                PPA Management
+                            </h3>
+                            <span>Create and manage new PPA for tracking</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        
+
+
+   
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index","FilesProcess",new { Area = "PPA" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-bars fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3 class="black">PPA Files Workflow</h3>
+                            <span class="black">Allow the users to process files(Upload/Download)</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "Reports", new { Area = "PPA" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-sitemap fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>PPA Tracking Reports</h3>
+                            <span>Contains reports to allow the tracking of the process</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        
+
+      
+    </div>
+</div>

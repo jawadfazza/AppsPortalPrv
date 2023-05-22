@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("517fb5e1-eddc-4003-8d93-057972e3ede7")
+
+<div class="page--content">
+    <br />
+
+    <div class="row">
+        <div class="col-lg-4">
+
+            <div class="form-group">
+                <input id="txtFilter" type="text" class="form-control" placeholder="Find Code Table Name" onkeyup="searchDivs($(this).val(), 'MenuElement');" />
+                <i class="fa fa-search searchbox"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body HomeApps" style="padding:0">
+        <div class="row">
+            @{  if (Session[SessionKeys.UserGUID] != null && Session[SessionKeys.CurrentApp] != null)
+            {
+                List<NavigationMenu> Menus = new CMS().CodesMenus();
+                foreach (var Menu in Menus)
+                {
+                        <div class="col-lg-6">
+                            <h3> @Menu.RootMenuDescription </h3>
+                            @foreach (var SubMenu in Menu.SubMenu)
+                            {
+                                <a href="@SubMenu.SubMenuUrl"><div class="MenuElement"><span class="codeTableLink">@SubMenu.SubMenuDescription</span></div></a>
+                            }
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#txtFilter').val(window.localStorage.getItem('codeTablesFilter'));
+        searchDivs(window.localStorage.getItem('codeTablesFilter'), 'MenuElement')
+    });
+</script>

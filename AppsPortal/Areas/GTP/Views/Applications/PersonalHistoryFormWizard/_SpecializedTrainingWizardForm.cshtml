@@ -1,0 +1,102 @@
+﻿@model List<dataPersonalHistorySpecializedTrainingUpdateModel>
+<div class="tab-pane" id="tab1" style="margin-top: 5px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span><b>9.	SPECIALIZED TRAINING  </b> (if any)</span>
+            <br />
+        </div>
+        <div class="panel-body">
+            <input type="button" data-url="/GTP/Applications/SpecializedTrainingCreate" class="btn btn-success lgModal Modal-Link" value="Add New Specialized Training" />
+            @if (Model == null || Model.Count == 0)
+            {
+                <div class="alert alert-info" style="margin-top:5px;">
+                    <strong>No specialized trainings has been added</strong>
+                </div>
+            }
+            else
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="panel panel-default" style="margin-top:5px;">
+                        <div class="panel-heading">
+                            <span><b>Specialized Training # @(i + 1) </b> <input type="button" data-url="/GTP/Applications/SpecializedTrainingUpdate/@Model[i].GTPPHSpecializedTrainingGUID" class="btn btn-success lgModal Modal-Link pull-right" style="margin-top:-6px" value="Update / Delete this specialized training record" /></span>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row" style="padding-top:10px;">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].CourseTitle)
+                                        @Html.EditorFor(model => model[i].CourseTitle, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].SchoolName)
+                                        @Html.EditorFor(model => model[i].SchoolName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].CountryGUID)
+                                        @Html.DropDownListFor(model => model[i].CountryGUID, new DropDownList().GTPCountries(Model[i].CountryGUID), "", new { @class = "form-control select2-basic-search this-country-ddl", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].CourseStartDate)
+                                        @Html.EditorFor(model => model[i].CourseStartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].CourseEndDate)
+                                        @Html.EditorFor(model => model[i].CourseEndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].CourseTopicAreaDescription)
+                                        @Html.EditorFor(model => model[i].CourseTopicAreaDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].CourseTrainingMethodologyGUID)
+                                        @Html.DropDownListFor(model => model[i].CourseTrainingMethodologyGUID, new DropDownList().GTPTrainingMethodologies(Model[i].CourseTrainingMethodologyGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].CourseDescription)
+                                        @Html.TextAreaFor(model => model[i].CourseDescription, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2, disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="float:right">
+                        <input type='button' class='btn btn-primary wizard-custom-button-next' name="next" value='Next' data-next-url="/GTP/Applications/EducationWizard/Create" />
+
+                    </div>
+                    <div style="float:left">
+                        <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/WorkExperienceWizard/Create" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

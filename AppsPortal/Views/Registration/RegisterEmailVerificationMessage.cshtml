@@ -1,0 +1,39 @@
+﻿@model userRegistrationQueue
+@{
+    ViewBag.Title = "StepOneCompleted";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<div class="page--header">
+    <div class="page--banner">
+        <h2>@resxPages.Hi @Model.FirstName</h2>
+        <div class="row">
+            <div class="col-md-5">
+                <article>
+                    @resxPages.PleaseReadInfromationBelowCarefully
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page--content">
+    @*<div class="wizard">
+            <span class="done">Step 1: Account Details</span>
+            <span class="current">Step 2: Email Validation Pending</span>
+            <span>Step 3: Organization and Operation Setup</span>
+            <span>Step 4: Get Access Approval</span>
+            <span>Step 5: Secure Account and Get Ready!</span>
+        </div>*@
+
+    <br />
+    <div class="page--body">
+        <h3 class="page--subtitle">@resxPages.Step 2/5</h3>
+
+        <p style="text-align:justify;line-height:2em;">
+            @Html.Raw(@resxPages.VerificationEmailSent
+                .Replace("$EmailAddress", @Model.EmailAddress)
+                .Replace("\r\n", "<br/>"))
+        </p>
+    </div>
+</div>

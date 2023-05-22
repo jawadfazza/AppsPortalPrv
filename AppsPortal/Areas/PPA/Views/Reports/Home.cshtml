@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("5d6d62e9-3707-44be-8884-cd0aa7e6faa2")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("ReviewTrackingReport", "Reports", new { Area = "PPA" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-table fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>
+                            Review Progress Report
+                        </h3>
+                        <span>Timeline report to review and track the workflow of the PPA</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @*<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("PPADashboard", "Reports", new { Area = "PPA" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-table fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>
+                            PPA Dashboard
+                        </h3>
+                        <span>Dashboard to show an overview of the uploaded PPA</span>
+                    </div>
+                </div>
+            </a>
+        </div>*@
+
+
+
+        @*<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("PPAStatusReport","Reports",new { Area = "PPA" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-bars fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3 class="black">Review PPA Status Report</h3>
+                        <span class="black">Show the current stats of the PPA</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("Report2","Reports",new { Area = "PPA" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-bars fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3 class="black">To be added</h3>
+                        <span class="black">...........</span>
+                    </div>
+                </div>
+            </a>
+        </div>*@
+
+
+
+    </div>
+</div>

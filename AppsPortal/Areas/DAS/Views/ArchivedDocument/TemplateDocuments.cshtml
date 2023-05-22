@@ -1,0 +1,1164 @@
+﻿@model ArchiveTemplateDocumentUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ArchiveTemplateDocumentGUID == Guid.Empty) ? "Search  Document " : "Search Document"; }
+
+<link href="~/Assets/Plugin/bootstrap-multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/jquery.multisortable-master/src/jquery.multisortable.js"></script>
+<link href="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/JQuaryConfirm/jquery-confirm.min.js"></script>
+<script src="~/Assets/Plugin/JQuery/jquery.ui.touch-punch.min.js"></script>
+
+@Html.PageHeader("c2e74d8d-7323-42a9-9cfa-c5c489d037a5")
+<div data-ng-app="myApp">
+    <div data-ng-controller="MyCtrl">
+
+        <div class="page--content">
+            <div class="forms-fadeIn">
+
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary newPanelSettings">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+                                <h3 class="box-title">Document Information</h3>
+
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    @using (Html.BeginForm("ArchiveTemplateDocument", "ArchivedDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "ArchiveTemplateDocumentForm", @class = "main-form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.FormHiddenFields(model => model.ArchiveTemplateDocumentGUID)
+                                        @Html.HiddenFor(model => model.ArchiveTemplateDocumentCodeNumber)
+                                        @Html.HiddenFor(model => model.FileReferenceTypeGUID)
+                                        @Html.HiddenFor(model => model.FileReferenceTypeName)
+                                        @Html.HiddenFor(model => model.FileReferenceName)
+                                        @Html.HiddenFor(model => model.FileReferenceGUID)
+                                        @Html.HiddenFor(model => model.CreateByGUID)
+                                        @Html.HiddenFor(model => model.CreateDate)
+                                        @Html.HiddenFor(model => model.UpdateByGUID)
+                                        @Html.HiddenFor(model => model.UpdateDate)
+                                        @Html.HiddenFor(model => model.OrganizationInstanceGUID)
+
+                                        @*@Html.HiddenFor(model => model.FileReferenceName)*@
+
+                                        @Html.HiddenFor(model => model.TemplateName)
+                                        @Html.HiddenFor(model => model.DocumentName)
+                                        @Html.HiddenFor(model => model.LastVerificationStatusGUID)
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <div class="form-group HANDLER">
+                                                    @Html.LabelFor(model => model.ArchiveTemplateDocumentCodeNumber)
+                                                    @Html.DisplayFor(m => m.ArchiveTemplateDocumentCodeNumber)
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(model => model.FileReferenceTypeName)
+                                                @Html.DisplayFor(m => m.FileReferenceTypeName)
+                                                @*@Html.DisplayFor(m => m.FileReferenceName)*@
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <div class="form-group HANDLER">
+                                                    @Html.LabelFor(model => model.TemplateTypeGUID) *
+                                                    @Html.DropDownListFor(model => model.TemplateTypeGUID, new DropDownList().DASTemplateType(), "", new
+                                               {
+                                                   style = "width:100%",
+                                                   @class = "form-control select2-basic-search",
+                                                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'TemplateTypeDocumentGUID', Action : 'RemoteTemplateDocumentTypes'}]);"
+                                               })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @if (Model.FileReferenceGUID != null)
+                                                {
+                                                    <div class="form-group HANDLER">
+                                                        @Html.LabelFor(model => model.TemplateTypeDocumentGUID) *
+                                                        @Html.DropDownListFor(model => model.TemplateTypeDocumentGUID, new DropDownList().DASTemplateDocumentTypeByPK((Guid)Model.TemplateTypeGUID), "",
+                                   new
+                                   {
+                                       style = "width:100%",
+                                       @class = "form-control select2-basic-search",
+                                       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'FileReferenceGUID', Action : 'RemoteTemplateOwnerTypes'}]);"
+                                   })
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="form-group HANDLER">
+                                                        @Html.LabelFor(model => model.TemplateTypeDocumentGUID) *
+                                                        @Html.DropDownListFor(model => model.TemplateTypeDocumentGUID, new DropDownList().Empty(), "",
+                             new
+                             {
+                                 style = "width:100%",
+                                 @class = "form-control select2-basic-search",
+                                 onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'FileReferenceGUID', Action : 'RemoteTemplateOwnerTypes'}]);"
+
+                             })
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <div class="form-group HANDLER">
+                                                    @Html.LabelFor(model => model.CabinetGUID)
+                                                    @Html.DropDownListFor(model => model.CabinetGUID, new DropDownList().DASDocumentCabinets(), "", new
+                                               {
+                                                   style = "width:100%",
+                                                   @class = "form-control select2-basic-search",
+                                                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DocumentCabinetShelfGUID', Action : 'RemoteCabientsShelfs'}]);"
+                                               })
+
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+
+                                                    @Html.Label("Owned By")
+                                                    @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStations(Model.OrganizationInstanceGUID), "",
+                                    new
+                                    {
+                                     style = "width:100%",
+                                     @class = "form-control select2-basic-search"
+                                    })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+
+                                            <div class="col-md-6">
+
+                                                @if (Model.DocumentCabinetShelfGUID != null)
+                                                {
+                                                    <div class="form-group HANDLER">
+                                                        @Html.LabelFor(model => model.DocumentCabinetShelfGUID)
+                                                        @Html.DropDownListFor(model => model.DocumentCabinetShelfGUID, new DropDownList().DASDocumentCabinetsShelfs(
+                                        (Guid)Model.CabinetGUID), "",
+                            new
+                            {
+                                style = "width:100%",
+                                @class = "form-control select2-basic-search",
+                                //onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'TemplateTypeDocumentGUID', Action : 'RemoteCabientsShelfs'}]);"
+                            }
+                            )
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="form-group HANDLER">
+                                                        @Html.LabelFor(model => model.DocumentCabinetShelfGUID)
+                                                        @Html.DropDownListFor(model => model.DocumentCabinetShelfGUID, new DropDownList().Empty(), "", new
+                                                   {
+                                                       style = "width:100%",
+                                                       @class = "form-control select2-basic-search",
+
+                                                       //onchange = "UpdateDropDownList([$('#TemplateTypeDocumentGUID').val()], [{ DropDownListID : 'DocumentTagGUIDs', Action : 'RemoteDASDocumentTags'}]);"
+
+                                                   })
+                                                    </div>
+                                                }
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div id="SoftFieldPartialDivId" class="form-group">
+
+                                                @Html.Partial("~/Areas/DAS/Views/ArchivedDocument/DocumentSoftField/_DocumentSoftFieldValue.cshtml")
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="col-md-12">
+                                            <div id="ArchiveTemplateFormControls" class="form-group">
+                                                @if (Model.ArchiveTemplateDocumentGUID == Guid.Empty)
+                                                {
+                                                    @Html.CreateButton(Permissions.RefugeeScannedDocument.Create, Apps.DAS)
+                                                }
+                                                else
+                                                {
+                                                    if (Model.Active)
+                                                    {
+                                                        @Html.UpdateButton(Permissions.RefugeeScannedDocument.Update, Apps.DAS)
+                                                        @Html.CreateNewButton(Permissions.RefugeeScannedDocument.Create, Apps.DAS, Url.Action("Actions/Create", "Codes", new { Area = "DAS" }))
+                                                        @Html.DeleteButton(Permissions.RefugeeScannedDocument.Delete, Apps.DAS)
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.RestoreButton(Permissions.RefugeeScannedDocument.Restore, Apps.DAS)
+                                                    }
+                                                }
+                                                @Html.BackToList(Url.Action("index", "ArchivedDocument", new { Area = "DAS" }))
+                                            </div>
+                                        </div>
+
+                                    }
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="step3InfoBox">
+                        <div class="panel panel-primary ">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+                                <h3 class="box-title">Archive Documents</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="scanndocumentid" class="form-group">
+                                    <div class="form-group">
+                                        @Html.HiddenFor(m => m.DocumentName)
+                                        <div id="ChartPanel">
+                                            <div id="exTab1">
+                                                <ul class="nav nav-pills">
+                                                    <li>
+                                                        <a href="#1a" data-toggle="tab">Scanned Images</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#2a" data-toggle="tab">Linked Documents</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#3a" data-toggle="tab">Document History</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="tab-content clearfix">
+                                                <div class="tab-pane active table-bordered" id="1a">
+                                                    @Html.Partial("~/Areas/DAS/Views/ArchivedDocument/DocumentImage/_ScannedImages.cshtml", Model)
+                                                </div>
+                                                <div class="tab-pane  table-bordered panel-body" id="2a">
+                                                    @Html.Partial("~/Areas/DAS/Views/ArchivedDocument/DocumentLink/_DocumentLinksDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ArchiveTemplateDocumentGUID, IsParentActive = Model.Active })
+                                                </div>
+                                                <div class="tab-pane  table-bordered panel-body" id="3a">
+                                                    @Html.Partial("~/Areas/DAS/Views/ArchivedDocument/DocumentVersionHistory/_HistorysDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ArchiveTemplateDocumentGUID, IsParentActive = Model.Active })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+                                <div>
+                                    <form id="form1" action="~/ArchivedDocument/SaveImagesSannned" method="POST" enctype="multipart/form-data" target="_blank">
+                                        <input type="hidden" name="_templateTypeDocumentGUID" value="{{mysearchKey}}" />
+                                        <input type="hidden" name="New" value="{{New}}" />
+
+                                    </form>
+                                </div>
+                                <div>
+                                    <form id="form2" action="~/ArchivedDocument/SaveNewSacanImages" method="POST" enctype="multipart/form-data" target="_blank">
+
+                                        <input type="hidden" name="mysearchKey" value="{{mysearchKey}}" ng-model="mysearchKey" />
+                                        <input type='hidden' value='' id='txt_id' name="ImageId">
+                                        <input type='hidden' value='' id='txt_dir_scan' name="dir_scan">
+
+                                    </form>
+                                </div>
+
+                                <input type='hidden' value='' id='txt_id'>
+                               
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/Assets/Plugin/ScannerJs/scanner.js"></script>
+<script src="~/Assets/Plugin/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+
+<script src="~/Assets/Plugin/Zooming/zoomerang.js"></script>
+<script src="~/Assets/Plugin/contexmenu/jquery.contextmenu.min.js"></script>
+<script>
+    function run_waitMe(effect) {
+        $('.page--content').waitMe({
+            effect: effect,
+            text: 'Please waiting...',
+            bg: 'rgba(255,255,255,0.7)',
+            color: '#000'
+        });
+    }
+</script>
+<script>
+
+    var myApp = angular.module('myApp', []);
+    //Controller
+    myApp.controller('MyCtrl',
+        [
+            '$scope', '$http', '$timeout', '$window',
+            function ($scope, $http, $timeout, $window) {
+
+                    //Rest vars -
+                    $scope.ResetPage = function () {
+                        $('#verifyScanId').hide();
+                        $scope.FileResultShow = false;
+                        $scope.form1 = true;
+                        $scope.FileResultShow = false;
+                        $scope.ExistCaseShow = false;
+                        $scope.NewCaseShow = false;
+                        $scope.filename = null;
+                        $scope.merge = false
+                        $scope.ImageId1 = 0;
+                        $scope.documentImagesShow = false;
+                        $scope.NewScan = 0;
+
+                }
+                   $scope.searchKey = $("#ArchiveTemplateDocumentGUID").val();
+
+
+
+
+
+                    $scope.ResetPage();
+                    $("#searchKey").keypress(function (e) {
+                        if (e.which == 13) {
+                            $scope.ExecuteCaseSearch();
+                        }
+                    });
+
+                    $scope.SearchByKey = function () {
+
+                        $scope.ResetPage();
+                        if (!$scope.searchKey) {
+                            $("#searchKey").val("Please check the document number ").css("color", "red")
+                                .css("border-color", "red");
+
+                            $('#searchKey').effect("shake", { times: 4 }, 300);
+                        } else if ($scope.searchKey.length == 0 || $scope.searchKey.length < 5) {
+
+                            $("#searchKey").val("Please check the case number ").css("color", "red")
+                                .css("border-color", "red");
+                            $('#searchKey').effect("shake", { times: 4 }, 300);
+                        } else {
+
+                            $scope.ExecuteCaseSearch();
+                        }
+                }
+
+
+
+                    $scope.ExecuteCaseSearch = function () {
+                        if ($scope.searchKey) {
+                            $(':button').prop('disabled', true);
+                            $scope.FileResult = null;
+                            $('#verifyScanId').show();
+                            $scope.mysearchKey = $scope.searchKey;
+
+                            $http({
+                                method: 'POST',
+                                url: "@Url.Action("SearchByCase", "ArchivedDocument")",
+                                data: {
+                                    _archiveTemplateDocumentGUID: $scope.searchKey,
+                                }
+                            }).success(function (data) {
+                                if (data.success == 0) {
+                                    Notify(NotificationType.Warning, 'Warning');
+                                }
+                                else {
+                                    $scope.FileResult = data.result;
+                                    $scope.FileResultShow = true;
+                                    $scope.codeCabinets = data.codeCabinets;
+                                    $scope.codeCabinetShelfs = data.codeCabinetShelfs;
+                                    $scope.codeMetaDatas = data.codeMetaDatas;
+                                    $scope.MergeFiles = data.ScannDocumentGUID;
+                                    $scope.New = data.isNew;
+                                    $scope.currentUserScannerSetting = data.currentUserScannerSetting;
+                                    var idm = $scope.searchKey;
+
+                                    //$("#fileTransferId").attr("href",
+                                    //    "/DAS/ScanDocument/GetTransferFile?id=" + idm);
+                                    $('select').select2();
+
+
+                                        $scope.VersionNumber = data.VersionNumber;
+                                        $scope.ExistCaseShow = true;
+                                        $('select').select2();
+                                        $scope.documentImagesShow = true;
+
+                                        $scope.ReadImagesToShow();
+
+
+                                }
+                                $(':button').prop('disabled', false);
+                                $('#verifyScanId').hide();
+
+                            })
+                        }
+                    }
+
+                    $("#searchKey").focusin(function () {
+
+                        $("#searchKey").val("").css("color", "red").css("border-color", "red");
+                    });
+
+                    $scope.SearchByKey();
+                    $scope.convertToDate = function (data) {
+
+                        return convertToDate(data);
+                    }
+
+                    $scope.SaveScannerSettings = function () {
+
+                        $http({
+                            method: 'POST',
+                            url: "@Url.Action("SaveScannerSettings","ScanDocument")",
+                            data: { scannerSetting: $scope.scannerSetting }
+
+
+                        }).success(function (data) {
+                            if (data.success == 1) {
+                                $scope.currentUserScannerSetting = data.currentUserScannerSetting;
+
+                                //NotifyMessage("Success message", "Success ", "success", true);
+                                Notify(NotificationType.Success, 'Success');
+
+                            }
+                            else {
+                                NotifyMessage("Warnning Message",
+                                    "Nothing change ",
+                                    "warnning",
+                                    true);
+                                Notify(NotificationType.Warning, 'Warning');
+                            }
+
+                        });
+
+                    }
+                    //save imagesscanned in Temp
+                    $scope.submitFormWithScannedImages = function () {
+
+                        if (scanner.submitFormWithImages('form1', $scope.imagesScanned, function (xhr) {
+
+                        if (xhr.readyState == 4) { // 4: request finished and response is ready
+
+                            //NotifyMessage("Success message", "imagescanned save in Temp successfully ", "success", true);
+                            Notify(NotificationType.Success, 'Saved successfully');
+
+                                  $scope.ReadImagesToShow();
+                                  $scope.documentImagesShow = true;
+                                  $scope.imagesScanned = [];
+
+
+                        }
+                        })) {
+                            //document.getElementById('server_response').innerHTML = "Submitting, please stand by ...";
+                            //document.getElementById('server_response').innerHTML = "Form submission cancelled. Please scan first.";
+                        }
+
+                    }
+                    ////submit for new scann
+                    $scope.submitFormWithNewScannedImages = function () {
+
+                        if (scanner.submitFormWithImages('form2', $scope.imagesScanned, function (xhr) {
+
+                        if (xhr.readyState == 4) { // 4: request finished and response is ready
+
+                            //NotifyMessage("Success message", "imagescanned save in Temp successfully ", "success", true);
+                            Notify(NotificationType.Success, 'Saved successfully');
+
+                                  $scope.ReadImagesToShow();
+                                  $scope.documentImagesShow = true;
+                                  $scope.imagesScanned = [];
+                                  $scope.NewScan = 0;
+                                   $("#txt_id").val("");
+
+
+
+                        }
+                        })) {
+                                //document.getElementById('server_response').innerHTML = "Submitting, please stand by ...";
+                                //document.getElementById('server_response').innerHTML = "Form submission cancelled. Please scan first.";
+                        }
+
+                    }
+                    //read images from TEM
+                    $scope.ReadImagesToShow = function () {
+                        run_waitMe('bounce');
+                        $http({
+                            method: 'POST',
+                            url: "@Url.Action("ReadImagesFromTem", "ArchivedDocument")",
+                            data: { _archiveTemplateDocumentGUID: $scope.mysearchKey }
+                        }).success(function (data) {
+                            if (data.success == 1) {
+                                // alert(5)
+                                $scope.filename = data.filename1;
+                                $scope.userGuid = data.userGuid;
+                                $scope.date = new Date();
+                                //$body = $("body");
+                                $('.page--content').waitMe('hide');
+                                //NotifyMessage("Success message", " images save sucessfully", "success", true);
+                            }
+                            else {
+                                Notify(NotificationType.Warning, 'Files are missing, contact support!');
+
+                                $('.page--content').waitMe('hide');
+                            }
+
+                        }).catch(function (fallback) {
+                            Notify(NotificationType.Warning, 'Files are missing, contact support!');
+                            $('.page--content').waitMe('hide');
+                        });
+
+                    }
+                    //save images finalFileResult
+                    $scope.SaveFinal = function () {
+                        $.ajax({
+                            url: '@Url.Action("SaveFinal", "ArchivedDocument")',
+                            type: 'post',
+                            data: {
+                                _archiveTemplateDocumentGUID: $scope.searchKey,
+                                //ShelfGUID: $scope.ShelfGUID,
+                                //MetaDataDocumentsGUIDs: $scope.MetaDataDocumentsGUIDs
+                            },
+                            success: function (data) {
+                                if (data.success == 1) {
+                                    $scope.ResetPage();
+                                    $scope.imagesScanned = [];
+
+
+                                    Notify(NotificationType.Success, 'Saved successfully');
+                                    //  $scope.mysearchKey = null;
+
+                                }
+                                else {
+
+                                    Notify(NotificationType.Warning, 'Warning');
+                                }
+
+
+
+                            }
+                        });
+                    }
+                    $scope.SendDocumentForVerification = function () {
+                        $http({
+                            method: 'POST',
+                            url: "@Url.Action("SendDocumentForVerification", "ArchivedDocument")",
+                            data: {
+                                _ArchiveTemplateDocumentGUID: $scope.searchKey,
+
+                            }
+                        }).success(function (data) {
+                            if (data.success == 1) {
+                                Notify(NotificationType.Success, 'Saved successfully');
+                                $scope.hide();
+                            }
+                        }).catch(function (fallback) {
+                            Notify(NotificationType.Warning, 'Warning Unauthorized access');
+                        });
+                      }
+                    $scope.SelectAllImages = function () {
+                    if ($('.SelectAll').val() == "Select All") {
+                        $("input:checkbox").prop("checked", true);
+                        $('.SelectAll').val("Unselect All");
+                    } else {
+                        $("input:checkbox").prop("checked", false);
+                        $('.SelectAll').val("Select All");
+                    }
+                    }
+                    $scope.ScannDocument = function () {
+
+
+                        var idd = $scope.ImageId1;
+                        $scope.ImageId2 = idd;
+                        $scope.imagesScanned = [];
+
+                        scanner.scan(displayImagesOnPage,
+                            {
+                                "source_name": "select",
+                                "detect_blank_pages": true,
+                                "prompt_scan_more": true,
+                                "use_asprise_dialog": false,
+                                "show_scanner_ui": true,
+                                //"show_scanner_ui": false,
+                                "twain_cap_setting": {
+                                    "ICAP_PIXELTYPE": $scope.currentUserScannerSetting.ColorMode, // Preferrs GRAY, fall back Color; TWPT_BW
+                                    // Resets a capability
+                                    "ICAP_SUPPORTEDSIZES": $scope.currentUserScannerSetting.PaperSize,
+                                    //TWSS_C8  TWSS_USLETTER  TWSS_USLEGAL  TWSS_USEXECUTIVE
+                                    "ICAP_XRESOLUTION": $scope.currentUserScannerSetting.Resolution, // Sets the resolution
+                                    "ICAP_YRESOLUTION": $scope.currentUserScannerSetting.Resolution, // Sets the resolution
+                                    "CAP_FEEDERENABLED": true,// TW_BOOL, No default; TRUE to use ADF or FALSE to use Flatbed
+                                    "CAP_AUTOFEED": true
+                                    // "ICAP_FRAMES": "(0, 0, 4, 6)" // Scan part of the image only
+
+                                },
+                                "output_settings": [
+                                    {  // "ICAP_PIXELTYPE": "TWPT_GRAY,TWPT_RGB",
+                                        "type": "return-base64",
+                                        "format": $scope.currentUserScannerSetting.format
+                                    },
+                                    {
+                                        "type": "return-base64-thumbnail",
+                                        "format": "jpg",
+                                        "thumbnail_height": 100
+                                    }
+                                ]
+                            }
+
+                        );
+                    }
+
+                    /** Processes the scan result */
+                    function displayImagesOnPage(successful, mesg, response) {
+
+                        if (successful == 0) {
+                            return 0;
+                        }
+
+                        var scannedImages = scanner.getScannedImages(response, true, false); // returns an array of ScannedImage
+
+
+                        for (var i = 0; (scannedImages instanceof Array) && i < scannedImages.length; i++) {
+
+                            $scope.imagesScanned.push(scannedImages[i]);
+                            // processThumbnailImage(scannedImages[i]);
+                        }
+
+                        if ($scope.NewScan == 0) {
+                            //    alert($scope.NewScan)
+                            $scope.submitFormWithScannedImages();
+                        }
+                        else {
+                            //   alert($scope.NewScan)
+                            $scope.submitFormWithNewScannedImages();
+                        }
+
+
+
+
+                        var scannedThumbnailImages = scanner.getScannedImages(response, false, true); // returns an array of ThumbnailImage
+
+                        for (var i = 0; (scannedThumbnailImages instanceof Array) && i < scannedThumbnailImages.length; i++) {
+
+                            //  processThumbnailImage(scannedThumbnailImages[i]);
+                        }
+
+                    }
+
+                    /** Processes a thumnail pages */
+                    function processThumbnailImage(scannedImage) {
+                        // imagesScanned.push(scannedImage);
+
+                        var elementImg = scanner.createDomElementFromModel({
+                            'name': 'img',
+                            'attributes': {
+                                'class': 'scanned zoom thumb thumb-img',
+                                'src': scannedImage.src,
+                                'width': 200,
+
+
+                            }
+                        });
+
+
+                        document.getElementById('images2').appendChild(elementImg);
+
+                        //  enableZoom();
+                    }
+                    /// for delet image
+                    $scope.DeleteImage = function () {
+                        $http({
+                            method: 'POST',
+                            url: "@Url.Action("DeleteImage", "ArchivedDocument")",
+                            data: {
+                                CaseNumber: $scope.searchKey,
+                                ImageId: $scope.ImageId
+                            }
+                        }).success(function (data) {
+                            if (data.success == 1) {
+                                $scope.ReadImagesToShow();
+                                $scope.documentImagesShow = true;
+                            }
+                        }).catch(function (fallback) {
+                            Notify(NotificationType.Warning, 'Warning Unauthorized access');
+                        });
+                }
+                    $scope.DeleteImageSelected = function () {
+                        run_waitMe('bounce');
+                        $http({
+                            method: 'POST',
+                            url: "@Url.Action("DeleteImageSelected", "ArchivedDocument")",
+                            data: {
+                                CaseNumber: $scope.searchKey,
+                                ImageIds: $("input:checkbox:checked").map(function () {
+                                    return $(this).val();
+                                }).get()
+
+                                    //$('input[name="ImageCheckbox"]:checked').serialize()
+                            }
+                        }).success(function (data) {
+                            if (data.success == 1) {
+                                $scope.ReadImagesToShow();
+                                $scope.documentImagesShow = true;
+                                $('.page--content').waitMe('hide');
+                            }
+                            //window.print();
+
+                        }).catch(function (fallback) {
+                            Notify(NotificationType.Warning, 'Warning Unauthorized access');
+                        });
+                }
+                    $scope.MoveImageSelected = function () {
+                      $.confirm({
+                        title: 'Move Images To Index Number',
+                        content: '' +
+                            '<form action="" class="main-form"  id="LocationForm" method="post">' +
+                            '<div class="form-group">' +
+                            '<label>Image Sequance</label>' +
+                            '<input type="text" id="index" name="index" placeholder="Image Sequance" class="name form-control" required />' +
+                            '</div>' +
+                            '</form>',
+                        buttons: {
+                            formSubmit: {
+                                text: 'Submit',
+                                btnClass: 'btn-blue',
+                                action: function () {
+                                    var form = $('#LocationForm');
+                                    var formData = form.serialize();
+
+                                  run_waitMe('bounce');
+                        $http({
+                            method: 'POST',
+                            url: "@Url.Action("MoveImageSelected", "ArchivedDocument")",
+                            data: {
+                                index: $('input[name=index]').val(),
+                                _archiveTemplateDocumentGUID: $scope.searchKey,
+                                ImageIds: $("input:checkbox:checked").map(function () {
+                                    return $(this).val();
+                                }).get()
+
+                                    //$('input[name="ImageCheckbox"]:checked').serialize()
+                            }
+                        }).success(function (data) {
+                            if (data.success == 1) {
+                                $scope.ReadImagesToShow();
+                                $scope.documentImagesShow = true;
+                                $('.page--content').waitMe('hide');
+                            }
+                            //window.print();
+
+                        }).catch(function (fallback) {
+                            Notify(NotificationType.Warning, 'Warning Unauthorized access');
+                            $('.page--content').waitMe('hide');
+                        });
+
+                                }
+                            },
+                            cancel: function () {
+                                //close
+                            },
+                        },
+                        onContentReady: function () {
+                            // bind to events
+                            var jc = this;
+                            this.$content.find('form').on('submit', function (e) {
+                                // if the user submits the form by pressing enter in the field.
+                                //e.preventDefault();
+                                jc.$$formSubmit.trigger('click'); // reference the button and click it
+                                alert("");
+                            });
+                        }
+                    });
+
+                    }
+                    $scope.PrintImage = function () {
+                         run_waitMe('bounce');
+                        $http({
+                            method: 'POST',
+                            url: "@Url.Action("PrintImage", "ArchivedDocument")",
+                            data: {
+                                CaseNumber: $scope.searchKey,
+                                ImageId: $("input:checkbox:checked").map(function () {
+                                    return $(this).val();
+                                }).get()
+
+                                    //$('input[name="ImageCheckbox"]:checked').serialize()
+                            }
+                        }).success(function (data) {
+                            //window.location = "../../ArchivedDocument/DownloadAttachment?CaseNumber=" + $scope.searchKey;
+                            window.open("../../ArchivedDocument/DownloadAttachment?CaseNumber=" + $scope.searchKey, '_blank');
+                            //window.print();
+                            $('.page--content').waitMe('hide');
+                        }).catch(function (fallback) {
+                            Notify(NotificationType.Warning, 'Warning Unauthorized access');
+                        });
+                    }
+                    /// for get meta data
+                    $scope.getMetaDataInf = function () {
+
+                        $('#modal-container2').modal('show');
+                        $('#modal-container2 select').css('width', '100%');
+                        $('select').select2();
+                        $('#modal-container2 select').css('width', '100%');
+
+                    }
+                    //for merge file
+                    $scope.getmergefile = function () {
+
+                        $('#modal-container3').modal('show');
+                        $('#modal-container3 select').css('width', '100%');
+                        $('select').select2();
+                        $('#modal-container3 select').css('width', '100%');
+
+                    }
+                     /// for get meta data
+                    $scope.MergeFile = function () {
+
+                        if ($scope.ScannDocumentGUID.length) {
+                            $.ajax({
+                                url: '@Url.Action("MergeFile", "ScanDocument")',
+                                type: 'post',
+                                data: {
+                                    ScannDocumentGUID: $scope.ScannDocumentGUID,
+                                    searchKey: $scope.searchKey
+                                },
+                                success: function (data) {
+                                    $scope.filenames = data.filename;
+                                    $scope.FileNumber = data.FileNumber;
+                                    $scope.userGuid = data.userGuid;
+                                    $scope.ReadImagesToShow();
+                                    $('#modal-container3').modal('hide');
+                                    Notify(NotificationType.Success, 'Saved successfully');
+                                }
+                            });
+                        }
+                        else {
+
+                            Notify(NotificationType.Warnning, '"Kindly chose at least one meta data for this image');
+
+                        }
+
+
+                    }
+                    // end merge
+                    ///enf function meta data
+
+                $(document).on('change', '.select_this_image', function () {
+
+                    if (this.checked) {
+                        $(this).parents('td').addClass('selected');
+                    } else {
+                        $(this).parents('td').removeClass('selected');
+
+                    }
+                });
+
+                $(document).ready(function () {
+                    $('.image-gallery a').fancybox({
+                        loop: true,
+                        buttons: ['slideShow', 'fullScreen', 'thumbs', 'close'],
+                        animationEffect: 'zoom',
+                        transitionEffect: 'slide',
+                        protect: true,
+
+                    });
+                    
+                });
+               
+
+
+                $(document).ready(function () {
+
+                    $('.imageSX').on('click', function () {
+                        var img = $(this);
+                        $.fancybox.open(img, {
+                            afterLoad: function (instance, current) {
+                                current.$content.append('<button class="rotate-button">Rotate</button>');
+                                $('.rotate-button').on('click', function () {
+                                    img.rotate(90);
+                                });
+                            }
+                        });
+                    });
+                        var message = [];
+                        $(function () {
+                            $('#Metadatalist').multiselect({
+                                includeSelectAllOption: true,
+                                buttonWidth: 250,
+                                enableFiltering: true
+                            });
+                        });
+
+                        $scope.SaveImageMetaData = function () {
+                            if (1 == 1) {
+                                $.ajax({
+                                    url: '@Url.Action("SaveMetaDataImages", "ArchivedDocument")',
+                                    type: 'post',
+                                    data: {
+                                        ImageId: $scope.ImageId,
+                                        MetaDataGUIDs: $scope.MetaDataGUIDs
+                                    },
+                                    success: function (data) {
+                                        message = [];
+                                        $('#modal-container2').modal('hide');
+
+                                        Notify(NotificationType.Success, 'Success');
+                                    }
+                                });
+                            }
+                            else {
+
+                                Notify(NotificationType.Warnning, 'Kindly chose at least one meta data for this image');
+                            }
+                        }
+
+                        var dropIndex;
+                        $("#image-listXXXX").sortable({
+
+                            @*update: function (event, ui) {
+                                debugger;
+
+                                var imageIdsArray = [];
+                                var imageIdsArrayNew = [];
+                                var imageId = ui.item[0].id;
+                                $('#image-list td').each(function (index) {
+                                    var id = $(this).attr('id');
+                                    imageIdsArray.push(id);
+                                });
+
+
+                                var moveIndex = imageIdsArray.indexOf(imageId);
+                                $('#image-list td').each(function (index) {
+                                    var id = $(this).attr('id');
+                                    var checked = $(this).find('input:checkbox:checked');
+                                    imageIdsArrayNew.push(id);
+                                    if (checked.length > 0) {
+                                        moveIndex++;
+                                        array_move(imageIdsArrayNew, index, moveIndex);
+
+                                    }
+                                    index++;
+                                });
+
+                               $.ajax({
+                                url: '@Url.Action("UpdateItem", "ArchivedDocument")',
+                                type: 'post',
+                                   data: {
+                                       imageIds: imageIdsArrayNew,
+
+                                       _archiveTemplateDocumentGUID: $scope.mysearchKey
+                                   },
+                                   success: function (data) {
+                                       Notify(NotificationType.Success, 'Order Updated Successfully');
+                                       $scope.ReadImagesToShow();
+                                       $scope.documentImagesShow = true;
+                                       console.log(data);
+                                   }
+                               }).catch(function (fallback) {
+                                   Notify(NotificationType.Warning, 'Warning Unauthorized access');
+                               });
+                            }*@
+                        });
+
+
+                        $("#image-list").multisortable({
+                            stop: function (event, ui) {
+
+                                var imageIdsArray = [];
+
+                                $('#image-list td').each(function (index) {
+                                    var id = $(this).attr('id');
+                                    imageIdsArray.push(id);
+                                });
+                                $.ajax({
+                                    url: '@Url.Action("UpdateItem", "ArchivedDocument")',
+                                    type: 'post',
+                                    data: {
+                                        imageIds: imageIdsArray,
+
+                                        _archiveTemplateDocumentGUID: $scope.mysearchKey
+                                    },
+                                    success: function (data) {
+                                        Notify(NotificationType.Success, 'Order Updated Successfully');
+                                        $scope.ReadImagesToShow();
+                                        $scope.documentImagesShow = true;
+                                        console.log(data);
+                                    }
+                                }).catch(function (fallback) {
+                                    Notify(NotificationType.Warning, 'Warning Unauthorized access');
+                                });
+                            }
+                        });
+                        function array_move(arr, old_index, new_index) {
+                            if (new_index >= arr.length) {
+                                var k = new_index - arr.length + 1;
+                                while (k--) {
+                                    arr.push(undefined);
+                                }
+                            }
+                            arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+                            return arr; // for testing
+                        };
+
+                        $('#SaveScannid').click(function (e) {
+                            var imageIdsArray = [];
+                            $('#image-list td').each(function (index) {
+                                var id = $(this).attr('id');
+                                imageIdsArray.push(id);
+                            });
+                            $.ajax({
+                                url: '@Url.Action("UpdateItem", "ArchivedDocument")',
+                                type: 'post',
+                                data: { imageIds: imageIdsArray },
+                                success: function (data) {
+
+                                    console.log(data);
+                                }
+                            });
+                            e.preventDefault();
+                        });
+                        // Hide context menu
+                        $(document).bind('contextmenu click', function () {
+
+                            $(".context-menu").hide();
+                            //    $("#txt_id").val("");
+                        });
+
+                        var x = null;
+                        var y = null;
+
+
+
+                        function onMouseUpdate(e) {
+                            x = e.pageX;
+                            y = e.pageY;
+                            //console.log(x, y);
+                        }
+
+                        function getMouseX() {
+                            return x;
+                        }
+
+                        function getMouseY() {
+                            return y;
+                        }
+
+                        // disable right click and show custom context menu
+                        $('#DisplayImages').on('contextmenu', "td ", function (e) {
+                            document.addEventListener('mousemove', onMouseUpdate, false);
+                            document.addEventListener('mouseenter', onMouseUpdate, false);
+                            $scope.id = this.id;
+
+                            var id = this.id;
+                            var ImageId2 = id;
+
+                            $scope.ImageId = id;
+
+                            $("#txt_id").val(id);
+
+                            //var top = e.pageY + 5;
+                            //var left = e.pageX;
+                            var e = window.event;
+
+                            var top = e.clientX;
+                            var left = e.clientY;
+                            // Show contextmenu
+                            $(".context-menu").toggle(100).css({
+                                top: getMouseY() + "px",
+                                left: (getMouseX()-300) + "px"
+                            });
+
+                            // Disable default menu
+                            return false;
+                        });
+
+                        // disable context-menu from custom menu
+                        $('.context-menu').bind('contextmenu', function () {
+
+                            return false;
+                        });
+
+                        // Clicked context-menu item
+                        $('.context-menu li').click(function () {
+
+                            var className = $(this).find("span:nth-child(1)").attr("class");
+
+                            var id = $('#txt_id').val();
+                            if (className == 'Print') {
+                                //  alert('Delete')
+                                // $scope.ImageId = id;
+                                $scope.PrintImage();
+                            }
+                            if (className == 'Delete') {
+                                //  alert('Delete')
+                                // $scope.ImageId = id;
+                                $scope.DeleteImage();
+                            }
+                            if (className == 'DeleteSlected') {
+                                //  alert('Delete')
+                                // $scope.ImageId = id;
+                                $scope.DeleteImageSelected();
+                            }
+                            if (className == 'NewScanafter') {
+                                // alert('NewScanafter')
+                                $("#txt_dir_scan").val("NewScanafter");
+                                $scope.NewScan = 1;
+                                //    alert($scope.ImageId)
+                                $scope.ScannDocument();
+                            }
+                            if (className == 'NewScanbefor') {
+                                $("#txt_dir_scan").val("NewScanbefor");
+
+                                $scope.NewScan = 1;
+                                //    alert($scope.ImageId)
+                                $scope.ScannDocument();
+                            }
+                            if (className == 'MetaData') {
+                                //  alert('MetaData')
+                                ///   alert($scope.ImageId);
+                                $scope.getMetaDataInf();
+
+                            }
+                            if (className == 'MoveSlected') {
+                                //  alert('Delete')
+                                // $scope.ImageId = id;
+                                $scope.MoveImageSelected();
+                            }
+                            if (className == 'ImageLoad') {
+                                //  alert('Delete')
+                                // $scope.ImageId = id;
+                                $scope.ImageLoad();
+                            }
+
+                            $("#" + id).css("background-color", 'red');
+                            // $scope.ExecuteCaseSearch();
+                            $(".context-menu").hide();
+                        });
+
+     
+                    });
+
+            }
+        ]);
+
+
+
+</script>
+
+

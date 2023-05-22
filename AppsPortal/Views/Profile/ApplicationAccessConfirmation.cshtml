@@ -1,0 +1,37 @@
+﻿@model AppInfoViewModel
+@{
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+<div class="page--content">
+
+    @if (Model.AccessGranted == 1)
+    {
+        <br />
+        <br />
+        <div class="col-md-12">
+            <div class="col-md-4 col-lg-offset-4 ">
+                <a class="black" href="#">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-check  fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Thanks for Submission</h3>
+                            <span></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+
+
+
+    else if (Model.AccessGranted == 4)
+    {
+        <h1>Request is already confirmed</h1>
+    }
+
+
+</div>  
+
+

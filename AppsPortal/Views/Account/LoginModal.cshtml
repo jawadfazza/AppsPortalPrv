@@ -1,0 +1,54 @@
+﻿@model LoginModel
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "LoginForm", autocomplete = "off" }))
+            {
+    @*Enable it on production phase
+        <div style="opacity:0;position:absolute;top:0;left:0;">
+            <input autocomplete="off" class="ays-ignore" id="fakeEmailAddress" type="email" value="abc@xyz">
+            <input autocomplete="off" class="ays-ignore" id="fakePassword" type="password" value="123">
+        </div>
+    *@
+    @Html.AntiForgeryToken()
+    @Html.ErrorSummary()
+    @Html.Partial("_ModalHeader", "Re-Login")
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmailAddress)
+                    @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control ays-ignore", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password)
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control ays-ignore", autocomplete = "off" } })
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 col-nopadding">
+                    <input type="submit" id="submit" value="@resxUIControls.Login" class="btn btn-primary" />
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 col-nopadding text-right checkbox-field">
+                    <label class="checkbox-label"><input id="rem" type="checkbox" class="col-form-label">@resxUIControls.RememberMe</label>
+                </div>
+                <div class="col-lg-12 sp"></div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 col-nopadding">
+                    @Html.ActionLink(resxUIControls.CreateNewAccount, "Register", "Registration")
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 col-nopadding text-right">
+                    @Html.ActionLink(resxUIControls.ForgetPassword, "ForgetPassword", "Account", null, new { @class = "modal-link pull-right" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $('#LoginForm').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (JsonResult) {
+                ProcessNotify(JsonResult);
+            },
+            error: function () { }
+        });
+    });
+</script>

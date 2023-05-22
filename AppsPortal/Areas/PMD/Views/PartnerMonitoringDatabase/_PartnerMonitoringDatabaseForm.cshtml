@@ -1,0 +1,1251 @@
+﻿@model PartnerMonitoringDatabaseUpdateModel
+
+@using (Html.BeginForm("PartnerMonitoringDatabase", "PartnerMonitoringDatabase", new { Area = "PMD" }, FormMethod.Post, new { id = "PartnerMonitoringDatabaseForm", @class = "main-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.PartnerMonitoringDBGUID)
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.CreatedOn)
+    @Html.HiddenFor(model => model.UpdatedBy)
+    @Html.HiddenFor(model => model.UpdatedOn)
+    @Html.HiddenFor(model => model.IsVerified)
+    @Html.HiddenFor(model => model.VerifiedByOffice)
+    @Html.HiddenFor(model => model.VerifiedBy)
+    @Html.HiddenFor(model => model.VerifiedOn)
+
+
+    @Html.HiddenFor(model => model.IsVerifiedByFieldTech)
+    @Html.HiddenFor(model => model.VerifiedByFieldTechGUID)
+    @Html.HiddenFor(model => model.VerifiedByFieldTechOn)
+
+    @Html.HiddenFor(model => model.IsApprovedByProgramme)
+    @Html.HiddenFor(model => model.ApprovedByProgrammeGUID)
+    @Html.HiddenFor(model => model.ApprovedByProgrammeOn)
+
+    @Html.HiddenFor(model => model.IsApprovedByCountryTech)
+    @Html.HiddenFor(model => model.ApprovedByCountryTechGUID)
+    @Html.HiddenFor(model => model.ApprovedByCountryTechOn)
+
+
+    @Html.HiddenFor(model => model.ObjectiveGUIDBool)
+
+
+
+
+
+
+
+    <div class="row">
+        <br />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @resxPages.PMDLocation
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DateOfReport)
+                            @Html.EditorFor(model => model.DateOfReport, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Governorate)
+                            @Html.DropDownListFor(model => model.Governorate, new DropDownList().PMDGovernorates(), "",
+                           new
+                           {
+                               @class = "form-control select2-basic-search",
+                               style = "width:100%",
+                               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'District', Action : 'RemotePMDDistricts'}]);"
+                           })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.District)
+                            @if (Model.PartnerMonitoringDBGUID != null)
+                            {
+                                @Html.DropDownListFor(model => model.District, new DropDownList().PMDDistricts(Model.Governorate), "",
+                        new
+                        {
+                            @class = "form-control select2-basic-search",
+                            style = "width:100%",
+                            onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'SubDistrict', Action : 'RemotePMDSubDistricts'}]);"
+                        })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.District, new DropDownList().Empty(), "",
+                         new
+                         {
+                             @class = "form-control select2-basic-search",
+                             style = "width:100%",
+                             onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'SubDistrict', Action : 'RemotePMDSubDistricts'}]);"
+                         })
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SubDistrict)
+                            @if (Model.PartnerMonitoringDBGUID != null)
+                            {
+                                @Html.DropDownListFor(model => model.SubDistrict, new DropDownList().PMDSubDistricts(Model.District), "",
+                         new
+                         {
+                             @class = "form-control select2-basic-search",
+                             style = "width:100%",
+                             onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CommunityName', Action : 'RemotePMDCommunities'}]);"
+                         })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.SubDistrict, new DropDownList().Empty(), "",
+                           new
+                           {
+                               @class = "form-control select2-basic-search",
+                               style = "width:100%",
+                               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CommunityName', Action : 'RemotePMDCommunities'}]);"
+                           })
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CommunityName)
+                            @if (Model.PartnerMonitoringDBGUID != null)
+                            {
+                                @Html.DropDownListFor(model => model.CommunityName, new DropDownList().PMDCommunities(Model.SubDistrict), "",
+                          new
+                               {
+                              @class = "form-control select2-basic-search",
+                              style = "width:100%",
+                              onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'Neighborhood', Action : 'RemotePMDNeighborhoods'}]);UpdateDropDownList([$(this).val()], [{ DropDownListID : 'PMDCommunityCenterGUID', Action : 'RemotePMDCommunityCenters'}]);"
+                          })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.CommunityName, new DropDownList().Empty(), "",
+                            new
+                                 {
+                                @class = "form-control select2-basic-search",
+                                style = "width:100%",
+                                onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'Neighborhood', Action : 'RemotePMDNeighborhoods'}]);UpdateDropDownList([$(this).val()], [{ DropDownListID : 'PMDCommunityCenterGUID', Action : 'RemotePMDCommunityCenters'}]);"
+                            })
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Neighborhood)
+                            @if (Model.PartnerMonitoringDBGUID != null)
+                            {
+                                @Html.DropDownListFor(model => model.Neighborhood, new DropDownList().PMDNeighborhoods(Model.CommunityName), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.Neighborhood, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PMDCommunityCenterGUID)
+                            @if (Model.PartnerMonitoringDBGUID != null)
+                            {
+                                @Html.DropDownListFor(model => model.PMDCommunityCenterGUID, new DropDownList().PMDCommunityCenters(Model.CommunityName), "",
+                         new
+                         {
+                             @class = "form-control select2-basic-search",
+                             style = "width:100%"
+                         })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.PMDCommunityCenterGUID, new DropDownList().Empty(), "",
+                           new
+                           {
+                               @class = "form-control select2-basic-search",
+                               style = "width:100%"
+                           })
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Location)
+                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Longitude)
+                            @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @disabled = "disabled" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Latitude)
+                            @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @disabled = "disabled" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <br />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @resxPages.PMDObjective
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ObjectiveGUID)
+                            @Html.DropDownListFor(model => model.ObjectiveGUID, new DropDownList().PMDObjectives(), "",
+                           new
+                                {
+                               @class = "form-control select2-basic-search",
+                               style = "width:100%",
+                               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'OutputGUID', Action : 'RemotePMDOutputs'}]);UpdateDropDownList([$(this).val()], [{ DropDownListID : 'ObjectiveStatusGUID', Action : 'RemotePMDObjectiveStatuses'}]);"
+                           })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.OutputGUID)
+                            @if (Model.PartnerMonitoringDBGUID != null)
+                            {
+                                @Html.DropDownListFor(model => model.OutputGUID, new DropDownList().PMDOutputs(Model.ObjectiveGUID), "",
+                            new
+                                 {
+                                @class = "form-control select2-basic-single",
+                                style = "width:100%",
+                                onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'IndicatorGUID', Action : 'RemotePMDIndicators'}]);"
+                            })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.OutputGUID, new DropDownList().Empty(), "",
+                            new
+                                 {
+                                @class = "form-control select2-basic-single",
+                                style = "width:100%",
+                                onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'IndicatorGUID', Action : 'RemotePMDIndicators'}]);"
+                            })
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IndicatorGUID)
+                            @if (Model.PartnerMonitoringDBGUID != null)
+                            {
+                                @Html.DropDownListFor(model => model.IndicatorGUID, new DropDownList().PMDIndicators(Model.OutputGUID), "",
+                               new
+                               {
+                                   @class = "form-control select2-basic-single",
+                                   style = "width:100%",
+                                   //onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CovUnitGUID', Action : 'RemotePMDIndicatorUnit'}]);"
+                               })
+
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.IndicatorGUID, new DropDownList().Empty(), "",
+                                new
+                                {
+                                    @class = "form-control select2-basic-single",
+                                    style = "width:100%",
+                                    //onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CovUnitGUID', Action : 'RemotePMDIndicatorUnit'}]);"
+                                })
+
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txt_IndicatorGuidance">@resxPages.IndicatorGuidance</label>
+                            <textarea id="txt_IndicatorGuidance" class="form-control" rows="2" disabled="disabled" readonly="readonly">@Model.IndicatorGuidance</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ObjectiveStatusGUID)
+
+
+                            @if (Model.PartnerMonitoringDBGUID != null)
+                            {
+                                @Html.DropDownListFor(model => model.ObjectiveStatusGUID, new DropDownList().PMDObjectiveStatuses(Model.ObjectiveGUID), "",
+                               new
+                               {
+                                   @class = "form-control select2-basic-single",
+                                   style = "width:100%",
+                                   //onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CovUnitGUID', Action : 'RemotePMDIndicatorUnit'}]);"
+                               })
+
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.ObjectiveStatusGUID, new DropDownList().Empty(), "",
+                                                             new
+                                                             {
+                                                                 @class = "form-control select2-basic-single",
+                                                                 style = "width:100%",
+                                                                 //onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'CovUnitGUID', Action : 'RemotePMDIndicatorUnit'}]);"
+                                                             })
+
+                            }
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <br />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @resxPages.PMDAchievement
+            </div>
+            <div class="panel-body">
+                @if (Model.PartnerMonitoringDBGUID == Guid.Empty)
+                {
+                    <div class="row" id="div-MeasurementTotal">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MeasurementTotal)
+                                @Html.EditorFor(model => model.MeasurementTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    //Health PPE
+                    if (Model.IndicatorGUID == Guid.Parse("AA2A13CB-BF95-4B13-80AF-D87DC811AC2F") ||
+                           Model.IndicatorGUID == Guid.Parse("3B23C7E9-49C2-48AD-A61A-3700D4EBD2EB") ||
+                           Model.IndicatorGUID == Guid.Parse("26249B78-18D4-4BBF-BB9E-430B01D09118") ||
+                           Model.IndicatorGUID == Guid.Parse("273837B8-917F-4024-B942-29A9C78918C5") ||
+                           Model.IndicatorGUID == Guid.Parse("05AB090D-6F5B-40F9-9742-CB96204DDF84"))
+                    {
+                        <div class="row" id="div-MeasurementTotal" style="display:none;">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MeasurementTotal)
+                                    @Html.EditorFor(model => model.MeasurementTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    //Domestic
+                    else if (Model.ObjectiveGUID == Guid.Parse("09f833d6-f698-4d5b-bb9c-114a56175132"))
+                    {
+                        <div class="row" id="div-MeasurementTotal" style="display:none;">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MeasurementTotal)
+                                    @Html.EditorFor(model => model.MeasurementTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="row" id="div-MeasurementTotal">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MeasurementTotal)
+                                    @Html.EditorFor(model => model.MeasurementTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                <div class="row">
+
+                    @if (Model.PartnerMonitoringDBGUID == Guid.Empty)
+                    {
+
+                        <div class="col-md-12" id="div-healthunitofachievements" style="display:none">
+                            <table style="width:100%" class="table dataTable no-footer dtr-inline">
+                                <thead>
+                                    <tr>
+                                        <th>@resxPages.PMDUnitOfAchievements</th>
+                                        <th> @resxPages.TotalAchievement</th>
+                                        <th>
+                                            @resxPages.PMDUnitOfAchievementsGuidance
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.PMDHealthUnitOfAchievements.Count; i++)
+                                    {
+                                        <tr>
+                                            @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].UnitOfAchievementGUID)
+                                            @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].PMDHealthUnitOfAchievementGUID)
+                                            @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].Active)
+                                            @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].DeletedOn)
+                                            @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].dataPMDHealthUnitOfAchievementRowVersion)
+                                            <td style="width:25%">
+
+                                                @Model.PMDHealthUnitOfAchievements[i].UnitOfAchievementDescription
+
+                                            </td>
+                                            <td style="width:25%">
+
+                                                <div class="form-group">
+                                                    @Html.EditorFor(x => Model.PMDHealthUnitOfAchievements[i].MeasurementTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                </div>
+
+                                            </td>
+                                            <td style="width:55%">
+
+                                                @Model.PMDHealthUnitOfAchievements[i].UnitOfAchievementGuidance
+
+                                            </td>
+                                        </tr>
+
+
+
+
+                                        @*<div class="col-lg-12">
+                                                <hr style="border-top: 2px solid #dfe1e2;height:15px;" />
+                                            </div>*@
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-md-12" id="div-domesticunitofachievements" style="display:none">
+                            <table style="width:100%" class="table dataTable no-footer dtr-inline">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @resxPages.PMDUnitOfAchievements
+                                        </th>
+                                        <th>
+                                            @resxPages.TotalAchievement
+                                        </th>
+                                        <th>
+                                            @resxPages.DistributionDate
+                                        </th>
+                                        <th>@resxPages.Stock</th>
+                                        <th>@resxPages.Response</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.PMDDomesticUnitOfAchievements.Count; i++)
+                                    {
+                                        <tr>
+                                            @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].UnitOfAchievementGUID)
+                                            @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].PMDDomesticUnitOfAchievementGUID)
+                                            @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].Active)
+                                            @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].DeletedOn)
+                                            @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].dataPMDDomesticUnitOfAchievementRowVersion)
+                                            <td>
+                                                @Model.PMDDomesticUnitOfAchievements[i].UnitOfAchievementDescription
+                                            </td>
+                                            <td>
+                                                @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].MeasurementTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                            </td>
+                                            <td>
+                                                @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].DistributionDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                            </td>
+                                            <td>
+                                                @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].StockValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                            </td>
+                                            <td>
+                                                @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].ResponseValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    }
+                    else
+                    {
+                        //Health PPE
+                        if (Model.IndicatorGUID == Guid.Parse("AA2A13CB-BF95-4B13-80AF-D87DC811AC2F") ||
+                            Model.IndicatorGUID == Guid.Parse("3B23C7E9-49C2-48AD-A61A-3700D4EBD2EB") ||
+                            Model.IndicatorGUID == Guid.Parse("26249B78-18D4-4BBF-BB9E-430B01D09118") ||
+                            Model.IndicatorGUID == Guid.Parse("273837B8-917F-4024-B942-29A9C78918C5") ||
+                            Model.IndicatorGUID == Guid.Parse("05AB090D-6F5B-40F9-9742-CB96204DDF84"))
+                        {
+
+                            <div class="col-md-12" id="div-healthunitofachievements">
+                                <table style="width:100%" class="table dataTable no-footer dtr-inline">
+                                    <thead>
+                                        <tr>
+                                            <th>@resxPages.PMDUnitOfAchievements</th>
+                                            <th> @resxPages.TotalAchievement</th>
+                                            <th>
+                                                @resxPages.PMDUnitOfAchievementsGuidance
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < Model.PMDHealthUnitOfAchievements.Count; i++)
+                                        {
+                                            <tr>
+                                                @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].UnitOfAchievementGUID)
+                                                @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].PMDHealthUnitOfAchievementGUID)
+                                                @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].Active)
+                                                @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].DeletedOn)
+                                                @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].dataPMDHealthUnitOfAchievementRowVersion)
+                                                <td style="width:25%">
+
+                                                    @Model.PMDHealthUnitOfAchievements[i].UnitOfAchievementDescription
+
+                                                </td>
+                                                <td style="width:25%">
+
+                                                    <div class="form-group">
+                                                        @Html.EditorFor(x => Model.PMDHealthUnitOfAchievements[i].MeasurementTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                    </div>
+
+                                                </td>
+                                                <td style="width:55%">
+
+                                                    @Model.PMDHealthUnitOfAchievements[i].UnitOfAchievementGuidance
+
+                                                </td>
+                                            </tr>
+
+
+
+
+                                            @*<div class="col-lg-12">
+                                                    <hr style="border-top: 2px solid #dfe1e2;height:15px;" />
+                                                </div>*@
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        }
+                        //Domestic
+                        else if (Model.ObjectiveGUID == Guid.Parse("09f833d6-f698-4d5b-bb9c-114a56175132"))
+                        {
+                            <div class="col-md-12" id="div-domesticunitofachievements">
+                                <table style="width:100%" class="table dataTable no-footer dtr-inline">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @resxPages.PMDUnitOfAchievements
+                                            </th>
+                                            <th>
+                                                @resxPages.TotalAchievement
+                                            </th>
+                                            <th>
+                                                @resxPages.DistributionDate
+                                            </th>
+                                            <th>@resxPages.Stock</th>
+                                            <th>@resxPages.Response</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < Model.PMDDomesticUnitOfAchievements.Count; i++)
+                                        {
+                                            <tr>
+                                                @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].UnitOfAchievementGUID)
+                                                @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].PMDDomesticUnitOfAchievementGUID)
+                                                @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].Active)
+                                                @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].DeletedOn)
+                                                @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].dataPMDDomesticUnitOfAchievementRowVersion)
+                                                <td>
+                                                    @Model.PMDDomesticUnitOfAchievements[i].UnitOfAchievementDescription
+                                                </td>
+                                                <td>
+                                                    @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].MeasurementTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                </td>
+                                                <td>
+                                                    @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].DistributionDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                </td>
+                                                <td>
+                                                    @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].StockValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                </td>
+                                                <td>
+                                                    @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].ResponseValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            if (Model.PMDHealthUnitOfAchievements != null)
+                            {
+                                <div class="col-md-12" id="div-healthunitofachievements" style="display:none">
+                                    <table style="width:100%" class="table dataTable no-footer dtr-inline">
+                                        <thead>
+                                            <tr>
+                                                <th>@resxPages.PMDUnitOfAchievements</th>
+                                                <th> @resxPages.TotalAchievement</th>
+                                                <th>
+                                                    @resxPages.PMDUnitOfAchievementsGuidance
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (int i = 0; i < Model.PMDHealthUnitOfAchievements.Count; i++)
+                                            {
+                                                <tr>
+                                                    @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].UnitOfAchievementGUID)
+                                                    @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].PMDHealthUnitOfAchievementGUID)
+                                                    @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].Active)
+                                                    @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].DeletedOn)
+                                                    @Html.HiddenFor(x => Model.PMDHealthUnitOfAchievements[i].dataPMDHealthUnitOfAchievementRowVersion)
+                                                    <td style="width:25%">
+
+                                                        @Model.PMDHealthUnitOfAchievements[i].UnitOfAchievementDescription
+
+                                                    </td>
+                                                    <td style="width:25%">
+
+                                                        <div class="form-group">
+                                                            @Html.EditorFor(x => Model.PMDHealthUnitOfAchievements[i].MeasurementTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                        </div>
+
+                                                    </td>
+                                                    <td style="width:55%">
+
+                                                        @Model.PMDHealthUnitOfAchievements[i].UnitOfAchievementGuidance
+
+                                                    </td>
+                                                </tr>
+
+
+
+
+                                                @*<div class="col-lg-12">
+                                                        <hr style="border-top: 2px solid #dfe1e2;height:15px;" />
+                                                    </div>*@
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            if (Model.PMDDomesticUnitOfAchievements != null)
+                            {
+                                <div class="col-md-12" id="div-domesticunitofachievements" style="display:none">
+                                    <table style="width:100%" class="table dataTable no-footer dtr-inline">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    @resxPages.PMDUnitOfAchievements
+                                                </th>
+                                                <th>
+                                                    @resxPages.TotalAchievement
+                                                </th>
+                                                <th>
+                                                    @resxPages.DistributionDate
+                                                </th>
+                                                <th>@resxPages.Stock</th>
+                                                <th>@resxPages.Response</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (int i = 0; i < Model.PMDDomesticUnitOfAchievements.Count; i++)
+                                            {
+                                                <tr>
+                                                    @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].UnitOfAchievementGUID)
+                                                    @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].PMDDomesticUnitOfAchievementGUID)
+                                                    @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].Active)
+                                                    @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].DeletedOn)
+                                                    @Html.HiddenFor(x => Model.PMDDomesticUnitOfAchievements[i].dataPMDDomesticUnitOfAchievementRowVersion)
+                                                    <td>
+                                                        @Model.PMDDomesticUnitOfAchievements[i].UnitOfAchievementDescription
+                                                    </td>
+                                                    <td>
+                                                        @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].MeasurementTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                    </td>
+                                                    <td>
+                                                        @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].DistributionDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                    </td>
+                                                    <td>
+                                                        @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].StockValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                    </td>
+                                                    <td>
+                                                        @Html.EditorFor(x => Model.PMDDomesticUnitOfAchievements[i].ResponseValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <br />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @resxPages.PMDPopulation
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdpTotal)
+                            @Html.EditorFor(model => model.IdpTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RefTotal)
+                            @Html.EditorFor(model => model.RefTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RetTotal)
+                            @Html.EditorFor(model => model.RetTotal, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HostCommunity)
+                            @Html.EditorFor(model => model.HostCommunity, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <br />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @resxPages.PMDAgeGroup
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Boys)
+                            @Html.EditorFor(model => model.Boys, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Girls)
+                            @Html.EditorFor(model => model.Girls, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Men)
+                            @Html.EditorFor(model => model.Men, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Women)
+                            @Html.EditorFor(model => model.Women, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ElderlyMen)
+                            @Html.EditorFor(model => model.ElderlyMen, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ElderlyWomen)
+                            @Html.EditorFor(model => model.ElderlyWomen, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <br />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @resxPages.PMDPartner
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ImplementingPartnerGUID)
+                            @Html.DropDownListFor(model => model.ImplementingPartnerGUID, new DropDownList().PMDImplementingPartners(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IsDirectActivity)
+                            @Html.DropDownListFor(model => model.IsDirectActivity, new DropDownList().PMDDirectActivities(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <br />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @resxPages.CommentsAndFeedback
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Comments)
+                            @Html.TextAreaFor(model => model.Comments, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 13 })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div id="PartnerMonitoringDatabaseFormControls" class="form-group form-footer">
+            @if (Model.PartnerMonitoringDBGUID == Guid.Empty)
+            {
+                @Html.CreateButton(Permissions.PartnerMonitoringDatabase.Create, Apps.PMD)
+            }
+            else
+            {
+
+                if (Model.Active)
+                {
+                    @Html.UpdateButton(Permissions.PartnerMonitoringDatabase.Update, Apps.PMD)
+                    @Html.CreateNewButton(Permissions.PartnerMonitoringDatabase.Create, Apps.PMD, Url.Action("Create", "PartnerMonitoringDatabase", new { Area = "PMD" }))
+                    @Html.DeleteButton(Permissions.PartnerMonitoringDatabase.Delete, Apps.PMD)
+
+                }
+                else
+                {
+                    @Html.RestoreButton(Permissions.PartnerMonitoringDatabase.Restore, Apps.PMD)
+                }
+            }
+            @if (Model.PartnerMonitoringDBGUID != Guid.Empty && Model.Active)
+            {
+                if (new CMS().HasAction(Permissions.PartnerMonitoringDatabaseFieldTechVerify.Create, Apps.PMD))
+                {
+                    <input id="btn-verifyRecordField" type="button" value="Verified Record by Field Technical Units" class="btn btn-primary" />
+                    <input id="btn-notverifyRecordField" type="button" value="Not Verified Record by Field Technical Units" class="btn btn-primary" />
+                }
+
+                if (new CMS().HasAction(Permissions.PartnerMonitoringDatabaseProgrammeApprove.Create, Apps.PMD))
+                {
+                    <input id="btn-verifyRecordProgramme" type="button" value="Approved by Field Snr. Programme" class="btn btn-primary" />
+                }
+
+                if (new CMS().HasAction(Permissions.PartnerMonitoringDatabaseCountryTechVerify.Create, Apps.PMD))
+                {
+                    <input id="btn-verifyRecordCountry" type="button" value="Approved by CO Technical Unit" class="btn btn-primary" />
+                    <input id="btn-notverifyRecordCountry" type="button" value="Not Approved by CO Technical Unit" class="btn btn-primary" />
+
+                }
+            }
+            @Html.BackToList(Url.Action("Index", "PartnerMonitoringDatabase", new { Area = "PMD" }))
+        </div>
+
+    </div>
+
+}
+
+<div class="row">
+    <br />
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Attachements</h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-8 col-xs-12">
+                    <div id="PartnerMonitoringDatabaseAttachementContainer">
+                        @if (Model != null)
+                        {
+                            if (Model.PartnerMonitoringDBGUID != Guid.Empty && Model.Active)
+                            {
+                                @Html.Partial("~/Areas/PMD/Views/PartnerMonitoringDatabase/_PartnerMonitoringDatabaseAttachementDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.PartnerMonitoringDBGUID, IsParentActive = Model.Active })
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-sm NotverifyFieldModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NotVerifiedByFieldReason)
+                    @Html.EditorFor(model => model.NotVerifiedByFieldReason, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-confirm-NotVerifiedByField" type="button" class="btn btn-primary">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-sm NotApproveCountryModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NotApprovedByCountryReason)
+                    @Html.EditorFor(model => model.NotApprovedByCountryReason, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-confirm-NotApprovedByCountry" type="button" class="btn btn-primary">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(document).on('click', function (e) {
+            $('[data-toggle="popover"],[data-original-title]').each(function () {
+                //the 'is' for buttons that trigger popups
+                //the 'has' for icons within a button that triggers a popup
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                    $(this).popover("hide");
+                }
+            });
+        });
+        $('#CommunityName').change(function (e) {
+            var admin4Pcode = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/PMD/PartnerMonitoringDatabase/GetCoordinates/",
+                data: { admin4Pcode: admin4Pcode },
+                success: function (JsonResult) {
+                    $('#Longitude').val(JsonResult["Longitude"]);
+                    $('#Latitude').val(JsonResult["Latitude"]);
+                }
+            });
+        });
+
+        $('#IndicatorGUID').change(function (e) {
+            e.preventDefault();
+            var IndicatorGUID = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/PMD/PartnerMonitoringDatabase/GetIndicatorGuidance/",
+                data: { IndicatorGUID: IndicatorGUID },
+                success: function (JsonResult) {
+                    $('#txt_IndicatorGuidance').text(JsonResult.IndicatorGuidance);
+                }
+            });
+            debugger;
+
+
+            if (IndicatorGUID.toUpperCase() == "AA2A13CB-BF95-4B13-80AF-D87DC811AC2F" ||
+                IndicatorGUID.toUpperCase() == "3B23C7E9-49C2-48AD-A61A-3700D4EBD2EB" ||
+                IndicatorGUID.toUpperCase() == "26249B78-18D4-4BBF-BB9E-430B01D09118" ||
+                IndicatorGUID.toUpperCase() == "273837B8-917F-4024-B942-29A9C78918C5" ||
+                IndicatorGUID.toUpperCase() == "05AB090D-6F5B-40F9-9742-CB96204DDF84") {
+                $('#div-healthunitofachievements').show();
+                $('#div-healthunitofachievementsGuidance').show();
+                $('#ObjectiveGUIDBool').val('false');
+                $('#div-MeasurementTotal').hide();
+                $('#div-domesticunitofachievements').hide();
+            }
+            else {
+                var ObjectiveGUID = $('#ObjectiveGUID').val();
+                $('#div-healthunitofachievements').hide();
+                $('#div-healthunitofachievementsGuidance').hide();
+                if (ObjectiveGUID.toUpperCase() == "09F833D6-F698-4D5B-BB9C-114A56175132") {
+                    $('#ObjectiveGUIDBool').val('false');
+                    $('#div-MeasurementTotal').hide();
+                }
+                else {
+                    $('#ObjectiveGUIDBool').val('true');
+                    $('#div-MeasurementTotal').show();
+                }
+
+            }
+        });
+
+        $('#ObjectiveGUID').change(function (e) {
+            e.preventDefault();
+            debugger;
+            var ObjectiveGUID = $(this).val();
+            $('#div-healthunitofachievements').hide();
+            $('#div-healthunitofachievementsGuidance').hide();
+            if (ObjectiveGUID.toUpperCase() == "09F833D6-F698-4D5B-BB9C-114A56175132") {
+                $('#div-domesticunitofachievements').show();
+                $('#ObjectiveGUIDBool').val('false');
+                $('#div-MeasurementTotal').hide();
+            }
+            else {
+                $('#ObjectiveGUIDBool').val('true');
+                $('#div-domesticunitofachievements').hide();
+                $('#div-MeasurementTotal').show();
+
+            }
+        });
+
+        $('#UnitOfAchievementGUID').change(function (e) {
+            e.preventDefault();
+            var UnitOfAchievementGUID = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/PMD/PartnerMonitoringDatabase/GetIndicatorUnitGuidance/",
+                data: { UnitOfAchievementGUID: UnitOfAchievementGUID },
+                success: function (JsonResult) {
+                    $('#txt_UnitGuidance').text(JsonResult.UnitGuidance);
+                }
+            });
+
+        });
+
+
+
+        function delay(callback, ms) {
+            var timer = 0;
+            return function () {
+                var context = this, args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    callback.apply(context, args);
+                }, ms || 0);
+            };
+        }
+
+
+        // Example usage:
+
+        //$('#Quantity').keyup(delay(function (e) {
+        //    var Quantity = $(this).val();
+        //    var _CovUnitGUID = $('#CovUnitGUID').val();
+        //    console.log('Time elapsed!', this.value);
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "/COV/CovidUNHCRResponse/GetUnitCost",
+        //        data: {
+        //            CovUnitGUID: _CovUnitGUID
+        //        },
+        //        success: function (JsonResult) {
+        //            $('#UnitCost').val((JsonResult["CovUnitCost"] * 1) * (Quantity * 1));
+        //            $('#CostEstimationThreeMonthes').val((JsonResult["CovUnitCost"] * 1) * (Quantity * 1) * (3));
+        //        },
+        //    });
+        //}, 500));
+
+
+
+        $(document).on('click', '.btnNewRecord', function (e) {
+            e.preventDefault();
+            var Governorate = $('#Governorate').val();
+            var District = $('#District').val();
+            var SubDistrict = $('#SubDistrict').val();
+            var CommunityName = $('#CommunityName').val();
+            var Neighborhood = $('#Neighborhood').val();
+            var Location = $('#Location').val();
+            var Longitude = $('#Longitude').val();
+            var Latitude = $('#Latitude').val();
+            var ObjectiveGUID = $('#ObjectiveGUID').val();
+            var url = '/PMD/PartnerMonitoringDatabase/CreateNew?';
+            url += "Governorate=" + Governorate;
+            url += "&District=" + District;
+            url += "&SubDistrict=" + SubDistrict;
+            url += "&CommunityName=" + CommunityName;
+            url += "&Neighborhood=" + Neighborhood;
+            url += "&Location=" + Location;
+            url += "&Longitude=" + Longitude;
+            url += "&Latitude=" + Latitude;
+            $(location).attr('href', url)
+        });
+
+
+
+
+
+        $(document).on('click', '#btn-verifyRecordField', function (e) {
+            e.preventDefault();
+            var PartnerMonitoringDBGUID = $('#PartnerMonitoringDBGUID').val();
+            $.ajax({
+                type: "POST",
+                url: "/PMD/PartnerMonitoringDatabase/PartnerMonitoringDatabaseVerifyField",
+                data: { PartnerMonitoringDBGUID: PartnerMonitoringDBGUID },
+                success: function (JsonResult) {
+                    if (JsonResult["success"] == true) {
+                        Notify(NotificationType.Success, 'Record is verified.');
+                    } else {
+                        Notify(NotificationType.Error, 'Access Denied.');
+                    }
+                }
+            });
+        });
+        $(document).on('click', '#btn-notverifyRecordField', function (e) {
+            e.preventDefault();
+            debugger;
+            var PartnerMonitoringDBGUID = $('#PartnerMonitoringDBGUID').val();
+            $('.NotverifyFieldModal').modal('show');
+        });
+        $(document).on('click', '#btn-confirm-NotVerifiedByField', function (e) {
+            e.preventDefault();
+            var PartnerMonitoringDBGUID = $('#PartnerMonitoringDBGUID').val();
+            var Reason = $('#NotVerifiedByFieldReason').val();
+            $.ajax({
+                type: "POST",
+                url: "/PMD/PartnerMonitoringDatabase/PartnerMonitoringDatabaseVerifyFieldNot",
+                data: {
+                    PartnerMonitoringDBGUID: PartnerMonitoringDBGUID,
+                    Reason: Reason
+                },
+                success: function (JsonResult) {
+                    if (JsonResult["success"] == true) {
+                        Notify(NotificationType.Success, 'Record is not verified.');
+                    } else {
+                        Notify(NotificationType.Error, 'Access Denied.');
+                    }
+                    $('.NotverifyFieldModal').modal('hide');
+                }
+            });
+        });
+
+
+        $(document).on('click', '#btn-verifyRecordProgramme', function (e) {
+            e.preventDefault();
+            var PartnerMonitoringDBGUID = $('#PartnerMonitoringDBGUID').val();
+            $.ajax({
+                type: "POST",
+                url: "/PMD/PartnerMonitoringDatabase/PartnerMonitoringDatabaseVerifyProgramme",
+                data: { PartnerMonitoringDBGUID: PartnerMonitoringDBGUID },
+                success: function (JsonResult) {
+                    if (JsonResult["success"] == true) {
+                        Notify(NotificationType.Success, 'Record is verified.');
+                    } else {
+                        Notify(NotificationType.Error, 'Record is not verified by field technical units.');
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '#btn-verifyRecordCountry', function (e) {
+            e.preventDefault();
+            var PartnerMonitoringDBGUID = $('#PartnerMonitoringDBGUID').val();
+            $.ajax({
+                type: "POST",
+                url: "/PMD/PartnerMonitoringDatabase/PartnerMonitoringDatabaseVerifyCountry",
+                data: { PartnerMonitoringDBGUID: PartnerMonitoringDBGUID },
+                success: function (JsonResult) {
+                    if (JsonResult["success"] == true) {
+                        Notify(NotificationType.Success, 'Record is verified.');
+                    } else {
+                        Notify(NotificationType.Error, 'Record is not approved by Field Technical Unit Yet.');
+                    }
+                }
+            });
+        });
+        $(document).on('click', '#btn-notverifyRecordCountry', function (e) {
+            e.preventDefault();
+            var PartnerMonitoringDBGUID = $('#PartnerMonitoringDBGUID').val();
+            $('.NotApproveCountryModal').modal('show');
+        });
+        $(document).on('click', '#btn-confirm-NotApprovedByCountry', function (e) {
+            e.preventDefault();
+            var PartnerMonitoringDBGUID = $('#PartnerMonitoringDBGUID').val();
+            var Reason = $('#NotApprovedByCountryReason').val();
+            $.ajax({
+                type: "POST",
+                url: "/PMD/PartnerMonitoringDatabase/PartnerMonitoringDatabaseVerifyCountryNot",
+                data: {
+                    PartnerMonitoringDBGUID: PartnerMonitoringDBGUID,
+                    Reason: Reason
+                },
+                success: function (JsonResult) {
+                    if (JsonResult["success"] == true) {
+                        Notify(NotificationType.Success, 'Record is approved.');
+                    } else {
+                        Notify(NotificationType.Error, 'Record is not approved by Field Technical Unit Yet.');
+                    }
+                }
+            });
+        });
+
+
+        $(document).on('click', '#btn-verifyRecord', function (e) {
+            e.preventDefault();
+            var PartnerMonitoringDBGUID = $('#PartnerMonitoringDBGUID').val();
+            $.ajax({
+                type: "POST",
+                url: "/PMD/PartnerMonitoringDatabase/PartnerMonitoringDatabaseVerify",
+                data: { PartnerMonitoringDBGUID: PartnerMonitoringDBGUID },
+                success: function (JsonResult) {
+                    if (JsonResult["success"] == true) {
+                        Notify(NotificationType.Success, 'Record is verified.');
+                    } else {
+                        Notify(NotificationType.Error, 'Access Denied.');
+                    }
+                }
+            });
+
+        });
+
+    });
+</script>

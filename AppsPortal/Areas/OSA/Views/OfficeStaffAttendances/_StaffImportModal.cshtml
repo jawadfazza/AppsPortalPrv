@@ -1,0 +1,198 @@
+﻿
+@using (Html.BeginForm("ElectionStaffImport", "OfficeStaffAttendances", new { Area = "OSA" }, FormMethod.Post, new { id = "AttendanceStatffImportForm", enctype = "multipart/form-data" }))
+{
+    string ModalTitle = resxDbFields.ImportStaffFile;
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="progress">
+                    <div id="div-progres-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
+                        <span id="span-progres-bar" style="float:right;padding-right:1px;">0%</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div id="monitors"></div>
+            </div>
+        </div>
+
+        <input id="ImportedFile" type="file" name="file" />
+        <div id="stafftoImport" class="mScroll blueDataTableHeader" data-mcs-theme="rounded-dark" style="max-height:350px;">
+            <table id="staffImportTable" class="display" width="100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                       
+                        <th>@resxDbFields.FullName</th>
+                        <th>@resxDbFields.DateKey</th>
+                        <th>@resxDbFields.WorkingHours</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+
+            </table>
+        </div>
+
+
+    </div>
+    <div class="modal-footer form-footer">
+
+        <input class="btn btn-primary " type="submit" id="ProcessId" value=@resxDbFields.ProcessFile>
+        <input class="btn btn-primary " type="button" id="SaveImport" value=@resxDbFields.SaveFile>
+        @*@Html.CreateButton(Permissions.ElectionsManagement.Create, Apps.OSA)*@
+
+
+        @Html.CloseModalButton()
+    </div>
+}
+
+
+<script>
+    var tableimport;
+    $("#stafftoImport").hide();
+    $("#SaveImport").hide();
+    $('#AttendanceStatffImportForm').submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $("#ProcessId").attr("disabled", "true");
+        $.ajax({
+            url: "@Url.Action("AttendanceStaffImportCheck", "OfficeStaffAttendances", "OSA")",
+            method: "POST",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(JsonResult, status, xhr) {
+                tableimport = $("#staffImportTable").DataTable({
+                    "data": JsonResult.data,
+                    paging: false,
+                    destroy: true,
+                    columns: [
+                        { data: "UserGUID" },
+                        { data: "FullName" },
+                        { data: "DateKey" },
+                        { data: "WorkingTime" }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": 0,
+                            "data": "UserGUID",
+                            "render": function(dataval, type, full, meta) {
+                                return "<input type='checkbox' class='chkNode' name='DeleteID1' checked value='" + dataval + "'>";
+                            }
+                        },
+
+                            {
+                                "targets": 2,
+                                "data": "DateKey",
+                                "render": function (dataval, type, full, meta) {
+                                    return moment(dataval).format('LL') ;
+                                }
+                            }
+                    ]
+                });
+                $("#stafftoImport").show();
+                $("#SaveImport").show();
+                $("#ProcessId").hide();
+                $(".alert-warning").hide();
+                $("#ImportedFile").hide();
+            }
+        });
+    });
+
+
+    $("#SaveImport").click(function (e) {
+        e.preventDefault();
+        var notified = 0;
+        var notified2 = 0
+        if ($('#hdn-to-process-count').val() * 1 == 0) {
+            Notify(NotificationType.Warning, 'Nothing To Process');
+            return false;
+        }
+
+        $('#SaveImport').attr("disabled", true);
+        $('.span-process-status').text('Processing');
+        $('.span-process-status').removeClass('label-danger');
+        $('.span-process-status').addClass('label-warning');
+        $('.span-process-icon').show();
+
+        var selectedrows = [];
+        var index = 0;
+        $('#staffImportTable').find('input[type="checkbox"]:checked').each(function () {
+            selectedrows.push(tableimport.row($(this).closest('tr')).data());
+            //this is the current checkbox  
+            selectedrows[index]["DateKey"] = moment(selectedrows[index]["DateKey"]).format('LL');
+            index++;
+        });
+        debugger;
+
+
+        $.ajax({
+            url: "@Url.Action("AttendanceStaffImport", "OfficeStaffAttendances", "OSA")",
+            method: "POST",
+            
+            data: { model: selectedrows},
+            success: function (JsonResult, status, xhr) {
+                if (JsonResult.NothingToProcess == true) {
+                    Notify(NotificationType.Warning, 'Nothing To Process');
+                    return false;
+                }
+                $('#div-progres-bar').show();
+                console.log('JsonResult', JsonResult);
+                // Periodically update progres bar
+                var intervalId = setInterval(function () {
+                    console.log('main interval id', intervalId);
+                    $.post("/OSA/OfficeStaffAttendances/ProcessCalculationProgres", { id: JsonResult.processCalculationTaskId }, function (progress) {
+                        console.log('progress', progress - 1);
+                        var percentage = Math.round(((progress * 1) / (JsonResult.TotalRecords * 1)) * 100);
+
+                        if (percentage == 100) {
+                            if (notified != 1) {
+                                $('#div-progres-bar').css('width', "100%");
+                                $('#span-progres-bar').text("100%");
+                                $('.span-process-status').text('Completed');
+                                $('.span-process-status').removeClass('label-warning');
+                                $('.span-process-status').addClass('label-success');
+                                $('.span-process-icon').hide();
+
+                                notified = 1;
+                                Notify(NotificationType.Info, 'Please Wait.....');
+                                setTimeout(() => {
+                                    clearInterval(intervalId);
+                                    Notify(NotificationType.Success, 'Process completed.');
+                                    //DataTableRefresh('ElectionStaffsDataTable');
+                                }, 2000);
+
+                            }
+                        }
+                        else if (progress > 0) {
+                            console.log('percentage', percentage);
+                            $('#div-progres-bar').css('width', percentage + "%");
+                            $('#span-progres-bar').text(percentage + "%");
+                        }
+                        else if (progress < 0) {
+                            console.log('clear interval id', intervalId);
+                            clearInterval(intervalId);
+                            if (notified2 != 1) {
+                                $('.span-process-status').text('Completed');
+                                $('.span-process-status').removeClass('label-danger').removeClass('label-warning');
+                                $('.span-process-status').addClass('label-success');
+                                $('.span-process-icon').hide();
+                               // Notify(NotificationType.Success, 'E-mails generated successfully.');
+                                notified2 = 1;
+                            }
+
+                        }
+                    });
+                }, 100);
+            }
+        });
+    });
+
+
+</script>
+

@@ -1,0 +1,281 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("49655915-c488-4eb9-882a-f44aaad46cc3")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/ORG/StaffProfile">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Staff Profile Management</h3>
+                        <span>Add/Modify Existing staff profiles.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/AHD/DangerPayInformation/">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-calendar-check-o fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Danger Pay for National Staff</h3>
+                        @*<span>--</span>*@
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/AHD/StaffRAndRLeaveRequest">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-plane  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Rest and Recuperation Forms For International Staff </h3>
+                        @*<span>Here you can define new items models.</span>*@
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/AHD/StaffPresenceTrackingIndex">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-calendar-o  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Interntional Staff Attendance Tracking </h3>
+                        @*<span>Here you can define new items models.</span>*@
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+    <div class="row">
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/AHD/InternationalStaffEntitlementPeriodIndex">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-money  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Interntional Staff Entitlements</h3>
+                        @*<span>Here you can define new items models.</span>*@
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/AHD/VehicleMaintenaceRequestIndex/">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-calendar-check-o fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Vehicle Maintenace Requests</h3>
+                        @*<span>--</span>*@
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/AHD/StaffRenewalResidency/">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-calendar-check-o fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>NVs for International S/Ms</h3>
+                        <span>--</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/ORG/Home/Configuration">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-cogs  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Configuration </h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/ORG/Home/Reports">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-file-excel  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Reports </h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/ORG/StaffProfile/StaffOrgChart">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-tree  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Org Chart </h3>
+                        <span>..</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @*<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="/AHD/HrForms/">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-calendar-check-o fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3> HR Forms </h3>
+                            <span>--</span>
+                        </div>
+                    </div>
+                </a>
+            </div>*@
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <figure class="highcharts-figure">
+                <div id="containerByGrade"></div>
+                <p class="highcharts-description">
+                    Chart showing Recruitment Type for all staff
+                </p>
+            </figure>
+        </div>
+
+
+        <div class="col-md-4">
+            <figure class="highcharts-figure">
+                <div id="containerByDutyStaion"></div>
+                <p class="highcharts-description">
+                    Chart Showing Staff by Duty Station
+                </p>
+            </figure>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<script>
+    function GetStaffGradeByRecuirtment() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+
+        $.ajax({
+            type: "Post",
+            url: "/AHD/Home/InitDrillDownChart",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                //DecideWhenLoadComplete();
+                var MainReport = response["MainReport"];
+                var DetailsReport = response["DetailsReport"];
+
+                var MainDataDutyStation = response["MainDataDutyStation"];
+                var DetailsDutyStations = response["DetailsDutyStations"];
+
+                //$('#containerdrill').removeClass('loadingSpanChart');
+
+                Highcharts.chart('containerByGrade', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Staff Information By Recruitment Type'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    xAxis: {
+                        type: 'category'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total Staff'
+                        }
+
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                //format: '{point.y:.1f}'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        //  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> of total<br/>'
+                    },
+
+                    series: [MainReport],
+                    drilldown: { series: DetailsReport }
+                });
+
+                Highcharts.chart('containerByDutyStaion', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Staff Information By Duty Station'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    xAxis: {
+                        type: 'category'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total Staff'
+                        }
+
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                //format: '{point.y:.1f}'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        //  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> of total<br/>'
+                    },
+
+                    series: [MainDataDutyStation],
+                    drilldown: { series: DetailsDutyStations }
+                });
+
+            },
+            error: function (errorStatus) {
+                //DecideWhenLoadComplete();
+            }
+        });
+    };
+    GetStaffGradeByRecuirtment();
+</script>

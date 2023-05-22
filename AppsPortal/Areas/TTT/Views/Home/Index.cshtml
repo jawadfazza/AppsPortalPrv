@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("005a9197-1364-4ef7-95c1-4c7892e8834d")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/TTT/Tenders/">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-cogs  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Tenders Management</h3>
+                        <span>......</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/TTT/Reports/">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-bar-chart  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Reports</h3>
+                        <span>..............................</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/CMS/Codes/VCT/39CA2261-5E49-4CD9-8F81-587A8BFD1D3E">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-gear  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Awarded Companies Configuration</h3>
+                        <span>..............................</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @if (new CMS().HasAction(Permissions.TenderBOCs.Access, Apps.TTT))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="/TTT/BOCs/Index">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fas fa-file-export fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>BOCs List Configuration</h3>
+                            <span>..............................</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.PurchasingReport.Access, Apps.TTT))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="/TTT/PurchasingReports">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-file-excel-o fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Purchasing Report Tool</h3>
+                            <span>..............................</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,213 @@
+﻿@model UsersUpdateModel
+@using (Html.BeginForm("User", "Users", FormMethod.Post, new { id = "UserForm", @class = "main-form" }))
+{
+
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.UserGUID)
+    @Html.HiddenFor(model => model.HiddenPhoneNumber)
+    <div class="row" id="ADUser">
+
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="input-group">
+                @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                <span id="btn-fetchAD" class="input-group-addon btn btn-primary" style="color:white"> AD Fetch </span>
+            </div>
+            <div style="margin: 10px 0; padding: 7px; border: solid 1px #ccc; background-color:#fff; min-height: 135px;">
+                <span class="userInfoInPermissions lbl_sn">
+                    Please enter UserID above then hit the fetch button.<br />
+                    Information appeared here can be used to fill the rest of user information below.
+                </span>
+                <span class="userInfoInPermissions lbl_samaccountname"></span>
+                <span class="userInfoInPermissions lbl_mail"></span>
+                <span class="userInfoInPermissions lbl_displayname"></span>
+                <span class="userInfoInPermissions lbl_telephoneNumber"></span>
+                <span class="userInfoInPermissions lbl_title"></span>
+                <span class="userInfoInPermissions lbl_department"></span>
+                <span class="userInfoInPermissions lbl_givenName"></span>
+                <span class="userInfoInPermissions lbl_co"></span>
+                <span class="userInfoInPermissions lbl_l"></span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmailAddress)
+                @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.GivenName)
+                @Html.EditorFor(model => model.GivenName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SurName)
+                @Html.EditorFor(model => model.SurName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrganizationInstanceGUID)
+                @Html.DropDownListFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstances(), "", new
+           {
+               @class = "form-control select2-basic-single",
+               style = "width:100%",
+               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DutyStationGUID', Action : 'RemoteDutyStation'},{ DropDownListID : 'DepartmentGUID', Action : 'RemoteOrganizationInstanceDepartments'}]);"
+           })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DutyStationGUID)
+                @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStations(), "", new { @class = "form-control select2-basic-search", style = "width:100%", })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartmentGUID)
+                @Html.DropDownListFor(model => model.DepartmentGUID, new DropDownList().Departments(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.JobTitleGUID)
+                @Html.DropDownListFor(model => model.JobTitleGUID, new DropDownList().JobTitles(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.OfficeLandlineCountryCode)
+                @Html.EditorFor(model => model.OfficeLandlineCountryCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OfficeLandlineAreaCode)
+                @Html.EditorFor(model => model.OfficeLandlineAreaCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OfficeLandlineNumber)
+                @Html.EditorFor(model => model.OfficeLandlineNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExtensionNumber)
+                @Html.EditorFor(model => model.ExtensionNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AccountExpiredOn)
+                @Html.EditorFor(model => model.AccountExpiredOn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PasswordLastUpdate)
+                @Html.EditorFor(model => model.PasswordLastUpdate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.HiddenFor(model => model.LastLogIn)
+                @Html.LabelFor(model => model.LastLogIn)
+                @Html.DisplayFor(model => model.LastLogIn, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="UserFormControls" class="form-group form-footer">
+
+                @if (Model.UserGUID == Guid.Empty || !Model.UserGUID.HasValue)
+                {
+                    @Html.CreateButton(Permissions.UserAccountsManagement.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.UserAccountsManagement.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.UserAccountsManagement.Create, Apps.CMS, Url.Action("Create", "Users"))
+                        @Html.DeleteButton(Permissions.UserAccountsManagement.Delete, Apps.CMS)
+
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.UserAccountsManagement.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "Users"))
+
+            </div>
+            <input type="button" value="Remove Permissions" class="RemovePermissions btn btn-danger" id="btnRemovePermissions">
+
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+   
+
+    $(document).on('click', ".RemovePermissions", function () {
+        var URLVal = "";
+        var $this = $(this);
+        var PK = $(".PK").val();
+        URLVal = "/Users/RemoveAllUserPermissions/" + PK;
+
+        $.confirm({
+            title: 'Confirm Message!',
+            content: 'Press (OK) to remove the user permssions!',
+            buttons: {
+                confirm: function () {
+                    run_waitMe('bounce');
+                    $.ajax({
+                        url: URLVal,
+                        dataType: 'json',
+                        type: "post",
+                        success: function (result) {
+                           
+                            Notify(NotificationType.Success, "Premissions Removed Successfully");
+                            $('.page--content').waitMe('hide');
+                        },
+                        error: function (Result) {
+                            Notify(NotificationType.Error, "Not Unauthorized access!");
+                        }
+                    });
+                },
+                cancel: function () {
+
+                },
+            }
+        });
+
+
+    });
+
+    $(function () {
+        $("#btn-fetchAD").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/Users/ActiveDirectoryLookup/',
+                data: {
+                    UserID: $("#UserID").val()
+                },
+                type: 'GET',
+                success: function (Result) {
+                    console.log(Result);
+                    $('.lbl_mail', '#ADUser').text('mail: ' + Result.ActiveDirectoryUser.mail);
+                    $('#EmailAddress').val(Result.ActiveDirectoryUser.mail.toLowerCase());
+
+                    $('.lbl_givenName', '#ADUser').text('givenName: ' + Result.ActiveDirectoryUser.givenName);
+                    $('#GivenName').val(Result.ActiveDirectoryUser.givenName);
+
+                    var temp = Result.ActiveDirectoryUser.displayname.substring(Result.ActiveDirectoryUser.givenName.length).trim();
+                    $('#SurName').val(temp);
+
+
+                    $('.lbl_sn', '#ADUser').text('sn: ' + Result.ActiveDirectoryUser.sn);
+                    $('.lbl_samaccountname', '#ADUser').text('samaccountname: ' + Result.ActiveDirectoryUser.samaccountname);
+
+
+
+                    $('.lbl_displayname', '#ADUser').text('displayname: ' + Result.ActiveDirectoryUser.displayname);
+                    $('.lbl_title', '#ADUser').text('title: ' + Result.ActiveDirectoryUser.title);
+                    $('.lbl_department', '#ADUser').text('department: ' + Result.ActiveDirectoryUser.department);
+
+
+
+
+                    $('.lbl_co', '#ADUser').text('co: ' + Result.ActiveDirectoryUser.co);
+                    $('.lbl_l', '#ADUser').text('l: ' + Result.ActiveDirectoryUser.l);
+
+                    $('.lbl_telephoneNumber', '#ADUser').text('telephoneNumber: ' + Result.ActiveDirectoryUser.telephoneNumber);
+                    $('#HiddenPhoneNumber').val(Result.ActiveDirectoryUser.telephoneNumber);
+                    $('#ExtensionNumber').val(Result.ActiveDirectoryUser.telephoneNumber.slice(-4));
+
+                    $('#OrganizationInstanceGUID').val(Result.ActiveDirectoryUser.organizationInstanceGUID).trigger('change');
+
+                    setTimeout(function () {
+                        $('#DutyStationGUID').val("Damascus").trigger('change');
+                    }, 2000);
+
+
+                }
+            });
+        });
+    });
+</script>

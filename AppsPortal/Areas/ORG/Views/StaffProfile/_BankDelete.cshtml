@@ -1,0 +1,50 @@
+﻿@model dataStaffBankAccount
+<style>
+    .wrapper {
+        position: relative;
+        width: 400px;
+        height: 200px;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+</style>
+
+@using (Html.BeginForm("StaffBankAccountDeletePerTable", "StaffProfile", new { Area = "ORG" }, FormMethod.Post, new { id = "StaffBankDelete" }))
+{
+    string ModalTitle = Model.StaffBankAccountGUID.ToString() == Guid.Empty.ToString() ? "Delete" : "Delete";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.StaffBankAccountGUID)
+
+
+
+
+
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.StaffBankAccountGUID != Guid.Empty)
+        {
+            @Html.DeleteButton(Permissions.StaffProfile.Delete, Apps.ORG)
+            @*<input type="submit" value="Confirm Delete Record " class="btn btn-danger" />*@
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.StaffProfile.Update, Apps.ORG)
+                @Html.DeleteSwitchButton(Permissions.StaffProfile.Delete, Apps.ORG)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.StaffProfile.Delete, Apps.ORG)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+
+

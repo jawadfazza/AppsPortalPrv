@@ -1,0 +1,444 @@
+﻿@model PersonalHistoryFormWizardUpdateModel
+@{
+    ViewBag.Title = "Tenders";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("bcbedf30-d6d3-48d6-977b-9b237c9ee5aa")
+
+@{string PageTitle = "New Application"; }
+<style>
+    /*#rootwizard > ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #rootwizard > li a {
+            display: block;
+            width: 60px;
+            background-color: #dddddd;
+        }*/
+
+    #rootwizard > .nav > li > a, .nav > li > a {
+        text-decoration: none;
+        background-color: #f3f3f3;
+        border-top: unset;
+        color: #333;
+        /* border-top: 4px solid #ccc; */
+    }
+
+    .span-required-field {
+        color: red;
+    }
+</style>
+<script src="~/Assets/Plugin/twitter-bootstrap-wizard-master/jquery.bootstrap.wizard.min.js"></script>
+<div class="page--content">
+    <div class="forms-fadeIn">
+
+        <div class="row">
+            <div class="panel panel-primary" style="margin-top:10px;">
+                <div class="panel-body">
+                    @Html.HiddenFor(model => model.ConfirmationAndConsentCompleted)
+                    <div class="col-md-12">
+                        <div>
+                            This form allows you to apply or express interest for UNHCR Group 2 for General Service positions. Successfully screened candidates will be given access to apply to internally advertised GS positions with UNHCR Syria.
+                        </div>
+                        <br />
+                        <div>
+                            Please complete the form carefully, answering all mandatory sections fully and as completely as possible.
+                        </div>
+                        <br />
+                        <div>
+                            <b>Your Personal History Form will be reviewed in the near future.</b>
+                        </div>
+                        <div>
+                            <b>For any support, please contact us through the mobile number +963-998760790.</b>
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="div-loading-container" style="display:none;">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <span><b>Loading</b></span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12" style="text-align:center">
+                                    <b>Loading, please wait <i class="fas fa-spinner fa-1x fa-pulse"></i></b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="rootwizard" style="margin-top:25px;">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <span>P11 form sections </span>
+                            </div>
+
+                        </div>
+                        <div class="navbar" style="margin-left: -15px; margin-right: -15px; font-size: 14px;">
+                            <div class="navbar-inner">
+                                <div class="container col-md-3" style="width:100%;">
+                                    <ul id="tab-li-container" style="display:grid">
+                                        <li><a href="javascript:void(0)" data-url="/GTP/Applications/GeneralInformationWizard/Create" data-toggle="tab" class="load-current-section"><b>1. GENERAL INFORMATION </b><i class="fa  @(Model.GeneralInfoCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-url="/GTP/Applications/PersonalInformationWizard/Create" data-toggle="tab" class="load-current-section"><b>2. PERSONAL INFORMATION </b><i class="fa @(Model.PersonalInfoCompleted ? "fa-check":"fa-exclamation" )  pull-right" aria-hidden="true"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-url="/GTP/Applications/ContanctInformationWizard/Create" data-toggle="tab" class="load-current-section"><b>3. CONTACT INFORMATION </b><i class="fa @(Model.ContactInfoCompleted ? "fa-check":"fa-exclamation" )  pull-right" aria-hidden="true"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-url="/GTP/Applications/PhoneNumbersWizard/Create" data-toggle="tab" class="load-current-section"><b>4. PHONE NUMBERS </b><i class="fa @(Model.PhoneNumberCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-url="/GTP/Applications/EmailAddressesWizard/Create" data-toggle="tab" class="load-current-section"><b>5. EMAIL ADDRESSES </b><i class="fa @(Model.EmailAddressCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-url="/GTP/Applications/NationalityInformationsWizard/Create" data-toggle="tab" class="load-current-section"><b>6. NATIONALITY INFORMATIONS </b><i class="fa  @(Model.NationalityInfoCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-url="/GTP/Applications/LetterOfInterestWizard/Create" data-toggle="tab" class="load-current-section"><b>7. LETTER OF INTEREST </b><i class="fa  @(Model.LetterOfInteresCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li id="li-work-experiences"><a href="javascript:void(0)" data-url="/GTP/Applications/WorkExperienceWizard/Create" data-toggle="tab" class="load-current-section"><b>8. WORK EXPERIENCE  </b><i class="fa @(Model.WorkExperienceCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li id="li-specialized-trainings"><a href="javascript:void(0)" data-url="/GTP/Applications/SpecializedTrainingWizard/Create" data-toggle="tab" class="load-current-section"><b>9. SPECIALIZED TRAINING </b><i class="fa  @(Model.SpecializedTrainingCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li id="li-educations"><a href="javascript:void(0)" data-url="/GTP/Applications/EducationWizard/Create" data-toggle="tab" class="load-current-section"><b>10. EDUCATION </b><i class="fa  @(Model.EducationsCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li id="li-skills"><a href="javascript:void(0)" data-url="/GTP/Applications/SkillsWizard/Create" data-toggle="tab" class="load-current-section"><b>11. SKILLS </b><i class="fa  @(Model.SkillsCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-url="/GTP/Applications/LanguagesWizard/Create" data-toggle="tab" class="load-current-section"><b>12. LANGUAGES </b><i class="fa  @(Model.LanguagesCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li id="li-licences"><a href="javascript:void(0)" data-url="/GTP/Applications/LicencesAndCertificatesWizard/Create" data-toggle="tab" class="load-current-section"><b>13. LICENSES AND CERTIFICATIONS </b><i class="fa  @(Model.LicenceAndCertificateCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-url="/GTP/Applications/ProfessionalReferencesWizard/Create" data-toggle="tab" class="load-current-section"><b>14. THREE PROFESSIONAL REFERENCES </b><i class="fa  @(Model.ProfessionalReferencesCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-url="/GTP/Applications/QuestionnaireWizard/Create" data-toggle="tab" class="load-current-section"><b>15. QUESTIONNAIRE </b><i class="fa  @(Model.QuestionnaireCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+                                        <li id="li-consent"><a href="javascript:void(0)" data-url="/GTP/Applications/ConfirmationAndConsentWizard/Create" data-toggle="tab" class="load-current-section"><b>15. CONFIRMATION AND CONSENT </b><i class="fa  @(Model.ConfirmationAndConsentCompleted ? "fa-check":"fa-exclamation" ) pull-right" aria-hidden="true"></i></a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-9">
+                        <div id="alert-confirmation-missing" class="row" style="display:none;">
+                            <div class="col-md-12">
+                                <div class="alert alert-danger">
+                                    <strong>Alert!</strong> Confirmation and Consent section is missing.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="">
+                                    <div class="tab-pane">
+                                        <div id="wizard-tab-container">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+        function InitFirstSection() {
+            $.ajax({
+                Type: "GET",
+                url: "/GTP/Applications/GeneralInformationWizard/Create",
+                success: function (html) {
+                    $('#wizard-tab-container').html(html);
+                    InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                },
+                error: function () { }
+            });
+        };
+        function InitNextStepClick() {
+            $(document).on('click', '.wizard-custom-button-next', function () {
+                var nextUrl = $(this).attr('data-next-url');
+                DisplayLoadingHtml();
+                $.ajax({
+                    Type: "GET",
+                    url: nextUrl,
+                    success: function (html) {
+                        $('#wizard-tab-container').html(html);
+                        InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                        NextElemntActive();
+                    },
+                    error: function () { }
+                });
+            });
+        };
+        function InitPrevStepClick() {
+            $(document).on('click', '.wizard-button-previous', function () {
+                var previousUrl = $(this).attr('data-previous-url');
+                DisplayLoadingHtml();
+                $.ajax({
+                    Type: "GET",
+                    url: previousUrl,
+                    success: function (html) {
+                        $('#wizard-tab-container').html(html);
+                        InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                        PreviousElemntActive();
+                    },
+                    error: function () { }
+                });
+            });
+        };
+        function InitWizard() {
+            $('#rootwizard').bootstrapWizard({
+                onTabShow: function (tab, navigation, index) {
+                    var $total = navigation.find('li').length;
+                    var $current = index + 1;
+                    var $percent = ($current / $total) * 100;
+                    //$('#rootwizard .progress-bar').css({ width: $percent + '%' });
+                }
+            });
+        };
+        function LoadCurrentSection() {
+            $('.load-current-section').click(function () {
+                DisplayLoadingHtml();
+                var url = $(this).attr('data-url');
+                $.ajax({
+                    Type: "GET",
+                    url: url,
+                    success: function (html) {
+                        $('#wizard-tab-container').html(html);
+                        InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                    },
+                    error: function () { }
+                });
+            });
+        };
+        function HandlePopover() {
+            $(document).on('click', function (e) {
+                debugger;
+                $('[data-toggle="popover"],[data-original-title]').each(function () {
+                    //the 'is' for buttons that trigger popups
+                    //the 'has' for icons within a button that triggers a popup
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                        $(this).popover("hide");
+                    }
+                });
+            });
+        }
+        function NextElemntActive() {
+            var liElem = $('#tab-li-container').find('li.active');
+            $(liElem).find('i').addClass('fa-check').removeClass('fa-exclamation');
+            $('#tab-li-container').find('li.active').next().addClass('active');
+            $(liElem).removeClass('active');
+        };
+        function PreviousElemntActive() {
+            var liElem = $('#tab-li-container').find('li.active');
+            $('#tab-li-container').find('li.active').prev().addClass('active');
+            $(liElem).removeClass('active');
+        };
+        function MarkAsCompleted() {
+
+        }
+        function DisplayLoadingHtml() {
+            var div = $('#div-loading-container').clone();
+            $(div).show();
+            $('#wizard-tab-container').html(div);
+            $('html, body').animate({
+                scrollTop: 0
+            }, 700);
+        }
+        function PopoverHandling() {
+            var formName = $('#wizard-tab-container').find('form').attr('id');
+            $('#' + formName).valid();
+            var error = $('.input-validation-error', '#' + formName).length;
+            if (error > 0) {
+                $('.select2-selection__rendered').removeAttr('style');
+                $('.input-validation-error:first-child').parent().popover({
+                    trigger: 'focus',
+                    placement: 'auto top',
+                    container: '#PopOverContainer',
+                    content: ''
+                });
+                return;
+            }
+            else {
+                //remove poppver
+            }
+        }
+        function WizardHandling() {
+            var nextUrl = $('.wizard-button-next').attr('data-next-url');
+            DisplayLoadingHtml();
+            if (nextUrl == "END") {
+                var liElem = $('#tab-li-container').find('li.active');
+                $(liElem).find('i').addClass('fa-check').removeClass('fa-exclamation');
+            } else {
+                $.ajax({
+                    Type: "GET",
+                    url: nextUrl,
+                    success: function (html) {
+                        $('#wizard-tab-container').html(html);
+                        $('#wizard-tab-container').find('form');
+                        InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                        NextElemntActive();
+
+
+                    },
+                    error: function () { }
+                });
+            }
+        }
+        function GoToWorkExperiences() {
+            DisplayLoadingHtml();
+            $.ajax({
+                Type: "GET",
+                url: "/GTP/Applications/WorkExperienceWizard/Create",
+                success: function (html) {
+                    $('#wizard-tab-container').html(html);
+                    InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                    $('#li-work-experiences').find('i').addClass('fa-check').removeClass('fa-exclamation');
+                },
+                error: function () { }
+            });
+        };
+        function GoToSpecializedTrainings() {
+            DisplayLoadingHtml();
+            $.ajax({
+                Type: "GET",
+                url: "/GTP/Applications/SpecializedTrainingWizard/Create",
+                success: function (html) {
+                    $('#wizard-tab-container').html(html);
+                    InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                    $('#li-specialized-trainings').find('i').addClass('fa-check').removeClass('fa-exclamation');
+                },
+                error: function () { }
+            });
+        }
+        function GoToEducations() {
+            DisplayLoadingHtml();
+            $.ajax({
+                Type: "GET",
+                url: "/GTP/Applications/EducationWizard/Create",
+                success: function (html) {
+                    $('#wizard-tab-container').html(html);
+                    InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                    $('#li-educations').find('i').addClass('fa-check').removeClass('fa-exclamation');
+                },
+                error: function () { }
+            });
+        }
+        function GoToSkills() {
+            DisplayLoadingHtml();
+            $.ajax({
+                Type: "GET",
+                url: "/GTP/Applications/SkillsWizard/Create",
+                success: function (html) {
+                    $('#wizard-tab-container').html(html);
+                    InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                    $('#li-skills').find('i').addClass('fa-check').removeClass('fa-exclamation');
+                },
+                error: function () { }
+            });
+        }
+        function GoToLicencesAndCertificates() {
+            DisplayLoadingHtml();
+            $.ajax({
+                Type: "GET",
+                url: "/GTP/Applications/LicencesAndCertificatesWizard/Create",
+                success: function (html) {
+                    $('#wizard-tab-container').html(html);
+                    InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                    $('#li-licences').find('i').addClass('fa-check').removeClass('fa-exclamation');
+                },
+                error: function () { }
+            });
+        }
+        function GoToQuestionnaire() {
+            DisplayLoadingHtml();
+            $.ajax({
+                Type: "GET",
+                url: "/GTP/Applications/QuestionnaireWizard/Create",
+                success: function (html) {
+                    $('#wizard-tab-container').html(html);
+                    InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                    $('#li-licences').find('i').addClass('fa-check').removeClass('fa-exclamation');
+                },
+                error: function () { }
+            });
+        }
+        function GoToConfirmation() {
+            DisplayLoadingHtml();
+            $.ajax({
+                Type: "GET",
+                url: "/GTP/Applications/ConfirmationAndConsentWizard/Create",
+                success: function (html) {
+                    $('#wizard-tab-container').html(html);
+                    InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                    $('#li-consent').find('i').addClass('fa-check').removeClass('fa-exclamation');
+                    Notify(NotificationType.Success, 'Application has been confirmed, please Check your inbox for further information.');
+                    $('#alert-confirmation-missing').hide();
+                },
+                error: function () { }
+            });
+        }
+        function GoToConfirmationUpdate() {
+            DisplayLoadingHtml();
+            $.ajax({
+                Type: "GET",
+                url: "/GTP/Applications/ConfirmationAndConsentWizard/Create",
+                success: function (html) {
+                    $('#wizard-tab-container').html(html);
+                    InitPlugins('#' + $('#wizard-tab-container').find('form').attr('id'));
+                    $('#li-consent').find('i').addClass('fa-check').removeClass('fa-exclamation');
+                    Notify(NotificationType.Success, 'Application has been updated.');
+                    $('#alert-confirmation-missing').hide();
+                },
+                error: function () { }
+            });
+        }
+        function ReloadRelatives() {
+            $.ajax({
+                type: "GET",
+                url: "/GTP/Applications/ReloadRelativesTable",
+                success: function (result) {
+                    $('#div_spousechildern_container').html(result);
+                },
+                error: function () { }
+            });
+
+        };
+        function ReloadRelativesWorkers() {
+            $.ajax({
+                type: "GET",
+                url: "/GTP/Applications/ReloadRelativesWorkersTable",
+                success: function (result) {
+                    $('#div_relativeWorker_container').html(result);
+                },
+                error: function () { }
+            });
+
+        }
+        function RefreshQuestionnaireRV(rv) {
+            debugger;
+            $('#dataPersonalHistoryQuestionnaireRowVersion').val(rv);
+        }
+        function RequireConfirmation() {
+            $('#alert-confirmation-missing').show();
+            $('#li-consent').find('i').addClass('fa-exclamation').removeClass('fa-check');
+        };
+        function CheckRequireConfirmation() {
+            if ($('#ConfirmationAndConsentCompleted').val() == 'False') {
+                $('#alert-confirmation-missing').show();
+                $('#li-consent').find('i').addClass('fa-exclamation').removeClass('fa-check');
+            }
+        }
+        $(function () {
+            DisplayLoadingHtml();
+            LoadCurrentSection();
+            InitPrevStepClick();
+            InitNextStepClick();
+            InitFirstSection();
+            InitWizard();
+            HandlePopover();
+            CheckRequireConfirmation();
+        })
+    </script>
+}

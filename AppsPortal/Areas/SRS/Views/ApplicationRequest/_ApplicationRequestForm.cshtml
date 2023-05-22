@@ -1,0 +1,144 @@
+﻿@model ApplicationRequestModel
+@using (Html.BeginForm("ApplicationRequest", "ServiceRequest", new { Area = "SRS" }, FormMethod.Post, new { id = "ApplicationRequestForm", @class = "main-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.AppRequestGUID)
+    @Html.HiddenFor(model => model.AppRequestDate)
+    @Html.HiddenFor(model => model.RequestedByProfileGUID)
+    @Html.HiddenFor(model => model.AppRequestAuthorizationGUID)
+    @Html.HiddenFor(model => model.ApprovedByProfileGUID)
+    @*@Html.HiddenFor(model => model.dataAppRequestAuthorizationRowVersion)*@
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <h3>Application Details</h3>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RequestedAppName)
+                @Html.EditorFor(model => model.RequestedAppName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.IsNewDbForTracking, new { @class = "chkNode-accordion" })
+                @Html.LabelFor(model => model.IsNewDbForTracking)
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.IsToAutomateManual, new { @class = "chkNode-accordion" })
+                @Html.LabelFor(model => model.IsToAutomateManual)
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.IsToReplaceOldApp, new { @class = "chkNode-accordion" })
+                @Html.LabelFor(model => model.IsToReplaceOldApp)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OtherPurposForApp)
+                @Html.TextAreaFor(model => model.OtherPurposForApp, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AppDescription)
+                @Html.TextAreaFor(model => model.AppDescription, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AppBenefits)
+                @Html.TextAreaFor(model => model.AppBenefits, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <h3>Authorization Details</h3>
+            @if (new CMS().HasAction(Permissions.Newservicerequest.Update, Apps.SRS))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApprovalStatusGUID)
+                    @Html.DropDownListFor(model => model.ApprovalStatusGUID, new DropDownList().HelpDeskApprovalStatuses(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApprovalComments)
+                    @Html.TextAreaFor(model => model.ApprovalComments, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AssignedToGUID)
+                    @Html.DropDownListFor(model => model.AssignedToGUID, new DropDownList().HelpDeskAssignToList(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstimatedResourcesNum)
+                    @Html.DropDownListFor(model => model.EstimatedResourcesNum, new DropDownList().NumbersList(4), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstimatedTime)
+                    @Html.DropDownListFor(model => model.EstimatedTime, new DropDownList().HelpDeskEstimatedTimeList(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CriticalityGUID)
+                    @Html.DropDownListFor(model => model.CriticalityGUID, new DropDownList().HelpDeskCriticalityList(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApplicationStartDate)
+                    @Html.EditorFor(model => model.ApplicationStartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApplicationEndDate)
+                    @Html.EditorFor(model => model.ApplicationEndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApprovalStatusGUID)
+                    @Html.DropDownListFor(model => model.ApprovalStatusGUID, new DropDownList().HelpDeskApprovalStatuses(), "", new { disabled = "disabled", @readonly = "readonly", @class = "form-control select2-basic-single MustReadOnly", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApprovalComments)
+                    @Html.TextAreaFor(model => model.ApprovalComments, new { disabled = "disabled", @readonly = "readonly", @class = "MustReadOnly form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AssignedToGUID)
+                    @Html.DropDownListFor(model => model.AssignedToGUID, new DropDownList().HelpDeskAssignToList(), "", new { disabled = "disabled", @readonly = "readonly", @class = "form-control select2-basic-single MustReadOnly", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstimatedResourcesNum)
+                    @Html.DropDownListFor(model => model.EstimatedResourcesNum, new DropDownList().NumbersList(4), "", new { disabled = "disabled", @readonly = "readonly", @class = "form-control select2-basic-single MustReadOnly", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstimatedTime)
+                    @Html.DropDownListFor(model => model.EstimatedTime, new DropDownList().HelpDeskEstimatedTimeList(), "", new { disabled = "disabled", @readonly = "readonly", @class = "form-control select2-basic-single MustReadOnly", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CriticalityGUID)
+                    @Html.DropDownListFor(model => model.CriticalityGUID, new DropDownList().HelpDeskCriticalityList(), "", new { disabled = "disabled", @readonly = "readonly", @class = "form-control select2-basic-single MustReadOnly", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApplicationStartDate)
+                    @Html.TextBoxFor(model => model.ApplicationStartDate, new { disabled = "disabled", @readonly = "readonly", @class = "MustReadOnly form-control date-picker " + Languages.CurrentCulture(), autocomplete = "off" })
+                    <span class="fa fa-calendar datebox"></span>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApplicationEndDate)
+                    @Html.TextBoxFor(model => model.ApplicationEndDate, new { disabled = "disabled", @readonly = "readonly", @class = "MustReadOnly form-control date-picker " + Languages.CurrentCulture(), autocomplete = "off" })
+                    <span class="fa fa-calendar datebox"></span>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <div id="ApplicationRequestFormControls" class="form-group form-footer">
+                @if (Model.AppRequestGUID == Guid.Empty)
+                {
+                    @Html.CreateButtonNoPermission()
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButtonNoPermission()
+                        @Html.CreateNewButtonNoPermission(Url.Action("ApplicationRequests/Create", "ApplicationRequests", new { Area = "SRS" }))
+                        @Html.DeleteButtonNoPermission()
+                    }
+                    else
+                    {
+                        @Html.RestoreButtonNoPermission()
+                    }
+                }
+                @Html.BackToList(Url.Action("ApplicationRequests", "ServiceRequest", new { Area = "SRS" }))
+            </div>
+        </div>
+    </div>
+}

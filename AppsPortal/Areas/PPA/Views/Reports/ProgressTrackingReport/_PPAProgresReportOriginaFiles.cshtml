@@ -1,0 +1,111 @@
+﻿@model List<ProgressTrackingReportOriginalFilesModel>
+
+<div class="panel-group portalConfig overrideEnabled" id="accordionLVL2" role="tablist" aria-multiselectable="true">
+
+    @foreach (var item in Model)
+    {
+    <div class="panel panel-default">
+
+        <div class="panel-heading" role="tab" id="CountriesHeader" data-url="@Url.Action("GetPPAFilesHistory","Reports",new {Area = "PPA", FK =  item.PPAOriginalFileGUID})" data-toggle="collapse" data-parent="#accordionLVL2" href="#@item.PPAOriginalFileGUID" aria-expanded="false">
+            <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL2" href="#@item.PPAOriginalFileGUID">
+                <table style="width:100%">
+                    <tbody>
+                        <tr style="width:100%;">
+                            <td style="width:10%;"><b>File Name:</b></td>
+                            <td style="width:80%;"><b>@item.FileName</b></td>
+                        </tr>
+                        <tr style="width:100%;">
+                            <td style="width:20%;">File Category:</td>
+                            <td style="width:80%;">@item.PPAFileCategoryDescription</td>
+                        </tr>
+                        <tr style="width:100%;">
+                            <td style="width:20%;">Upload Date:</td>
+                            <td style="width:80%;">@item.UploadDate</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </span>
+        </div>
+        <div id="@item.PPAOriginalFileGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+            <div class="panel-body">
+
+                @*<div class="panel-group portalConfig overrideEnabled" id="accordionLVL3" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="CountriesHeader" data-toggle="collapse" data-parent="#accordionLVL3" href="#someParamGUID" aria-expanded="false">
+                            <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL3" href="#someParamGUID">
+                                @@FileActionByUserName
+                            </span>
+                        </div>
+                        <div id="someParamGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+                            <div class="panel-body">
+                                <div class="panel-group portalConfig overrideEnabled" id="accordionLVL4" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="CountriesHeader" data-toggle="collapse" data-parent="#accordionLVL4" href="#PPAFileVersionGUID" aria-expanded="false">
+                                            <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL4" href="#PPAFileVersionGUID">
+                                                Downloaded original version on:
+                                                <br />
+                                                Uploaded version:
+
+                                            </span>
+                                        </div>
+                                        <div id="PPAFileVersionGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+                                            <div class="panel-body">
+                                                more details will be here soon.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+
+            </div>
+        </div>
+    </div>
+    }
+
+
+    @*<div class="panel-heading" role="tab" id="CountriesHeader" data-toggle="collapse" data-parent="#accordionLVL2" href="#originalFilePPAOriginalFileGUID" aria-expanded="false">
+            <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL2" href="#originalFilePPAOriginalFileGUID">
+                @@originalFile.FileName
+            </span>
+        </div>*@
+    @*<div id="originalFilePPAOriginalFileGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+            <div class="panel-body">
+                <div class="panel-group portalConfig overrideEnabled" id="accordionLVL3" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="CountriesHeader" data-toggle="collapse" data-parent="#accordionLVL3" href="#someParamGUID" aria-expanded="false">
+                            <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL3" href="#someParamGUID">
+                                @@FileActionByUserName
+                            </span>
+                        </div>
+                        <div id="someParamGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+                            <div class="panel-body">
+                                <div class="panel-group portalConfig overrideEnabled" id="accordionLVL4" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="CountriesHeader" data-toggle="collapse" data-parent="#accordionLVL4" href="#PPAFileVersionGUID" aria-expanded="false">
+                                            <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL4" href="#PPAFileVersionGUID">
+                                                Downloaded original version on:
+                                                <br />
+                                                Uploaded version:
+
+                                            </span>
+                                        </div>
+                                        <div id="PPAFileVersionGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+                                            <div class="panel-body">
+                                                more details will be here soon.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+</div>
+

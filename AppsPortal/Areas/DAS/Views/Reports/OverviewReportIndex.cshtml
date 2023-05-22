@@ -1,0 +1,169 @@
+﻿@model  FileTrackingOverviewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<link href="~/Assets/Plugin/pivottable/css/c3.min.css" rel="stylesheet" />
+<link href="~/Assets/Plugin/pivottable/css/pivot.min.css" rel="stylesheet" />
+@Html.PageHeader("042f6646-c66b-4cc5-9918-2904b31acd22")
+
+@*<link href="~/Areas/WMS/Temp/layout.min.css" rel="stylesheet" />*@
+<div class="page--content">
+    <br />
+    <br />
+    <div data-ng-app="myApp">
+        <div data-ng-controller="MyCtrl">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Selcet your report name</label>
+                    <select class="form-control"
+                            data-ng-model="ReportTemplateId"
+                            data-ng-options="p.ReportTemplateId as p.Name for p in  dataReportTemplates">
+                        <option value="">----</option>
+                    </select>
+                    <br />
+                    <input type="button" ng-click="ShowPivotResult()" class="btn btn-primary" value="Show Result " />
+                </div>
+
+
+
+
+            </div>
+            <div class="form-group" id="pivotresultpanel">
+
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Results</h3>
+                        <div class="box-tools">
+                            @*<input type="button" ng-click="ExportToImage()" class="btn btn-primary" value="Save Image" />*@
+                        </div>
+                    </div>
+
+                    <div class="box-body">
+                        <div id="output" style="overflow: auto"></div>
+                        <canvas id="canvas"></canvas>
+
+
+
+                    </div>
+
+                </div>
+                <div class="overlay" id="pivotresultloading">Loading..
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Assets/Plugin/pivottable/pivot.min.js"></script>
+    <script src="~/Assets/Plugin/pivottable/c3.min.js"></script>
+    <script src="~/Assets/Plugin/pivottable/d3.min.js"></script>
+    <script src="~/Assets/Plugin/pivottable/c3_renderers.min.js"></script>
+    <script src="~/Assets/Plugin/pivottable/d3_renderers.min.js"></script>
+    <script src="~/Assets/Plugin/pivottable/export_renderers.min.js"></script>
+    <script src="~/Assets/Plugin/pivottable/tips_data.min.js"></script>
+
+    <script>
+
+    var myApp = angular.module('myApp', []);
+
+    //Controller
+    myApp.controller('MyCtrl',
+        [
+            '$scope', '$http', '$timeout', '$window', '$interval', function ($scope, $http, $timeout, $window, $interval) {
+
+           $('select').css('width', '100%');
+
+                    $('.select2').select2();
+                    $('#pivotresultloading').hide();
+                    $('#pivotresultpanel').hide();
+
+                $scope.InitReport = function () {
+             
+                        $http({
+                            method: 'POST',
+                            url: "/DAS/Reports/InitReportIndex/",
+
+                        }).success(function (data) {
+                            $scope.dataReportTemplates = data.dataReportTemplates;
+
+                        });
+                    }
+                    $scope.InitReport();
+
+        $scope.ShowPivotResult = function() {
+        
+
+            $('#pivotresultloading').show();
+            $scope.getPivotDataResult();
+
+        };
+
+        $scope.getPivotDataResult = function() {
+         
+       
+            $http({
+                method: 'POST',
+               
+                url:  "/DAS/Reports/ShowExternalPivotResultData/",
+
+
+                async: true,
+                data: JSON.stringify({ ReportTemplateId: $scope.ReportTemplateId }),
+                contentType: "application/json"
+            }).success(function(data) {
+
+                $('#pivotresultloading').hide();
+                $("#pivotresultpanel").show();
+              
+      
+                $("#output").pivotUI(
+                    data,
+                    {
+                        //rows: [data[0][3]],
+                        //cols: [data[0][4]],
+                        //vals: [data[0][2]],
+                        aggregatorName: "Count",
+                        rendererName: "Heatmap",
+                        renderers: $.extend(
+                            $.pivotUtilities.renderers,
+                            $.pivotUtilities.c3_renderers
+                        )
+                    });
+
+     
+
+            }).error(function(error, status) {
+                $scope.error = { message: error, status: status };
+                ////alertJSON.stringify($scope.error, null, 2));
+                console.log($scope.error);
+            });
+        }
+
+
+
+        $(function() {
+            var renderers = $.extend($.pivotUtilities.renderers,
+                $.pivotUtilities.export_renderers);
+
+            $.getJSON("mps.json",
+                function(mps) {
+                    $("#output").pivotUI(mps,
+                        {
+                            renderers: renderers,
+                            cols: ["Party"],
+                            rows: ["Province"],
+                            rendererName: "TSV Export"
+                        });
+                });
+
+        });
+
+
+
+            }
+
+        ]);
+    </script>

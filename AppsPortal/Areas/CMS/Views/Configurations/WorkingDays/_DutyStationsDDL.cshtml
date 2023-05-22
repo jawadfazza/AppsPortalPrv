@@ -1,0 +1,10 @@
+﻿@model Guid
+
+@Html.DropDownList("DutyStationsGUID", new DropDownList().DutyStations(Model),
+                                           new
+                                           {
+                                               style = "width:100%",
+                                               @class = "form-control select2-basic-search DutyStationsGUID",
+                                               data_noemptyselection = "true",
+                                               onchange = "LoadWorkingDays($(this).val());"
+                                           })

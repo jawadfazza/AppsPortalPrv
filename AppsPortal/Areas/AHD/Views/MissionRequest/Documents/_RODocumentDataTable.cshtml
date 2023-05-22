@@ -1,0 +1,25 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">Documents</h3>
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+
+        <div id=@string.Format("{0}Filter", DataTableNames.MissionRORequestDocumentDataTable) class="filter-section" style="display:none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_RecordStatus", DataTableNames.MissionRORequestDocumentDataTable)
+                </div>
+            </div>
+        </div>
+        <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.MissionRORequestDocumentDataTable)">
+            @*@Html.FieldDataTableFilter(DataTableNames.MissionRORequestDocumentDataTable)*@
+            @*@Html.IndexDatatableCreateNoPermission("/AHD/MissionRequest/RAndRDocumentsCreate")*@
+
+            @*@Html.FieldDataTableCreateNoActionPermission(Permissions.StaffMissionRequest.Access, Apps.AHD, Url.Action("MissionRequestDocumentCreate", "MissionRequest", new { FK = Model.ParentGUID }))
+            
+            @Html.FieldDataTableRestore(Permissions.StaffMissionRequest.Restore, Apps.AHD, DataTableNames.MissionRORequestDocumentDataTable)
+            @Html.FieldDataTableRefresh(DataTableNames.MissionRORequestDocumentDataTable)*@
+        </div>
+
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MissionRORequestDocumentDataTable, FormController = "MissionRequest", Area = "AHD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

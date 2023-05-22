@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+@*<h3 class="Title">Bank Accounts</h3>*@
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      
+            <div id=@string.Format("{0}Filter", DataTableNames.EntitlementDocumentsDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.EntitlementDocumentsDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.EntitlementDocumentsDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.EntitlementDocumentsDataTable)
+                @*@Html.IndexDatatableCreateNoPermission("/AHD/InternationalStaffEntitlement/RAndRDocumentsCreate")*@
+                @Html.FieldDataTableCreateNoActionPermission(Permissions.InternationalStaffEntitlements.Delete, Apps.AHD, Url.Action("EntitlementDocumentsCreate", "InternationalStaffEntitlement", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.InternationalStaffEntitlements.Delete, Apps.AHD, DataTableNames.EntitlementDocumentsDataTable)
+                @*@Html.FieldDataTableRestore(Permissions.InternationalStaffEntitlements.Restore, Apps.AHD, DataTableNames.EntitlementDocumentsDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.EntitlementDocumentsDataTable)*@
+            </div>
+        
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.EntitlementDocumentsDataTable, FormController = "InternationalStaffEntitlement", Area = "AHD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

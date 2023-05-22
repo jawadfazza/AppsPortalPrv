@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "ModelManagement";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("f473172b-3275-4a09-8c4a-ff082fee9570")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.WarehouseItemTrackFlowWeeklyDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemClassification, DbColumnName = "WarehouseItemClassificationGUID", FilterForDataType = "Text", DataList = new DropDownList().ItemClassification(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.WarehouseItemGUID, DbColumnName = "WarehouseItemGUID", FilterForDataType = "Text", DataList = new DropDownList().WarehouseItems(), IsMultiple = true, IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.BrandGUID, DbColumnName = "BrandGUID", FilterForDataType = "Text", DataList = new DropDownList().Brands(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemModelWarehouseGUID, DbColumnName = "ItemModelWarehouseGUID", FilterForDataType = "Text", DataList = new DropDownList().WarehouseModels(), IsMultiple = true, IsSearchable = true })
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })*@
+
+            </div>
+            <div class="col-lg-12">
+
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })*@
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.BarcodeNumber, DbColumnName = "BarcodeNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SerialNumber, DbColumnName = "SerialNumber", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.IME1, DbColumnName = "IME1", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MAC, DbColumnName = "MAC", FilterForDataType = "Text" })
+
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Custodian, DbColumnName = "Custodian", FilterForDataType = "Text" })*@
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = "GSM", DbColumnName = "GSM", FilterForDataType = "Text" })
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffName, DbColumnName = "CustodianStaffGUID", FilterForDataType = "Text", DataList = new DropDownList().Users(true), IsMultiple = true, IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LocationGUID, DbColumnName = "WarehouseLocationGUID", FilterForDataType = "Text", DataList = new DropDownList().WarehouseLocation(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelStatus, DbColumnName = "ModelStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().ModelStatus(), IsMultiple = true, IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Custodian, DbColumnName = "Custodian", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DeliveryStatus, DbColumnName = "DeliveryStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().MovementStatus(), IsMultiple = true, IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CreatedBy, DbColumnName = "CreatedByGUID", FilterForDataType = "Text", DataList = new DropDownList().Users(true), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Comments, DbColumnName = " ", FilterForDataType = "Text" })
+            </div>
+           
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.WarehouseItemTrackFlowWeeklyDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.WarehouseItemTrackFlowWeeklyDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.WarehouseItemTrackFlowWeeklyDataTable)
+
+
+
+
+    </div>
+    <div class="page--body">
+
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseItemTrackFlowWeeklyDataTable, Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 2 })
+    </div>
+
+    @*@Html.ActionLink("Export All Items", "ExportAllModelItemInformation", "Dashboard", null, new { @class = "btn btn-primary" })*@
+
+</div>

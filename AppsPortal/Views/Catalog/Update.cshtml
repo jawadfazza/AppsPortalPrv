@@ -1,0 +1,79 @@
+﻿@model Test
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+<div class="page--content">
+    <div class="page--banner">
+        <h2>Edit Record</h2>
+        <div id="sitemap" class="sitemap">
+            <div class="nav--content row">
+                <ul>
+                    <li><a herf="#">Portal</a></li>
+                    <li><a herf="#">Level I</a></li>
+                    <li><a herf="#">Level II</a></li>
+                    <li>Last Level</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="forms-fadeIn">
+        @*<div id="amer-test" style="display:none;">
+            <div id="ErrorSummary" class="alert alert-danger alert-dismissable fade in" style="display:none;">
+                <a  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Oops! </strong>
+                <span id="Error">@Html.Raw(ViewBag.ErrorSummary)</span>
+            </div>
+        </div>*@
+        @using (Html.BeginForm("SaveChanges", "Catalog", FormMethod.Post, new { id = "TestForm" }))
+        {
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model=>model.TestRowVersion)
+                    @Html.Partial("_ErrorSummary", (string)ViewBag.ErrorSummary)
+                    @Html.HiddenFor(model => model.IndividualID)
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GivenName)
+                        @Html.EditorFor(model => model.GivenName, new { htmlAttributes = new { required = true, @class = "form-control", autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.GivenName)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DateOfBirth)
+                        @Html.EditorFor(model => model.DateOfBirth)
+                        @Html.ValidationMessageFor(model => model.DateOfBirth)
+                    </div>
+                    <div class="form-group HANDLER">
+                        
+                        @Html.LabelFor(model => model.sexcode)
+                        @Html.DropDownListFor(model => model.sexcode, new SelectList(ViewBag.List, "ValueGUID", "ValueDescription"), new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.sexcode)
+                    </div>
+                    @*<div style="display:block; height:1000px;">
+                            .... some more controls ....
+                        </div>*@
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.OriginCountryCode)
+                        @Html.EditorFor(model => model.OriginCountryCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        <a class="fa fa-question-circle helpbox" data-content="Here is some tips for many idiots!"></a>
+                        @Html.ValidationMessageFor(model => model.OriginCountryCode)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RegistrationDate)
+                        @Html.EditorFor(model => model.RegistrationDate, new { @class = "form-control datetime-picker", autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.RegistrationDate)
+                    </div>
+                    <div class="form-group form-footer">
+                        <input type="submit" id="btnSubmit" class="btn btn-success SLAME" onclick="SubmitForm('TestForm','','', '');" value="@resxUIControls.SaveChanges" disabled />
+                        @Html.ActionLink("Back to list page", "Index", "Catalog",null, new { @class = "btn btn-link" })
+                    </div>
+                    <div class="form-footer">
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

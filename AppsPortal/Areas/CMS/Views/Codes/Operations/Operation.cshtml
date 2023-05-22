@@ -1,0 +1,18 @@
+﻿@model OperationUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("435faee8-8f83-42f8-b2af-fb1bbaa47508")
+@{string PageTitle = (Model.OperationGUID == Guid.Empty) ? "New Operation" : "Edit Operation";}
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/Operations/_OperationForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.OperationGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/Operations/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.OperationGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

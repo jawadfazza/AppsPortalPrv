@@ -1,0 +1,61 @@
+﻿@model NationalStaffDangerPayDetailModel
+@using (Html.BeginForm("NationalStaffDangerPayDetail", "NationalStaffDangerPayCalcualtion", new { Area = "AHD" }, FormMethod.Post, new { id = "NationalStaffDangerPayDetailform" }))
+{
+    string ModalTitle = Model.NationalStaffDangerPayDetailGUID.ToString() == Guid.Empty.ToString() ? "New Travel Date" : "New Travel Date";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.NationalStaffDangerPayDetailGUID)
+    @Html.HiddenFor(model => model.NationalStaffDangerPayGUID)
+
+    <div class="form-group">
+
+        @Html.Label("Leave Type")
+        @Html.DropDownListFor(model => model.LeaveTypeGUID, new DropDownList().StaffLeaveType(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.Label("Departure date from duty station")
+        @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+    </div>
+    <div class="form-group">
+
+        @Html.Label("Return date to duty station")
+        @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+    </div>
+    <div class="form-group">
+
+        @Html.Label("Leave Country")
+        @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().Countries(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Leave City(optional)")
+
+        @Html.EditorFor(model => model.DestinationName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.NationalStaffDangerPayDetailGUID == null || Model.NationalStaffDangerPayDetailGUID == Guid.Empty)
+        {
+            @Html.CreateButtonNoPermission(Permissions.NationalStaffDangerPayManagement.Create, Apps.IMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+
+                @Html.UpdateButtonWithNoPermission(Permissions.NationalStaffDangerPayManagement.Update, Apps.IMS)
+
+            }
+            else
+            {
+                @Html.RestoreButton(Permissions.NationalStaffDangerPayManagement.Delete, Apps.IMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

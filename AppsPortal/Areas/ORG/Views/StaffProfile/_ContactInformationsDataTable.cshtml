@@ -1,0 +1,26 @@
+﻿@model MasterRecordStatus
+
+@*<h3 class="Title">@resxPages.Globalization</h3>*@
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.StaffContactsInformationDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.StaffContactsInformationDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffContactsInformationDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.StaffContactsInformationDataTable)
+
+                @Html.FieldDataTableCreate(Permissions.StaffProfile.Create, Apps.ORG, Url.Action("StaffContactInformation/Create", "StaffProfile", new {Area = "ORG", FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.StaffProfile.Delete, Apps.ORG, DataTableNames.StaffContactsInformationDataTable)
+                @Html.FieldDataTableRestore(Permissions.StaffProfile.Restore, Apps.ORG, DataTableNames.StaffContactsInformationDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.StaffContactsInformationDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffContactsInformationDataTable, FormController = "StaffProfile", Area = "ORG", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

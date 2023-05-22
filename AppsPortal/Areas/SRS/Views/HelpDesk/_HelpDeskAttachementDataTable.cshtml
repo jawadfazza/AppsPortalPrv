@@ -1,0 +1,23 @@
+﻿@model MasterRecordStatus
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+        <div id=@string.Format("{0}Filter",DataTableNames.HelpDeskAttachementDataTable) class="filter-section" style="display:none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_RecordStatus", DataTableNames.HelpDeskAttachementDataTable)
+                </div>
+            </div>
+        </div>
+        <div class="dt-controls-field" id="@string.Format(" {0}ActionsContainer",DataTableNames.HelpDeskAttachementDataTable)">
+            @Html.FieldDataTableFilter(DataTableNames.HelpDeskAttachementDataTable)
+            @Html.FieldDataTableCreateNoPermission(Url.Action("HelpDeskAttachementCreate", "HelpDesk", new { FK = Model.ParentGUID }))
+            @Html.FieldDataTableDeleteNoPermission(DataTableNames.HelpDeskAttachementDataTable)
+            @Html.FieldDataTableRestoreNoPermission(DataTableNames.HelpDeskAttachementDataTable)
+            @Html.FieldDataTableRefresh(DataTableNames.HelpDeskAttachementDataTable)
+        </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.HelpDeskAttachementDataTable, FormController = "HelpDesk", Area = "SRS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

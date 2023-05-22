@@ -1,0 +1,68 @@
+﻿@model userProfilesModel
+@using (Html.BeginForm("Job", "Profile", FormMethod.Post, new { id = "JobForm" }))
+{
+    string ModalTitle = Model.UserProfileGUID.ToString() == Guid.Empty.ToString() ? resxPages.JobNew : resxPages.JobEdit;
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.UserProfileGUID)
+        @Html.HiddenFor(model => model.ServiceHistoryGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrganizationInstanceGUID)
+            @Html.DropDownListFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstancesForServiceHistory(Model.ServiceHistoryGUID), "", new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-search",
+           onchange = "UpdateDropDownList([$(this).val(),$('#ServiceHistoryGUID').val()], [{ DropDownListID : 'DutyStationGUID', Action : 'RemoteDutyStation'}," +
+                                                    "{ DropDownListID : 'DepartmentGUID', Action : 'RemoteOperationDepartments'}]);"
+       })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobTitleGUID)
+            @Html.DropDownListFor(model => model.JobTitleGUID, new DropDownList().JobTitles(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DutyStationGUID)
+            @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStationsForProfile(Model.UserProfileGUID),"", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentGUID)
+            @Html.DropDownListFor(model => model.DepartmentGUID, new DropDownList().DepartmentsForProfile(Model.UserProfileGUID), new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6 col-xs-12">
+                @Html.LabelFor(model => model.PositionNumber)
+                @Html.EditorFor(model => model.PositionNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group col-sm-6 col-xs-12">
+                @Html.LabelFor(model => model.Grade)
+                @Html.EditorFor(model => model.Grade, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6 col-xs-12">
+                @Html.LabelFor(model => model.FromDate)
+                @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group col-sm-6 col-xs-12">
+                @Html.LabelFor(model => model.ToDate)
+                @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.UserProfileGUID == Guid.Empty)
+        {
+            @Html.CreateButton()
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton()
+                @Html.DeleteSwitchButton()
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

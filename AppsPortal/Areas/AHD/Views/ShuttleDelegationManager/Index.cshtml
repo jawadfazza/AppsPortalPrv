@@ -1,0 +1,549 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+
+}
+<style>
+    .fc-time {
+        display: none !important;
+    }
+    .fc-fri {
+        color: red;
+        background-color: lightgoldenrodyellow;
+    }
+
+    .fc-sat {
+        color: red;
+        background-color: lightgoldenrodyellow;
+    }
+</style>
+@Html.PageHeader("d412223f-ba47-4330-9111-8b91d351c508")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <h3></h3>
+        <div class="row">
+            @*<div class="col-lg-3 col-md-3 col-sm-8 col-xs-12">
+                <div class="form-group">
+                    @Html.Label(resxDbFields.UserGUID, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList(resxDbFields.UserGUID, new DropDownList().Users(true), "", new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-search UserGUID filter",
+                   onchange = "ShowStaffLeaves($(this).val());"
+
+               })
+                </div>
+
+            </div>*@
+            @*<div class="col-lg-3 col-md-3 col-sm-8 col-xs-12">
+                <div class="form-group">
+                    @Html.Label(resxDbFields.InternationalStaffAttendanceTypeGUID)
+                    @Html.DropDownList(resxDbFields.InternationalStaffAttendanceTypeGUID, new DropDownList().AHDInternationalAttendanceTypes(), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search InternationalStaffAttendanceTypeGUID filter",
+               onchange = "ShowLeavTypes($(this).val())"
+
+           })
+                </div>
+            </div>*@
+
+        </div>
+        @*<div class="row">
+                <div class="col-md-3 col-sm-10 col-lg-5 dt-controls-index">
+                    <input type="text" id="search-term" autocomplete="off" class="form-control" placeholder="Search Calender ..." style="width:100%" />
+                </div>
+
+            </div>*@
+    </div>
+    <div id='calendar'></div>
+</div>
+
+<script type="text/javascript">
+    var Source;
+    var events = [];
+    var curSource = new Array();
+
+    $(document).ready(function () {
+
+        InitializeCalendarLeavs();
+
+  
+    });
+    function searchAppointment() {
+        if ($('#search-term').val() != '') {
+            newSource = Source.filter(elem =>
+                (elem.title.toLowerCase().indexOf($('#search-term').val().toLowerCase()) > -1));
+            refreshCalendar(newSource);
+
+        } else {
+            refreshCalendar(Source);
+        }
+    }
+    function refreshCalendar(newSource) {
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('addEventSource', newSource);
+        $('#calendar').fullCalendar('refetchEvents');
+    }
+
+
+    $(document).keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            event.preventDefault();
+            searchAppointment();
+        }
+
+    });
+
+    var SlotWorkDays = [];
+    function InitializeCalendarLeavs() {
+
+        $.ajax({
+            url: "/AHD/StaffDelegation/GetWorkingDay",
+            dataType: 'json',
+            type: "post",
+            success: function (data) {
+                $.each(data.WorkDays, function (key, value) {
+                    SlotWorkDays.push(value.Day);
+                });
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today,myCustomButton',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,list'
+                    },
+
+                    height: 700,
+                    allDayText: 'Events',
+                    selectable: true,
+                    overflow: 'auto',
+                    editable: true,
+                    firstDay: 0,
+                    businessHours: true,
+                    businessHours:
+                    {
+                        start: '8:30',
+                        end: '16:00',
+                        dow: SlotWorkDays
+                    },
+
+                    //eventLimit: true, // for all non-agenda views
+                    //views: {
+                    //    agenda: {
+                    //        eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                    //    }
+                    //},
+                    events: function (start, end, timezone, callback) {
+                        $.ajax({
+                            url: "/AHD/StaffDelegation/GetCalendarDataFromDatabase",
+                            dataType: 'json',
+                            type: "post",
+                            data: {
+                                // our hypothetical feed requires UNIX timestamps
+                                start: start.format('YYYY-MM-DD HH:mm'),
+                                end: end.format('YYYY-MM-DD HH:mm')
+                            },
+                            success: function (data) {
+                                events = [];
+                                //alert(JSON.stringify(data.CalendarEvents, null, 2));
+                                $.map(data.CalendarEvents, function (item, i) {
+                                    var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                                    var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                                    var event = new Object();
+                                    event.id = item.EventId;
+                        
+                                    event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                    event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                             
+                                    event.title = item.Title;
+                                    event.allDay = true;
+                                    event.backgroundColor = item.backgroundColor;
+                                    event.borderColor = item.borderColor;
+
+                                    //if (item.PublicHolday) { event.color = 'red'; event.overlap = false; }
+                                    //if (item.PreventAppointments) { event.color = 'orange'; event.allDay = item.AllDayEvent; }
+
+                                    events.push(event);
+
+
+                                });
+                                callback(events);
+                            }
+                        });
+                    },
+                    eventClick: function (calEvent, jsEvent, view) {
+                        var url = "/AHD/StaffDelegation/ShuttleDelegationUpdate?PK=";
+                        window.location.href = url + calEvent.id;
+                        //$.ajax({
+                        //    type: "GET",
+                        //    url: '/AHD/StaffDelegation/AttendanceLeaveCalendarUpdate?PK=' + calEvent.id,
+                        //    success: function (data) {
+                        //        $('#FormModal').modal('show');
+                        //        // inject your content into the "placeholder" div
+                        //        $('#Partial-Container').html(data);
+                        //        $('#Loading-Container').hide();
+                        //        InitPlugins($('#Partial-Container'));
+                        //    },
+                        //    error: function (err) {
+                        //        console.log(err);
+                        //    }
+                        //});
+                    },
+                    customButtons: {
+                        myCustomButton: {
+                            text: 'Indicate Dates',
+                            click: function () {
+                                window.location.href = '/AHD/StaffDelegation/ShuttleDelegationCreate';
+                                //$.ajax({
+                                //    type: "GET",
+                                //    url: '/AHD/StaffDelegation/ShuttleDelegationCreate',
+                                //    success: function (data) {
+                                //        window.location.href = 'login.htm'; 
+                                //        //$('#FormModal').modal('show');
+                                //        //// inject your content into the "placeholder" div
+                                //        //$('#Partial-Container').html(data);
+                                //        //$('#Loading-Container').hide();
+                                //        //InitPlugins($('#Partial-Container'));
+                                //    },
+                                //    error: function (err) {
+                                //        console.log(err);
+                                //    }
+                                //});
+                            }
+                        }
+                    },
+                    select: function (start, end) {
+
+                    },
+                    eventDrop: function (event, delta, revertFunc) {
+                        $.ajax({
+                            type: "post",
+                            url: '/AHD/StaffDelegation/AttendanceLeaveUpdateDropEvent?PK=' + event.id + "&startDate=" + event.start.format() + "&endDate=" + event.end.format(),
+                            success: function (JsonResult) {
+                                if (JsonResult.Notify != null) {
+                                    ProcessNotify(JsonResult);
+                                    if (JsonResult.Notify.Type == NotificationType.Error) {
+                                        revertFunc();
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+
+
+    }
+
+
+
+    function ShowStaffLeaves(guid) {
+
+        $('#calendar').fullCalendar('destroy');
+
+
+
+        $.ajax({
+            url: "/AHD/StaffDelegation/GetWorkingDay",
+            dataType: 'json',
+            type: "post",
+            success: function (data) {
+                $.each(data.WorkDays, function (key, value) {
+                    SlotWorkDays.push(value.Day);
+                });
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today,myCustomButton',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,list'
+                    },
+
+                    height: 700,
+                    allDayText: 'Events',
+                    selectable: true,
+                    overflow: 'auto',
+                    editable: true,
+                    firstDay: 1,
+                    allDay: true,
+
+                    businessHours: true,
+                    businessHours:
+                    {
+                        start: '8:30',
+                        end: '16:00',
+                        dow: SlotWorkDays
+                    },
+
+                    //eventLimit: true, // for all non-agenda views
+                    //views: {
+                    //    agenda: {
+                    //        eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                    //    }
+                    //},
+                    events: function (start, end, timezone, callback) {
+                        $.ajax({
+                            url: "/AHD/StaffDelegation/GetCalendarDataFromDatabaseStaffFilter",
+                            dataType: 'json',
+                            type: "post",
+                            data: {
+                                // our hypothetical feed requires UNIX timestamps
+                                start: start.format('yyyy-MM-ddTHH:mm:ss'),
+                                end: end.format('yyyy-MM-ddTHH:mm:ss'),
+                                filterGUID: guid
+                            },
+                            success: function (data) {
+                                events = [];
+
+
+                                $.map(data.CalendarEvents, function (item, i) {
+                                    var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                                    var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                                    var event = new Object();
+                                    event.id = item.EventId;
+                                    event.UserGUID = item.UserGUID;
+                                    event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                    event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+
+                                    event.title = item.Title;
+                                    event.allDay = true;
+                                    event.backgroundColor = item.backgroundColor;
+                                    event.borderColor = item.borderColor;
+
+                                    //if (item.PublicHolday) { event.color = 'red'; event.overlap = false; }
+                                    //if (item.PreventAppointments) { event.color = 'orange'; event.allDay = item.AllDayEvent; }
+
+                                    events.push(event);
+
+
+                                });
+                                callback(events);
+                            }
+                        });
+                    },
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $.ajax({
+                            type: "GET",
+                            url: '/AHD/StaffDelegation/AttendanceLeaveCalendarUpdate?PK=' + calEvent.id,
+                            success: function (data) {
+                                $('#FormModal').modal('show');
+                                // inject your content into the "placeholder" div
+                                $('#Partial-Container').html(data);
+                                $('#Loading-Container').hide();
+                                InitPlugins($('#Partial-Container'));
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    },
+                    customButtons: {
+                        myCustomButton: {
+                            text: 'Add New Leave',
+                            click: function () {
+                                $.ajax({
+                                    type: "GET",
+                                    url: '/AHD/StaffDelegation/AttendanceLeaveCalendarCreate',
+                                    success: function (data) {
+                                        $('#FormModal').modal('show');
+                                        // inject your content into the "placeholder" div
+                                        $('#Partial-Container').html(data);
+                                        $('#Loading-Container').hide();
+                                        InitPlugins($('#Partial-Container'));
+                                    },
+                                    error: function (err) {
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                        }
+                    },
+                    select: function (start, end) {
+
+                    },
+                    eventDrop: function (event, delta, revertFunc) {
+                        $.ajax({
+                            type: "post",
+                            url: '/AHD/StaffDelegation/AttendanceLeaveUpdateDropEvent?PK=' + event.id + "&startDate=" + event.start.format() + "&endDate=" + event.end.format(),
+                            success: function (JsonResult) {
+                                if (JsonResult.Notify != null) {
+                                    ProcessNotify(JsonResult);
+                                    if (JsonResult.Notify.Type == NotificationType.Error) {
+                                        revertFunc();
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+
+    }
+
+
+    function ShowLeavTypes(guid) {
+
+        $('#calendar').fullCalendar('destroy');
+
+
+
+        $.ajax({
+            url: "/AHD/StaffDelegation/GetWorkingDay",
+            dataType: 'json',
+            type: "post",
+            success: function (data) {
+                $.each(data.WorkDays, function (key, value) {
+                    SlotWorkDays.push(value.Day);
+                });
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today,myCustomButton',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,list'
+                    },
+
+                    height: 700,
+                    allDayText: 'Events',
+                    selectable: true,
+                    overflow: 'auto',
+                    editable: true,
+                    firstDay: 0,
+                    allDay: true,
+                    businessHours: true,
+                    businessHours:
+                    {
+                        start: '8:30',
+                        end: '16:00',
+                        dow: SlotWorkDays
+                    },
+
+                    //eventLimit: true, // for all non-agenda views
+                    //views: {
+                    //    agenda: {
+                    //        eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                    //    }
+                    //},
+                    events: function (start, end, timezone, callback) {
+                        $.ajax({
+                            url: "/AHD/StaffDelegation/GetCalendarDataFromDatabaseLeaveTypefFilter",
+                            dataType: 'json',
+                            type: "post",
+                            data: {
+                                // our hypothetical feed requires UNIX timestamps
+                                start: start.format('YYYY-MM-DD HH:mm'),
+                                end: end.format('YYYY-MM-DD HH:mm'),
+                                filterGUID: guid
+                            },
+                            success: function (data) {
+                                events = [];
+
+
+                                $.map(data.CalendarEvents, function (item, i) {
+                                    var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                                    var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                                    var event = new Object();
+                                    event.id = item.EventId;
+                                    event.UserGUID = item.UserGUID;
+                                    event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                    event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+
+                                    event.title = item.Title;
+                                    event.allDay = true;
+                                    event.backgroundColor = item.backgroundColor;
+                                    event.borderColor = item.borderColor;
+
+                                    //if (item.PublicHolday) { event.color = 'red'; event.overlap = false; }
+                                    //if (item.PreventAppointments) { event.color = 'orange'; event.allDay = item.AllDayEvent; }
+
+                                    events.push(event);
+
+
+                                });
+                                callback(events);
+                            }
+                        });
+                    },
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $.ajax({
+                            type: "GET",
+                            url: '/AHD/StaffDelegation/AttendanceLeaveCalendarUpdate?PK=' + calEvent.id,
+                            success: function (data) {
+                                $('#FormModal').modal('show');
+                                // inject your content into the "placeholder" div
+                                $('#Partial-Container').html(data);
+                                $('#Loading-Container').hide();
+                                InitPlugins($('#Partial-Container'));
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    },
+                    customButtons: {
+                        myCustomButton: {
+                            text: 'Add New Leave',
+                            click: function () {
+                                $.ajax({
+                                    type: "GET",
+                                    url: '/AHD/StaffDelegation/AttendanceLeaveCalendarCreate',
+                                    success: function (data) {
+                                        $('#FormModal').modal('show');
+                                        // inject your content into the "placeholder" div
+                                        $('#Partial-Container').html(data);
+                                        $('#Loading-Container').hide();
+                                        InitPlugins($('#Partial-Container'));
+                                    },
+                                    error: function (err) {
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                        }
+                    },
+                    select: function (start, end) {
+
+                    },
+                    eventDrop: function (event, delta, revertFunc) {
+                        $.ajax({
+                            type: "post",
+                            url: '/AHD/StaffDelegation/AttendanceLeaveUpdateDropEvent?PK=' + event.id + "&startDate=" + event.start.format() + "&endDate=" + event.end.format(),
+                            success: function (JsonResult) {
+                                if (JsonResult.Notify != null) {
+                                    ProcessNotify(JsonResult);
+                                    if (JsonResult.Notify.Type == NotificationType.Error) {
+                                        revertFunc();
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+
+    }
+
+
+
+
+</script>
+
+

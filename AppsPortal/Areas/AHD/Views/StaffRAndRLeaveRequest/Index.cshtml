@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("81e575b4-7b73-4593-938d-6319014ccd79")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.StaffRAndRLeaveRequestDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LeaveNumber, DbColumnName = "LeaveNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SubmittedDate, DbColumnName = "SubmittedDate", FilterForDataType = "Text" })
+                
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffGUID, DbColumnName = "StaffGUID", FilterForDataType = "Text", DataList = new DropDownList().Users(true), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FlowStatusGUID, DbColumnName = "FlowStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().InternationalStaffLeaveFlowStatus(), IsMultiple = true, IsSearchable = true })
+
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.StaffRAndRLeaveRequestDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffRAndRLeaveRequestDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.StaffRAndRLeaveRequestDataTable)
+
+        @*@Html.IndexDatatableCreate(Permissions.InternationalStaffRestAndRecuperationLeave.Create, Apps.AHD, "/AHD/StaffRAndRLeaveRequest/Create")*@
+
+        @*@Html.IndexDatatableCreateNoPermission("/AHD/StaffRAndRLeaveRequestForm/Create")*@
+
+        @Html.IndexDatatableCreateNoPermission("/AHD/StaffRAndRLeaveRequestForm/Create")
+
+        @Html.IndexDatatableDelete(Permissions.InternationalStaffRestAndRecuperationLeave.Delete, Apps.AHD, DataTableNames.StaffRAndRLeaveRequestDataTable)
+        @Html.IndexDatatableRestor(Permissions.InternationalStaffRestAndRecuperationLeave.Restore, Apps.AHD, DataTableNames.StaffRAndRLeaveRequestDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.StaffRAndRLeaveRequestDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffRAndRLeaveRequestDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+
+
+</div>

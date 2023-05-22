@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fc3b66bf2a98492ea3297ca777b428cd" Name="Diagram1">
+        <EntityTypeShape EntityType="OVSModel.dataElection" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="OVSModel.dataElectionCandidate" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OVSModel.dataElectionCandidateLanguage" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OVSModel.dataElectionCondition" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OVSModel.dataElectionCorrespondence" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="OVSModel.dataElectionCorrespondenceStaff" Width="1.5" PointX="5.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OVSModel.dataElectionLanguage" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="OVSModel.dataStaff" Width="1.5" PointX="5.5" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OVSModel.dataStaffVote" Width="1.5" PointX="8.25" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="OVSModel.FK_DataCandidate_DataElection" ManuallyRouted="false" />
+        <AssociationConnector Association="OVSModel.FK_DataElectionConditions_DataElection" ManuallyRouted="false" />
+        <AssociationConnector Association="OVSModel.FK_dataElectionCorrespondenc_dataElection" ManuallyRouted="false" />
+        <AssociationConnector Association="OVSModel.FK_DataElectionLanguages_DataElection" ManuallyRouted="false" />
+        <AssociationConnector Association="OVSModel.FK_DataElectionCandidateLanguages_DataElectionCandidate" ManuallyRouted="false" />
+        <AssociationConnector Association="OVSModel.FK_DataElectionCandidates_DataCandidate" ManuallyRouted="false" />
+        <AssociationConnector Association="OVSModel.FK_dataElectionCorrespondenceStaff_dataElectionCorrespondence" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OVSModel.codeElectionCorrespondenceType" Width="1.5" PointX="0.75" PointY="12.125" />
+        <EntityTypeShape EntityType="OVSModel.codeElectionCorrespondenceTypeLanguage" Width="1.5" PointX="3" PointY="17" />
+        <AssociationConnector Association="OVSModel.FK_codeElectionCorrespondenceTypeLanguage_codeElectionCorrespondenceType" />
+        <AssociationConnector Association="OVSModel.FK_dataElection_codeElectionCorrespondenceType" />
+        <AssociationConnector Association="OVSModel.FK_dataElectionCorrespondence_codeElectionCorrespondenceType" />
+        <EntityTypeShape EntityType="OVSModel.codeConditionType" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="OVSModel.codeConditionTypeLanguage" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="OVSModel.FK_CodeConditionTypeLanguages_CodeConditionTypes" />
+        <AssociationConnector Association="OVSModel.FK_codeDutyStations_dataElectionCondition" />
+        <EntityTypeShape EntityType="OVSModel.codeDutyStations" Width="1.5" PointX="9" PointY="15.5" />
+        <EntityTypeShape EntityType="OVSModel.codeDutyStationsLanguages" Width="1.5" PointX="6.875" PointY="15.625" />
+        <EntityTypeShape EntityType="OVSModel.codeOrganizationsInstances" Width="1.5" PointX="0.75" PointY="14" />
+        <AssociationConnector Association="OVSModel.FK_codeDutyStations_dataElection" />
+        <AssociationConnector Association="OVSModel.FK_codeDutyStationsLanguages_codeDutyStations" />
+        <AssociationConnector Association="OVSModel.FK_dataStaff_codeDutyStations" />
+        <AssociationConnector Association="OVSModel.FK_codeOrganizationsInstances_dataElection" />
+        <AssociationConnector Association="OVSModel.FK_dataStaff_codeOrganizationsInstances" />
+        <EntityTypeShape EntityType="OVSModel.codeOrganizationsInstancesLanguages" Width="1.5" PointX="3" PointY="21.125" />
+        <AssociationConnector Association="OVSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" />
+        <EntityTypeShape EntityType="OVSModel.codeTablesValues" Width="1.5" PointX="5.375" PointY="1" />
+        <EntityTypeShape EntityType="OVSModel.codeTablesValuesLanguages" Width="1.5" PointX="7.625" PointY="1" />
+        <AssociationConnector Association="OVSModel.FK_codeTablesValuesLanguages_codeTablesValues" />
+        <EntityTypeShape EntityType="OVSModel.dataElectionStaff" Width="1.5" PointX="8" PointY="10" />
+        <AssociationConnector Association="OVSModel.FK_DataElectionEligibleStaff_DataElection" />
+        <AssociationConnector Association="OVSModel.FK_dataElectionCorrespondenceStaff_dataElectionStaff" />
+        <AssociationConnector Association="OVSModel.FK_DataElectionEligibleStaff_DataEligibleStaff" />
+        <AssociationConnector Association="OVSModel.FK_DataStaffVotes_DataElectionStaffs" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

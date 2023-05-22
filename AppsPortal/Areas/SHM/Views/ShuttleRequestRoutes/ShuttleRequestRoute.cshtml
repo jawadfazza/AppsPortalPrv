@@ -1,0 +1,20 @@
+﻿@model ShuttleRequestRouteUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ShuttleRequestRouteGUID == Guid.Empty) ? "New Shuttle Request Route" : "Edit Shuttle Request Route"; }
+
+@Html.PageHeader("ccf8f5a1-0924-43c1-af68-defcdcfd83da")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/SHM/Views/ShuttleRequestRoutes/_ShuttleRequestRouteForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.ShuttleRequestRouteGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/SHM/Views/ShuttleRequestRoutes/_ShuttleRequestRouteStepsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ShuttleRequestRouteGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

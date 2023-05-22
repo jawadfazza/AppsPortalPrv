@@ -1,0 +1,44 @@
+﻿@model ConfigurationModel
+<div class="forms-fadeIn checkboxs-form">
+    @using (Html.BeginForm("GenderConfig", "Configurations", FormMethod.Post, new { id = "GenderConfigForm" }))
+    {
+        string ModalTitle = "Available Values List";
+        @Html.Partial("_ModalHeader", ModalTitle)
+        <div class="modal-body">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ValueGuid)
+            @Html.HiddenFor(model => model.CTID)
+            @if (Model.CheckBoxList.Count > 0)
+            {
+                <div class="chkHead-accordion-container allawi-foul">
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="chkHead-accordion" />
+                        <span><b>Select All</b></span>
+                        <span id="SelectedMessage"></span>
+                    </label>
+                </div>
+                <div class="mScroll" data-mcs-theme="rounded-dark" style="max-height:400px;">
+                    @for (int i = 0; i < Model.CheckBoxList.Count; i++)
+                    {
+                        <div class="configOption ">
+                            @Html.HiddenFor(m => Model.CheckBoxList[i].Value)
+                            @Html.HiddenFor(m => Model.CheckBoxList[i].Description)
+                            <label class="black ClearFindTextBox" style="margin-bottom:0!important">
+                                @Html.CheckBoxFor(m => Model.CheckBoxList[i].Checked, new { @class = "chkNode-accordion" })
+                                @Html.DisplayFor(m => Model.CheckBoxList[i].Description)
+                            </label>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <span>All possible values added!</span>
+            }
+        </div>
+        <div class="modal-footer form-footer">
+            @Html.CreateButton(Permissions.OrganizationsInstancesConfigurations.Create, Apps.CMS)
+            @Html.CloseModalButton()
+        </div>
+    }
+</div>

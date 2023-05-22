@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "RefugeeScannedDocuments";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("fd787a66-081c-4e87-b23a-b26296335531")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.DASUserFilesDataTable)
+         class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FileNumber, DbColumnName = "FileNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LastFlowStatusName, DbColumnName = "LastFlowStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().DASFileMovementStatus(), IsMultiple = true, IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LastCustodianType, DbColumnName = "LastCustodianTypeGUID", FilterForDataType = "Text", DataList = new DropDownList().DASDocumentCustodianType(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LastCustodianTypeName, DbColumnName = "LastCustodianTypeNameGUID", FilterForDataType = "Text", DataList = new DropDownList().DASUsersTransferAuthorized(), IsMultiple = true, IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TransferLocationGUID, DbColumnName = "TransferLocationGUID", FilterForDataType = "Text", DataList = new DropDownList().DASFileTransferLocation(), IsMultiple = true, IsSearchable = true })
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LatestAppointmentDate, DbColumnName = "LatestAppointmentDate", FilterForDataType = "Date" })
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Cases, DbColumnName = "Cases", FilterForDataType = "Text" })*@
+
+            </div>
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Cases, DbColumnName = "Cases", FilterForDataType = "Text" })*@
+
+            </div>
+
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.DASUserFilesDataTable)
+        </div>
+    </div>
+    <br />
+    <div id="@string.Format("{0}ActionsContainer", DataTableNames.DASUserFilesDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.DASUserFilesDataTable)
+        @*@Html.FieldDataTableCreate(Permissions.RefugeeScannedDocument.Create, Apps.WMS, Url.Action("FilterBulkCases", "ScanDocument"))*@
+        @*@Html.FieldDataTableCreate(Permissions.RefugeeScannedDocument.Create, Apps.DAS, "/DAS/RefugeeScannedDocument/SearchFile/")*@
+        @*@Html.IndexDatatableReminderPendingConfirmationBulkFiles(Permissions.RefugeeScannedDocument.Create, Apps.DAS, DataTableNames.DASUserFilesDataTable)
+            @Html.IndexDatatableReminderReturnBulkFiles(Permissions.RefugeeScannedDocument.Create, Apps.DAS, DataTableNames.DASUserFilesDataTable)*@
+
+        @*@Html.IndexDatatableRequestBulkPhysicalFiles(Permissions.RefugeeScannedDocument.Create, Apps.DAS, Url.Action("RequestBulkPhysicalFiles", "ScanDocument"))*@
+        @Html.IndexDatatableTransferBulkPhysicalFiles(Permissions.RefugeeScannedDocument.Create, Apps.DAS, Url.Action("GetTransferBulkUserFiles", "ScanDocument"))
+        @Html.IndexDatatableConfirmReceivingBulkPhysicalFiles(Permissions.RefugeeScannedDocument.Create, Apps.DAS, Url.Action("GetConfirmReceivingBulkFiles", "ScanDocument"))
+        @Html.IndexDatatableDASChangeFileLocation(Permissions.RefugeeScannedDocument.Create, Apps.DAS, Url.Action("GetChangeFileLocation", "ScanDocument"))
+
+        @*@Html.IndexDatatableCreate(Permissions.RefugeeScannedDocument.Create, Apps.DAS, "/DAS/RefugeeScannedDocument/Create/")*@
+        @*@Html.IndexDatatableDelete(Permissions.RefugeeScannedDocument.Delete, Apps.DAS, DataTableNames.DASUserFilesDataTable)
+            @Html.IndexDatatableRestor(Permissions.RefugeeScannedDocument.Restore, Apps.DAS, DataTableNames.DASUserFilesDataTable)*@
+        @*@Html.IndexDatatableRefresh(DataTableNames.DASUserFilesDataTable)*@
+        @*@Html.FieldDataTableSearch(Permissions.RefugeeScannedDocument.Create, Apps.DAS, "/DAS/ScanDocument/CasesAppointments")*@
+        @*@Html.FieldDataTableSearch(Permissions.RefugeeScannedDocument.Create, Apps.DAS, "/DAS/ScanDocument/UploadDocumentIndex")*@
+    </div>
+    <br />
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.DASUserFilesDataTable, Area = "DAS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>
+

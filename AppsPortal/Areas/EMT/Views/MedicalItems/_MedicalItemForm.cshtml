@@ -1,0 +1,125 @@
+﻿@model MedicalItemUpdateModel
+@using (Html.BeginForm("MedicalItem", "MedicalItems", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalItemForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.MedicalItemGUID)
+    @Html.HiddenFor(model => model.RemainingItemsQuantity)
+    @Html.HiddenFor(model => model.TotalDispatchedItems)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedicalGenericNameGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.MedicalGenericNameGUID, new DropDownList().MedicalGenericName(), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+           })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.BrandName)
+                @Html.EditorFor(model => model.BrandName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DoseQuantity)
+                @Html.EditorFor(model => model.DoseQuantity, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            @*<div class="form-group">
+             @Html.LabelFor(model => model.MedicalDoseUnitGUID, htmlAttributes: new { @class = "control-label" })
+             @Html.DropDownListFor(model => model.MedicalDoseUnitGUID, new DropDownList().LookupValues(LookupTables.MedicalDoseUnit), "", new
+        {
+            style = "width:100%",
+            @class = "form-control select2-basic-search",
+        })
+         </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedicalPharmacologicalFormGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.MedicalPharmacologicalFormGUID, new DropDownList().LookupValues(LookupTables.MedicalPharmacologicalForm), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+           })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PackingUnit)
+                @Html.EditorFor(model => model.PackingUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedicalPackingUnitGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.MedicalPackingUnitGUID, new DropDownList().LookupValues(LookupTables.MedicalPackingUnit), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+           })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedicalManufacturerGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.MedicalManufacturerGUID, new DropDownList().MedicalManufacturer(), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+           })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.LicenseNoDate)
+                @Html.EditorFor(model => model.LicenseNoDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SourceGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.SourceGUID, new DropDownList().MedicalSource(), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+           })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedicalTreatmentGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.MedicalTreatmentGUID, new DropDownList().LookupValues(LookupTables.MedicalTreatment), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+           })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedicalRouteAdministrationGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.MedicalRouteAdministrationGUID, new DropDownList().LookupValues(LookupTables.MedicalRouteAdministration), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+           })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Barcode)
+                @Html.EditorFor(model => model.Barcode, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.Label(resxDbFields.CreatedBy)
+                @Html.DisplayFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                - @Html.Label(resxDbFields.CreatedOn)
+                @Html.DisplayFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div id="MedicalItemFormControls" class="form-group form-footer">
+                @if (Model.MedicalItemGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.MedicalItem.Create, Apps.EMT)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.MedicalItem.Update, Apps.EMT)
+                        @Html.CreateNewButton(Permissions.MedicalItem.Create, Apps.EMT, Url.Action("/Create", new { Area = "EMT" }))
+                        @Html.DeleteButton(Permissions.MedicalItem.Delete, Apps.EMT)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.MedicalItem.Restore, Apps.EMT)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "MedicalItems", new { Area = "EMT" }))
+            </div>
+        </div>
+    </div>
+}

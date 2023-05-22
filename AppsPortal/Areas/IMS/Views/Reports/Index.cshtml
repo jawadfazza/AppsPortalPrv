@@ -1,0 +1,135 @@
+﻿@model ModelTrackReportModel
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("41b5345b-7e94-4b91-a303-a095b98fae33")
+
+@using (Html.BeginForm("ModelTrackReport", "Reports", new { Area = "IMS" }, FormMethod.Post, new { id = "ReportForm" }))
+{
+    <style>
+        iframe {
+            border-width: 0px !important
+        }
+    </style>
+    <div class="page--content">
+
+        <div id="TabContainer">
+            <div id="exTab1">
+                <ul class="nav nav-pills">
+                    <li class="active">
+                        <a href="#Reports" data-toggle="tab">Mission Report </a>
+                    </li>
+                    <li>
+                        <a href="#templates" data-toggle="tab"> Other Report Templates</a>
+                    </li>
+
+
+
+                    <li>
+
+                </ul>
+            </div>
+            <div class="tab-content clearfix">
+                <div class="tab-pane active" id="Reports">
+                    <div class="panel">
+                        <div class="panel-heading">
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        @Html.Label("Mission Start Date From ")
+                                        @Html.EditorFor(model => model.MissionStartFromDate, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.Label("Mission Start Date To")
+                                        @Html.EditorFor(model => model.MissionStartToDate, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.Label("Governorate ")
+                                        @Html.DropDownListFor(model => model.Governorates, new DropDownList().Governorates(Guid.Parse("699287E8-754D-4A63-B8DD-5344CFBAFD22")), "", new
+                                        {
+                                            style = "width:100%",
+                                            @class = "form-control select2-basic-search",
+                                            Multiple = true
+                                        })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.Label("Mission Status")
+                                        @Html.DropDownListFor(model => model.MissionStatusGUIDs, new DropDownList().MissionStatus(), "", new
+                                        {
+                                            style = "width:100%",
+                                            @class = "form-control select2-basic-search",
+                                            Multiple = true
+                                        })
+                                    </div>
+
+
+
+
+                                    <div>
+
+                                        <input class="btn btn-primary " data-submittype="" type="submit" value="Generate Report">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="tab-pane" id="templates">
+                    <br />
+                    @Html.ActionLink("Export Missions", "ExportMissionReportFormExcel", "MissionReportForm", new { id = 1 }, new { @class = "btn btn-primary" })
+                    @*@Html.ActionLink("Mission Forms", "ExportMissionReportForm", "MissionReportForm", new { id = 0 }, new { @class = "btn btn-primary" })*@
+                    @Html.ActionLink("Visits View", "ExportMissionReportForm", "MissionReportForm", new { type = 2 }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Humanitarian View", "ExportMissionReportForm", "MissionReportForm", new { type = 3 }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Ongoing Response View", "ExportMissionReportForm", "MissionReportForm", new { type = 4 }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Challenge View", "ExportMissionReportForm", "MissionReportForm", new { type = 5 }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Units View", "ExportMissionReportForm", "MissionReportForm", new { type = 6 }, new { @class = "btn btn-primary" })
+
+                    @Html.ActionLink("Missions Category  for Rep Office", "ExportMissionReportForm", "MissionReportForm", new { type = 7 }, new { @class = "btn btn-primary" })
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+        </div>
+        }
+        <script>
+
+                    //$("#itemCustodianReportId").hide();
+                    //$("#RpeortDelayItems").hide();
+                    //$("#ReportGeneralOVerviewId").hide();
+                    //var CheckReportName = function (data) {
+                    //    var currentReportId = $("#WarehosueReportId").val();
+                    //    if (currentReportId == 1) {
+                    //        $("#itemCustodianReportId").show();
+                    //        $("#RpeortDelayItems").hide();
+                    //        $("#ReportGeneralOVerviewId").hide();
+                    //    }
+                    //    if (currentReportId == 2) {
+                    //        $("#RpeortDelayItems").show();
+                    //        $("#itemCustodianReportId").hide();
+                    //        $("#ReportGeneralOVerviewId").hide();
+                    //    }
+                    //    if (currentReportId == 3) {
+                    //        $("#RpeortDelayItems").hide();
+                    //        $("#itemCustodianReportId").hide();
+                    //        $("#ReportGeneralOVerviewId").show();
+                    //    }
+                    //}
+
+        </script>

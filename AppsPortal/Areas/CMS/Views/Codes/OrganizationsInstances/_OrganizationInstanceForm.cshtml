@@ -1,0 +1,46 @@
+﻿@model OrganizationInstanceUpdateModel
+@using (Html.BeginForm("OrganizationInstance", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "OrganizationInstanceForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.OrganizationInstanceGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrganizationInstanceDescription)
+                @Html.EditorFor(model => model.OrganizationInstanceDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrganizationGUID)
+                @Html.DropDownListFor(model => model.OrganizationGUID, new DropDownList().Organizations(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OperationGUID)
+                @Html.DropDownListFor(model => model.OperationGUID, new DropDownList().Operations(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            @{
+                string FactorsToken = Model.OrganizationGUID.ToString();
+            }
+            <div id="OrganizationInstanceFormControls" class="form-group form-footer">
+                @if (Model.OrganizationInstanceGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Organizations.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.OrganizationsInstances.Update, Apps.CMS, FactorsToken)
+                        @Html.CreateNewButton(Permissions.OrganizationsInstances.Create, Apps.CMS, Url.Action("OrganizationInstanceCreate", "Codes", new { Area = "CMS" }))
+                        @Html.DeleteButton(Permissions.OrganizationsInstances.Delete, Apps.CMS, FactorsToken)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.OrganizationsInstances.Restore, Apps.CMS, FactorsToken)
+                    }
+                }
+                @Html.BackToList(Url.Action("OrganizationsInstances", "Codes", new { Area = "CMS" }))
+            </div>
+        </div>
+    </div>
+                }

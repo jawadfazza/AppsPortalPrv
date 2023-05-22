@@ -1,0 +1,79 @@
+﻿
+@model ItemUpdateModel
+@using (Html.BeginForm("Item", "ItemModels", new { Area = "WMS" }, FormMethod.Post, new { id = "ItemClassificationForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.WarehouseItemGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.WarehouseItemClassificationGUID)
+                @Html.DropDownListFor(model => model.WarehouseItemClassificationGUID, new DropDownList().ItemClassification(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.WarehouseItemDescription)
+                @Html.EditorFor(model => model.WarehouseItemDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.IsDeterminanted)
+                @Html.CheckBoxFor(model => model.IsDeterminanted, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                
+            </div>
+            @*<div class="form-group HANDLER">
+             @Html.LabelFor(model => model.ItemRelationTypeGUID)
+             @Html.DropDownListFor(model => model.ItemRelationTypeGUID, new DropDownList().WarehouseItemRelationTypes(), "", new
+        {
+            style = "width:100%",
+            @class = "form-control select2-basic-search",
+            onchange = "CheckRelationType($(this).val())"
+
+        })
+         </div>
+
+         <div class="form-group HANDLER" id="itemparenetId">
+             @Html.LabelFor(model => model.ParentWarehouseItemGUID)
+             @Html.DropDownListFor(model => model.ParentWarehouseItemGUID, new DropDownList().WarehouseKitItems(), "", new {style = "width:100%", @class = "form-control select2-basic-search"})
+         </div>*@
+
+            <div id="ItemModelFormControls" class="form-group form-footer">
+                @if (Model.WarehouseItemGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.ItemModel.Create, Apps.WMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.ItemModel.Update, Apps.WMS)
+                        @Html.CreateNewButton(Permissions.ItemModel.Create, Apps.WMS, Url.Action("/Create", new { Area = "WMS" }))
+                        @Html.DeleteButton(Permissions.ItemModel.Delete, Apps.WMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.ItemModel.Restore, Apps.WMS)
+                    }
+                }
+                <a class="black" href="/WMS/ItemClassifications">Back</a>
+                @*@Html.BackToList(Url.Action("ItemClassifications", "ItemModels", new { Area = "WMS" }))*@
+            </div>
+        </div>
+    </div>
+}
+@*<script>
+    if ($("#ParentWarehouseItemGUID").val() == null) {
+        $("#ParentWarehouseItemGUID").hide();
+        }
+    var GetCommunityLocation = function () {
+
+        if ($("#ItemRelationTypeGUID").val().toString().toUpperCase() =="A40EC252-622E-4FF1-9EF4-E328C7A3CE18") {
+
+            $("#ParentWarehouseItemGUID").show();
+
+
+        }
+
+    }
+</script>*@

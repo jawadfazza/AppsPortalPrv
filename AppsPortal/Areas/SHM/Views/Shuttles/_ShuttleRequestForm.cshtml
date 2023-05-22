@@ -1,0 +1,124 @@
+﻿@model ShuttleRequestUpdateModel
+@using (Html.BeginForm("ShuttleRequestAdmin", "Shuttles", new { Area = "SHM" }, FormMethod.Post, new { id = "ShuttleForm", @class = "main-form" }))
+{
+    string ModalTitle = Model.ShuttleRequestGUID.ToString() == Guid.Empty.ToString() ? "New Shuttle Request" : "Edit Shuttle Request";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ShuttleRequestGUID)
+        @Html.HiddenFor(model => model.StaffComment)
+        @Html.HiddenFor(model => model.OrganizationInstanceGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartureDate)
+            @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    @Html.LabelFor(model => model.StartLocationGUID)
+                    @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().CountriesSyriaShuttle(), "",
+                   new
+                        {
+                            @class = "form-control select2-basic-search",
+                       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'StartLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);",
+                       style = "width:100%"
+                        })
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    @Html.Label("|")
+                    @Html.DropDownListFor(model => model.StartLocationGUID, new DropDownList().LocationOneValue(Model.StartLocationGUID), "",
+                   new
+                        {
+                            style = "width:100%",
+                       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DeparturePointGUID', Action : 'RemoteLocationsByLocationType'}]);",
+                       @class = "form-control select2-basic-search"
+                        })
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    @Html.Label("|")
+                    @Html.DropDownListFor(model => model.DeparturePointGUID, new DropDownList().LocationOneValue(Model.DeparturePointGUID), "",
+                   new
+                        {
+                            style = "width:100%",
+                       @class = "form-control select2-basic-search"
+                        })
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    @Html.LabelFor(model => model.EndLocationGUID)
+                    @Html.DropDownListFor(model => model.CountryGUID1, new DropDownList().CountriesSyriaShuttle(), "",
+                   new
+                        {
+                            @class = "form-control select2-basic-search",
+                       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'EndLocationGUID', Action : 'RemoteLocationsByGovernorate'}]);",
+                       style = "width:100%"
+                        })
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    @Html.Label("|")
+                    @Html.DropDownListFor(model => model.EndLocationGUID, new DropDownList().LocationOneValue(Model.EndLocationGUID), "",
+                   new
+                        {
+                            style = "width:100%",
+                       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DropOffPointGUID', Action : 'RemoteLocationsByLocationType'}]);",
+                       @class = "form-control select2-basic-search"
+                        })
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    @Html.Label("|")
+                    @Html.DropDownListFor(model => model.DropOffPointGUID, new DropDownList().LocationOneValue(Model.DropOffPointGUID), "",
+                   new
+                        {
+                            style = "width:100%",
+                       @class = "form-control select2-basic-search"
+                        })
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShuttleTravelPurposeGUID)
+            @Html.DropDownListFor(model => model.ShuttleTravelPurposeGUID, new DropDownList().ShuttleTravelPurpose(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReferralStatusGUID)
+            @Html.DropDownListFor(model => model.ReferralStatusGUID, new DropDownList().ReferralStatus(Apps.SHM), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AdminComment)
+            @Html.TextAreaFor(model => model.AdminComment, new { @class = "form-control", rows = 5 })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StaffComment)
+            <div class="notification-contents"> @Html.DisplayFor(model => model.StaffComment)</div>
+        </div>
+        <div class="form-group">
+            @Html.Label(resxDbFields.FocalPoint)
+            @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStationsOneValue(Model.DutyStationGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ShuttleRequestGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.Shuttle.Create, Apps.SHM)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.Shuttle.Update, Apps.SHM)
+            }
+
+        }
+       
+        @Html.CloseModalButton()
+    </div>
+
+}
+

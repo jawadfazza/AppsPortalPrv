@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1e761de094e34662bcbeeb1265243928" Name="Diagram1">
+        <EntityTypeShape EntityType="ISSModel.userAccounts" Width="1.5" PointX="1.5" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.userPersonalDetails" Width="1.5" PointX="3.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.userPersonalDetailsLanguage" Width="1.5" PointX="6" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.codeISSItem" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.codeISSItemLanguage" Width="1.5" PointX="3" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.codeISSStock" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.codeISSStockLanguage" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.codeItemModelWarehouse" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.dataItemOverview" Width="1.5" PointX="3" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.dataItemPipeline" Width="1.5" PointX="6" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.dataItemPipelineUpload" Width="1.5" PointX="3.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.dataItemStockBalance" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.dataItemStockEmergencyReserve" Width="1.5" PointX="6" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.dataItemStockEmergencyUpload" Width="1.5" PointX="3.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISSModel.dataTrackStockUpload" Width="1.5" PointX="0.75" PointY="14.125" IsExpanded="true" />
+        <AssociationConnector Association="ISSModel.FK_dataItemPipelineUpload_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_dataItemStockEmergencyUpload_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_dataTrackStockUpload_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_userPersonalDetails_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_userPersonalDetailsLanguage_userPersonalDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_codeISSItemLanguage_codeISSItem" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_dataItemOverview_codeISSItem" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_dataItemPipeline_codeISSItem" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_dataItemStockBalance_codeISSItem" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_dataItemStockEmergencyReserve_codeISSItem" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_codecodeISSStockLanguage_codeISSStock" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_dataItemPipeline_codeISSStock" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_dataItemStockBalance_codeISSStock" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FKcodeISSStock_WarehosueParentGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_dataItemPipeline_dataItemPipelineUpload" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_dataItemStockBalance_dataTrackStockUpload" ManuallyRouted="false" />
+        <AssociationConnector Association="ISSModel.FK_dataItemStockEmergencyReserve_dataItemStockEmergencyUpload" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

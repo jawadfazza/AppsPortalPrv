@@ -1,0 +1,91 @@
+﻿@model ApplicationEnhancementRequestModel
+@using (Html.BeginForm("ApplicationEnhancement", "ServiceRequest", new { Area = "SRS" }, FormMethod.Post, new { id = "ApplicationEnhancementForm", @class = "main-form" }))
+{
+
+
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.AppEnhancementGUID)
+    @Html.HiddenFor(model => model.EnhancementRequestedByProfileGUID)
+    @Html.HiddenFor(model => model.EnhancementRequestDate)
+    @Html.HiddenFor(model => model.ApprovedByProfileGUID)
+
+    <div class="row">
+
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <h3>Enhancement Request Details</h3>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationGUID)
+                @Html.DropDownListFor(model => model.ApplicationGUID, new DropDownList().Applications(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EnhancementDetails)
+                @Html.TextAreaFor(model => model.EnhancementDetails, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <h3>Authorization Details</h3>
+
+            @if (new CMS().HasAction(Permissions.Serviceenhancementrequest.Update, Apps.SRS))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApprovalStatus)
+                    @Html.DropDownListFor(model => model.ApprovalStatus, new DropDownList().NewAppReqApprovalStatuses(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApprovalComments)
+                    @Html.TextAreaFor(model => model.ApprovalComments, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstimatedResourcesAndCosts)
+                    @Html.TextAreaFor(model => model.EstimatedResourcesAndCosts, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApprovalStatus)
+                    @Html.DropDownListFor(model => model.ApprovalStatus, new DropDownList().NewAppReqApprovalStatuses(), "", new { disabled = "disabled", @readonly = "readonly", @class = "form-control select2-basic-single MustReadOnly", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApprovalComments)
+                    @Html.TextAreaFor(model => model.ApprovalComments, new { disabled = "disabled", @readonly = "readonly", @class = "form-control MustReadOnly", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstimatedResourcesAndCosts)
+                    @Html.TextAreaFor(model => model.EstimatedResourcesAndCosts, new { disabled = "disabled", @readonly = "readonly", @class = "form-control MustReadOnly", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+                </div>
+            }
+
+
+
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <div id="ApplicationEnhancementFormControls" class="form-group form-footer">
+                @if (Model.AppEnhancementGUID == Guid.Empty)
+                {
+                    @Html.CreateButtonNoPermission()
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButtonNoPermission()
+                        @Html.CreateNewButtonNoPermission(Url.Action("ApplicationRequests/Create", "ApplicationRequests", new { Area = "SRS" }))
+                        @Html.DeleteButtonNoPermission()
+                    }
+                    else
+                    {
+                        @Html.RestoreButtonNoPermission()
+                    }
+                }
+                @Html.BackToList(Url.Action("ApplicationRequests", "", new { Area = "SRS" }))
+            </div>
+        </div>
+    </div>
+}

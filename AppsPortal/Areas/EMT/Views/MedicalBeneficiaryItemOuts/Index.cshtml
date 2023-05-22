@@ -1,0 +1,283 @@
+﻿@{
+    ViewBag.Title = "JobTitles";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("4bda5741-a551-4fdc-b6ff-4b3c59867488")
+@model List<MedicalItemsDataTableModel>
+<style>
+    .highlighted {
+        background-color: yellow;
+    }
+</style>
+<div class="page--content">
+    <br />
+    <div id="exTab1">
+        <ul class="nav nav-pills">
+            <li>
+                <a href="#1a" data-toggle="tab">@resxPages.MedicinesPrescriptionsOfPOC</a>
+            </li>
+            <li class="active">
+                <a href="#2a" data-toggle="tab">@resxPages.AvailableMedicines</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content clearfix">
+        <div class="tab-pane " id="1a">
+            <article>
+                <div id=@string.Format("{0}Filter", DataTableNames.MedicalBeneficiaryItemOutsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.UNHCRNumber, DbColumnName = "UNHCRNumber", FilterForDataType = "Text" })
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DeliveryDate, DbColumnName = "DeliveryDate", FilterForDataType = "Date" })
+                        </div>
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MedicalPharmacyGUID, DbColumnName = "MedicalPharmacyGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().MedicalPharmacyMain(false), IsSearchable = true })
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DiseaseTypeGUID, DbColumnName = "DiseaseTypeGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().DiseaseType(), IsSearchable = false })
+                        </div>
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FullName, DbColumnName = "FullName", FilterForDataType = "Text" })
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DiseaseTypeGUID, DbColumnName = "DiagnosisGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().LookupValues(LookupTables.Diagnosis), IsSearchable = true })
+                        </div>
+                        <div class="col-lg-12">
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MedicineDeliveryStatus, DbColumnName = "DeliveryStatus", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().DeliveryStatus() })
+                            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+
+                        </div>
+                        </div>
+                        <div class="form-group filter-actions">
+                            @Html.DatatableFilterControls(DataTableNames.MedicalBeneficiaryItemOutsDataTable)
+                        </div>
+                    </div>
+                <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.MedicalBeneficiaryItemOutsDataTable)">
+                    @Html.IndexDatatableFilter(DataTableNames.MedicalBeneficiaryItemOutsDataTable)
+                    @Html.IndexDatatableCreate(Permissions.MedicalBeneficiaryItemOut.Create, Apps.EMT, "/EMT/MedicalBeneficiaryItemOuts/Create")
+                    @Html.IndexDatatableDelete(Permissions.MedicalBeneficiaryItemOut.Delete, Apps.EMT, DataTableNames.MedicalBeneficiaryItemOutsDataTable)
+                    @Html.IndexDatatableRestor(Permissions.MedicalBeneficiaryItemOut.Restore, Apps.EMT, DataTableNames.MedicalBeneficiaryItemOutsDataTable)
+                    <button type="button" title="Add New Beneficiary" class="btnCreate Modal-Link btn btn-sm btn-primary" data-url="/MedicalBeneficiarys/MedicalBeneficiaryCreate"><i class="fa fa-user"></i></button>
+                    @Html.IndexDatatableRefresh(DataTableNames.MedicalBeneficiaryItemOutsDataTable)
+                </div>
+                <div class="page--body">
+                    @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MedicalBeneficiaryItemOutsDataTable, Area = "EMT", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+                </div>
+            </article>
+
+
+        </div>
+        <div class="tab-pane active" id="2a">
+            <article>
+                @using (Html.BeginForm("MedicalBeneficiaryItemOutsIndex", "MedicalBeneficiaryItemOuts", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalAvailableItemsDataTableForm", @class = "main-form" }))
+                {
+                    <div class="page--body">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-10 col-lg-5 dt-controls-index">
+                                <input type="text" id="search-term" autocomplete="off" class="form-control" placeholder="Barcode Search ..." style="width:100%" />
+                            </div>
+                            <div class="col-md-3 col-sm-2 col-lg-3 dt-controls-index">
+                                <button type="button" title="Barcode Search" class="btn btn btn-primary" onclick="searchCandidates()" id="search-button"><i class="fa fa-search"></i></button>
+
+                                <button type="button" title="Create New " class="btnCreate btn btn-primary" onclick="SubmitItemOutputDetailFlow()"><i class="fa fa-plus"></i></button>
+
+                            </div>
+
+                            <div class="col-md-4 col-sm-12 col-lg-4 ">
+                                <div class="form-group HANDLER">
+                                    @Html.Label(resxDbFields.MedicalPharmacyGUID)
+
+                                    @Html.DropDownListFor(Model => Model.FirstOrDefault().MedicalPharmacyGUID, new DropDownList().MedicalPharmacyMain(false), "",
+                                         new { style = "width:100%", @class = "form-control select2-basic-search", onchange = "document.getElementById('MedicalAvailableItemsDataTableForm').submit();" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mScroll blueDataTableHeader" data-mcs-theme="rounded-dark" style="max-height:500px;">
+                            <table class="table">
+                                <thead>
+                                    <tr class="info">
+                                        <th>@Html.Label(resxDbFields.Quantity)</th>
+                                        <th>@Html.Label(resxDbFields.BrandName)</th>
+                                        <th>@Html.Label(resxDbFields.MedicalGenericNameDescription)</th>
+                                        <th>@Html.Label(resxDbFields.Barcode)</th>
+                                        <th>@Html.Label(resxDbFields.BatchNumber)</th>
+                                        <th>@Html.Label(resxDbFields.ExpirationDate)</th>
+                                        <th>@Html.Label(resxDbFields.TransferDate)</th>
+                                        <th>@Html.Label(resxDbFields.Provider)</th>
+                                        <th>@Html.Label(resxDbFields.RemainingItemsQuantity)</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @for (var i = 0; i < Model.Count; i++)
+                                    {
+                                        @Html.HiddenFor(model => model[i].FK)
+                                        @Html.HiddenFor(model => model[i].MedicalItemGUID)
+                                        @Html.HiddenFor(model => model[i].BrandName)
+                                        @Html.HiddenFor(model => model[i].RemainingItemsQuantity)
+                                        double periodRemaining = (Model[i].ExpirationDate - DateTime.Now).TotalDays;
+
+                                        string rowColor = periodRemaining < double.Parse("180") ? "warning" : "active";
+                                        rowColor = periodRemaining < double.Parse("90") ? "danger" : "active";
+                                        <tr class="@rowColor">
+                                            <td>@Html.EditorFor(model => model[i].Quantity, new { htmlAttributes = new { @class = "form-control Quantity", autocomplete = "off", @style = "width:100PX" } })</td>
+                                            <td class="BrandName">@Html.DisplayFor(model => model[i].BrandName)</td>
+                                            <td class="BrandName">@Html.DisplayFor(model => model[i].MedicalGenericNameDescription)</td>
+                                            <td class="barcode">@Html.DisplayFor(model => model[i].Barcode)</td>
+                                            <td>@Html.DisplayFor(model => model[i].BatchNumber)</td>
+                                            <td> @Html.Raw(Model[i].ExpirationDate.ToString("dd/MM/yyyyy"))</td>
+                                            <td>@Html.Raw(Model[i].DeliveryDate.ToString("dd/MM/yyyy"))</td>
+                                            <td>@Html.Raw(Model[i].ProvidedBy)</td>
+                                            <td class="Remaining">@Html.DisplayFor(model => model[i].RemainingItemsQuantity)</td>
+                                        </tr>
+                                    }
+                                    @if (Model.Count == 0)
+                                    {
+                                        <tr class="warning">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@(Languages.CurrentLanguage()== "EN" ? "No Records Found!:" : "لا توجد سجلات!")</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+            </article>
+
+        </div>
+
+    </div>
+</div>
+<script>
+
+    if (document.referrer.indexOf("EMT/MedicalBeneficiaryItemOuts/Update") >= 0) {
+        $('.nav-pills a[href="#1a"]').tab('show');
+    }
+
+    function SubmitItemOutputDetailFlow() {
+        var form = $('#MedicalAvailableItemsDataTableForm');
+        var formData = form.serialize();
+
+        $.ajax({
+            method: 'post',
+            url: "/EMT/MedicalBeneficiaryItemOuts/DistributeBulkItems/",
+            data: formData,
+            success: function (JsonResult, status, xhr) {
+                $('#FormModal').modal('show');
+                $('#Loading-Container').html(JsonResult);
+                InitPlugins($('#Loading-Container'));
+            },
+            error: function (ex) {
+                Notify(NotificationType.Error, "There was an error submitting the record");
+            }
+        });
+
+    }
+
+    //search And Highlight
+    function searchAndHighlight(searchTerm, selector) {
+        if (searchTerm) {
+            var selector = selector || "tbody"; //use body as selector if none provided
+            var searchTermRegEx = new RegExp(searchTerm.toLowerCase(), "g");
+            var matches = $(selector).text().toLowerCase().match(searchTermRegEx);
+            $('.active').removeClass('success');
+            $(".barcode").find(".highlighted").contents().unwrap();
+            $(".BrandName").find(".highlighted").contents().unwrap();
+            if (matches) {
+
+                var wordreg = new RegExp(matches[0], 'ig');
+                $(".barcode").each(function () {
+                    $(this).html($(this).html().replace(wordreg, "<span class='highlighted'>" + matches[0] + "</span>"));
+                });
+                $(".BrandName").each(function () {
+                    $(this).html($(this).html().replace(wordreg, "<span class='highlighted'>" + matches[0] + "</span>"));
+                });
+
+                if ($('.highlighted:first').length) { //if match found, scroll to where the first one appears
+                    $('.blueDataTableHeader').mCustomScrollbar("scrollTo", $('.highlighted:first').position().top - 100, null);
+                    //Get the Scan Row
+                    var row = $('.highlighted:first').parent().parent();
+                    var input = row.find("Input:first");
+
+                    row.addClass("success");
+
+                    input.focus();
+                    var Quantity = Number(input.val()) + 1;
+                    var Remaining = row.find(".Remaining");
+                    
+                    if (Quantity > Remaining.text()) {
+                        Notify(NotificationType.Error, "Required Quantity exceed the remaining quantity")
+                    } else {
+                        Remaining.text(Number(Remaining.text()) - 1);
+                        input.val(Quantity);
+                    }
+                    $('#search-term').val("");
+                    $('#search-term').focus();
+                    // searchCandidates();
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+    function searchCandidates() {
+        if (!searchAndHighlight($('#search-term').val())) {
+            // noty({ 'text': 'Error : No results found', 'layout': 'topRight', 'type': 'error' });
+        }
+
+    }
+    $(document).keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            event.preventDefault();
+            searchCandidates();
+        }
+
+    });
+
+    $("input .Quantity").change(function () {
+        var Remaining = this.parent().find(".Remaining");
+        Remaining.text(Number(Remaining.text()) - Number(this.val));
+    });
+
+    //$('#search-term').select2({
+    //    minimumInputLength: 2,
+    //    ajax: {
+    //        url: function () {
+    //            return '/DropDownList/RemoteFindByBrandName'
+    //        },
+    //        delay: 250,
+    //        data: function (params) {
+    //            var query = {
+    //                SearchKey: params.term
+    //            }
+    //            // Query parameters will be ?search=[term]&type=public
+    //            return query;
+    //        },
+    //        processResults: function (data) {
+    //            var res = data.items.map(function (item) {
+    //                return { id: item.id, text: item.Text };
+    //            });
+    //            return {
+    //                results: res
+    //            };
+    //        }
+    //    }
+    //});
+
+</script>
+@section scripts {
+    <script>
+        function ClearQuantity() {
+            $(".Quantity").val(0);
+        };
+    </script>
+
+}

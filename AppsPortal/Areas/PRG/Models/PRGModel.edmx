@@ -1,0 +1,1976 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PRGModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="codeDocumentTypeText">
+          <Key>
+            <PropertyRef Name="DocumentTypeCode" />
+            <PropertyRef Name="DocumentTypeLanguageCode" />
+          </Key>
+          <Property Name="DocumentTypeCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DocumentTypeLanguageCode" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="DocumentTypeText" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UserIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="OwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDReplicate" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="codeProcessStatus">
+          <Key>
+            <PropertyRef Name="ProcessStatusCode" />
+          </Key>
+          <Property Name="ProcessStatusCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ProcessStatusActive" Type="bit" Nullable="false" />
+          <Property Name="RedComponentValue" Type="tinyint" />
+          <Property Name="GreenComponentValue" Type="tinyint" />
+          <Property Name="BlueComponentValue" Type="tinyint" />
+          <Property Name="UserIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UserIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="OwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDReplicate" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="codeProcessStatusText">
+          <Key>
+            <PropertyRef Name="ProcessStatusCode" />
+            <PropertyRef Name="ProcessStatusLanguageCode" />
+          </Key>
+          <Property Name="ProcessStatusCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ProcessStatusLanguageCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ProcessStatusText" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UserIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="OwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDReplicate" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="configSecurityUser">
+          <Key>
+            <PropertyRef Name="SecurityUserID" />
+          </Key>
+          <Property Name="SecurityUserID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SecurityUserLastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SecurityUserFirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SecurityUserEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="SecurityUserPassword" Type="nvarchar" MaxLength="30" />
+          <Property Name="SecurityProfileGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NumberLoginFailure" Type="smallint" />
+          <Property Name="MaximumConcurrentLogins" Type="smallint" />
+          <Property Name="LockStatus" Type="bit" />
+          <Property Name="PasswordChangeDate" Type="datetime" />
+          <Property Name="UserAccountTypeCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="MainWindowToolBarXml" Type="ntext" />
+          <Property Name="RecordWindowToolBarXml" Type="ntext" />
+          <Property Name="UserIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UserIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="OwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDReplicate" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dataDocument">
+          <Key>
+            <PropertyRef Name="DocumentGUID" />
+          </Key>
+          <Property Name="DocumentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndividualGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DocumentAppliestoGroup" Type="bit" Nullable="false" />
+          <Property Name="DocumentType" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DocumentName" Type="nvarchar" MaxLength="30" />
+          <Property Name="DocumentNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="DocumentLegal" Type="bit" Nullable="false" />
+          <Property Name="DocumentOriginal" Type="bit" Nullable="false" />
+          <Property Name="DocumentDateIssued" Type="datetime" />
+          <Property Name="DocumentIssuedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="DocumentDateExpire" Type="datetime" />
+          <Property Name="DocumentCreatedOfficial" Type="bit" />
+          <Property Name="DocumentStatusCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DocumentReIssued" Type="bit" />
+          <Property Name="DocumentComments" Type="nvarchar" MaxLength="255" />
+          <Property Name="PlaceOfIssue" Type="nvarchar" MaxLength="100" />
+          <Property Name="Archived" Type="bit" Nullable="false" />
+          <Property Name="UserIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UserIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="OwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDReplicate" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dataIndividual">
+          <Key>
+            <PropertyRef Name="IndividualGUID" />
+          </Key>
+          <Property Name="IndividualGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndividualID" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="IndividualIDLegacy" Type="nvarchar" MaxLength="30" />
+          <Property Name="FamilyName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FamilyNamePhoneticID" Type="nvarchar" MaxLength="20" />
+          <Property Name="FamilyNameAlternatePhoneticID" Type="nvarchar" MaxLength="20" />
+          <Property Name="SecondFamilyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SecondFamilyNamePhoneticID" Type="nvarchar" MaxLength="20" />
+          <Property Name="SecondFamilyNameAlternatePhoneticID" Type="nvarchar" MaxLength="20" />
+          <Property Name="GivenName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GivenNamePhoneticID" Type="nvarchar" MaxLength="20" />
+          <Property Name="GivenNameAlternatePhoneticID" Type="nvarchar" MaxLength="20" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaidenName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConcatenatedName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="ConcatenatedNamePhoneticID" Type="nvarchar" MaxLength="60" />
+          <Property Name="ConcatenatedNameAlternatePhoneticID" Type="nvarchar" MaxLength="60" />
+          <Property Name="CommonlyUsedName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CommonlyUsedNamePhoneticID" Type="nvarchar" MaxLength="20" />
+          <Property Name="CommonlyUsedNameAlternatePhoneticID" Type="nvarchar" MaxLength="20" />
+          <Property Name="ConcatenatedAlias" Type="nvarchar" MaxLength="2048" />
+          <Property Name="VerbalName" Type="nvarchar" MaxLength="200" />
+          <Property Name="VerbalNamePhoneticID" Type="nvarchar" MaxLength="20" />
+          <Property Name="VerbalNameAlternatePhoneticID" Type="nvarchar" MaxLength="20" />
+          <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+          <Property Name="DateofBirth" Type="datetime" />
+          <Property Name="DateofBirthEstimate" Type="bit" Nullable="false" />
+          <Property Name="BirthCountryCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="BirthCityTownVillage" Type="nvarchar" MaxLength="100" />
+          <Property Name="OriginCountryCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Datasharing" Type="bit" Nullable="false" />
+          <Property Name="FoodAssistanceEligible" Type="bit" Nullable="false" />
+          <Property Name="FoodAssistanceEligibleAdditionalCriteria" Type="bit" Nullable="false" />
+          <Property Name="InPolygamousRelationShip" Type="bit" />
+          <Property Name="AbleToSign" Type="bit" />
+          <Property Name="FledDate" Type="datetime" />
+          <Property Name="FledDateEstimate" Type="bit" Nullable="false" />
+          <Property Name="AsylumCountryCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ArrivalDate" Type="datetime" />
+          <Property Name="ArrivalDateEstimate" Type="bit" Nullable="false" />
+          <Property Name="SexCode" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="IndividualAge" Type="smallint" />
+          <Property Name="IndividualAgeCohortCode" Type="nvarchar" MaxLength="2" />
+          <Property Name="NationalityCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="NationalityCode2nd" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Deceased" Type="bit" Nullable="false" />
+          <Property Name="DeceasedDate" Type="datetime" />
+          <Property Name="RegistrationDataVerifiedDate" Type="datetime" />
+          <Property Name="SourceOfRegistrationData" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeRegistrationDate" Type="datetime" />
+          <Property Name="DeRegistrationReasonCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="RegistrationStatusCode" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="RegistrationStatusDate" Type="datetime" />
+          <Property Name="RSDStatusCode" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="RSDStatusDate" Type="datetime" />
+          <Property Name="PartnerRSDStatusCode" Type="nvarchar" MaxLength="7" />
+          <Property Name="PartnerRSDStatusDate" Type="datetime" />
+          <Property Name="AssistanceStatusCode" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="AssistanceStatusDate" Type="datetime" />
+          <Property Name="ProtectionStatusCode" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="ProtectionStatusDate" Type="datetime" />
+          <Property Name="DurableSolutionStatusCode" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="DurableSolutionStatusDate" Type="datetime" />
+          <Property Name="ResettlementStatusCode" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="ResettlementStatusDate" Type="datetime" />
+          <Property Name="VolRepStatusCode" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="VolRepStatusDate" Type="datetime" />
+          <Property Name="LocalIntegrationStatusCode" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="LocalIntegrationStatusDate" Type="datetime" />
+          <Property Name="MarriageStatusCode" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="MarriageDate" Type="datetime" />
+          <Property Name="ReligionCode" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="EthnicityCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="EducationLevelCode" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="OccupationCode" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="DepartureReasonCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DepartureDate" Type="datetime" />
+          <Property Name="DepartureDateEstimated" Type="bit" />
+          <Property Name="ProcessStatusCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ProcessStatusDate" Type="datetime" Nullable="false" />
+          <Property Name="ProcessStatusReasonCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ProcessStatusReasonDate" Type="datetime" Nullable="false" />
+          <Property Name="RefugeeStatusCode" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="RefugeeStatusDate" Type="datetime" Nullable="false" />
+          <Property Name="RefugeeStatusCategoryCode" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="RefugeeStatusCategoryDate" Type="datetime" Nullable="false" />
+          <Property Name="RefugeeStatusLegalBasisCode" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="RefugeeStatusLegalBasisDate" Type="datetime" Nullable="false" />
+          <Property Name="PartnerRefugeeStatusCode" Type="nvarchar" MaxLength="7" />
+          <Property Name="PartnerRefugeeStatusDate" Type="datetime" />
+          <Property Name="PartnerRefugeeStatusCategoryCode" Type="nvarchar" MaxLength="7" />
+          <Property Name="PartnerRefugeeStatusCategoryDate" Type="datetime" />
+          <Property Name="PartnerRefugeeStatusLegalBasisCode" Type="nvarchar" MaxLength="7" />
+          <Property Name="PartnerRefugeeStatusLegalBasisDate" Type="datetime" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="300" />
+          <Property Name="FatherBirthDate" Type="datetime" />
+          <Property Name="FatherNationalityCode" Type="nvarchar" MaxLength="3" />
+          <Property Name="FatherDeceased" Type="bit" />
+          <Property Name="MotherName" Type="nvarchar" MaxLength="300" />
+          <Property Name="MotherBirthDate" Type="datetime" />
+          <Property Name="MotherNationalityCode" Type="nvarchar" MaxLength="3" />
+          <Property Name="MotherDeceased" Type="bit" />
+          <Property Name="SpouseName" Type="nvarchar" MaxLength="300" />
+          <Property Name="SpouseBirthDate" Type="datetime" />
+          <Property Name="SpouseNationalityCode" Type="nvarchar" MaxLength="3" />
+          <Property Name="SpouseDeceased" Type="bit" />
+          <Property Name="Level1RegistrationGUID" Type="uniqueidentifier" />
+          <Property Name="InterviewerPreferenceSexCode" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="InterviewPreferenceLanguageCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="IndividualComments" Type="nvarchar" MaxLength="2000" />
+          <Property Name="SPNeeds" Type="nvarchar" MaxLength="200" />
+          <Property Name="HasSPNeed" Type="bit" />
+          <Property Name="HasPhoto" Type="bit" />
+          <Property Name="HasAddress" Type="bit" />
+          <Property Name="HasIDDocument" Type="bit" />
+          <Property Name="IsAnyGroupPrincipalRepresentative" Type="bit" />
+          <Property Name="IsAnyGroupRepresentative" Type="bit" />
+          <Property Name="WillingToReturnCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="LastEventID" Type="nvarchar" MaxLength="10" />
+          <Property Name="LastEventEffectiveDate" Type="datetime" />
+          <Property Name="LastEventGUID" Type="uniqueidentifier" />
+          <Property Name="LastEventIsResult" Type="bit" />
+          <Property Name="RegRsdOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="RegRsdOwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="RegRsdUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="AstOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="AstOwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="AstUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="ProOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ProOwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="ProUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="IntOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="IntOwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="IntUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="RstOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="RstOwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="RstUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="VolOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="VolOwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="VolUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="AddOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="AddOwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="AddUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="PasOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="PasOwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="PasUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="PrgOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="PrgOwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="PrgUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="PrsOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="PrsOwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="PrsUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="Ast2Owners" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Ast2OwnersDate" Type="datetime" Nullable="false" />
+          <Property Name="TecUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="Archived" Type="bit" Nullable="false" />
+          <Property Name="UserIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UserIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="OwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDReplicate" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dataIndividualProcessGroup">
+          <Key>
+            <PropertyRef Name="IndividualProcessingGroupGUID" />
+          </Key>
+          <Property Name="IndividualProcessingGroupGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndividualGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProcessingGroupGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndividualProcessingGroupActive" Type="bit" Nullable="false" />
+          <Property Name="IndividualSequenceNumber" Type="smallint" Nullable="false" />
+          <Property Name="PrincipalRepresentative" Type="bit" Nullable="false" />
+          <Property Name="Representative" Type="bit" Nullable="false" />
+          <Property Name="RelationshipToPrincipalRepresentative" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Archived" Type="bit" Nullable="false" />
+          <Property Name="UserIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UserIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="OwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDReplicate" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'proGres.dbo.dataIndividualV4' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="dataIndividualV4">
+          <Key>
+            <PropertyRef Name="IndividualGUID" />
+            <PropertyRef Name="ProcessingGroupNumber" />
+          </Key>
+          <Property Name="SiteIDOwner" Type="nvarchar" MaxLength="5" />
+          <Property Name="IndividualGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProcessingGroupNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IndividualID" Type="nvarchar" MaxLength="30" />
+          <Property Name="GivenName" Type="nvarchar" MaxLength="500" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="300" />
+          <Property Name="MotherName" Type="nvarchar" MaxLength="300" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="500" />
+          <Property Name="FamilyName" Type="nvarchar" MaxLength="100" />
+          <Property Name="SecondFamilyName" Type="nvarchar" MaxLength="500" />
+          <Property Name="VerbalName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ArrivalDate" Type="datetime" />
+          <Property Name="RegistrationDate" Type="datetime" />
+          <Property Name="CaseCreatedOn" Type="datetime" />
+          <Property Name="ProcessingGroupSize" Type="int" />
+          <Property Name="TotalSize" Type="int" />
+          <Property Name="DateofBirth" Type="datetime" />
+          <Property Name="BirthCountryCode" Type="nvarchar" MaxLength="500" />
+          <Property Name="BirthCityTownVillage" Type="nvarchar" MaxLength="100" />
+          <Property Name="OriginCountryCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="SexCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="IndividualAge" Type="smallint" />
+          <Property Name="NationalityCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Relationship" Type="nvarchar" MaxLength="5" />
+          <Property Name="ProcessStatusCode" Type="nvarchar" MaxLength="30" />
+          <Property Name="Current_process_StatusCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="Current_process_StatusDate" Type="datetime" />
+          <Property Name="RefugeeStatusCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="RefugeeStatusDate" Type="datetime" />
+          <Property Name="RefStatCategoryCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="LegalBasis" Type="nvarchar" MaxLength="20" />
+          <Property Name="IndividualAgeCohortCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="MarriageStatusCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="ReligionCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="Religion" Type="nvarchar" MaxLength="100" />
+          <Property Name="EthnicityCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="Ethnicity" Type="nvarchar" MaxLength="100" />
+          <Property Name="OccupationCode" Type="nvarchar" MaxLength="40" />
+          <Property Name="Occupation" Type="nvarchar" MaxLength="50" />
+          <Property Name="EducationLevelCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="HasSPNeed" Type="bit" />
+          <Property Name="ConcatenatedName" Type="nvarchar" MaxLength="300" />
+          <Property Name="IndividualIDLegacy" Type="int" />
+          <Property Name="ProcessingGroupLegacyID" Type="nvarchar" MaxLength="100" />
+          <Property Name="IndComments" Type="nvarchar(max)" />
+          <Property Name="CaseComments" Type="nvarchar" MaxLength="5" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="ProcessStatusReasonCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="AddressType" Type="int" />
+          <Property Name="AddressCountry" Type="int" />
+          <Property Name="LocationLevel1ID" Type="nvarchar" MaxLength="100" />
+          <Property Name="LocationLevel2ID" Type="nvarchar" MaxLength="100" />
+          <Property Name="LocationLevel3ID" Type="nvarchar" MaxLength="100" />
+          <Property Name="LocationLevel4ID" Type="nvarchar" MaxLength="100" />
+          <Property Name="CoO_L1" Type="nvarchar" MaxLength="100" />
+          <Property Name="CoO_L2" Type="nvarchar" MaxLength="100" />
+          <Property Name="CoO_L3" Type="nvarchar" MaxLength="100" />
+          <Property Name="CoO_L4" Type="nvarchar" MaxLength="100" />
+          <Property Name="CoO_L6" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CoOPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="CoA_AddressType" Type="nvarchar" MaxLength="5" />
+          <Property Name="CoA_AddressCountry" Type="nvarchar" MaxLength="50" />
+          <Property Name="COA_L1" Type="nvarchar" MaxLength="75" />
+          <Property Name="COA_L2" Type="nvarchar" MaxLength="75" />
+          <Property Name="COA_L3" Type="nvarchar" MaxLength="75" />
+          <Property Name="COA_L4" Type="nvarchar" MaxLength="75" />
+          <Property Name="CoA_LocationLevelCodeSoftField1" Type="nvarchar" MaxLength="7" />
+          <Property Name="CoA_LocationLevelCodeSoftField2" Type="nvarchar" MaxLength="7" />
+          <Property Name="CoA_Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="CoA" Type="nvarchar" MaxLength="50" />
+          <Property Name="NRefStatCategory" Type="int" />
+          <Property Name="NRefStatus" Type="int" />
+          <Property Name="ProcessStatusChanged" Type="datetime" />
+          <Property Name="ProcessStatusChangeReason" Type="int" />
+          <Property Name="CommonlyUsedName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ConcatenatedAlias" Type="int" />
+          <Property Name="RSDStatusCode" Type="nvarchar" MaxLength="7" />
+          <Property Name="ResettlementStatusCode" Type="nvarchar" MaxLength="7" />
+          <Property Name="RelationshipText" Type="nvarchar" MaxLength="50" />
+          <Property Name="BiometricId" Type="nvarchar" MaxLength="100" />
+          <Property Name="BusinessUnitGUID" Type="uniqueidentifier" />
+          <Property Name="VersionNumber" Type="binary" MaxLength="8" />
+          <Property Name="ProcessingGroupGUID" Type="uniqueidentifier" />
+          <Property Name="CoAEntryPoint" Type="nvarchar" MaxLength="100" />
+          <Property Name="V3GUID" Type="uniqueidentifier" />
+          <Property Name="V4GUID" Type="uniqueidentifier" />
+          <Property Name="changeReason" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="dataPhotograph">
+          <Key>
+            <PropertyRef Name="PhotoGUID" />
+          </Key>
+          <Property Name="PhotoGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndividualGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PhotoActive" Type="bit" Nullable="false" />
+          <Property Name="PhotoTypeCode" Type="smallint" Nullable="false" />
+          <Property Name="PhotoDateStart" Type="datetime" />
+          <Property Name="PhotoDateEnd" Type="datetime" />
+          <Property Name="Photo" Type="image" Nullable="false" />
+          <Property Name="PhotoComments" Type="nvarchar" MaxLength="255" />
+          <Property Name="Archived" Type="bit" Nullable="false" />
+          <Property Name="UserIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UserIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="OwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDReplicate" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dataProcessGroup">
+          <Key>
+            <PropertyRef Name="ProcessingGroupGUID" />
+          </Key>
+          <Property Name="ProcessingGroupGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProcessingGroupTypeCode" Type="smallint" Nullable="false" />
+          <Property Name="ProcessingGroupNumber" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProcessingGroupLegacyID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProcessingGroupGovtNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProcessingGroupFormNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="CurrentRationCardNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProcessingGroupActive" Type="bit" />
+          <Property Name="ProcessingGroupDeactiveDate" Type="datetime" />
+          <Property Name="ProcessingGroupSize" Type="smallint" Nullable="false" />
+          <Property Name="DeclaredSize" Type="smallint" />
+          <Property Name="TotalGroupSize" Type="smallint" Nullable="false" />
+          <Property Name="OriginalProcessingGroupGUID" Type="uniqueidentifier" />
+          <Property Name="ResponsibleUserID" Type="nvarchar" MaxLength="10" />
+          <Property Name="CaseTypeCode" Type="smallint" />
+          <Property Name="ProcessingGroupRegistrationDate" Type="datetime" Nullable="false" />
+          <Property Name="CaseSource" Type="nvarchar" MaxLength="12" />
+          <Property Name="ProcessingGroupStatusCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ProcessGroupStatusDate" Type="datetime" Nullable="false" />
+          <Property Name="Level1RegistrationGUID" Type="uniqueidentifier" />
+          <Property Name="ProcessingGroupComments" Type="nvarchar" MaxLength="4000" />
+          <Property Name="PhyFile" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastEventID" Type="nvarchar" MaxLength="10" />
+          <Property Name="LastEventEffectiveDate" Type="datetime" />
+          <Property Name="WillingToReturnCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="WillingToReturnConditions" Type="nvarchar" MaxLength="200" />
+          <Property Name="PGCompositionCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="BiometricReferenceID" Type="nvarchar" MaxLength="30" />
+          <Property Name="Archived" Type="bit" Nullable="false" />
+          <Property Name="UserIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UserIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDCreate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="OwnerDate" Type="datetime" Nullable="false" />
+          <Property Name="SiteIDReplicate" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'proGres.dbo.dataProcessGroupV4' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="dataProcessGroupV4">
+          <Key>
+            <PropertyRef Name="ProcessingGroupGUID" />
+            <PropertyRef Name="ProcessingGroupNumber" />
+            <PropertyRef Name="ProcessingGroupRegistrationDate" />
+          </Key>
+          <Property Name="ProcessingGroupGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProcessingGroupTypeCode" Type="smallint" />
+          <Property Name="ProcessingGroupNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProcessingGroupLegacyID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProcessingGroupGovtNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProcessingGroupFormNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="CurrentRationCardNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProcessingGroupActive" Type="bit" />
+          <Property Name="ProcessingGroupDeactiveDate" Type="datetime" />
+          <Property Name="ProcessingGroupSize" Type="smallint" />
+          <Property Name="DeclaredSize" Type="smallint" />
+          <Property Name="TotalGroupSize" Type="smallint" />
+          <Property Name="OriginalProcessingGroupGUID" Type="uniqueidentifier" />
+          <Property Name="ResponsibleUserID" Type="nvarchar" MaxLength="10" />
+          <Property Name="CaseTypeCode" Type="smallint" />
+          <Property Name="ProcessingGroupRegistrationDate" Type="datetime" Nullable="false" />
+          <Property Name="CaseSource" Type="nvarchar" MaxLength="12" />
+          <Property Name="ProcessingGroupStatusCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProcessGroupStatusDate" Type="datetime" />
+          <Property Name="Level1RegistrationGUID" Type="uniqueidentifier" />
+          <Property Name="ProcessingGroupComments" Type="nvarchar" MaxLength="4000" />
+          <Property Name="PhyFile" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastEventID" Type="nvarchar" MaxLength="10" />
+          <Property Name="LastEventEffectiveDate" Type="datetime" />
+          <Property Name="WillingToReturnCode" Type="nvarchar" MaxLength="5" />
+          <Property Name="WillingToReturnConditions" Type="nvarchar" MaxLength="200" />
+          <Property Name="PGCompositionCode" Type="nvarchar" MaxLength="5" />
+          <Property Name="BiometricReferenceID" Type="nvarchar" MaxLength="30" />
+          <Property Name="Archived" Type="bit" />
+          <Property Name="UserIDCreate" Type="nvarchar" MaxLength="10" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UserIDUpdate" Type="nvarchar" MaxLength="10" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="SiteIDCreate" Type="nvarchar" MaxLength="10" />
+          <Property Name="SiteIDUpdate" Type="nvarchar" MaxLength="10" />
+          <Property Name="SiteIDOwner" Type="nvarchar" MaxLength="100" />
+          <Property Name="OwnerDate" Type="datetime" />
+          <Property Name="SiteIDReplicate" Type="nvarchar" MaxLength="10" />
+          <Property Name="V3GUID" Type="uniqueidentifier" />
+          <Property Name="V4GUID" Type="uniqueidentifier" />
+          <Property Name="BussinessSiteName" Type="nvarchar" MaxLength="50" />
+          <Property Name="OwningOfficeName" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="FK_codeProcessStatusText_codeProcessStatus">
+          <End Role="codeProcessStatus" Type="Self.codeProcessStatus" Multiplicity="1" />
+          <End Role="codeProcessStatusText" Type="Self.codeProcessStatusText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeProcessStatus">
+              <PropertyRef Name="ProcessStatusCode" />
+            </Principal>
+            <Dependent Role="codeProcessStatusText">
+              <PropertyRef Name="ProcessStatusCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataDocument_dataIndividual">
+          <End Role="dataIndividual" Type="Self.dataIndividual" Multiplicity="1" />
+          <End Role="dataDocument" Type="Self.dataDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataIndividual">
+              <PropertyRef Name="IndividualGUID" />
+            </Principal>
+            <Dependent Role="dataDocument">
+              <PropertyRef Name="IndividualGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataIndividualProcessGroup_dataIndividual">
+          <End Role="dataIndividual" Type="Self.dataIndividual" Multiplicity="1" />
+          <End Role="dataIndividualProcessGroup" Type="Self.dataIndividualProcessGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataIndividual">
+              <PropertyRef Name="IndividualGUID" />
+            </Principal>
+            <Dependent Role="dataIndividualProcessGroup">
+              <PropertyRef Name="IndividualGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataIndividualProcessGroup_dataProcessGroup">
+          <End Role="dataProcessGroup" Type="Self.dataProcessGroup" Multiplicity="1" />
+          <End Role="dataIndividualProcessGroup" Type="Self.dataIndividualProcessGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataProcessGroup">
+              <PropertyRef Name="ProcessingGroupGUID" />
+            </Principal>
+            <Dependent Role="dataIndividualProcessGroup">
+              <PropertyRef Name="ProcessingGroupGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPhotograph_dataIndividual">
+          <End Role="dataIndividual" Type="Self.dataIndividual" Multiplicity="1" />
+          <End Role="dataPhotograph" Type="Self.dataPhotograph" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataIndividual">
+              <PropertyRef Name="IndividualGUID" />
+            </Principal>
+            <Dependent Role="dataPhotograph">
+              <PropertyRef Name="IndividualGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProcessStatusCode_codeProcessStatus">
+          <End Role="codeProcessStatus" Type="Self.codeProcessStatus" Multiplicity="1" />
+          <End Role="dataIndividual" Type="Self.dataIndividual" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeProcessStatus">
+              <PropertyRef Name="ProcessStatusCode" />
+            </Principal>
+            <Dependent Role="dataIndividual">
+              <PropertyRef Name="ProcessStatusCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="rspUpdateDocument" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HH" Type="nvarchar" Mode="In" />
+          <Parameter Name="US" Type="nvarchar" Mode="In" />
+          <Parameter Name="LT" Type="nvarchar" Mode="In" />
+          <Parameter Name="ND" Type="nvarchar" Mode="In" />
+          <Parameter Name="DT" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="PRGModelStoreContainer">
+          <EntitySet Name="codeDocumentTypeText" EntityType="Self.codeDocumentTypeText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="codeProcessStatus" EntityType="Self.codeProcessStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="codeProcessStatusText" EntityType="Self.codeProcessStatusText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="configSecurityUser" EntityType="Self.configSecurityUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dataDocument" EntityType="Self.dataDocument" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dataIndividual" EntityType="Self.dataIndividual" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dataIndividualProcessGroup" EntityType="Self.dataIndividualProcessGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dataPhotograph" EntityType="Self.dataPhotograph" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dataProcessGroup" EntityType="Self.dataProcessGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dataIndividualV4" EntityType="Self.dataIndividualV4" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [dataIndividualV4].[SiteIDOwner] AS [SiteIDOwner], 
+    [dataIndividualV4].[IndividualGUID] AS [IndividualGUID], 
+    [dataIndividualV4].[ProcessingGroupNumber] AS [ProcessingGroupNumber], 
+    [dataIndividualV4].[IndividualID] AS [IndividualID], 
+    [dataIndividualV4].[GivenName] AS [GivenName], 
+    [dataIndividualV4].[FatherName] AS [FatherName], 
+    [dataIndividualV4].[MotherName] AS [MotherName], 
+    [dataIndividualV4].[MiddleName] AS [MiddleName], 
+    [dataIndividualV4].[FamilyName] AS [FamilyName], 
+    [dataIndividualV4].[SecondFamilyName] AS [SecondFamilyName], 
+    [dataIndividualV4].[VerbalName] AS [VerbalName], 
+    [dataIndividualV4].[ArrivalDate] AS [ArrivalDate], 
+    [dataIndividualV4].[RegistrationDate] AS [RegistrationDate], 
+    [dataIndividualV4].[CaseCreatedOn] AS [CaseCreatedOn], 
+    [dataIndividualV4].[ProcessingGroupSize] AS [ProcessingGroupSize], 
+    [dataIndividualV4].[TotalSize] AS [TotalSize], 
+    [dataIndividualV4].[DateofBirth] AS [DateofBirth], 
+    [dataIndividualV4].[BirthCountryCode] AS [BirthCountryCode], 
+    [dataIndividualV4].[BirthCityTownVillage] AS [BirthCityTownVillage], 
+    [dataIndividualV4].[OriginCountryCode] AS [OriginCountryCode], 
+    [dataIndividualV4].[SexCode] AS [SexCode], 
+    [dataIndividualV4].[IndividualAge] AS [IndividualAge], 
+    [dataIndividualV4].[NationalityCode] AS [NationalityCode], 
+    [dataIndividualV4].[Relationship] AS [Relationship], 
+    [dataIndividualV4].[ProcessStatusCode] AS [ProcessStatusCode], 
+    [dataIndividualV4].[Current_process_StatusCode] AS [Current_process_StatusCode], 
+    [dataIndividualV4].[Current_process_StatusDate] AS [Current_process_StatusDate], 
+    [dataIndividualV4].[RefugeeStatusCode] AS [RefugeeStatusCode], 
+    [dataIndividualV4].[RefugeeStatusDate] AS [RefugeeStatusDate], 
+    [dataIndividualV4].[RefStatCategoryCode] AS [RefStatCategoryCode], 
+    [dataIndividualV4].[LegalBasis] AS [LegalBasis], 
+    [dataIndividualV4].[IndividualAgeCohortCode] AS [IndividualAgeCohortCode], 
+    [dataIndividualV4].[MarriageStatusCode] AS [MarriageStatusCode], 
+    [dataIndividualV4].[ReligionCode] AS [ReligionCode], 
+    [dataIndividualV4].[Religion] AS [Religion], 
+    [dataIndividualV4].[EthnicityCode] AS [EthnicityCode], 
+    [dataIndividualV4].[Ethnicity] AS [Ethnicity], 
+    [dataIndividualV4].[OccupationCode] AS [OccupationCode], 
+    [dataIndividualV4].[Occupation] AS [Occupation], 
+    [dataIndividualV4].[EducationLevelCode] AS [EducationLevelCode], 
+    [dataIndividualV4].[HasSPNeed] AS [HasSPNeed], 
+    [dataIndividualV4].[ConcatenatedName] AS [ConcatenatedName], 
+    [dataIndividualV4].[IndividualIDLegacy] AS [IndividualIDLegacy], 
+    [dataIndividualV4].[ProcessingGroupLegacyID] AS [ProcessingGroupLegacyID], 
+    [dataIndividualV4].[IndComments] AS [IndComments], 
+    [dataIndividualV4].[CaseComments] AS [CaseComments], 
+    [dataIndividualV4].[UpdateDate] AS [UpdateDate], 
+    [dataIndividualV4].[ProcessStatusReasonCode] AS [ProcessStatusReasonCode], 
+    [dataIndividualV4].[AddressType] AS [AddressType], 
+    [dataIndividualV4].[AddressCountry] AS [AddressCountry], 
+    [dataIndividualV4].[LocationLevel1ID] AS [LocationLevel1ID], 
+    [dataIndividualV4].[LocationLevel2ID] AS [LocationLevel2ID], 
+    [dataIndividualV4].[LocationLevel3ID] AS [LocationLevel3ID], 
+    [dataIndividualV4].[LocationLevel4ID] AS [LocationLevel4ID], 
+    [dataIndividualV4].[CoO_L1] AS [CoO_L1], 
+    [dataIndividualV4].[CoO_L2] AS [CoO_L2], 
+    [dataIndividualV4].[CoO_L3] AS [CoO_L3], 
+    [dataIndividualV4].[CoO_L4] AS [CoO_L4], 
+    [dataIndividualV4].[CoO_L6] AS [CoO_L6], 
+    [dataIndividualV4].[CoOPhone] AS [CoOPhone], 
+    [dataIndividualV4].[CoA_AddressType] AS [CoA_AddressType], 
+    [dataIndividualV4].[CoA_AddressCountry] AS [CoA_AddressCountry], 
+    [dataIndividualV4].[COA_L1] AS [COA_L1], 
+    [dataIndividualV4].[COA_L2] AS [COA_L2], 
+    [dataIndividualV4].[COA_L3] AS [COA_L3], 
+    [dataIndividualV4].[COA_L4] AS [COA_L4], 
+    [dataIndividualV4].[CoA_LocationLevelCodeSoftField1] AS [CoA_LocationLevelCodeSoftField1], 
+    [dataIndividualV4].[CoA_LocationLevelCodeSoftField2] AS [CoA_LocationLevelCodeSoftField2], 
+    [dataIndividualV4].[CoA_Phone] AS [CoA_Phone], 
+    [dataIndividualV4].[CoA] AS [CoA], 
+    [dataIndividualV4].[NRefStatCategory] AS [NRefStatCategory], 
+    [dataIndividualV4].[NRefStatus] AS [NRefStatus], 
+    [dataIndividualV4].[ProcessStatusChanged] AS [ProcessStatusChanged], 
+    [dataIndividualV4].[ProcessStatusChangeReason] AS [ProcessStatusChangeReason], 
+    [dataIndividualV4].[CommonlyUsedName] AS [CommonlyUsedName], 
+    [dataIndividualV4].[ConcatenatedAlias] AS [ConcatenatedAlias], 
+    [dataIndividualV4].[RSDStatusCode] AS [RSDStatusCode], 
+    [dataIndividualV4].[ResettlementStatusCode] AS [ResettlementStatusCode], 
+    [dataIndividualV4].[RelationshipText] AS [RelationshipText], 
+    [dataIndividualV4].[BiometricId] AS [BiometricId], 
+    [dataIndividualV4].[BusinessUnitGUID] AS [BusinessUnitGUID], 
+    [dataIndividualV4].[VersionNumber] AS [VersionNumber], 
+    [dataIndividualV4].[ProcessingGroupGUID] AS [ProcessingGroupGUID], 
+    [dataIndividualV4].[CoAEntryPoint] AS [CoAEntryPoint], 
+    [dataIndividualV4].[V3GUID] AS [V3GUID], 
+    [dataIndividualV4].[V4GUID] AS [V4GUID], 
+    [dataIndividualV4].[changeReason] AS [changeReason]
+    FROM [dbo].[dataIndividualV4] AS [dataIndividualV4]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="dataProcessGroupV4" EntityType="Self.dataProcessGroupV4" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [dataProcessGroupV4].[ProcessingGroupGUID] AS [ProcessingGroupGUID], 
+    [dataProcessGroupV4].[ProcessingGroupTypeCode] AS [ProcessingGroupTypeCode], 
+    [dataProcessGroupV4].[ProcessingGroupNumber] AS [ProcessingGroupNumber], 
+    [dataProcessGroupV4].[ProcessingGroupLegacyID] AS [ProcessingGroupLegacyID], 
+    [dataProcessGroupV4].[ProcessingGroupGovtNumber] AS [ProcessingGroupGovtNumber], 
+    [dataProcessGroupV4].[ProcessingGroupFormNumber] AS [ProcessingGroupFormNumber], 
+    [dataProcessGroupV4].[CurrentRationCardNumber] AS [CurrentRationCardNumber], 
+    [dataProcessGroupV4].[ProcessingGroupActive] AS [ProcessingGroupActive], 
+    [dataProcessGroupV4].[ProcessingGroupDeactiveDate] AS [ProcessingGroupDeactiveDate], 
+    [dataProcessGroupV4].[ProcessingGroupSize] AS [ProcessingGroupSize], 
+    [dataProcessGroupV4].[DeclaredSize] AS [DeclaredSize], 
+    [dataProcessGroupV4].[TotalGroupSize] AS [TotalGroupSize], 
+    [dataProcessGroupV4].[OriginalProcessingGroupGUID] AS [OriginalProcessingGroupGUID], 
+    [dataProcessGroupV4].[ResponsibleUserID] AS [ResponsibleUserID], 
+    [dataProcessGroupV4].[CaseTypeCode] AS [CaseTypeCode], 
+    [dataProcessGroupV4].[ProcessingGroupRegistrationDate] AS [ProcessingGroupRegistrationDate], 
+    [dataProcessGroupV4].[CaseSource] AS [CaseSource], 
+    [dataProcessGroupV4].[ProcessingGroupStatusCode] AS [ProcessingGroupStatusCode], 
+    [dataProcessGroupV4].[ProcessGroupStatusDate] AS [ProcessGroupStatusDate], 
+    [dataProcessGroupV4].[Level1RegistrationGUID] AS [Level1RegistrationGUID], 
+    [dataProcessGroupV4].[ProcessingGroupComments] AS [ProcessingGroupComments], 
+    [dataProcessGroupV4].[PhyFile] AS [PhyFile], 
+    [dataProcessGroupV4].[LastEventID] AS [LastEventID], 
+    [dataProcessGroupV4].[LastEventEffectiveDate] AS [LastEventEffectiveDate], 
+    [dataProcessGroupV4].[WillingToReturnCode] AS [WillingToReturnCode], 
+    [dataProcessGroupV4].[WillingToReturnConditions] AS [WillingToReturnConditions], 
+    [dataProcessGroupV4].[PGCompositionCode] AS [PGCompositionCode], 
+    [dataProcessGroupV4].[BiometricReferenceID] AS [BiometricReferenceID], 
+    [dataProcessGroupV4].[Archived] AS [Archived], 
+    [dataProcessGroupV4].[UserIDCreate] AS [UserIDCreate], 
+    [dataProcessGroupV4].[CreateDate] AS [CreateDate], 
+    [dataProcessGroupV4].[UserIDUpdate] AS [UserIDUpdate], 
+    [dataProcessGroupV4].[UpdateDate] AS [UpdateDate], 
+    [dataProcessGroupV4].[SiteIDCreate] AS [SiteIDCreate], 
+    [dataProcessGroupV4].[SiteIDUpdate] AS [SiteIDUpdate], 
+    [dataProcessGroupV4].[SiteIDOwner] AS [SiteIDOwner], 
+    [dataProcessGroupV4].[OwnerDate] AS [OwnerDate], 
+    [dataProcessGroupV4].[SiteIDReplicate] AS [SiteIDReplicate], 
+    [dataProcessGroupV4].[V3GUID] AS [V3GUID], 
+    [dataProcessGroupV4].[V4GUID] AS [V4GUID], 
+    [dataProcessGroupV4].[BussinessSiteName] AS [BussinessSiteName], 
+    [dataProcessGroupV4].[OwningOfficeName] AS [OwningOfficeName]
+    FROM [dbo].[dataProcessGroupV4] AS [dataProcessGroupV4]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_codeProcessStatusText_codeProcessStatus" Association="Self.FK_codeProcessStatusText_codeProcessStatus">
+            <End Role="codeProcessStatus" EntitySet="codeProcessStatus" />
+            <End Role="codeProcessStatusText" EntitySet="codeProcessStatusText" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataDocument_dataIndividual" Association="Self.FK_dataDocument_dataIndividual">
+            <End Role="dataIndividual" EntitySet="dataIndividual" />
+            <End Role="dataDocument" EntitySet="dataDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataIndividualProcessGroup_dataIndividual" Association="Self.FK_dataIndividualProcessGroup_dataIndividual">
+            <End Role="dataIndividual" EntitySet="dataIndividual" />
+            <End Role="dataIndividualProcessGroup" EntitySet="dataIndividualProcessGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataIndividualProcessGroup_dataProcessGroup" Association="Self.FK_dataIndividualProcessGroup_dataProcessGroup">
+            <End Role="dataProcessGroup" EntitySet="dataProcessGroup" />
+            <End Role="dataIndividualProcessGroup" EntitySet="dataIndividualProcessGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPhotograph_dataIndividual" Association="Self.FK_dataPhotograph_dataIndividual">
+            <End Role="dataIndividual" EntitySet="dataIndividual" />
+            <End Role="dataPhotograph" EntitySet="dataPhotograph" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProcessStatusCode_codeProcessStatus" Association="Self.FK_ProcessStatusCode_codeProcessStatus">
+            <End Role="codeProcessStatus" EntitySet="codeProcessStatus" />
+            <End Role="dataIndividual" EntitySet="dataIndividual" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PRGModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="dataIndividual">
+          <Key>
+            <PropertyRef Name="IndividualGUID" />
+          </Key>
+          <Property Name="IndividualGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndividualID" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IndividualIDLegacy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FamilyNamePhoneticID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyNameAlternatePhoneticID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SecondFamilyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecondFamilyNamePhoneticID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SecondFamilyNameAlternatePhoneticID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GivenName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GivenNamePhoneticID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GivenNameAlternatePhoneticID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaidenName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConcatenatedName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConcatenatedNamePhoneticID" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="ConcatenatedNameAlternatePhoneticID" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="CommonlyUsedName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CommonlyUsedNamePhoneticID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CommonlyUsedNameAlternatePhoneticID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ConcatenatedAlias" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" />
+          <Property Name="VerbalName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="VerbalNamePhoneticID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="VerbalNameAlternatePhoneticID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateofBirth" Type="DateTime" Precision="3" />
+          <Property Name="DateofBirthEstimate" Type="Boolean" Nullable="false" />
+          <Property Name="BirthCountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BirthCityTownVillage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OriginCountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Datasharing" Type="Boolean" Nullable="false" />
+          <Property Name="FoodAssistanceEligible" Type="Boolean" Nullable="false" />
+          <Property Name="FoodAssistanceEligibleAdditionalCriteria" Type="Boolean" Nullable="false" />
+          <Property Name="InPolygamousRelationShip" Type="Boolean" />
+          <Property Name="AbleToSign" Type="Boolean" />
+          <Property Name="FledDate" Type="DateTime" Precision="3" />
+          <Property Name="FledDateEstimate" Type="Boolean" Nullable="false" />
+          <Property Name="AsylumCountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
+          <Property Name="ArrivalDateEstimate" Type="Boolean" Nullable="false" />
+          <Property Name="SexCode" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IndividualAge" Type="Int16" />
+          <Property Name="IndividualAgeCohortCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="NationalityCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NationalityCode2nd" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Deceased" Type="Boolean" Nullable="false" />
+          <Property Name="DeceasedDate" Type="DateTime" Precision="3" />
+          <Property Name="RegistrationDataVerifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="SourceOfRegistrationData" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeRegistrationDate" Type="DateTime" Precision="3" />
+          <Property Name="DeRegistrationReasonCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegistrationStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegistrationStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="RSDStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RSDStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="PartnerRSDStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerRSDStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="AssistanceStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AssistanceStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="ProtectionStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProtectionStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="DurableSolutionStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DurableSolutionStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="ResettlementStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResettlementStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="VolRepStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VolRepStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="LocalIntegrationStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LocalIntegrationStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="MarriageStatusCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MarriageDate" Type="DateTime" Precision="3" />
+          <Property Name="ReligionCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EthnicityCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EducationLevelCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OccupationCode" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepartureReasonCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepartureDate" Type="DateTime" Precision="3" />
+          <Property Name="DepartureDateEstimated" Type="Boolean" />
+          <Property Name="ProcessStatusCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProcessStatusDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProcessStatusReasonCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProcessStatusReasonDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RefugeeStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RefugeeStatusDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RefugeeStatusCategoryCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RefugeeStatusCategoryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RefugeeStatusLegalBasisCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RefugeeStatusLegalBasisDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PartnerRefugeeStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerRefugeeStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="PartnerRefugeeStatusCategoryCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerRefugeeStatusCategoryDate" Type="DateTime" Precision="3" />
+          <Property Name="PartnerRefugeeStatusLegalBasisCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerRefugeeStatusLegalBasisDate" Type="DateTime" Precision="3" />
+          <Property Name="FatherName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="FatherBirthDate" Type="DateTime" Precision="3" />
+          <Property Name="FatherNationalityCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="FatherDeceased" Type="Boolean" />
+          <Property Name="MotherName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MotherBirthDate" Type="DateTime" Precision="3" />
+          <Property Name="MotherNationalityCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="MotherDeceased" Type="Boolean" />
+          <Property Name="SpouseName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SpouseBirthDate" Type="DateTime" Precision="3" />
+          <Property Name="SpouseNationalityCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="SpouseDeceased" Type="Boolean" />
+          <Property Name="Level1RegistrationGUID" Type="Guid" />
+          <Property Name="InterviewerPreferenceSexCode" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InterviewPreferenceLanguageCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IndividualComments" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="SPNeeds" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HasSPNeed" Type="Boolean" />
+          <Property Name="HasPhoto" Type="Boolean" />
+          <Property Name="HasAddress" Type="Boolean" />
+          <Property Name="HasIDDocument" Type="Boolean" />
+          <Property Name="IsAnyGroupPrincipalRepresentative" Type="Boolean" />
+          <Property Name="IsAnyGroupRepresentative" Type="Boolean" />
+          <Property Name="WillingToReturnCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastEventID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LastEventEffectiveDate" Type="DateTime" Precision="3" />
+          <Property Name="LastEventGUID" Type="Guid" />
+          <Property Name="LastEventIsResult" Type="Boolean" />
+          <Property Name="RegRsdOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegRsdOwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RegRsdUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AstOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AstOwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AstUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProOwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IntOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IntOwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IntUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RstOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RstOwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RstUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VolOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VolOwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VolUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddOwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PasOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasOwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PasUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PrgOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrgOwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PrgUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PrsOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrsOwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PrsUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Ast2Owners" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ast2OwnersDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TecUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Archived" Type="Boolean" Nullable="false" />
+          <Property Name="UserIDCreate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserIDUpdate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDCreate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDReplicate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="dataIndividualProcessGroup" Relationship="Self.FK_dataIndividualProcessGroup_dataIndividual" FromRole="dataIndividual" ToRole="dataIndividualProcessGroup" />
+          <NavigationProperty Name="dataPhotograph" Relationship="Self.FK_dataPhotograph_dataIndividual" FromRole="dataIndividual" ToRole="dataPhotograph" />
+          <NavigationProperty Name="codeProcessStatus" Relationship="PRGModel.FK_ProcessStatusCode_codeProcessStatus" FromRole="dataIndividual" ToRole="codeProcessStatus" />
+          <NavigationProperty Name="dataDocument" Relationship="PRGModel.FK_dataDocument_dataIndividual" FromRole="dataIndividual" ToRole="dataDocument" />
+        </EntityType>
+        <EntityType Name="dataIndividualProcessGroup">
+          <Key>
+            <PropertyRef Name="IndividualProcessingGroupGUID" />
+          </Key>
+          <Property Name="IndividualProcessingGroupGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndividualGUID" Type="Guid" Nullable="false" />
+          <Property Name="ProcessingGroupGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndividualProcessingGroupActive" Type="Boolean" Nullable="false" />
+          <Property Name="IndividualSequenceNumber" Type="Int16" Nullable="false" />
+          <Property Name="PrincipalRepresentative" Type="Boolean" Nullable="false" />
+          <Property Name="Representative" Type="Boolean" Nullable="false" />
+          <Property Name="RelationshipToPrincipalRepresentative" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Archived" Type="Boolean" Nullable="false" />
+          <Property Name="UserIDCreate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserIDUpdate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDCreate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDReplicate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="dataIndividual" Relationship="Self.FK_dataIndividualProcessGroup_dataIndividual" FromRole="dataIndividualProcessGroup" ToRole="dataIndividual" />
+          <NavigationProperty Name="dataProcessGroup" Relationship="Self.FK_dataIndividualProcessGroup_dataProcessGroup" FromRole="dataIndividualProcessGroup" ToRole="dataProcessGroup" />
+        </EntityType>
+        <EntityType Name="dataPhotograph">
+          <Key>
+            <PropertyRef Name="PhotoGUID" />
+          </Key>
+          <Property Name="PhotoGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndividualGUID" Type="Guid" Nullable="false" />
+          <Property Name="PhotoActive" Type="Boolean" Nullable="false" />
+          <Property Name="PhotoTypeCode" Type="Int16" Nullable="false" />
+          <Property Name="PhotoDateStart" Type="DateTime" Precision="3" />
+          <Property Name="PhotoDateEnd" Type="DateTime" Precision="3" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="PhotoComments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Archived" Type="Boolean" Nullable="false" />
+          <Property Name="UserIDCreate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserIDUpdate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDCreate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDReplicate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="dataIndividual" Relationship="Self.FK_dataPhotograph_dataIndividual" FromRole="dataPhotograph" ToRole="dataIndividual" />
+        </EntityType>
+        <EntityType Name="dataProcessGroup">
+          <Key>
+            <PropertyRef Name="ProcessingGroupGUID" />
+          </Key>
+          <Property Name="ProcessingGroupGUID" Type="Guid" Nullable="false" />
+          <Property Name="ProcessingGroupTypeCode" Type="Int16" Nullable="false" />
+          <Property Name="ProcessingGroupNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProcessingGroupLegacyID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingGroupGovtNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingGroupFormNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentRationCardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingGroupActive" Type="Boolean" />
+          <Property Name="ProcessingGroupDeactiveDate" Type="DateTime" Precision="3" />
+          <Property Name="ProcessingGroupSize" Type="Int16" Nullable="false" />
+          <Property Name="DeclaredSize" Type="Int16" />
+          <Property Name="TotalGroupSize" Type="Int16" Nullable="false" />
+          <Property Name="OriginalProcessingGroupGUID" Type="Guid" />
+          <Property Name="ResponsibleUserID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CaseTypeCode" Type="Int16" />
+          <Property Name="ProcessingGroupRegistrationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CaseSource" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingGroupStatusCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProcessGroupStatusDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Level1RegistrationGUID" Type="Guid" />
+          <Property Name="ProcessingGroupComments" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="PhyFile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastEventID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LastEventEffectiveDate" Type="DateTime" Precision="3" />
+          <Property Name="WillingToReturnCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WillingToReturnConditions" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PGCompositionCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BiometricReferenceID" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Archived" Type="Boolean" Nullable="false" />
+          <Property Name="UserIDCreate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserIDUpdate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDCreate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SiteIDUpdate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SiteIDOwner" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDReplicate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="dataIndividualProcessGroup" Relationship="Self.FK_dataIndividualProcessGroup_dataProcessGroup" FromRole="dataProcessGroup" ToRole="dataIndividualProcessGroup" />
+        </EntityType>
+        <Association Name="FK_dataIndividualProcessGroup_dataIndividual">
+          <End Role="dataIndividual" Type="Self.dataIndividual" Multiplicity="1" />
+          <End Role="dataIndividualProcessGroup" Type="Self.dataIndividualProcessGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataIndividual">
+              <PropertyRef Name="IndividualGUID" />
+            </Principal>
+            <Dependent Role="dataIndividualProcessGroup">
+              <PropertyRef Name="IndividualGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataPhotograph_dataIndividual">
+          <End Role="dataIndividual" Type="Self.dataIndividual" Multiplicity="1" />
+          <End Role="dataPhotograph" Type="Self.dataPhotograph" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataIndividual">
+              <PropertyRef Name="IndividualGUID" />
+            </Principal>
+            <Dependent Role="dataPhotograph">
+              <PropertyRef Name="IndividualGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataIndividualProcessGroup_dataProcessGroup">
+          <End Role="dataProcessGroup" Type="Self.dataProcessGroup" Multiplicity="1" />
+          <End Role="dataIndividualProcessGroup" Type="Self.dataIndividualProcessGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataProcessGroup">
+              <PropertyRef Name="ProcessingGroupGUID" />
+            </Principal>
+            <Dependent Role="dataIndividualProcessGroup">
+              <PropertyRef Name="ProcessingGroupGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PRGEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="dataIndividual" EntityType="Self.dataIndividual" />
+          <EntitySet Name="dataIndividualProcessGroup" EntityType="Self.dataIndividualProcessGroup" />
+          <EntitySet Name="dataPhotograph" EntityType="Self.dataPhotograph" />
+          <EntitySet Name="dataProcessGroup" EntityType="Self.dataProcessGroup" />
+          <AssociationSet Name="FK_dataIndividualProcessGroup_dataIndividual" Association="Self.FK_dataIndividualProcessGroup_dataIndividual">
+            <End Role="dataIndividual" EntitySet="dataIndividual" />
+            <End Role="dataIndividualProcessGroup" EntitySet="dataIndividualProcessGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataPhotograph_dataIndividual" Association="Self.FK_dataPhotograph_dataIndividual">
+            <End Role="dataIndividual" EntitySet="dataIndividual" />
+            <End Role="dataPhotograph" EntitySet="dataPhotograph" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataIndividualProcessGroup_dataProcessGroup" Association="Self.FK_dataIndividualProcessGroup_dataProcessGroup">
+            <End Role="dataProcessGroup" EntitySet="dataProcessGroup" />
+            <End Role="dataIndividualProcessGroup" EntitySet="dataIndividualProcessGroup" />
+          </AssociationSet>
+          <EntitySet Name="codeProcessStatus" EntityType="PRGModel.codeProcessStatus" />
+          <EntitySet Name="dataDocument" EntityType="PRGModel.dataDocument" />
+          <AssociationSet Name="FK_ProcessStatusCode_codeProcessStatus" Association="PRGModel.FK_ProcessStatusCode_codeProcessStatus">
+            <End Role="codeProcessStatus" EntitySet="codeProcessStatus" />
+            <End Role="dataIndividual" EntitySet="dataIndividual" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataDocument_dataIndividual" Association="PRGModel.FK_dataDocument_dataIndividual">
+            <End Role="dataIndividual" EntitySet="dataIndividual" />
+            <End Role="dataDocument" EntitySet="dataDocument" />
+          </AssociationSet>
+          <EntitySet Name="codeDocumentTypeText" EntityType="PRGModel.codeDocumentTypeText" />
+          <EntitySet Name="codeProcessStatusText" EntityType="PRGModel.codeProcessStatusText" />
+          <AssociationSet Name="FK_codeProcessStatusText_codeProcessStatus" Association="PRGModel.FK_codeProcessStatusText_codeProcessStatus">
+            <End Role="codeProcessStatus" EntitySet="codeProcessStatus" />
+            <End Role="codeProcessStatusText" EntitySet="codeProcessStatusText" />
+          </AssociationSet>
+          <FunctionImport Name="rspUpdateDocument">
+            <Parameter Name="HH" Mode="In" Type="String" />
+            <Parameter Name="US" Mode="In" Type="String" />
+            <Parameter Name="LT" Mode="In" Type="String" />
+            <Parameter Name="ND" Mode="In" Type="String" />
+            <Parameter Name="DT" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="configSecurityUser" EntityType="PRGModel.configSecurityUser" />
+          <EntitySet Name="dataIndividualV4" EntityType="PRGModel.dataIndividualV4" />
+          <EntitySet Name="dataProcessGroupV4" EntityType="PRGModel.dataProcessGroupV4" />
+        </EntityContainer>
+        <EntityType Name="codeProcessStatus">
+          <Key>
+            <PropertyRef Name="ProcessStatusCode" />
+          </Key>
+          <Property Name="ProcessStatusCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessStatusActive" Type="Boolean" Nullable="false" />
+          <Property Name="RedComponentValue" Type="Byte" />
+          <Property Name="GreenComponentValue" Type="Byte" />
+          <Property Name="BlueComponentValue" Type="Byte" />
+          <Property Name="UserIDCreate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserIDUpdate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDCreate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDUpdate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDOwner" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDReplicate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dataIndividual" Relationship="PRGModel.FK_ProcessStatusCode_codeProcessStatus" FromRole="codeProcessStatus" ToRole="dataIndividual" />
+          <NavigationProperty Name="codeProcessStatusText" Relationship="PRGModel.FK_codeProcessStatusText_codeProcessStatus" FromRole="codeProcessStatus" ToRole="codeProcessStatusText" />
+        </EntityType>
+        <EntityType Name="dataDocument">
+          <Key>
+            <PropertyRef Name="DocumentGUID" />
+          </Key>
+          <Property Name="DocumentGUID" Type="Guid" Nullable="false" />
+          <Property Name="IndividualGUID" Type="Guid" Nullable="false" />
+          <Property Name="DocumentAppliestoGroup" Type="Boolean" Nullable="false" />
+          <Property Name="DocumentType" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentLegal" Type="Boolean" Nullable="false" />
+          <Property Name="DocumentOriginal" Type="Boolean" Nullable="false" />
+          <Property Name="DocumentDateIssued" Type="DateTime" Precision="3" />
+          <Property Name="DocumentIssuedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentDateExpire" Type="DateTime" Precision="3" />
+          <Property Name="DocumentCreatedOfficial" Type="Boolean" />
+          <Property Name="DocumentStatusCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentReIssued" Type="Boolean" />
+          <Property Name="DocumentComments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceOfIssue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Archived" Type="Boolean" Nullable="false" />
+          <Property Name="UserIDCreate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserIDUpdate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDCreate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDUpdate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDOwner" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDReplicate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dataIndividual" Relationship="PRGModel.FK_dataDocument_dataIndividual" FromRole="dataDocument" ToRole="dataIndividual" />
+        </EntityType>
+        <Association Name="FK_ProcessStatusCode_codeProcessStatus">
+          <End Type="PRGModel.codeProcessStatus" Role="codeProcessStatus" Multiplicity="1" />
+          <End Type="PRGModel.dataIndividual" Role="dataIndividual" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeProcessStatus">
+              <PropertyRef Name="ProcessStatusCode" />
+            </Principal>
+            <Dependent Role="dataIndividual">
+              <PropertyRef Name="ProcessStatusCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataDocument_dataIndividual">
+          <End Type="PRGModel.dataIndividual" Role="dataIndividual" Multiplicity="1" />
+          <End Type="PRGModel.dataDocument" Role="dataDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataIndividual">
+              <PropertyRef Name="IndividualGUID" />
+            </Principal>
+            <Dependent Role="dataDocument">
+              <PropertyRef Name="IndividualGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeDocumentTypeText">
+          <Key>
+            <PropertyRef Name="DocumentTypeCode" />
+            <PropertyRef Name="DocumentTypeLanguageCode" />
+          </Key>
+          <Property Name="DocumentTypeCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentTypeLanguageCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentTypeText" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserIDCreate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserIDUpdate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDCreate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDUpdate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDOwner" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDReplicate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="codeProcessStatusText">
+          <Key>
+            <PropertyRef Name="ProcessStatusCode" />
+            <PropertyRef Name="ProcessStatusLanguageCode" />
+          </Key>
+          <Property Name="ProcessStatusCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessStatusLanguageCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessStatusText" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserIDCreate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserIDUpdate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDCreate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDUpdate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDOwner" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDReplicate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="codeProcessStatus" Relationship="PRGModel.FK_codeProcessStatusText_codeProcessStatus" FromRole="codeProcessStatusText" ToRole="codeProcessStatus" />
+        </EntityType>
+        <Association Name="FK_codeProcessStatusText_codeProcessStatus">
+          <End Type="PRGModel.codeProcessStatus" Role="codeProcessStatus" Multiplicity="1" />
+          <End Type="PRGModel.codeProcessStatusText" Role="codeProcessStatusText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeProcessStatus">
+              <PropertyRef Name="ProcessStatusCode" />
+            </Principal>
+            <Dependent Role="codeProcessStatusText">
+              <PropertyRef Name="ProcessStatusCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="configSecurityUser">
+          <Key>
+            <PropertyRef Name="SecurityUserID" />
+          </Key>
+          <Property Name="SecurityUserID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityUserLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityUserFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityUserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityUserPassword" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityProfileGUID" Type="Guid" Nullable="false" />
+          <Property Name="NumberLoginFailure" Type="Int16" />
+          <Property Name="MaximumConcurrentLogins" Type="Int16" />
+          <Property Name="LockStatus" Type="Boolean" />
+          <Property Name="PasswordChangeDate" Type="DateTime" Precision="3" />
+          <Property Name="UserAccountTypeCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="MainWindowToolBarXml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RecordWindowToolBarXml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserIDCreate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserIDUpdate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDCreate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDUpdate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDOwner" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiteIDReplicate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="dataIndividualV4">
+          <Key>
+            <PropertyRef Name="IndividualGUID" />
+            <PropertyRef Name="ProcessingGroupNumber" />
+          </Key>
+          <Property Name="SiteIDOwner" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="IndividualGUID" Type="Guid" Nullable="false" />
+          <Property Name="ProcessingGroupNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IndividualID" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="GivenName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MotherName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SecondFamilyName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="VerbalName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
+          <Property Name="CaseCreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ProcessingGroupSize" Type="Int32" />
+          <Property Name="TotalSize" Type="Int32" />
+          <Property Name="DateofBirth" Type="DateTime" Precision="3" />
+          <Property Name="BirthCountryCode" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BirthCityTownVillage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OriginCountryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SexCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IndividualAge" Type="Int16" />
+          <Property Name="NationalityCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Relationship" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessStatusCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Current_process_StatusCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Current_process_StatusDate" Type="DateTime" Precision="3" />
+          <Property Name="RefugeeStatusCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RefugeeStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="RefStatCategoryCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LegalBasis" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IndividualAgeCohortCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MarriageStatusCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ReligionCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Religion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EthnicityCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Ethnicity" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OccupationCode" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Occupation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EducationLevelCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HasSPNeed" Type="Boolean" />
+          <Property Name="ConcatenatedName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IndividualIDLegacy" Type="Int32" />
+          <Property Name="ProcessingGroupLegacyID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IndComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CaseComments" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="ProcessStatusReasonCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AddressType" Type="Int32" />
+          <Property Name="AddressCountry" Type="Int32" />
+          <Property Name="LocationLevel1ID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LocationLevel2ID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LocationLevel3ID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LocationLevel4ID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CoO_L1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CoO_L2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CoO_L3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CoO_L4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CoO_L6" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CoOPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CoA_AddressType" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CoA_AddressCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COA_L1" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="COA_L2" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="COA_L3" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="COA_L4" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="CoA_LocationLevelCodeSoftField1" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="CoA_LocationLevelCodeSoftField2" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="CoA_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CoA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NRefStatCategory" Type="Int32" />
+          <Property Name="NRefStatus" Type="Int32" />
+          <Property Name="ProcessStatusChanged" Type="DateTime" Precision="3" />
+          <Property Name="ProcessStatusChangeReason" Type="Int32" />
+          <Property Name="CommonlyUsedName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ConcatenatedAlias" Type="Int32" />
+          <Property Name="RSDStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="ResettlementStatusCode" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="RelationshipText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BiometricId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessUnitGUID" Type="Guid" />
+          <Property Name="VersionNumber" Type="Binary" MaxLength="8" FixedLength="true" />
+          <Property Name="ProcessingGroupGUID" Type="Guid" />
+          <Property Name="CoAEntryPoint" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="V3GUID" Type="Guid" />
+          <Property Name="V4GUID" Type="Guid" />
+          <Property Name="changeReason" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="dataProcessGroupV4">
+          <Key>
+            <PropertyRef Name="ProcessingGroupGUID" />
+            <PropertyRef Name="ProcessingGroupNumber" />
+            <PropertyRef Name="ProcessingGroupRegistrationDate" />
+          </Key>
+          <Property Name="ProcessingGroupGUID" Type="Guid" Nullable="false" />
+          <Property Name="ProcessingGroupTypeCode" Type="Int16" />
+          <Property Name="ProcessingGroupNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingGroupLegacyID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingGroupGovtNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingGroupFormNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentRationCardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingGroupActive" Type="Boolean" />
+          <Property Name="ProcessingGroupDeactiveDate" Type="DateTime" Precision="3" />
+          <Property Name="ProcessingGroupSize" Type="Int16" />
+          <Property Name="DeclaredSize" Type="Int16" />
+          <Property Name="TotalGroupSize" Type="Int16" />
+          <Property Name="OriginalProcessingGroupGUID" Type="Guid" />
+          <Property Name="ResponsibleUserID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CaseTypeCode" Type="Int16" />
+          <Property Name="ProcessingGroupRegistrationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CaseSource" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingGroupStatusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessGroupStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="Level1RegistrationGUID" Type="Guid" />
+          <Property Name="ProcessingGroupComments" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="PhyFile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastEventID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LastEventEffectiveDate" Type="DateTime" Precision="3" />
+          <Property Name="WillingToReturnCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="WillingToReturnConditions" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PGCompositionCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="BiometricReferenceID" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Archived" Type="Boolean" />
+          <Property Name="UserIDCreate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UserIDUpdate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="SiteIDCreate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDUpdate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDOwner" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerDate" Type="DateTime" Precision="3" />
+          <Property Name="SiteIDReplicate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="V3GUID" Type="Guid" />
+          <Property Name="V4GUID" Type="Guid" />
+          <Property Name="BussinessSiteName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OwningOfficeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PRGModelStoreContainer" CdmEntityContainer="PRGEntities">
+          <EntitySetMapping Name="dataIndividual">
+            <EntityTypeMapping TypeName="PRGModel.dataIndividual">
+              <MappingFragment StoreEntitySet="dataIndividual">
+                <ScalarProperty Name="IndividualGUID" ColumnName="IndividualGUID" />
+                <ScalarProperty Name="IndividualID" ColumnName="IndividualID" />
+                <ScalarProperty Name="IndividualIDLegacy" ColumnName="IndividualIDLegacy" />
+                <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+                <ScalarProperty Name="FamilyNamePhoneticID" ColumnName="FamilyNamePhoneticID" />
+                <ScalarProperty Name="FamilyNameAlternatePhoneticID" ColumnName="FamilyNameAlternatePhoneticID" />
+                <ScalarProperty Name="SecondFamilyName" ColumnName="SecondFamilyName" />
+                <ScalarProperty Name="SecondFamilyNamePhoneticID" ColumnName="SecondFamilyNamePhoneticID" />
+                <ScalarProperty Name="SecondFamilyNameAlternatePhoneticID" ColumnName="SecondFamilyNameAlternatePhoneticID" />
+                <ScalarProperty Name="GivenName" ColumnName="GivenName" />
+                <ScalarProperty Name="GivenNamePhoneticID" ColumnName="GivenNamePhoneticID" />
+                <ScalarProperty Name="GivenNameAlternatePhoneticID" ColumnName="GivenNameAlternatePhoneticID" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="MaidenName" ColumnName="MaidenName" />
+                <ScalarProperty Name="ConcatenatedName" ColumnName="ConcatenatedName" />
+                <ScalarProperty Name="ConcatenatedNamePhoneticID" ColumnName="ConcatenatedNamePhoneticID" />
+                <ScalarProperty Name="ConcatenatedNameAlternatePhoneticID" ColumnName="ConcatenatedNameAlternatePhoneticID" />
+                <ScalarProperty Name="CommonlyUsedName" ColumnName="CommonlyUsedName" />
+                <ScalarProperty Name="CommonlyUsedNamePhoneticID" ColumnName="CommonlyUsedNamePhoneticID" />
+                <ScalarProperty Name="CommonlyUsedNameAlternatePhoneticID" ColumnName="CommonlyUsedNameAlternatePhoneticID" />
+                <ScalarProperty Name="ConcatenatedAlias" ColumnName="ConcatenatedAlias" />
+                <ScalarProperty Name="VerbalName" ColumnName="VerbalName" />
+                <ScalarProperty Name="VerbalNamePhoneticID" ColumnName="VerbalNamePhoneticID" />
+                <ScalarProperty Name="VerbalNameAlternatePhoneticID" ColumnName="VerbalNameAlternatePhoneticID" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="DateofBirth" ColumnName="DateofBirth" />
+                <ScalarProperty Name="DateofBirthEstimate" ColumnName="DateofBirthEstimate" />
+                <ScalarProperty Name="BirthCountryCode" ColumnName="BirthCountryCode" />
+                <ScalarProperty Name="BirthCityTownVillage" ColumnName="BirthCityTownVillage" />
+                <ScalarProperty Name="OriginCountryCode" ColumnName="OriginCountryCode" />
+                <ScalarProperty Name="Datasharing" ColumnName="Datasharing" />
+                <ScalarProperty Name="FoodAssistanceEligible" ColumnName="FoodAssistanceEligible" />
+                <ScalarProperty Name="FoodAssistanceEligibleAdditionalCriteria" ColumnName="FoodAssistanceEligibleAdditionalCriteria" />
+                <ScalarProperty Name="InPolygamousRelationShip" ColumnName="InPolygamousRelationShip" />
+                <ScalarProperty Name="AbleToSign" ColumnName="AbleToSign" />
+                <ScalarProperty Name="FledDate" ColumnName="FledDate" />
+                <ScalarProperty Name="FledDateEstimate" ColumnName="FledDateEstimate" />
+                <ScalarProperty Name="AsylumCountryCode" ColumnName="AsylumCountryCode" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="ArrivalDateEstimate" ColumnName="ArrivalDateEstimate" />
+                <ScalarProperty Name="SexCode" ColumnName="SexCode" />
+                <ScalarProperty Name="IndividualAge" ColumnName="IndividualAge" />
+                <ScalarProperty Name="IndividualAgeCohortCode" ColumnName="IndividualAgeCohortCode" />
+                <ScalarProperty Name="NationalityCode" ColumnName="NationalityCode" />
+                <ScalarProperty Name="NationalityCode2nd" ColumnName="NationalityCode2nd" />
+                <ScalarProperty Name="Deceased" ColumnName="Deceased" />
+                <ScalarProperty Name="DeceasedDate" ColumnName="DeceasedDate" />
+                <ScalarProperty Name="RegistrationDataVerifiedDate" ColumnName="RegistrationDataVerifiedDate" />
+                <ScalarProperty Name="SourceOfRegistrationData" ColumnName="SourceOfRegistrationData" />
+                <ScalarProperty Name="DeRegistrationDate" ColumnName="DeRegistrationDate" />
+                <ScalarProperty Name="DeRegistrationReasonCode" ColumnName="DeRegistrationReasonCode" />
+                <ScalarProperty Name="RegistrationStatusCode" ColumnName="RegistrationStatusCode" />
+                <ScalarProperty Name="RegistrationStatusDate" ColumnName="RegistrationStatusDate" />
+                <ScalarProperty Name="RSDStatusCode" ColumnName="RSDStatusCode" />
+                <ScalarProperty Name="RSDStatusDate" ColumnName="RSDStatusDate" />
+                <ScalarProperty Name="PartnerRSDStatusCode" ColumnName="PartnerRSDStatusCode" />
+                <ScalarProperty Name="PartnerRSDStatusDate" ColumnName="PartnerRSDStatusDate" />
+                <ScalarProperty Name="AssistanceStatusCode" ColumnName="AssistanceStatusCode" />
+                <ScalarProperty Name="AssistanceStatusDate" ColumnName="AssistanceStatusDate" />
+                <ScalarProperty Name="ProtectionStatusCode" ColumnName="ProtectionStatusCode" />
+                <ScalarProperty Name="ProtectionStatusDate" ColumnName="ProtectionStatusDate" />
+                <ScalarProperty Name="DurableSolutionStatusCode" ColumnName="DurableSolutionStatusCode" />
+                <ScalarProperty Name="DurableSolutionStatusDate" ColumnName="DurableSolutionStatusDate" />
+                <ScalarProperty Name="ResettlementStatusCode" ColumnName="ResettlementStatusCode" />
+                <ScalarProperty Name="ResettlementStatusDate" ColumnName="ResettlementStatusDate" />
+                <ScalarProperty Name="VolRepStatusCode" ColumnName="VolRepStatusCode" />
+                <ScalarProperty Name="VolRepStatusDate" ColumnName="VolRepStatusDate" />
+                <ScalarProperty Name="LocalIntegrationStatusCode" ColumnName="LocalIntegrationStatusCode" />
+                <ScalarProperty Name="LocalIntegrationStatusDate" ColumnName="LocalIntegrationStatusDate" />
+                <ScalarProperty Name="MarriageStatusCode" ColumnName="MarriageStatusCode" />
+                <ScalarProperty Name="MarriageDate" ColumnName="MarriageDate" />
+                <ScalarProperty Name="ReligionCode" ColumnName="ReligionCode" />
+                <ScalarProperty Name="EthnicityCode" ColumnName="EthnicityCode" />
+                <ScalarProperty Name="EducationLevelCode" ColumnName="EducationLevelCode" />
+                <ScalarProperty Name="OccupationCode" ColumnName="OccupationCode" />
+                <ScalarProperty Name="DepartureReasonCode" ColumnName="DepartureReasonCode" />
+                <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+                <ScalarProperty Name="DepartureDateEstimated" ColumnName="DepartureDateEstimated" />
+                <ScalarProperty Name="ProcessStatusCode" ColumnName="ProcessStatusCode" />
+                <ScalarProperty Name="ProcessStatusDate" ColumnName="ProcessStatusDate" />
+                <ScalarProperty Name="ProcessStatusReasonCode" ColumnName="ProcessStatusReasonCode" />
+                <ScalarProperty Name="ProcessStatusReasonDate" ColumnName="ProcessStatusReasonDate" />
+                <ScalarProperty Name="RefugeeStatusCode" ColumnName="RefugeeStatusCode" />
+                <ScalarProperty Name="RefugeeStatusDate" ColumnName="RefugeeStatusDate" />
+                <ScalarProperty Name="RefugeeStatusCategoryCode" ColumnName="RefugeeStatusCategoryCode" />
+                <ScalarProperty Name="RefugeeStatusCategoryDate" ColumnName="RefugeeStatusCategoryDate" />
+                <ScalarProperty Name="RefugeeStatusLegalBasisCode" ColumnName="RefugeeStatusLegalBasisCode" />
+                <ScalarProperty Name="RefugeeStatusLegalBasisDate" ColumnName="RefugeeStatusLegalBasisDate" />
+                <ScalarProperty Name="PartnerRefugeeStatusCode" ColumnName="PartnerRefugeeStatusCode" />
+                <ScalarProperty Name="PartnerRefugeeStatusDate" ColumnName="PartnerRefugeeStatusDate" />
+                <ScalarProperty Name="PartnerRefugeeStatusCategoryCode" ColumnName="PartnerRefugeeStatusCategoryCode" />
+                <ScalarProperty Name="PartnerRefugeeStatusCategoryDate" ColumnName="PartnerRefugeeStatusCategoryDate" />
+                <ScalarProperty Name="PartnerRefugeeStatusLegalBasisCode" ColumnName="PartnerRefugeeStatusLegalBasisCode" />
+                <ScalarProperty Name="PartnerRefugeeStatusLegalBasisDate" ColumnName="PartnerRefugeeStatusLegalBasisDate" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="FatherBirthDate" ColumnName="FatherBirthDate" />
+                <ScalarProperty Name="FatherNationalityCode" ColumnName="FatherNationalityCode" />
+                <ScalarProperty Name="FatherDeceased" ColumnName="FatherDeceased" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="MotherBirthDate" ColumnName="MotherBirthDate" />
+                <ScalarProperty Name="MotherNationalityCode" ColumnName="MotherNationalityCode" />
+                <ScalarProperty Name="MotherDeceased" ColumnName="MotherDeceased" />
+                <ScalarProperty Name="SpouseName" ColumnName="SpouseName" />
+                <ScalarProperty Name="SpouseBirthDate" ColumnName="SpouseBirthDate" />
+                <ScalarProperty Name="SpouseNationalityCode" ColumnName="SpouseNationalityCode" />
+                <ScalarProperty Name="SpouseDeceased" ColumnName="SpouseDeceased" />
+                <ScalarProperty Name="Level1RegistrationGUID" ColumnName="Level1RegistrationGUID" />
+                <ScalarProperty Name="InterviewerPreferenceSexCode" ColumnName="InterviewerPreferenceSexCode" />
+                <ScalarProperty Name="InterviewPreferenceLanguageCode" ColumnName="InterviewPreferenceLanguageCode" />
+                <ScalarProperty Name="IndividualComments" ColumnName="IndividualComments" />
+                <ScalarProperty Name="SPNeeds" ColumnName="SPNeeds" />
+                <ScalarProperty Name="HasSPNeed" ColumnName="HasSPNeed" />
+                <ScalarProperty Name="HasPhoto" ColumnName="HasPhoto" />
+                <ScalarProperty Name="HasAddress" ColumnName="HasAddress" />
+                <ScalarProperty Name="HasIDDocument" ColumnName="HasIDDocument" />
+                <ScalarProperty Name="IsAnyGroupPrincipalRepresentative" ColumnName="IsAnyGroupPrincipalRepresentative" />
+                <ScalarProperty Name="IsAnyGroupRepresentative" ColumnName="IsAnyGroupRepresentative" />
+                <ScalarProperty Name="WillingToReturnCode" ColumnName="WillingToReturnCode" />
+                <ScalarProperty Name="LastEventID" ColumnName="LastEventID" />
+                <ScalarProperty Name="LastEventEffectiveDate" ColumnName="LastEventEffectiveDate" />
+                <ScalarProperty Name="LastEventGUID" ColumnName="LastEventGUID" />
+                <ScalarProperty Name="LastEventIsResult" ColumnName="LastEventIsResult" />
+                <ScalarProperty Name="RegRsdOwner" ColumnName="RegRsdOwner" />
+                <ScalarProperty Name="RegRsdOwnerDate" ColumnName="RegRsdOwnerDate" />
+                <ScalarProperty Name="RegRsdUpdateDate" ColumnName="RegRsdUpdateDate" />
+                <ScalarProperty Name="AstOwner" ColumnName="AstOwner" />
+                <ScalarProperty Name="AstOwnerDate" ColumnName="AstOwnerDate" />
+                <ScalarProperty Name="AstUpdateDate" ColumnName="AstUpdateDate" />
+                <ScalarProperty Name="ProOwner" ColumnName="ProOwner" />
+                <ScalarProperty Name="ProOwnerDate" ColumnName="ProOwnerDate" />
+                <ScalarProperty Name="ProUpdateDate" ColumnName="ProUpdateDate" />
+                <ScalarProperty Name="IntOwner" ColumnName="IntOwner" />
+                <ScalarProperty Name="IntOwnerDate" ColumnName="IntOwnerDate" />
+                <ScalarProperty Name="IntUpdateDate" ColumnName="IntUpdateDate" />
+                <ScalarProperty Name="RstOwner" ColumnName="RstOwner" />
+                <ScalarProperty Name="RstOwnerDate" ColumnName="RstOwnerDate" />
+                <ScalarProperty Name="RstUpdateDate" ColumnName="RstUpdateDate" />
+                <ScalarProperty Name="VolOwner" ColumnName="VolOwner" />
+                <ScalarProperty Name="VolOwnerDate" ColumnName="VolOwnerDate" />
+                <ScalarProperty Name="VolUpdateDate" ColumnName="VolUpdateDate" />
+                <ScalarProperty Name="AddOwner" ColumnName="AddOwner" />
+                <ScalarProperty Name="AddOwnerDate" ColumnName="AddOwnerDate" />
+                <ScalarProperty Name="AddUpdateDate" ColumnName="AddUpdateDate" />
+                <ScalarProperty Name="PasOwner" ColumnName="PasOwner" />
+                <ScalarProperty Name="PasOwnerDate" ColumnName="PasOwnerDate" />
+                <ScalarProperty Name="PasUpdateDate" ColumnName="PasUpdateDate" />
+                <ScalarProperty Name="PrgOwner" ColumnName="PrgOwner" />
+                <ScalarProperty Name="PrgOwnerDate" ColumnName="PrgOwnerDate" />
+                <ScalarProperty Name="PrgUpdateDate" ColumnName="PrgUpdateDate" />
+                <ScalarProperty Name="PrsOwner" ColumnName="PrsOwner" />
+                <ScalarProperty Name="PrsOwnerDate" ColumnName="PrsOwnerDate" />
+                <ScalarProperty Name="PrsUpdateDate" ColumnName="PrsUpdateDate" />
+                <ScalarProperty Name="Ast2Owners" ColumnName="Ast2Owners" />
+                <ScalarProperty Name="Ast2OwnersDate" ColumnName="Ast2OwnersDate" />
+                <ScalarProperty Name="TecUpdateDate" ColumnName="TecUpdateDate" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+                <ScalarProperty Name="UserIDCreate" ColumnName="UserIDCreate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserIDUpdate" ColumnName="UserIDUpdate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="SiteIDCreate" ColumnName="SiteIDCreate" />
+                <ScalarProperty Name="SiteIDUpdate" ColumnName="SiteIDUpdate" />
+                <ScalarProperty Name="SiteIDOwner" ColumnName="SiteIDOwner" />
+                <ScalarProperty Name="OwnerDate" ColumnName="OwnerDate" />
+                <ScalarProperty Name="SiteIDReplicate" ColumnName="SiteIDReplicate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataIndividualProcessGroup">
+            <EntityTypeMapping TypeName="PRGModel.dataIndividualProcessGroup">
+              <MappingFragment StoreEntitySet="dataIndividualProcessGroup">
+                <ScalarProperty Name="IndividualProcessingGroupGUID" ColumnName="IndividualProcessingGroupGUID" />
+                <ScalarProperty Name="IndividualGUID" ColumnName="IndividualGUID" />
+                <ScalarProperty Name="ProcessingGroupGUID" ColumnName="ProcessingGroupGUID" />
+                <ScalarProperty Name="IndividualProcessingGroupActive" ColumnName="IndividualProcessingGroupActive" />
+                <ScalarProperty Name="IndividualSequenceNumber" ColumnName="IndividualSequenceNumber" />
+                <ScalarProperty Name="PrincipalRepresentative" ColumnName="PrincipalRepresentative" />
+                <ScalarProperty Name="Representative" ColumnName="Representative" />
+                <ScalarProperty Name="RelationshipToPrincipalRepresentative" ColumnName="RelationshipToPrincipalRepresentative" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+                <ScalarProperty Name="UserIDCreate" ColumnName="UserIDCreate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserIDUpdate" ColumnName="UserIDUpdate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="SiteIDCreate" ColumnName="SiteIDCreate" />
+                <ScalarProperty Name="SiteIDUpdate" ColumnName="SiteIDUpdate" />
+                <ScalarProperty Name="SiteIDOwner" ColumnName="SiteIDOwner" />
+                <ScalarProperty Name="OwnerDate" ColumnName="OwnerDate" />
+                <ScalarProperty Name="SiteIDReplicate" ColumnName="SiteIDReplicate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataPhotograph">
+            <EntityTypeMapping TypeName="PRGModel.dataPhotograph">
+              <MappingFragment StoreEntitySet="dataPhotograph">
+                <ScalarProperty Name="PhotoGUID" ColumnName="PhotoGUID" />
+                <ScalarProperty Name="IndividualGUID" ColumnName="IndividualGUID" />
+                <ScalarProperty Name="PhotoActive" ColumnName="PhotoActive" />
+                <ScalarProperty Name="PhotoTypeCode" ColumnName="PhotoTypeCode" />
+                <ScalarProperty Name="PhotoDateStart" ColumnName="PhotoDateStart" />
+                <ScalarProperty Name="PhotoDateEnd" ColumnName="PhotoDateEnd" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="PhotoComments" ColumnName="PhotoComments" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+                <ScalarProperty Name="UserIDCreate" ColumnName="UserIDCreate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserIDUpdate" ColumnName="UserIDUpdate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="SiteIDCreate" ColumnName="SiteIDCreate" />
+                <ScalarProperty Name="SiteIDUpdate" ColumnName="SiteIDUpdate" />
+                <ScalarProperty Name="SiteIDOwner" ColumnName="SiteIDOwner" />
+                <ScalarProperty Name="OwnerDate" ColumnName="OwnerDate" />
+                <ScalarProperty Name="SiteIDReplicate" ColumnName="SiteIDReplicate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataProcessGroup">
+            <EntityTypeMapping TypeName="PRGModel.dataProcessGroup">
+              <MappingFragment StoreEntitySet="dataProcessGroup">
+                <ScalarProperty Name="ProcessingGroupGUID" ColumnName="ProcessingGroupGUID" />
+                <ScalarProperty Name="ProcessingGroupTypeCode" ColumnName="ProcessingGroupTypeCode" />
+                <ScalarProperty Name="ProcessingGroupNumber" ColumnName="ProcessingGroupNumber" />
+                <ScalarProperty Name="ProcessingGroupLegacyID" ColumnName="ProcessingGroupLegacyID" />
+                <ScalarProperty Name="ProcessingGroupGovtNumber" ColumnName="ProcessingGroupGovtNumber" />
+                <ScalarProperty Name="ProcessingGroupFormNumber" ColumnName="ProcessingGroupFormNumber" />
+                <ScalarProperty Name="CurrentRationCardNumber" ColumnName="CurrentRationCardNumber" />
+                <ScalarProperty Name="ProcessingGroupActive" ColumnName="ProcessingGroupActive" />
+                <ScalarProperty Name="ProcessingGroupDeactiveDate" ColumnName="ProcessingGroupDeactiveDate" />
+                <ScalarProperty Name="ProcessingGroupSize" ColumnName="ProcessingGroupSize" />
+                <ScalarProperty Name="DeclaredSize" ColumnName="DeclaredSize" />
+                <ScalarProperty Name="TotalGroupSize" ColumnName="TotalGroupSize" />
+                <ScalarProperty Name="OriginalProcessingGroupGUID" ColumnName="OriginalProcessingGroupGUID" />
+                <ScalarProperty Name="ResponsibleUserID" ColumnName="ResponsibleUserID" />
+                <ScalarProperty Name="CaseTypeCode" ColumnName="CaseTypeCode" />
+                <ScalarProperty Name="ProcessingGroupRegistrationDate" ColumnName="ProcessingGroupRegistrationDate" />
+                <ScalarProperty Name="CaseSource" ColumnName="CaseSource" />
+                <ScalarProperty Name="ProcessingGroupStatusCode" ColumnName="ProcessingGroupStatusCode" />
+                <ScalarProperty Name="ProcessGroupStatusDate" ColumnName="ProcessGroupStatusDate" />
+                <ScalarProperty Name="Level1RegistrationGUID" ColumnName="Level1RegistrationGUID" />
+                <ScalarProperty Name="ProcessingGroupComments" ColumnName="ProcessingGroupComments" />
+                <ScalarProperty Name="PhyFile" ColumnName="PhyFile" />
+                <ScalarProperty Name="LastEventID" ColumnName="LastEventID" />
+                <ScalarProperty Name="LastEventEffectiveDate" ColumnName="LastEventEffectiveDate" />
+                <ScalarProperty Name="WillingToReturnCode" ColumnName="WillingToReturnCode" />
+                <ScalarProperty Name="WillingToReturnConditions" ColumnName="WillingToReturnConditions" />
+                <ScalarProperty Name="PGCompositionCode" ColumnName="PGCompositionCode" />
+                <ScalarProperty Name="BiometricReferenceID" ColumnName="BiometricReferenceID" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+                <ScalarProperty Name="UserIDCreate" ColumnName="UserIDCreate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserIDUpdate" ColumnName="UserIDUpdate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="SiteIDCreate" ColumnName="SiteIDCreate" />
+                <ScalarProperty Name="SiteIDUpdate" ColumnName="SiteIDUpdate" />
+                <ScalarProperty Name="SiteIDOwner" ColumnName="SiteIDOwner" />
+                <ScalarProperty Name="OwnerDate" ColumnName="OwnerDate" />
+                <ScalarProperty Name="SiteIDReplicate" ColumnName="SiteIDReplicate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeProcessStatus">
+            <EntityTypeMapping TypeName="PRGModel.codeProcessStatus">
+              <MappingFragment StoreEntitySet="codeProcessStatus">
+                <ScalarProperty Name="SiteIDReplicate" ColumnName="SiteIDReplicate" />
+                <ScalarProperty Name="OwnerDate" ColumnName="OwnerDate" />
+                <ScalarProperty Name="SiteIDOwner" ColumnName="SiteIDOwner" />
+                <ScalarProperty Name="SiteIDUpdate" ColumnName="SiteIDUpdate" />
+                <ScalarProperty Name="SiteIDCreate" ColumnName="SiteIDCreate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UserIDUpdate" ColumnName="UserIDUpdate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserIDCreate" ColumnName="UserIDCreate" />
+                <ScalarProperty Name="BlueComponentValue" ColumnName="BlueComponentValue" />
+                <ScalarProperty Name="GreenComponentValue" ColumnName="GreenComponentValue" />
+                <ScalarProperty Name="RedComponentValue" ColumnName="RedComponentValue" />
+                <ScalarProperty Name="ProcessStatusActive" ColumnName="ProcessStatusActive" />
+                <ScalarProperty Name="ProcessStatusCode" ColumnName="ProcessStatusCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataDocument">
+            <EntityTypeMapping TypeName="PRGModel.dataDocument">
+              <MappingFragment StoreEntitySet="dataDocument">
+                <ScalarProperty Name="SiteIDReplicate" ColumnName="SiteIDReplicate" />
+                <ScalarProperty Name="OwnerDate" ColumnName="OwnerDate" />
+                <ScalarProperty Name="SiteIDOwner" ColumnName="SiteIDOwner" />
+                <ScalarProperty Name="SiteIDUpdate" ColumnName="SiteIDUpdate" />
+                <ScalarProperty Name="SiteIDCreate" ColumnName="SiteIDCreate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UserIDUpdate" ColumnName="UserIDUpdate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserIDCreate" ColumnName="UserIDCreate" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+                <ScalarProperty Name="PlaceOfIssue" ColumnName="PlaceOfIssue" />
+                <ScalarProperty Name="DocumentComments" ColumnName="DocumentComments" />
+                <ScalarProperty Name="DocumentReIssued" ColumnName="DocumentReIssued" />
+                <ScalarProperty Name="DocumentStatusCode" ColumnName="DocumentStatusCode" />
+                <ScalarProperty Name="DocumentCreatedOfficial" ColumnName="DocumentCreatedOfficial" />
+                <ScalarProperty Name="DocumentDateExpire" ColumnName="DocumentDateExpire" />
+                <ScalarProperty Name="DocumentIssuedBy" ColumnName="DocumentIssuedBy" />
+                <ScalarProperty Name="DocumentDateIssued" ColumnName="DocumentDateIssued" />
+                <ScalarProperty Name="DocumentOriginal" ColumnName="DocumentOriginal" />
+                <ScalarProperty Name="DocumentLegal" ColumnName="DocumentLegal" />
+                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+                <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+                <ScalarProperty Name="DocumentAppliestoGroup" ColumnName="DocumentAppliestoGroup" />
+                <ScalarProperty Name="IndividualGUID" ColumnName="IndividualGUID" />
+                <ScalarProperty Name="DocumentGUID" ColumnName="DocumentGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDocumentTypeText">
+            <EntityTypeMapping TypeName="PRGModel.codeDocumentTypeText">
+              <MappingFragment StoreEntitySet="codeDocumentTypeText">
+                <ScalarProperty Name="SiteIDReplicate" ColumnName="SiteIDReplicate" />
+                <ScalarProperty Name="OwnerDate" ColumnName="OwnerDate" />
+                <ScalarProperty Name="SiteIDOwner" ColumnName="SiteIDOwner" />
+                <ScalarProperty Name="SiteIDUpdate" ColumnName="SiteIDUpdate" />
+                <ScalarProperty Name="SiteIDCreate" ColumnName="SiteIDCreate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UserIDUpdate" ColumnName="UserIDUpdate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserIDCreate" ColumnName="UserIDCreate" />
+                <ScalarProperty Name="DocumentTypeText" ColumnName="DocumentTypeText" />
+                <ScalarProperty Name="DocumentTypeLanguageCode" ColumnName="DocumentTypeLanguageCode" />
+                <ScalarProperty Name="DocumentTypeCode" ColumnName="DocumentTypeCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeProcessStatusText">
+            <EntityTypeMapping TypeName="PRGModel.codeProcessStatusText">
+              <MappingFragment StoreEntitySet="codeProcessStatusText">
+                <ScalarProperty Name="SiteIDReplicate" ColumnName="SiteIDReplicate" />
+                <ScalarProperty Name="OwnerDate" ColumnName="OwnerDate" />
+                <ScalarProperty Name="SiteIDOwner" ColumnName="SiteIDOwner" />
+                <ScalarProperty Name="SiteIDUpdate" ColumnName="SiteIDUpdate" />
+                <ScalarProperty Name="SiteIDCreate" ColumnName="SiteIDCreate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UserIDUpdate" ColumnName="UserIDUpdate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserIDCreate" ColumnName="UserIDCreate" />
+                <ScalarProperty Name="ProcessStatusText" ColumnName="ProcessStatusText" />
+                <ScalarProperty Name="ProcessStatusLanguageCode" ColumnName="ProcessStatusLanguageCode" />
+                <ScalarProperty Name="ProcessStatusCode" ColumnName="ProcessStatusCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="rspUpdateDocument" FunctionName="PRGModel.Store.rspUpdateDocument" />
+          <EntitySetMapping Name="configSecurityUser">
+            <EntityTypeMapping TypeName="PRGModel.configSecurityUser">
+              <MappingFragment StoreEntitySet="configSecurityUser">
+                <ScalarProperty Name="SiteIDReplicate" ColumnName="SiteIDReplicate" />
+                <ScalarProperty Name="OwnerDate" ColumnName="OwnerDate" />
+                <ScalarProperty Name="SiteIDOwner" ColumnName="SiteIDOwner" />
+                <ScalarProperty Name="SiteIDUpdate" ColumnName="SiteIDUpdate" />
+                <ScalarProperty Name="SiteIDCreate" ColumnName="SiteIDCreate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UserIDUpdate" ColumnName="UserIDUpdate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserIDCreate" ColumnName="UserIDCreate" />
+                <ScalarProperty Name="RecordWindowToolBarXml" ColumnName="RecordWindowToolBarXml" />
+                <ScalarProperty Name="MainWindowToolBarXml" ColumnName="MainWindowToolBarXml" />
+                <ScalarProperty Name="UserAccountTypeCode" ColumnName="UserAccountTypeCode" />
+                <ScalarProperty Name="PasswordChangeDate" ColumnName="PasswordChangeDate" />
+                <ScalarProperty Name="LockStatus" ColumnName="LockStatus" />
+                <ScalarProperty Name="MaximumConcurrentLogins" ColumnName="MaximumConcurrentLogins" />
+                <ScalarProperty Name="NumberLoginFailure" ColumnName="NumberLoginFailure" />
+                <ScalarProperty Name="SecurityProfileGUID" ColumnName="SecurityProfileGUID" />
+                <ScalarProperty Name="SecurityUserPassword" ColumnName="SecurityUserPassword" />
+                <ScalarProperty Name="SecurityUserEmail" ColumnName="SecurityUserEmail" />
+                <ScalarProperty Name="SecurityUserFirstName" ColumnName="SecurityUserFirstName" />
+                <ScalarProperty Name="SecurityUserLastName" ColumnName="SecurityUserLastName" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="SecurityUserID" ColumnName="SecurityUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataIndividualV4">
+            <EntityTypeMapping TypeName="PRGModel.dataIndividualV4">
+              <MappingFragment StoreEntitySet="dataIndividualV4">
+                <ScalarProperty Name="changeReason" ColumnName="changeReason" />
+                <ScalarProperty Name="V4GUID" ColumnName="V4GUID" />
+                <ScalarProperty Name="V3GUID" ColumnName="V3GUID" />
+                <ScalarProperty Name="CoAEntryPoint" ColumnName="CoAEntryPoint" />
+                <ScalarProperty Name="ProcessingGroupGUID" ColumnName="ProcessingGroupGUID" />
+                <ScalarProperty Name="VersionNumber" ColumnName="VersionNumber" />
+                <ScalarProperty Name="BusinessUnitGUID" ColumnName="BusinessUnitGUID" />
+                <ScalarProperty Name="BiometricId" ColumnName="BiometricId" />
+                <ScalarProperty Name="RelationshipText" ColumnName="RelationshipText" />
+                <ScalarProperty Name="ResettlementStatusCode" ColumnName="ResettlementStatusCode" />
+                <ScalarProperty Name="RSDStatusCode" ColumnName="RSDStatusCode" />
+                <ScalarProperty Name="ConcatenatedAlias" ColumnName="ConcatenatedAlias" />
+                <ScalarProperty Name="CommonlyUsedName" ColumnName="CommonlyUsedName" />
+                <ScalarProperty Name="ProcessStatusChangeReason" ColumnName="ProcessStatusChangeReason" />
+                <ScalarProperty Name="ProcessStatusChanged" ColumnName="ProcessStatusChanged" />
+                <ScalarProperty Name="NRefStatus" ColumnName="NRefStatus" />
+                <ScalarProperty Name="NRefStatCategory" ColumnName="NRefStatCategory" />
+                <ScalarProperty Name="CoA" ColumnName="CoA" />
+                <ScalarProperty Name="CoA_Phone" ColumnName="CoA_Phone" />
+                <ScalarProperty Name="CoA_LocationLevelCodeSoftField2" ColumnName="CoA_LocationLevelCodeSoftField2" />
+                <ScalarProperty Name="CoA_LocationLevelCodeSoftField1" ColumnName="CoA_LocationLevelCodeSoftField1" />
+                <ScalarProperty Name="COA_L4" ColumnName="COA_L4" />
+                <ScalarProperty Name="COA_L3" ColumnName="COA_L3" />
+                <ScalarProperty Name="COA_L2" ColumnName="COA_L2" />
+                <ScalarProperty Name="COA_L1" ColumnName="COA_L1" />
+                <ScalarProperty Name="CoA_AddressCountry" ColumnName="CoA_AddressCountry" />
+                <ScalarProperty Name="CoA_AddressType" ColumnName="CoA_AddressType" />
+                <ScalarProperty Name="CoOPhone" ColumnName="CoOPhone" />
+                <ScalarProperty Name="CoO_L6" ColumnName="CoO_L6" />
+                <ScalarProperty Name="CoO_L4" ColumnName="CoO_L4" />
+                <ScalarProperty Name="CoO_L3" ColumnName="CoO_L3" />
+                <ScalarProperty Name="CoO_L2" ColumnName="CoO_L2" />
+                <ScalarProperty Name="CoO_L1" ColumnName="CoO_L1" />
+                <ScalarProperty Name="LocationLevel4ID" ColumnName="LocationLevel4ID" />
+                <ScalarProperty Name="LocationLevel3ID" ColumnName="LocationLevel3ID" />
+                <ScalarProperty Name="LocationLevel2ID" ColumnName="LocationLevel2ID" />
+                <ScalarProperty Name="LocationLevel1ID" ColumnName="LocationLevel1ID" />
+                <ScalarProperty Name="AddressCountry" ColumnName="AddressCountry" />
+                <ScalarProperty Name="AddressType" ColumnName="AddressType" />
+                <ScalarProperty Name="ProcessStatusReasonCode" ColumnName="ProcessStatusReasonCode" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CaseComments" ColumnName="CaseComments" />
+                <ScalarProperty Name="IndComments" ColumnName="IndComments" />
+                <ScalarProperty Name="ProcessingGroupLegacyID" ColumnName="ProcessingGroupLegacyID" />
+                <ScalarProperty Name="IndividualIDLegacy" ColumnName="IndividualIDLegacy" />
+                <ScalarProperty Name="ConcatenatedName" ColumnName="ConcatenatedName" />
+                <ScalarProperty Name="HasSPNeed" ColumnName="HasSPNeed" />
+                <ScalarProperty Name="EducationLevelCode" ColumnName="EducationLevelCode" />
+                <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+                <ScalarProperty Name="OccupationCode" ColumnName="OccupationCode" />
+                <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />
+                <ScalarProperty Name="EthnicityCode" ColumnName="EthnicityCode" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="ReligionCode" ColumnName="ReligionCode" />
+                <ScalarProperty Name="MarriageStatusCode" ColumnName="MarriageStatusCode" />
+                <ScalarProperty Name="IndividualAgeCohortCode" ColumnName="IndividualAgeCohortCode" />
+                <ScalarProperty Name="LegalBasis" ColumnName="LegalBasis" />
+                <ScalarProperty Name="RefStatCategoryCode" ColumnName="RefStatCategoryCode" />
+                <ScalarProperty Name="RefugeeStatusDate" ColumnName="RefugeeStatusDate" />
+                <ScalarProperty Name="RefugeeStatusCode" ColumnName="RefugeeStatusCode" />
+                <ScalarProperty Name="Current_process_StatusDate" ColumnName="Current_process_StatusDate" />
+                <ScalarProperty Name="Current_process_StatusCode" ColumnName="Current_process_StatusCode" />
+                <ScalarProperty Name="ProcessStatusCode" ColumnName="ProcessStatusCode" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="NationalityCode" ColumnName="NationalityCode" />
+                <ScalarProperty Name="IndividualAge" ColumnName="IndividualAge" />
+                <ScalarProperty Name="SexCode" ColumnName="SexCode" />
+                <ScalarProperty Name="OriginCountryCode" ColumnName="OriginCountryCode" />
+                <ScalarProperty Name="BirthCityTownVillage" ColumnName="BirthCityTownVillage" />
+                <ScalarProperty Name="BirthCountryCode" ColumnName="BirthCountryCode" />
+                <ScalarProperty Name="DateofBirth" ColumnName="DateofBirth" />
+                <ScalarProperty Name="TotalSize" ColumnName="TotalSize" />
+                <ScalarProperty Name="ProcessingGroupSize" ColumnName="ProcessingGroupSize" />
+                <ScalarProperty Name="CaseCreatedOn" ColumnName="CaseCreatedOn" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="VerbalName" ColumnName="VerbalName" />
+                <ScalarProperty Name="SecondFamilyName" ColumnName="SecondFamilyName" />
+                <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="GivenName" ColumnName="GivenName" />
+                <ScalarProperty Name="IndividualID" ColumnName="IndividualID" />
+                <ScalarProperty Name="ProcessingGroupNumber" ColumnName="ProcessingGroupNumber" />
+                <ScalarProperty Name="IndividualGUID" ColumnName="IndividualGUID" />
+                <ScalarProperty Name="SiteIDOwner" ColumnName="SiteIDOwner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataProcessGroupV4">
+            <EntityTypeMapping TypeName="PRGModel.dataProcessGroupV4">
+              <MappingFragment StoreEntitySet="dataProcessGroupV4">
+                <ScalarProperty Name="OwningOfficeName" ColumnName="OwningOfficeName" />
+                <ScalarProperty Name="BussinessSiteName" ColumnName="BussinessSiteName" />
+                <ScalarProperty Name="V4GUID" ColumnName="V4GUID" />
+                <ScalarProperty Name="V3GUID" ColumnName="V3GUID" />
+                <ScalarProperty Name="SiteIDReplicate" ColumnName="SiteIDReplicate" />
+                <ScalarProperty Name="OwnerDate" ColumnName="OwnerDate" />
+                <ScalarProperty Name="SiteIDOwner" ColumnName="SiteIDOwner" />
+                <ScalarProperty Name="SiteIDUpdate" ColumnName="SiteIDUpdate" />
+                <ScalarProperty Name="SiteIDCreate" ColumnName="SiteIDCreate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UserIDUpdate" ColumnName="UserIDUpdate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserIDCreate" ColumnName="UserIDCreate" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+                <ScalarProperty Name="BiometricReferenceID" ColumnName="BiometricReferenceID" />
+                <ScalarProperty Name="PGCompositionCode" ColumnName="PGCompositionCode" />
+                <ScalarProperty Name="WillingToReturnConditions" ColumnName="WillingToReturnConditions" />
+                <ScalarProperty Name="WillingToReturnCode" ColumnName="WillingToReturnCode" />
+                <ScalarProperty Name="LastEventEffectiveDate" ColumnName="LastEventEffectiveDate" />
+                <ScalarProperty Name="LastEventID" ColumnName="LastEventID" />
+                <ScalarProperty Name="PhyFile" ColumnName="PhyFile" />
+                <ScalarProperty Name="ProcessingGroupComments" ColumnName="ProcessingGroupComments" />
+                <ScalarProperty Name="Level1RegistrationGUID" ColumnName="Level1RegistrationGUID" />
+                <ScalarProperty Name="ProcessGroupStatusDate" ColumnName="ProcessGroupStatusDate" />
+                <ScalarProperty Name="ProcessingGroupStatusCode" ColumnName="ProcessingGroupStatusCode" />
+                <ScalarProperty Name="CaseSource" ColumnName="CaseSource" />
+                <ScalarProperty Name="ProcessingGroupRegistrationDate" ColumnName="ProcessingGroupRegistrationDate" />
+                <ScalarProperty Name="CaseTypeCode" ColumnName="CaseTypeCode" />
+                <ScalarProperty Name="ResponsibleUserID" ColumnName="ResponsibleUserID" />
+                <ScalarProperty Name="OriginalProcessingGroupGUID" ColumnName="OriginalProcessingGroupGUID" />
+                <ScalarProperty Name="TotalGroupSize" ColumnName="TotalGroupSize" />
+                <ScalarProperty Name="DeclaredSize" ColumnName="DeclaredSize" />
+                <ScalarProperty Name="ProcessingGroupSize" ColumnName="ProcessingGroupSize" />
+                <ScalarProperty Name="ProcessingGroupDeactiveDate" ColumnName="ProcessingGroupDeactiveDate" />
+                <ScalarProperty Name="ProcessingGroupActive" ColumnName="ProcessingGroupActive" />
+                <ScalarProperty Name="CurrentRationCardNumber" ColumnName="CurrentRationCardNumber" />
+                <ScalarProperty Name="ProcessingGroupFormNumber" ColumnName="ProcessingGroupFormNumber" />
+                <ScalarProperty Name="ProcessingGroupGovtNumber" ColumnName="ProcessingGroupGovtNumber" />
+                <ScalarProperty Name="ProcessingGroupLegacyID" ColumnName="ProcessingGroupLegacyID" />
+                <ScalarProperty Name="ProcessingGroupNumber" ColumnName="ProcessingGroupNumber" />
+                <ScalarProperty Name="ProcessingGroupTypeCode" ColumnName="ProcessingGroupTypeCode" />
+                <ScalarProperty Name="ProcessingGroupGUID" ColumnName="ProcessingGroupGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

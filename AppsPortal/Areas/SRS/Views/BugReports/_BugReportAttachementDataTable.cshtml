@@ -1,0 +1,24 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">Bug Report Attachement</h3>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter",DataTableNames.BugReportsAttachementDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.BugReportsAttachementDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer",DataTableNames.BugReportsAttachementDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.BugReportsAttachementDataTable)
+                @Html.FieldDataTableCreateNoPermission(Url.Action("BugReportsAttachementCreate", "ServiceRequest", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDeleteNoPermission(DataTableNames.BugReportsAttachementDataTable)
+                @Html.FieldDataTableRestoreNoPermission(DataTableNames.BugReportsAttachementDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.BugReportsAttachementDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.BugReportsAttachementDataTable, FormController = "ServiceRequest", Area = "SRS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 0 })
+    </div>
+</div>

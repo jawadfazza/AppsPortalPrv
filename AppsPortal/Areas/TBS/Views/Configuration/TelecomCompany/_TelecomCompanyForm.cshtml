@@ -1,0 +1,41 @@
+﻿@model TelecomCompanyUpdateModel
+@using (Html.BeginForm("TelecomCompany", "Configuration", new { Area = "TBS" }, FormMethod.Post, new { id = "TelecomCompanyForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+
+    @Html.FormHiddenFields(model => model.TelecomCompanyGUID)
+    <div class="row">
+        <div class="col-lg-7 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TelecomCompanyAcronym)
+                @Html.EditorFor(model => model.TelecomCompanyAcronym, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TelecomCompanyDescription)
+                @Html.EditorFor(model => model.TelecomCompanyDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div id="TelecomCompanyFormControls" class="form-group form-footer">
+                @if (Model.TelecomCompanyGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.TelecomCompanies.Create, Apps.TBS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+
+                        @Html.UpdateButton(Permissions.TelecomCompanies.Update, Apps.TBS)
+                        @Html.CreateNewButton(Permissions.TelecomCompanies.Create, Apps.TBS, Url.Action("TelecomCompanies/Create", "Configuration", new { Area = "TBS" }))
+                        @Html.DeleteButton(Permissions.TelecomCompanies.Delete, Apps.TBS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.TelecomCompanies.Restore, Apps.TBS)
+                    }
+                }
+                @Html.BackToList(Url.Action("TelecomCompanies", "Configuration", new { Area = "TBS" }))
+            </div>
+        </div>
+    </div>
+}

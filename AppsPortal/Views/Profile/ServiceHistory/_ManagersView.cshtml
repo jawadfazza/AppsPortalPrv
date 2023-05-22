@@ -1,0 +1,30 @@
+﻿@model ICollection<userManagersHistory>
+@if (Model.Where(x => x.Active).Count() == 0)
+{
+    <div class="col-xs-12" style="color:#ccc;">You didn't add any managers for this job yet.</div>
+}
+else
+{
+    foreach (var manager in Model.Where(x => x.Active).OrderByDescending(s => s.FromDate))
+    {
+        string ManagerType = new CMS().GetManagerType(manager.ManagerTypeGUID);
+        string FullName = manager.userAccounts.userPersonalDetails.userPersonalDetailsLanguage.Where(l => l.LanguageID == Languages.CurrentLanguage().ToString()).Select(s => s.FirstName + " " + s.Surname).FirstOrDefault();
+        <div class="col-lg-12">
+            <div class="shRecord">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a class='Modal-Link' href='#' data-url='/Profile/ManagerUpdate/@manager.UserManagersHistoryGUID'><span>@FullName</span></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="factsheet-label">@ManagerType</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <span>@Html.DisplayFor(x => manager.FromDate)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

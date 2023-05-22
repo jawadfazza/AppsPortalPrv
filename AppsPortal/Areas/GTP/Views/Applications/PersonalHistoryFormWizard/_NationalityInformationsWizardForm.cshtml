@@ -1,0 +1,78 @@
+﻿@model dataPersonalHistoryNationalityInfoUpdateModel
+@using (Html.BeginForm("NationalityInformationsWizard", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "NationalityInformationsWizardForm", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.GTPPHNationalityInfoGUID)
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.ClientNationalityAtBirth, new { @class = "ClientNationalityAtBirth", autocomplete = "off" })
+    @Html.HiddenFor(model => model.ClientCurrentNationality, new { @class = "ClientCurrentNationality", autocomplete = "off" })
+
+    <div class="tab-pane" id="tab1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><b>6. NATIONALITY INFORMATIONS </b> (Mandatory to complete)</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12" style="padding-bottom:10px;">
+                        <span>
+                            Please list all COUNTRIES as applicable
+                        </span>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NationalityAtBirth)  <span class="span-required-field">*</span>
+                            @Html.DropDownListFor(model => model.NationalityAtBirth, new DropDownList().GTPNationalities(), "", new { @class = "form-control select2-basic-multiple NationalityAtBirth", style = "width:100%", multiple = "multiple" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurrentNationality)  <span class="span-required-field">*</span>
+                            @Html.DropDownListFor(model => model.CurrentNationality, new DropDownList().GTPNationalities(), "", new { @class = "form-control select2-basic-multiple CurrentNationality", style = "width:100%", multiple = "multiple" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PermanentResidency)   <span class="span-required-field">*</span>
+                            @Html.DropDownListFor(model => model.PermanentResidency, new DropDownList().GTPCountries(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right">
+                            @if (Model.GTPPHNationalityInfoGUID == Guid.Empty)
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Save & Next' data-next-url="/GTP/Applications/LetterOfInterestWizard/Create" />
+                            }
+                            else
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Update" name='next' value='Update & Next' data-next-url="/GTP/Applications/LetterOfInterestWizard/Create" />
+                            }
+                        </div>
+                        <div style="float:left">
+                            <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/EmailAddressesWizard/Create" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+
+        InitPlugins('#NationalityInformationsWizardForm');
+        debugger;
+        if ($('.ClientNationalityAtBirth').val() != undefined) {
+            $('.NationalityAtBirth').val($('.ClientNationalityAtBirth').val().split(",")).trigger('change');
+        }
+        if ($('.ClientCurrentNationality').val() != undefined) {
+            $('.CurrentNationality').val($('.ClientCurrentNationality').val().split(",")).trigger('change');
+        }
+    })
+</script>

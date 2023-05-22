@@ -1,0 +1,26 @@
+﻿@model dataElectionCandidate
+
+@using (Html.BeginForm("ElectionLanguage", "Election", new {Area = "OVS"}, FormMethod.Post, new {id = "CandidateInfoForm" }))
+{
+    @Html.Partial("_ModalHeader", resxDbFields.Candidateinfo)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.Label(resxDbFields.FullName)
+            @Html.DisplayTextFor(model => model.FullName)
+        </div>
+        <div class="form-group">
+            @Html.Label(resxDbFields.CampaignPlan)
+            @*@Html.Raw("<pre>" + Html.Encode(Model.CampaignPlan) + "</pre>")*@
+
+            @Html.TextAreaFor(model => model.CampaignPlan, new { @class = "form-control", rows = 15 ,@readonly=true})
+        </div>
+
+    </div>
+    <div class="modal-footer form-footer">
+
+        @Html.CloseModalButton()
+    </div>
+}
+

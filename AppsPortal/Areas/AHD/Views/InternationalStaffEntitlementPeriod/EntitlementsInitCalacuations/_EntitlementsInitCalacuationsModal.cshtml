@@ -1,0 +1,77 @@
+﻿@model EntitlementsInitCalacuationsUpdateModel
+@using (Html.BeginForm("EntitlementsInitCalacuation", "InternationalStaffEntitlement", new { Area = "AHD" }, FormMethod.Post, new { id = "InternationalStaffEntitlementForm", @class = "main-form", enctype = "multipart/form-data" }))
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.EntitlementTypePerDutyStationGUID)
+
+
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+                <h3>Calauction</h3>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EntitlementTypeGUID)
+                            @Html.DropDownListFor(model => model.EntitlementTypeGUID, new DropDownList().AHDEntitlementTypes(), "", new
+                                    {
+                                    @class = "form-control select2-basic-search",
+                                    style = "width:100%",
+
+                                    })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DutyStationGUID)
+                            @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().SyiraDutyStations(), "", new
+                                    {
+                                    @class = "form-control select2-basic-search",
+                                    style = "width:100%",
+
+                                    })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EntitlementValue)
+                            @Html.EditorFor(model => model.EntitlementValue, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IsCalculatedPerDay)
+                            @Html.CheckBoxFor(model => model.IsCalculatedPerDay, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+                        </div>
+
+       
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.EntitlementTypePerDutyStationGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.InternationalStaffEntitlements.Create, Apps.AHD)
+
+
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.InternationalStaffEntitlements.Update, Apps.AHD)
+                @Html.DeleteSwitchButton(Permissions.InternationalStaffEntitlements.Delete, Apps.AHD)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.InternationalStaffEntitlements.Delete, Apps.AHD)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+

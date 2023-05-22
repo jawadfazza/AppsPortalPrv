@@ -1,0 +1,114 @@
+﻿@model string
+@{
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("bdca20de-95e0-4f09-bf67-b1b3be1185bb")
+<div class="page--content">
+    <div class="page--body">
+        <div class="forms-fadeIn" style="margin-top:20px;">
+            <div class="row">
+                <div class="col-lg-6" style="margin-bottom:20px;">
+                    <p>
+                        @resxPages.IndexConfigurations
+                    </p>
+                    <div class="input-group bigSelect2">
+                        @*<label for="OrganizationOperationGUID">Organization Instance</label>*@
+                        @Html.DropDownList("OrganizationInstanceGUID", new DropDownList().AuthorizedOrganizationsInstances(Permissions.OrganizationsInstancesConfigurations.AccessGuid,Model),
+                        new
+                        {
+                            style = "width:100%",
+                            @class = "form-control select2-basic-search",
+                            onchange = "$('.panel-body', '#accordion').html('Loading...'); " +
+                                       "$('#accordion .in').collapse('hide'); " +
+                                       "AccordionNodeLoad({ 'PK': $(this).val() });" +
+                                       "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DutyStationsGUID', Action : 'RemoteOrganizationInstanceDutyStation'}],UpdateWorkingDaysURL);"
+                        })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel-group portalConfig" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="CountriesHeader" data-url="@Url.Action(DataTableNames.CountriesConfigDataTable,"Configurations")" data-toggle="collapse" data-parent="#accordion" href="#CountriesTab" aria-expanded="false">
+                                <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#CountriesTab">
+                                    @resxPages.Country
+                                </span>
+                            </div>
+                            <div id="CountriesTab" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+                                <div class="panel-body">
+                                    @resxPages.Loading
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="DutyStationHeader" data-url="@Url.Action(DataTableNames.DutyStationsConfigDataTable,"Configurations")" data-toggle="collapse" data-parent="#accordion" href="#DutyStationsTab" aria-expanded="false">
+                                <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#DutyStationsTab">
+                                    @resxPages.DutyStation
+                                </span>
+                            </div>
+                            <div id="DutyStationsTab" class="panel-collapse collapse" role="tabpanel" aria-labelledby="DutyStationHeader">
+                                <div class="panel-body">
+                                    @resxPages.Loading
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="DepartmentsHeader" data-url="@Url.Action(DataTableNames.DepartmentsConfigDataTable,"Configurations")" data-toggle="collapse" data-parent="#accordion" href="#DepartmentsTab" aria-expanded="false">
+                                <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#DepartmentsTab">
+                                    @resxPages.DepartmentsHierarchy
+                                </span>
+                            </div>
+                            <div id="DepartmentsTab" class="panel-collapse collapse" role="tabpanel" aria-labelledby="DepartmentsHeader">
+                                <div class="panel-body">
+                                    @resxPages.Loading
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="WorkdingDaysHeader" data-url="on fly" data-toggle="collapse" data-parent="#accordion" href="#WorkingDaysTab" aria-expanded="false">
+                                <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#WorkingDaysTab">
+                                    @resxPages.WorkingDays
+                                </span>
+                            </div>
+                            <div id="WorkingDaysTab" class="panel-collapse collapse" role="tabpanel" aria-labelledby="WorkdingDaysHeader">
+                                <div id="DivDutyStationsDDL" style="padding:15px;background-color:#f3f3f3;border-top:1px solid #ccc;">
+                                   @Html.Partial("~/Areas/CMS/Views/Configurations/WorkingDays/_DutyStationsDDL.cshtml", Guid.Parse(Model))
+                                    @*@Html.DropDownList("DutyStationsGUID", new DropDownList().DutyStations(),
+                                           new
+                                           {
+                                               style = "width:100%",
+                                               @class = "form-control select2-basic-search DutyStationsGUID",
+                                               data_noemptyselection = "true",
+                                               onchange = "LoadWorkingDays($(this).val());"
+                                           })*@
+                                </div>
+                                <div id="WorkingDaysBody" class="panel-body">
+                                   @resxPages.Loading
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="LookupValuesHeader" data-url="@Url.Action(DataTableNames.GenderConfigDataTable,"Configurations")" data-toggle="collapse" data-parent="#accordion" href="#LookupValuesTab" aria-expanded="false">
+                                <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#LookupValuesTab">
+                                    @resxPages.GenderOptions
+                                </span>
+                            </div>
+                            <div id="LookupValuesTab" class="panel-collapse collapse" role="tabpanel" aria-labelledby="WorkdingDaysHeader">
+                                <div class="panel-body">
+                                    @resxPages.Loading
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        AccordionNodeLoad({ "PK": $("#OrganizationInstanceGUID").val() });
+        UpdateDropDownList([$("#OrganizationInstanceGUID").val()], [{ DropDownListID: 'DutyStationsGUID', Action: 'RemoteOrganizationInstanceDutyStation' }], UpdateWorkingDaysURL);
+    });
+</script>

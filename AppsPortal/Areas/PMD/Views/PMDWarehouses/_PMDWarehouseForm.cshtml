@@ -1,0 +1,109 @@
+﻿@model PMDWarehouseUpdateModel
+@using (Html.BeginForm("PMDWarehouse", "PMDWarehouses", new { Area = "PMD" }, FormMethod.Post, new { id = "PMDWarehouseForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+   
+    @Html.FormHiddenFields(model => model.PmdWarehouseGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PMDWarehouseDescription)
+                @Html.EditorFor(model => model.PMDWarehouseDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ImplementingPartnerGUID)
+                @Html.DropDownListFor(model => model.ImplementingPartnerGUID, new DropDownList().PMDImplementingPartners(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+           
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.admin1Pcode)
+                @Html.DropDownListFor(model => model.admin1Pcode, new DropDownList().PMDGovernorates(), "", new
+                {
+                    style = "width:100%",
+               @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'District', Action : 'RemotePMDDistricts'}]);" +
+               "showHideDiv();"
+
+           })
+            </div>
+            <div id="hiddenDiv" style="display:none;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.District)
+                    @Html.DropDownListFor(model => model.District, new DropDownList().PMDDistricts(Model.admin1Pcode), "",
+                   new
+                   {
+                       @class = "form-control select2-basic-search",
+                       style = "width:100%",
+                       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'SubDistrict', Action : 'RemotePMDSubDistricts'}]);"
+                   })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SubDistrict)
+                    @Html.DropDownListFor(model => model.SubDistrict, new DropDownList().PMDSubDistricts(Model.District), "",
+                       new
+                       {
+                           @class = "form-control select2-basic-search",
+                           style = "width:100%",
+                           onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'admin4Pcode', Action : 'RemotePMDCommunities'}]);"
+                       })
+                </div>
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.admin4Pcode)
+                @Html.DropDownListFor(model => model.admin4Pcode, new DropDownList().PMDCommunitiesByAdmin1Pcode(Model.admin1Pcode), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$('#admin2Pcode').val()+'|'+$('#OrganizationInstanceGUID').val()], [{ DropDownListID : 'PmdWarehouseGUID', Action : 'RemotePMDWarehouse'}]);"
+
+           })
+            </div>
+            <div id="PMDWarehouseFormControls" class="form-group form-footer">
+                @if (Model.PmdWarehouseGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.PMDWarehouse.Create, Apps.PMD)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.PMDWarehouse.Update, Apps.PMD)
+                        @Html.CreateNewButton(Permissions.PMDWarehouse.Create, Apps.PMD, Url.Action("/Create", new { Area = "PMD" }))
+                        @Html.DeleteButton(Permissions.PMDWarehouse.Delete, Apps.PMD)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.PMDWarehouse.Restore, Apps.PMD)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "PMDWarehouses", new { Area = "PMD" }))
+            </div>
+        </div>
+    </div>
+}
+<script>
+    var vlaueChanged = "";
+    function showHideDiv() {
+        var dropdown = document.getElementById("admin1Pcode");
+
+        var selectedValue = dropdown.options[dropdown.selectedIndex].value;
+        var divElement = document.getElementById("hiddenDiv");
+
+        if (selectedValue != vlaueChanged && vlaueChanged != "") {
+            divElement.style.display = "block";
+            vlaueChanged = selectedValue;
+        } else if (selectedValue == "" && vlaueChanged == "") {
+            divElement.style.display = "block";
+        } else {
+            //divElement.style.display = "none";
+            vlaueChanged = selectedValue;
+        }
+    }
+
+    window.onload = function () {
+        showHideDiv();
+    }
+</script>

@@ -1,0 +1,40 @@
+﻿@model MedicalManufacturerUpdateModel
+@using (Html.BeginForm("MedicalManufacturer", "MedicalManufacturers", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalManufacturerForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+   
+    @Html.FormHiddenFields(model => model.MedicalManufacturerGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedicalManufacturerDescription)
+                @Html.EditorFor(model => model.MedicalManufacturerDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sort)
+                @Html.EditorFor(model => model.Sort, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="MedicalManufacturerFormControls" class="form-group form-footer">
+                @if (Model.MedicalManufacturerGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.MedicalManufacturer.Create, Apps.EMT)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.MedicalManufacturer.Update, Apps.EMT)
+                        @Html.CreateNewButton(Permissions.MedicalManufacturer.Create, Apps.EMT, Url.Action("/Create", new { Area = "EMT" }))
+                        @Html.DeleteButton(Permissions.MedicalManufacturer.Delete, Apps.EMT)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.MedicalManufacturer.Restore, Apps.EMT)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index","MedicalManufacturers", new { Area = "EMT" }))
+            </div>
+        </div>
+    </div>
+}

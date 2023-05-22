@@ -1,0 +1,16 @@
+﻿@model string
+
+@if (!Model.Contains(Guid.Empty.ToString()))
+{
+    string id = Guid.NewGuid().ToString().Substring(0, 8);
+    <div class="panel-group AuditHandler">
+        <div class="panel panel-default">
+            <div class="panel-heading AuditPanelHandler" data-toggle="collapse" data-url="@Model" href="#@id">
+                @resxPages.AuditHistory
+            </div>
+            <div id=@id class="panel-collapse collapse">
+                <div class="panel-body" style="padding:10px;">@resxPages.Loading/div>
+            </div>
+        </div>
+    </div>
+}

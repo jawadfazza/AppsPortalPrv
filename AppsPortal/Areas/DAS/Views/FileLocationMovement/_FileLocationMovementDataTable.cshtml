@@ -1,0 +1,26 @@
+﻿@model ScannNewDocumentModel
+<h3 class="Title">@resxPages.FileLocation</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.Active)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.FileLocationMovementDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.FileLocationMovementDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.FileLocationMovementDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.FileLocationMovementDataTable)
+                @if (Model.OwnedByStaff == true) { 
+                @Html.FieldDataTableCreate(Permissions.RefugeeScannedDocument.Create, Apps.DAS, Url.Action("FileLocationMovementCreate", "DAS/ScanDocument", new { FK = Model.FileGUID }))
+                }
+                @*@Html.FieldDataTableDelete(Permissions.RefugeeScannedDocument.Delete, Apps.DAS, DataTableNames.FileLocationMovementDataTable)*@
+                @Html.FieldDataTableRestore(Permissions.RefugeeScannedDocument.Restore, Apps.DAS, DataTableNames.FileLocationMovementDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.FileLocationMovementDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.FileLocationMovementDataTable, FormController = "ScanDocument", Area = "DAS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.FileGUID, OrderBy = 1 })
+    </div>
+</div>

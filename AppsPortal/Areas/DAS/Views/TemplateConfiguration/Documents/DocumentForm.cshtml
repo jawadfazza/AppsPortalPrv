@@ -1,0 +1,35 @@
+﻿@model TemplateTypeDocumentModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.TemplateTypeGUID == Guid.Empty) ? "New  Document " : "Edit Document"; }
+
+@Html.PageHeader("d2ad941d-c4bc-4c97-aa5c-7b19a8c6eb2a")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/DAS/Views/TemplateConfiguration/Documents/_DocumentUpdateModal.cshtml")
+
+        @*@if (Model.TemplateTypeGUID != null && Model.TemplateTypeGUID != Guid.Empty)
+        {
+            <div id="DocumentsFormControls">
+                @Html.Partial("~/Areas/DAS/Views/TemplateConfiguration/Documents/_DocumentsDataTable.cshtml", new MasterRecordStatus { ParentGUID = (Guid)Model.TemplateTypeGUID, IsParentActive = Model.Active })
+            </div>
+        }*@
+
+        @if (Model.TemplateTypeDocumentGUID != null && Model.TemplateTypeDocumentGUID != Guid.Empty)
+        {
+            <div id="TagsFormControls">
+                @Html.Partial("~/Areas/DAS/Views/TemplateConfiguration/Tags/_TagsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.TemplateTypeDocumentGUID, IsParentActive = Model.Active })
+            </div>
+        }
+        @if (Model.TemplateTypeDocumentGUID != null && Model.TemplateTypeDocumentGUID != Guid.Empty)
+        {
+            <div id="SoftFieldsFormControls">
+                @Html.Partial("~/Areas/DAS/Views/TemplateConfiguration/SoftFields/_SoftFieldsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.TemplateTypeDocumentGUID, IsParentActive = Model.Active })
+            </div>
+        }
+
+    </div>
+</div>
+

@@ -1,0 +1,64 @@
+﻿@model NotificationUpdateModel
+@using (Html.BeginForm("Notification", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "NotificationForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.NotificationGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TitleTemplete)
+                @Html.EditorFor(model => model.TitleTemplete, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="breath-bottom">
+                @Html.LabelFor(model => model.DetailsTemplete, new { @class = "SubTitle" })
+                @Html.TextAreaFor(model => model.DetailsTemplete, new { @class = "form-control group-control", autocomplete = "off", style = "width:100%;", rows = 6 })
+            </div>
+            <div class="breath-bottom">
+                @Html.LabelFor(model => model.MailTemplete, new { @class = "SubTitle" })
+                @Html.TextAreaFor(model => model.MailTemplete, new { @class = "form-control group-control", autocomplete = "off", style = "width:100%;", rows = 6 })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.ApplicationGUID, new DropDownList().Applications(), new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search"
+           })
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.UserProfileIcon, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.UserProfileIcon)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Icon)
+                @Html.EditorFor(model => model.Icon, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+           
+            <div class="form-group">
+                @Html.LabelFor(model => model.RedirectURL)
+                @Html.EditorFor(model => model.RedirectURL, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="NotificationFormControls" class="form-group form-footer">
+                @if (Model.NotificationGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Notifications.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Notifications.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.Notifications.Create, Apps.CMS, Url.Action("Notifications/Create", "Codes", new { Area = "CMS" }))
+                        @Html.DeleteButton(Permissions.Notifications.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Notifications.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Notifications", "Codes", new { Area = "CMS" }))
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,1001 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OSAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="StaffCoreData">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="IsInternational" Type="bit" />
+          <Property Name="StaffPhoto" Type="nvarchar(max)" />
+          <Property Name="PositionInOrganigram" Type="nvarchar(max)" />
+          <Property Name="JobTitleGUID" Type="uniqueidentifier" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReportToGUID" Type="uniqueidentifier" />
+          <Property Name="NationalityGUID" Type="uniqueidentifier" />
+          <Property Name="Nationality2GUID" Type="uniqueidentifier" />
+          <Property Name="Nationality3GUID" Type="uniqueidentifier" />
+          <Property Name="ExpiryOfResidencyVisa" Type="datetime" />
+          <Property Name="SyrianNationalIDNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="SyrianNationalIDPhoto" Type="nvarchar(max)" />
+          <Property Name="StaffPrefix" Type="nvarchar" MaxLength="10" />
+          <Property Name="PlaceOfBirthGUID" Type="uniqueidentifier" />
+          <Property Name="EmploymentID" Type="int" />
+          <Property Name="UNHCRIDNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="CallSign" Type="nvarchar(max)" />
+          <Property Name="StaffLastWork" Type="nvarchar" MaxLength="200" />
+          <Property Name="UNLPNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="UNLPDateOfIssue" Type="datetime" />
+          <Property Name="UNLPDateOfExpiry" Type="datetime" />
+          <Property Name="UNLPPhoto" Type="nvarchar(max)" />
+          <Property Name="NationalPassportNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="NationalPassportDateOfIssue" Type="datetime" />
+          <Property Name="NationalPassportDateOfExpiry" Type="datetime" />
+          <Property Name="IsEligibileForNationalDangerPay" Type="bit" />
+          <Property Name="NationalPassportNumber2" Type="nvarchar" MaxLength="200" />
+          <Property Name="NationalPassportDateOfIssue2" Type="datetime" />
+          <Property Name="NationalPassportDateOfExpiry2" Type="datetime" />
+          <Property Name="NationalPassportNumber3" Type="nvarchar" MaxLength="200" />
+          <Property Name="NationalPassportDateOfIssue3" Type="datetime" />
+          <Property Name="NationalPassportDateOfExpiry3" Type="datetime" />
+          <Property Name="NationalPassportPhoto" Type="nvarchar(max)" />
+          <Property Name="BankLebNameGUID" Type="uniqueidentifier" />
+          <Property Name="BankNameARLeb" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountHolderNameLebEN" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountHolderNameLebAR" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankNameLeb" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountNumberLeb" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankNameSyrGUID" Type="uniqueidentifier" />
+          <Property Name="BankNameSyr" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountNumberSyr" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountHolderNameEn" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankAccountHolderNameAr" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountNumberSyr2" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankNameSyrGUID2" Type="uniqueidentifier" />
+          <Property Name="BankSYRNameEN2" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameAR2" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameEn2" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameAr2" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountNumberSyr3" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameGUID3" Type="uniqueidentifier" />
+          <Property Name="BankSYRNameEN3" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameAR3" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameEn3" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameAr3" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountNumberSyr4" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameGUID4" Type="uniqueidentifier" />
+          <Property Name="BankSYRNameEN4" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameAR4" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameEn4" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameAr4" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountNumberSyr5" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameGUID5" Type="uniqueidentifier" />
+          <Property Name="BankSYRNameEN5" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRNameAR5" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameEn5" Type="nvarchar" MaxLength="200" />
+          <Property Name="BankSYRAccountHolderNameAr5" Type="nvarchar" MaxLength="200" />
+          <Property Name="ContractTypeGUID" Type="uniqueidentifier" />
+          <Property Name="RecruitmentTypeGUID" Type="uniqueidentifier" />
+          <Property Name="StaffGradeGUID" Type="uniqueidentifier" />
+          <Property Name="ContractStartDate" Type="datetime" />
+          <Property Name="ContractEndDate" Type="datetime" />
+          <Property Name="StaffEOD" Type="datetime" />
+          <Property Name="PositionNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="PermanentAddressEn" Type="nvarchar(max)" />
+          <Property Name="PermanentAddressAr" Type="nvarchar(max)" />
+          <Property Name="CurrentAddressEn" Type="nvarchar(max)" />
+          <Property Name="CurrentAddressAr" Type="nvarchar(max)" />
+          <Property Name="HomeTelephoneNumberLandline" Type="nvarchar" MaxLength="100" />
+          <Property Name="HomeTelephoneNumberMobile" Type="nvarchar" MaxLength="100" />
+          <Property Name="OfficialMobileNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="OfficialExtensionNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="OfficeGUID" Type="uniqueidentifier" />
+          <Property Name="OfficeFloorGUID" Type="uniqueidentifier" />
+          <Property Name="OfficeRoomGUID" Type="uniqueidentifier" />
+          <Property Name="IsOld" Type="bit" />
+          <Property Name="Gender" Type="uniqueidentifier" />
+          <Property Name="IDNumber" Type="nvarchar(max)" />
+          <Property Name="PersonalIDPhoto" Type="nvarchar(max)" />
+          <Property Name="PassportPhoto" Type="nvarchar(max)" />
+          <Property Name="AttendancePhoto" Type="nvarchar(max)" />
+          <Property Name="DangerPay" Type="nvarchar(max)" />
+          <Property Name="WifeHusbandName" Type="nvarchar(max)" />
+          <Property Name="AssignmentDuration" Type="nvarchar(max)" />
+          <Property Name="BankAccountNumber" Type="nvarchar(max)" />
+          <Property Name="CurrentLocationByDate" Type="nvarchar(max)" />
+          <Property Name="StaffMemberOnGTA" Type="bit" />
+          <Property Name="GTAStartDate" Type="datetime" />
+          <Property Name="GTAEndDate" Type="datetime" />
+          <Property Name="Accommodation" Type="nvarchar(max)" />
+          <Property Name="AccommodationStartingDate" Type="datetime" />
+          <Property Name="StartOfMissionAssignmentDate" Type="datetime" />
+          <Property Name="EndOfMissionAssignmentDate" Type="datetime" />
+          <Property Name="DetailsOfMissionAssignment" Type="nvarchar(max)" />
+          <Property Name="DurationOfStayInSyria" Type="nvarchar(max)" />
+          <Property Name="EmploymentType" Type="uniqueidentifier" />
+          <Property Name="StaffAccessCategoryGUID" Type="uniqueidentifier" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="PlaceBirthCityEn" Type="nvarchar" MaxLength="500" />
+          <Property Name="PlaceBirthCityAr" Type="nvarchar" MaxLength="500" />
+          <Property Name="LastJobEn" Type="nvarchar" MaxLength="500" />
+          <Property Name="LastJobAr" Type="nvarchar" MaxLength="500" />
+          <Property Name="SATPhoneNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="OfficeRoomNumberBuilding" Type="nvarchar" MaxLength="300" />
+          <Property Name="DegreeAr" Type="nvarchar" MaxLength="300" />
+          <Property Name="DegreeEn" Type="nvarchar" MaxLength="300" />
+          <Property Name="ReturnDateFromLastRAndRLeave" Type="datetime" />
+          <Property Name="StaffStatus" Type="bit" />
+          <Property Name="BloodGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastUpdatedByGUID" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedOn" Type="datetime" />
+          <Property Name="LastConfirmedByGUID" Type="uniqueidentifier" />
+          <Property Name="LastConfirmedOn" Type="datetime" />
+          <Property Name="ConfirmationStatusGUID" Type="uniqueidentifier" />
+          <Property Name="ConfirmationComment" Type="nvarchar" MaxLength="100" />
+          <Property Name="StaffStatusGUID" Type="uniqueidentifier" />
+          <Property Name="IsOldRecord" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="StaffCoreDataRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="StaffPrefixGUID" Type="uniqueidentifier" />
+          <Property Name="TitleEnglishMSRP" Type="nvarchar" MaxLength="500" />
+          <Property Name="TitleArabicMSRP" Type="nvarchar" MaxLength="500" />
+          <Property Name="TitleEnglishMOFA" Type="nvarchar" MaxLength="500" />
+          <Property Name="TitleArabicMOFA" Type="nvarchar" MaxLength="500" />
+          <Property Name="PersonalEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="HQExtensionNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="DamascusExtensionNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastConfirmationStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastConfirmationStatusGUID" Type="uniqueidentifier" />
+          <Property Name="OfficeTypeGUID" Type="uniqueidentifier" />
+          <Property Name="ICTComments" Type="nvarchar" MaxLength="2000" />
+          <Property Name="NextOfKinName" Type="nvarchar" MaxLength="300" />
+          <Property Name="KinMobileNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="BSAFECertAcquired" Type="bit" />
+          <Property Name="BSAFEExpiryDate" Type="datetime" />
+          <Property Name="NumberOfDependants" Type="int" />
+          <Property Name="DependantsName" Type="nvarchar" MaxLength="500" />
+          <Property Name="LastDepartureDate" Type="datetime" />
+          <Property Name="StaffPositionGUID" Type="uniqueidentifier" />
+          <Property Name="ICTServiceProvidedCount" Type="int" />
+          <Property Name="VendorID" Type="int" />
+          <Property Name="PaymentEligibilityStatusGUID" Type="uniqueidentifier" />
+          <Property Name="Photo" Type="image" />
+          <Property Name="WorkingOutsideSyriaGUID" Type="uniqueidentifier" />
+          <Property Name="HasToDeductFSHBreakfastFromEntitlementGUID" Type="uniqueidentifier" />
+          <Property Name="StaffFunctionality" Type="nvarchar" MaxLength="1000" />
+          <Property Name="HasFixedOfficalNumber" Type="bit" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GrandFatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeJobTitles">
+          <Key>
+            <PropertyRef Name="JobTitleGUID" />
+          </Key>
+          <Property Name="JobTitleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeJobTitlesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="IsNew" Type="bit" />
+        </EntityType>
+        <EntityType Name="codeJobTitlesLanguages">
+          <Key>
+            <PropertyRef Name="JobTitleLanguageGUID" />
+          </Key>
+          <Property Name="JobTitleLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="JobTitleGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="JobTitleDescription" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="JobTitleDescriptionFemale" Type="nvarchar" MaxLength="512" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeJobTitlesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOfficeFloor">
+          <Key>
+            <PropertyRef Name="OfficeFloorGUID" />
+          </Key>
+          <Property Name="OfficeFloorGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OfficeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FloorNumber" Type="nvarchar" MaxLength="12" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeOfficeFloorRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOfficeFloorRoom">
+          <Key>
+            <PropertyRef Name="OfficeFloorRoomGUID" />
+          </Key>
+          <Property Name="OfficeFloorRoomGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OfficeFloorGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoomNumber" Type="nvarchar" MaxLength="12" />
+          <Property Name="RoomSize" Type="float" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeOfficeFloorRoomRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOffices">
+          <Key>
+            <PropertyRef Name="OfficeGUID" />
+          </Key>
+          <Property Name="OfficeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OfficePhoneCountryCode" Type="nvarchar" MaxLength="5" />
+          <Property Name="OfficePhoneNumber" Type="nvarchar" MaxLength="12" />
+          <Property Name="VTCIP" Type="nvarchar" MaxLength="15" />
+          <Property Name="OfficeTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeOfficesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataOfficeStaffAttendance">
+          <Key>
+            <PropertyRef Name="OfficeStaffAttendanceGUID" />
+          </Key>
+          <Property Name="OfficeStaffAttendanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AttendanceFromDatetime" Type="date" Nullable="false" />
+          <Property Name="AttendanceToDatetime" Type="date" />
+          <Property Name="IsAttend" Type="bit" Nullable="false" />
+          <Property Name="IsConfirmed" Type="bit" Nullable="false" />
+          <Property Name="ShuttleDepartureMorningTime" Type="int" />
+          <Property Name="ShuttleDepartureEveningTime" Type="int" />
+          <Property Name="OfficeFloorRoomGUID" Type="uniqueidentifier" />
+          <Property Name="OfficeStaffAttendanceConfirmationGUID" Type="uniqueidentifier" />
+          <Property Name="WorkingHours" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataOfficeStaffAttendanceRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataOfficeStaffAttendanceConfirmation">
+          <Key>
+            <PropertyRef Name="OfficeStaffAttendanceConfirmationGUID" />
+          </Key>
+          <Property Name="OfficeStaffAttendanceConfirmationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReportToGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConfirmedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ConfirmedDate" Type="datetime" Nullable="false" />
+          <Property Name="ConfirmedYear" Type="int" Nullable="false" />
+          <Property Name="ConfirmedMonth" Type="int" Nullable="false" />
+          <Property Name="PaymentConfirmedDate" Type="datetime" />
+          <Property Name="PaymentConfirmedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataOfficeStaffAttendanceConfirmationRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_codeJobTitlesLanguages_codeJobTitles">
+          <End Role="codeJobTitles" Type="Self.codeJobTitles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeJobTitlesLanguages" Type="Self.codeJobTitlesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeJobTitles">
+              <PropertyRef Name="JobTitleGUID" />
+            </Principal>
+            <Dependent Role="codeJobTitlesLanguages">
+              <PropertyRef Name="JobTitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOfficeFloorRoom_codeOfficeFloor">
+          <End Role="codeOfficeFloor" Type="Self.codeOfficeFloor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeOfficeFloorRoom" Type="Self.codeOfficeFloorRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOfficeFloor">
+              <PropertyRef Name="OfficeFloorGUID" />
+            </Principal>
+            <Dependent Role="codeOfficeFloorRoom">
+              <PropertyRef Name="OfficeFloorGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OSAModelStoreContainer">
+          <EntitySet Name="StaffCoreData" EntityType="Self.StaffCoreData" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="userPersonalDetailsLanguage" EntityType="Self.userPersonalDetailsLanguage" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="codeJobTitles" EntityType="Self.codeJobTitles" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeJobTitlesLanguages" EntityType="Self.codeJobTitlesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOfficeFloor" EntityType="Self.codeOfficeFloor" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOfficeFloorRoom" EntityType="Self.codeOfficeFloorRoom" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOffices" EntityType="Self.codeOffices" Schema="code" store:Type="Tables" />
+          <EntitySet Name="dataOfficeStaffAttendance" EntityType="Self.dataOfficeStaffAttendance" Schema="OSA" store:Type="Tables" />
+          <EntitySet Name="dataOfficeStaffAttendanceConfirmation" EntityType="Self.dataOfficeStaffAttendanceConfirmation" Schema="OSA" store:Type="Tables" />
+          <AssociationSet Name="FK_codeJobTitlesLanguages_codeJobTitles" Association="Self.FK_codeJobTitlesLanguages_codeJobTitles">
+            <End Role="codeJobTitles" EntitySet="codeJobTitles" />
+            <End Role="codeJobTitlesLanguages" EntitySet="codeJobTitlesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOfficeFloorRoom_codeOfficeFloor" Association="Self.FK_codeOfficeFloorRoom_codeOfficeFloor">
+            <End Role="codeOfficeFloor" EntitySet="codeOfficeFloor" />
+            <End Role="codeOfficeFloorRoom" EntitySet="codeOfficeFloorRoom" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OSAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="userPersonalDetailsLanguage" EntityType="OSAModel.userPersonalDetailsLanguage" />
+          <EntitySet Name="codeJobTitles" EntityType="OSAModel.codeJobTitles" />
+          <EntitySet Name="codeJobTitlesLanguages" EntityType="OSAModel.codeJobTitlesLanguages" />
+          <AssociationSet Name="FK_codeJobTitlesLanguages_codeJobTitles" Association="OSAModel.FK_codeJobTitlesLanguages_codeJobTitles">
+            <End Role="codeJobTitles" EntitySet="codeJobTitles" />
+            <End Role="codeJobTitlesLanguages" EntitySet="codeJobTitlesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="StaffCoreData" EntityType="OSAModel.StaffCoreData" />
+          <EntitySet Name="codeOfficeFloor" EntityType="OSAModel.codeOfficeFloor" />
+          <EntitySet Name="codeOfficeFloorRoom" EntityType="OSAModel.codeOfficeFloorRoom" />
+          <EntitySet Name="codeOffices" EntityType="OSAModel.codeOffices" />
+          <AssociationSet Name="FK_codeOfficeFloorRoom_codeOfficeFloor" Association="OSAModel.FK_codeOfficeFloorRoom_codeOfficeFloor">
+            <End Role="codeOfficeFloor" EntitySet="codeOfficeFloor" />
+            <End Role="codeOfficeFloorRoom" EntitySet="codeOfficeFloorRoom" />
+          </AssociationSet>
+          <EntitySet Name="dataOfficeStaffAttendance" EntityType="OSAModel.dataOfficeStaffAttendance" />
+          <EntitySet Name="dataOfficeStaffAttendanceConfirmation" EntityType="OSAModel.dataOfficeStaffAttendanceConfirmation" />
+        </EntityContainer>
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GrandFatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="codeJobTitles">
+          <Key>
+            <PropertyRef Name="JobTitleGUID" />
+          </Key>
+          <Property Name="JobTitleGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeJobTitlesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeJobTitlesLanguages" Relationship="OSAModel.FK_codeJobTitlesLanguages_codeJobTitles" FromRole="codeJobTitles" ToRole="codeJobTitlesLanguages" />
+          <Property Name="IsNew" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="codeJobTitlesLanguages">
+          <Key>
+            <PropertyRef Name="JobTitleLanguageGUID" />
+          </Key>
+          <Property Name="JobTitleLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="JobTitleGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitleDescription" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitleDescriptionFemale" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeJobTitlesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeJobTitles" Relationship="OSAModel.FK_codeJobTitlesLanguages_codeJobTitles" FromRole="codeJobTitlesLanguages" ToRole="codeJobTitles" />
+        </EntityType>
+        <Association Name="FK_codeJobTitlesLanguages_codeJobTitles">
+          <End Type="OSAModel.codeJobTitles" Role="codeJobTitles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="OSAModel.codeJobTitlesLanguages" Role="codeJobTitlesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeJobTitles">
+              <PropertyRef Name="JobTitleGUID" />
+            </Principal>
+            <Dependent Role="codeJobTitlesLanguages">
+              <PropertyRef Name="JobTitleGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="StaffCoreData">
+          <Key>
+            <PropertyRef Name="UserGUID" />
+          </Key>
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IsInternational" Type="Boolean" />
+          <Property Name="StaffPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PositionInOrganigram" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitleGUID" Type="Guid" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReportToGUID" Type="Guid" />
+          <Property Name="NationalityGUID" Type="Guid" />
+          <Property Name="Nationality2GUID" Type="Guid" />
+          <Property Name="Nationality3GUID" Type="Guid" />
+          <Property Name="ExpiryOfResidencyVisa" Type="DateTime" Precision="3" />
+          <Property Name="SyrianNationalIDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SyrianNationalIDPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StaffPrefix" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceOfBirthGUID" Type="Guid" />
+          <Property Name="EmploymentID" Type="Int32" />
+          <Property Name="UNHCRIDNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CallSign" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StaffLastWork" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UNLPNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UNLPDateOfIssue" Type="DateTime" Precision="3" />
+          <Property Name="UNLPDateOfExpiry" Type="DateTime" Precision="3" />
+          <Property Name="UNLPPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NationalPassportNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NationalPassportDateOfIssue" Type="DateTime" Precision="3" />
+          <Property Name="NationalPassportDateOfExpiry" Type="DateTime" Precision="3" />
+          <Property Name="IsEligibileForNationalDangerPay" Type="Boolean" />
+          <Property Name="NationalPassportNumber2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NationalPassportDateOfIssue2" Type="DateTime" Precision="3" />
+          <Property Name="NationalPassportDateOfExpiry2" Type="DateTime" Precision="3" />
+          <Property Name="NationalPassportNumber3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NationalPassportDateOfIssue3" Type="DateTime" Precision="3" />
+          <Property Name="NationalPassportDateOfExpiry3" Type="DateTime" Precision="3" />
+          <Property Name="NationalPassportPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BankLebNameGUID" Type="Guid" />
+          <Property Name="BankNameARLeb" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountHolderNameLebEN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountHolderNameLebAR" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankNameLeb" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountNumberLeb" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankNameSyrGUID" Type="Guid" />
+          <Property Name="BankNameSyr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountNumberSyr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountHolderNameEn" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountHolderNameAr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountNumberSyr2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankNameSyrGUID2" Type="Guid" />
+          <Property Name="BankSYRNameEN2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameAR2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameEn2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameAr2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountNumberSyr3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameGUID3" Type="Guid" />
+          <Property Name="BankSYRNameEN3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameAR3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameEn3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameAr3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountNumberSyr4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameGUID4" Type="Guid" />
+          <Property Name="BankSYRNameEN4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameAR4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameEn4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameAr4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountNumberSyr5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameGUID5" Type="Guid" />
+          <Property Name="BankSYRNameEN5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRNameAR5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameEn5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BankSYRAccountHolderNameAr5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ContractTypeGUID" Type="Guid" />
+          <Property Name="RecruitmentTypeGUID" Type="Guid" />
+          <Property Name="StaffGradeGUID" Type="Guid" />
+          <Property Name="ContractStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ContractEndDate" Type="DateTime" Precision="3" />
+          <Property Name="StaffEOD" Type="DateTime" Precision="3" />
+          <Property Name="PositionNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentAddressEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentAddressAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HomeTelephoneNumberLandline" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HomeTelephoneNumberMobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialMobileNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OfficialExtensionNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeGUID" Type="Guid" />
+          <Property Name="OfficeFloorGUID" Type="Guid" />
+          <Property Name="OfficeRoomGUID" Type="Guid" />
+          <Property Name="IsOld" Type="Boolean" />
+          <Property Name="Gender" Type="Guid" />
+          <Property Name="IDNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PersonalIDPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PassportPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AttendancePhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DangerPay" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WifeHusbandName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AssignmentDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentLocationByDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StaffMemberOnGTA" Type="Boolean" />
+          <Property Name="GTAStartDate" Type="DateTime" Precision="3" />
+          <Property Name="GTAEndDate" Type="DateTime" Precision="3" />
+          <Property Name="Accommodation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccommodationStartingDate" Type="DateTime" Precision="3" />
+          <Property Name="StartOfMissionAssignmentDate" Type="DateTime" Precision="3" />
+          <Property Name="EndOfMissionAssignmentDate" Type="DateTime" Precision="3" />
+          <Property Name="DetailsOfMissionAssignment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DurationOfStayInSyria" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmploymentType" Type="Guid" />
+          <Property Name="StaffAccessCategoryGUID" Type="Guid" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="PlaceBirthCityEn" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceBirthCityAr" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastJobEn" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastJobAr" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SATPhoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeRoomNumberBuilding" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DegreeAr" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DegreeEn" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ReturnDateFromLastRAndRLeave" Type="DateTime" Precision="3" />
+          <Property Name="StaffStatus" Type="Boolean" />
+          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdatedByGUID" Type="Guid" />
+          <Property Name="LastUpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="LastConfirmedByGUID" Type="Guid" />
+          <Property Name="LastConfirmedOn" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmationStatusGUID" Type="Guid" />
+          <Property Name="ConfirmationComment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StaffStatusGUID" Type="Guid" />
+          <Property Name="IsOldRecord" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="StaffCoreDataRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="StaffPrefixGUID" Type="Guid" />
+          <Property Name="TitleEnglishMSRP" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TitleArabicMSRP" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TitleEnglishMOFA" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TitleArabicMOFA" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PersonalEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HQExtensionNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DamascusExtensionNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastConfirmationStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastConfirmationStatusGUID" Type="Guid" />
+          <Property Name="OfficeTypeGUID" Type="Guid" />
+          <Property Name="ICTComments" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="NextOfKinName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="KinMobileNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BSAFECertAcquired" Type="Boolean" />
+          <Property Name="BSAFEExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="NumberOfDependants" Type="Int32" />
+          <Property Name="DependantsName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastDepartureDate" Type="DateTime" Precision="3" />
+          <Property Name="StaffPositionGUID" Type="Guid" />
+          <Property Name="ICTServiceProvidedCount" Type="Int32" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="PaymentEligibilityStatusGUID" Type="Guid" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="WorkingOutsideSyriaGUID" Type="Guid" />
+          <Property Name="HasToDeductFSHBreakfastFromEntitlementGUID" Type="Guid" />
+          <Property Name="StaffFunctionality" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="HasFixedOfficalNumber" Type="Boolean" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="codeOfficeFloor">
+          <Key>
+            <PropertyRef Name="OfficeFloorGUID" />
+          </Key>
+          <Property Name="OfficeFloorGUID" Type="Guid" Nullable="false" />
+          <Property Name="OfficeGUID" Type="Guid" Nullable="false" />
+          <Property Name="FloorNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeOfficeFloorRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOfficeFloorRoom" Relationship="OSAModel.FK_codeOfficeFloorRoom_codeOfficeFloor" FromRole="codeOfficeFloor" ToRole="codeOfficeFloorRoom" />
+        </EntityType>
+        <EntityType Name="codeOfficeFloorRoom">
+          <Key>
+            <PropertyRef Name="OfficeFloorRoomGUID" />
+          </Key>
+          <Property Name="OfficeFloorRoomGUID" Type="Guid" Nullable="false" />
+          <Property Name="OfficeFloorGUID" Type="Guid" Nullable="false" />
+          <Property Name="RoomNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="RoomSize" Type="Double" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeOfficeFloorRoomRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOfficeFloor" Relationship="OSAModel.FK_codeOfficeFloorRoom_codeOfficeFloor" FromRole="codeOfficeFloorRoom" ToRole="codeOfficeFloor" />
+        </EntityType>
+        <EntityType Name="codeOffices">
+          <Key>
+            <PropertyRef Name="OfficeGUID" />
+          </Key>
+          <Property Name="OfficeGUID" Type="Guid" Nullable="false" />
+          <Property Name="OfficePhoneCountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="OfficePhoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="VTCIP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeOfficesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_codeOfficeFloorRoom_codeOfficeFloor">
+          <End Type="OSAModel.codeOfficeFloor" Role="codeOfficeFloor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="OSAModel.codeOfficeFloorRoom" Role="codeOfficeFloorRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOfficeFloor">
+              <PropertyRef Name="OfficeFloorGUID" />
+            </Principal>
+            <Dependent Role="codeOfficeFloorRoom">
+              <PropertyRef Name="OfficeFloorGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataOfficeStaffAttendance">
+          <Key>
+            <PropertyRef Name="OfficeStaffAttendanceGUID" />
+          </Key>
+          <Property Name="OfficeStaffAttendanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="AttendanceFromDatetime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AttendanceToDatetime" Type="DateTime" Precision="0" />
+          <Property Name="IsAttend" Type="Boolean" Nullable="false" />
+          <Property Name="IsConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="ShuttleDepartureMorningTime" Type="Int32" />
+          <Property Name="ShuttleDepartureEveningTime" Type="Int32" />
+          <Property Name="OfficeFloorRoomGUID" Type="Guid" />
+          <Property Name="OfficeStaffAttendanceConfirmationGUID" Type="Guid" />
+          <Property Name="WorkingHours" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataOfficeStaffAttendanceRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="dataOfficeStaffAttendanceConfirmation">
+          <Key>
+            <PropertyRef Name="OfficeStaffAttendanceConfirmationGUID" />
+          </Key>
+          <Property Name="OfficeStaffAttendanceConfirmationGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReportToGUID" Type="Guid" Nullable="false" />
+          <Property Name="ConfirmedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ConfirmedYear" Type="Int32" Nullable="false" />
+          <Property Name="ConfirmedMonth" Type="Int32" Nullable="false" />
+          <Property Name="PaymentConfirmedDate" Type="DateTime" Precision="3" />
+          <Property Name="PaymentConfirmedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataOfficeStaffAttendanceConfirmationRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OSAModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="userPersonalDetailsLanguage">
+            <EntityTypeMapping TypeName="OSAModel.userPersonalDetailsLanguage">
+              <MappingFragment StoreEntitySet="userPersonalDetailsLanguage">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="userPersonalDetailsLanguageRowVersion" ColumnName="userPersonalDetailsLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="GrandFatherName" ColumnName="GrandFatherName" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="PersonalDetailsLanguageGUID" ColumnName="PersonalDetailsLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeJobTitles">
+            <EntityTypeMapping TypeName="OSAModel.codeJobTitles">
+              <MappingFragment StoreEntitySet="codeJobTitles">
+                <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeJobTitlesRowVersion" ColumnName="codeJobTitlesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="JobTitleGUID" ColumnName="JobTitleGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeJobTitlesLanguages">
+            <EntityTypeMapping TypeName="OSAModel.codeJobTitlesLanguages">
+              <MappingFragment StoreEntitySet="codeJobTitlesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeJobTitlesLanguagesRowVersion" ColumnName="codeJobTitlesLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="JobTitleDescriptionFemale" ColumnName="JobTitleDescriptionFemale" />
+                <ScalarProperty Name="JobTitleDescription" ColumnName="JobTitleDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="JobTitleGUID" ColumnName="JobTitleGUID" />
+                <ScalarProperty Name="JobTitleLanguageGUID" ColumnName="JobTitleLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaffCoreData">
+            <EntityTypeMapping TypeName="OSAModel.StaffCoreData">
+              <MappingFragment StoreEntitySet="StaffCoreData">
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="HasFixedOfficalNumber" ColumnName="HasFixedOfficalNumber" />
+                <ScalarProperty Name="StaffFunctionality" ColumnName="StaffFunctionality" />
+                <ScalarProperty Name="HasToDeductFSHBreakfastFromEntitlementGUID" ColumnName="HasToDeductFSHBreakfastFromEntitlementGUID" />
+                <ScalarProperty Name="WorkingOutsideSyriaGUID" ColumnName="WorkingOutsideSyriaGUID" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="PaymentEligibilityStatusGUID" ColumnName="PaymentEligibilityStatusGUID" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="ICTServiceProvidedCount" ColumnName="ICTServiceProvidedCount" />
+                <ScalarProperty Name="StaffPositionGUID" ColumnName="StaffPositionGUID" />
+                <ScalarProperty Name="LastDepartureDate" ColumnName="LastDepartureDate" />
+                <ScalarProperty Name="DependantsName" ColumnName="DependantsName" />
+                <ScalarProperty Name="NumberOfDependants" ColumnName="NumberOfDependants" />
+                <ScalarProperty Name="BSAFEExpiryDate" ColumnName="BSAFEExpiryDate" />
+                <ScalarProperty Name="BSAFECertAcquired" ColumnName="BSAFECertAcquired" />
+                <ScalarProperty Name="KinMobileNumber" ColumnName="KinMobileNumber" />
+                <ScalarProperty Name="NextOfKinName" ColumnName="NextOfKinName" />
+                <ScalarProperty Name="ICTComments" ColumnName="ICTComments" />
+                <ScalarProperty Name="OfficeTypeGUID" ColumnName="OfficeTypeGUID" />
+                <ScalarProperty Name="LastConfirmationStatusGUID" ColumnName="LastConfirmationStatusGUID" />
+                <ScalarProperty Name="LastConfirmationStatus" ColumnName="LastConfirmationStatus" />
+                <ScalarProperty Name="DamascusExtensionNumber" ColumnName="DamascusExtensionNumber" />
+                <ScalarProperty Name="HQExtensionNumber" ColumnName="HQExtensionNumber" />
+                <ScalarProperty Name="PersonalEmail" ColumnName="PersonalEmail" />
+                <ScalarProperty Name="TitleArabicMOFA" ColumnName="TitleArabicMOFA" />
+                <ScalarProperty Name="TitleEnglishMOFA" ColumnName="TitleEnglishMOFA" />
+                <ScalarProperty Name="TitleArabicMSRP" ColumnName="TitleArabicMSRP" />
+                <ScalarProperty Name="TitleEnglishMSRP" ColumnName="TitleEnglishMSRP" />
+                <ScalarProperty Name="StaffPrefixGUID" ColumnName="StaffPrefixGUID" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="StaffCoreDataRowVersion" ColumnName="StaffCoreDataRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IsOldRecord" ColumnName="IsOldRecord" />
+                <ScalarProperty Name="StaffStatusGUID" ColumnName="StaffStatusGUID" />
+                <ScalarProperty Name="ConfirmationComment" ColumnName="ConfirmationComment" />
+                <ScalarProperty Name="ConfirmationStatusGUID" ColumnName="ConfirmationStatusGUID" />
+                <ScalarProperty Name="LastConfirmedOn" ColumnName="LastConfirmedOn" />
+                <ScalarProperty Name="LastConfirmedByGUID" ColumnName="LastConfirmedByGUID" />
+                <ScalarProperty Name="LastUpdatedOn" ColumnName="LastUpdatedOn" />
+                <ScalarProperty Name="LastUpdatedByGUID" ColumnName="LastUpdatedByGUID" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="StaffStatus" ColumnName="StaffStatus" />
+                <ScalarProperty Name="ReturnDateFromLastRAndRLeave" ColumnName="ReturnDateFromLastRAndRLeave" />
+                <ScalarProperty Name="DegreeEn" ColumnName="DegreeEn" />
+                <ScalarProperty Name="DegreeAr" ColumnName="DegreeAr" />
+                <ScalarProperty Name="OfficeRoomNumberBuilding" ColumnName="OfficeRoomNumberBuilding" />
+                <ScalarProperty Name="SATPhoneNumber" ColumnName="SATPhoneNumber" />
+                <ScalarProperty Name="LastJobAr" ColumnName="LastJobAr" />
+                <ScalarProperty Name="LastJobEn" ColumnName="LastJobEn" />
+                <ScalarProperty Name="PlaceBirthCityAr" ColumnName="PlaceBirthCityAr" />
+                <ScalarProperty Name="PlaceBirthCityEn" ColumnName="PlaceBirthCityEn" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="StaffAccessCategoryGUID" ColumnName="StaffAccessCategoryGUID" />
+                <ScalarProperty Name="EmploymentType" ColumnName="EmploymentType" />
+                <ScalarProperty Name="DurationOfStayInSyria" ColumnName="DurationOfStayInSyria" />
+                <ScalarProperty Name="DetailsOfMissionAssignment" ColumnName="DetailsOfMissionAssignment" />
+                <ScalarProperty Name="EndOfMissionAssignmentDate" ColumnName="EndOfMissionAssignmentDate" />
+                <ScalarProperty Name="StartOfMissionAssignmentDate" ColumnName="StartOfMissionAssignmentDate" />
+                <ScalarProperty Name="AccommodationStartingDate" ColumnName="AccommodationStartingDate" />
+                <ScalarProperty Name="Accommodation" ColumnName="Accommodation" />
+                <ScalarProperty Name="GTAEndDate" ColumnName="GTAEndDate" />
+                <ScalarProperty Name="GTAStartDate" ColumnName="GTAStartDate" />
+                <ScalarProperty Name="StaffMemberOnGTA" ColumnName="StaffMemberOnGTA" />
+                <ScalarProperty Name="CurrentLocationByDate" ColumnName="CurrentLocationByDate" />
+                <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
+                <ScalarProperty Name="AssignmentDuration" ColumnName="AssignmentDuration" />
+                <ScalarProperty Name="WifeHusbandName" ColumnName="WifeHusbandName" />
+                <ScalarProperty Name="DangerPay" ColumnName="DangerPay" />
+                <ScalarProperty Name="AttendancePhoto" ColumnName="AttendancePhoto" />
+                <ScalarProperty Name="PassportPhoto" ColumnName="PassportPhoto" />
+                <ScalarProperty Name="PersonalIDPhoto" ColumnName="PersonalIDPhoto" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IsOld" ColumnName="IsOld" />
+                <ScalarProperty Name="OfficeRoomGUID" ColumnName="OfficeRoomGUID" />
+                <ScalarProperty Name="OfficeFloorGUID" ColumnName="OfficeFloorGUID" />
+                <ScalarProperty Name="OfficeGUID" ColumnName="OfficeGUID" />
+                <ScalarProperty Name="OfficialExtensionNumber" ColumnName="OfficialExtensionNumber" />
+                <ScalarProperty Name="OfficialMobileNumber" ColumnName="OfficialMobileNumber" />
+                <ScalarProperty Name="HomeTelephoneNumberMobile" ColumnName="HomeTelephoneNumberMobile" />
+                <ScalarProperty Name="HomeTelephoneNumberLandline" ColumnName="HomeTelephoneNumberLandline" />
+                <ScalarProperty Name="CurrentAddressAr" ColumnName="CurrentAddressAr" />
+                <ScalarProperty Name="CurrentAddressEn" ColumnName="CurrentAddressEn" />
+                <ScalarProperty Name="PermanentAddressAr" ColumnName="PermanentAddressAr" />
+                <ScalarProperty Name="PermanentAddressEn" ColumnName="PermanentAddressEn" />
+                <ScalarProperty Name="PositionNumber" ColumnName="PositionNumber" />
+                <ScalarProperty Name="StaffEOD" ColumnName="StaffEOD" />
+                <ScalarProperty Name="ContractEndDate" ColumnName="ContractEndDate" />
+                <ScalarProperty Name="ContractStartDate" ColumnName="ContractStartDate" />
+                <ScalarProperty Name="StaffGradeGUID" ColumnName="StaffGradeGUID" />
+                <ScalarProperty Name="RecruitmentTypeGUID" ColumnName="RecruitmentTypeGUID" />
+                <ScalarProperty Name="ContractTypeGUID" ColumnName="ContractTypeGUID" />
+                <ScalarProperty Name="BankSYRAccountHolderNameAr5" ColumnName="BankSYRAccountHolderNameAr5" />
+                <ScalarProperty Name="BankSYRAccountHolderNameEn5" ColumnName="BankSYRAccountHolderNameEn5" />
+                <ScalarProperty Name="BankSYRNameAR5" ColumnName="BankSYRNameAR5" />
+                <ScalarProperty Name="BankSYRNameEN5" ColumnName="BankSYRNameEN5" />
+                <ScalarProperty Name="BankSYRNameGUID5" ColumnName="BankSYRNameGUID5" />
+                <ScalarProperty Name="BankSYRAccountNumberSyr5" ColumnName="BankSYRAccountNumberSyr5" />
+                <ScalarProperty Name="BankSYRAccountHolderNameAr4" ColumnName="BankSYRAccountHolderNameAr4" />
+                <ScalarProperty Name="BankSYRAccountHolderNameEn4" ColumnName="BankSYRAccountHolderNameEn4" />
+                <ScalarProperty Name="BankSYRNameAR4" ColumnName="BankSYRNameAR4" />
+                <ScalarProperty Name="BankSYRNameEN4" ColumnName="BankSYRNameEN4" />
+                <ScalarProperty Name="BankSYRNameGUID4" ColumnName="BankSYRNameGUID4" />
+                <ScalarProperty Name="BankSYRAccountNumberSyr4" ColumnName="BankSYRAccountNumberSyr4" />
+                <ScalarProperty Name="BankSYRAccountHolderNameAr3" ColumnName="BankSYRAccountHolderNameAr3" />
+                <ScalarProperty Name="BankSYRAccountHolderNameEn3" ColumnName="BankSYRAccountHolderNameEn3" />
+                <ScalarProperty Name="BankSYRNameAR3" ColumnName="BankSYRNameAR3" />
+                <ScalarProperty Name="BankSYRNameEN3" ColumnName="BankSYRNameEN3" />
+                <ScalarProperty Name="BankSYRNameGUID3" ColumnName="BankSYRNameGUID3" />
+                <ScalarProperty Name="BankSYRAccountNumberSyr3" ColumnName="BankSYRAccountNumberSyr3" />
+                <ScalarProperty Name="BankSYRAccountHolderNameAr2" ColumnName="BankSYRAccountHolderNameAr2" />
+                <ScalarProperty Name="BankSYRAccountHolderNameEn2" ColumnName="BankSYRAccountHolderNameEn2" />
+                <ScalarProperty Name="BankSYRNameAR2" ColumnName="BankSYRNameAR2" />
+                <ScalarProperty Name="BankSYRNameEN2" ColumnName="BankSYRNameEN2" />
+                <ScalarProperty Name="BankNameSyrGUID2" ColumnName="BankNameSyrGUID2" />
+                <ScalarProperty Name="BankSYRAccountNumberSyr2" ColumnName="BankSYRAccountNumberSyr2" />
+                <ScalarProperty Name="BankAccountHolderNameAr" ColumnName="BankAccountHolderNameAr" />
+                <ScalarProperty Name="BankAccountHolderNameEn" ColumnName="BankAccountHolderNameEn" />
+                <ScalarProperty Name="BankAccountNumberSyr" ColumnName="BankAccountNumberSyr" />
+                <ScalarProperty Name="BankNameSyr" ColumnName="BankNameSyr" />
+                <ScalarProperty Name="BankNameSyrGUID" ColumnName="BankNameSyrGUID" />
+                <ScalarProperty Name="BankAccountNumberLeb" ColumnName="BankAccountNumberLeb" />
+                <ScalarProperty Name="BankNameLeb" ColumnName="BankNameLeb" />
+                <ScalarProperty Name="BankAccountHolderNameLebAR" ColumnName="BankAccountHolderNameLebAR" />
+                <ScalarProperty Name="BankAccountHolderNameLebEN" ColumnName="BankAccountHolderNameLebEN" />
+                <ScalarProperty Name="BankNameARLeb" ColumnName="BankNameARLeb" />
+                <ScalarProperty Name="BankLebNameGUID" ColumnName="BankLebNameGUID" />
+                <ScalarProperty Name="NationalPassportPhoto" ColumnName="NationalPassportPhoto" />
+                <ScalarProperty Name="NationalPassportDateOfExpiry3" ColumnName="NationalPassportDateOfExpiry3" />
+                <ScalarProperty Name="NationalPassportDateOfIssue3" ColumnName="NationalPassportDateOfIssue3" />
+                <ScalarProperty Name="NationalPassportNumber3" ColumnName="NationalPassportNumber3" />
+                <ScalarProperty Name="NationalPassportDateOfExpiry2" ColumnName="NationalPassportDateOfExpiry2" />
+                <ScalarProperty Name="NationalPassportDateOfIssue2" ColumnName="NationalPassportDateOfIssue2" />
+                <ScalarProperty Name="NationalPassportNumber2" ColumnName="NationalPassportNumber2" />
+                <ScalarProperty Name="IsEligibileForNationalDangerPay" ColumnName="IsEligibileForNationalDangerPay" />
+                <ScalarProperty Name="NationalPassportDateOfExpiry" ColumnName="NationalPassportDateOfExpiry" />
+                <ScalarProperty Name="NationalPassportDateOfIssue" ColumnName="NationalPassportDateOfIssue" />
+                <ScalarProperty Name="NationalPassportNumber" ColumnName="NationalPassportNumber" />
+                <ScalarProperty Name="UNLPPhoto" ColumnName="UNLPPhoto" />
+                <ScalarProperty Name="UNLPDateOfExpiry" ColumnName="UNLPDateOfExpiry" />
+                <ScalarProperty Name="UNLPDateOfIssue" ColumnName="UNLPDateOfIssue" />
+                <ScalarProperty Name="UNLPNumber" ColumnName="UNLPNumber" />
+                <ScalarProperty Name="StaffLastWork" ColumnName="StaffLastWork" />
+                <ScalarProperty Name="CallSign" ColumnName="CallSign" />
+                <ScalarProperty Name="UNHCRIDNumber" ColumnName="UNHCRIDNumber" />
+                <ScalarProperty Name="EmploymentID" ColumnName="EmploymentID" />
+                <ScalarProperty Name="PlaceOfBirthGUID" ColumnName="PlaceOfBirthGUID" />
+                <ScalarProperty Name="StaffPrefix" ColumnName="StaffPrefix" />
+                <ScalarProperty Name="SyrianNationalIDPhoto" ColumnName="SyrianNationalIDPhoto" />
+                <ScalarProperty Name="SyrianNationalIDNumber" ColumnName="SyrianNationalIDNumber" />
+                <ScalarProperty Name="ExpiryOfResidencyVisa" ColumnName="ExpiryOfResidencyVisa" />
+                <ScalarProperty Name="Nationality3GUID" ColumnName="Nationality3GUID" />
+                <ScalarProperty Name="Nationality2GUID" ColumnName="Nationality2GUID" />
+                <ScalarProperty Name="NationalityGUID" ColumnName="NationalityGUID" />
+                <ScalarProperty Name="ReportToGUID" ColumnName="ReportToGUID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="JobTitleGUID" ColumnName="JobTitleGUID" />
+                <ScalarProperty Name="PositionInOrganigram" ColumnName="PositionInOrganigram" />
+                <ScalarProperty Name="StaffPhoto" ColumnName="StaffPhoto" />
+                <ScalarProperty Name="IsInternational" ColumnName="IsInternational" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOfficeFloor">
+            <EntityTypeMapping TypeName="OSAModel.codeOfficeFloor">
+              <MappingFragment StoreEntitySet="codeOfficeFloor">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeOfficeFloorRowVersion" ColumnName="codeOfficeFloorRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="FloorNumber" ColumnName="FloorNumber" />
+                <ScalarProperty Name="OfficeGUID" ColumnName="OfficeGUID" />
+                <ScalarProperty Name="OfficeFloorGUID" ColumnName="OfficeFloorGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOfficeFloorRoom">
+            <EntityTypeMapping TypeName="OSAModel.codeOfficeFloorRoom">
+              <MappingFragment StoreEntitySet="codeOfficeFloorRoom">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeOfficeFloorRoomRowVersion" ColumnName="codeOfficeFloorRoomRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="RoomSize" ColumnName="RoomSize" />
+                <ScalarProperty Name="RoomNumber" ColumnName="RoomNumber" />
+                <ScalarProperty Name="OfficeFloorGUID" ColumnName="OfficeFloorGUID" />
+                <ScalarProperty Name="OfficeFloorRoomGUID" ColumnName="OfficeFloorRoomGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOffices">
+            <EntityTypeMapping TypeName="OSAModel.codeOffices">
+              <MappingFragment StoreEntitySet="codeOffices">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeOfficesRowVersion" ColumnName="codeOfficesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="OfficeTypeGUID" ColumnName="OfficeTypeGUID" />
+                <ScalarProperty Name="VTCIP" ColumnName="VTCIP" />
+                <ScalarProperty Name="OfficePhoneNumber" ColumnName="OfficePhoneNumber" />
+                <ScalarProperty Name="OfficePhoneCountryCode" ColumnName="OfficePhoneCountryCode" />
+                <ScalarProperty Name="OfficeGUID" ColumnName="OfficeGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataOfficeStaffAttendance">
+            <EntityTypeMapping TypeName="OSAModel.dataOfficeStaffAttendance">
+              <MappingFragment StoreEntitySet="dataOfficeStaffAttendance">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataOfficeStaffAttendanceRowVersion" ColumnName="dataOfficeStaffAttendanceRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="WorkingHours" ColumnName="WorkingHours" />
+                <ScalarProperty Name="OfficeStaffAttendanceConfirmationGUID" ColumnName="OfficeStaffAttendanceConfirmationGUID" />
+                <ScalarProperty Name="OfficeFloorRoomGUID" ColumnName="OfficeFloorRoomGUID" />
+                <ScalarProperty Name="ShuttleDepartureEveningTime" ColumnName="ShuttleDepartureEveningTime" />
+                <ScalarProperty Name="ShuttleDepartureMorningTime" ColumnName="ShuttleDepartureMorningTime" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="IsAttend" ColumnName="IsAttend" />
+                <ScalarProperty Name="AttendanceToDatetime" ColumnName="AttendanceToDatetime" />
+                <ScalarProperty Name="AttendanceFromDatetime" ColumnName="AttendanceFromDatetime" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="OfficeStaffAttendanceGUID" ColumnName="OfficeStaffAttendanceGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataOfficeStaffAttendanceConfirmation">
+            <EntityTypeMapping TypeName="OSAModel.dataOfficeStaffAttendanceConfirmation">
+              <MappingFragment StoreEntitySet="dataOfficeStaffAttendanceConfirmation">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataOfficeStaffAttendanceConfirmationRowVersion" ColumnName="dataOfficeStaffAttendanceConfirmationRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PaymentConfirmedBy" ColumnName="PaymentConfirmedBy" />
+                <ScalarProperty Name="PaymentConfirmedDate" ColumnName="PaymentConfirmedDate" />
+                <ScalarProperty Name="ConfirmedMonth" ColumnName="ConfirmedMonth" />
+                <ScalarProperty Name="ConfirmedYear" ColumnName="ConfirmedYear" />
+                <ScalarProperty Name="ConfirmedDate" ColumnName="ConfirmedDate" />
+                <ScalarProperty Name="ConfirmedBy" ColumnName="ConfirmedBy" />
+                <ScalarProperty Name="ReportToGUID" ColumnName="ReportToGUID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="OfficeStaffAttendanceConfirmationGUID" ColumnName="OfficeStaffAttendanceConfirmationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,62 @@
+﻿@{
+                /**/
+
+                ViewBag.Title = "Index";
+                Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("425e977f-7e27-4e1f-970d-0661d9b4fbc0")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+
+
+        @if (new CMS().HasAction(Permissions.StandardReport.Access, Apps.PCR))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("StanderReports", "Reports", new { Area = "PCR" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa- fa-file-excel-o fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Standard Reports</h3>
+                            <span>Partner Standard Reports Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+        @*@if (new CMS().HasAction(Permissions.PartnerReport.Access, Apps.PCR))
+            {
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <a class="black" href=@Url.Action("PartnerCenter", "Reports", new { Area = "PCR" })>
+                        <div class="SubjectBox matchHeight">
+                            <i class="fa fa- fa-file-excel-o fa-4x" aria-hidden="true"></i>
+                            <div>
+                                <h3>Reports Pool</h3>
+                                <span>contain collection of reports</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+            @if (new CMS().HasAction(Permissions.PartnerReport.Access, Apps.PCR))
+            {
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <a class="black" href=@Url.Action("Chart", "Reports", new { Area = "PCR" })>
+                        <div class="SubjectBox matchHeight">
+                            <i class="fa fa- fa-file-excel-o fa-4x" aria-hidden="true"></i>
+                            <div>
+                                <h3>Chart Reports</h3>
+                                <span>....</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }*@
+
+    </div>
+</div>

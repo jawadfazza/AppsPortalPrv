@@ -1,0 +1,59 @@
+﻿@model StaffOnlineTrainingUpdateModel
+@using (Html.BeginForm("StaffOnlineTraining", "StaffProfile", new { Area = "ORG" }, FormMethod.Post, new { id = "StaffOnlineTrainingForm" }))
+{
+    string ModalTitle = Model.StaffOnlineTrainingGUID.ToString() == Guid.Empty.ToString() ? "New Training " : "Edit Training";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.StaffOnlineTrainingGUID)
+        @Html.HiddenFor(model => model.UserGUID)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OnlineTrainingTypeGUID)
+            @Html.DropDownListFor(model => model.OnlineTrainingTypeGUID, new DropDownList().StaffOnlineTrainingType(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartDate)
+            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExpiryDate)
+            @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comments)
+            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.StaffOnlineTrainingGUID == Guid.Empty)
+        {
+
+            @Html.CreateButton(Permissions.StaffProfileSecuritySection.Update, Apps.ORG)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.StaffProfileSecuritySection.Update, Apps.ORG)
+                @Html.DeleteSwitchButton(Permissions.StaffProfileSecuritySection.Update, Apps.ORG)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.StaffProfileSecuritySection.Update, Apps.ORG)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

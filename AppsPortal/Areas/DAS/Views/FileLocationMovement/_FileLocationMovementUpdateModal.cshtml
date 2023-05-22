@@ -1,0 +1,49 @@
+﻿@model FileLocationMovementModel
+@using (Html.BeginForm("FileLocationMovement", "ScanDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "FocalPointForm" }))
+{
+    string ModalTitle = Model.FileLocationMovementGUID.ToString() == Guid.Empty.ToString() ? "New Record" : "Edit Record";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.FileLocationMovementGUID)
+    @Html.HiddenFor(model => model.FileGUID)
+    @Html.HiddenFor(model => model.IsLastAction)
+    @Html.HiddenFor(model => model.ActionDate)
+    @Html.HiddenFor(model => model.CreatedByGUID)
+    <div class="form-group">
+        @Html.LabelFor(model => model.TransferLocationGUID)
+        @Html.DropDownListFor(model => model.TransferLocationGUID, new DropDownList().DASFileTransferLocation(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comments)
+        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.EmailAddress)
+            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullName)
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>*@
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.FileLocationMovementGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.DASConfiguration.Create, Apps.DAS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.DASConfiguration.Update, Apps.DAS)
+                @Html.DeleteSwitchButton(Permissions.DASConfiguration.Delete, Apps.DAS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.DASConfiguration.Delete, Apps.DAS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

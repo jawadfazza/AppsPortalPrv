@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("79b41877-7658-4eb3-8575-e48fa2ce455b")
+
+<div class="page--content">
+
+    <div id=@string.Format("{0}Filter", DataTableNames.VehicleMaintenceRequestDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.VehicleRequestNumber, DbColumnName = "RequestNumber", FilterForDataType = "Text" })
+            @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.VehicleGUID, DbColumnName = "VehicleGUID", FilterForDataType = "Text", DataList = new DropDownList().AHDVehicles(), IsMultiple = true, IsSearchable = true })
+        </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LastFlowStatusGUID, DbColumnName = "LastFlowStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().VehicleRequestFormStatus(), IsMultiple = true, IsSearchable = true })
+                
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LastRenewalDate, DbColumnName = "LastRenewalDate", FilterForDataType = "Text" })
+            </div>
+
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.VehicleMaintenceRequestDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.VehicleMaintenceRequestDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.VehicleMaintenceRequestDataTable)
+        @Html.FieldDataTableCreate(Permissions.VehicleMaintenanceRequest.Create, Apps.AHD, Url.Action("VehicleMaintenceRequestCreate", "VehicleMaintenanceRequests"))
+
+        @*@Html.FieldDataTableStaffSendReminderToConfirm(Permissions.VehicleMaintenanceRequest.Create, Apps.AHD, Url.Action("SendConfirmationReceivingModelForPendingConfirmationStaffEmail", "NationalStaffDangerPayCalcualtion", new { FK = Model.DangerPayInformationGUID }))*@
+        @*@Html.FieldDataTableCreate(Permissions.VehicleMaintenanceRequest.Create, Apps.AHD, Url.Action("NationalStaffDangerPayInformationCreate", "NationalStaffDangerPayCalcualtion"))*@
+
+        @Html.IndexDatatableDelete(Permissions.VehicleMaintenanceRequest.Delete, Apps.AHD, DataTableNames.VehicleMaintenceRequestDataTable)
+        @Html.IndexDatatableRestor(Permissions.VehicleMaintenanceRequest.Restore, Apps.AHD, DataTableNames.VehicleMaintenceRequestDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.VehicleMaintenceRequestDataTable)
+        @*@Html.ActionLink(" ", "ExportDangerPayStaffForMonth", "NationalStaffDangerPayCalcualtion", new { id = @ViewBag.DangerPayInformationGUID }, new { @class = "btn btn-primary fa fa-file-o" })*@
+
+    </div>
+  
+
+    
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.VehicleMaintenceRequestDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+        @*<a title="Print NV" class="btn btn-default pull-right" target="_blank" href="/MRS/Reports/NVReport/@Model.NoteVerbaleGUID" data-url=""><i class="fa fa-print" aria-hidden="true"></i></a>*@
+    </div>
+
+
+</div>

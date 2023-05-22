@@ -1,0 +1,62 @@
+﻿@model PersonalDetailsModel
+<div class="row section">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-right pull-right col-nopadding-left">
+        <a class="btn Edit-Link ProfileImageToo" onclick="EditSection(this, '@Url.Action("PersonalDetailsUpdate","Profile")', 'PanelForPersonalDetailsForm');">Edit</a>
+    </div>
+    <div class="col-lg-2 col-md-8 col-sm-8 col-xs-8">
+        <img src="@Model.MediaPath" class="profile-photo" onclick="EditPhoto();" style="cursor:pointer;"/>
+    </div>
+    <script>
+        function EditPhoto() {
+            $('.ProfileImageToo').click();
+        }
+    </script>
+    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+        <div id="pnlPersonalInformation" class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.Name</h5>
+                            <span>@Model.FullName&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.Gender</h5>
+                            <span>@Model.Gender&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.Nationality</h5>
+                            <span>@Model.Nationality&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.DateOfBirth</h5>
+                            <span>@Html.DisplayFor(model => model.DateOfBirth)&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.PreferedLanguageID</h5>
+                            <span>@Model.PreferedLanguage&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.BloodGroup</h5>
+                            <span>@Model.BloodGroup&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b0c580ae740f4dbb921ea3bba9e7f0b9" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="AMSModel.dataContactInfo" Width="1.5" PointX="5.25" PointY="20.75" />
+        <EntityTypeShape EntityType="AMSModel.codeAppointmentType" Width="1.5" PointX="3" PointY="8.5" />
+        <EntityTypeShape EntityType="AMSModel.codeAppointmentTypeLanguage" Width="1.5" PointX="5.25" PointY="16.5" />
+        <EntityTypeShape EntityType="AMSModel.codeDepartments" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="AMSModel.codeDepartmentsLanguages" Width="1.5" PointX="3" PointY="5.25" />
+        <AssociationConnector Association="AMSModel.FK_codeAppointmentType_codeDepartments" />
+        <AssociationConnector Association="AMSModel.FK_codeAppointmentTypeLanguage_codeAppointmentType" />
+        <AssociationConnector Association="AMSModel.FK_codeDepartmentsLanguages_codeDepartments" />
+        <EntityTypeShape EntityType="AMSModel.codeCountries" Width="1.5" PointX="0.75" PointY="13.5" />
+        <EntityTypeShape EntityType="AMSModel.codeCountriesLanguages" Width="1.5" PointX="3" PointY="18.75" />
+        <AssociationConnector Association="AMSModel.FK_codeCountriesLanguages_codeCountries" />
+        <EntityTypeShape EntityType="AMSModel.codeDutyStations" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="AMSModel.codeDutyStationsLanguages" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="AMSModel.codeOrganizationsInstances" Width="1.5" PointX="1.125" PointY="18" />
+        <EntityTypeShape EntityType="AMSModel.codeOrganizationsLanguages" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AMSModel.codeTablesValues" Width="1.5" PointX="5.75" PointY="1" />
+        <EntityTypeShape EntityType="AMSModel.codeTablesValuesLanguages" Width="1.5" PointX="8" PointY="1" />
+        <AssociationConnector Association="AMSModel.FK_codeDutyStationsLanguages_codeDutyStations" />
+        <AssociationConnector Association="AMSModel.FK_codeTablesValuesLanguages_codeTablesValues" />
+        <EntityTypeShape EntityType="AMSModel.codeWorkingDaysConfigurations" Width="1.5" PointX="10.375" PointY="4.75" />
+        <EntityTypeShape EntityType="AMSModel.dataAppointmentCalendarHolded" Width="2.875" PointX="12.625" PointY="8.875" />
+        <EntityTypeShape EntityType="AMSModel.dataAppointmentReschedul" Width="1.5" PointX="7.5" PointY="8.75" />
+        <EntityTypeShape EntityType="AMSModel.userPermissions" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="AMSModel.dataAppointment" Width="1.5" PointX="11.75" PointY="12.875" />
+        <AssociationConnector Association="AMSModel.FK_dataAppointment_codeDutyStations" />
+        <AssociationConnector Association="AMSModel.FK_dataAppointmentReschedul_dataAppointment" />
+        <AssociationConnector Association="AMSModel.FK_dataAppointments_codeAppointmentType" />
+        <AssociationConnector Association="AMSModel.FK_dataCalendarHolded_dataAppointments1" />
+        <EntityTypeShape EntityType="AMSModel.dataCase" Width="1.5" PointX="8.375" PointY="14.75" />
+        <AssociationConnector Association="AMSModel.FK_dataAppointments_dataCases" />
+        <AssociationConnector Association="AMSModel.FK_dataCase_codeCountries" />
+        <AssociationConnector Association="AMSModel.FK_dataCase_codeOrganizationsInstances" />
+        <AssociationConnector Association="AMSModel.FK_dataContactInfo_dataCases" />
+        <EntityTypeShape EntityType="AMSModel.v_CaseAppointments" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AMSModel.dataAppointmentTypeCalendar" Width="1.5" PointX="5.25" PointY="8" />
+        <AssociationConnector Association="AMSModel.FK_dataAppointmentCalendarHolded_dataAppointmentTypeCalendar" />
+        <AssociationConnector Association="AMSModel.FK_dataAppointmentTypeCalendar_codeAppointmentType" />
+        <EntityTypeShape EntityType="AMSModel.v_AppointmentContactNumber" Width="1.5" PointX="12.375" PointY="5.75" />
+        <EntityTypeShape EntityType="AMSModel.dataFile" Width="1.5" PointX="15.625" PointY="0.75" />
+        <EntityTypeShape EntityType="AMSModel.StaffCoreData" Width="1.5" PointX="14.375" PointY="12.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

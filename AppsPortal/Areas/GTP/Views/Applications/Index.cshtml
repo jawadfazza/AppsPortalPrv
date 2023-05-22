@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Tenders";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("6c53855f-4b4a-4a71-9a8b-75683730f368")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter",DataTableNames.GroupTwoPortalDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            @*<div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TenderReference, DbColumnName = "TenderReference", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TenderType, DbColumnName = "TenderType", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().TenderTypes() })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TenderSubject, DbColumnName = "TenderSubject", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CreatedByGUID, DbColumnName = "CreatedByGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().UsersForTender(true) })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+
+            </div>*@
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.GroupTwoPortalDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format(" {0}ActionsContainer",DataTableNames.GroupTwoPortalDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.GroupTwoPortalDataTable)
+        @Html.IndexDatatableCreate(Permissions.Tenders.Create, Apps.GTP, Url.Action("/Create/", "Application", new { Area = "GTP" }))
+        @Html.IndexDatatableDelete(Permissions.Tenders.Delete, Apps.GTP, DataTableNames.GroupTwoPortalDataTable)
+        @Html.IndexDatatableRestor(Permissions.Tenders.Restore, Apps.GTP, DataTableNames.GroupTwoPortalDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.GroupTwoPortalDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.GroupTwoPortalDataTable, FormController = "Tenders", Area = "GTP", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>

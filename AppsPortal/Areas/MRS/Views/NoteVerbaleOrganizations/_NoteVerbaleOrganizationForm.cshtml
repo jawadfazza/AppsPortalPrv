@@ -1,0 +1,39 @@
+﻿@model NoteVerbaleOrganizationUpdateModel
+@using (Html.BeginForm("NoteVerbaleOrganization", "NoteVerbaleOrganizations", new { Area = "MRS" }, FormMethod.Post, new { id = "NoteVerbaleOrganizationForm" }))
+{
+
+    string ModalTitle = Model.NoteVerbaleOrganizationGUID.ToString() == Guid.Empty.ToString() ? "New NoteVerbale Route" : "Edit NoteVerbale Route";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.NoteVerbaleOrganizationGUID)
+        @Html.HiddenFor(model => model.NoteVerbaleGUID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrganizationInstanceGUID)
+            @Html.DropDownListFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstancesByProfile(), "",
+           new { @class = "form-control select2-basic-search",style = "width:100%" })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.NoteVerbaleOrganizationGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.NoteVerbale.Create, Apps.MRS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.NoteVerbale.Update, Apps.MRS)
+                @Html.DeleteSwitchButton(Permissions.NoteVerbale.Delete, Apps.MRS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.NoteVerbale.Delete, Apps.MRS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+
+}

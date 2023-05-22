@@ -1,0 +1,51 @@
+﻿@model dataItemOutputDetail
+<style>
+    .wrapper {
+        position: relative;
+        width: 400px;
+        height: 200px;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+   
+</style>
+
+@using (Html.BeginForm("WarehosueReleaseModelCancelRequest", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "ReleaseModelCancleForm" }))
+{
+    string ModalTitle = Model.ItemOutputDetailGUID.ToString() == Guid.Empty.ToString() ? "Confirm Receiving" : "Edit Receiving";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ItemOutputDetailGUID)
+        @Html.HiddenFor(model => model.ItemOutputDetailGUID)
+
+
+    
+     
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ItemOutputDetailGUID != Guid.Empty)
+        {
+           <input type="submit" value="Cancel Request " />
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.WarehouseItemsRelease.Update, Apps.WMS)
+                @Html.DeleteSwitchButton(Permissions.WarehouseItemsRelease.Delete, Apps.WMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.WarehouseItemsRelease.Delete, Apps.WMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+
+

@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{58214F44-0280-4F23-8F21-470B3E6F3D74}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>REF_DAL</RootNamespace>
+    <AssemblyName>REF_DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="Model\REFModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>REFModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\REFModel.edmx.diagram">
+      <DependentUpon>REFModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\codeApplications.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeApplicationsLanguages.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartments.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartmentsConfigurations.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDepartmentsLanguages.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStations.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeDutyStationsLanguages.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeReferralStatus.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\codeReferralStatusLanguage.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\configFocalPoint.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\configFocalPointStaff.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\configReferral.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\configReferralLanguage.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\configReferralNotification.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\configReferralStep.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\configReferralStepLanguage.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\configReferralStepUser.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataReferralHistory.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataReferralHistoryComment.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dataReferralUserAccountReceived.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\REFModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>REFModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\REFModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\REFModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>REFModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\userPersonalDetailsLanguage.cs">
+      <DependentUpon>REFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModels.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Portal_BL">
+      <HintPath>..\Portal_BL\bin\Debug\Portal_BL.dll</HintPath>
+    </Reference>
+    <Reference Include="RES_Repo">
+      <HintPath>..\RES_Repo\bin\Debug\RES_Repo.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\REFModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>REFModel.Context.cs</LastGenOutput>
+      <DependentUpon>REFModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\REFModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>REFModel.edmx</DependentUpon>
+      <LastGenOutput>REFModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

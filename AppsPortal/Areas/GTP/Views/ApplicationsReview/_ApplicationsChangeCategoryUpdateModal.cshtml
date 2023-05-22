@@ -1,0 +1,32 @@
+﻿@model ApplicationReviewUpdateModel
+
+@using (Html.BeginForm("ChangeApplicationCategory", "ApplicationsReview", new { Area = "GTP" }, FormMethod.Post, new { id = "ChangeApplicationCategoryForm" }))
+{
+    string ModalTitle = "Application Review";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.GTPApplicationGUID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullName)
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailAddress)
+            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.GTPCategoryGUID)
+            @Html.DropDownListFor(model => model.GTPCategoryGUID, new DropDownList().GTPCategories(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        <input class="btn btn-primary SLAME ActionControl" data-submittype="Update" onclick="SubmitForm(this); " type="submit" disabled="disabled" value="Change Categpry">
+        @Html.CloseModalButton()
+    </div>
+    <div style="padding:0 15px;">
+        @*@Html.Partial("~/Views/Audit/_AuditHandler.cshtml", Url.Action("GetAuditHistory", "Audit", new { Area = "", RecordGUID = Model.ApplicationLanguageGUID } ))*@
+    </div>
+
+}

@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("43e9df3a-ade6-4a33-9841-cd3511d205d1")
+<div class="page--content">
+    <br />
+    <br />
+    @if (new CMS().HasAction(Permissions.MedicalItem.Access, Apps.EMT))
+    {
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("Index", "MedicalItems", new { Area = "EMT" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-flask fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Medicines</h3>
+                        <span>Medicines Management Tool.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+    @if (new CMS().HasAction(Permissions.MedicalPharmacy.Access, Apps.EMT))
+    {
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("Index", "MedicalPharmacys", new { Area = "EMT" })>
+                <div class="SubjectBox matchHeight">
+
+                    <i class="fas fa-prescription-bottle-alt fa-4x" style="color: #0072BC;" aria-hidden="true"></i>
+                    <div>
+                        <h3>Pharmacies & Warehouses</h3>
+                        <span>Pharmacies & Warehouses Management Tool.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+    @if (new CMS().HasAction(Permissions.MedicalManufacturer.Access, Apps.EMT))
+    {
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("Index", "MedicalManufacturers", new { Area = "EMT" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-industry fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Manufacturers</h3>
+                        <span>Manufacturers Management Tool.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+    @if (new CMS().HasAction(Permissions.MedicalGenericName.Access, Apps.EMT))
+    {
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("Index", "MedicalGenericNames", new { Area = "EMT" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-globe fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Generic Names</h3>
+                        <span> Generic Names Management Tool.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+
+    @if (new CMS().HasAction(Permissions.CodeTables.Access, Apps.CMS))
+    {
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("/VCT/ABC00000-0000-0000-0000-000000000006", "Codes", new { Area = "CMS" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-globe fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Disease Type</h3>
+                        <span> Disease Type Management Tool.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("/VCT/ABC00000-0000-0000-0000-000000000001", "Codes", new { Area = "CMS" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-globe fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Dose Unit</h3>
+                        <span> Dose Unit Management Tool.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("/VCT/ABC00000-0000-0000-0000-000000000003", "Codes", new { Area = "CMS" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-globe fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Packing Unit</h3>
+                        <span> Packing Unit Management Tool.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("/VCT/ABC00000-0000-0000-0000-000000000002", "Codes", new { Area = "CMS" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-globe fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Pharmacological Form</h3>
+                        <span> Pharmacological Form Management Tool.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("/VCT/ABC00000-0000-0000-0000-000000000005", "Codes", new { Area = "CMS" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-globe fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Route Administration</h3>
+                        <span> Route Administration Management Tool.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("/VCT/ABC00000-0000-0000-0000-000000000004", "Codes", new { Area = "CMS" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-globe fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Medicine Classification</h3>
+                        <span> Medicine Classification Management Tool.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+    }
+</div>

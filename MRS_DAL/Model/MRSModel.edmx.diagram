@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b01676b8bc824dca8564715e0ba21941" Name="Diagram1">
+        <EntityTypeShape EntityType="MRSModel.dataNoteVerbaleOrganization" Width="2.125" PointX="6.75" PointY="9" />
+        <EntityTypeShape EntityType="MRSModel.userPersonalDetailsLanguage" Width="1.5" PointX="6.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MRSModel.codeLocations" Width="1.5" PointX="3.75" PointY="8.375" />
+        <EntityTypeShape EntityType="MRSModel.codeLocationsLanguages" Width="1.5" PointX="1.125" PointY="10.25" />
+        <AssociationConnector Association="MRSModel.FK_codeLocationsLanguages_codeLocations" />
+        <EntityTypeShape EntityType="MRSModel.codeReferralStatus" Width="1.5" PointX="8.375" PointY="1" />
+        <EntityTypeShape EntityType="MRSModel.codeReferralStatusLanguage" Width="1.5" PointX="10.625" PointY="1" />
+        <AssociationConnector Association="MRSModel.FK_codeReferralStatusLanguage_codeReferralStatus" />
+        <EntityTypeShape EntityType="MRSModel.codeOrganizationsInstances" Width="1.5" PointX="9.375" PointY="9" />
+        <EntityTypeShape EntityType="MRSModel.codeOrganizationsInstancesLanguages" Width="1.5" PointX="11.625" PointY="9" />
+        <AssociationConnector Association="MRSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" />
+        <EntityTypeShape EntityType="MRSModel.codeDutyStationsLanguages" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MRSModel.codeTablesValues" Width="1.5" PointX="10.375" PointY="5" />
+        <EntityTypeShape EntityType="MRSModel.codeTablesValuesLanguages" Width="1.5" PointX="12.625" PointY="5" />
+        <AssociationConnector Association="MRSModel.FK_codeTablesValuesLanguages_codeTablesValues" />
+        <EntityTypeShape EntityType="MRSModel.codeVehicle" Width="1.5" PointX="9" PointY="18" />
+        <EntityTypeShape EntityType="MRSModel.dataNoteVerbale" Width="1.5" PointX="6" PointY="12.375" />
+        <EntityTypeShape EntityType="MRSModel.dataNoteVerbaleVehicle" Width="1.5" PointX="11.25" PointY="13.875" />
+        <AssociationConnector Association="MRSModel.FK_dataNoteVerbale_codeLocations" />
+        <AssociationConnector Association="MRSModel.FK_dataNoteVerbaleVehicle_codeVehicle" />
+        <AssociationConnector Association="MRSModel.FK_dataNoteVerbaleOrganization_dataNoteVerbale" />
+        <AssociationConnector Association="MRSModel.FK_dataNoteVerbaleVehicle_dataNoteVerbale" />
+        <EntityTypeShape EntityType="MRSModel.dataNoteVerbaleStaff" Width="1.5" PointX="8.25" PointY="13.875" />
+        <AssociationConnector Association="MRSModel.FK_dataNoteVerbaleStaff_dataNoteVerbale" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

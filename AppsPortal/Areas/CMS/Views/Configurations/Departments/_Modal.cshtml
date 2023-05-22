@@ -1,0 +1,40 @@
+﻿@model codeDepartmentsConfigurations
+<div class="forms-fadeIn">
+    @using (Html.BeginForm("DepartmentsConfig", "Configurations", FormMethod.Post, new { id = "DepartmentsConfigForm" }))
+    {
+        string ModalTitle = Model.DepartmentConfigurationGUID.ToString() == Guid.Empty.ToString() ? "New Department" : "Edit Department";
+        @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.DepartmentConfigurationGUID)
+        @Html.HiddenFor(model => model.OrganizationInstanceGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentGUID)
+            @Html.DropDownListFor(model => model.DepartmentGUID, new DropDownList().DepartmentsForConfigurations(Model.OrganizationInstanceGUID, Model.DepartmentGUID), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentTypeGUID)
+            @Html.DropDownListFor(model => model.DepartmentTypeGUID, new DropDownList().DepartmentTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentDepartmentGUID)
+            @Html.DropDownListFor(model => model.ParentDepartmentGUID, new DropDownList().Departments(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentParentStaffGUID)
+            @Html.DropDownListFor(model => model.DepartmentParentStaffGUID, new DropDownList().Users(true), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+    </div>
+        <div class="modal-footer form-footer">
+            @if (Model.DepartmentConfigurationGUID == Guid.Empty)
+            {
+                @Html.CreateButton(1, Apps.CMS)
+            }
+            else
+            {
+                @Html.UpdateButton(1, Apps.CMS)
+            }
+            @Html.CloseModalButton()
+        </div>
+    }
+</div>

@@ -1,0 +1,24 @@
+﻿@model CaseUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.CaseGUID == Guid.Empty) ? "New Case Type" : "Edit Case Type"; }
+
+@Html.PageHeader("38fc758e-3d1c-4ee4-b0ab-2a8e22ffdad0")
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+
+            @Html.Partial("~/Areas/AMS/Views/Cases/_CaseForm.cshtml")
+            <div id="TabContainer">
+                @if (Model.CaseGUID != Guid.Empty && Model.Active)
+                {
+                    @Html.Partial("~/Areas/AMS/Views/Appointments/_Index.cshtml", new MasterRecordStatus { ParentGUID = Model.CaseGUID, IsParentActive = Model.Active })
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

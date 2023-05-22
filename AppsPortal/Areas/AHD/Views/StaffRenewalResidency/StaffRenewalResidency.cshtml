@@ -1,0 +1,14 @@
+﻿@model StaffRenwalResidencyModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.StaffRenwalResidencyGUID == Guid.Empty) ? "New  Staff Renewal Residency " : "Edit Staff Renewal Residency"; }
+
+@Html.PageHeader("60f22f53-8b04-498a-beee-4e283dd290e9")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/AHD/Views/RenwalResidencyStaff/_RenwalResidencyStaffForm.cshtml")
+    </div>
+</div>
+

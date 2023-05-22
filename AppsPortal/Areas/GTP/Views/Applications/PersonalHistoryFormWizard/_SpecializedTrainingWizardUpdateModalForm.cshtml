@@ -1,0 +1,94 @@
+﻿@model dataPersonalHistorySpecializedTrainingUpdateModel
+
+@using (Html.BeginForm("SpecializedTraining", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "SpecializedTrainingForm", @class = "main-form" }))
+{
+    string ModalTitle = Model.GTPPHSpecializedTrainingGUID.ToString() == Guid.Empty.ToString() ? "Add new specialized training" : "update specialized training";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.GTPPHSpecializedTrainingGUID)
+
+
+        <div class="col-md-12">
+            <div class="row" style="padding-top:10px;">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CourseTitle)
+                        @Html.EditorFor(model => model.CourseTitle, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SchoolName)
+                        @Html.EditorFor(model => model.SchoolName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CountryGUID)
+                        @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().GTPCountries(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CourseStartDate)
+                        @Html.EditorFor(model => model.CourseStartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CourseEndDate)
+                        @Html.EditorFor(model => model.CourseEndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CourseTopicAreaDescription)
+                        @Html.EditorFor(model => model.CourseTopicAreaDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CourseTrainingMethodologyGUID)
+                        @Html.DropDownListFor(model => model.CourseTrainingMethodologyGUID, new DropDownList().GTPTrainingMethodologies(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CourseDescription)
+                        @Html.TextAreaFor(model => model.CourseDescription, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2 })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer form-footer">
+        @if (Model.GTPPHSpecializedTrainingGUID == Guid.Empty)
+        {
+            @Html.CreateButtonNoPermission()
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButtonNoPermission()
+                @Html.DeleteSwitchButtonNoPermission()
+            }
+            else
+            {
+                @Html.RestoreSwitchButtonNoPermission()
+            }
+        }
+        @Html.CloseModalButton()
+
+    </div>
+}

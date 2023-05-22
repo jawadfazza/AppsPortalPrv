@@ -1,0 +1,244 @@
+﻿@model DashboardItemVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("46e6b58e-320f-4f7f-a917-94742a2e4311")
+
+<link href="~/Areas/WMS/Temp/layout.min.css" rel="stylesheet" />
+<div data-ng-app="myApp">
+    <div data-ng-controller="MyCtrl">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-green">
+                        <span class="info-box-icon"><i class="fa fa-flag-o"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Total Models Delayed</span>
+                            <span class="info-box-number">12</span>
+
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 85%"></div>
+                            </div>
+                            <span class="progress-description">
+
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-red">
+                        <span class="info-box-icon"><i class="fa fa-files-o"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Total Models expired</span>
+                            <span class="info-box-number">15</span>
+
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 69%"></div>
+                            </div>
+                            <span class="progress-description">
+                                @*70% Increase in 30 Days*@
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <!-- fix for small devices only -->
+                @*<div class="clearfix visible-sm-block"></div>*@
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-yellow">
+                        <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text"> Total Short Itmes</span>
+                            <span class="info-box-number">6000</span>
+
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 70%"></div>
+                            </div>
+                            <span class="progress-description">
+                                @*70% Increase in 30 Days*@
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-aqua">
+                        <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Total Models</span>
+                            <span class="info-box-number">80</span>
+
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 78%"></div>
+                            </div>
+                            <span class="progress-description">
+                                @*70% Increase in 30 Days*@
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+
+        <div class="form-group">
+
+
+            <div class="col-md-12" style="overflow: auto; height: 760px;">
+
+                <div class="col-md-12">
+
+                    <table id="itemsTable">
+                        <tr>
+                            <td valign="top">
+                                <input type="text" id="myInput" placeholder="Search for items..">
+
+                                <input type="text" value="Location" />
+                            </td>
+
+                            <td>
+                                <table class="table table-striped table-bordered  hover " id="myItems">
+                                    <thead>
+                                        <tr>
+                                            @*<th>Item name</th>*@
+
+
+
+
+
+                                            @*<th>Action</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.items.Where(x => x.models.Count > 0))
+                                        {
+                                            <tr class="panel-primary">
+                                    
+                                                <td>
+                                                    <b style="color: blue;">@item.ItemName</b> <b class="pull-right">Total Avaiable Items : @item.models.Select(x => x.TotalAvaiable).Sum()</b>
+                                                    
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    @{
+                                                        int i = 0;
+                                                    }
+                                                    @foreach (var mymodel in item.models)
+                                                    {
+                                                        if (i % 6 == 0)
+                                                        {
+                                                            @:<div class="row">
+                                                            }
+                                                            i++;
+                                                            <div class="col-md-2">
+                                                                <table id="myModels">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <img src="../Uploads/WMS/ItemImages/@mymodel.WarehouseItemModelGUID"
+                                                                                 style="width: 100px;"
+                                                                                 class="Modal-Link"
+                                                                                 data-url="/WMS/DashBoard/GetItemModelInformation/@mymodel.WarehouseItemModelGUID">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style="margin-top: 8px; margin-bottom: 8px;">
+                                                                                @mymodel.ModelName <br />
+
+                                                                                Total Items:@mymodel.TotalItems
+                                                                                Avaiable: @mymodel.TotalAvaiable
+                                                                                <br />
+                                                                                @*<div class="luna-card__actions" style="justify-content: flex-end;">
+                                                                                        <a class="luna-button luna-button--success" target="_blank" href="/redirect/us/deals/joules-us-secure.html?b=http%3A%2F%2Fcomparison.go2jump.org%2Faff_c%3Foffer_id%3D4197%26aff_id%3D1043%26url_id%3D36971&amp;type=shopping&amp;id=70765&amp;redirect_tracking_params=%7B%22placement_type%22%3A%22shopping%22%2C%22columns%22%3A%224%22%2C%22category_id%22%3A%225631%22%2C%22category_name%22%3A%22US%2B-%2BOnline%2BShopping%2BEditor%2527s%2BPicks%22%2C%22product_id%22%3A%2270765%22%2C%22product_name%22%3A%22Ashwood%2BFaux%2BFur%2BLined%2BHiker%2BBoots%22%2C%22provider_id%22%3A%228023%22%2C%22provider_name%22%3A%22Joules%22%2C%22post_id%22%3A%22791857%22%2C%22post_country%22%3A%22us%22%7D">View details</a>
+                                                                                    </div>*@
+                                                                            </div>
+                                                                        </td>
+
+                                                                    </tr>
+
+
+                                                                </table>
+                                                            </div>
+
+                                                            if ((i % 6 == 0) || (i == (item.models.Count)))
+                                                            {
+                                                                @:</div>
+                                                        }
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/Assets/Plugin/angularjs/angular.js"></script>
+<script src="~/Assets/Plugin/angularjs/angular.min.js"></script>
+<script src="~/Assets/Plugin/angularjs/angular-material.min.js"></script>
+<script src="~/Assets/Plugin/angularjs/angular-aria.min.js"></script>
+<script src="~/Assets/Plugin/angularjs/angular-messages.min.js"></script>
+<script src="~/Assets/Plugin/angularjs/angular-animate.min.js"></script>
+<script>
+    var myApp = angular.module('myApp', []);
+    
+    //Controller
+    myApp.controller('MyCtrl',
+        [
+            '$scope', '$http', '$timeout', '$window',
+            function ($scope, $http, $timeout, $window) {
+                
+            }
+        ]);
+</script>
+@*<script>
+        $(document).ready(function() {
+            // Setup - add a text input to each footer cell
+            $('#myItems tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            } );
+
+            // DataTable
+            var table = $('#myItems').DataTable();
+
+            // Apply the search
+            table.columns().every( function () {
+                var that = this;
+
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+        } );
+    </script>*@

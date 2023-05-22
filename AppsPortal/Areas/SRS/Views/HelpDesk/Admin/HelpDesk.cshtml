@@ -1,0 +1,43 @@
+﻿@model HelpDeskModel
+@{
+    ViewBag.Title = "HelpDesk";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("86bebb62-8bb2-4dd0-889b-c0ec0312bdef")
+
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/SRS/Views/HelpDesk/Admin/_HelpDeskForm.cshtml")
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Attachements</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-8 col-xs-12">
+                        <div id="HelpDeskAttachementContainer">
+                            @if (Model != null)
+                            {
+                                if (Model.HelpDeskGUID != Guid.Empty && Model.Active)
+                                {
+                                    @Html.Partial("~/Areas/SRS/Views/HelpDesk/_HelpDeskAttachementDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.HelpDeskGUID, IsParentActive = Model.Active })
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+      
+
+    </div>
+</div>

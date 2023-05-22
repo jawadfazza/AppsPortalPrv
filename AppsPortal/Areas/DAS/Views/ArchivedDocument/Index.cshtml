@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Units";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("e2a1a43e-e844-46f6-b556-1033cb14e911")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.ArchiveTemplateDocumentDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TemplateTypeGUID, DbColumnName = "TemplateTypeGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().DASTemplateType(), IsMultiple = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TemplateTypeDocumentGUID, DbColumnName = "TemplateTypeDocumentGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().DASTemplateDocumentType(), IsMultiple = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FileReferenceTypeGUID, DbColumnName = "FileReferenceTypeGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().DASTemplateTargetType(), IsMultiple = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffGUID, DbColumnName = "FileReferenceGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().AdminHRAllStaff(), IsMultiple = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ArchiveTemplateDocumentCodeNumber, DbColumnName = "ArchiveTemplateDocumentCodeNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ReferenceNumber, DbColumnName = "FileReferenceName", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CreateByGUID, DbColumnName = "CreateByGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().AdminHRAllStaff(), IsMultiple = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CreateDate, DbColumnName = "CreateDate", FilterForDataType = "Date" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DocumentCabinetShelfGUID, DbColumnName = "DocumentCabinetShelfGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().DASDocumentAllCabinetsShelfs(), IsMultiple = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.ArchiveTemplateDocumentDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.ArchiveTemplateDocumentDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.ArchiveTemplateDocumentDataTable)
+        @*@Html.IndexDatatableCreate(Permissions.RefugeeScannedDocument.Create, Apps.DAS, "/DAS/ArchivedDocument/DocumentWizardCreate")*@
+        @*@Html.FieldDataTableCreate(Permissions.RefugeeScannedDocument.Create, Apps.DAS, Url.Action("ArchiveTemplateDocumentWizardCreate", "ArchivedDocument"))*@
+        @Html.FieldDataTableCreate(Permissions.RefugeeScannedDocument.Create, Apps.DAS, Url.Action("ArchiveTemplateDocumentCreate", "ArchivedDocument"))
+        @Html.IndexDatatableDelete(Permissions.RefugeeScannedDocument.Delete, Apps.DAS, DataTableNames.ArchiveTemplateDocumentDataTable)
+        @Html.IndexDatatableRestor(Permissions.RefugeeScannedDocument.Restore, Apps.DAS, DataTableNames.ArchiveTemplateDocumentDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.ArchiveTemplateDocumentDataTable)
+        @*@Html.FieldDataTableUpload(Permissions.RefugeeScannedDocument.Update, Apps.DAS, Url.Action("SearchBulkFile", "ArchivedDocument"))*@
+
+    </div>
+    <hr />
+    <button type="button" title="Update Bulk Shelfs" class="Modal-Link btn btn-primary" data-url="@Url.Action("UpdateBulkShelf", "ArchivedDocument")"><i class="fas fa-tasks"></i> Update Bulk Shelfs</button>
+    <button type="button" title="Update Bulk Custodians" class="Modal-Link btn btn-primary" data-url="@Url.Action("UpdateBulkCustodian", "ArchivedDocument")"><i class="fas fa-tasks"></i> Update Bulk Custodians</button>
+    <hr />
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ArchiveTemplateDocumentDataTable, Area = "DAS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

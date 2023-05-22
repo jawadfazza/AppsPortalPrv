@@ -1,0 +1,78 @@
+﻿@model TempRestAndRecuperationRequestLeaveDateModel
+@using (Html.BeginForm("TempCustomLeaveRestAndRecuperationLeaveDate", "StaffRAndRLeave", new { Area = "AHD" }, FormMethod.Post, new { id = "TempLeaves" }))
+{
+    string ModalTitle = Model.TempRestAndRecuperationRequestLeaveDateGUID.ToString() == Guid.Empty.ToString() ? "New Entry" : "Edit";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.TempRestAndRecuperationRequestLeaveDateGUID)
+        @Html.HiddenFor(model => model.RestAndRecuperationLeaveGUID)
+
+
+        <div class="form-group">
+
+            @Html.Label("Travel Time Start Date")
+            @Html.EditorFor(model => model.TravelStartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+
+   
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="border-right:solid;">
+                    @Html.Label("R&R Start Date")
+                    @Html.EditorFor(model => model.RRStartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    @Html.Label("R&R End Date")
+                    @Html.EditorFor(model => model.RRReturnDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="border-right:solid;">
+                    @Html.Label("Annual Leave Start Date")
+                    @Html.EditorFor(model => model.ALStartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    @Html.Label("Annual Leave End Date")
+                    @Html.EditorFor(model => model.ALReturnDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            @Html.Label("Travel Time Return Date")
+            @Html.EditorFor(model => model.TravelReturnDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Comments")
+
+            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.TempRestAndRecuperationRequestLeaveDateGUID == null || Model.TempRestAndRecuperationRequestLeaveDateGUID == Guid.Empty)
+        {
+            @Html.CreateButtonNoPermission(Permissions.InternationalStaffRestAndRecuperationLeave.Create, Apps.AHD)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+
+                @Html.UpdateButtonNoPermission(Permissions.InternationalStaffRestAndRecuperationLeave.Update, Apps.AHD)
+
+            }
+            else
+            {
+                @Html.RestoreButton(Permissions.InternationalStaffRestAndRecuperationLeave.Delete, Apps.AHD)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

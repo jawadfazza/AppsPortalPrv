@@ -1,0 +1,43 @@
+﻿@model TableValuesUpdateModel
+@using (Html.BeginForm("TableValues", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "TableValuesForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model=>model.ValueGUID)
+    @Html.HiddenFor(model => model.TableGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ValueDescription)
+                @Html.EditorFor(model => model.ValueDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SortID)
+                @Html.EditorFor(model => model.SortID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            @{
+                string FactorsToken = Model.TableGUID.ToString(); ///new CMS().LookupValueFactorsCollector(Model.TableGUID);
+            }
+            <div id="TableValuesFormControls" class="form-group form-footer">
+                @if (Model.ValueGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.LookupValues.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.LookupValues.Update, Apps.CMS, FactorsToken)
+                        @Html.CreateNewButton(Permissions.LookupValues.Create, Apps.CMS, Url.Action("Create/" + Model.TableGUID.ToString(), "Codes", new { Area = "CMS"} ))
+                        @Html.DeleteButton(Permissions.LookupValues.Delete, Apps.CMS, FactorsToken)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.LookupValues.Restore, Apps.CMS, FactorsToken)
+                    }
+                }
+                @Html.BackToList(Url.Action("VCT/" + @Model.TableGUID, "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+                }

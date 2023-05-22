@@ -1,0 +1,58 @@
+﻿@model ReleaseModelUpdateModel
+@using (Html.BeginForm("ReleaseModel", "ReleaseModels", new { Area = "WMS" }, FormMethod.Post, new { id = "ReleaseModelForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+   
+    @Html.FormHiddenFields(model => model.ItemOutputGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+           
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.OutputDate)
+                @Html.EditorFor(model => model.OutputDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.RequesterGUID)
+                @Html.DropDownListFor(model => model.RequesterGUID, new DropDownList().WarehouseRequsterTypes(), "", new
+           {
+               @class = "form-control select2-basic-single",
+               style = "width:100%",
+               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'RequesterNameGUID', Action : 'RemoteWarehouseRequestTypes'}]);"
+           })
+
+
+            </div>
+
+
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.RequesterNameGUID)
+                @Html.DropDownListFor(model => model.RequesterNameGUID, new DropDownList().Empty(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.Comments)
+                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div id="EntryModelFormControls" class="form-group form-footer">
+                @if (Model.ItemOutputGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.WarehouseItemsRelease.Create, Apps.WMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.WarehouseItemsRelease.Update, Apps.WMS)
+                        @Html.CreateNewButton(Permissions.WarehouseItemsRelease.Create, Apps.WMS, Url.Action("/Create", new { Area = "WMS" }))
+                        @Html.DeleteButton(Permissions.WarehouseItemsRelease.Delete, Apps.WMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.WarehouseItemsRelease.Restore, Apps.WMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index","ReleaseModels", new { Area = "WMS" }))
+            </div>
+        </div>
+    </div>
+}

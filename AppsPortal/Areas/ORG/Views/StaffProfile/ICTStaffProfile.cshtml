@@ -1,0 +1,17 @@
+﻿@model StaffProfileUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("55da43a9-c9dd-4d17-8c4b-35dbcce32a94")
+@{string PageTitle = (Model.UserGUID == Guid.Empty) ? "New Staff Profile" : "Edit Staff Profile"; }
+
+
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/ORG/Views/StaffProfile/_ICTStaffProfile.cshtml")
+    </div>
+</div>

@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("04388632-c06d-4c22-b633-25bb5c7ef0e7")
+<div class="page--content">
+    <div class="forms-fadeIn">
+    </div>
+
+    <div id='calendar'></div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InitializShuttlesCalendar();
+    });
+    function InitializShuttlesCalendar() {
+        $('#calendar').fullCalendar('destroy');
+        $('#calendar').fullCalendar({
+            height: 700,
+            allDayText: 'Events',
+            selectable: true,
+            overflow: 'auto',
+            editable: true,
+            firstDay: 0,
+            businessHours: true,
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,basicWeek,basicDay,list'
+            },
+
+            defaultView: 'list',
+            eventLimit: true, // for all non-agenda views
+            views: {
+                agenda: {
+                    eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                }
+            },
+            events: function (start, end, timezone, callback) {
+                $.ajax({
+                    url: "/SHM/Shuttles/GetShuttlesCalendarData",
+                    dataType: 'json',
+                    type: "post",
+                    data: {
+                        // our hypothetical feed requires UNIX timestamps
+                        start: start.format('YYYY-MM-DD HH:mm'),
+                        end: end.format('YYYY-MM-DD HH:mm')
+                    },
+                    success: function (data) {
+                        var events = [];
+                        $.map(data.CalendarEvents, function (item, i) {
+                            var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                            var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                            var event = new Object();
+                            event.id = item.EventId;
+                            event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                            event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                            event.title = item.Title;
+                            event.allDay = false;
+                            if (item.ReferralStatus == '9ea61a3f-ea90-4f4b-b573-0fe3660dcc72') { event.color = 'green' }
+                            //if (item.ReferralStatus == 'a73e5015-896a-42cd-8845-d5fce5b80e15') { event.color = 'Blue' }
+                            if (item.ReferralStatus == '4adbdc93-b118-4d23-acf8-cae98cfc959b') { event.color = 'red' }
+                            events.push(event)
+                        });
+                        callback(events);
+                    }
+                });
+            },
+            //eventDrop: function (event, delta, revertFunc) {
+            //    $.ajax({
+            //        type: "post",
+            //        url: '/AMS/Appointments/UpdateAppointmentDate',
+            //        dataType: 'json',
+            //        type: "post",
+            //        data: {
+            //            PK: event.id,
+            //            NewDate: event.start.format()
+            //        },
+            //        success: function (JsonResult, status, xhr) {
+            //            if (JsonResult.Notify != null) {
+            //                ProcessNotify(JsonResult);
+            //                if (JsonResult.Notify.Type == NotificationType.Error) {
+            //                    revertFunc();
+            //                }
+            //            }
+            //        },
+            //        error: function (err) {
+            //            console.log(err);
+            //        }
+            //    });
+
+            //},
+            //eventClick: function (calEvent, jsEvent, view) {
+            //    $.ajax({
+            //        type: "GET",
+            //        url: '/AMS/Appointments/AppointmentUpdate?PK=' + calEvent.id,
+            //        success: function (data) {
+            //            $('#FormModal').modal('show');
+            //            // inject your content into the "placeholder" div
+            //            $('#Partial-Container').html(data);
+            //            $('#Loading-Container').hide();
+            //            InitPlugins($('#Partial-Container'));
+
+            //        },
+            //        error: function (err) {
+            //            console.log(err);
+            //        }
+            //    });
+            //},
+            //dayClick: function (date, allDay, jsEvent, view) {
+            //    //$(".fc-state-highlight").removeClass("fc-state-highlight");
+            //    //$(jsEvent.target).addClass("fc-state-highlight");
+            //    $("#Appointment_Date_Time").val(date.format('MMMM DD, YYYY'));
+            //    AppointmentCount(date.format('MMMM DD, YYYY'), $(".AppointmentTypeGUID").val());
+            //}
+        });
+        //-- ajax call to fetch calendar data from database
+
+
+    }
+</script>
+

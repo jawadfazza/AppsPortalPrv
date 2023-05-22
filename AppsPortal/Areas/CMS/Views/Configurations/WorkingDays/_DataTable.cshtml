@@ -1,0 +1,45 @@
+﻿@model WorkingDaysConfigModel
+<div class="form-group no-bottom-margin">
+    @using (Html.BeginForm("WorkingDaysConfig", "Configurations", FormMethod.Post, new { id = "WorkingDaysForm" }))
+    {
+        <h4 style="margin-bottom:0;">Working Hours at <span id="lblStationName">Duty station</span></h4>
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.OrganizationInstanceGUID)
+        @Html.HiddenFor(model => model.DutyStationsGUID)
+        <div class="configOption">
+            @for (int i = 0; i < Model.WorkingDaysModelList.Count(); i++)
+            {
+                @Html.HiddenFor(model => model.WorkingDaysModelList[i].WorkingDaysConfigurationGUID)
+                @Html.HiddenFor(model => model.WorkingDaysModelList[i].DayGUID)
+                @Html.HiddenFor(model => model.WorkingDaysModelList[i].Active)
+                @Html.HiddenFor(model => model.WorkingDaysModelList[i].codeWorkingDaysConfigurationsRowVersion)
+                <div class="row DayRecord" style="margin-bottom:5px;">
+                    <div class="col-xs-4 col-form-label">
+                        <label class="checkbox-label">
+                            @Html.CheckBoxFor(model => Model.WorkingDaysModelList[i].Status, new { @class = "WorkingDayCheckBox" })
+                            @Html.DisplayFor(m => Model.WorkingDaysModelList[i].Day)
+                        </label>
+                    </div>
+                    <div class="col-xs-4">
+                        @Html.DropDownListFor(model => Model.WorkingDaysModelList[i].FromTime, new DropDownList().WorkingTime(Model.WorkingDaysModelList[i].FromTime.ToString()), Model.WorkingDaysModelList[i].Status == false ? new { @disabled = "disabled", @class = "form-control select2-basic-single", style = "width:100%" } as object : new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        <a class="fa fa-clock-o helpbox" data-title="" data-content="From Time"></a>
+                    </div>
+                    <div class="col-xs-4">
+                        @Html.DropDownListFor(model => Model.WorkingDaysModelList[i].ToTime, new DropDownList().WorkingTime(Model.WorkingDaysModelList[i].ToTime.ToString()), Model.WorkingDaysModelList[i].Status == false ? new { @disabled = "disabled", @class = "form-control select2-basic-single", style = "width:100%" } as object : new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        <a class="fa fa-clock-o helpbox" data-title="" data-content="To Time"></a>
+                    </div>
+                </div>
+            }
+        </div>
+        <br />
+        <div class="form-group form-footer">
+            @Html.UpdateButton(1,Apps.CMS)
+            <input type="button" value="Close" class="btn btn-default collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#WorkingDaysTab" aria-expanded="false" aria-controls="collapseOne" />
+        </div>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $('#lblStationName').text($('#DutyStationsGUID').select2('data')[0]['text']);
+    })
+</script>

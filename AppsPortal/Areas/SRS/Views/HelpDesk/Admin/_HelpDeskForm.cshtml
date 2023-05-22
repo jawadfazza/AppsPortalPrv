@@ -1,0 +1,94 @@
+﻿@model HelpDeskModel
+
+@using (Html.BeginForm("HelpDeskAdmin", "HelpDesk", new { Area = "SRS" }, FormMethod.Post, new { id = "HelpDeskForm", @class = "main-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.HelpDeskGUID)
+    @Html.HiddenFor(model => model.RequestedByProfileGUID)
+    @Html.HiddenFor(model => model.RequestCreateDate)
+    @Html.HiddenFor(model => model.RequestNumber)
+    @*
+        @Html.HiddenFor(model=> model.RequestedByProfileGUID)
+        @Html.HiddenFor(model => model.WorkGroupGUID)*@
+    @Html.HiddenFor(model => model.ConfigItemGUID)
+    @*@Html.HiddenFor(model => model.CriticalityGUID)*@
+
+
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>@resxDbFields.RequestNumber:&nbsp;@Model.RequestNumber</b></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-3 col-md-3 col-sm-8 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.WorkGroupGUID:&nbsp;<b>@Model.WorkGroupDescription</b></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-8 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.ConfigItemGUID:&nbsp;<b>@Model.ConfigItemDescription</b></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-8 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.CriticalityGUID:&nbsp;<b>@Model.CriticalityDescription</b></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-8 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.RequestStatusGUID:&nbsp;<b>@Model.RequestStatusDescription</b></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    
+
+    if (Model.ConfigItemGUID == Guid.Parse("daaeaa0c-f441-4543-b533-b08bbf41a657")) //app req
+    {
+        @Html.Partial("~/Areas/SRS/Views/HelpDesk/Admin/_NewApplicationForm.cshtml", Model)
+    }
+    else if (Model.ConfigItemGUID == Guid.Parse("40c09a21-596b-480d-9350-0c9b089ccc72")) //enh req
+    {
+        @Html.Partial("~/Areas/SRS/Views/HelpDesk/Admin/_ApplicationEnhancementForm.cshtml", Model)
+    }
+    else if (Model.ConfigItemGUID == Guid.Parse("81008ea8-9b63-4b76-bff3-24ee0b41f0a6")) //bug rep
+    {
+        @Html.Partial("~/Areas/SRS/Views/HelpDesk/Admin/_BugReportForm.cshtml", Model)
+    }
+
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <div id="HelpDeskFormControls" class="form-group form-footer">
+
+                @if (Model.HelpDeskGUID == Guid.Empty)
+                {
+                    @Html.CreateButtonNoPermission()
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButtonNoPermission()
+                        @*@Html.DeleteButtonNoPermission()*@
+                    }
+                    else
+                    {
+                        @*@Html.RestoreButtonNoPermission()*@
+                    }
+                }
+                @Html.BackToList("/SRS/HelpDesk")
+            </div>
+        </div>
+    </div>
+}

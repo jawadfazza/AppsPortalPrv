@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "StaffRenewalResidency";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("74926293-e5f7-45ac-96d2-8f717c1604a7")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.StaffRenewalResidencyDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffName, DbColumnName = "StaffGUID", FilterForDataType = "Text", DataList = new DropDownList().InternationalStaffUsers(true), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FlowStatus, DbColumnName = "LastFlowStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().StaffRenewalResidencyFormStatus(), IsMultiple = true, IsSearchable = true })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FormType, DbColumnName = "FormTypeGUID", FilterForDataType = "Text", DataList = new DropDownList().NVInternationStaffFormTypes(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SendDate, DbColumnName = "SentDate", FilterForDataType = FilterDataTypes.Date })
+
+              
+
+            </div>
+            <div class="col-lg-12">
+                
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.StaffRenewalResidencyDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffRenewalResidencyDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.StaffRenewalResidencyDataTable)
+        @Html.FieldDataTableCreate(Permissions.StaffRenewalResidency.Create, Apps.AHD, Url.Action("StaffRenewalResidencyCreate", "StaffRenewalResidency"))
+
+        @Html.IndexDatatableDelete(Permissions.StaffRenewalResidency.Delete, Apps.AHD, DataTableNames.StaffRenewalResidencyDataTable)
+        @Html.IndexDatatableRestor(Permissions.StaffRenewalResidency.Restore, Apps.AHD, DataTableNames.StaffRenewalResidencyDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.StaffRenewalResidencyDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffRenewalResidencyDataTable, Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+
+
+</div>

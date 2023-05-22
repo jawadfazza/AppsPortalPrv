@@ -1,0 +1,66 @@
+﻿@model dataMedicalItemInputSupplyDetail
+@using (Html.BeginForm("MedicalItemInputSupplyDetail", "MedicalItemInputSupplys", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalItemInputSupplyDetailForm" }))
+{
+    string ModalTitle = Model.MedicalItemInputSupplyDetailGUID.ToString() == Guid.Empty.ToString() ? "New Item" : "Edit Item";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.MedicalItemInputSupplyDetailGUID)
+    @Html.HiddenFor(model => model.MedicalItemInputSupplyGUID)
+    @Html.HiddenFor(model => model.RemainingItems)
+    <div class="form-group HANDLER">
+        @Html.LabelFor(model => model.MedicalItemGUID)
+        @Html.DropDownListFor(model => model.MedicalItemGUID, new DropDownList().MedicalItems(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.BatchNumber)
+        @Html.EditorFor(model => model.BatchNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ManufacturingDate)
+        @Html.EditorFor(model => model.ManufacturingDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ExpirationDate)
+        @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.QuantityBySmallestUnit)
+        @Html.EditorFor(model => model.QuantityBySmallestUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PriceOfSmallestUnit)
+        @Html.EditorFor(model => model.PriceOfSmallestUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.QuantityByPackingUnit)
+        @Html.EditorFor(model => model.QuantityByPackingUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" , disabled = true } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PriceOfPackingUnit)
+        @Html.EditorFor(model => model.PriceOfPackingUnit, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = true } })
+    </div>
+
+
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.MedicalItemInputSupplyDetailGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.MedicalItemInputSupply.Create, Apps.EMT)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.MedicalItemInputSupply.Update, Apps.EMT)
+                @Html.DeleteSwitchButton(Permissions.MedicalItemInputSupply.Delete, Apps.EMT)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.MedicalItemInputSupply.Delete, Apps.EMT)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

@@ -1,0 +1,39 @@
+﻿@model dataPrinterOID
+@using (Html.BeginForm("PrinterOid", "PrinterConfiguration", new { Area = "RMS" }, FormMethod.Post, new { id = "PrinterOidForm" }))
+{
+    string ModalTitle = Model.PrinterOidGUID.ToString() == Guid.Empty.ToString() ? "New Printer Oid" : "Edit Printer Oid";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.PrinterOidGUID)
+    @Html.HiddenFor(model => model.PrinterConfigurationGUID)
+    <div class="form-group">
+        @Html.LabelFor(model => model.OidGUID)
+        @Html.DropDownListFor(model => model.OidGUID, new DropDownList().PrinterOids(Model.PrinterConfigurationGUID.Value), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+    </div>
+    <div class="form-group">
+        @Html.CheckBoxFor(model => model.MuteEmailNotification, new { @class = "chkNode-accordion" })
+        @Html.LabelFor(model => model.MuteEmailNotification)
+
+    </div>
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.PrinterOidGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.PrintersConfiguration.Create, Apps.RMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.PrintersConfiguration.Update, Apps.RMS)
+                @Html.DeleteSwitchButton(Permissions.PrintersConfiguration.Delete, Apps.RMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.PrintersConfiguration.Delete, Apps.RMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

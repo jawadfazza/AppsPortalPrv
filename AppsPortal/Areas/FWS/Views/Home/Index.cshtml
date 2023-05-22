@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("7616a76f-1262-41fb-af34-02acd163a45d")
+<style>
+    .fas {
+        color: #0072BC;
+    }
+</style>
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/FWS/PartnersContributions/">
+                <div class="SubjectBox matchHeight">
+                    <i class="fas fa-file-excel  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Upload Partners' Contributions</h3>
+                        <span>......</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            @*<a class="black" href="/FWS/MasterTable/GenerateMasterTable/"> *@
+            <a class="black NotExistPageLink" href="javascript:void(0)">
+                <div class="SubjectBox matchHeight">
+                    <i class="fas fa-file-excel  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Generate Master Table</h3>
+                        <span>......</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

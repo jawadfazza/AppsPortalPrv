@@ -1,0 +1,20 @@
+﻿@model configFocalPoint
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.FocalPointGUID == Guid.Empty) ? "New Focal Point" : "Edit Focal Point"; }
+
+@Html.PageHeader("b79d31e2-f59b-4fad-a401-bfebba69635e")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/REF/Views/FocalPoints/_FocalPointForm.cshtml")
+        <div id="FocalPointStaffsContainer">
+            @if (Model.FocalPointGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/REF/Views/FocalPoints/_FocalPointStaffsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.FocalPointGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

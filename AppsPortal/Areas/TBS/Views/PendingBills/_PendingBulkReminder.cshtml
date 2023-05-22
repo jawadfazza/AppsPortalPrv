@@ -1,0 +1,45 @@
+﻿@model SendReminderBulkModel
+
+@Html.Partial("_ModalHeader", "Send reminder email")
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">Send reminder email to selected record(s).</h4>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillDeadLine)
+                @Html.EditorFor(model => model.BillDeadLine, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+        </div>
+    </div>
+</div>
+<div id="PendingBillsDataTableFormControl" class="modal-footer form-footer">
+    <input id="btn-validate-data" type="submit" class="btn btn-primary" onclick="SubmitForm(this)" value="Send Reminder" data-submittype="Reminder" data-refreshdatatable="PendingBillsDataTable" form="PendingBillsDataTableForm">
+    @Html.CloseModalButton()
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#BillDeadLine').change(function (e) {
+            e.preventDefault();
+            debugger;
+            var newDate = $(this).val();
+            //var found = $('#PendingBillsDataTableForm').find('#NewBillDeadLine');
+            var element = document.getElementById("NewBillDeadLine");
+            if (element != undefined) {
+                element.parentNode.removeChild(element);
+            }
+            hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'NewBillDeadLine';
+            hiddenInput.id = 'NewBillDeadLine';
+            hiddenInput.value = newDate;
+            $(hiddenInput).appendTo('#PendingBillsDataTableForm');
+            //$('#PendingBillsDataTableForm').appendChild(hiddenInput);
+        });
+    })
+</script>

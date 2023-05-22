@@ -1,0 +1,229 @@
+﻿
+@{
+    ViewBag.Title = "Salary";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("09ab1921-2405-4cc3-ac95-2eeaeaa15de1")
+<link href="~/Assets/Plugin/stepwizard/step.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/stepwizard/step.js"></script>
+<div class="page--content">
+
+
+    <div class="col-md-12">
+
+
+        <section style="width:1800px;margin-right:0px;">
+            <div class="wizard">
+                <div class="wizard-inner">
+                    <!-- <div class="connecting-line"></div> -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active stepactive1">
+                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                                <span class="round-tab">
+                                    Salary HQ
+                                </span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="disabled stepactive2">
+                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                                <span class="round-tab">
+                                    Danger Pay
+                                </span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="disabled stepactive3">
+                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                                <span class="round-tab">
+                                    Entitlements
+                                </span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="disabled stepactive4">
+                            <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">
+                                <span class="round-tab">
+                                    Salary In Advance
+                                </span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="disabled stepactive4">
+                            <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">
+                                <span class="round-tab">
+                                    Medical
+                                </span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="disabled stepactive4">
+                            <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">
+                                <span class="round-tab">
+                                    Salary In Advance
+                                </span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="disabled stepactive4">
+                            <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">
+                                <span class="round-tab">
+                                    Salary In Advance
+                                </span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="disabled stepactive4">
+                            <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">
+                                <span class="round-tab">
+                                    Salary In Advance
+                                </span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="disabled stepactive4">
+                            <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">
+                                <span class="round-tab">
+                                    Salary In Advance
+                                </span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="disabled stepactive4">
+                            <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                                <span class="round-tab">
+                                    Submit
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <form role="form">
+                    <div class="tab-content">
+
+                        <div class="tab-pane active" role="tabpanel" id="step1">
+                            <div class="panel-group" id="checkout-accordion">
+
+                                <div class="panel panel-default checkout-panel" id="panel-billing">
+                                    <div class="panel-heading checkout-heading" id="panel-billing-heading" data-toggle="collapse" data-parent="#checkout-accordion" href="#collapse-billing">
+                                        <h4 class="panel-title checkout-acc-title">
+                                            <a>How much money do you need?</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse-billing" class="panel-collapse details collapse in">
+                                        <div class="panel-body checkout-inside">
+                                            <input type="text" name="">
+                                            <button id="toggle-delivery" type="button" class="btn-checkout btn btn-primary" data-toggle="collapse" data-parent="#checkout-accordion" href="#collapse-delivery2">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="panel panel-default checkout-panel" id="panel-shipping">
+                                    <div class="panel-heading checkout-heading" id="panel-shipping-heading" data-toggle="collapse" data-parent="#checkout-accordion" href="#collapse-delivery2">
+                                        <h4 class="panel-title checkout-acc-title">
+                                            <a>What is your credit score?</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse-delivery2" class="panel-collapse details collapse">
+                                        <div class="panel-body checkout-inside">
+                                            <ul>
+                                                <li>1.	499 or below </li>
+                                                <li> 2.	500- 599 </li>
+                                                <li> 3.	600-649 </li>
+                                                <li> 4.	650-679 </li>
+                                                <li> 5.	680-719 </li>
+                                                <li> 6.	720 and above </li>
+
+                                            </ul>
+
+                                            <button id="toggle-payment" type="button" class="btn-checkout btn btn-success" data-toggle="collapse" data-parent="#checkout-accordion" href="#collapse-billing">prew</button>
+                                            <button id="toggle-payment" type="button" class="btn-checkout btn btn-primary" data-toggle="collapse" data-parent="#checkout-accordion" href="#collapse-payment">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default checkout-panel" id="panel-payment">
+                                    <div class="panel-heading checkout-heading" id="panel-payment-heading" data-toggle="collapse" data-parent="#checkout-accordion" href="#collapse-payment">
+                                        <h4 class="panel-title checkout-acc-title">
+                                            <a>When did you start your business?-</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse-payment" class="panel-collapse details collapse">
+                                        <div class="panel-body checkout-inside">
+                                            Content Third
+                                            <ul class="list-inline text-center">
+                                                <li><button type="button" class="btn next-step">Save and Next  <i class="fa fa-arrow-right"></i></button></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="tab-pane" role="tabpanel" id="step2">
+                            <h3>Step 2</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat.
+                            </p>
+                            <ul class="list-inline text-center">
+                                <li><button type="button" class="btn prev-step"><i class="fa fa-arrow-left"></i>  Previous</button></li>
+                                <li><button type="button" class="btn next-step">Save and Next  <i class="fa fa-arrow-right"></i></button></li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-pane" role="tabpanel" id="step3">
+                            <h3>Step 3</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat.
+                            </p>
+                            <ul class="list-inline text-center">
+                                <li><button type="button" class="btn prev-step"><i class="fa fa-arrow-left"></i>  Previous</button></li>
+                                <li><button type="button" class="btn btn-info-full next-step">Save and Next  <i class="fa fa-arrow-right"></i></button></li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-pane" role="tabpanel" id="complete">
+                            <h3>Step 4</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat.
+                            </p>
+                            <ul class="list-inline text-center">
+                                <li><button type="button" class="btn prev-step"><i class="fa fa-arrow-left"></i>  Previous</button></li>
+                                <li><button type="button" class="btn btn-info-full next-step">Save and Submit</button></li>
+                            </ul>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </div>
+</div>
+    
+
+    <script>
+
+        //Remove href from shipping and payment from start
+        $("#panel-shipping-heading").removeAttr("href").css('color', 'gray')
+        $("#panel-payment-heading").removeAttr("href").css('color', 'gray')
+
+        //after delivery is shown, add href
+        $('#collapse-delivery2').on('show.bs.collapse', function () {
+            $("#panel-shipping-heading").attr("href", "#collapse-delivery2").css('color', 'black')
+        })
+
+        //after payment is shown, add href
+        $('#collapse-payment').on('show.bs.collapse', function () {
+            $("#panel-payment-heading").attr("href", "#collapse-payment").css('color', 'black')
+        })
+
+
+    </script>

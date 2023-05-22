@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Menus";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("c208d18d-8185-4bb3-87b3-5d969d00188b")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.MenusDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.MenuDescription, DbColumnName = "MenuDescription", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ActionUrl, DbColumnName = "ActionUrl", FilterForDataType = FilterDataTypes.Text })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ApplicationDescription, DbColumnName = "ApplicationDescription", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.IsPublic, DbColumnName = "IsPublic", FilterForDataType = FilterDataTypes.Boolean, DataList = new DropDownList().IsPublic() })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ParentMenuDescription, DbColumnName = "ParentMenuDescription", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.SortID, DbColumnName = "SortID", FilterForDataType = FilterDataTypes.Number })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.MenusDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.MenusDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.MenusDataTable)
+        @Html.IndexDatatableCreate(Permissions.NavigationMenus.Create, Apps.CMS, Url.Action("Menus/Create/", "Codes", new { Area = "CMS" } ))
+        @Html.IndexDatatableDelete(Permissions.NavigationMenus.Delete, Apps.CMS, DataTableNames.MenusDataTable)
+        @Html.IndexDatatableRestor(Permissions.NavigationMenus.Restore, Apps.CMS, DataTableNames.MenusDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.MenusDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MenusDataTable, FormController = "Codes", Area="CMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 5 })
+    </div>
+</div>

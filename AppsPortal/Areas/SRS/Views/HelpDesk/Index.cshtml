@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Application Requests";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("f9cc3170-7c5d-4277-9d1b-60789c00c516")
+<div class="page--content">
+
+    <div id=@string.Format("{0}Filter", DataTableNames.HelpDeskDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.RequestNumber, DbColumnName = "RequestNumber", FilterForDataType = FilterDataTypes.Number })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ConfigItemGUID, DbColumnName = "ConfigItemGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().HelpDeskConfigItemsList() })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.WorkGroupGUID, DbColumnName = "WorkGroupGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().HelpDeskWorkGroupsList() })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.RequestStatusGUID, DbColumnName = "RequestStatusGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, DataList = new DropDownList().HelpDeskRequestStatuses() })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.HelpDeskDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer",DataTableNames.HelpDeskDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.HelpDeskDataTable)
+        @Html.IndexDatatableCreateNoPermission(Url.Action("/Create/", "HelpDesk", new { Area = "SRS" }))
+        @*@Html.IndexDatatableDeleteNoPermission(DataTableNames.HelpDeskDataTable)
+        @Html.IndexDatatableRestorNoPermission(DataTableNames.HelpDeskDataTable)*@
+        @Html.IndexDatatableRefresh(DataTableNames.HelpDeskDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.HelpDeskDataTable, FormController = "HelpDesk", Area = "SRS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>

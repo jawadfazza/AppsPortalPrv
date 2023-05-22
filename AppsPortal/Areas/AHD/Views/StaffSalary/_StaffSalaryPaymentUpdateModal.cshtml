@@ -1,0 +1,166 @@
+﻿@model StaffSalaryUpdateModel
+@using (Html.BeginForm("StaffSalaryPayment", "StaffSalary", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffSalaryUpdateModelForm" }))
+{
+    string ModalTitle = Model.StaffSalaryGUID.ToString() == Guid.Empty.ToString() ? "New Record " : "Edit Record";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.StaffSalaryGUID)
+    @Html.HiddenFor(model => model.UserGUID)
+    @Html.HiddenFor(model => model.SalaryCycleGUID)
+    @Html.HiddenFor(model => model.StaffConfirmationStatusGUID)
+    @Html.HiddenFor(model => model.StaffConfirmationStatus)
+    @Html.HiddenFor(model => model.LastFlowStatusName)
+    @Html.HiddenFor(model => model.ActionDate)
+
+
+
+    @*@Html.HiddenFor(model => model.BlomShuttleDelegationDateGUID)*@
+
+
+    @*<div class="form-group">
+            @Html.Label("Staff")
+            @Html.DropDownListFor(model => model.UserGUID, new DropDownList().AdminHRStaff(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+
+        </div>*@
+    <div class="col-md-12">
+        <h5>@Model.StaffName</h5>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.Label("HQ Salary")
+            @Html.EditorFor(model => model.HQSalary, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.AdvancedSalary)
+            @Html.EditorFor(model => model.AdvancedSalary, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.PhoneCall)
+            @Html.EditorFor(model => model.PhoneCall, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.Internet4G)
+            @Html.EditorFor(model => model.Internet4G, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.AddOthers)
+            @Html.EditorFor(model => model.AddOthers, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.DangerPay)
+            @Html.EditorFor(model => model.DangerPay, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.Overtime)
+            @Html.EditorFor(model => model.Overtime, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.DeductionOthers)
+            @Html.EditorFor(model => model.DeductionOthers, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.MIP)
+            @Html.EditorFor(model => model.MIP, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.TotalSalary)
+            @Html.EditorFor(model => model.TotalSalary, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.BankName)
+            @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.AccountNumber)
+            @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+       
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.VoucherNumber)
+            @Html.EditorFor(model => model.VoucherNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.LastFlowStatusGUID)
+            @Html.DropDownListFor(model => model.LastFlowStatusGUID, new DropDownList().AHDActionFlowStatus(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+        </div>
+        
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.Comments)
+            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+
+
+    </div>
+ 
+
+
+  
+
+
+
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.StaffSalaryGUID == Guid.Empty)
+        {
+
+            @Html.CreateButton(Permissions.SalaryCycle.Create, Apps.AHD)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+
+                @Html.UpdateButton(Permissions.SalaryCycle.Update, Apps.AHD)
+                @*@Html.DeleteSwitchButton(Permissions.SalaryCycle.Update, Apps.AHD)*@
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.SalaryCycle.Update, Apps.AHD)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+    }

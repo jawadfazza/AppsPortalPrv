@@ -1,0 +1,662 @@
+﻿@model AppsPortal.Areas.IMS.Controllers.HomeController.filterDashboardVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("41b5345b-7e94-4b91-a303-a095b98fae33")
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+
+
+<style type="text/css">
+    mapboxgl-canvas {
+        left: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #map {
+        /* position: absolute;*/
+        /*top: 0;
+                bottom: 0;*/
+        min-width: 100%;
+        height: 100%;
+    }
+
+    html {
+        height: 100%;
+    }
+
+    body {
+        height: 100%;
+    }
+
+    #map-canvas {
+        min-height: 100%;
+    }
+
+    .expanded {
+        height: 94%;
+    }
+
+    #container {
+        height: 500px;
+        min-width: 310px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .loading {
+        margin-top: 10em;
+        text-align: center;
+        color: gray;
+    }
+
+    .board {
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 203px 1px;
+        border: solid 1px #333;
+        width: 260px;
+        height: 600px;
+        padding: 10px;
+        border-radius: 4px;
+        color: #FFFFFF;
+    }
+
+    .closeWindow {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+        .closeWindow:hover {
+            background-color: #f0f0f0;
+        }
+</style>
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<link href="~/Assets/Plugin/CustomDashboard/layout.min.css" rel="stylesheet" />
+
+@*<script src="~/Assets/Plugin/Mapbox/sy-all.js"></script>*@
+
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-red">
+                <span class="info-box-icon"><i class="fa fa-flag-o"></i></span>
+                <div class="pull-right">    </div>
+                <div class="info-box-content">
+                    <span class="info-box-text">All Actions</span>
+                    @Model.ActionsTaken
+
+                    <div class="progress">
+
+                    </div>
+                    <span class="progress-description">
+                        <a href="/IMS/MissionActions" style="color:orange">Link</a>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-aqua">
+                <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+                <div class="pull-right"> </div>
+                <div class="info-box-content">
+                    <span class="info-box-text">Actions ongoing</span>
+                    @Model.ActionsOngoing
+
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 85%"></div>
+                    </div>
+                    <span class="progress-description">
+
+                        <a href="/IMS/MissionActionsOngoing" style="color:orange">Link</a>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-blue">
+                <span class="info-box-icon"><i class="fa fa-files-o"></i></span>
+                <div class="pull-right"> </div>
+                <div class="info-box-content">
+                    <span class="info-box-text">Mission current year</span>
+                    @Model.missionsCurrentYear
+
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 85%"></div>
+                    </div>
+                    <span class="progress-description">
+                        @*<a href="/IMS/PendingVerificationOtherWarehouse" style="color:orange">Link</a>*@
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-green">
+                <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+                <div class="pull-right">   </div>
+                <div class="info-box-content">
+                    <span class="info-box-text">Mission ongiong</span>
+                    @Model.missionsOngoing
+
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 85%"></div>
+                    </div>
+                    <span class="progress-description">
+                        @*<a href="/IMS/PendingVerificationStaffIndex" style="color:orange">Link</a>*@
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/IMS/MissionReportForm">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>My Missions </h3>
+                        <span>.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/IMS/IndexForms">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Mission History</h3>
+                        <span>.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/IMS/MissionCalender">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Mission Calender</h3>
+                        <span>.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/IMS/MissionReports">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3> Mission Reports</h3>
+                        <span>.</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="https://app.powerbi.com/view?r=eyJrIjoiZDBkOTNiYmItZmU1OS00MjU5LWIxN2ItZTJjNzgyZjkyNTQ4IiwidCI6ImU1YzM3OTgxLTY2NjQtNDEzNC04YTBjLTY1NDNkMmFmODBiZSIsImMiOjh9" target="_blank">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-desktop  fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>PowerBI Dashboard </h3>
+                            <span>.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        
+    </div>
+    @using (Html.BeginForm("Chart", "Reports", new { Area = "IMS" }, FormMethod.Post, new { id = "ReportForm" }))
+    {
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="form-group">
+                    @Html.Label("Mission Start Date")
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="form-group">
+                    @Html.Label("Mission End Date")
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="form-group">
+                    @Html.Label("_", new { @style = "color:white;" })
+                    <input id="btnCharts" name="btnCharts" class="btn btn-primary ActionControl" style="width:100%" onclick="InitDashboards();" value="Generate Report">
+                    @*<div id="ChartsLoad"></div>*@
+                </div>
+
+            </div>
+
+        </div>
+    }
+    <div style="display:none" id="ChartPanel">
+        <br />
+        <hr />
+
+        <div class="row">
+            <div class="col-lg-4" style="border-right:10px">
+                <div id="container" style="height:400px; width:100%;padding-right:10px;border:ridge;"></div>
+            </div>
+
+
+
+            <div class="col-lg-7">
+                <div id="container2" style="height:400px; width:100%; margin: 0 auto;border:ridge;">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-11">
+                <div id="map" style='width: 700px; height: 500px;' class='map'></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+
+    </div>
+    @*<div class="row">
+            Map
+        </div>
+        <div class="col-lg-11">
+            @*<input type="button" onclick="InitCalander()" value="Show Calander">*@
+    @*<div id="map" style='height: 400px;' class='map'></div>*@
+    @*<div id="container1" style="height: 400px; width: 100%; padding-right: 10px; border: ridge;"></div>*@
+    @*</div>
+        <div class="row">
+            <div id="map" style='height: 400px;' class='map'></div>
+        </div>
+        </div>*@
+
+    <script src="https://unpkg.com/supercluster@4.1.1/dist/supercluster.min.js"></script>
+
+
+
+</div>
+<script type="text/javascript">
+    var Process = '<center><img src="../Assets/Images/loading.gif" style="top: 50%;position: absolute;" /></center>';
+    var totalChartNumber = 3;
+    var numberOfChartCompletet = 0;
+    function DecideWhenLoadComplete() {
+        numberOfChartCompletet++;
+        if (numberOfChartCompletet == totalChartNumber) {
+            $('#btnCharts').prop('disabled', false);
+            $('#ChartsLoad').html('');
+
+        }
+    }
+
+    function InitDashboards() {
+
+        $('#ChartsLoad').append('<span class="loadingSpan" style="margin-left:4px;margin-top:2px;"> Please wait...</span>');
+        $('#btnCharts').prop('disabled', false);
+        $('#ChartPanel').show();
+        numberOfChartCompletet = 0;
+        $('#container1').html('').append(Process);
+        $('#container2').html('').append(Process);
+        $('#container3').html('').append(Process);
+        DistributionbyGovernoratesChart();
+        DistributionPerLocationAndMonth();
+        ChartMap();
+        //Chart3();
+        //MapNV();
+    };
+
+    //InitDashboards();
+    function DistributionbyGovernoratesChart() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/IMS/Home/DistributionbyGovernoratesChart',
+            data: formData,
+            success: function (data) {
+                console.log(data);
+                Highcharts.chart('container', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie',
+                        options3d: {
+                            enabled: true,
+                            alpha: 45,
+                            beta: 0
+                        }
+                    },
+                    title: {
+                        text: 'Mission Distribution by Governorates'
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                //enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        allowPointSelect: true,
+                        keys: ['name', 'y', 'selected', 'sliced'],
+                        data: data.missionLocations,
+                        showInLegend: true
+                    }]
+                });
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function DistributionPerLocationAndMonth() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/IMS/Home/DistributionPerLocationAndMonth",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var seriesData = response.Model;
+                $('#container2').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container2', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Mission distribution per location and month'
+                    },
+
+                    xAxis: {
+                        categories: [
+                            'Jan',
+                            'Feb',
+                            'Mar',
+                            'Apr',
+                            'May',
+                            'Jun',
+                            'Jul',
+                            'Aug',
+                            'Sep',
+                            'Oct',
+                            'Nov',
+                            'Dec'
+                        ],
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    exporting: {
+                        enabled: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: seriesData
+                });
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+
+
+    mapboxgl.accessToken =
+        'pk.eyJ1IjoibWFrc291ZCIsImEiOiJjam9lNGV5ZWkwNWFkM3RwaTJzY3k5dXUzIn0.2dJy6LxlyhA_2sjgqTFkCQ';
+    mapboxgl.setRTLTextPlugin(
+        'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
+    var coordinates = document.getElementById('coordinates');
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v9',
+        center: [38.23242187500426, 32.69486597787042],
+        zoom: 5
+    });
+
+
+
+
+    //map.on('load',
+    //    () => {
+    //        this.map.resize();
+    //    });
+
+
+    var ChartMap = function () {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+
+            type: "post",
+            url: '/IMS/Home/InitMapResult',
+            data: formData,
+            success: function (data) {
+
+
+
+                $.each(data,
+                    function (i, item) {
+                        var popup = new mapboxgl.Popup({ offset: 25 })
+                            .setText(item.MissionDetail);
+                        var el = document.createElement('div');
+                        el.id = 'marker';
+
+                        var marker1 = new mapboxgl.Marker({
+                            draggable: false,
+
+                        })
+                            .setLngLat([item.GeoLong, item.GeoLat])
+                            .setPopup(popup)
+                            .addTo(map);
+
+
+                        function ondragend() {
+                            var lnglat = marker1.getlnglat();
+                            coordinates.style.display = 'block';
+                            coordinates.innerhtml =
+                                'longitude: ' + lnglat.lng + '<br />latitude: ' + lnglat.lat;
+                        }
+
+                        marker1.on('dragend', ondragend);
+
+
+                        map.on('load',
+                            function () {
+
+                                // Add a layer showing the places.
+                                map.addLayer({
+                                    "id": "places",
+                                    "type": "symbol",
+
+                                    "source": {
+                                        "type": "geojson",
+                                        "cluster": true,
+                                        "clusterMaxZoom": 14,
+                                        "clusterRadius": 50,
+                                        "data": {
+                                            "type": "FeatureCollection",
+                                            "features": [
+                                                {
+                                                    "type": "Feature",
+                                                    "properties": {
+                                                        "description":
+                                                            "<article class='serviceText' dir='ltr'> " +
+                                                            "<header>" +
+                                                            "  <img class='pull-right' src='https://admin-jordan.servicesadvisor.org/sites/default/files/styles/small_logo/public/servicepartner/medair_logo_2013.png?itok=FnspXnJ2' alt='Medair' onerror='this.onerror=null;this.style.display='none''>" +
+                                                            "<h3 class='ng-binding'><i style='color: #08a1d9' class='glyphicon icon-ocha-sector-health'></i> Health: Rukays: 2322</h3>" +
+                                                            "<p><strong class='ng-binding'>Partner" +
+                                                            ":</strong><span class='ng-binding'>" + item.Id + "</span></p>" +
+                                                            "<strong class='ng-binding'>Referral Method:</strong><span class='ng-binding'>Email on a per case basis</span></p><!-- end ngIf: service.referral.type -->" +
+                                                            "<!-- ngIf: service.intakeCriteria != false --><p field='intakeCriteria' ng-if='service.intakeCriteria != false' class='text-crimson ng-scope ng-isolate-scope'><strong class='ng-binding'>Intake Criteria:</strong><!-- ngIf: service.intakeCriteria --><span ng-if='service.intakeCriteria' class='ng-binding ng-scope'>Medical Condition, Open to all, Vulnerability, Specific Vulnerability Calculation/Scoring, Woman at risk, Serious medical condition, Chronic diseases, Children between 6 to 12 years, Children up to 17 years</span><!-- end ngIf: service.intakeCriteria --></p><!-- end ngIf: service.intakeCriteria != false --><!-- ngIf: service.infoLink --></header></article></div >" +
+                                                            +item.DISTRICT +
+                                                            " </p>",
+                                                        "icon": "theatre"
+                                                    },
+                                                    "geometry": {
+                                                        "type": "Point",
+                                                        "coordinates": [item.GeoLong, item.GeoLat]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "layout": {
+                                        "icon-image": "{icon}-15",
+                                        "icon-allow-overlap": true
+                                    }
+                                });
+
+
+                                // When a click event occurs on a feature in the places layer, open a popup at the
+                                // location of the feature, with description HTML from its properties.
+
+
+                                // Change the cursor to a pointer when the mouse is over the places layer.
+
+
+
+
+                            });
+
+
+                    });
+                map.resize();
+                map.on('click', 'places', function (e) {
+
+                    var coordinates = e.features[0].geometry.coordinates.slice();
+                    var description = e.features[0].properties.description;
+
+                    // Ensure that if the map is zoomed out such that multiple
+                    // copies of the feature are visible, the popup appears
+                    // over the copy being pointed to.
+                    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                    }
+
+                    new mapboxgl.Popup()
+                        .setLngLat(coordinates)
+                        .setHTML(description)
+                        .addTo(map);
+                });
+
+                // Change the cursor to a pointer when the mouse is over the places layer.
+                map.on('mouseenter', 'places', function () {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                // Change it back to a pointer when it leaves.
+                map.on('mouseleave', 'places', function () {
+                    map.getCanvas().style.cursor = '';
+                });
+
+
+            }
+        });
+    }
+
+
+    // When a click event occurs on a feature in the places layer, open a popup at the
+    // location of the feature, with description HTML from its properties.
+    map.on('click', 'places', function (e) {
+        alert(2);
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description = e.features[0].properties.description;
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the places layer.
+    map.on('mouseenter', 'places', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'places', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+
+
+</script>

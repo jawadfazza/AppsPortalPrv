@@ -1,0 +1,36 @@
+﻿@model WorkAddressModel
+<div class="row section">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-right pull-right col-nopadding-left">
+        <a class="btn Edit-Link" onclick="EditSection(this, '@Url.Action("WorkAddressUpdate","Profile")', 'PanelForWorkAddressForm');">Edit</a>
+    </div>
+    <div class="col-lg-2 col-md-8 col-sm-8 col-xs-8">
+        <h3 class="Title">@resxPages.WorkAddress</h3>
+    </div>
+    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+        @if (Model == null)
+        {
+            <h4>@resxPages.WorkAddressNotFound</h4>
+        }
+        else
+        {
+            <div id="pnlWorkAddress" class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.OfficeDescription</h5>
+                        <span>@Model.OfficeGUID&nbsp;</span>
+                    </div>
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.RoomNumber</h5>
+                        <span>@Model.RoomNumber&nbsp;</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="breath-bottom">
+                        <h5 class="SubTitle">@resxDbFields.FloorNumber</h5>
+                        <span>@Model.FloorNumber&nbsp;</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

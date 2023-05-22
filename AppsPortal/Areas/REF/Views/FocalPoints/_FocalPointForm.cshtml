@@ -1,0 +1,65 @@
+﻿@model configFocalPoint
+@using (Html.BeginForm("FocalPoints", "FocalPoints", new { Area = "REF" }, FormMethod.Post, new { id = "FocalPointForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+   
+    @Html.FormHiddenFields(model => model.FocalPointGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+
+            <div class="form-group">
+                @Html.Label(resxDbFields.OrganizationInstance, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownList("OrganizationInstanceGUID", new DropDownList().OrganizationsInstances(), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$(this).val()], [" +
+               "{ DropDownListID : 'DepartmentConfigurationGUID', Action : 'RemoteOrganizationsInstancesByDepartmentConfiguration'}" +
+               ",{ DropDownListID : 'DutyStationGUID', Action : 'RemoteDutyStation'}]);"
+           })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartmentConfigurationGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.DepartmentConfigurationGUID, new DropDownList().DepartmentConfigurationOneValue(Model.DepartmentConfigurationGUID), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search"
+           })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DutyStationGUID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStationsOneValue(Model.DutyStationGUID), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search"
+           })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ApplicationGUID)
+                @Html.DropDownListFor(model => model.ApplicationGUID, new DropDownList().Applications(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+            
+            <div id="FocalPointFormControls" class="form-group form-footer">
+                @if (Model.FocalPointGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.FocalPointsManagement.Create, Apps.REF)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.FocalPointsManagement.Update, Apps.REF)
+                        @Html.CreateNewButton(Permissions.FocalPointsManagement.Create, Apps.REF, Url.Action("/Create", new { Area = "REF" }))
+                        @Html.DeleteButton(Permissions.FocalPointsManagement.Delete, Apps.REF)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.FocalPointsManagement.Restore, Apps.REF)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "FocalPoints", new { Area = "REF" }))
+            </div>
+        </div>
+    </div>
+}

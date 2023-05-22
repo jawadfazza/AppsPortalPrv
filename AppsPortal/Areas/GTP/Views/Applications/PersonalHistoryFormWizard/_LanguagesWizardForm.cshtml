@@ -1,0 +1,222 @@
+﻿@model dataPersonalHistoryLanguageUpdateModel
+@using (Html.BeginForm("LanguagesWizard", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "LanguagesWizardForm", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.GTPPHLanguageGUID)
+    @Html.AntiForgeryToken()
+    <div class="tab-pane" id="tab1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><b>12. LANGUAGES  </b> (Mandatory to complete)</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6" style="padding-bottom:10px;">
+                        <span>
+                            Indicate your proficiency levels for each language, including for your Mother Tongue.
+                        </span>
+                        <br />
+                        <span>
+                            Proficiency levels are listed from A1 to C2, and are based on the Common European Framework of Reference for Languages; the website is below.
+                        </span>
+                        <br />
+                        <span>
+                            <a href="https://www.eui.eu/Documents/ServicesAdmin/LanguageCentre/CEF.pdf">https://www.eui.eu/Documents/ServicesAdmin/LanguageCentre/CEF.pdf</a>
+                        </span>
+                    </div>
+                    <div class="col-md-3" style="padding-bottom:10px;">
+                        <span>A1 (beginner)</span><br />
+                        <span>B1 (pre-intermediate)</span><br />
+                        <span>C1 (advanced)</span><br />
+                    </div>
+                    <div class="col-md-3" style="padding-bottom:10px;">
+                        <span>A2 (basic)</span><br />
+                        <span>B2 (intermediate)</span><br />
+                        <span>C2 (proficient)</span><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MotherTongueLanguageGUID)    <span class="span-required-field">*</span>
+                            @Html.EditorFor(model => model.MotherTongueLanguageGUID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    @*<div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MotherTongueLanguageReadingGUID)   <span class="span-required-field">*</span>
+                            @Html.DropDownListFor(model => model.MotherTongueLanguageReadingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MotherTongueLanguageSpeakingGUID)     <span class="span-required-field">*</span>
+                            @Html.DropDownListFor(model => model.MotherTongueLanguageSpeakingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MotherTongueLanguageWritingGUID)    <span class="span-required-field">*</span>
+                            @Html.DropDownListFor(model => model.MotherTongueLanguageWritingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MotherTongueLanguageListeningGUID)    <span class="span-required-field">*</span>
+                            @Html.DropDownListFor(model => model.MotherTongueLanguageListeningGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>*@
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SecondLanguageGUID)
+                            @Html.EditorFor(model => model.SecondLanguageGUID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SecondLanguageReadingGUID)
+                            @Html.DropDownListFor(model => model.SecondLanguageReadingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SecondLanguageSpeakingGUID)
+                            @Html.DropDownListFor(model => model.SecondLanguageSpeakingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SecondLanguageWritingGUID)
+                            @Html.DropDownListFor(model => model.SecondLanguageWritingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SecondLanguageListeningGUID)
+                            @Html.DropDownListFor(model => model.SecondLanguageListeningGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SecondLanguageEvaluationDate)
+
+                            @Html.EditorFor(model => model.SecondLanguageEvaluationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ThirdLanguageGUID)
+                            @Html.EditorFor(model => model.ThirdLanguageGUID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ThirdLanguageReadingGUID)
+                            @Html.DropDownListFor(model => model.ThirdLanguageReadingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ThirdLanguageSpeakingGUID)
+                            @Html.DropDownListFor(model => model.ThirdLanguageSpeakingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ThirdLanguageWritingGUID)
+                            @Html.DropDownListFor(model => model.ThirdLanguageWritingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ThirdLanguageListeningGUID)
+                            @Html.DropDownListFor(model => model.ThirdLanguageListeningGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ThirdLanguageEvaluationDate)
+                            @Html.EditorFor(model => model.ThirdLanguageEvaluationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FourthLanguageGUID)
+                            @Html.EditorFor(model => model.FourthLanguageGUID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FourthLanguageReadingGUID)
+                            @Html.DropDownListFor(model => model.FourthLanguageReadingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FourthLanguageSpeakingGUID)
+                            @Html.DropDownListFor(model => model.FourthLanguageSpeakingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FourthLanguageWritingGUID)
+                            @Html.DropDownListFor(model => model.FourthLanguageWritingGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FourthLanguageListeningGUID)
+                            @Html.DropDownListFor(model => model.FourthLanguageListeningGUID, new DropDownList().GTPLanguageLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FourthLanguageEvaluationDate)
+                            @Html.EditorFor(model => model.FourthLanguageEvaluationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right">
+                            @if (Model.GTPPHLanguageGUID == Guid.Empty)
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Save & Next' data-next-url="/GTP/Applications/LicencesAndCertificatesWizard/Create" />
+                            }
+                            else
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Update" name='next' value='Update & Next' data-next-url="/GTP/Applications/LicencesAndCertificatesWizard/Create" />
+                            }
+                        </div>
+                        <div style="float:left">
+                            <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/SkillsWizard/Create" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,357 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("46e6b58e-320f-4f7f-a917-94742a2e4311")
+<link href="~/Assets/Plugin/datePickerAdminLte/datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+<link href="~/Areas/WMS/Temp/layout.min.css" rel="stylesheet" />
+<div data-ng-app="myApp">
+    <div data-ng-controller="MyCtrl">
+        <div class="form-group">
+            <div class="col-md-12">
+                         <div class="col-md-3 col-sm-6 col-xs-12">
+                             <div class="info-box bg-green">
+                                 <span class="info-box-icon"><i class="fa fa-flag-o"></i></span>
+                                 <div class="pull-right"> <a ng-show="itemSummary.TotalDelayItems>0" ng-href="@Url.Content("/WMS/Dashboard/ExportDelayConfirmationModlesIntoExcel")"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a></div>
+                                 <div class="info-box-content">
+                                     <span class="info-box-text">Total Items Delayed</span>
+                                     {{itemSummary.TotalDelayItems}}
+
+                                     <div class="progress">
+                                         <div class="progress-bar" style="width: 85%"></div>
+                                     </div>
+                                     <span class="progress-description">
+
+                                     </span>
+                                 </div>
+                        
+                             </div>
+                        
+                         </div>
+                
+                         <div class="col-md-3 col-sm-6 col-xs-12">
+                             <div class="info-box bg-red">
+
+                                 <span class="info-box-icon"><i class="fa fa-files-o"></i></span>
+                                 <div class="pull-right"> <a ng-show="itemSummary.TotalPendingConfirmationdItems>0" ng-href="@Url.Content("/WMS/Dashboard/ExportPendingConfirmationModlesIntoExcel")"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a></div>
+                                 <div class="info-box-content">
+
+                                     <span class="info-box-text">Total Items Not Confirmed</span>
+                                     {{itemSummary.TotalPendingConfirmationdItems}}
+
+                                     <div class="progress">
+                                         <div class="progress-bar" style="width: 69%"></div>
+                                     </div>
+                                     <span class="progress-description">
+
+                                     </span>
+                                 </div>
+
+                             </div>
+
+                         </div>
+
+                         <div class="col-md-3 col-sm-6 col-xs-12">
+                             <div class="info-box bg-yellow">
+                                 <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+
+                                 <div class="info-box-content">
+                                     <span class="info-box-text"> Total Items Depreciated </span>
+                                     {{itemSummary.TotalDepreciatedItems}}
+
+                                     <div class="progress">
+                                         <div class="progress-bar" style="width: 70%"></div>
+                                     </div>
+                                     <span class="progress-description">
+
+                                     </span>
+                                 </div>
+
+                             </div>
+
+                         </div>
+                         
+                         <div class="col-md-3 col-sm-6 col-xs-12">
+                             <div class="info-box bg-aqua">
+                                 <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+
+                                 <div class="info-box-content">
+                                     <span class="info-box-text">Total Items Threeshold</span>
+                                     {{itemSummary.TotalExpiredItems}}
+
+                                     <div class="progress">
+                                         <div class="progress-bar" style="width: 78%"></div>
+                                     </div>
+                                     <span class="progress-description">
+
+                                     </span>
+                                 </div>
+
+                             </div>
+
+                         </div>
+                     </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <div class="row">
+                <div class="col-md-5">
+                    <ul class="nav nav-pills nav-stacked col-md-2">
+                        <li class="active"><a href="#tab_a" data-toggle="pill">Damascus</a></li>
+                        <li><a href="#tab_b" data-toggle="pill">Aleppo</a></li>
+                        <li><a href="#tab_c" data-toggle="pill">Tartus </a></li>
+                        <li><a href="#tab_d" data-toggle="pill">Suwayda</a></li>
+                        <li><a href="#tab_e" data-toggle="pill">Hamah</a></li>
+                        <li><a href="#tab_f" data-toggle="pill">Al-Qamishli</a></li>
+                    </ul>
+                    <div class="tab-content col-md-10">
+                        <div class="tab-pane active" id="tab_a">
+                            <h4>Pane A</h4>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+                                ac turpis egestas.</p>
+                        </div>
+                        <div class="tab-pane" id="tab_b">
+                            <h4>Pane B</h4>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+                                ac turpis egestas.</p>
+                        </div>
+                        <div class="tab-pane" id="tab_c">
+                            <h4>Pane C</h4>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+                                ac turpis egestas.</p>
+                        </div>
+                        <div class="tab-pane" id="tab_d">
+                            <h4>Pane D</h4>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+                                ac turpis egestas.</p>
+                        </div>
+                        <div class="tab-pane" id="tab_e">
+                            <h4>Pane E</h4>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+                                ac turpis egestas.</p>
+                        </div>
+                        <div class="tab-pane" id="tab_f">
+                            <h4>Pane F</h4>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+                                ac turpis egestas.</p>
+                        </div>
+                    </div><!-- tab content -->
+
+                </div>
+                    <div class="col-md-4">
+                        <div id="calendar">
+                        </div>
+                    </div>
+                
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+    function ini_events(ele) {
+        //$("#calendar").hide();
+        //$("#imageLoader").show();
+        ele.each(function () {
+
+            // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+            // it doesn't need to have a start or end
+            var eventObject = {
+                title: $.trim($(this).text()) // use the element's text as the event title
+            };
+
+            // store the Event Object in the DOM element so we can get to it later
+            $(this).data('eventObject', eventObject);
+
+            // make the event draggable using jQuery UI
+            $(this).draggable({
+                zIndex: 1070,
+                revert: true, // will cause the event to go back to its
+                revertDuration: 0  //  original position after the drag
+            });
+
+        });
+    }
+
+    ini_events($('#external-events div.external-event'));
+
+    /* initialize the calendar
+     -----------------------------------------------------------------*/
+    //Date for the calendar events (dummy data)
+    var date = new Date();
+    var d = date.getDate(),
+        m = date.getMonth(),
+        y = date.getFullYear();
+
+    $('#calendar').fullCalendar({
+
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        buttonText: {
+            today: 'today',
+            month: 'month',
+            week: 'week',
+            day: 'day',
+            list: 'list'
+        },
+        //Random default events
+        /**/
+        events: "/WMS/Reports/InitCalander",
+        /**/
+
+        eventClick: function (calEvent, jsEvent, view) {
+            $('#FormModal').modal('show');
+            //alert(JSON.stringify(calEvent.id,null,2));
+            $.ajax({
+                type: "GET",
+                url: '/WMS/Reports/GetMovementItemDetails?PK=' + calEvent.id,
+                success: function (data) {
+                    // inject your content into the "placeholder" div
+                    $('#Partial-Container').html(data);
+                    $('#Loading-Container').hide();
+                    InitPlugins($('#Partial-Container'));
+
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        },
+        //title: 'Answer HotLine',
+        //start: new Date(y, m, d, 12, 0),
+        //end: new Date(y, m, d, 14, 0),
+        //allDay: false,
+        //backgroundColor: "#00c0ef", //Info (aqua)
+        //borderColor: "#00c0ef" //Info (aqua)
+        editable: true,
+        droppable: true, // this allows things to be dropped onto the calendar !!!
+        drop: function (date, allDay) { // this function is called when something is dropped
+
+            // retrieve the dropped element's stored Event Object
+            var originalEventObject = $(this).data('eventObject');
+
+            // we need to copy it, so that multiple events don't have a reference to the same object
+            var copiedEventObject = $.extend({}, originalEventObject);
+
+            // assign it the date that was reported
+            copiedEventObject.start = date;
+            copiedEventObject.allDay = allDay;
+            copiedEventObject.backgroundColor = $(this).css("background-color");
+            copiedEventObject.borderColor = $(this).css("border-color");
+
+            // render the event on the calendar
+            // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+
+            // is the "remove after drop" checkbox checked?
+            if ($('#drop-remove').is(':checked')) {
+                // if so, remove the element from the "Draggable Events" list
+                $(this).remove();
+            }
+
+        }
+    });
+
+    /* ADDING EVENTS */
+    var currColor = "#3c8dbc"; //Red by default
+    //Color chooser button
+    var colorChooser = $("#color-chooser-btn");
+    $("#color-chooser > li > a").click(function (e) {
+        e.preventDefault();
+        //Save color
+        currColor = $(this).css("color");
+        //Add color effect to button
+        $('#add-new-event').css({ "background-color": currColor, "border-color": currColor });
+    });
+    $("#add-new-event").click(function (e) {
+        e.preventDefault();
+        //Get value and make sure it is not null
+        var val = $("#new-event").val();
+        if (val.length == 0) {
+            return;
+        }
+
+        //Create events
+        var event = $("<div/>");
+        event.css({ "background-color": currColor, "border-color": currColor, "color": "#fff" }).addClass("external-event");
+        event.html(val);
+        $('#external-events').prepend(event);
+
+        //Add draggable funtionality
+        ini_events(event);
+
+        //Remove event from text input
+        $("#new-event").val("");
+    });
+
+
+    var myApp = angular.module('myApp', []);
+
+    //Controller
+    myApp.controller('MyCtrl',
+        [
+            '$scope', '$http', '$timeout', '$window', '$interval',
+            function($scope, $http, $timeout, $window, $interval) {
+                @*$scope.myitems = [];
+                $('select').select2();
+                $('#itemLoader').hide();
+
+                $scope.GetSearchModels = function () {
+                    $('#itemLoader').show();
+                    $('#itemdata').hide();
+                    $http({
+                        method: 'Post',
+                        url: "@Url.Action("GetSearchModels", "Dashboard")",
+                        data: { myModel: $scope.DashboardVMFilter }
+
+                    }).success(function(data) {
+
+                        $scope.itemSummary = data.itemSummary;
+                        $('#itemLoader').hide();
+                        $('#itemdata').show();
+                        //$scope.items = data.items;
+                        //$scope.brands = data.brands;
+                        $('select').select2();
+                        //$('#itemsTable select').css('width', '100%');
+
+                    });
+
+                }
+
+                $scope.InitDashboardData = function() {
+
+                    $http({
+                        method: 'Post',
+                        url: "@Url.Action("InitDashboardData", "Dashboard")",
+
+                    }).success(function(data) {
+
+                        $scope.itemSummary = data.itemSummary;
+                        $scope.items = data.items;
+                        $scope.brands = data.brands;
+                        $scope.warehouses = data.warehouses;
+                        $scope.warehouseItems = data.warehouseItems;
+                        $('select').select2();
+                        //$('#itemsTable select').css('width', '100%');
+
+                    });
+                }
+                $scope.InitDashboardData();*@
+
+            }
+        ]);
+</script>

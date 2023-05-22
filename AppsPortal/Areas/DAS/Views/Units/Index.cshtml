@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Units";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("1f4f5d30-969e-4ebe-9e29-bb5903191650")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.UnitsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DestinationUnitName, DbColumnName = "WarehouseItemClassificationGUID", FilterForDataType = "Text", DataList = new DropDownList().DASDASDestinationUnit(), IsMultiple = true, IsSearchable = true })
+                
+
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStationDescription, DbColumnName = "DutyStationGUID", FilterForDataType = "Options", DataList = new DropDownList().DutyStationsByProfile(), IsMultiple = true })*@
+
+            </div>
+
+            <div class="col-lg-12">
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationInstanceDescription, DbColumnName = "OrganizationInstanceGUID", FilterForDataType = "Options", DataList = new DropDownList().OrganizationsInstancesByProfile(), IsMultiple = true })*@
+               
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.UnitsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.UnitsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.UnitsDataTable)
+        @Html.IndexDatatableCreate(Permissions.DASConfiguration.Create, Apps.DAS, "/DAS/Units/Create/")
+        @Html.IndexDatatableDelete(Permissions.DASConfiguration.Delete, Apps.DAS, DataTableNames.UnitsDataTable)
+        @Html.IndexDatatableRestor(Permissions.DASConfiguration.Restore, Apps.DAS, DataTableNames.UnitsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.UnitsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.UnitsDataTable, Area = "DAS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

@@ -1,0 +1,360 @@
+﻿@model WarehouseItemDetailFeatureUpdateModel
+@{
+    string ModalTitle = (Model.ItemInputDetailFeatureGUID == null || Model.ItemInputDetailFeatureGUID.ToString() == Guid.Empty.ToString()) ? "New Record " : "Edit Record";
+    @Html.Partial("_ModalHeader", ModalTitle)
+}
+<div class="modal-body">
+    <div class="row">
+        <div class="form-group">
+
+            <div class="col-md-12">
+                @Html.Label("Service Category")
+                @Html.DropDownListFor(model => model.FeatureTypeGUID, new DropDownList().CodeWarehouseItemFeatureTypes(), "",
+                                                                new
+                                                                {
+                                                                    @class = "form-control select2-basic-search",
+                                                                    onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'FeatureTypeValueGUID', Action : 'RemoteWarehouseItemFeaturesCascade'}]);",
+                                                                    style = "width:100%"
+                                                                })
+            </div>
+        </div>
+    </div>
+</div>
+<div id="withdoc">
+    @using (Html.BeginForm("WarehouseItemDetailFeature", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "ItemfeaturenUploadForm" }))
+    {
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ItemInputDetailFeatureGUID)
+        @Html.HiddenFor(model => model.ItemInputDetailGUID)
+
+
+        <br />
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.Label("Service Name")
+                @Html.DropDownListFor(model => model.FeatureTypeValueGUIDDoc, new DropDownList().CodeWarehouseItemFeatureDocumentValues(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+        </div>
+    
+        <br />
+
+        <div class="row">
+            <div class="col-md-12 ">
+                @Html.LabelFor(model => model.FeatureValue)
+                @Html.EditorFor(model => model.FeatureValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 ">
+                @Html.LabelFor(model => model.StartDate)
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 ">
+                @Html.LabelFor(model => model.EndDate)
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 ">
+                @Html.LabelFor(model => model.Comments)
+                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="fine-uploader-manual-trigger"></div>
+            </div>
+        </div>
+    </div>
+        <div class="modal-footer form-footer">
+            <input id="my-select-files-btn" type="button" value="Select Files" class="btn btn-default" />
+            @if (Model.ItemInputDetailFeatureGUID == null || Model.ItemInputDetailFeatureGUID == Guid.Empty)
+            {
+                @Html.CreateButton(Permissions.WarehouseItemsEntry.Create, Apps.WMS)
+            }
+            else
+            {
+                if (Model.Active)
+                {
+                    @Html.UpdateButton(Permissions.WarehouseItemsEntry.Update, Apps.WMS)
+                    @Html.DeleteSwitchButton(Permissions.WarehouseItemsEntry.Delete, Apps.WMS)
+                }
+                else
+                {
+                    @Html.RestoreSwitchButton(Permissions.WarehouseItemsEntry.Delete, Apps.WMS)
+                }
+            }
+            @Html.CloseModalButton()
+        </div>
+    }
+    <script type="text/template" id="qq-template-manual-trigger">
+        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
+            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+            </div>
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                <span class="qq-upload-drop-area-text-selector"></span>
+            </div>
+            <div class="buttons">
+                <div class="qq-upload-button-selector qq-upload-button hidden">
+                    <div id="btn-upload-files">Select files</div>
+                </div>
+                <button type="button" id="trigger-upload" class="btn btn-primary hidden">
+                    <i class="icon-upload icon-white"></i> Upload
+                </button>
+            </div>
+            <span class="qq-drop-processing-selector qq-drop-processing">
+                <span>Processing dropped files...</span>
+                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+            </span>
+            <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
+                <li>
+                    <div class="qq-progress-bar-container-selector">
+                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
+                    <span class="qq-upload-file-selector qq-upload-file"></span>
+
+                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
+
+                    <span class="qq-upload-size-selector qq-upload-size"></span>
+                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Cancel</button>
+                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>
+                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">Delete</button>
+                    <span role="status" id="ErrorId" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                </li>
+            </ul>
+
+            <dialog class="qq-alert-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Close</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-confirm-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">No</button>
+                    <button type="button" class="qq-ok-button-selector">Yes</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-prompt-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <input type="text">
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                    <button type="button" class="qq-ok-button-selector">Ok</button>
+                </div>
+            </dialog>
+        </div>
+    </script>
+</div>
+<div id="noDoc">
+    @using (Html.BeginForm("WarehouseItemDetailFeature", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "noDocumentFeature" }))
+    {
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ItemInputDetailFeatureGUID)
+        @Html.HiddenFor(model => model.ItemInputDetailGUID)
+
+
+        <br />
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.Label("Service Name")
+                @Html.DropDownListFor(model => model.FeatureTypeValueGUID, new DropDownList().CodeWarehouseItemFeatureTypesValues(Model.FeatureTypeValueGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-md-12 ">
+                @Html.LabelFor(model => model.FeatureValue)
+                @Html.EditorFor(model => model.FeatureValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 ">
+                @Html.LabelFor(model => model.StartDate)
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 ">
+                @Html.LabelFor(model => model.EndDate)
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 ">
+                @Html.LabelFor(model => model.Comments)
+                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="fine-uploader-manual-trigger"></div>
+            </div>
+        </div>
+    </div>
+        <div class="modal-footer form-footer">
+            
+            @if (Model.ItemInputDetailFeatureGUID == null || Model.ItemInputDetailFeatureGUID == Guid.Empty)
+            {
+                @Html.CreateButton(Permissions.WarehouseItemsEntry.Create, Apps.WMS)
+            }
+            else
+            {
+                if (Model.Active)
+                {
+                    @Html.UpdateButton(Permissions.WarehouseItemsEntry.Update, Apps.WMS)
+                    @Html.DeleteSwitchButton(Permissions.WarehouseItemsEntry.Delete, Apps.WMS)
+                }
+                else
+                {
+                    @Html.RestoreSwitchButton(Permissions.WarehouseItemsEntry.Delete, Apps.WMS)
+                }
+            }
+            @Html.CloseModalButton()
+        </div>
+    }
+
+</div>
+<script>
+
+    $(function () {
+        $('#withdoc').hide();
+        $('#noDoc').hide();
+        $('#FeatureTypeGUID').change(function (e) {
+
+            e.preventDefault();
+            var val = $(this).val();
+
+
+            if (val == '29765244-0925-4237-8834-63f5480d3377') {
+
+
+                $("#withdoc").show();
+                $('#noDoc').hide();
+
+            }
+            else {
+                $("#withdoc").hide();
+                $('#noDoc').show();
+
+            }
+
+        });
+
+        $('#ItemfeaturenUploadForm').find(':submit').unbind();
+        $('#ItemfeaturenUploadForm').find(':submit').click(function (e) {
+            e.preventDefault();
+
+            manualUploader.uploadStoredFiles();
+
+        });
+        $('#my-select-files-btn').click(function (e) {
+
+            e.preventDefault();
+            $('.qq-upload-button-selector').find(':input').click();
+        });
+    });
+
+    var manualUploader = new qq.FineUploader({
+        validation: {
+            allowedExtensions: ['xls', 'xlsx', 'pdf', 'doc', 'docx'],
+        },
+        element: document.getElementById('fine-uploader-manual-trigger'),
+        template: 'qq-template-manual-trigger',
+        request: {
+            endpoint: '/WMS/ModelMovements/UploadWarehouseItemDetailFeatures',
+            params: {
+                'ItemInputDetailGUID': function () {
+                    return $('#ItemInputDetailGUID').val();
+                }
+                ,
+                'FeatureTypeValueGUID': function () {
+                    return $('#FeatureTypeValueGUIDDoc').val();
+                }
+                ,
+                'FeatureValue': function () {
+                    return $('#FeatureValue').val();
+                }
+                ,
+                'StartDate': function () {
+                    return $('#StartDate').val();
+                }
+                ,
+                'EndDate': function () {
+                    return $('#EndDate').val();
+                }
+                ,
+                '_Comments': function () {
+                    return $('#Comments').val();
+                },
+
+            },
+        },
+        data: {
+            '__RequestVerificationToken': $('#__RequestVerificationToken').val(),
+
+        },
+        thumbnails: {
+            placeholders: {
+                waitingPath: '/source/placeholders/waiting-generic.png',
+                notAvailablePath: '/source/placeholders/not_available-generic.png'
+            }
+        },
+        callbacks: {
+            onAllComplete: function (succeeded, failed) {
+                // alert(JSON.stringify(jsonResult, 2, null));
+
+                if (failed != undefined && failed.length > 0) {
+                    Notify(NotificationType.Error, 'Error during uploading the files!');
+                } else {
+                    Notify(NotificationType.Success, 'Files uploaded successfully!');
+                }
+                console.log("succeeded", succeeded);
+                console.log("failed", failed);
+
+
+                //DataTableRefresh('WarehouseModelEntryMovementsDataTable');
+            },
+            onComplete: function (id, fileName, responseText) {
+
+                $('#ErrorId').html("<a target='_blank' href='" + responseText.path + "'>File Error<\a>");
+                //console.log("responseText", responseText);
+            }
+        },
+        autoUpload: false,
+        debug: true
+    });
+</script>

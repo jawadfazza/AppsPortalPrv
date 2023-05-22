@@ -1,0 +1,63 @@
+﻿@model ApplicationUpdateModel
+@using (Html.BeginForm("Application", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "ApplicationForm", @class = "main-form" }))
+{
+
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.ApplicationGUID)
+    @Html.HiddenFor(model => model.ClientServerAccessibility)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationAcrynom)
+                @Html.EditorFor(model => model.ApplicationAcrynom, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationDescription)
+                @Html.EditorFor(model => model.ApplicationDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ServerAccessibility)
+                @Html.DropDownListFor(model => model.ServerAccessibility, new DropDownList().ApplicationServerAccesibility(), new { style = "width:100%", @class = "form-control select2-basic-multiple", multiple = "multiple" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationID)
+                @Html.EditorFor(model => model.ApplicationID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SortID)
+                @Html.EditorFor(model => model.SortID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ApplicationStatusGUID)
+                @Html.DropDownListFor(model => model.ApplicationStatusGUID, new DropDownList().ApplicationStatus(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+            </div>
+            <div id="ApplicationFormControls" class="form-group form-footer">
+                @if (Model.ApplicationGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Applications.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Applications.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.Applications.Create, Apps.CMS, Url.Action("Applications/Create", "Codes", new { Area = "CMS" }))
+                        @Html.DeleteButton(Permissions.Applications.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Applications.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Applications", "Codes", new { Area = "CMS" }))
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#ServerAccessibility').val($('#ClientServerAccessibility').val().split(",")).trigger('change');
+    })
+</script>

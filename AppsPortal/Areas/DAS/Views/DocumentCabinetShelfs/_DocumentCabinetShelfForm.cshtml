@@ -1,0 +1,47 @@
+﻿
+@model DocumentCabinetShelfUpdateModel
+@using (Html.BeginForm("DocumentCabinetShelf", "DocumentCabinetShelf", new { Area = "DAS" }, FormMethod.Post, new { id = "DocumentCabinetShelfForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.DocumentCabinetShelfGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DocumentCabinetGUID)
+                @Html.DropDownListFor(model => model.DocumentCabinetGUID, new DropDownList().DASDocumentCabinets(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ShelfNumber)
+                @Html.EditorFor(model => model.ShelfNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaxStorage)
+                @Html.EditorFor(model => model.MaxStorage, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            
+            <div id="DocumentCabinetShelfFormControls" class="form-group form-footer">
+                @if (Model.DocumentCabinetShelfGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.DocumentCabinetShelf.Create, Apps.DAS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.DocumentCabinetShelf.Update, Apps.DAS)
+                        @Html.CreateNewButton(Permissions.DocumentCabinetShelf.Create, Apps.DAS, Url.Action("DocumentCabinetShelf/Create", "DocumentCabinetShelf", new { Area = "DAS" }))
+                        @Html.DeleteButton(Permissions.DocumentCabinetShelf.Delete, Apps.DAS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.DocumentCabinetShelf.Restore, Apps.DAS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "DocumentCabinetShelfs", new { Area = "DAS" }))
+            </div>
+        </div>
+    </div>
+}
+

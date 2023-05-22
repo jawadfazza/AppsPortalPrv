@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("7086ecfd-4e9a-4917-a727-144fb5b05f37")
+    <div class="page--content">
+        <br />
+        <br />
+        @if (new CMS().HasAction(Permissions.ShuttleTravelPurpose.Access, Apps.SHM))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "ShuttleTravelPurposes", new { Area = "SHM" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-cog fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Shuttle Travel Purposes</h3>
+                            <span>Shuttle Travel Purposes Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.Vehicle.Access, Apps.SHM))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "Vehicles", new { Area = "SHM" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-car fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Vehicles</h3>
+                            <span>Vehiclees Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+            @if (new CMS().HasAction(Permissions.ShuttleRequestRoute.Access, Apps.SHM))
+            {
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <a class="black" href=@Url.Action("Index", "ShuttleRequestRoutes", new { Area = "SHM" })>
+                        <div class="SubjectBox matchHeight">
+                            <i class="fa fa-car fa-4x" aria-hidden="true"></i>
+                            <div>
+                                <h3>Shuttle Request Route</h3>
+                                <span>Shuttle Request Route Management Tool.</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>

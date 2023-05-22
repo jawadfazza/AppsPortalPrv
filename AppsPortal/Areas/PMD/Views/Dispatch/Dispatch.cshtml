@@ -1,0 +1,20 @@
+﻿@model DispatchUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.DispatchGUID == Guid.Empty) ? "New Dispatch" : "Edit Dispatch"; }
+
+@Html.PageHeader("9e459932-fd4a-49d1-bece-a15c9c522f27")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/PMD/Views/Dispatch/_DispatchForm.cshtml")
+        <div id="DispatchDetailContainer">
+            @if (Model.DispatchGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/PMD/Views/Dispatch/_DispatchDetailDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.DispatchGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

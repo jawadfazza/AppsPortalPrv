@@ -1,0 +1,290 @@
+﻿@model List<dataPersonalHistoryWorkExperienceUpdateModel>
+<div class="tab-pane" id="tab1" style="margin-top: 5px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span><b>8.	WORK EXPERIENCE  </b> (Mandatory to complete, if any)</span>
+            <br />
+            <span>For all work experience, please complete as much information as possible.</span>
+        </div>
+        <div class="panel-body">
+            <input type="button" data-url="/GTP/Applications/WorkExperienceCreate" class="btn btn-success lgModal Modal-Link" value="Add New Work Experience" />
+            @if (Model == null || Model.Count == 0)
+            {
+                <div class="alert alert-info" style="margin-top:5px;">
+                    <strong>No work experiences has been added</strong>
+                </div>
+            }
+            else
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="panel panel-default" style="margin-top:5px;">
+                        <div class="panel-heading">
+                            <span><b>Work Experience # @(i + 1) </b> <input type="button" data-url="/GTP/Applications/WorkExperienceUpdate/@Model[i].GTPPHWorkExperienceGUID" class="btn btn-success lgModal Modal-Link pull-right" style="margin-top:-6px" value="Update / Delete this work experience record" /></span>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row" style="padding-top:10px;">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].StartDate)     <span class="span-required-field">*</span>
+                                        @Html.EditorFor(model => model[i].StartDate, new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                @class = "form-control",
+                                                autocomplete = "off",
+                                                disabled = "disabled",
+                                                @readonly = "readonly",
+                                                @style = "background-color: #eee !important;opacity: 1; "} })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].EndDate)   <span class="span-required-field">*</span>
+                                        @Html.EditorFor(model => model[i].EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly",@style = "background-color: #eee !important;opacity: 1;" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="dataPersonalHistoryWorkExperienceUpdateModel_0__FullTimeOrPartTime">
+                                            FullTime or PartTime
+                                        </label><span class="span-required-field">*</span>
+
+                                        @Html.DropDownListFor(model => model[i].FullTimeOrPartTime, new DropDownList().GTPFullTimePartTime(Model[i].FullTimeOrPartTime), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].Employer)
+                                        @Html.EditorFor(model => model[i].Employer, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].JobTitle)
+                                        @Html.EditorFor(model => model[i].JobTitle, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].SupervisorName)
+                                        @Html.EditorFor(model => model[i].SupervisorName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].TypeOfEmployment)   <span class="span-required-field">*</span>
+                                        @Html.DropDownListFor(model => model[i].TypeOfEmployment, new DropDownList().GTPEmploymentTypes(Model[i].TypeOfEmployment), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].OtherTypeOfEmploymentDesc)
+                                        @Html.EditorFor(model => model[i].OtherTypeOfEmploymentDesc, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].TypeOfWorkersSupervised)
+                                        @Html.EditorFor(model => model[i].TypeOfWorkersSupervised, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].NumberOfPersonSupervised)
+                                        @Html.EditorFor(model => model[i].NumberOfPersonSupervised, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].SupervisorEmail)
+                                        @Html.EditorFor(model => model[i].SupervisorEmail, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].SupervisorPhone)
+                                        @Html.EditorFor(model => model[i].SupervisorPhone, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].EndingPayRateAmount)
+                                        @Html.EditorFor(model => model[i].EndingPayRateAmount, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].Currency)
+                                        @Html.EditorFor(model => model[i].Currency, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].OnGoingJob)        <span class="span-required-field">*</span>
+                                        @Html.DropDownListFor(model => model[i].OnGoingJob, new DropDownList().GTPYesNo(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].ReasonForLeaving)
+                                        @Html.TextAreaFor(model => model[i].ReasonForLeaving, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2, disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].DescriptionOfDuties)
+                                        @Html.TextAreaFor(model => model[i].DescriptionOfDuties, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2, disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].EmployerAddressLine1)
+                                        @Html.TextAreaFor(model => model[i].EmployerAddressLine1, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2, disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].EmployerAddressLine2)
+                                        @Html.TextAreaFor(model => model[i].EmployerAddressLine2, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2, disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].EmployerAddressLine3)
+                                        @Html.TextAreaFor(model => model[i].EmployerAddressLine3, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 2, disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="div-country-city-container">
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].EmployerAddressCountryGUID)
+                                            @Html.DropDownListFor(model => model[i].EmployerAddressCountryGUID, new DropDownList().GTPCountries(Model[i].EmployerAddressCountryGUID), "",
+                                                 new
+                                                      {
+                                                     @class = "form-control select2-basic-search",
+                                                          disabled = "disabled",
+                                                          @readonly = "readonly",
+                                                     style = "width:100%",
+                                                     onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'EmployerAddressCityGUID', Action : 'RemoteGTPCities'}]);"
+                                                 })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model[i].EmployerAddressCityGUID)
+                                            @if (Model[i].EmployerAddressCityGUID != null)
+                                            {
+                                                @Html.DropDownListFor(model => model[i].EmployerAddressCityGUID, new DropDownList().GTPCities(Model[i].EmployerAddressCountryGUID.Value, Model[i].EmployerAddressCityGUID.Value), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownListFor(model => model[i].EmployerAddressCityGUID, new DropDownList().Empty(), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                            }
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].EmployerAddressPostalCode)
+                                        @Html.EditorFor(model => model[i].EmployerAddressPostalCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].TypeOfBusinessGUID)
+                                        @Html.DropDownListFor(model => model[i].TypeOfBusinessGUID, new DropDownList().GTPBusinessTypes(Model[i].TypeOfBusinessGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3" style="padding-top:5px;">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].IsUNExperience)
+                                        @Html.EditorFor(model => model[i].IsUNExperience, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].GradeGUID)
+                                        @Html.DropDownListFor(model => model[i].GradeGUID, new DropDownList().StaffGrades(Model[i].GradeGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].UNIndexNumber)
+                                        @Html.EditorFor(model => model[i].UNIndexNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3" style="padding-top:5px;">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].IsUNHCRExperience)
+                                        @Html.EditorFor(model => model[i].IsUNHCRExperience, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].UNHCRMsrpID)
+                                        @Html.EditorFor(model => model[i].UNHCRMsrpID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model[i].ContractTypeGUID)       <span class="span-required-field">*</span>
+                                        @Html.DropDownListFor(model => model[i].ContractTypeGUID, new DropDownList().GTPContractTypes(Model[i].ContractTypeGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%", disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="dataPersonalHistoryWorkExperienceUpdateModel_0__IfOtherContractTypeDesc">
+                                            If ‘Other Arrangement’ please indicate the Type of Arrangement
+                                            (e.g. UN Volunteer, UNOPS ICA, Individual Consultant, Intern, ICNC, Danish Refugee Council etc.)
+                                        </label>
+                                        @Html.EditorFor(model => model[i].IfOtherContractTypeDesc, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            }
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="float:right">
+                        <input type='button' class='btn btn-primary wizard-custom-button-next' name="next"  value='Next' data-next-url="/GTP/Applications/SpecializedTrainingWizard/Create" />
+
+                    </div>
+                    <div style="float:left">
+                        <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/LetterOfInterestWizard/Create" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

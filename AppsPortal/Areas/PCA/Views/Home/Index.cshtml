@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout_1.cshtml";
+}
+
+
+@Html.PageHeader("5132f339-4703-4fb9-b353-d7d5cb67760e")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+
+        @if (new CMS().HasAction(Permissions.PartnersCapacityAssessment.Access, Apps.PCA))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("PartnersCapacityAssessmentIndex", "PartnersCapacityAssessment", new { Area = "PCA" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-calendar fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Partners Capacity Assessment</h3>
+                            <span>Protection from Sexual Exploitation and Abuse - UN Partners Capacity Assessment - Syria .</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>

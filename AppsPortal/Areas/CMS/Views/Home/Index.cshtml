@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("ab259062-fe54-4695-b773-90511935bd20")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+        @if (new CMS().CodesMenus().Count > 0)
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("TempCodeTables", "Home", new { Area = "CMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-table fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>
+                                @resxPages.CodeTables
+                            </h3>
+                            <span>@resxPages.CodeTablesAritcle</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+
+        @if (new CMS().HasAction(Permissions.NavigationMenus.Access, Apps.CMS))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Menus","Codes",new { Area = "CMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-bars fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3 class="black">@resxPages.ApplicationsMenus</h3>
+                            <span class="black">@resxPages.ApplicationsMenusArticle</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+        @if (new CMS().HasAction(Permissions.Sitemap.Access, Apps.CMS))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Sitemaps", "Codes", new { Area = "CMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-sitemap fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>@resxPages.Sitemap</h3>
+                            <span>@resxPages.SitemapArticle</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+        @if (new CMS().HasAction(Permissions.OrganizationsInstancesConfigurations.Access, Apps.CMS))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "Configurations", new { Area = "CMS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-cogs  fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>@resxPages.OrganizationsSettings</h3>
+                            <span>@resxPages.OrganizationsSettingsArticle</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

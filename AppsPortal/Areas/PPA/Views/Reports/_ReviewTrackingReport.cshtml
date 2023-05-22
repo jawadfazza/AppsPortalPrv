@@ -1,0 +1,215 @@
+﻿@model List<ReviewTrackingReportModel>
+
+@{
+    Portal_BL.Library.Portal portal = new Portal_BL.Library.Portal();
+    PPAEntities DbPPA = new PPAEntities();
+}
+
+<div class="panel-group portalConfig overrideEnabled" id="accordion" role="tablist" aria-multiselectable="true">
+
+    @foreach (var ppaAgreement in Model)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="CountriesHeader" data-toggle="collapse" data-parent="#accordion" href="#@ppaAgreement.PPAGUID" aria-expanded="false">
+                <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#@ppaAgreement.PPAGUID">
+                    <b>@ppaAgreement.PPADescription</b>
+                    <br />  <br />
+                    Implementing Partner:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@ppaAgreement.OrganizationDescription
+                    @{
+                        var statusss = (from a in DbPPA.PPADistributionList.AsNoTracking().Where(x => x.PPAGUID == ppaAgreement.PPAGUID)
+                                        join b in DbPPA.PPAOriginalFile.AsNoTracking().Where(x => x.Active) on a.PPAGUID equals b.PPAGUID
+                                        join c in DbPPA.PPAFileVersion.AsNoTracking().Where(x => x.Active) on b.PPAOriginalFileGUID equals c.PPAOriginalFileGUID
+                                        where a.PPAUserAccessType == PPAUserAccessType.FullAccess
+                                        select new
+                                        {
+                                            CurrentFileVersionStatusGUID = c.CurrentFileVersionStatusGUID,
+                                            PPAFileVersion = c
+                                        }).ToList();
+
+                        string color = "red";
+                        string statusText = "Pending (not downloaded)";
+                        string fn = "";
+                        string ds = "";
+                        string dep = "";
+                        int filesCount = ppaAgreement.PPAOriginalFilesLayer.Count();
+                        int completedCount = statusss.Where(x => x.CurrentFileVersionStatusGUID == FileVersionStatuses.Completed).Count();
+                        if (statusss.Select(x => x.CurrentFileVersionStatusGUID).Contains(FileVersionStatuses.Downloaded))
+                        {
+
+                            Guid downloadedByUsrGUID = statusss.Select(x => x.PPAFileVersion).Where(x => x.CurrentFileVersionStatusGUID == FileVersionStatuses.Downloaded).Select(x => x.FileActionByUserGUID).FirstOrDefault().Value;
+                            var usrDet = (from a in DbPPA.userPersonalDetailsLanguage.AsNoTracking().Where(x => x.Active && x.LanguageID == "EN" && x.UserGUID == downloadedByUsrGUID)
+                                          join b in DbPPA.userServiceHistory.AsNoTracking().Where(x => x.Active) on a.UserGUID equals b.UserGUID
+                                          join c in DbPPA.userProfiles.AsNoTracking().Where(x => x.Active) on b.ServiceHistoryGUID equals c.ServiceHistoryGUID
+                                          join d in DbPPA.codeDutyStationsLanguages.AsNoTracking().Where(x => x.Active && x.LanguageID == "EN") on c.DutyStationGUID equals d.DutyStationGUID
+                                          join e in DbPPA.codeDepartmentsLanguages.AsNoTracking().Where(x => x.Active && x.LanguageID == "EN") on c.DepartmentGUID equals e.DepartmentGUID
+                                          orderby c.FromDate descending
+                                          select new
+                                          {
+                                              fullName = a.FirstName + " " + a.Surname,
+                                              dutyStation = d.DutyStationDescription,
+                                              department = e.DepartmentDescription
+                                          }).FirstOrDefault();
+                            fn = usrDet.fullName;
+                            ds = usrDet.dutyStation;
+                            dep = usrDet.department;
+                            statusText = "In progress";
+                            color = "orange";
+                        }
+                        if (statusss.Select(x => x.CurrentFileVersionStatusGUID).Contains(FileVersionStatuses.Completed) && filesCount == completedCount)
+                        {
+                            Guid uploadedByUsrGUID = statusss.Select(x => x.PPAFileVersion).Where(x => x.CurrentFileVersionStatusGUID == FileVersionStatuses.Completed).Select(x => x.FileActionByUserGUID).FirstOrDefault().Value;
+                            var usrDet = (from a in DbPPA.userPersonalDetailsLanguage.AsNoTracking().Where(x => x.Active && x.LanguageID == "EN" && x.UserGUID == uploadedByUsrGUID)
+                                          join b in DbPPA.userServiceHistory.AsNoTracking().Where(x => x.Active) on a.UserGUID equals b.UserGUID
+                                          join c in DbPPA.userProfiles.AsNoTracking().Where(x => x.Active) on b.ServiceHistoryGUID equals c.ServiceHistoryGUID
+                                          join d in DbPPA.codeDutyStationsLanguages.AsNoTracking().Where(x => x.Active && x.LanguageID == "EN") on c.DutyStationGUID equals d.DutyStationGUID
+                                          join e in DbPPA.codeDepartmentsLanguages.AsNoTracking().Where(x => x.Active && x.LanguageID == "EN") on c.DepartmentGUID equals e.DepartmentGUID
+                                          orderby c.FromDate descending
+                                          select new
+                                          {
+                                              fullName = a.FirstName + " " + a.Surname,
+                                              dutyStation = d.DutyStationDescription,
+                                              department = e.DepartmentDescription
+                                          }).FirstOrDefault();
+                            fn = usrDet.fullName;
+                            ds = usrDet.dutyStation;
+                            dep = usrDet.department;
+                            statusText = "Completed";
+                            color = "green";
+                        }
+
+
+                        string ImplementingArea = "";
+                        string implementationAreaGUID = ppaAgreement.ImplementationAreaGUID.Value.ToString();
+                        switch (implementationAreaGUID)
+                        {
+                            case "00000000-0000-0000-0000-000000000001": ImplementingArea = "Nation Wide"; break;
+                            case "00000000-0000-0000-0000-000000000002": ImplementingArea = "Area Based Damascus and Rural Damascus"; break;
+                            case "00000000-0000-0000-0000-000000000003": ImplementingArea = "Area Based Homs"; break;
+                            case "00000000-0000-0000-0000-000000000004": ImplementingArea = "Area Based Hama"; break;
+                            case "00000000-0000-0000-0000-000000000005": ImplementingArea = "Area Based Aleppo"; break;
+                            case "00000000-0000-0000-0000-000000000006": ImplementingArea = "Area Based Sweida"; break;
+                            case "00000000-0000-0000-0000-000000000007": ImplementingArea = "Area Based Qunitera"; break;
+                            case "00000000-0000-0000-0000-000000000008": ImplementingArea = "Area Based Dara’a"; break;
+                            case "00000000-0000-0000-0000-000000000009": ImplementingArea = "Area Based Qamishli"; break;
+                            case "00000000-0000-0000-0000-000000000010": ImplementingArea = "Area Based Deir-ez-Zour"; break;
+                            case "00000000-0000-0000-0000-000000000011": ImplementingArea = "Area Based Raqqa"; break;
+                            case "00000000-0000-0000-0000-000000000012": ImplementingArea = "Area Based Tartous"; break;
+                            case "00000000-0000-0000-0000-000000000013": ImplementingArea = "Area Based Lattakia"; break;
+                            case "00000000-0000-0000-0000-000000000014": ImplementingArea = "Area Based Central Damascus"; break;
+                            default: ImplementingArea = ""; break;
+                        }
+                    }
+                    <br />
+
+                    Implementing Area:
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@ImplementingArea
+                    <br />
+                    Deadline for review on:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@portal.LocalTime(ppaAgreement.PPADeadLine).Value.ToString("dd MMMM yyyy")
+                    <br />
+                    Status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:@color"><b>@statusText</b></span>
+                    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By: @fn
+                    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DutyStation: @ds
+                    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Department: <span style="color:#0072bc"><b>@dep</b></span>
+                </span>
+
+
+            </div>
+
+
+
+
+            <div id="@ppaAgreement.PPAGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeader">
+                <div class="panel-body">
+                    @if (ppaAgreement.PPAOriginalFilesLayer.Count() > 0)
+                    {
+                        <div class="panel-group portalConfig overrideEnabled" id="accordionLVL2" role="tablist" aria-multiselectable="true">
+                            @foreach (var originalFile in ppaAgreement.PPAOriginalFilesLayer)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="CountriesHeaderASD" data-toggle="collapse" data-parent="#accordionLVL2" href="#@originalFile.PPAOriginalFileGUID" aria-expanded="false">
+                                        <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL2" href="#@originalFile.PPAOriginalFileGUID">
+                                            @originalFile.FileName
+                                        </span>
+                                    </div>
+                                    <div id="@originalFile.PPAOriginalFileGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeaderASD">
+                                        <div class="panel-body">
+
+                                            @if (originalFile.PPAUserFileVersionLayer.Count() > 0)
+                                            {
+                                                <div class="panel-group portalConfig overrideEnabled" id="accordionLVL3" role="tablist" aria-multiselectable="true">
+                                                    @foreach (var userOnFile in originalFile.PPAUserFileVersionLayer)
+                                                    {
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" role="tab" id="CountriesHeaderASD" data-toggle="collapse" data-parent="#accordionLVL3" href="#@originalFile.PPAOriginalFileGUID@userOnFile.FileActionByUserName.Split(' ')[0]" aria-expanded="false">
+                                                                <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL3" href="#@originalFile.PPAOriginalFileGUID@userOnFile.FileActionByUserName.Split(' ')[0]">
+                                                                    @userOnFile.FileActionByUserName
+                                                                </span>
+                                                            </div>
+                                                            <div id="@originalFile.PPAOriginalFileGUID@userOnFile.FileActionByUserName.Split(' ')[0]" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeaderASD">
+                                                                <div class="panel-body">
+
+                                                                    @if (userOnFile.PPAUserFilesVersionDetailsLayer.Count() > 0)
+                                                                    {
+                                                                        <div class="panel-group portalConfig overrideEnabled" id="accordionLVL4" role="tablist" aria-multiselectable="true">
+
+                                                                            @try
+                                                                            {
+                                                                                foreach (var fileVersion in userOnFile.PPAUserFilesVersionDetailsLayer.OrderBy(x => x.PPAOriginalFileGUID).ThenBy(x => x.FileActionDate))
+                                                                                {
+                                                                                    <div class="panel panel-default">
+                                                                                        <div class="panel-heading" role="tab" id="CountriesHeaderASD" data-toggle="collapse" data-parent="#accordionLVL4" href="#@fileVersion.PPAFileVersionGUID" aria-expanded="false">
+                                                                                            <span class="panel-title collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordionLVL4" href="#@fileVersion.PPAFileVersionGUID">
+                                                                                                @if (fileVersion.FileActionType == "Download")
+                                                                                                {
+                                                                                                    @:Downloaded original version on:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@portal.LocalTime(fileVersion.FileActionDate).Value.ToString("dd MMMM yyyy")
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    @:Uploaded version:     @fileVersion.FileVersion on:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     @portal.LocalTime(fileVersion.FileActionDate).Value.ToString("dd MMMM yyyy")
+                                                                                                }
+
+                                                                                            </span>
+                                                                                        </div>
+                                                                                        <div id="@fileVersion.PPAFileVersionGUID" class="panel-collapse collapse" role="tabpanel" aria-labelledby="CountriesHeaderASD">
+                                                                                            <div class="panel-body">
+                                                                                                more details will be here soon.
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                            }
+                                                                            catch { }
+
+                                                                        </div>
+                                                                    }
+
+
+
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            }
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+

@@ -1,0 +1,45 @@
+﻿@model codeOfficesLanguages
+@using (Html.BeginForm("OfficeLanguage", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "OfficeLanguageForm" }))
+{
+    string ModalTitle = Model.OfficeLanguageGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.OfficeLanguageGUID)
+        @Html.HiddenFor(model => model.OfficeGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.LanguageID)
+            @Html.DropDownListFor(model => model.LanguageID, new DropDownList().Languages(false), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OfficeDescription)
+            @Html.EditorFor(model => model.OfficeDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OfficeAddress)
+            @Html.TextAreaFor(model => model.OfficeAddress, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @{
+            string FactorsToken = new FactorsCollector().Office(Model.OfficeGUID);
+        }
+        @if (Model.OfficeLanguageGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.Offices.Create, Apps.CMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.Offices.Update, Apps.CMS, FactorsToken)
+                @Html.DeleteSwitchButton(Permissions.Offices.Delete, Apps.CMS, FactorsToken)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.Offices.Restore, Apps.CMS, FactorsToken)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+            }

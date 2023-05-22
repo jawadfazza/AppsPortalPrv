@@ -1,0 +1,101 @@
+﻿@model WMSContractSTIItemUpdateModel
+@using (Html.BeginForm("ContractSTIItems", "LicenseSubscription", new { Area = "WMS" }, FormMethod.Post, new { id = "STIContractForm" }))
+{
+    string ModalTitle = Model.LicenseSubscriptionContractSTIItemGUID.ToString() == Guid.Empty.ToString() ? "New Model" : "Edit Model";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        
+        @Html.FormHiddenFields(model => model.LicenseSubscriptionContractSTIItemGUID)
+        @Html.HiddenFor(model => model.LicenseSubscriptionContractGUID)
+        
+        @Html.HiddenFor(model => model.ModelName)
+        @Html.HiddenFor(model => model.BarcodeNumber)
+        @Html.HiddenFor(model => model.SerialNumber)
+        
+
+        <div cllass="row">
+            <div class="form-group">
+                @Html.Label("Model")
+                @*@Html.DropDownListFor(model => model.ItemModelWarehouseGUID, new DropDownList().WarehouseModels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })*@
+                @Html.DropDownListFor(model => model.ItemInputDetailGUID, new DropDownList().GetModelAllDeterminants(), "", new
+           {
+
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+               onchange = "LoadModelDetails($('#ItemInputDetailGUID').val());"
+           })
+            </div>
+            <div class="form-group" id="ModelDeterminant">
+
+                <div class="col-md-12">
+                    
+
+                        @Html.Partial("~/Areas/WMS/Views/LicenseSubscription/_ItemDetail.cshtml")
+                    
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate)
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExpiryDate)
+                @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comments)
+                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="fine-uploader-manual-trigger"></div>
+        </div>
+
+
+        @*<div class="form-group HANDLER">
+            @Html.Label("File Type")
+            @Html.DropDownListFor(model => model.FileTypeGUID, new DropDownList().WarehouseDocumentFileType(), new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>*@
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.LicenseSubscriptionContractSTIItemGUID == Guid.Empty)
+        {
+            @*<input id="my-select-files-btn" type="button" value="Select Files" class="btn btn-default" />*@
+            @Html.CreateButton(Permissions.LicenseandSubscriptionContracts.Create, Apps.WMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.LicenseandSubscriptionContracts.Update, Apps.WMS)
+                @Html.DeleteSwitchButton(Permissions.LicenseandSubscriptionContracts.Delete, Apps.WMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.LicenseandSubscriptionContracts.Delete, Apps.WMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+
+
+<script>
+
+
+    function LoadModelDetails(ItemInputDetailGUID) {
+        
+        if (ItemInputDetailGUID == null) {
+            $("#ModelDeterminant").html("");
+
+        }
+        if (ItemInputDetailGUID != null) {
+            var URL = "/WMS/LicenseSubscription/GetSTIITemInformation?ItemInputDetailGUID=" + ItemInputDetailGUID;
+
+            $('#ModelDeterminant').load(URL,
+                function () { });
+        }
+    };
+</script>

@@ -1,0 +1,1589 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="REFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GrandFatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeApplications">
+          <Key>
+            <PropertyRef Name="ApplicationGUID" />
+          </Key>
+          <Property Name="ApplicationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationID" Type="int" Nullable="false" />
+          <Property Name="ApplicationAcrynom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApplicationStatusGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeApplicationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeApplicationsLanguages">
+          <Key>
+            <PropertyRef Name="ApplicationLanguageGUID" />
+          </Key>
+          <Property Name="ApplicationLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ApplicationDescription" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeApplicationsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDepartments">
+          <Key>
+            <PropertyRef Name="DepartmentGUID" />
+          </Key>
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" />
+          <Property Name="DepartmentCode" Type="nvarchar" MaxLength="150" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDepartmentsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDepartmentsConfigurations">
+          <Key>
+            <PropertyRef Name="DepartmentConfigurationGUID" />
+          </Key>
+          <Property Name="DepartmentConfigurationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDepartmentsConfigurationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="DepartmentTypeGUID" Type="uniqueidentifier" />
+          <Property Name="ParentDepartmentGUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="codeDepartmentsLanguages">
+          <Key>
+            <PropertyRef Name="DepartmentLanguageGUID" />
+          </Key>
+          <Property Name="DepartmentLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DepartmentDescription" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDepartmentsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DutyStationDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeReferralStatus">
+          <Key>
+            <PropertyRef Name="ReferralStatusGUID" />
+          </Key>
+          <Property Name="ReferralStatusGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="uniqueidentifier" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeReferralStatusRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeReferralStatusLanguage">
+          <Key>
+            <PropertyRef Name="ReferralStatusLanguageGUID" />
+          </Key>
+          <Property Name="ReferralStatusLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralStatusGUID" Type="uniqueidentifier" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeReferralStatusLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="configFocalPoint">
+          <Key>
+            <PropertyRef Name="FocalPointGUID" />
+          </Key>
+          <Property Name="FocalPointGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DepartmentConfigurationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SiteCategoryGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="configFocalPointRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="configFocalPointStaff">
+          <Key>
+            <PropertyRef Name="FocalPointStaffGUID" />
+          </Key>
+          <Property Name="FocalPointStaffGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FocalPointGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ActiveUntil" Type="date" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OfficeSiteCategoryGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="configFocalPointStaffRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="configReferral">
+          <Key>
+            <PropertyRef Name="ReferralGUID" />
+          </Key>
+          <Property Name="ReferralGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="configReferralRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="configReferralLanguage">
+          <Key>
+            <PropertyRef Name="ReferralLanguageGUID" />
+          </Key>
+          <Property Name="ReferralLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ReferralDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="configReferralLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="configReferralNotification">
+          <Key>
+            <PropertyRef Name="ReferralNotificationGUID" />
+          </Key>
+          <Property Name="ReferralNotificationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralStepGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralStatusGUID" Type="uniqueidentifier" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="50" />
+          <Property Name="NotificationResxKey" Type="nvarchar" MaxLength="50" />
+          <Property Name="PageURL" Type="nvarchar" MaxLength="300" />
+          <Property Name="ReturnToReferralStepGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="configReferralNotificationRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="configReferralStep">
+          <Key>
+            <PropertyRef Name="ReferralStepGUID" />
+          </Key>
+          <Property Name="ReferralStepGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DependOnReferralStepGUID" Type="uniqueidentifier" />
+          <Property Name="StepSequence" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="configReferralStepRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="configReferralStepLanguage">
+          <Key>
+            <PropertyRef Name="ReferralStepLanguageGUID" />
+          </Key>
+          <Property Name="ReferralStepLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralStepGUID" Type="uniqueidentifier" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="configReferralStepLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="configReferralStepUser">
+          <Key>
+            <PropertyRef Name="ReferralStepUserGUID" />
+          </Key>
+          <Property Name="ReferralStepUserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralStepGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ActiveUntil" Type="date" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="configReferralStepUserRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataReferralHistory">
+          <Key>
+            <PropertyRef Name="ReferralHistoryGUID" />
+          </Key>
+          <Property Name="ReferralHistoryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralStepGUID" Type="uniqueidentifier" />
+          <Property Name="ReferralStatusGUID" Type="uniqueidentifier" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="DepartmentGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataReferralHistoryRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataReferralHistoryComment">
+          <Key>
+            <PropertyRef Name="ReferralHistoryCommentGUID" />
+          </Key>
+          <Property Name="ReferralHistoryCommentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralHistoryGUID" Type="uniqueidentifier" />
+          <Property Name="ReferredByUserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataReferralHistoryCommentRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataReferralUserAccountReceived">
+          <Key>
+            <PropertyRef Name="ReferralUserAccountReceivedGUID" />
+          </Key>
+          <Property Name="ReferralUserAccountReceivedGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReferralHostoryCommentGUID" Type="uniqueidentifier" />
+          <Property Name="ReceivedByUserGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataReferralUserAccountReceivedRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_codeApplicationsLanaguages_codeApplications">
+          <End Role="codeApplications" Type="Self.codeApplications" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeApplicationsLanguages" Type="Self.codeApplicationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeApplications">
+              <PropertyRef Name="ApplicationGUID" />
+            </Principal>
+            <Dependent Role="codeApplicationsLanguages">
+              <PropertyRef Name="ApplicationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDepartmentsLanguages_codeDepartments">
+          <End Role="codeDepartments" Type="Self.codeDepartments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDepartmentsLanguages" Type="Self.codeDepartmentsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeDepartmentsLanguages">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDutyStationsLanguages" Type="Self.codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsOperationsDepartments_codeDepartments">
+          <End Role="codeDepartments" Type="Self.codeDepartments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDepartmentsConfigurations" Type="Self.codeDepartmentsConfigurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeDepartmentsConfigurations">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeReferralStatusLanguage_codeReferralStatus">
+          <End Role="codeReferralStatus" Type="Self.codeReferralStatus" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeReferralStatusLanguage" Type="Self.codeReferralStatusLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="codeReferralStatusLanguage">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configFocalPoint_codeDepartmentsConfigurations">
+          <End Role="codeDepartmentsConfigurations" Type="Self.codeDepartmentsConfigurations" Multiplicity="1" />
+          <End Role="configFocalPoint" Type="Self.configFocalPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartmentsConfigurations">
+              <PropertyRef Name="DepartmentConfigurationGUID" />
+            </Principal>
+            <Dependent Role="configFocalPoint">
+              <PropertyRef Name="DepartmentConfigurationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configFocalPointStaff_configFocalPoint">
+          <End Role="configFocalPoint" Type="Self.configFocalPoint" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="configFocalPointStaff" Type="Self.configFocalPointStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configFocalPoint">
+              <PropertyRef Name="FocalPointGUID" />
+            </Principal>
+            <Dependent Role="configFocalPointStaff">
+              <PropertyRef Name="FocalPointGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferral_codeApplications">
+          <End Role="codeApplications" Type="Self.codeApplications" Multiplicity="1" />
+          <End Role="configReferral" Type="Self.configReferral" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeApplications">
+              <PropertyRef Name="ApplicationGUID" />
+            </Principal>
+            <Dependent Role="configReferral">
+              <PropertyRef Name="ApplicationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralLanguage_configReferral">
+          <End Role="configReferral" Type="Self.configReferral" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="configReferralLanguage" Type="Self.configReferralLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferral">
+              <PropertyRef Name="ReferralGUID" />
+            </Principal>
+            <Dependent Role="configReferralLanguage">
+              <PropertyRef Name="ReferralGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralMail_configReferralStep">
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="configReferralNotification" Type="Self.configReferralNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferralStep">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Principal>
+            <Dependent Role="configReferralNotification">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralNotification_codeReferralStatus">
+          <End Role="codeReferralStatus" Type="Self.codeReferralStatus" Multiplicity="0..1" />
+          <End Role="configReferralNotification" Type="Self.configReferralNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="configReferralNotification">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralStep_configReferral">
+          <End Role="configReferral" Type="Self.configReferral" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferral">
+              <PropertyRef Name="ReferralGUID" />
+            </Principal>
+            <Dependent Role="configReferralStep">
+              <PropertyRef Name="ReferralGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralStep_configReferralStep">
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="0..1" />
+          <End Role="configReferralStep1" Type="Self.configReferralStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferralStep">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Principal>
+            <Dependent Role="configReferralStep1">
+              <PropertyRef Name="DependOnReferralStepGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralStepFocalPoint_configReferralStep">
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="1" />
+          <End Role="configReferralStepUser" Type="Self.configReferralStepUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferralStep">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Principal>
+            <Dependent Role="configReferralStepUser">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralStepLanguage_configReferralStep">
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="configReferralStepLanguage" Type="Self.configReferralStepLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferralStep">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Principal>
+            <Dependent Role="configReferralStepLanguage">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataReferralHistory_codeReferralStatus">
+          <End Role="codeReferralStatus" Type="Self.codeReferralStatus" Multiplicity="0..1" />
+          <End Role="dataReferralHistory" Type="Self.dataReferralHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="dataReferralHistory">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataReferralHistory_configReferralStep">
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="0..1" />
+          <End Role="dataReferralHistory" Type="Self.dataReferralHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferralStep">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Principal>
+            <Dependent Role="dataReferralHistory">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataReferralHistoryComment_dataReferralHistory">
+          <End Role="dataReferralHistory" Type="Self.dataReferralHistory" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataReferralHistoryComment" Type="Self.dataReferralHistoryComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataReferralHistory">
+              <PropertyRef Name="ReferralHistoryGUID" />
+            </Principal>
+            <Dependent Role="dataReferralHistoryComment">
+              <PropertyRef Name="ReferralHistoryGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataReferralUserAccountReceived_dataReferralHistoryComment">
+          <End Role="dataReferralHistoryComment" Type="Self.dataReferralHistoryComment" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataReferralUserAccountReceived" Type="Self.dataReferralUserAccountReceived" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataReferralHistoryComment">
+              <PropertyRef Name="ReferralHistoryCommentGUID" />
+            </Principal>
+            <Dependent Role="dataReferralUserAccountReceived">
+              <PropertyRef Name="ReferralHostoryCommentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="REFModelStoreContainer">
+          <EntitySet Name="userPersonalDetailsLanguage" EntityType="Self.userPersonalDetailsLanguage" Schema="CMS" store:Type="Tables" />
+          <EntitySet Name="codeApplications" EntityType="Self.codeApplications" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeApplicationsLanguages" EntityType="Self.codeApplicationsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDepartments" EntityType="Self.codeDepartments" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDepartmentsConfigurations" EntityType="Self.codeDepartmentsConfigurations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDepartmentsLanguages" EntityType="Self.codeDepartmentsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDutyStations" EntityType="Self.codeDutyStations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="Self.codeDutyStationsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeReferralStatus" EntityType="Self.codeReferralStatus" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeReferralStatusLanguage" EntityType="Self.codeReferralStatusLanguage" Schema="code" store:Type="Tables" />
+          <EntitySet Name="configFocalPoint" EntityType="Self.configFocalPoint" Schema="code" store:Type="Tables" />
+          <EntitySet Name="configFocalPointStaff" EntityType="Self.configFocalPointStaff" Schema="code" store:Type="Tables" />
+          <EntitySet Name="configReferral" EntityType="Self.configReferral" Schema="REF" store:Type="Tables" />
+          <EntitySet Name="configReferralLanguage" EntityType="Self.configReferralLanguage" Schema="REF" store:Type="Tables" />
+          <EntitySet Name="configReferralNotification" EntityType="Self.configReferralNotification" Schema="REF" store:Type="Tables" />
+          <EntitySet Name="configReferralStep" EntityType="Self.configReferralStep" Schema="REF" store:Type="Tables" />
+          <EntitySet Name="configReferralStepLanguage" EntityType="Self.configReferralStepLanguage" Schema="REF" store:Type="Tables" />
+          <EntitySet Name="configReferralStepUser" EntityType="Self.configReferralStepUser" Schema="REF" store:Type="Tables" />
+          <EntitySet Name="dataReferralHistory" EntityType="Self.dataReferralHistory" Schema="REF" store:Type="Tables" />
+          <EntitySet Name="dataReferralHistoryComment" EntityType="Self.dataReferralHistoryComment" Schema="REF" store:Type="Tables" />
+          <EntitySet Name="dataReferralUserAccountReceived" EntityType="Self.dataReferralUserAccountReceived" Schema="REF" store:Type="Tables" />
+          <AssociationSet Name="FK_codeApplicationsLanaguages_codeApplications" Association="Self.FK_codeApplicationsLanaguages_codeApplications">
+            <End Role="codeApplications" EntitySet="codeApplications" />
+            <End Role="codeApplicationsLanguages" EntitySet="codeApplicationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDepartmentsLanguages_codeDepartments" Association="Self.FK_codeDepartmentsLanguages_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeDepartmentsLanguages" EntitySet="codeDepartmentsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="Self.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsOperationsDepartments_codeDepartments" Association="Self.FK_codeOrganizationsOperationsDepartments_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeDepartmentsConfigurations" EntitySet="codeDepartmentsConfigurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeReferralStatusLanguage_codeReferralStatus" Association="Self.FK_codeReferralStatusLanguage_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="codeReferralStatusLanguage" EntitySet="codeReferralStatusLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configFocalPoint_codeDepartmentsConfigurations" Association="Self.FK_configFocalPoint_codeDepartmentsConfigurations">
+            <End Role="codeDepartmentsConfigurations" EntitySet="codeDepartmentsConfigurations" />
+            <End Role="configFocalPoint" EntitySet="configFocalPoint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configFocalPointStaff_configFocalPoint" Association="Self.FK_configFocalPointStaff_configFocalPoint">
+            <End Role="configFocalPoint" EntitySet="configFocalPoint" />
+            <End Role="configFocalPointStaff" EntitySet="configFocalPointStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferral_codeApplications" Association="Self.FK_configReferral_codeApplications">
+            <End Role="codeApplications" EntitySet="codeApplications" />
+            <End Role="configReferral" EntitySet="configReferral" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralLanguage_configReferral" Association="Self.FK_configReferralLanguage_configReferral">
+            <End Role="configReferral" EntitySet="configReferral" />
+            <End Role="configReferralLanguage" EntitySet="configReferralLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralMail_configReferralStep" Association="Self.FK_configReferralMail_configReferralStep">
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+            <End Role="configReferralNotification" EntitySet="configReferralNotification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralNotification_codeReferralStatus" Association="Self.FK_configReferralNotification_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="configReferralNotification" EntitySet="configReferralNotification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralStep_configReferral" Association="Self.FK_configReferralStep_configReferral">
+            <End Role="configReferral" EntitySet="configReferral" />
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralStep_configReferralStep" Association="Self.FK_configReferralStep_configReferralStep">
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+            <End Role="configReferralStep1" EntitySet="configReferralStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralStepFocalPoint_configReferralStep" Association="Self.FK_configReferralStepFocalPoint_configReferralStep">
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+            <End Role="configReferralStepUser" EntitySet="configReferralStepUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralStepLanguage_configReferralStep" Association="Self.FK_configReferralStepLanguage_configReferralStep">
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+            <End Role="configReferralStepLanguage" EntitySet="configReferralStepLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataReferralHistory_codeReferralStatus" Association="Self.FK_dataReferralHistory_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="dataReferralHistory" EntitySet="dataReferralHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataReferralHistory_configReferralStep" Association="Self.FK_dataReferralHistory_configReferralStep">
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+            <End Role="dataReferralHistory" EntitySet="dataReferralHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataReferralHistoryComment_dataReferralHistory" Association="Self.FK_dataReferralHistoryComment_dataReferralHistory">
+            <End Role="dataReferralHistory" EntitySet="dataReferralHistory" />
+            <End Role="dataReferralHistoryComment" EntitySet="dataReferralHistoryComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataReferralUserAccountReceived_dataReferralHistoryComment" Association="Self.FK_dataReferralUserAccountReceived_dataReferralHistoryComment">
+            <End Role="dataReferralHistoryComment" EntitySet="dataReferralHistoryComment" />
+            <End Role="dataReferralUserAccountReceived" EntitySet="dataReferralUserAccountReceived" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="REFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="configReferral">
+          <Key>
+            <PropertyRef Name="ReferralGUID" />
+          </Key>
+          <Property Name="ReferralGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="configReferralRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="configReferralLanguage" Relationship="Self.FK_configReferralLanguage_configReferral" FromRole="configReferral" ToRole="configReferralLanguage" />
+          <NavigationProperty Name="configReferralStep" Relationship="Self.FK_configReferralStep_configReferral" FromRole="configReferral" ToRole="configReferralStep" />
+          <NavigationProperty Name="codeApplications" Relationship="REFModel.FK_configReferral_codeApplications" FromRole="configReferral" ToRole="codeApplications" />
+        </EntityType>
+        <EntityType Name="configReferralLanguage">
+          <Key>
+            <PropertyRef Name="ReferralLanguageGUID" />
+          </Key>
+          <Property Name="ReferralLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReferralDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="configReferralLanguageRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="configReferral" Relationship="Self.FK_configReferralLanguage_configReferral" FromRole="configReferralLanguage" ToRole="configReferral" />
+        </EntityType>
+        <EntityType Name="configReferralNotification">
+          <Key>
+            <PropertyRef Name="ReferralNotificationGUID" />
+          </Key>
+          <Property Name="ReferralNotificationGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralStepGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralStatusGUID" Type="Guid" />
+          <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NotificationResxKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PageURL" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ReturnToReferralStepGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="configReferralNotificationRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="configReferralStep" Relationship="Self.FK_configReferralMail_configReferralStep" FromRole="configReferralNotification" ToRole="configReferralStep" />
+          <NavigationProperty Name="codeReferralStatus" Relationship="REFModel.FK_configReferralNotification_codeReferralStatus" FromRole="configReferralNotification" ToRole="codeReferralStatus" />
+        </EntityType>
+        <EntityType Name="configReferralStep">
+          <Key>
+            <PropertyRef Name="ReferralStepGUID" />
+          </Key>
+          <Property Name="ReferralStepGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralGUID" Type="Guid" Nullable="false" />
+          <Property Name="DependOnReferralStepGUID" Type="Guid" />
+          <Property Name="StepSequence" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="configReferralStepRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="configReferral" Relationship="Self.FK_configReferralStep_configReferral" FromRole="configReferralStep" ToRole="configReferral" />
+          <NavigationProperty Name="configReferralNotification" Relationship="Self.FK_configReferralMail_configReferralStep" FromRole="configReferralStep" ToRole="configReferralNotification" />
+          <NavigationProperty Name="configReferralStep1" Relationship="Self.FK_configReferralStep_configReferralStep" FromRole="configReferralStep" ToRole="configReferralStep1" />
+          <NavigationProperty Name="configReferralStep2" Relationship="Self.FK_configReferralStep_configReferralStep" FromRole="configReferralStep1" ToRole="configReferralStep" />
+          <NavigationProperty Name="configReferralStepUser" Relationship="Self.FK_configReferralStepFocalPoint_configReferralStep" FromRole="configReferralStep" ToRole="configReferralStepUser" />
+          <NavigationProperty Name="configReferralStepLanguage" Relationship="Self.FK_configReferralStepLanguage_configReferralStep" FromRole="configReferralStep" ToRole="configReferralStepLanguage" />
+          <NavigationProperty Name="dataReferralHistory" Relationship="Self.FK_dataReferralHistory_configReferralStep" FromRole="configReferralStep" ToRole="dataReferralHistory" />
+        </EntityType>
+        <EntityType Name="configReferralStepLanguage">
+          <Key>
+            <PropertyRef Name="ReferralStepLanguageGUID" />
+          </Key>
+          <Property Name="ReferralStepLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralStepGUID" Type="Guid" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="configReferralStepLanguageRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="configReferralStep" Relationship="Self.FK_configReferralStepLanguage_configReferralStep" FromRole="configReferralStepLanguage" ToRole="configReferralStep" />
+        </EntityType>
+        <EntityType Name="configReferralStepUser">
+          <Key>
+            <PropertyRef Name="ReferralStepUserGUID" />
+          </Key>
+          <Property Name="ReferralStepUserGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralStepGUID" Type="Guid" Nullable="false" />
+          <Property Name="ActiveUntil" Type="DateTime" Precision="0" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="configReferralStepUserRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="configReferralStep" Relationship="Self.FK_configReferralStepFocalPoint_configReferralStep" FromRole="configReferralStepUser" ToRole="configReferralStep" />
+        </EntityType>
+        <EntityType Name="dataReferralHistory">
+          <Key>
+            <PropertyRef Name="ReferralHistoryGUID" />
+          </Key>
+          <Property Name="ReferralHistoryGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralStepGUID" Type="Guid" />
+          <Property Name="ReferralStatusGUID" Type="Guid" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="DepartmentGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataReferralHistoryRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="configReferralStep" Relationship="Self.FK_dataReferralHistory_configReferralStep" FromRole="dataReferralHistory" ToRole="configReferralStep" />
+          <NavigationProperty Name="dataReferralHistoryComment" Relationship="Self.FK_dataReferralHistoryComment_dataReferralHistory" FromRole="dataReferralHistory" ToRole="dataReferralHistoryComment" />
+          <NavigationProperty Name="codeReferralStatus" Relationship="REFModel.FK_dataReferralHistory_codeReferralStatus" FromRole="dataReferralHistory" ToRole="codeReferralStatus" />
+        </EntityType>
+        <EntityType Name="dataReferralHistoryComment">
+          <Key>
+            <PropertyRef Name="ReferralHistoryCommentGUID" />
+          </Key>
+          <Property Name="ReferralHistoryCommentGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralHistoryGUID" Type="Guid" />
+          <Property Name="ReferredByUserGUID" Type="Guid" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataReferralHistoryCommentRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataReferralHistory" Relationship="Self.FK_dataReferralHistoryComment_dataReferralHistory" FromRole="dataReferralHistoryComment" ToRole="dataReferralHistory" />
+          <NavigationProperty Name="dataReferralUserAccountReceived" Relationship="Self.FK_dataReferralUserAccountReceived_dataReferralHistoryComment" FromRole="dataReferralHistoryComment" ToRole="dataReferralUserAccountReceived" />
+        </EntityType>
+        <EntityType Name="dataReferralUserAccountReceived">
+          <Key>
+            <PropertyRef Name="ReferralUserAccountReceivedGUID" />
+          </Key>
+          <Property Name="ReferralUserAccountReceivedGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralHostoryCommentGUID" Type="Guid" />
+          <Property Name="ReceivedByUserGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataReferralUserAccountReceivedRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataReferralHistoryComment" Relationship="Self.FK_dataReferralUserAccountReceived_dataReferralHistoryComment" FromRole="dataReferralUserAccountReceived" ToRole="dataReferralHistoryComment" />
+        </EntityType>
+        <Association Name="FK_configReferralLanguage_configReferral">
+          <End Role="configReferral" Type="Self.configReferral" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="configReferralLanguage" Type="Self.configReferralLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferral">
+              <PropertyRef Name="ReferralGUID" />
+            </Principal>
+            <Dependent Role="configReferralLanguage">
+              <PropertyRef Name="ReferralGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralStep_configReferral">
+          <End Role="configReferral" Type="Self.configReferral" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferral">
+              <PropertyRef Name="ReferralGUID" />
+            </Principal>
+            <Dependent Role="configReferralStep">
+              <PropertyRef Name="ReferralGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralMail_configReferralStep">
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="configReferralNotification" Type="Self.configReferralNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferralStep">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Principal>
+            <Dependent Role="configReferralNotification">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralStep_configReferralStep">
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="0..1" />
+          <End Role="configReferralStep1" Type="Self.configReferralStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferralStep">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Principal>
+            <Dependent Role="configReferralStep1">
+              <PropertyRef Name="DependOnReferralStepGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralStepFocalPoint_configReferralStep">
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="1" />
+          <End Role="configReferralStepUser" Type="Self.configReferralStepUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferralStep">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Principal>
+            <Dependent Role="configReferralStepUser">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralStepLanguage_configReferralStep">
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="configReferralStepLanguage" Type="Self.configReferralStepLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferralStep">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Principal>
+            <Dependent Role="configReferralStepLanguage">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataReferralHistory_configReferralStep">
+          <End Role="configReferralStep" Type="Self.configReferralStep" Multiplicity="0..1" />
+          <End Role="dataReferralHistory" Type="Self.dataReferralHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configReferralStep">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Principal>
+            <Dependent Role="dataReferralHistory">
+              <PropertyRef Name="ReferralStepGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataReferralHistoryComment_dataReferralHistory">
+          <End Role="dataReferralHistory" Type="Self.dataReferralHistory" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataReferralHistoryComment" Type="Self.dataReferralHistoryComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataReferralHistory">
+              <PropertyRef Name="ReferralHistoryGUID" />
+            </Principal>
+            <Dependent Role="dataReferralHistoryComment">
+              <PropertyRef Name="ReferralHistoryGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataReferralUserAccountReceived_dataReferralHistoryComment">
+          <End Role="dataReferralHistoryComment" Type="Self.dataReferralHistoryComment" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataReferralUserAccountReceived" Type="Self.dataReferralUserAccountReceived" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataReferralHistoryComment">
+              <PropertyRef Name="ReferralHistoryCommentGUID" />
+            </Principal>
+            <Dependent Role="dataReferralUserAccountReceived">
+              <PropertyRef Name="ReferralHostoryCommentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="REFEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="configReferral" EntityType="Self.configReferral" />
+          <EntitySet Name="configReferralLanguage" EntityType="Self.configReferralLanguage" />
+          <EntitySet Name="configReferralNotification" EntityType="Self.configReferralNotification" />
+          <EntitySet Name="configReferralStep" EntityType="Self.configReferralStep" />
+          <EntitySet Name="configReferralStepLanguage" EntityType="Self.configReferralStepLanguage" />
+          <EntitySet Name="configReferralStepUser" EntityType="Self.configReferralStepUser" />
+          <EntitySet Name="dataReferralHistory" EntityType="Self.dataReferralHistory" />
+          <EntitySet Name="dataReferralHistoryComment" EntityType="Self.dataReferralHistoryComment" />
+          <EntitySet Name="dataReferralUserAccountReceived" EntityType="Self.dataReferralUserAccountReceived" />
+          <AssociationSet Name="FK_configReferralLanguage_configReferral" Association="Self.FK_configReferralLanguage_configReferral">
+            <End Role="configReferral" EntitySet="configReferral" />
+            <End Role="configReferralLanguage" EntitySet="configReferralLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralStep_configReferral" Association="Self.FK_configReferralStep_configReferral">
+            <End Role="configReferral" EntitySet="configReferral" />
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralMail_configReferralStep" Association="Self.FK_configReferralMail_configReferralStep">
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+            <End Role="configReferralNotification" EntitySet="configReferralNotification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralStep_configReferralStep" Association="Self.FK_configReferralStep_configReferralStep">
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+            <End Role="configReferralStep1" EntitySet="configReferralStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralStepFocalPoint_configReferralStep" Association="Self.FK_configReferralStepFocalPoint_configReferralStep">
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+            <End Role="configReferralStepUser" EntitySet="configReferralStepUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralStepLanguage_configReferralStep" Association="Self.FK_configReferralStepLanguage_configReferralStep">
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+            <End Role="configReferralStepLanguage" EntitySet="configReferralStepLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataReferralHistory_configReferralStep" Association="Self.FK_dataReferralHistory_configReferralStep">
+            <End Role="configReferralStep" EntitySet="configReferralStep" />
+            <End Role="dataReferralHistory" EntitySet="dataReferralHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataReferralHistoryComment_dataReferralHistory" Association="Self.FK_dataReferralHistoryComment_dataReferralHistory">
+            <End Role="dataReferralHistory" EntitySet="dataReferralHistory" />
+            <End Role="dataReferralHistoryComment" EntitySet="dataReferralHistoryComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataReferralUserAccountReceived_dataReferralHistoryComment" Association="Self.FK_dataReferralUserAccountReceived_dataReferralHistoryComment">
+            <End Role="dataReferralHistoryComment" EntitySet="dataReferralHistoryComment" />
+            <End Role="dataReferralUserAccountReceived" EntitySet="dataReferralUserAccountReceived" />
+          </AssociationSet>
+          <EntitySet Name="codeApplications" EntityType="REFModel.codeApplications" />
+          <EntitySet Name="codeApplicationsLanguages" EntityType="REFModel.codeApplicationsLanguages" />
+          <EntitySet Name="codeDepartments" EntityType="REFModel.codeDepartments" />
+          <EntitySet Name="codeDepartmentsLanguages" EntityType="REFModel.codeDepartmentsLanguages" />
+          <EntitySet Name="codeDutyStations" EntityType="REFModel.codeDutyStations" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="REFModel.codeDutyStationsLanguages" />
+          <EntitySet Name="codeReferralStatus" EntityType="REFModel.codeReferralStatus" />
+          <EntitySet Name="codeReferralStatusLanguage" EntityType="REFModel.codeReferralStatusLanguage" />
+          <EntitySet Name="configFocalPoint" EntityType="REFModel.configFocalPoint" />
+          <EntitySet Name="configFocalPointStaff" EntityType="REFModel.configFocalPointStaff" />
+          <AssociationSet Name="FK_codeApplicationsLanaguages_codeApplications" Association="REFModel.FK_codeApplicationsLanaguages_codeApplications">
+            <End Role="codeApplications" EntitySet="codeApplications" />
+            <End Role="codeApplicationsLanguages" EntitySet="codeApplicationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferral_codeApplications" Association="REFModel.FK_configReferral_codeApplications">
+            <End Role="codeApplications" EntitySet="codeApplications" />
+            <End Role="configReferral" EntitySet="configReferral" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDepartmentsLanguages_codeDepartments" Association="REFModel.FK_codeDepartmentsLanguages_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeDepartmentsLanguages" EntitySet="codeDepartmentsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="REFModel.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeReferralStatusLanguage_codeReferralStatus" Association="REFModel.FK_codeReferralStatusLanguage_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="codeReferralStatusLanguage" EntitySet="codeReferralStatusLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configReferralNotification_codeReferralStatus" Association="REFModel.FK_configReferralNotification_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="configReferralNotification" EntitySet="configReferralNotification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataReferralHistory_codeReferralStatus" Association="REFModel.FK_dataReferralHistory_codeReferralStatus">
+            <End Role="codeReferralStatus" EntitySet="codeReferralStatus" />
+            <End Role="dataReferralHistory" EntitySet="dataReferralHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configFocalPointStaff_configFocalPoint" Association="REFModel.FK_configFocalPointStaff_configFocalPoint">
+            <End Role="configFocalPoint" EntitySet="configFocalPoint" />
+            <End Role="configFocalPointStaff" EntitySet="configFocalPointStaff" />
+          </AssociationSet>
+          <EntitySet Name="userPersonalDetailsLanguage" EntityType="REFModel.userPersonalDetailsLanguage" />
+          <EntitySet Name="codeDepartmentsConfigurations" EntityType="REFModel.codeDepartmentsConfigurations" />
+          <AssociationSet Name="FK_codeOrganizationsOperationsDepartments_codeDepartments" Association="REFModel.FK_codeOrganizationsOperationsDepartments_codeDepartments">
+            <End Role="codeDepartments" EntitySet="codeDepartments" />
+            <End Role="codeDepartmentsConfigurations" EntitySet="codeDepartmentsConfigurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_configFocalPoint_codeDepartmentsConfigurations" Association="REFModel.FK_configFocalPoint_codeDepartmentsConfigurations">
+            <End Role="codeDepartmentsConfigurations" EntitySet="codeDepartmentsConfigurations" />
+            <End Role="configFocalPoint" EntitySet="configFocalPoint" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="codeApplications">
+          <Key>
+            <PropertyRef Name="ApplicationGUID" />
+          </Key>
+          <Property Name="ApplicationGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationID" Type="Int32" Nullable="false" />
+          <Property Name="ApplicationAcrynom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationStatusGUID" Type="Guid" Nullable="false" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeApplicationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeApplicationsLanguages" Relationship="REFModel.FK_codeApplicationsLanaguages_codeApplications" FromRole="codeApplications" ToRole="codeApplicationsLanguages" />
+          <NavigationProperty Name="configReferral" Relationship="REFModel.FK_configReferral_codeApplications" FromRole="codeApplications" ToRole="configReferral" />
+        </EntityType>
+        <EntityType Name="codeApplicationsLanguages">
+          <Key>
+            <PropertyRef Name="ApplicationLanguageGUID" />
+          </Key>
+          <Property Name="ApplicationLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationDescription" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeApplicationsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeApplications" Relationship="REFModel.FK_codeApplicationsLanaguages_codeApplications" FromRole="codeApplicationsLanguages" ToRole="codeApplications" />
+        </EntityType>
+        <EntityType Name="codeDepartments">
+          <Key>
+            <PropertyRef Name="DepartmentGUID" />
+          </Key>
+          <Property Name="DepartmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="FactorGUID" Type="Guid" />
+          <Property Name="DepartmentCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDepartmentsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDepartmentsLanguages" Relationship="REFModel.FK_codeDepartmentsLanguages_codeDepartments" FromRole="codeDepartments" ToRole="codeDepartmentsLanguages" />
+          <NavigationProperty Name="codeDepartmentsConfigurations" Relationship="REFModel.FK_codeOrganizationsOperationsDepartments_codeDepartments" FromRole="codeDepartments" ToRole="codeDepartmentsConfigurations" />
+        </EntityType>
+        <EntityType Name="codeDepartmentsLanguages">
+          <Key>
+            <PropertyRef Name="DepartmentLanguageGUID" />
+          </Key>
+          <Property Name="DepartmentLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentDescription" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDepartmentsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDepartments" Relationship="REFModel.FK_codeDepartmentsLanguages_codeDepartments" FromRole="codeDepartmentsLanguages" ToRole="codeDepartments" />
+        </EntityType>
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStationsLanguages" Relationship="REFModel.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStations" ToRole="codeDutyStationsLanguages" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DutyStationDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStations" Relationship="REFModel.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStationsLanguages" ToRole="codeDutyStations" />
+        </EntityType>
+        <EntityType Name="codeReferralStatus">
+          <Key>
+            <PropertyRef Name="ReferralStatusGUID" />
+          </Key>
+          <Property Name="ReferralStatusGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="Guid" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeReferralStatusRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeReferralStatusLanguage" Relationship="REFModel.FK_codeReferralStatusLanguage_codeReferralStatus" FromRole="codeReferralStatus" ToRole="codeReferralStatusLanguage" />
+          <NavigationProperty Name="configReferralNotification" Relationship="REFModel.FK_configReferralNotification_codeReferralStatus" FromRole="codeReferralStatus" ToRole="configReferralNotification" />
+          <NavigationProperty Name="dataReferralHistory" Relationship="REFModel.FK_dataReferralHistory_codeReferralStatus" FromRole="codeReferralStatus" ToRole="dataReferralHistory" />
+        </EntityType>
+        <EntityType Name="codeReferralStatusLanguage">
+          <Key>
+            <PropertyRef Name="ReferralStatusLanguageGUID" />
+          </Key>
+          <Property Name="ReferralStatusLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ReferralStatusGUID" Type="Guid" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeReferralStatusLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeReferralStatus" Relationship="REFModel.FK_codeReferralStatusLanguage_codeReferralStatus" FromRole="codeReferralStatusLanguage" ToRole="codeReferralStatus" />
+        </EntityType>
+        <EntityType Name="configFocalPoint">
+          <Key>
+            <PropertyRef Name="FocalPointGUID" />
+          </Key>
+          <Property Name="FocalPointGUID" Type="Guid" Nullable="false" />
+          <Property Name="DepartmentConfigurationGUID" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="SiteCategoryGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="configFocalPointRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="configFocalPointStaff" Relationship="REFModel.FK_configFocalPointStaff_configFocalPoint" FromRole="configFocalPoint" ToRole="configFocalPointStaff" />
+          <NavigationProperty Name="codeDepartmentsConfigurations" Relationship="REFModel.FK_configFocalPoint_codeDepartmentsConfigurations" FromRole="configFocalPoint" ToRole="codeDepartmentsConfigurations" />
+        </EntityType>
+        <EntityType Name="configFocalPointStaff">
+          <Key>
+            <PropertyRef Name="FocalPointStaffGUID" />
+          </Key>
+          <Property Name="FocalPointStaffGUID" Type="Guid" Nullable="false" />
+          <Property Name="FocalPointGUID" Type="Guid" Nullable="false" />
+          <Property Name="ActiveUntil" Type="DateTime" Precision="0" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="OfficeSiteCategoryGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="configFocalPointStaffRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="configFocalPoint" Relationship="REFModel.FK_configFocalPointStaff_configFocalPoint" FromRole="configFocalPointStaff" ToRole="configFocalPoint" />
+        </EntityType>
+        <Association Name="FK_codeApplicationsLanaguages_codeApplications">
+          <End Type="REFModel.codeApplications" Role="codeApplications" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="REFModel.codeApplicationsLanguages" Role="codeApplicationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeApplications">
+              <PropertyRef Name="ApplicationGUID" />
+            </Principal>
+            <Dependent Role="codeApplicationsLanguages">
+              <PropertyRef Name="ApplicationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferral_codeApplications">
+          <End Type="REFModel.codeApplications" Role="codeApplications" Multiplicity="1" />
+          <End Type="REFModel.configReferral" Role="configReferral" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeApplications">
+              <PropertyRef Name="ApplicationGUID" />
+            </Principal>
+            <Dependent Role="configReferral">
+              <PropertyRef Name="ApplicationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDepartmentsLanguages_codeDepartments">
+          <End Type="REFModel.codeDepartments" Role="codeDepartments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="REFModel.codeDepartmentsLanguages" Role="codeDepartmentsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeDepartmentsLanguages">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Type="REFModel.codeDutyStations" Role="codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="REFModel.codeDutyStationsLanguages" Role="codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeReferralStatusLanguage_codeReferralStatus">
+          <End Type="REFModel.codeReferralStatus" Role="codeReferralStatus" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="REFModel.codeReferralStatusLanguage" Role="codeReferralStatusLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="codeReferralStatusLanguage">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configReferralNotification_codeReferralStatus">
+          <End Type="REFModel.codeReferralStatus" Role="codeReferralStatus" Multiplicity="0..1" />
+          <End Type="REFModel.configReferralNotification" Role="configReferralNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="configReferralNotification">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataReferralHistory_codeReferralStatus">
+          <End Type="REFModel.codeReferralStatus" Role="codeReferralStatus" Multiplicity="0..1" />
+          <End Type="REFModel.dataReferralHistory" Role="dataReferralHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeReferralStatus">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Principal>
+            <Dependent Role="dataReferralHistory">
+              <PropertyRef Name="ReferralStatusGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configFocalPointStaff_configFocalPoint">
+          <End Type="REFModel.configFocalPoint" Role="configFocalPoint" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="REFModel.configFocalPointStaff" Role="configFocalPointStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="configFocalPoint">
+              <PropertyRef Name="FocalPointGUID" />
+            </Principal>
+            <Dependent Role="configFocalPointStaff">
+              <PropertyRef Name="FocalPointGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="userPersonalDetailsLanguage">
+          <Key>
+            <PropertyRef Name="PersonalDetailsLanguageGUID" />
+          </Key>
+          <Property Name="PersonalDetailsLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GrandFatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="userPersonalDetailsLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="codeDepartmentsConfigurations">
+          <Key>
+            <PropertyRef Name="DepartmentConfigurationGUID" />
+          </Key>
+          <Property Name="DepartmentConfigurationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="DepartmentGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDepartmentsConfigurationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="DepartmentTypeGUID" Type="Guid" />
+          <Property Name="ParentDepartmentGUID" Type="Guid" />
+          <NavigationProperty Name="codeDepartments" Relationship="REFModel.FK_codeOrganizationsOperationsDepartments_codeDepartments" FromRole="codeDepartmentsConfigurations" ToRole="codeDepartments" />
+          <NavigationProperty Name="configFocalPoint" Relationship="REFModel.FK_configFocalPoint_codeDepartmentsConfigurations" FromRole="codeDepartmentsConfigurations" ToRole="configFocalPoint" />
+        </EntityType>
+        <Association Name="FK_codeOrganizationsOperationsDepartments_codeDepartments">
+          <End Type="REFModel.codeDepartments" Role="codeDepartments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="REFModel.codeDepartmentsConfigurations" Role="codeDepartmentsConfigurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartments">
+              <PropertyRef Name="DepartmentGUID" />
+            </Principal>
+            <Dependent Role="codeDepartmentsConfigurations">
+              <PropertyRef Name="DepartmentGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_configFocalPoint_codeDepartmentsConfigurations">
+          <End Type="REFModel.codeDepartmentsConfigurations" Role="codeDepartmentsConfigurations" Multiplicity="1" />
+          <End Type="REFModel.configFocalPoint" Role="configFocalPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDepartmentsConfigurations">
+              <PropertyRef Name="DepartmentConfigurationGUID" />
+            </Principal>
+            <Dependent Role="configFocalPoint">
+              <PropertyRef Name="DepartmentConfigurationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="REFModelStoreContainer" CdmEntityContainer="REFEntities">
+          <EntitySetMapping Name="configReferral">
+            <EntityTypeMapping TypeName="REFModel.configReferral">
+              <MappingFragment StoreEntitySet="configReferral">
+                <ScalarProperty Name="ReferralGUID" ColumnName="ReferralGUID" />
+                <ScalarProperty Name="ApplicationGUID" ColumnName="ApplicationGUID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="configReferralRowVersion" ColumnName="configReferralRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configReferralLanguage">
+            <EntityTypeMapping TypeName="REFModel.configReferralLanguage">
+              <MappingFragment StoreEntitySet="configReferralLanguage">
+                <ScalarProperty Name="ReferralLanguageGUID" ColumnName="ReferralLanguageGUID" />
+                <ScalarProperty Name="ReferralGUID" ColumnName="ReferralGUID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ReferralDescription" ColumnName="ReferralDescription" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="configReferralLanguageRowVersion" ColumnName="configReferralLanguageRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configReferralNotification">
+            <EntityTypeMapping TypeName="REFModel.configReferralNotification">
+              <MappingFragment StoreEntitySet="configReferralNotification">
+                <ScalarProperty Name="ReferralNotificationGUID" ColumnName="ReferralNotificationGUID" />
+                <ScalarProperty Name="ReferralStepGUID" ColumnName="ReferralStepGUID" />
+                <ScalarProperty Name="ReferralStatusGUID" ColumnName="ReferralStatusGUID" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="NotificationResxKey" ColumnName="NotificationResxKey" />
+                <ScalarProperty Name="PageURL" ColumnName="PageURL" />
+                <ScalarProperty Name="ReturnToReferralStepGUID" ColumnName="ReturnToReferralStepGUID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="configReferralNotificationRowVersion" ColumnName="configReferralNotificationRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configReferralStep">
+            <EntityTypeMapping TypeName="REFModel.configReferralStep">
+              <MappingFragment StoreEntitySet="configReferralStep">
+                <ScalarProperty Name="ReferralStepGUID" ColumnName="ReferralStepGUID" />
+                <ScalarProperty Name="ReferralGUID" ColumnName="ReferralGUID" />
+                <ScalarProperty Name="DependOnReferralStepGUID" ColumnName="DependOnReferralStepGUID" />
+                <ScalarProperty Name="StepSequence" ColumnName="StepSequence" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="configReferralStepRowVersion" ColumnName="configReferralStepRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configReferralStepLanguage">
+            <EntityTypeMapping TypeName="REFModel.configReferralStepLanguage">
+              <MappingFragment StoreEntitySet="configReferralStepLanguage">
+                <ScalarProperty Name="ReferralStepLanguageGUID" ColumnName="ReferralStepLanguageGUID" />
+                <ScalarProperty Name="ReferralStepGUID" ColumnName="ReferralStepGUID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="configReferralStepLanguageRowVersion" ColumnName="configReferralStepLanguageRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configReferralStepUser">
+            <EntityTypeMapping TypeName="REFModel.configReferralStepUser">
+              <MappingFragment StoreEntitySet="configReferralStepUser">
+                <ScalarProperty Name="ReferralStepUserGUID" ColumnName="ReferralStepUserGUID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="ReferralStepGUID" ColumnName="ReferralStepGUID" />
+                <ScalarProperty Name="ActiveUntil" ColumnName="ActiveUntil" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="configReferralStepUserRowVersion" ColumnName="configReferralStepUserRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataReferralHistory">
+            <EntityTypeMapping TypeName="REFModel.dataReferralHistory">
+              <MappingFragment StoreEntitySet="dataReferralHistory">
+                <ScalarProperty Name="ReferralHistoryGUID" ColumnName="ReferralHistoryGUID" />
+                <ScalarProperty Name="ReferralStepGUID" ColumnName="ReferralStepGUID" />
+                <ScalarProperty Name="ReferralStatusGUID" ColumnName="ReferralStatusGUID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataReferralHistoryRowVersion" ColumnName="dataReferralHistoryRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataReferralHistoryComment">
+            <EntityTypeMapping TypeName="REFModel.dataReferralHistoryComment">
+              <MappingFragment StoreEntitySet="dataReferralHistoryComment">
+                <ScalarProperty Name="ReferralHistoryCommentGUID" ColumnName="ReferralHistoryCommentGUID" />
+                <ScalarProperty Name="ReferralHistoryGUID" ColumnName="ReferralHistoryGUID" />
+                <ScalarProperty Name="ReferredByUserGUID" ColumnName="ReferredByUserGUID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataReferralHistoryCommentRowVersion" ColumnName="dataReferralHistoryCommentRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataReferralUserAccountReceived">
+            <EntityTypeMapping TypeName="REFModel.dataReferralUserAccountReceived">
+              <MappingFragment StoreEntitySet="dataReferralUserAccountReceived">
+                <ScalarProperty Name="ReferralUserAccountReceivedGUID" ColumnName="ReferralUserAccountReceivedGUID" />
+                <ScalarProperty Name="ReferralHostoryCommentGUID" ColumnName="ReferralHostoryCommentGUID" />
+                <ScalarProperty Name="ReceivedByUserGUID" ColumnName="ReceivedByUserGUID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataReferralUserAccountReceivedRowVersion" ColumnName="dataReferralUserAccountReceivedRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeApplications">
+            <EntityTypeMapping TypeName="REFModel.codeApplications">
+              <MappingFragment StoreEntitySet="codeApplications">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeApplicationsRowVersion" ColumnName="codeApplicationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="ApplicationStatusGUID" ColumnName="ApplicationStatusGUID" />
+                <ScalarProperty Name="ApplicationAcrynom" ColumnName="ApplicationAcrynom" />
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+                <ScalarProperty Name="ApplicationGUID" ColumnName="ApplicationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeApplicationsLanguages">
+            <EntityTypeMapping TypeName="REFModel.codeApplicationsLanguages">
+              <MappingFragment StoreEntitySet="codeApplicationsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeApplicationsLanguagesRowVersion" ColumnName="codeApplicationsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ApplicationDescription" ColumnName="ApplicationDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ApplicationGUID" ColumnName="ApplicationGUID" />
+                <ScalarProperty Name="ApplicationLanguageGUID" ColumnName="ApplicationLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDepartments">
+            <EntityTypeMapping TypeName="REFModel.codeDepartments">
+              <MappingFragment StoreEntitySet="codeDepartments">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDepartmentsRowVersion" ColumnName="codeDepartmentsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDepartmentsLanguages">
+            <EntityTypeMapping TypeName="REFModel.codeDepartmentsLanguages">
+              <MappingFragment StoreEntitySet="codeDepartmentsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDepartmentsLanguagesRowVersion" ColumnName="codeDepartmentsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DepartmentDescription" ColumnName="DepartmentDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+                <ScalarProperty Name="DepartmentLanguageGUID" ColumnName="DepartmentLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStations">
+            <EntityTypeMapping TypeName="REFModel.codeDutyStations">
+              <MappingFragment StoreEntitySet="codeDutyStations">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsRowVersion" ColumnName="codeDutyStationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStationsLanguages">
+            <EntityTypeMapping TypeName="REFModel.codeDutyStationsLanguages">
+              <MappingFragment StoreEntitySet="codeDutyStationsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsLanguagesRowVersion" ColumnName="codeDutyStationsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DutyStationDescription" ColumnName="DutyStationDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="DutyStationLanguageGUID" ColumnName="DutyStationLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeReferralStatus">
+            <EntityTypeMapping TypeName="REFModel.codeReferralStatus">
+              <MappingFragment StoreEntitySet="codeReferralStatus">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeReferralStatusRowVersion" ColumnName="codeReferralStatusRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ApplicationGUID" ColumnName="ApplicationGUID" />
+                <ScalarProperty Name="ReferralStatusGUID" ColumnName="ReferralStatusGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeReferralStatusLanguage">
+            <EntityTypeMapping TypeName="REFModel.codeReferralStatusLanguage">
+              <MappingFragment StoreEntitySet="codeReferralStatusLanguage">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeReferralStatusLanguageRowVersion" ColumnName="codeReferralStatusLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ReferralStatusGUID" ColumnName="ReferralStatusGUID" />
+                <ScalarProperty Name="ReferralStatusLanguageGUID" ColumnName="ReferralStatusLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configFocalPoint">
+            <EntityTypeMapping TypeName="REFModel.configFocalPoint">
+              <MappingFragment StoreEntitySet="configFocalPoint">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="configFocalPointRowVersion" ColumnName="configFocalPointRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SiteCategoryGUID" ColumnName="SiteCategoryGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="ApplicationGUID" ColumnName="ApplicationGUID" />
+                <ScalarProperty Name="DepartmentConfigurationGUID" ColumnName="DepartmentConfigurationGUID" />
+                <ScalarProperty Name="FocalPointGUID" ColumnName="FocalPointGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configFocalPointStaff">
+            <EntityTypeMapping TypeName="REFModel.configFocalPointStaff">
+              <MappingFragment StoreEntitySet="configFocalPointStaff">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="configFocalPointStaffRowVersion" ColumnName="configFocalPointStaffRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OfficeSiteCategoryGUID" ColumnName="OfficeSiteCategoryGUID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="ActiveUntil" ColumnName="ActiveUntil" />
+                <ScalarProperty Name="FocalPointGUID" ColumnName="FocalPointGUID" />
+                <ScalarProperty Name="FocalPointStaffGUID" ColumnName="FocalPointStaffGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userPersonalDetailsLanguage">
+            <EntityTypeMapping TypeName="REFModel.userPersonalDetailsLanguage">
+              <MappingFragment StoreEntitySet="userPersonalDetailsLanguage">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="userPersonalDetailsLanguageRowVersion" ColumnName="userPersonalDetailsLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="GrandFatherName" ColumnName="GrandFatherName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="PersonalDetailsLanguageGUID" ColumnName="PersonalDetailsLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDepartmentsConfigurations">
+            <EntityTypeMapping TypeName="REFModel.codeDepartmentsConfigurations">
+              <MappingFragment StoreEntitySet="codeDepartmentsConfigurations">
+                <ScalarProperty Name="ParentDepartmentGUID" ColumnName="ParentDepartmentGUID" />
+                <ScalarProperty Name="DepartmentTypeGUID" ColumnName="DepartmentTypeGUID" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDepartmentsConfigurationsRowVersion" ColumnName="codeDepartmentsConfigurationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DepartmentGUID" ColumnName="DepartmentGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="DepartmentConfigurationGUID" ColumnName="DepartmentConfigurationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,61 @@
+﻿@model Determinants
+@using (Html.BeginForm("ItemDeterminantUpdate", "ModelMovements", new { Area = "WMS" }, FormMethod.Post, new { id = "ItemDeterminantUpdate", @class = "main-form" }))
+{
+    <div class="modal-body">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @Html.HiddenFor(model => model.ItemInputDetailGUID)
+                @Html.HiddenFor(model => model.BarcodeGUID)
+                @Html.HiddenFor(model => model.SerilaGUID)
+                @Html.HiddenFor(model => model.IMEI1GUID)
+                @Html.HiddenFor(model => model.IMEI2GUID)
+                @Html.HiddenFor(model => model.GSMGUID)
+                @Html.HiddenFor(model => model.MACGUID)
+                @Html.HiddenFor(model => model.MSRPIDGUID)
+                @if (Model.IsHasBarcode == true)
+                {
+                    @Html.Label("Barcode Number")
+                    @Html.EditorFor(model => model.BarcodeNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                }
+                @if (Model.IsHasSerialNumber == true)
+                {
+                    @Html.Label("Serial Number")
+                    @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                }
+                @if (Model.IsHasIMEI1 == true)
+                {
+                    @Html.LabelFor(model => model.IMEI1)
+                    @Html.EditorFor(model => model.IMEI1, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                }
+                @if (Model.IsHasIMEI2 == true)
+                {
+                    @Html.Label("IMEI2")
+                    @Html.EditorFor(model => model.IMEI2, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                }
+                @if (Model.IsHasGSM == true)
+                {
+                    @Html.LabelFor(model => model.GSM)
+                    @Html.EditorFor(model => model.GSM, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                }
+                @if (Model.IsHasMAC == true)
+                {
+                    @Html.LabelFor(model => model.MAC)
+                    @Html.EditorFor(model => model.MAC, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                }
+                @if (Model.IsHasMSRPID == true)
+                {
+                    @Html.LabelFor(model => model.MSRPID)
+                    @Html.EditorFor(model => model.MSRPID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+                }
+            </div>            
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        <input type="submit" value="Save Determinants" id="addDeterminants" class="btn btn-primary" />
+        @Html.CloseModalButton()
+    </div>
+}
+
+

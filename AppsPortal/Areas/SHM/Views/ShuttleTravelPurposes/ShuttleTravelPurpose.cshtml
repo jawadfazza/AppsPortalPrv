@@ -1,0 +1,20 @@
+﻿@model ShuttleTravelPurposeUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ShuttleTravelPurposeGUID == Guid.Empty) ? "New Appointment Type" : "Edit Appointment Type"; }
+
+@Html.PageHeader("e91f7808-d177-4b04-8088-c4cee8c2582b")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/SHM/Views/ShuttleTravelPurposes/_ShuttleTravelPurposeForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.ShuttleTravelPurposeGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/SHM/Views/ShuttleTravelPurposes/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ShuttleTravelPurposeGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

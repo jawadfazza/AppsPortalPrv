@@ -1,0 +1,116 @@
+﻿@model AppointmentTypeCalenderUpdateModel
+@using (Html.BeginForm("AppointmentTypeCalendar", "AppointmentTypeCalendars", new { Area = "AMS" }, FormMethod.Post, new { id = "AppointmentTypeCalendarForm" }))
+{
+    string ModalTitle = Model.AppointmentTypeCalenderGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.AppointmentTypeCalenderGUID)
+    @Html.HiddenFor(model => model.OrganizationInstanceGUID)
+    @Html.HiddenFor(model => model.DutyStationGUID)
+    <div class="form-group">
+        @Html.CheckBoxFor(model => model.PublicHolday, new { @class = "chkNode-accordion Holday" })
+        @Html.LabelFor(model => model.PublicHolday)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DepartmentGUID)
+        @Html.DropDownListFor(model => model.DepartmentGUID, new DropDownList().DepartmentAppointmentType(Model.OrganizationInstanceGUID.Value), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search",
+       onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'AppointmentTypeGUID', Action : 'RemoteAppointmentTypesByDepartment'}]);"
+   })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AppointmentTypeGUID, htmlAttributes: new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.AppointmentTypeGUID, new DropDownList().AppointmentType(Model.AppointmentTypeGUID), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-search"
+   })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EventStartDate)
+        @Html.EditorFor(model => model.EventStartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EventEndDate)
+        @Html.EditorFor(model => model.EventEndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <div class="form-group">
+        @if (Model.AppointmentTypeCalenderGUID == Guid.Empty)
+        {
+            @Html.CheckBoxFor(model => model.EventEachDay, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            @Html.LabelFor(model => model.EventEachDay)
+        }
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.SlotAvailable)
+        @Html.EditorFor(model => model.SlotAvailable, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+
+    @if (Model.AppointmentTypeCalenderGUID != Guid.Empty)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.SlotClosed)
+            @Html.EditorFor(model => model.SlotClosed, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" }, disabled = "disabled" })
+        </div>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comment)
+        @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.AppointmentTypeCalenderGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.AppointmentType.Create, Apps.AMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.AppointmentType.Update, Apps.AMS)
+                @Html.DeleteSwitchButton(Permissions.AppointmentType.Delete, Apps.AMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.AppointmentType.Delete, Apps.AMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        if ($('#PublicHolday').is(':checked')) {
+            $("#DepartmentGUID").attr("disabled", true);
+            $("#AppointmentTypeGUID").attr("disabled", true);
+            $("#SlotAvailable").attr("disabled", true);
+            $("#SlotClosed").attr("disabled", true);
+        } else {
+            $("#DepartmentGUID").attr("disabled", false);
+            $("#AppointmentTypeGUID").attr("disabled", false);
+            $("#SlotAvailable").attr("disabled", false);
+            $("#SlotClosed").attr("disabled", false);
+        }
+    });
+
+    $(document).on('ifChecked ifUnchecked', '.Holday', function (event) {
+        var DataTable = $(this).closest('table, .checkboxes-container');
+        console.log(DataTable);
+        if (event.type == 'ifChecked') {
+            $("#DepartmentGUID").attr("disabled", true);
+            $("#AppointmentTypeGUID").attr("disabled", true);
+            $("#SlotAvailable").attr("disabled", true);
+            $("#SlotClosed").attr("disabled", true);
+        } else {
+            $("#DepartmentGUID").attr("disabled", false);
+            $("#AppointmentTypeGUID").attr("disabled", false);
+            $("#SlotAvailable").attr("disabled", false);
+            $("#SlotClosed").attr("disabled", false);
+        }
+    });
+</script>

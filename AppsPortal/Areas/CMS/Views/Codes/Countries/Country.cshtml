@@ -1,0 +1,18 @@
+﻿@model CountryUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.CountryGUID == Guid.Empty) ? "New Country" : "Edit Country";}
+@Html.PageHeader("f1bd6e5d-000f-434d-9372-d9df88b36b90")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/Countries/_CountryForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.CountryGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/Countries/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.CountryGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

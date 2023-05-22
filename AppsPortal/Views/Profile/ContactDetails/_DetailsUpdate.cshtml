@@ -1,0 +1,100 @@
+﻿@model userContactDetails
+<div class="forms-fadeIn">
+    @using (Html.BeginForm("ContactDetails", "Profile", FormMethod.Post, new { id = "ContactDetailsForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ContactDetailsGUID)
+        <div class="row section EditSection">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 text-right pull-right col-nopadding-left">
+                <div class="panel-action">
+                    @Html.DoneLink()
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-8 col-sm-8 col-xs-8">
+                <h3 class="Title">@resxPages.ContactDetailsTitle</h3>
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.PrimaryMobileNumber</h5>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    @Html.DropDownListFor(model => model.PrimaryMobileCountryCode, new SelectList(ViewBag.ddlCountriesPhoneCode, "Value", "Text"), "", new { @class = "form-control select2-basic-CountryCode expandWidth no-left-border" })
+                                </div>
+                                @Html.EditorFor(model => model.PrimaryMobileNumber, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", @style = "width:100%" } })
+                            </div>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.OfficeLandlineNumber</h5>
+                            <div class="input-group">
+                                <div class="input-group-btn" style="width:100px;">
+                                    @Html.DropDownListFor(model => model.OfficeLandlineCountryCode, new SelectList(ViewBag.ddlCountriesPhoneCode, "Value", "Text"), "", new { @class = "form-control select2-basic-CountryCode expandWidth no-left-border" })
+                                </div>
+                                @Html.EditorFor(model => model.OfficeLandlineAreaCode, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", @style = "width:20%" } })
+                                @Html.EditorFor(model => model.OfficeLandlineNumber, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", @style = "width:80%" } })
+                                <a class="fa fa-question-circle helpbox" data-title="Local Landline Number" data-content="This number is the local land line number<br>Please use the format below<br>[Country Code] + [Area Code] + [Landline Number]"></a>
+                            </div>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.IPPhoneNumber</h5>
+                            <div class="input-group">
+                                <div class="input-group-btn" style="width:100px;">
+                                    @Html.DropDownListFor(model => model.IPPhoneCountryCode, new SelectList(ViewBag.ddlCountriesPhoneCode, "Value", "Text"), "", new { @class = "form-control select2-basic-CountryCode expandWidth no-left-border" })
+                                </div>
+                                @Html.EditorFor(model => model.IPPhoneOfficeCode, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", @style = "width:20%" } })
+                                @Html.EditorFor(model => model.IPPhoneNumber, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", @style = "width:80%" } })
+                                <a class="fa fa-question-circle helpbox" data-title="IP Phone Number" data-content="This number is the organization IP phone system number<br>Enter the number which people can reach you from inside the organization<br>Please use the format below<br>[Country Code] + [Office Code] + [Extension Number]"></a>
+                            </div>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.CallSign</h5>
+                            @Html.EditorFor(model => model.CallSign, new { htmlAttributes = new { @class = "form-control group-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.SecondaryMobileNumber</h5>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    @Html.DropDownListFor(model => model.SecondayMobileCountryCode, new SelectList(ViewBag.ddlCountriesPhoneCode, "Value", "Text"), "", new { @class = "form-control select2-basic-CountryCode expandWidth no-left-border" })
+                                </div>
+                                @Html.EditorFor(model => model.SecondaryMobileNumber, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off" } })
+                            </div>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.HomeLandlineNumber</h5>
+                            <div class="input-group">
+                                <div class="input-group-btn" style="width:100px;">
+                                    @Html.DropDownListFor(model => model.HomeLandlineCountryCode, new SelectList(ViewBag.ddlCountriesPhoneCode, "Value", "Text"), "", new { @class = "form-control select2-basic-CountryCode expandWidth no-left-border" })
+                                </div>
+                                @Html.EditorFor(model => model.HomeLandlineAreaCode, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", @style = "width:20%" } })
+                                @Html.EditorFor(model => model.HomeLandlineNumber, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", @style = "width:80%" } })
+                                <a class="fa fa-question-circle helpbox" data-title="Local Landline Number" data-content="This number is the local land line number<br>Please use the format below<br>[Country Code] + [Area Code] + [Landline Number]"></a>
+                            </div>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.IPPhoneNumberFromOutsideAreaCode</h5>
+                            <div class="input-group">
+                                <div class="input-group-btn" style="width:100px;">
+                                    @Html.DropDownListFor(model => model.IPPhoneNumberFromOutsideCountryCode, new SelectList(ViewBag.ddlCountriesPhoneCode, "Value", "Text"), "", new { @class = "form-control select2-basic-CountryCode expandWidth no-left-border" })
+                                </div>
+                                @Html.EditorFor(model => model.IPPhoneNumberFromOutsideAreaCode, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", @style = "width:20%" } })
+                                @Html.EditorFor(model => model.IPPhoneNumberFromOutsideInternalCode, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", @style = "width:30%" } })
+                                @Html.EditorFor(model => model.IPPhoneNumberFromOutsideExtension, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", @style = "width:50%" } })
+                                <a class="fa fa-question-circle helpbox" data-title="IP Phone Number" data-content="This number is the organization IP phone system number<br>Enter the number which people can reach you from outside the organization<br>Please use the format below<br>[Country Code] + [Area Code] + [Call Transfer Code] + [Extension Number]"></a>
+                            </div>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.PrivateEmailAddress</h5>
+                            @Html.EditorFor(model => model.PrivateEmailAddress, new { htmlAttributes = new { @class = "form-control group-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    CountriesCodes = @Html.Raw(ViewBag.JsonCountries)
+</script>

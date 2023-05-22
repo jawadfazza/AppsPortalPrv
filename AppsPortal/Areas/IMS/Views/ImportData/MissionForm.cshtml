@@ -1,0 +1,175 @@
+﻿
+@model IEnumerable<IMS_DAL.ViewModels.missonFormDataTableModel>
+
+
+
+
+
+<table class="table table-striped table-bordered  hover ">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MissionStartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MissionEndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DutyStation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Governorate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.District)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubDistrict)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Community)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_AnyPresence_Other_Organization_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gaps)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recommendations)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActionRequired)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LinkToMissionReport)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_There_Mission_Report_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.members)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.visitsFormVisitObjectives)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MissionReportFormHumanitarianNeed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MissionReportFormOngoingResponse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MissionReportFormChallenge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coordinates)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MissionStartDate)
+        </td>
+    <td>
+            @Html.DisplayFor(model => item.MissionStartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.MissionEndDate)
+    </td>
+        <td>
+            @Html.DisplayFor(model => item.DutyStation)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Governorate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.District)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.SubDistrict)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Community)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Longitude)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Latitude)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Is_AnyPresence_Other_Organization_)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Gaps)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Recommendations)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.ActionRequired)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.LinkToMissionReport)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Is_There_Mission_Report_)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Departments)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.members)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.visitsFormVisitObjectives)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.MissionReportFormHumanitarianNeed)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.MissionReportFormOngoingResponse)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.MissionReportFormChallenge)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Coordinates)
+        </td>
+
+
+    </tr>
+    }
+
+</table>
+

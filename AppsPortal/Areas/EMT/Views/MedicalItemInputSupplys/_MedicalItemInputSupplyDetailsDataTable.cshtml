@@ -1,0 +1,26 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxPages.MedicalItemInputSupplyDetail</h3>
+<div class="row">
+    <div class="col-lg-12 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.MedicalItemInputSupplyDetailsDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.MedicalItemInputSupplyDetailsDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.MedicalItemInputSupplyDetailsDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.MedicalItemInputSupplyDetailsDataTable)
+                @Html.FieldDataTableCreate(Permissions.MedicalItemInputSupply.Create, Apps.EMT, Url.Action("MedicalItemInputSupplyDetailCreate", "MedicalItemInputSupplys", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.MedicalItemInputSupply.Delete, Apps.EMT, DataTableNames.MedicalItemInputSupplyDetailsDataTable)
+                @Html.FieldDataTableRestore(Permissions.MedicalItemInputSupply.Restore, Apps.EMT, DataTableNames.MedicalItemInputSupplyDetailsDataTable)
+                @Html.FieldDataTableRefresh(DataTableNames.MedicalItemInputSupplyDetailsDataTable)
+            </div>
+        }
+        <div class="mScroll blueDataTableHeader" data-mcs-theme="rounded-dark" style="max-height:500px;">
+            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.MedicalItemInputSupplyDetailsDataTable, FormController = "MedicalItemInputSupplys", Area = "EMT", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+        </div>
+    </div>
+    </div>

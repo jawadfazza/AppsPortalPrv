@@ -1,0 +1,115 @@
+﻿    @model FileModel
+
+@Html.Partial("_ModalHeader", "Search File")
+@using (Html.BeginForm("FileSearch", "ScanDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "CreateFileForm" }))
+{
+<div class="modal-body" id="searchByCase">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FileNumber)
+
+        @Html.EditorFor(model => model.FileNumber, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+    </div>
+
+
+</div>
+
+
+    <div class="modal-footer form-footer">
+        <input type="button" value="Search by Case"  id="searchCaseid"/>
+        @*@Html.CreateButton(Permissions.RefugeeScannedDocument.Create, Apps.DAS)*@
+        @Html.CloseModalButton()
+    </div>
+}
+<script>
+
+    $("#searchCaseid").click(function () {
+     
+        var file = $('#FileNumber').val();
+  
+        var url = "/DAS/RefugeeScannedDocumentCreate?id=";
+        $.ajax({
+            dataType: 'json',
+            type: 'POST',
+            url: '/ScanDocument/FileSearchCreate',
+            data: { id: file },
+            success: function (result) {
+             window.location.href = url + file;
+            
+
+            }
+        });
+
+   @*var tableimport;
+    $("#stafftoImport").hide();
+    $("#SaveImport").hide();
+    $('#ElectionStatffImportForm').submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+       
+        $.ajax({
+            url: "@Url.Action("ElectionStaffImportCheck", "Staff", "OVS")",
+            method: "POST",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(JsonResult, status, xhr) {
+                tableimport = $("#staffImportTable").DataTable({
+                    "data": JsonResult.data,
+                    destroy: true,
+                    columns: [
+                        { data: "EmailAddress" },
+                        { data: "FullName" },
+                        { data: "EmailAddress" },
+                        { data: "Status" }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": 0,
+                            "data": "EmailAddress",
+                            "render": function(data, type, full, meta) {
+                                return "<input type='checkbox' class='chkNode' name='DeleteID1' checked value='" + data + "'>";
+                            }
+                        }
+                    ]
+                });
+                $("#stafftoImport").show();
+                $("#SaveImport").show();
+                $("#ProcessId").hide();
+                
+            }
+        });
+
+    });*@
+
+    
+    @*$("#SaveImport").click(function (e) {
+        var selectedrows = [];
+        $('#staffImportTable').find('input[type="checkbox"]:checked').each(function() {
+            selectedrows.push(tableimport.row($(this).closest('tr')).data());
+            //this is the current checkbox
+        });
+        var electionGuid = $('#ElectionGUID').val();
+        
+        $.ajax({
+            url: "@Url.Action("ElectionStaffImport", "Staff", "OVS")",
+            method: "POST",
+            data: { model: selectedrows, ElectionGUID: electionGuid },
+            success: function (JsonResult, status, xhr) {
+                ProcessNotify(JsonResult);
+            }
+
+        });
+    });*@
+
+
+
+
+
+
+
+   
+</script>
+

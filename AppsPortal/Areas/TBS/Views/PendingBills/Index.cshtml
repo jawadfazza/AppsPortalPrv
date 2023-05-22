@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Bills";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("c924961f-1eb9-4b33-a4ca-e6d7d6424fe8")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.PendingBillsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            @*<div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.TelecomCompanyDescription, DbColumnName = "TelecomCompanyDescription", FilterForDataType = "Text" })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                </div>*@
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.PendingBillsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.PendingBillsDataTable)">
+        @*@Html.IndexDatatableFilter(DataTableNames.UserBillsDataTable)
+            @Html.IndexDatatableCreate(Permissions.TelecomCompanies.Create, Apps.TBS, "/TBS/BillManagement/Create")
+            @Html.IndexDatatableDelete(Permissions.TelecomCompanies.Delete, Apps.TBS, DataTableNames.UserBillsDataTable)
+            @Html.IndexDatatableRestor(Permissions.TelecomCompanies.Restore, Apps.TBS, DataTableNames.UserBillsDataTable)*@
+        @Html.IndexDatatableRefresh(DataTableNames.PendingBillsDataTable)
+        <a class='Modal-Link btn btn-primary' style="width:270px" href='javascript:void(0)' data-url="/TBS/PendingBills/Reminder">Bulk Send Reminder</a>
+        <a class='Modal-Link btn btn-primary' style="width:270px" href='javascript:void(0)' data-url="/TBS/PendingBills/SetPrivate">Bulk Mark as Private</a>
+
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.PendingBillsDataTable, FormController = "PendingBills", Area = "TBS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="p-modal-body">Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-send-confirm-action" data-userbillguid="" data-confirm-action="" type="button" class="btn btn-primary">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function SendPendingReminder(link) {
+            $('#p-modal-body').html('Send Pending Bill Email Reminder.')
+            var UserBillGUID = $(link).attr('data-userbillguid');
+            $('#btn-send-confirm-action').attr('data-userbillguid', UserBillGUID);
+            $('#btn-send-confirm-action').attr('data-confirm-action', 'reminder');
+            $('.bd-example-modal-sm').modal('show');
+        };
+        function MarkUnconfirmedPrivate(link) {
+            $('#p-modal-body').html('Mark Pending Records As Private.')
+            var UserBillGUID = $(link).attr('data-userbillguid');
+            $('#btn-send-confirm-action').attr('data-userbillguid', UserBillGUID);
+            $('#btn-send-confirm-action').attr('data-confirm-action', 'makeprivate');
+            $('.bd-example-modal-sm').modal('show');
+        }
+        $('#btn-send-confirm-action').click(function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            var confirmAction = $(btn).attr('data-confirm-action');
+            var UserBillGUID = $(btn).attr('data-userbillguid');
+            if (confirmAction == "reminder") {
+                $.ajax({
+                    type: "POST",
+                    url: "/TBS/PendingBills/SendBillReminder",
+                    data: { UserBillGUID: UserBillGUID },
+                    success: function (jsonResult) {
+                        if (jsonResult.success == true) {
+                            $('.bd-example-modal-sm').modal('hide');
+                            Notify(NotificationType.Success, 'Mailing function is stopped at the moment for testing purposes.');
+                            DataTableRefresh('PendingBillsDataTable');
+                        }
+                    },
+                    error: function () { }
+                });
+            }
+            else if (confirmAction == "makeprivate") {
+                $.ajax({
+                    type: "POST",
+                    url: "/TBS/PendingBills/MarkUnconfirmedPrivate",
+                    data: { UserBillGUID: UserBillGUID },
+                    success: function (jsonResult) {
+                        if (jsonResult.success == true) {
+                            $('.bd-example-modal-sm').modal('hide');
+                            Notify(NotificationType.Success, 'Pending records has been marked as private.');
+                            DataTableRefresh('PendingBillsDataTable');
+                        }
+                    },
+                    error: function () { }
+                });
+            }
+        });
+    </script>
+}

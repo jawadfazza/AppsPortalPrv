@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "ItemModels";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("f473172b-3275-4a09-8c4a-ff082fee9570")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.STIContactsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FullName, DbColumnName = "FullName", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Mobile, DbColumnName = "Mobile", FilterForDataType = "Text" })
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ItemDescription, DbColumnName = "ItemDescription", FilterForDataType = "Text" })*@
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStationDescription, DbColumnName = "DutyStationGUID", FilterForDataType = "Options", DataList = new DropDownList().DutyStationsByProfile(), IsMultiple = true })*@
+
+            </div>
+
+            <div class="col-lg-12">
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OrganizationInstanceDescription, DbColumnName = "OrganizationInstanceGUID", FilterForDataType = "Options", DataList = new DropDownList().OrganizationsInstancesByProfile(), IsMultiple = true })*@
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.STIContactsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.STIContactsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.STIContactsDataTable)
+      
+        @Html.FieldDataTableCreate(Permissions.STIContacts.Create, Apps.WMS, Url.Action("STIContactsCreate", "STIContacts"))
+        @Html.IndexDatatableDelete(Permissions.STIContacts.Delete, Apps.WMS, DataTableNames.STIContactsDataTable)
+        @Html.IndexDatatableRestor(Permissions.STIContacts.Restore, Apps.WMS, DataTableNames.STIContactsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.STIContactsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.STIContactsDataTable, Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

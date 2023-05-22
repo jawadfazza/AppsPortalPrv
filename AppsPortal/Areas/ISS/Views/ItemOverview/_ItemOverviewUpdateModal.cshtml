@@ -1,0 +1,37 @@
+﻿@model dataItemOverview
+@using (Html.BeginForm("ItemOverview", "ItemOverview", new { Area = "ISS" }, FormMethod.Post, new { id = "ItemOverviewForm" }))
+{
+    string ModalTitle = Model.ItemOverviewGUID.ToString() == Guid.Empty.ToString() ? "New Import" : "Edit Import";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.ItemOverviewGUID)
+    @Html.HiddenFor(model => model.ItemGUID)
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.TotalItemAllStocks)
+            @Html.EditorFor(model => model.TotalItemAllStocks, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+        </div>
+    </div>
+
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.ItemOverviewGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.StockItemDistribution.Create, Apps.ISS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.StockItemDistribution.Update, Apps.ISS)
+                @Html.DeleteSwitchButton(Permissions.StockItemDistribution.Delete, Apps.ISS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.StockItemDistribution.Delete, Apps.ISS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

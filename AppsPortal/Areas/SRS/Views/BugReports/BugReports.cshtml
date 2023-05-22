@@ -1,0 +1,26 @@
+﻿@model BugReportModel
+@{
+    ViewBag.Title = "Bug Report";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("f08a74ea-c2b9-4998-b14f-7e3652203e70")
+@{string PageTitle = (Model.AppBugReportGUID == Guid.Empty) ? "New Bug Report" : "Edit Bug Report"; }
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/SRS/Views/BugReports/_BugReportsForm.cshtml")
+        <div id="ApplicationBugAttachementContainer">
+            @if (Model.AppBugReportGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/SRS/Views/BugReports/_BugReportAttachementDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.AppBugReportGUID, IsParentActive = Model.Active })
+            }
+        </div>
+        @*<div id="ApplicationRequestAuthorizationContainer">
+                @if (Model.AppRequestGUID != Guid.Empty && Model.Active)
+                {
+
+                    @Html.Partial("~/Areas/SRS/Views/ApplicationRequest/_ApplicationRequestAuthorization.cshtml",Model)
+                }
+            </div>*@
+    </div>
+</div>

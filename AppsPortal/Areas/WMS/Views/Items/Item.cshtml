@@ -1,0 +1,23 @@
+﻿@model ItemUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.WarehouseItemGUID == Guid.Empty) ? "New  Item " : "Edit Item"; }
+
+@Html.PageHeader("799c43d3-4153-44e9-98b3-0a5c84dc23fd")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/WMS/Views/Items/_ItemForm.cshtml")
+
+        @*@if (Model.WarehouseItemModelGUID != Guid.Empty && Model.Active)
+            {
+                <div id="ItemModelLanguagesFormControls">
+                    @Html.Partial("~/Areas/WMS/Views/ItemModels/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.WarehouseItemModelGUID, IsParentActive = Model.Active })
+                </div>
+            }*@
+
+
+    </div>
+</div>
+

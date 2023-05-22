@@ -1,0 +1,86 @@
+﻿@model MenuUpdateModel
+@using (Html.BeginForm("Menu", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "MenusForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.MenuGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MenuDescription)
+                @Html.EditorFor(model => model.MenuDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ApplicationGUID)
+                @Html.DropDownListFor(model => model.ApplicationGUID, new DropDownList().Applications(), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-single",
+               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'ParentGUID', Action : 'RemoteApplicationMenus'}," +
+                                                    "{ DropDownListID : 'ActionCategoryGUID', Action : 'RemoteActionsCategories'}," +
+                                                    "{ DropDownListID : 'ActionGUID', Action : ''}]);"
+           })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.IsPublic)
+                @Html.DropDownListFor(model => model.IsPublic, new DropDownList().IsPublic(), new
+           {
+               @class = "form-control select2-basic-single",
+               style = "width:100%",
+               @onchange = "ShowOtherFields(this,['true'],'WhenPublic')"
+           })
+            </div>
+            @{string cssClass = "hidden";
+                if (Model.IsPublic == false)
+                {
+                    cssClass = "";
+                }
+                <div class="form-group @cssClass HANDLER WhenPublic">
+                    @Html.LabelFor(model => model.ActionCategoryGUID)
+                    @Html.DropDownListFor(model => model.ActionCategoryGUID, new DropDownList().ActionsCategories(Model.ApplicationGUID,true), "", new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-search",
+                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'ActionGUID', Action : 'RemoteActions'}]);"
+               })
+                </div>
+                <div class="form-group @cssClass HANDLER WhenPublic">
+                    @Html.LabelFor(model => model.ActionGUID)
+                    @Html.DropDownListFor(model => model.ActionGUID, new DropDownList().Actions(Model.ActionCategoryGUID), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+            }
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ParentGUID)
+                @Html.DropDownListFor(model => model.ParentGUID, new DropDownList().ApplicationMenus(Model.ApplicationGUID), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SortID)
+                @Html.EditorFor(model => model.SortID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ActionUrl)
+                @Html.EditorFor(model => model.ActionUrl, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div id="MenusFormControls" class="form-group form-footer">
+                @if (Model.ApplicationGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.NavigationMenus.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.NavigationMenus.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.NavigationMenus.Create, Apps.CMS, Url.Action("Menus/Create", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.NavigationMenus.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.NavigationMenus.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Menus", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+                }

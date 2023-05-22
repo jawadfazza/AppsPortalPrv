@@ -1,0 +1,14 @@
+﻿@model VehicleUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.VehicleGUID == Guid.Empty) ? "New Vehicle" : "Edit Vehicle"; }
+
+@Html.PageHeader("59ea848d-1b14-4d2d-a13b-27db2ee505a8")
+<div class="page--content">
+    <div class="foSHM-fadeIn">
+        @Html.Partial("~/Areas/SHM/Views/Vehicles/_VehicleForm.cshtml")
+    </div>
+</div>
+

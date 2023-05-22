@@ -1,0 +1,58 @@
+﻿@model HomeAddressUpdateModel
+<div class="forms-fadeIn">
+    @using (Html.BeginForm("HomeAddress", "Profile", FormMethod.Post, new { id = "HomeAddressForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.UserGUID)
+        <div class="row section EditSection">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 text-right pull-right col-nopadding-left">
+                <div class="panel-action">
+                    @Html.DoneLink()
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-8 col-sm-8 col-xs-8">
+                <h3 class="Title">@resxPages.HomeAddress</h3>
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="breath-bottom">
+                            @Html.LabelFor(model => model.HomeAddress, new { @class = "SubTitle" })
+                            @Html.TextAreaFor(model => model.HomeAddress, new { @class = "form-control group-control", autocomplete = "off", style = "width:100%;", rows = 5 })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="breath-bottom">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.HomePhoneNumber)
+                                <div class="input-group">
+                                    <div class="input-group-btn" style="font-size:1em;">
+                                        @Html.DropDownListFor(model => model.HomePhoneCountryCode, new SelectList(ViewBag.ddlCountriesPhoneCode, "Value", "Text"), "", new { @class = "form-control select2-basic-CountryCode expandWidth no-left-border" })
+                                    </div>
+                                    @Html.EditorFor(model => model.HomePhoneNumber, new { htmlAttributes = new { @class = "form-control group-control no-left-border Numeric", autocomplete = "off", style = "width:100%" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        @Html.Partial("_SearchLocation", new MapModel { Height = "400px",Zoom=15, Latitude = Model.Latitude, Longitude = Model.Longitude })
+                    </div>
+                    </div>
+                </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <h5 class="SubTitle">@resxPages.HomeAddressLangueages</h5>
+            <div id="LanguagesContainer">
+                @Html.Partial("~/Views/Profile/HomeAddress/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.UserGUID, IsParentActive = true })
+            </div>
+        </div>
+    </div>
+    <br />
+</div>
+<script>
+    CountriesCodes = @Html.Raw(ViewBag.JsonCountries)
+</script>

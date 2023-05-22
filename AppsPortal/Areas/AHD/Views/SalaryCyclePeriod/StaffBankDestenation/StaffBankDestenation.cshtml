@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Salary";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("09ab1921-2405-4cc3-ac95-2eeaeaa15de1")
+@model SalaryCyclePeriodUpdateModel
+<div class="page--content">
+
+    <div id=@string.Format("{0}Filter", DataTableNames.CycleSalaryStaffBankDestenationDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffName, DbColumnName = "UserGUID", FilterForDataType = "Text", DataList = new DropDownList().AdminHRAllStaff(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Status, DbColumnName = "StaffConfirmationStatusGUID", FilterForDataType = "Text", DataList = new DropDownList().StaffBankDestenationFlowStatus(), IsMultiple = true, IsSearchable = true })
+
+
+
+            </div>
+
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.CycleSalaryStaffBankDestenationDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.CycleSalaryStaffBankDestenationDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.CycleSalaryStaffBankDestenationDataTable)
+        @*@Html.FieldDataTableCreate(Permissions.SalaryCycle.Create, Apps.AHD, Url.Action("SalaryCyclePeriodCreate", "StaffSalary"))*@
+        @Html.ActionLink(" ", "SendReminderForPendingBankDestenationConfirmation", "StaffSalary", new { FK = Model.SalaryCycleGUID }, new { @class = "btn btn-primary fa fa-bell" })
+        @*@Html.FieldDataTableCreate(Permissions.SalaryCycle.Create, Apps.AHD, Url.Action("NationalStaffDangerPayInformationCreate", "NationalStaffDangerPayCalcualtion"))*@
+
+        @*@Html.IndexDatatableDelete(Permissions.SalaryCycle.Delete, Apps.AHD, DataTableNames.CycleSalaryStaffBankDestenationDataTable)
+        @Html.IndexDatatableRestor(Permissions.SalaryCycle.Restore, Apps.AHD, DataTableNames.CycleSalaryStaffBankDestenationDataTable)*@
+        @Html.IndexDatatableRefresh(DataTableNames.CycleSalaryStaffBankDestenationDataTable)
+        @*@Html.ActionLink(" ", "ExportDangerPayStaffForMonth", "NationalStaffDangerPayCalcualtion", new { id = @ViewBag.DangerPayInformationGUID }, new { @class = "btn btn-primary fa fa-file-o" })*@
+
+    </div>
+
+
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.CycleSalaryStaffBankDestenationDataTable, FormController = "StaffSalary", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, PK = Model.SalaryCycleGUID, OrderBy = 1 })
+        
+
+    </div>
+
+
+</div>
+

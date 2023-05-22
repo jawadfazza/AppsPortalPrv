@@ -1,0 +1,27 @@
+﻿@model codeConnections
+@using (Html.BeginForm("Connection", "AccountSettings", FormMethod.Post, new { id = "ConnectionForm" }))
+{
+    string ModalTitle = "Connections Details";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ConnectionGUID)
+        @Html.HiddenFor(model => model.ApplicationGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.InstanceDescription)
+            @Html.EditorFor(model => model.InstanceDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off",disabled = "disabled"  } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataSource)
+            @Html.EditorFor(model => model.DataSource, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" ,disabled = "disabled" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.InitialCatalog)
+            @Html.EditorFor(model => model.InitialCatalog, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off", disabled = "disabled" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        <input class="btn btn-primary SLAME ActionControl" data-submittype="Default" onclick="SubmitForm(this);" type="submit" value="Set Default">
+        @Html.CloseModalButton()
+    </div>
+}

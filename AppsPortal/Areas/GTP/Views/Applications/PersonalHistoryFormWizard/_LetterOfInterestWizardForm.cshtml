@@ -1,0 +1,78 @@
+﻿@model dataPersonalHistoryLetterOfInterestUpdateModel
+@using (Html.BeginForm("LetterOfInterestWizard", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "LetterOfInterestWizardForm", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.GTPPHLetterOfInterestGUID)
+    @Html.AntiForgeryToken()
+    <div class="tab-pane" id="tab1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><b>7.	LETTER OF INTEREST </b> (Mandatory to complete if applying for a specific vacancy announcement)</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <span>
+                            Please indicate the position you are applying for
+                        </span>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            @Html.EditorFor(model => model.PositionDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="padding-bottom:10px;">
+                        <span>
+                            Please answer the following questions.
+                        </span>
+                    </div>
+                    <div class="col-md-12">
+                        <span>
+                            1.	How have your achievements and operational experience to date prepared you for this position?
+                            Please refer to the job description and to the essential requirements therein.	(1500 characters max)
+                        </span>
+                        <div class="form-group">
+                            @Html.TextAreaFor(model => model.AchievementsDescription, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 10 })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <span>
+                            2.	Please describe any skills and competencies you have, and which may be of particular relevance to this position.
+                            (1500 characters max)
+                        </span>
+                        <div class="form-group">
+                            @Html.TextAreaFor(model => model.SkillsDescription, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 10 })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <span>
+                            3.	How does this position align with your career aspirations?	(1000 characters max)
+                        </span>
+                        <div class="form-group">
+                            @Html.TextAreaFor(model => model.PositionAlignDescription, new { @class = "form-control group-control ", autocomplete = "off", @style = "width:100%;", @rows = 10 })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right">
+                            @if (Model.GTPPHLetterOfInterestGUID == Guid.Empty)
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Save & Next' data-next-url="/GTP/Applications/WorkExperienceWizard/Create" />
+                            }
+                            else
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Update" name='next' value='Update & Next' data-next-url="/GTP/Applications/WorkExperienceWizard/Create" />
+                            }
+                        </div>
+                        <div style="float:left">
+                            <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/NationalityInformationsWizard/Create" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

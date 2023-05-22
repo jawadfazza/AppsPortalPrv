@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "DutyStations";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("7b4f4c23-35b3-4bd8-b293-66a49f384705")
+<div class="page--content">
+        <div id=@string.Format("{0}Filter", DataTableNames.DutyStationsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStationDescription, DbColumnName = "DutyStationDescription", FilterForDataType = FilterDataTypes.Text })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CountryDescription, DbColumnName = "CountryDescription", FilterForDataType = "Text", DataList = new DropDownList().Countries(), IsMultiple = true })
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                </div>
+            </div>
+            <div class="form-group filter-actions">
+                @Html.DatatableFilterControls(DataTableNames.DutyStationsDataTable)
+            </div>
+        </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.DutyStationsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.DutyStationsDataTable)
+        @Html.IndexDatatableCreate(Permissions.DutyStations.Create, Apps.CMS, Url.Action("DutyStations/Create/", "Codes", new { Area = "CMS" } ))
+        @Html.IndexDatatableDelete(Permissions.DutyStations.Delete, Apps.CMS, DataTableNames.DutyStationsDataTable)
+        @Html.IndexDatatableRestor(Permissions.DutyStations.Restore, Apps.CMS, DataTableNames.DutyStationsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.DutyStationsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.DutyStationsDataTable, FormController = "Codes", Area="CMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 2 })
+    </div>
+</div>

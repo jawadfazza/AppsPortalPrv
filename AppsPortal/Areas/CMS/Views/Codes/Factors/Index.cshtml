@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Factors";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("a2902d49-7515-4059-93d5-73ea4475289c")
+<div class="page--content">
+        <div id=@string.Format("{0}Filter", DataTableNames.FactorsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FactorDescription, DbColumnName = "FactorName", FilterForDataType = FilterDataTypes.Text })
+                    @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+                </div>
+            </div>
+            <div class="form-group filter-actions">
+                @Html.DatatableFilterControls(DataTableNames.FactorsDataTable)
+            </div>
+        </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.FactorsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.FactorsDataTable)
+        @Html.IndexDatatableCreate(Permissions.Factors.Create, Apps.CMS, Url.Action("Factors/Create/", "Codes", new { Area = "CMS" } ))
+        @Html.IndexDatatableDelete(Permissions.Factors.Delete, Apps.CMS, DataTableNames.FactorsDataTable)
+        @Html.IndexDatatableRestor(Permissions.Factors.Restore, Apps.CMS, DataTableNames.FactorsDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.FactorsDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.FactorsDataTable, FormController = "Codes", Area="CMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 3 })
+    </div>
+</div>

@@ -1,0 +1,102 @@
+﻿@model ItemInputDetailModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("60f22f53-8b04-498a-beee-4e283dd290e9")
+
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.WarehouseModelReleaseMovementsDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CustodianType, DbColumnName = "CustodianType", FilterForDataType = "Text", DataList = new DropDownList().WarehouseRequsterTypes(), IsMultiple = false })
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Custodian, DbColumnName = "Custodian", FilterForDataType = "Text" })
+
+
+            </div>
+            <div class="col-lg-12">
+
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DeliveryStatus, DbColumnName = "DeliveryStatus", FilterForDataType = "Text", DataList = new DropDownList().ModelDeliveryStatus(), IsMultiple = false })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ReleaseType, DbColumnName = "ReleaseType", FilterForDataType = "Text", DataList = new DropDownList().WarehouseReleaseTypes(), IsMultiple = false })
+
+
+
+
+            </div>
+            @*<div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.IME1, DbColumnName = "IME1", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Custodian, DbColumnName = "Custodian", FilterForDataType = "Text" })
+            </div>*@
+
+            <div class="col-lg-12">
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelStatus, DbColumnName = "ModelStatus", FilterForDataType = "Text" })*@
+
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.WarehouseModelReleaseMovementsDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format(" {0}ActionsContainer", DataTableNames.WarehouseModelReleaseMovementsDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.WarehouseModelReleaseMovementsDataTable)
+        @if (Model.IsAvaliable==true && Model.ParentItemModelWarehouseGUID==null && Model.LastFlowTypeGUID== WarehouseRequestFlowType.Returned)
+        {
+        @Html.FieldDataTableCreate(Permissions.WarehouseItemsRelease.Create, Apps.WMS, Url.Action("WarehouseModelReleaseMovementsCreate", "ModelMovements", new {FK = Model.ItemInputDetailGUID}))
+        }
+        @*@Html.IndexDatatableDelete(Permissions.ItemModel.Delete, Apps.WMS, DataTableNames.ModelManagementsDataTable)
+        @Html.IndexDatatableRestor(Permissions.ItemModel.Restore, Apps.WMS, DataTableNames.ModelManagementsDataTable)*@
+        @Html.IndexDatatableRefresh(DataTableNames.WarehouseModelReleaseMovementsDataTable)
+    </div>
+    <div class="page--body">
+        <div class="form-group">
+            @if (Model.ItemInputGUID != Guid.Empty && Model.Active)
+            {
+            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseModelReleaseMovementsDataTable, FormController = "ItemModels", Area = "WMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ItemInputDetailGUID, OrderBy = 1 })
+            }
+        </div>
+
+    </div>
+    <div class="form-group pull-right">
+
+        <div class="form-group">
+            <input type="button" value="Show Details" onclick="ShowModelDetails()" />
+        </div>
+
+    </div>
+</div>
+<div class="page--content" id="showModelDetails">
+    <div class="forms-fadeIn ">
+        @*@if (Model.ItemInputGUID != Guid.Empty && Model.Active)
+        {
+        @Html.Partial("~/Areas/WMS/Views/ModelMovements/_ModelMovementsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ItemInputDetailGUID, IsParentActive = Model.Active })
+        }*@
+
+        @*@Html.Partial("~/Areas/WMS/Views/ModelManagement/_ModelManagementForm.cshtml")*@
+        <div id="ItemModelFormControls">
+
+            @if (Model.ItemInputGUID != Guid.Empty && Model.Active)
+            {
+            @Html.Partial("~/Areas/WMS/Views/ItemModels/_ModelsDeterminantDataTable.cshtml", new MasterRecordStatus {ParentGUID = (Guid) Model.codeItemModelWarehouse.WarehouseItemModelGUID, IsParentActive = Model.Active})
+            }
+            @if (Model.ItemInputGUID != Guid.Empty && Model.Active)
+            {
+            @Html.Partial("~/Areas/WMS/Views/ItemModels/_WarehouseDataTable.cshtml", new MasterRecordStatus {ParentGUID = (Guid) Model.codeItemModelWarehouse.WarehouseItemModelGUID, IsParentActive = Model.Active})
+            }
+
+        </div>
+    </div>
+</div>
+<script>
+    $("#showModelDetails").hide();
+    var ShowModelDetails = function () {
+        $("#showModelDetails").toggle();
+    }
+   
+</script>
+

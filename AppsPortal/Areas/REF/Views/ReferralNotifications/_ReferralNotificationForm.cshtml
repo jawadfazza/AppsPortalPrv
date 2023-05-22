@@ -1,0 +1,52 @@
+﻿@model configReferralNotification
+@using (Html.BeginForm("ReferralNotification", "ReferralNotifications", new { Area = "REF" }, FormMethod.Post, new { id = "ReferralNotificationForm", @class = "main-form" }))
+{
+    string ModalTitle = Model.ReferralNotificationGUID.ToString() == Guid.Empty.ToString() ? "New Referral Notification" : "Edit Referral Notification";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ReferralNotificationGUID)
+        @Html.HiddenFor(model => model.ReferralStepGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.NotificationResxKey)
+            @Html.EditorFor(model => model.NotificationResxKey, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Icon)
+            @Html.EditorFor(model => model.Icon, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PageURL)
+            @Html.EditorFor(model => model.PageURL, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.ReferralStatusGUID)
+            @Html.DropDownListFor(model => model.ReferralStatusGUID, new DropDownList().ReferralStatus(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+        <div class="form-group HANDLER">
+            @Html.LabelFor(model => model.ReturnToReferralStepGUID)
+            @Html.DropDownListFor(model => model.ReturnToReferralStepGUID, new DropDownList().ReferralStep(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ReferralNotificationGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ReferralNotification.Create, Apps.REF)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ReferralNotification.Update, Apps.REF)
+                @Html.DeleteSwitchButton(Permissions.ReferralNotification.Delete, Apps.REF)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ReferralNotification.Delete, Apps.REF)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+
+}

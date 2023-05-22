@@ -1,0 +1,43 @@
+﻿@model ConfigurationModel
+<div class="forms-fadeIn checkboxs-form">
+    @using (Html.BeginForm("CountriesConfig", "Configurations", FormMethod.Post, new { id = "CountriesConfigForm" }))
+    {
+        string ModalTitle = "Add Country";
+        @Html.Partial("_ModalHeader", ModalTitle)
+        <div class="modal-body">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ValueGuid)
+            @if (Model.CheckBoxList.Count > 0)
+            {
+            <div class="mScroll" data-mcs-theme="rounded-dark" style="max-height:400px;">
+                <div class="chkHead-accordion-container">
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="chkHead-accordion" />
+                        <span><b>Select All</b></span>
+                        <span id="SelectedMessage"></span>
+                    </label>
+                </div>
+                @for (int i = 0; i < Model.CheckBoxList.Count; i++)
+                    {
+                    <div class="configOption ">
+                        @Html.HiddenFor(m => Model.CheckBoxList[i].Value)
+                        @Html.HiddenFor(m => Model.CheckBoxList[i].Description)
+                        <label class="black ClearFindTextBox" style="margin-bottom:0!important">
+                            @Html.CheckBoxFor(m => Model.CheckBoxList[i].Checked, new { @class = "chkNode-accordion" })
+                            @Html.DisplayFor(m => Model.CheckBoxList[i].Description)
+                        </label>
+                    </div>
+                    }
+            </div>
+            }
+            else
+            {
+            <span>No new value to add, all possible values added!</span>
+            }
+        </div>
+        <div class="modal-footer form-footer">
+            @Html.CreateButton(1, Apps.CMS)
+            @Html.CloseModalButton()
+        </div>
+    }
+</div>

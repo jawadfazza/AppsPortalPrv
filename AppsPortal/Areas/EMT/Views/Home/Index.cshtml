@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<style type="text/css">
+    .rtl h3 {
+        text-align: center;
+    }
+</style>
+
+@Html.PageHeader("c87a3dde-e931-483a-b4dc-4de1d0f47df2")
+
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+
+        @if (new CMS().HasAction(Permissions.MedicalItemInputSupply.Access, Apps.EMT))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "MedicalItemInputSupplys" , new { Area="EMT" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-truck fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>@resxPages.UNHCRMedicineContract</h3>
+                            <span>@resxPages.UNHCRMedicineContractDetails</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+        @if (new CMS().HasAction(Permissions.MedicalItemInput.Access, Apps.EMT))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "MedicalItemInputs" , new { Area="EMT" })>
+                    <div class="SubjectBox matchHeight">
+
+                        <i class="fas fa-warehouse fa-4x" style="color: #0072BC;"></i>
+                        <div>
+                            <h3>@resxPages.DispatchMedicinesToPartnersWarehouse</h3>
+                            <span>@resxPages.DispatchMedicinesToPartnersWarehouseDetails</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.MedicalItemTransfer.Access, Apps.EMT))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "MedicalItemTransfers" , new { Area="EMT" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-exchange fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>@resxPages.TransferMedicinesToPharmacies</h3>
+                            <span>@resxPages.TransferMedicinesToPharmaciesDetails</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.MedicalBeneficiaryItemOut.Access, Apps.EMT))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "MedicalBeneficiaryItemOuts" , new { Area="EMT" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-medkit fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>@resxPages.DispensingMedicinesToPOC</h3>
+                            <span>@resxPages.DispensingMedicinesToPOCDetails</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("Index", "Dashboards" , new { Area="EMT" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-bar-chart fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>@resxPages.Dashboards</h3>
+                        <span>@resxPages.DashboardsDetails</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href=@Url.Action("Index", "Reports", new { Area = "EMT" })>
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa- fa-file-excel-o fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>@resxPages.ReportsBoard</h3>
+                        <span>@resxPages.ReportsBoardDetails</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+
+        @if (new CMS().HasAction(Permissions.MedicalBeneficiary.Access, Apps.EMT) && new CMS().HasAction(Permissions.MedicalItem.Access, Apps.EMT) && new CMS().HasAction(Permissions.MedicalPharmacy.Access, Apps.EMT) && new CMS().HasAction(Permissions.MedicalBeneficiary.Access, Apps.EMT))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("CodeTable", "Home" , new { Area="EMT" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-cogs fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>@resxPages.CodeTable</h3>
+                            <span>@resxPages.CodeTableDetails</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.MedicalBeneficiary.Access, Apps.EMT))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "MedicalBeneficiarys", new { Area = "EMT" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-address-book  fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>@resxPages.Beneficiaries</h3>
+                            <span>@resxPages.BeneficiariesDetails</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.MedicalDiscrepancy.Access, Apps.EMT))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "MedicalDiscrepancys", new { Area = "EMT" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fas fa-boxes  fa-4x" style="color: #0072BC;" aria-hidden="true"></i>
+                        <div>
+                            <h3>@resxPages.MedicinesInventory</h3>
+                            <span>@resxPages.MedicinesInventoryDetails</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.MedicalDistributionRestriction.Access, Apps.EMT))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "MedicalDistributionRestrictions", new { Area = "EMT" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-cogs   fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>@resxPages.DispensingMedicinesRestriction</h3>
+                            <span>@resxPages.DispensingMedicinesRestrictionDetails</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

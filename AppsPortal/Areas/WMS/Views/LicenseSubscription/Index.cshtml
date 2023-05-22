@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "LicenseandSubscriptionContracts";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("e4f053e3-e4c2-49cc-b051-47c1860a091b")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.WMSLicenseSubscriptionContractDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LatestPONumber, DbColumnName = "LatestPONumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ContractClassGUID, DbColumnName = "ContractClassGUID", FilterForDataType = "Text", DataList = new DropDownList().WarehoueLicenseSubscriptionContractClass(), IsMultiple = true, IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ContractTypeGUID, DbColumnName = "ContractTypeGUID", FilterForDataType = "Text", DataList = new DropDownList().WarehoueLicenseSubscriptionContractType(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ContractCategoryGUID, DbColumnName = "ContractCategoryGUID", FilterForDataType = "Text", DataList = new DropDownList().WarehoueLicenseSubscriptionContractCategory(), IsMultiple = true, IsSearchable = true })
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })*@
+
+            </div>
+            <div class="col-lg-12">
+
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })*@
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PurchaseDate, DbColumnName = "PurchaseDate", FilterForDataType = "Date" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StartDate, DbColumnName = "StartDate", FilterForDataType = "Date" })
+            </div>
+
+            <div class="col-lg-12">
+
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })*@
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ContractNumber, DbColumnName = "ExpiryDate", FilterForDataType = "Date" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ContractCode, DbColumnName = "NextRemindDate", FilterForDataType = "Date" })
+            </div>
+            <div class="col-lg-12">
+
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })*@
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ContractNumber, DbColumnName = "ContractNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ContractCode, DbColumnName = "ContractCode", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+
+                @*@Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ModelDescription, DbColumnName = "ModelDescription", FilterForDataType = "Text" })*@
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.BrandGUID, DbColumnName = "BrandGUID", FilterForDataType = "Text", DataList = new DropDownList().Brands(), IsMultiple = true, IsSearchable = true })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStation, DbColumnName = "LocationGUID", FilterForDataType = "Text", DataList = new DropDownList().SyriaDutyStations(), IsMultiple = true, IsSearchable = true })
+            </div>
+
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.WMSLicenseSubscriptionContractDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.WMSLicenseSubscriptionContractDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.WMSLicenseSubscriptionContractDataTable)
+        
+        @Html.FieldDataTableCreate(Permissions.LicenseandSubscriptionContracts.Create, Apps.WMS, Url.Action("LicenseSubscriptionContractCreate", "LicenseSubscription"))
+        @Html.IndexDatatableDelete(Permissions.LicenseandSubscriptionContracts.Delete, Apps.WMS, DataTableNames.WMSLicenseSubscriptionContractDataTable)
+        @Html.IndexDatatableRestor(Permissions.LicenseandSubscriptionContracts.Restore, Apps.WMS, DataTableNames.WMSLicenseSubscriptionContractDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.WMSLicenseSubscriptionContractDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WMSLicenseSubscriptionContractDataTable, Area = "WMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+        
+    </div>
+</div>

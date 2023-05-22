@@ -1,0 +1,84 @@
+﻿@model configFocalPointStaff
+@using (Html.BeginForm("FocalPointStaff", "FocalPoints", new { Area = "REF" }, FormMethod.Post, new { id = "FocalPointStaffForm" }))
+{
+    string ModalTitle = Model.FocalPointStaffGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.FocalPointStaffGUID)
+    @Html.HiddenFor(model => model.FocalPointGUID)
+    <div class="row" id="SourceUser">
+        <div class="col-lg-4">
+            <img id="userProfileImage" class="userProfilePhotoInPermissions " src="/Assets/Images/img.png" />
+        </div>
+        <div class="col-lg-8 HANDLER">
+            @Html.DropDownList("UserGUID", new DropDownList().User(Model.UserGUID), new
+       {
+           style = "width:100%",
+           @class = "form-control select2-basic-ajax FlashOnEmptySelect2",
+           data_action = "RemoteFindUserBy",
+           onchange = "GetUserDetailsForProfileToProfile($(this).val(),'#SourceUser');"
+       })
+            <div style="margin: 10px 0; padding: 7px; border: solid 1px #ccc; background-color:#fff; min-height: 135px;">
+                <span class="userInfoInPermissions lblEmailAddress">@resxPages.SelectTheUser</span>
+                <span class="userInfoInPermissions lblOrganization"></span>
+                <span class="userInfoInPermissions lblJobTitle"></span>
+                <span class="userInfoInPermissions lblOperation"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.OfficeSiteCategoryGUID)
+        @Html.DropDownListFor(model => model.OfficeSiteCategoryGUID, new DropDownList().SiteCategories(), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-single",
+   })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ActiveUntil)
+        @Html.EditorFor(model => model.ActiveUntil, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.FocalPointStaffGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.FocalPointsManagement.Create, Apps.REF)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.FocalPointsManagement.Update, Apps.REF)
+                @Html.DeleteSwitchButton(Permissions.FocalPointsManagement.Delete, Apps.REF)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.FocalPointsManagement.Delete, Apps.REF)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+    <script>
+    $('.select2-basic-ajax').select2({
+        minimumInputLength: 3,
+        ajax: {
+            url: function () { return '/DropDownList/' + $(this).attr('data-action') },
+            delay: 250,
+            data: function (params) {
+                var query = {
+                    SearchKey: params.term
+                }
+                // Query parameters will be ?search=[term]&type=public
+                return query;
+            },
+            processResults: function (data) {
+                // Tranforms the top-level key of the response object from 'items' to 'results'
+                return {
+                    results: data.items
+                };
+            }
+        }
+    });
+    </script>

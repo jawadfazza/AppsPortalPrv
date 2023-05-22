@@ -1,0 +1,151 @@
+﻿@model dataShuttleVehicle
+@using (Html.BeginForm("ShuttleVehicle", "ShuttleVehicles", new { Area = "SHM" }, FormMethod.Post, new { id = "ShuttleVehicleForm", @class = "main-form" }))
+{
+    string ModalTitle = Model.ShuttleVehicleGUID.ToString() == Guid.Empty.ToString() ? "New Vehicle Info" : "Edit Vehicle Info";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ShuttleVehicleGUID)
+        @Html.HiddenFor(model => model.ShuttleGUID)
+
+        <div class="form-group">
+            @Html.CheckBoxFor(model => model.IsUNAgencyVehicle, new { @class = "chkNode-accordion UNAgencyVehicle" })
+            @Html.LabelFor(model => model.IsUNAgencyVehicle)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserDriverGUID)
+            @Html.DropDownListFor(model => model.UserDriverGUID, new DropDownList().ShuttleDrivers(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+
+            @*@Html.DropDownList("UserDriverGUID", new DropDownList().ShuttleDrivers(), new
+            {
+                style = "width:100%",
+                @class = "form-control select2-basic-ajax",
+                data_action = "RemoteFindUserBy",
+                onchange = "GetUserDetailsForProfileToProfile($(this).val(),'#SourceUser');"
+            })*@
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber)
+            @Html.DropDownListFor(model => model.PhoneNumber, new DropDownList().LebanonPhones(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.Label(resxDbFields.VehicleNumber)
+            @Html.DropDownListFor(model => model.VehicleGUID, new DropDownList().Vehicles(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+        @*<div class="form-group">
+            @Html.CheckBoxFor(model => model.LockViaShuttleDuration, new { @class = "chkNode-accordion" })
+            @Html.LabelFor(model => model.LockViaShuttleDuration)
+        </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.UNAgency)
+            @Html.EditorFor(model => model.UNAgency, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UNAgencyDriverName)
+            @Html.EditorFor(model => model.UNAgencyDriverName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UNAgencyVehicleNumber)
+            @Html.EditorFor(model => model.UNAgencyVehicleNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UNAgencyPhoneNumber)
+            @Html.EditorFor(model => model.UNAgencyPhoneNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", disabled = "disabled" } })
+        </div>
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ShuttleVehicleGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ShuttleVehicle.Create, Apps.SHM)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ShuttleVehicle.Update, Apps.SHM)
+                @Html.DeleteSwitchButton(Permissions.ShuttleVehicle.Delete, Apps.SHM)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ShuttleVehicle.Delete, Apps.SHM)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+
+}
+<script>
+    $('.select2-basic-ajax').select2({
+        minimumInputLength: 3,
+        ajax: {
+            url: function () { return '/DropDownList/' + $(this).attr('data-action') },
+            delay: 250,
+            data: function (params) {
+                var query = {
+                    SearchKey: params.term
+                }
+                // Query parameters will be ?search=[term]&type=public
+                return query;
+            },
+            processResults: function (data) {
+                // Tranforms the top-level key of the response object from 'items' to 'results'
+                return {
+                    results: data.items
+                };
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        if ($('#IsUNAgencyVehicle').is(':checked')) {
+            $("#UserDriverGUID").attr("disabled", true);
+            $("#PhoneNumber").attr("disabled", true);
+            $("#VehicleGUID").attr("disabled", true);
+            $("#LockViaShuttleDuration").attr("disabled", false);
+            $("#UNAgencyVehicleNumber").attr("disabled", false);
+            $("#UNAgencyPhoneNumber").attr("disabled", false);
+            $("#UNAgencyDriverName").attr("disabled", false);
+            $("#UNAgency").attr("disabled", false);
+
+        } else {
+            $("#UserDriverGUID").attr("disabled", false);
+            $("#PhoneNumber").attr("disabled", false);
+            $("#VehicleGUID").attr("disabled", false);
+            $("#LockViaShuttleDuration").attr("disabled", true);
+            $("#UNAgencyVehicleNumber").attr("disabled", true);
+            $("#UNAgencyPhoneNumber").attr("disabled", true);
+            $("#UNAgencyDriverName").attr("disabled", true);
+            $("#UNAgency").attr("disabled", true);
+        }
+    });
+
+
+    $(document).on('ifChecked ifUnchecked', '.UNAgencyVehicle', function (event) {
+        var DataTable = $(this).closest('table, .checkboxes-container');
+        console.log(DataTable);
+        if (event.type == 'ifChecked') {
+            $("#UserDriverGUID").attr("disabled", true);
+            $("#PhoneNumber").attr("disabled", true);
+            $("#VehicleGUID").attr("disabled", true);
+            $("#LockViaShuttleDuration").attr("disabled", false);
+            $("#UNAgencyVehicleNumber").attr("disabled", false);
+            $("#UNAgencyPhoneNumber").attr("disabled", false);
+            $("#UNAgencyDriverName").attr("disabled", false);
+            $("#UNAgency").attr("disabled", false);
+
+        } else {
+            $("#UserDriverGUID").attr("disabled", false);
+            $("#PhoneNumber").attr("disabled", false);
+            $("#VehicleGUID").attr("disabled", false);
+            $("#LockViaShuttleDuration").attr("disabled", true);
+            $("#UNAgencyVehicleNumber").attr("disabled", true);
+            $("#UNAgencyPhoneNumber").attr("disabled", true);
+            $("#UNAgencyDriverName").attr("disabled", true);
+            $("#UNAgency").attr("disabled", true);
+        }
+    });
+</script>

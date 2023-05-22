@@ -1,0 +1,113 @@
+﻿@using AppsPortal.Library;
+@*<style>
+    #serverType {
+        /*display: flex;*/
+        float: right;
+        margin-top: -65px;
+        margin-right: 25px;
+    }
+</style>*@
+<div class="header__wrapper">
+    <div class="logo">
+        <a href="/Home/"><img src="~/Assets/Images/unhcr-logo.png" alt="UNHCR logo" /></a>
+    </div>
+    <div class="actions">
+        <ul>
+            @{
+                if (Session[SessionKeys.CurrentApp] != null)
+                {
+                    <li class="img-profile-top">
+                                    <a href="/Profile/StaffProfile">
+                                        <img id="imgProfileHeaderPhoto" src='@string.Format("{0}",new Portal().ProfilePhoto())' width="44" />
+                                    </a>
+                    </li>
+                    <li class="notification"><a href="#_" title="Notification">@resxSiteHeader.Notifications</a></li>
+                    <li class="search"><a href="#_" title="Search">@resxSiteHeader.Search</a></li>
+                }
+            }
+            <li class="lang"><a href="#_" title="Global">@resxSiteHeader.Language [@Languages.CurrentCulture().ToUpper()]</a></li>
+            <li class="menu"><a href="#_" title="Menu">Menu</a></li>
+        </ul>
+        <div class="un--settings">
+            <div class="settings__wrapper">
+                @using (Html.BeginForm("SetLanguage", "ChangeLanguage", FormMethod.Post))
+                {
+                    <div style="min-height:60px;">
+                        <div class="global--lang">
+                            <p>@resxSiteHeader.SelectLanguageForPortal</p>
+                            <div class="global--lang__select">
+                                @Html.ActionLink("English", "SetLanguage", "ChangeLanguage", new { culture = "en-US", Area = "" }, null)
+                                @Html.ActionLink("Français", "SetLanguage", "ChangeLanguage", new { culture = "fr-FR", Area = "" }, null)
+                                @Html.ActionLink("العربية", "SetLanguage", "ChangeLanguage", new { culture = "ar-IQ", Area = "" }, null)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form--row">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-control-static">
+                                    <select id="culture" name="culture" style="direction: ltr">
+                                        <option value="en-US">@resxSiteHeader.MoreLanguages</option>
+                                        @Html.Partial("_LanguagesList")
+                                    </select>
+                                </div>
+                                <input type="submit" value="@resxSiteHeader.SelectLanguage" class="btn btn-primary" style="margin-top:5px;" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    @{ if (Session[SessionKeys.CurrentApp] != null)
+        {
+            <div class="hdr--utility">
+                <div class="highlights">
+                    <ul>
+                        <li><a href="@Url.Action("StaffProfile","Profile",new { Area = "" })">@Session[SessionKeys.FullName]</a></li>
+                    </ul>
+                </div>
+                <nav class="utility">
+                    <ul>
+                        @*<li><a href="@Url.Action("Index","Catalog")" title="Portal Catalog">Catalog</a></li>*@
+                        <li><a href="@Url.Action("Index","Home",new { Area = "" })" title="Home">@resxSiteHeader.Home</a></li>
+                        <li><a href="@Url.Action("StaffProfile","Profile",new { Area = "" })" title="My Profile">@resxSiteHeader.MyProfile</a></li>
+                        <li><a href="@Url.Action("Index","AccountSettings",new { Area = "" })" title="Settings">@resxSiteHeader.Settings</a></li>
+                        @*<li>@Html.ActionLink(@resxSiteHeader.Logout, "Logout", "Account", new { Area = "" })</li>*@
+                        <li><a href="@Url.Action("Logout","Account",new { Area = "" })" title="Logout">@resxSiteHeader.Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="unhcr--social">
+                <a>@Session[SessionKeys.FullName]</a>
+            </div>
+        }
+    }
+</div>
+@*<div id="serverType">
+    <div class="row">
+        <div class="col-md-12" style="text-align: center">
+            <h3 style="color:white;font-size:15px;background-color: red;margin-top: 0px;padding-top: 3px;">
+                Development Server
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <span>
+                <h3 style="margin-top: 2px;font-size:11px;color:white;text-align: center">
+                    <a href="mailto: DLSyria-ICTAppsDev/Support@unhcr.org">Tech Support: Syria - ICT Apps Dev/Support</a>
+                </h3>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <span>
+                <h3 style="margin-top: -3px;font-size:11px;color:white;text-align: center">
+                    <a style="color:#ae030b;" class='Modal-Link' href='#' data-url='/SRS/HelpDesk/GlobalBugReportCreate/'><i style="color:#ae030b;" class="fa fa-bug  fa-1x" aria-hidden="true"></i> Report a bug </a>
+                </h3>
+            </span>
+        </div>
+    </div>
+</div>*@

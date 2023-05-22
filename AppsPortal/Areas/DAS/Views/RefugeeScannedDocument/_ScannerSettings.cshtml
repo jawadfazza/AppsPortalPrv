@@ -1,0 +1,88 @@
+﻿@model ScannerSettingVM
+
+@Html.Partial("_ModalHeader", "Scanner Settings")
+@using (Html.BeginForm("ScannerSettings", "ScanDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "ScanDocumentForm" }))
+{
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="form-group">
+                    <label>Document Source</label>
+                    @Html.DropDownListFor(model => model.DocumentSourceGUID, new DropDownList().DASSDocumentSourceTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+                </div>
+
+        </div>
+        <div class="col-md-12">
+
+            <div class="form-group">
+                <label>Scann Type</label>
+                @Html.DropDownListFor(model => model.ScanningTypeGUID, new DropDownList().DASScanningTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="form-group">
+                <lable>Paper Size</lable>
+                @Html.DropDownListFor(model => model.PaperSizeGUID, new DropDownList().DASPaperSize(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="form-group">
+                <lable>Paper Format</lable>
+                @Html.DropDownListFor(model => model.PaperFormateGUID, new DropDownList().DASPaperFormat(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="form-group">
+                <lable>Color Mode</lable>
+                @Html.DropDownListFor(model => model.ColorModeGUID, new DropDownList().DASColorMode(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="form-group">
+                <lable>Resolution</lable>
+                @Html.DropDownListFor(model => model.ResolutionGUID, new DropDownList().DASResolution(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+            </div>
+        </div>
+    </div>
+ 
+
+</div>
+
+
+<div class="modal-footer form-footer">
+    @*<button type="button" class="btn btn-primary pull-right" ng-click="SaveScannerSettings()" id="SaveScannerSettingsId">
+        Save Changes
+
+
+    </button>*@
+
+    @Html.CreateButton(Permissions.RefugeeScannedDocument.Create, Apps.DAS)
+
+    @Html.CloseModalButton()
+
+</div>
+}
+

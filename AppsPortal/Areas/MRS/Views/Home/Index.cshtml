@@ -1,0 +1,377 @@
+﻿@model MRSReportParametersList
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+
+@Html.PageHeader("eab3d71d-e94b-4d08-a3fd-43af973755c2")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+
+        @if (new CMS().HasAction(Permissions.NoteVerbale.Access, Apps.MRS))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Index", "NoteVerbales", new { Area = "MRS" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-plane fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Note Verbales</h3>
+                            <span>Note Verbales Management Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+
+    </div>
+    <br />
+    <hr />
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
+    @using (Html.BeginForm("Chart", "Reports", new { Area = "MRS" }, FormMethod.Post, new { id = "ReportForm" }))
+    {
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StartDate)
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EndDate)
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="form-group">
+                    @Html.Label("_", new { @style = "color:white;" })
+                    <input id="btnCharts" name="btnCharts" class="btn btn-primary ActionControl" style="width:100%" onclick="InitDashboards();" value="Generate Report">
+                    <div id="ChartsLoad"></div>
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+    <div style="display:none" id="ChartPanel">
+        <br />
+        <hr />
+        <div class="row">
+            <div class="col-lg-5 " style="border-right:10px">
+                <div id="container1" style="height:400px; width:100%;padding-right:10px;border:ridge;">
+
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div id="container2" style="height:400px; width:100%; margin: 0 auto;border:ridge;">
+                </div>
+            </div>
+        </div>
+        <br />
+        <hr />
+        <div class="row">
+            <div class="col-lg-12" style="border-right:10px">
+                <div id="container3" style="height:400px; width:100%;padding-right:10px;border:ridge;">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="~/Assets/JScript/MarkerCluster.js"></script>
+    <script src="~/Assets/JScript/Maps.js"></script>
+    <br />
+    <hr />
+    <div id="map-canvas" style="width:100%;height:800px"></div>
+    <div id="main" class="expanded board">
+        <table style="width: 100%;">
+            <tr>
+                <td></td>
+                <td style="width: 50px;">
+                    <div onclick="toggleSlide(this);" class="whiteUp whiteDown">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+
+</div>
+<script>
+    var Process = '<center><img src="../Assets/Images/loading.gif" style="top: 50%;position: absolute;" /></center>'
+    var totalChartNumber = 3;
+    var numberOfChartCompletet = 0;
+    function DecideWhenLoadComplete() {
+        numberOfChartCompletet++;
+        if (numberOfChartCompletet == totalChartNumber) {
+            $('#btnCharts').prop('disabled', false);
+            $('#ChartsLoad').html('');
+
+        }
+    }
+    function InitDashboards() {
+        $('#ChartsLoad').append('<span class="loadingSpan" style="margin-left:4px;margin-top:2px;"> Please wait...</span>');
+        $('#btnCharts').prop('disabled', true);
+        $('#ChartPanel').show();
+        numberOfChartCompletet = 0;
+        $('#container1').html('').append(Process);
+        $('#container2').html('').append(Process);
+        $('#container3').html('').append(Process);
+        Chart1();
+        Chart2();
+        Chart3();
+        MapNV();
+    };
+
+    function MapNV() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/MRS/Home/GetMapNVLocations", //function that in web service
+            dataType: "json",
+            data: formData,
+            success: function (jsonResult) {
+                DecideWhenLoadComplete();
+                initialize(jsonResult);
+            },
+            error: function (msg) {
+               // $('#map-canvas').html(msg.d);
+            }
+        });
+
+    }
+    function Chart1() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/MRS/Home/Chart1",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var seriesData = response["Result"];
+                // $('#container2').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container1', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Percentage of MFA response '
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    xAxis: {
+                        type: 'category'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total percent market share'
+                        }
+
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y:.1f}'
+                            }
+                        }
+                    },
+                    exporting: {
+                        enabled: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>',
+                        shared: true,
+                        useHTML: true
+                    },
+
+                    "series": [
+                        {
+                            "name": "Status",
+                            "colorByPoint": true,
+                            "data": seriesData
+                        }
+                    ],
+                   
+                });
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+
+    function Chart2() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/MRS/Home/Chart2",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var seriesData = response.Model;
+                // $('#container2').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container2', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Percentage of MFA Approval/ Disapproval Per Month'
+                    },
+
+                    xAxis: {
+                        categories: [
+                            'Jan',
+                            'Feb',
+                            'Mar',
+                            'Apr',
+                            'May',
+                            'Jun',
+                            'Jul',
+                            'Aug',
+                            'Sep',
+                            'Oct',
+                            'Nov',
+                            'Dec'
+                        ],
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Rainfall (mm)'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    exporting: {
+                        enabled: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: seriesData
+                });
+            },
+            error: function (errorStatus) {
+
+            }
+        });
+    };
+
+    function Chart3() {
+        var form = $('#ReportForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "Post",
+            url: "/MRS/Home/chart3",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                DecideWhenLoadComplete();
+                var Approved = response["Approved"];
+                var Rejected = response["Rejected"];
+                var categories = response["categories"];
+                $('#container3').removeClass('loadingSpanChart');
+
+                // Create the chart
+                Highcharts.chart('container3' , {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Count of Number of Approved/ Not Approved Visits Per Area'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Rainfall (Ind)'
+                        }
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} Ind</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    exporting: {
+                        enabled: true
+                    },
+                    plotOptions: {
+                        column: {
+                            // cursor: 'pointer',
+                            events: {
+                                click: function (e) {
+                                    //$("#Gov").val("");
+                                    //$("#Org").val("");
+                                    //$("#Cat3").val("");
+                                    //$("#Partner").val(e.point.category);
+                                    //if (activeTab == '#1a') {
+                                    //    $('#ReportGUID').val("00000000-0000-0000-0000-000000000002");
+                                    //    chart1("1"); chart2("2"); chart3("3"); chart4("4"); chart5("5"); chart6("6"); chart7("7");
+                                    //}
+                                    //if (activeTab == '#2a') {
+                                    //    $('#ReportGUID').val("00000000-0000-0000-0000-000000000001");
+                                    //    chart1("11"); chart2("22"); chart4("33"); chart4("44"); chart5("55"); chart6("66"); chart7("77");
+                                    //}
+                                }
+                            }
+                        },
+                    },
+                    series: [Approved, Rejected]
+                });
+            },
+            error: function (errorStatus) {
+                DecideWhenLoadComplete();
+            }
+        });
+    };
+</script>
+

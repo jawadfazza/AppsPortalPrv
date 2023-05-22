@@ -1,0 +1,76 @@
+﻿@model PPAReviewFileVersionsUpdateModel
+@*@using (Html.BeginForm("PPADistributionList", "Management", new { Area = "PPA" }, FormMethod.Post, new { id = "PPADistributionListForm" }))
+    {*@
+@Html.Partial("_ModalHeader", "Review File Versions")
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.PPAGUID)
+
+
+    <div class="form-group">
+        <table id="tblReviewFiles" class="table dataTablefield-datatable dataTable no-footer dtr-inline" cellspacing="0" style="width:100%;">
+            <thead>
+                <tr>
+                    <td>OriginalFileName</td>
+                    @*<td>PPAFileVersionGUID</td>
+                    <td>PPAOriginalFileGUID</td>*@
+                    <td>FileVersion</td>
+                    <td>Comments</td>
+                    <td>FileActionDate</td>
+                    <td>CurrentFileVersionStatus</td>
+                    @*<td>Status</td>*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PPAFileListModel)
+                {
+                    <tr>
+                        <td><a href="/PPA/Management/DownloadFileVersionForAudit/@item.PPAFileVersionGUID" data-PPAFileVersionGUID="@item.PPAFileVersionGUID" class="link-ppaDownloadForReview">@item.OriginalFileName</a></td>
+                        @*<td>@item.PPAFileVersionGUID</td>
+                <td>@item.PPAOriginalFileGUID</td>*@
+                        <td>@item.FileVersion</td>
+                        <td>@item.Comments</td>
+                        <td>@item.FileActionDate.ToShortDateString()</td>
+                        <td>@item.CurrentFileVersionStatus</td>
+                        @*<td>
+                            @Html.DropDownList("CurrentFileVersionStatusGUID", new DropDownList().FileVersionStatuses(), new { @class = "form -control select2-basic-single", style = "width:100%" })
+                        </td>*@
+                    </tr>
+                }
+
+
+
+      
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer form-footer">
+    @Html.CreateButton(Permissions.PPAManagement.Create, Apps.PPA)
+    @Html.CloseModalButton()
+</div>
+@*}*@
+
+<script>
+    $('#tblReviewFiles').DataTable({
+        "paging": false,
+        "ordering": true,
+        "info": false,
+        "searching": false,
+        //"scrollY": "400px",
+        //"scrollCollapse": true,
+    });
+    //$('.link-ppaDownloadForReview').click(function (e) {
+    //    e.preventDefault();
+    //    var fk = $(this).attr('data-PPAFileVersionGUID');
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/PPA/Management/DownloadFileVersionForAudit/" + fk,
+    //        success: function (data) {
+    //            console.log(data);
+    //        },
+    //        error: function () { }
+    //    });
+
+</script>

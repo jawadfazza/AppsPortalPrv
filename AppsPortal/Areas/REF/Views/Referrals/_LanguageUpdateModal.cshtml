@@ -1,0 +1,38 @@
+﻿@model configReferralLanguage
+@using (Html.BeginForm("ReferralLanguage", "Referrals", new { Area = "REF" }, FormMethod.Post, new { id = "ReferralLanguageForm" }))
+{
+    string ModalTitle = Model.ReferralLanguageGUID.ToString() == Guid.Empty.ToString() ? "New Language" : "Edit Language";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ReferralLanguageGUID)
+        @Html.HiddenFor(model => model.ReferralGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.LanguageID)
+            @Html.DropDownListFor(model => model.LanguageID, new DropDownList().Languages(false), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReferralDescription)
+            @Html.EditorFor(model => model.ReferralDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ReferralLanguageGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ReferralConfigManagement.Create, Apps.REF)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ReferralConfigManagement.Update, Apps.REF)
+                @Html.DeleteSwitchButton(Permissions.ReferralConfigManagement.Delete, Apps.REF)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ReferralConfigManagement.Delete, Apps.REF)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

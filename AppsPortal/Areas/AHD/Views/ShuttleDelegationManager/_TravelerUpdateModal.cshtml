@@ -1,0 +1,66 @@
+﻿@model ShuttleDelegationTravelerUpdateModel
+@using (Html.BeginForm("BlomShuttleDelegationTraveler", "StaffDelegation", new { Area = "AHD" }, FormMethod.Post, new { id = "TravelerForm" }))
+{
+    string ModalTitle = Model.BlomShuttleDelegationTravelerGUID.ToString() == Guid.Empty.ToString() ? "New Traveler " : "Edit Traveler";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.BlomShuttleDelegationTravelerGUID)
+    @Html.HiddenFor(model => model.BlomShuttleDelegationDateGUID)
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StaffGUID)
+        @Html.DropDownListFor(model => model.StaffGUID, new DropDownList().Users(true), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NationalIDNumber)
+        @Html.EditorFor(model => model.NationalIDNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SyrianIDNumber)
+        @Html.EditorFor(model => model.SyrianIDNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DelgationStaffTypeGUID)
+        @Html.DropDownListFor(model => model.DelgationStaffTypeGUID, new DropDownList().StaffShuttleDelegationTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comments)
+        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+    </div>
+
+
+
+</div>
+<div class="modal-footer form-footer">
+    @if (Model.BlomShuttleDelegationTravelerGUID == Guid.Empty)
+    {
+
+        @Html.CreateButton(Permissions.StaffShuttleDelegation.Create, Apps.AHD)
+    }
+    else
+    {
+        if (Model.Active)
+        {
+        
+            @Html.UpdateButton(Permissions.StaffShuttleDelegation.Update, Apps.AHD)
+            @Html.DeleteSwitchButton(Permissions.StaffShuttleDelegation.Update, Apps.AHD)
+        }
+        else
+        {
+            @Html.RestoreSwitchButton(Permissions.StaffShuttleDelegation.Update, Apps.AHD)
+        }
+    }
+    @Html.CloseModalButton()
+</div>
+}

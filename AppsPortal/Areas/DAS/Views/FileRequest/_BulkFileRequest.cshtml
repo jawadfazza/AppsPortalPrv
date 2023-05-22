@@ -1,0 +1,87 @@
+﻿@model FileRequestModel
+<div id="resultid">
+    @using (Html.BeginForm("RequestBulkPhysicalFiles", "ScanDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "RequestBullFileForm" }))
+    {
+        string ModalTitle = Model.FileGUID.ToString() == Guid.Empty.ToString() ? "Request file" : "Request File ";
+        @Html.Partial("_ModalHeader", ModalTitle)
+        <div class="modal-body">
+
+            <div class="form-group">
+                @Html.Label("Request  date")
+                @Html.EditorFor(model => model.RequestDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.Label("Return  date")
+                @Html.EditorFor(model => model.RequestDurationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comments)
+                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+        </div>
+        <div class="modal-footer form-footer">
+            @*<input class="btn btn-success SLAME ActionControl RetrieveItems" data-submittype="Update" onclick="SubmitForm(this);" type="submit" disabled="disabled" value="Save Changes">*@
+            <input id="btnConfirm" type="submit" class="btn btn-primary" onclick="SubmitRequestBulkFiles();" value="Save Changes" />
+            @Html.CloseModalButton()
+        </div>
+    }
+    </div>
+<div class="modal-body" id="nodataid">
+    <h3>Please select record(s) first </h3>
+    <div class="modal-footer form-footer">
+
+        @Html.CloseModalButton()
+    </div>
+</div>
+    <script>
+        $("#nodataid").hide();
+        $(document).ready(function () {
+            var all = [];
+            $(".chkPK").each(function (index) {
+                all.push($(this).val());
+            $('<input />').attr('type', 'hidden').attr('name', "models").attr('value', $(this).val()).appendTo('#RequestBullFileForm');
+            });     
+            if (all.length == 0) {
+                $("#resultid").hide();
+                $("#nodataid").show();
+            }
+            else {
+                $("#resultid").show();
+                $("#nodataid").hide();
+            }
+        });
+
+        function SubmitRequestBulkFiles() {
+            var IDs = [];
+            debugger;
+
+            $(".chkPK").each(function (index) {
+                console.log(index + ": " + $(this).val());
+                $('<input />').attr('type', 'hidden').attr('name', "models").attr('value', $(this).val()).appendTo('#RequestBullFileForm');
+            });
+
+
+            var form = $('#RequestBullFileForm');
+            var formData = form.serialize();
+
+            $.ajax({
+                method: 'post',
+                url: "DAS/ScanDocument/RequestBulkPhysicalFiles/",
+                data: formData,
+                success: function (JsonResult, status, xhr) {
+                    ProcessDataTable(JsonResult, form);
+
+                    if (JsonResult.success == 0)
+                        Notify(NotificationType.Error, "One of the records you chose already requested by someone else");
+                },
+                error: function (ex) {
+                    //Notify(NotificationType.Error, "There was an error submitting the record");
+                }
+            });
+
+        }
+    </script>
+
+

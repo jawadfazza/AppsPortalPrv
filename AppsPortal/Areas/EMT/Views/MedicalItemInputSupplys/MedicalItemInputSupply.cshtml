@@ -1,0 +1,20 @@
+﻿@model MedicalItemInputSupplyUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.MedicalItemInputSupplyGUID == Guid.Empty) ? "Medical Manufacturer Type" : "Medical Manufacturer Type"; }
+
+@Html.PageHeader("2af0123e-4906-4a03-bf27-08fd46d14b7b")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/EMT/Views/MedicalItemInputSupplys/_MedicalItemInputSupplyForm.cshtml")
+        <div id="MedicalItemInputSupplyDetailsContainer">
+            @if (Model.MedicalItemInputSupplyGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/EMT/Views/MedicalItemInputSupplys/_MedicalItemInputSupplyDetailsDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.MedicalItemInputSupplyGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

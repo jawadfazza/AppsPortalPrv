@@ -1,0 +1,23 @@
+﻿@model ReferralStepUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ReferralStepGUID == Guid.Empty) ? "New Appointment Type" : "Edit Appointment Type"; }
+
+@Html.PageHeader("b479c95c-85d2-4eb2-919a-da589ff2b557")
+<div class="page--content">
+    <div class="forms-fadeIn">
+
+        @Html.Partial("~/Areas/REF/Views/ReferralSteps/_ReferralStepForm.cshtml")
+        <div class="row">
+            <div id="LanguagesContainer">
+                @if (Model.ReferralStepGUID != Guid.Empty && Model.Active)
+                {
+                    @Html.Partial("~/Areas/REF/Views/ReferralSteps/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.ReferralStepGUID, IsParentActive = Model.Active })
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

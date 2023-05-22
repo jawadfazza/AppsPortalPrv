@@ -1,0 +1,26 @@
+﻿@model MasterRecordStatus
+<h3 class="Title">@resxDbFields.ItemsTransferDetailGUID</h3>
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.ItemsTransferDetailDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.ItemsTransferDetailDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.ItemsTransferDetailDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.ItemsTransferDetailDataTable)
+                @Html.FieldDataTableCreate(Permissions.PMDItemsTransfer.Create, Apps.PMD, Url.Action("ItemsTransferDetailCreate", "ItemsTransfer", new { FK = Model.ParentGUID }))
+                @Html.FieldDataTableDelete(Permissions.PMDItemsTransfer.Delete, Apps.PMD, DataTableNames.ItemsTransferDetailDataTable)
+                @Html.FieldDataTableRestore(Permissions.PMDItemsTransfer.Restore, Apps.PMD, DataTableNames.ItemsTransferDetailDataTable)
+                <button type="button" title="Transfer Bluk Items" class="btnCreate Modal-Link btn pull-right btn-primary" data-url="@Url.Action("ItemsTransferBlukItems", "ItemsTransfer", new { FK = Model.ParentGUID })"><i class="fa fa-plus-circle "></i></button>
+
+                @Html.FieldDataTableRefresh(DataTableNames.ItemsTransferDetailDataTable)
+            </div>
+        }
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ItemsTransferDetailDataTable, FormController = "ItemsTransfer", Area = "PMD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>

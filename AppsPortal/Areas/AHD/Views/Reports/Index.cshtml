@@ -1,0 +1,20 @@
+﻿@model string
+@using ReportViewerForMvc;
+@{
+    ViewBag.Title = "TestReport";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@*@Html.PageHeader("c12af7ba-5795-4106-8f24-6785e7fbe97c")*@
+
+<div class="page--content">
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <div style="border:groove;height:800px;">
+                @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
+            </div>
+
+        </div>
+    </div>
+</div>

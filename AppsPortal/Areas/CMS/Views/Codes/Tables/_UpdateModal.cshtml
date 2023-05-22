@@ -1,0 +1,41 @@
+﻿@model codeTables
+@using (Html.BeginForm("codeTable", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "codeTableForm" }))
+{
+    string ModalTitle = Model.TableGUID.ToString() == Guid.Empty.ToString() ? "New Code Table" : "Edit Code Table";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.TableGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.TableName)
+            @Html.EditorFor(model => model.TableName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IndexSitemapGUID)
+            @Html.DropDownListFor(model => model.IndexSitemapGUID, new DropDownList().Sitemaps(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DetailsSitemapGUID)
+            @Html.DropDownListFor(model => model.DetailsSitemapGUID, new DropDownList().Sitemaps(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.TableGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.CodeTables.Create, Apps.CMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.CodeTables.Update, Apps.CMS)
+                @Html.DeleteSwitchButton(Permissions.CodeTables.Delete, Apps.CMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.CodeTables.Restore, Apps.CMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

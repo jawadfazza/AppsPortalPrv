@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Applications";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("3dc74c1f-a7fc-4d65-8dcd-8d575ea16d90")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.StaffProfileDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FullName, DbColumnName = "StaffName", FilterForDataType = FilterDataTypes.Text })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.EmailAddress, DbColumnName = "EmailAddress", FilterForDataType = FilterDataTypes.Text })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DutyStationGUID, DbColumnName = "DutyStationGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsSearchable = true, DataList = new DropDownList().SyriaStaffDutyStation() })
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.OfficeTypeGUID, DbColumnName = "OfficeTypeGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsSearchable = true, DataList = new DropDownList().StaffOfficeTypes() })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffStatus, DbColumnName = "StaffStatusGUID", FilterForDataType = FilterDataTypes.Options, IsSearchable = true, MustHasInitValue = false, DataList = new DropDownList().StaffStatus() })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.RecruitmentTypeGUID, DbColumnName = "RecruitmentTypeGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsSearchable = true, DataList = new DropDownList().StaffRecuitmentTypes() })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.DepartmentGUID, DbColumnName = "DepartmentGUID", FilterForDataType = FilterDataTypes.Options, MustHasInitValue = false, IsSearchable = true, DataList = new DropDownList().StaffDepartments() })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.JobTitleDescription, DbColumnName = "JobTitleGUID", FilterForDataType = FilterDataTypes.Options, IsSearchable = true, MustHasInitValue = false, DataList = new DropDownList().JobTitles() })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.EmailAddress, DbColumnName = "EmailAddress", FilterForDataType = FilterDataTypes.Text })
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Grade, DbColumnName = "StaffGradeGUID", FilterForDataType = FilterDataTypes.Options, IsSearchable = true, MustHasInitValue = false, DataList = new DropDownList().StaffGrades() })
+            </div>
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.LastConfirmationStatus, DbColumnName = "LastConfirmationStatusGUID", FilterForDataType = FilterDataTypes.Options, IsSearchable = true, MustHasInitValue = false, DataList = new DropDownList().StaffConfirmationStatus() })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.RecruitmentType, DbColumnName = "RecruitmentTypeGUID", FilterForDataType = FilterDataTypes.Options, IsSearchable = true, MustHasInitValue = false, DataList = new DropDownList().StaffRecuitmentTypes() })
+            </div>
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ContractTypeGUID, DbColumnName = "ContractTypeGUID", FilterForDataType = FilterDataTypes.Options, IsSearchable = true, MustHasInitValue = false, DataList = new DropDownList().StaffContractTypes() })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.EmploymentID, DbColumnName = "EmploymentID", FilterForDataType = FilterDataTypes.Text })
+
+
+            </div>
+
+            <div class="col-lg-12">
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.StaffEOD, DbColumnName = "StaffEOD", FilterForDataType = FilterDataTypes.Date })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ContractEndDate, DbColumnName = "ContractEndDate", FilterForDataType = FilterDataTypes.Date })
+
+            </div>
+            <div class="col-lg-12">
+
+
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = FilterDataTypes.Boolean, MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.StaffProfileDataTable)
+        </div>
+    </div>
+
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffProfileDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.StaffProfileDataTable)
+        @Html.IndexDatatableCreate(Permissions.StaffProfileHRSection.Create, Apps.ORG, Url.Action("/Create/", "StaffProfile", new { Area = "ORG" }))
+        @*@Html.IndexDatatableDelete(Permissions.StaffProfile.Delete, Apps.ORG, DataTableNames.StaffProfileDataTable)*@
+        @Html.IndexDatatableRestor(Permissions.StaffProfileHRSection.Restore, Apps.ORG, DataTableNames.StaffProfileDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.StaffProfileDataTable)
+
+    </div>
+    <div class="form-group">
+
+        @Html.ActionLink("Export Syria Staff Information", "ExportStaffProfileAllInformation", "Reports", null, new { @style = "font-family: 'inherit;' font-weight: normal;" })
+
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffProfileDataTable, FormController = "StaffProfile", Area = "ORG", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>

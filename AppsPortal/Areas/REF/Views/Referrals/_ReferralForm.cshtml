@@ -1,0 +1,42 @@
+﻿@model ReferralUpdateModel
+@using (Html.BeginForm("Referral", "Referrals", new { Area = "REF" }, FormMethod.Post, new { id = "ReferralForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+   
+    @Html.FormHiddenFields(model => model.ReferralGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+        
+            <div class="form-group">
+                @Html.LabelFor(model => model.ReferralDescription)
+                @Html.EditorFor(model => model.ReferralDescription, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ApplicationGUID)
+                @Html.DropDownListFor(model => model.ApplicationGUID, new DropDownList().Applications(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+           
+            <div id="ReferralFormControls" class="form-group form-footer">
+                @if (Model.ReferralGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.ReferralConfigManagement.Create, Apps.REF)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.ReferralConfigManagement.Update, Apps.REF)
+                        @Html.CreateNewButton(Permissions.ReferralConfigManagement.Create, Apps.REF, Url.Action("/Create", new { Area = "REF" }))
+                        @Html.DeleteButton(Permissions.ReferralConfigManagement.Delete, Apps.REF)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.ReferralConfigManagement.Restore, Apps.REF)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index","Referrals", new { Area = "REF" }))
+            </div>
+        </div>
+    </div>
+}

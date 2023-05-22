@@ -1,0 +1,63 @@
+﻿@model dataPersonalHistorySkillUpdateModel
+
+@using (Html.BeginForm("Skills", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "SkillsForm", @class = "main-form" }))
+{
+    string ModalTitle = Model.GTPPHSkillGUID.ToString() == Guid.Empty.ToString() ? "Add new skill" : "update skill";
+    @Html.Partial("_ModalHeader", ModalTitle)
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.GTPPHSkillGUID)
+
+        <div class="col-md-12">
+            <div class="row" style="padding-top:10px;">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SkillDescription)
+                        @Html.EditorFor(model => model.SkillDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SkillLevelGUID)
+                        @Html.DropDownListFor(model => model.SkillLevelGUID, new DropDownList().GTPSkillLevels(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SkillNumberOfYears)
+                        @Html.EditorFor(model => model.SkillNumberOfYears, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Comments)
+                        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer form-footer">
+        @if (Model.GTPPHSkillGUID == Guid.Empty)
+        {
+            @Html.CreateButtonNoPermission()
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButtonNoPermission()
+                @Html.DeleteSwitchButtonNoPermission()
+            }
+            else
+            {
+                @Html.RestoreSwitchButtonNoPermission()
+            }
+        }
+        @Html.CloseModalButton()
+
+    </div>
+}

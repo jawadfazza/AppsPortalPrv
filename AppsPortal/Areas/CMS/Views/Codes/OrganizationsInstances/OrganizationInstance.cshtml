@@ -1,0 +1,18 @@
+﻿@model OrganizationInstanceUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("11337bbb-5eb1-49d8-ac7d-9f5348db7529")
+@{string PageTitle = (Model.OrganizationGUID == Guid.Empty) ? "New Organization Entity" : "Edit Organization Entity";}
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/OrganizationsInstances/_OrganizationInstanceForm.cshtml")
+        <div id="LanguagesContainer">
+            @if (Model.OrganizationGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/CMS/Views/Codes/OrganizationsInstances/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.OrganizationInstanceGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>

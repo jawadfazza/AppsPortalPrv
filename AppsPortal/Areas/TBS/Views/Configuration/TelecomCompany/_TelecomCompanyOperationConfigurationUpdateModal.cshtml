@@ -1,0 +1,285 @@
+﻿@model TelecomCompanyOperationConfigUpdateModel
+@using (Html.BeginForm("TelecomCompanyOperationConfiguration", "Configuration", new { Area = "TBS" }, FormMethod.Post, new { id = "TelecomCompanyOperationConfigurationForm" }))
+{
+    string ModalTitle = "Telecom Operation Configuration";
+
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.MobileConfigModel.configTelecomCompanyOperation.TelecomCompanyOperationGUID)
+        @Html.HiddenFor(model => model.MobileConfigModel.configTelecomCompanyOperation.TelecomCompanyOperationConfigGUID)
+        @Html.HiddenFor(model => model.MobileConfigModel.configTelecomCompanyOperation.Active)
+        @Html.HiddenFor(model => model.MobileConfigModel.configTelecomCompanyOperation.DeletedOn)
+        @Html.HiddenFor(model => model.MobileConfigModel.configTelecomCompanyOperation.configTelecomCompanyOperationRowVersion)
+        @Html.HiddenFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.TelecomCompanyOperationFileColumnGUID)
+        @Html.HiddenFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.TelecomCompanyOperationConfigGUID)
+        @Html.HiddenFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.Active)
+        @Html.HiddenFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.DeletedOn)
+        @Html.HiddenFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.configTelecomCompanyOperationMobileColumnRowVersion)
+
+        @Html.HiddenFor(model => model.LandLineConfigModel.configTelecomCompanyOperation.TelecomCompanyOperationGUID)
+        @Html.HiddenFor(model => model.LandLineConfigModel.configTelecomCompanyOperation.TelecomCompanyOperationConfigGUID)
+        @Html.HiddenFor(model => model.LandLineConfigModel.configTelecomCompanyOperation.Active)
+        @Html.HiddenFor(model => model.LandLineConfigModel.configTelecomCompanyOperation.DeletedOn)
+        @Html.HiddenFor(model => model.LandLineConfigModel.configTelecomCompanyOperation.configTelecomCompanyOperationRowVersion)
+        @Html.HiddenFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.TelecomCompanyOperationFileColumnGUID)
+        @Html.HiddenFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.TelecomCompanyOperationConfigGUID)
+        @Html.HiddenFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.Active)
+        @Html.HiddenFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DeletedOn)
+        @Html.HiddenFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.configTelecomCompanyOperationLandColumnRowVersion)
+
+        <div id="exTab1">
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#1a" data-toggle="tab">Mobile Configuration</a>
+                </li>
+                <li>
+                    <a href="#2a" data-toggle="tab">Landline Configuration</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content clearfix">
+            <div class="tab-pane active" id="1a">
+                <div class="row">
+                    <br />
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.HiddenFor(model => model.MobileConfigModel.configTelecomCompanyOperation.ConfigType)
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperation.BillingCycleType)
+                            @Html.DropDownListFor(model => model.MobileConfigModel.configTelecomCompanyOperation.BillingCycleType, new DropDownList().BillCycleTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperation.BillingCycleStart)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperation.BillingCycleStart, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallerNumberColumnIndex)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallerNumberColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallerNumberColumnName)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallerNumberColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.ReceiverNumberColumnIndex)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.ReceiverNumberColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.ReceiverNumberColumnName)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.ReceiverNumberColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallDateTimeColumnIndex)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallDateTimeColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallDateTimeColumnName)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallDateTimeColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.DestinationTypeColumnIndex)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.DestinationTypeColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.DestinationTypeColumnName)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.DestinationTypeColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallDurationColumnIndex)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallDurationColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallDurationColumnName)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CallDurationColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CostColumnIndex)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CostColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CostColumnName)
+                            @Html.EditorFor(model => model.MobileConfigModel.configTelecomCompanyOperationMobileColumns.CostColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="2a">
+                <div class="row">
+                    <br />
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.HiddenFor(model => model.LandLineConfigModel.configTelecomCompanyOperation.ConfigType)
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperation.BillingCycleType)
+                            @Html.DropDownListFor(model => model.LandLineConfigModel.configTelecomCompanyOperation.BillingCycleType, new DropDownList().BillCycleTypes(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperation.BillingCycleStart)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperation.BillingCycleStart, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.CallingPartyNumberColumnIndex)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.CallingPartyNumberColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.CallingPartyNumberColumnName)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.CallingPartyNumberColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.OriginalCalledPartyNumberColumnIndex)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.OriginalCalledPartyNumberColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.OriginalCalledPartyNumberColumnName)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.OriginalCalledPartyNumberColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.FinalCalledPartyNumberColumnIndex)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.FinalCalledPartyNumberColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.FinalCalledPartyNumberColumnName)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.FinalCalledPartyNumberColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DateTimeConnectColumnIndex)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DateTimeConnectColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DateTimeConnectColumnName)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DateTimeConnectColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DateTimeDisconnectColumnIndex)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DateTimeDisconnectColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DateTimeDisconnectColumnName)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DateTimeDisconnectColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DurationInMinutesColumnIndex)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DurationInMinutesColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DurationInMinutesColumnName)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DurationInMinutesColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DurationInSecondsColumnIndex)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DurationInSecondsColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DurationInSecondsColumnName)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.DurationInSecondsColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.OriginalCalledPartyNumberPartitionColumnIndex)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.OriginalCalledPartyNumberPartitionColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.OriginalCalledPartyNumberPartitionColumnName)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.OriginalCalledPartyNumberPartitionColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.FinalCalledPartyNumberPartitionColumnIndex)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.FinalCalledPartyNumberPartitionColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.FinalCalledPartyNumberPartitionColumnName)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.FinalCalledPartyNumberPartitionColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.AuthCodeDescriptionColumnIndex)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.AuthCodeDescriptionColumnIndex, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.AuthCodeDescriptionColumnName)
+                            @Html.EditorFor(model => model.LandLineConfigModel.configTelecomCompanyOperationLandColumns.AuthCodeDescriptionColumnName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer form-footer">
+        @Html.UpdateButton(Permissions.TelecomCompanies.Update, Apps.TBS)
+        @Html.CloseModalButton()
+    </div>
+}

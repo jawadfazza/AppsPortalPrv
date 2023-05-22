@@ -1,0 +1,136 @@
+﻿@model HelpDeskModel
+
+@*Admin*@
+
+@Html.HiddenFor(model => model.HelpDeskNewApplicationModel.AppRequestGUID)
+@Html.HiddenFor(model => model.HelpDeskNewApplicationModel.Active)
+@Html.HiddenFor(model => model.HelpDeskNewApplicationModel.dataApplicationRequestRowVersion)
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Details</h3>
+            </div>
+            <div class="panel-body">
+                <div class="breath-bottom">
+                    <h5 class="SubTitle">@resxDbFields.RequestedAppName:&nbsp;<b>@Model.HelpDeskNewApplicationModel.RequestedAppName</b></h5>
+                </div>
+                <div class="breath-bottom">
+                    <h5 class="SubTitle">@resxDbFields.IsNewDbForTracking:&nbsp;<b>@(Model.HelpDeskNewApplicationModel.IsNewDbForTracking == true ? "Yes" : "No")</b></h5>
+                </div>
+                <div class="breath-bottom">
+                    <h5 class="SubTitle">@resxDbFields.IsToAutomateManual:&nbsp;<b>@(Model.HelpDeskNewApplicationModel.IsToAutomateManual == true ? "Yes" : "No")</b></h5>
+                </div>
+                <div class="breath-bottom">
+                    <h5 class="SubTitle">@resxDbFields.IsToReplaceOldApp:&nbsp;<b>@(Model.HelpDeskNewApplicationModel.IsToReplaceOldApp == true ? "Yes" : "No")</b></h5>
+                </div>
+                <div class="breath-bottom">
+                    <h5 class="SubTitle">@resxDbFields.PurposDescriptionBenefits:&nbsp;<b>@Model.HelpDeskNewApplicationModel.PurposDescriptionBenefits</b></h5>
+                </div>
+
+
+                <br />
+                <p>Additional Requirements (Optional)</p>
+
+                <div class="breath-bottom">
+                    <h5 class="SubTitle">@resxDbFields.OfflineVersion:&nbsp;<b>@(Model.HelpDeskNewApplicationModel.OfflineVersion == true ? "Yes" : "No")</b></h5>
+                </div>
+                <div class="breath-bottom">
+                    <h5 class="SubTitle">@resxDbFields.AndroidVersion:&nbsp;<b>@(Model.HelpDeskNewApplicationModel.AndroidVersion == true ? "Yes" : "No")</b></h5>
+                </div>
+                <div class="breath-bottom">
+                    <h5 class="SubTitle">@resxDbFields.IOSVersion:&nbsp;<b>@(Model.HelpDeskNewApplicationModel.IOSVersion == true ? "Yes" : "No")</b></h5>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Status</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RequestStatusGUID)
+                    @Html.DropDownListFor(model => model.RequestStatusGUID, new DropDownList().HelpDeskRequestStatuses(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Resolution</h3>
+
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HelpDeskNewApplicationAuthorizationModel.ApprovalStatusGUID)
+                    @Html.DropDownListFor(model => model.HelpDeskNewApplicationAuthorizationModel.ApprovalStatusGUID, new DropDownList().HelpDeskApprovalStatuses(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HelpDeskNewApplicationAuthorizationModel.ApprovalComments)
+                    @Html.TextAreaFor(model => model.HelpDeskNewApplicationAuthorizationModel.ApprovalComments, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HelpDeskNewApplicationAuthorizationModel.EstimatedResourcesNum)
+                    @Html.DropDownListFor(model => model.HelpDeskNewApplicationAuthorizationModel.EstimatedResourcesNum, new DropDownList().NumbersList(4), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HelpDeskNewApplicationAuthorizationModel.EstimatedTime)
+                    @Html.DropDownListFor(model => model.HelpDeskNewApplicationAuthorizationModel.EstimatedTime, new DropDownList().HelpDeskEstimatedTimeList(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AssignedToGUID)
+                    @Html.DropDownListFor(model => model.AssignedToGUID, new DropDownList().HelpDeskAssignToList(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HelpDeskNewApplicationAuthorizationModel.ApplicationStartDate)
+                    @Html.EditorFor(model => model.HelpDeskNewApplicationAuthorizationModel.ApplicationStartDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HelpDeskNewApplicationAuthorizationModel.ApplicationEndDate)
+                    @Html.EditorFor(model => model.HelpDeskNewApplicationAuthorizationModel.ApplicationEndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+
+                <p>Server Requirements</p>
+
+                <div class="form-group">
+                    @Html.LabelForModel("Physical:") @Html.RadioButtonFor(model => model.HelpDeskNewApplicationModel.ServerOrVM, "True")
+                    @Html.Label("VM:") @Html.RadioButtonFor(model => model.HelpDeskNewApplicationModel.ServerOrVM, "False")
+                    @*@Html.TextAreaFor(model => model.HelpDeskNewApplicationModel.ServerOrVM, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })*@
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HelpDeskNewApplicationModel.CPUDescription)
+                    @Html.EditorFor(model => model.HelpDeskNewApplicationModel.CPUDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HelpDeskNewApplicationModel.RAMDescription)
+                    @Html.EditorFor(model => model.HelpDeskNewApplicationModel.RAMDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HelpDeskNewApplicationModel.StorageDescription)
+                    @Html.EditorFor(model => model.HelpDeskNewApplicationModel.StorageDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.CheckBoxFor(model => model.HelpDeskNewApplicationModel.OnsiteBackup, new { @class = "chkNode-accordion" })
+                    @Html.LabelFor(model => model.HelpDeskNewApplicationModel.OnsiteBackup)
+                </div>
+                <div class="form-group">
+                    @Html.CheckBoxFor(model => model.HelpDeskNewApplicationModel.OffsiteBackup, new { @class = "chkNode-accordion" })
+                    @Html.LabelFor(model => model.HelpDeskNewApplicationModel.OffsiteBackup)
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>

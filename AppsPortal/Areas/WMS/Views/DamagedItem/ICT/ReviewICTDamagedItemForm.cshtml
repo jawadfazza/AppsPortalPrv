@@ -1,0 +1,497 @@
+﻿@model STIItemDamagedTrackUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ItemOutputDetailDamagedTrackGUID == Guid.Empty) ? "New Damaged  Rport " : "Edit Damaged Report"; }
+
+@Html.PageHeader("db639abc-51b0-473f-8c22-a4be84f4a39d")
+
+<style>
+    ul.a {
+        list-style-position: outside;
+    }
+</style>
+
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <div class="row">
+
+            <div class="panel-heading" id="step1panelcreate">
+                @*Delegation Request for : @Model.StaffName in @Model.StartDate*@
+
+
+            </div>
+            <div>
+                @using (Html.BeginForm("StaffDamagedItemICT", "DamagedItem", new { Area = "WMS" }, FormMethod.Post, new { id = "DamagedItemICtForm", @class = "main-form", enctype = "multipart/form-data" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.FormHiddenFields(model => model.ItemOutputDetailDamagedTrackGUID)
+                    @Html.HiddenFor(model => model.DamagedByGUID)
+                    @Html.HiddenFor(model => model.ItemConditionWhenReceivedGUID)
+                    @Html.HiddenFor(model => model.PurposeOfUseGUID)
+
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="step1InfoBox">
+                        <div class="panel panel-primary newPanelSettings">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+                                <h3 class="box-title">
+                                    IT Equipment Damage Report For @ViewBag.StaffName
+                                    <i class="fas fa-check-circle pull-right" style="color:green" id="spanstep0"> Completed</i>
+                                </h3>
+
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="row">
+
+                                    <div class="form-group">
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-group HANDLER" id="itemparenetId">
+                                                @Html.LabelFor(model => model.ItemName)
+
+                                                @if (Model.LastFlowStatusGUID == null)
+                                                {
+                                                    @Html.DropDownListFor(model => model.ItemInputDetailGUID, new DropDownList().StaffSTIItems((Guid)Model.DamagedByGUID), "", new
+                                               {
+                                                   @class = "form-control select2-basic-search",
+                                                   style = "width:100%",
+
+                                               })
+                                                }
+                                                else
+                                                {
+                                                    @Html.HiddenFor(model => model.ItemName)
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.Label("Incident Location Occurred")
+                                                @if (Model.LastFlowStatusGUID == null)
+                                                {
+                                                    @Html.EditorFor(model => model.IncidentLocationOccureed, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+                                                else
+                                                {
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.IncidentLocationOccureed, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PresentLocation)
+                                                @if (Model.LastFlowStatusGUID == null)
+                                                {
+                                                    @Html.EditorFor(model => model.PresentLocation, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+                                                else
+                                                {
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.PresentLocation, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="form-group">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group HANDLER" id="itemparenetId">
+                                                @Html.LabelFor(model => model.ItemConditionWhenReceivedGUID)
+
+                                                @if (Model.LastFlowStatusGUID == null)
+                                                {
+                                                    @Html.DropDownListFor(model => model.ItemConditionWhenReceivedGUID, new DropDownList().WarehouseItemCondition(), "", new
+                                               {
+                                                   @class = "form-control select2-basic-search",
+                                                   style = "width:100%",
+
+                                               })
+                                                }
+                                                else
+                                                {
+                                                    @Html.HiddenFor(model => model.ItemConditionWhenReceivedGUID)
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.ItemCondition, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+
+                                            </div>
+
+
+                                        </div>
+
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-group HANDLER" id="itemparenetId">
+                                                @Html.Label("Purpose Of Use")
+
+                                                @if (Model.LastFlowStatusGUID == null)
+                                                {
+                                                    @Html.DropDownListFor(model => model.PurposeOfUseGUID, new DropDownList().WarehousePurposeofuse(), "", new
+                                               {
+                                                   @class = "form-control select2-basic-search",
+                                                   style = "width:100%",
+
+                                               })
+                                                }
+                                                else
+                                                {
+                                                    @Html.HiddenFor(model => model.PurposeOfUseGUID)
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.PurposeOfUse, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-group HANDLER" id="itemparenetId">
+                                                @Html.Label("Damaged Date")
+
+                                                @if (Model.LastFlowStatusGUID == null)
+                                                {
+                                                    @Html.EditorFor(model => model.DamagedDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+                                                else
+                                                {
+                                                    @Html.HiddenFor(model => model.DamagedDate)
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.DamagedDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+
+                                            </div>
+
+
+                                        </div>
+
+
+
+
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.DamagedReason)
+                                                @if (Model.LastFlowStatusGUID == null)
+                                                {
+                                                    @Html.EditorFor(model => model.DamagedReason, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+                                                else
+                                                {
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.DamagedReason, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Comments)
+                                                @if (Model.LastFlowStatusGUID == null)
+                                                {
+                                                    @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+                                                else
+                                                {
+                                                    <br />
+                                                    @Html.DisplayFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="step3InfoBox">
+                        <div class="panel panel-primary ">
+                            <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+                                <h3 class="box-title">
+                                    ICT Section
+                                    @if (Model.ICTFocalPointGUID != null)
+                                    {
+                                        <i class="fas fa-check-circle pull-right" style="color:green" id="spanstep1"> Completed</i>
+                                    }
+                                </h3>
+
+                            </div>
+                            <div class="panel-body">
+
+
+
+                                <div id="Ictdivinfo" class="form-group">
+                                    @Html.LabelFor(model => model.ICTFocalPointComment)
+                                    @if (Model.LastFlowStatusGUID == DamagedReportFlowStatus.Submitted)
+                                    {
+                                        @Html.EditorFor(model => model.ICTFocalPointComment, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                    }
+                                    else
+                                    {
+                                        <br />
+                                        @Html.DisplayFor(model => model.ICTFocalPointComment, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                                    }
+
+
+
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="panel-footer  showstep1body">
+
+                                @if (Model.ItemOutputDetailDamagedTrackGUID == Guid.Empty)
+                                {
+                                    @Html.CreateButtonNoPermission()
+                                }
+                                else
+                                {
+                                    if (Model.Active)
+                                    {
+                                        @Html.UpdateButtonNoPermission()
+
+                                    }
+                                    else
+                                    {
+                                        @*@Html.RestoreButton(Permissions.StaffProfile.Restore, Apps.ORG)*@
+                                    }
+                                }
+                                @Html.ActionLink("Print PDF ", "PrintDamagedReportPDF", "Reports", new { id = Model.ItemOutputDetailDamagedTrackGUID }, new { @class = "btn btn-primary" })
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    if (Model.LastFlowStatusGUID == DamagedReportFlowStatus.AdminVerified ||
+                       Model.LastFlowStatusGUID == DamagedReportFlowStatus.FinanceVerifid ||
+                       Model.LastFlowStatusGUID == DamagedReportFlowStatus.Closed
+                       )
+                    {
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="stepadminInfoBox">
+                            <div class="panel panel-primary ">
+                                <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+                                    <h3 class="box-title">
+                                        Admin Section
+                                        @if (Model.AdminFocalPointReviewerGUID != null)
+                                        {
+                                            <i class="fas fa-check-circle pull-right" style="color:green" id="spanstep2"> Completed</i>
+                                        }
+
+                                    </h3>
+
+
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AdminFocalPoint)
+
+                                        <br />
+                                        @Html.DisplayFor(model => model.AdminFocalPoint, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AdminFocalPointReviewerComment)
+
+                                        <br />
+                                        @Html.DisplayFor(model => model.AdminFocalPointReviewerComment, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AdminFocalPointReviewerDate)
+
+                                        <br />
+                                        @Html.DisplayFor(model => model.AdminFocalPointReviewerDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ReimburseStatusDecision)
+
+                                        <br />
+                                        @Html.DisplayFor(model => model.ReimburseStatusDecision, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ReimbursementAmount)
+
+                                        <br />
+                                        @Html.DisplayFor(model => model.ReimbursementAmount, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MSRPValue)
+
+                                        @Html.DisplayFor(model => model.MSRPValue, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    }
+                    if (Model.LastFlowStatusGUID == DamagedReportFlowStatus.AdminVerified ||
+                     Model.LastFlowStatusGUID == DamagedReportFlowStatus.FinanceVerifid ||
+                     Model.LastFlowStatusGUID == DamagedReportFlowStatus.Closed
+                     )
+                    {
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="stepFinanceInfoBox">
+                            <div class="panel panel-primary ">
+                                <div class="panel-heading" style="background-color: #cbcece;border-color: #cbcece;">
+
+                                    <h3 class="box-title">
+                                        Finance Section
+                                        @if (Model.FinanceFocalPointReviewerGUID != null)
+                                        {
+                                            <i class="fas fa-check-circle pull-right" style="color:green" id="spanstep3"> Completed</i>
+                                        }
+
+                                    </h3>
+
+
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FinanceFocalPointReviewerDate)
+
+                                        <br />
+                                        @Html.DisplayFor(model => model.FinanceFocalPointReviewerDate, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FinanceFocalPointReviewerComment)
+
+                                        <br />
+                                        @Html.DisplayFor(model => model.FinanceFocalPointReviewerComment, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+
+
+
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    }
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

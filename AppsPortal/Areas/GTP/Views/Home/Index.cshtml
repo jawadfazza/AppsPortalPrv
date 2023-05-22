@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("b4f751de-35d3-455d-a0e1-6392a7c86bcf")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/GTP/Applications/Create/">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-folder  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Create / Update Application for Group 2</h3>
+                        <span></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        @*<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <a class="black" href="/GTP/PersonalHistoryFormWizard/Create/">
+                <div class="SubjectBox matchHeight">
+                    <i class="fa fa-file  fa-4x" aria-hidden="true"></i>
+                    <div>
+                        <h3>Create / Update the P11 form</h3>
+                        <span></span>
+                    </div>
+                </div>
+            </a>
+        </div>*@
+
+
+        @if (new CMS().HasAction(Permissions.GroupTwoApplicationsReview.Create, Apps.GTP))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="/GTP/ApplicationsReview/Applications/">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-list  fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Review Application for Group 2</h3>
+                            <span></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (new CMS().HasAction(Permissions.GroupTwoApplicationsReview.Create, Apps.GTP))
+        {
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href="/GTP/Reports/DownloadSuccessfulApplicantsReport">
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-file-excel  fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>Download records of successful applicants</h3>
+                            <span></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

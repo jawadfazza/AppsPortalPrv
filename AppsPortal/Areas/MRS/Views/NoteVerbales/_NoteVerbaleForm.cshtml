@@ -1,0 +1,151 @@
+﻿@model NoteVerbaleUpdateModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+
+            @using (Html.BeginForm("NoteVerbale", "NoteVerbales", new { Area = "MRS" }, FormMethod.Post, new { id = "NoteVerbaleForm", @class = "main-form" }))
+            {
+
+                @Html.AntiForgeryToken()
+                @Html.FormHiddenFields(model => model.NoteVerbaleGUID)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Reference)
+                    @Html.EditorFor(model => model.Reference, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NoteVerbaleDate)
+                    @Html.EditorFor(model => model.NoteVerbaleDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.VisitDate)
+                    @Html.EditorFor(model => model.VisitDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReferralStatusGUID)
+                    @Html.DropDownListFor(model => model.ReferralStatusGUID, new DropDownList().ReferralStatus(Apps.MRS), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LocationGUID)
+                    @Html.DropDownListFor(model => model.LocationGUID, new DropDownList().LocationOneValue(Model.LocationGUID), "", new { style = "width:100%", @class = "form-control s-data-example-ajax" })
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.VisitPurpose_AR)
+                    @Html.TextAreaFor(model => model.VisitPurpose_AR, new { @class = "form-control group-control", autocomplete = "off", style = "width:100%;", rows = 2 })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.VisitPurpose_EN)
+                    @Html.TextAreaFor(model => model.VisitPurpose_EN, new { @class = "form-control group-control", autocomplete = "off", style = "width:100%;", rows = 2 })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OrganizationInstanceGUID)
+                    @Html.DropDownListFor(model => model.OrganizationInstanceGUID, new DropDownList().OrganizationsInstancesByProfile(), "",
+                    new
+                    {
+                        @class = "form-control select2-basic-search",
+                        onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'DutyStationGUID', Action : 'RemoteOrganizationInstanceDutyStation'}]);",
+                        style = "width:100%"
+                    })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DutyStationGUID)
+                    @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStationsOneValue(Model.DutyStationGUID), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MissionCategoryGUID)
+                    @Html.DropDownListFor(model => model.MissionCategoryGUID, new DropDownList().LookupValues(LookupTables.MissionCategory), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OrganizationMissionTypeGUID)
+                    @Html.DropDownListFor(model => model.OrganizationMissionTypeGUID, new DropDownList().LookupValues(LookupTables.OrganizationMissionType), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ResponseDateMFA)
+                    @Html.EditorFor(model => model.ResponseDateMFA, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RescheduledDate)
+                    @Html.EditorFor(model => model.RescheduledDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TeamLeaderGUID)
+                    @Html.DropDownListFor(model => model.TeamLeaderGUID, new DropDownList().Users(true), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                </div>
+                <div class="form-group">
+                    @Html.CheckBoxFor(model => model.MissionAccomplished, new { @class = "chkNode-accordion" })
+                    @Html.LabelFor(model => model.MissionAccomplished)
+                </div>
+                <div class="form-group">
+                    @Html.CheckBoxFor(model => model.MissionReport, new { @class = "chkNode-accordion" })
+                    @Html.LabelFor(model => model.MissionReport)
+                </div>
+                <div id="NoteVerbaleFormControls" class="form-group form-footer ">
+                    @if (Model.NoteVerbaleGUID == Guid.Empty)
+                    {
+                        @Html.CreateButton(Permissions.NoteVerbale.Create, Apps.MRS)
+                    }
+                    else
+                    {
+                        if (Model.Active)
+                        {
+                            @Html.UpdateButton(Permissions.NoteVerbale.Update, Apps.MRS)
+                            @Html.CreateNewButton(Permissions.NoteVerbale.Create, Apps.MRS, Url.Action("/Create", new { Area = "MRS" }))
+                            @Html.DeleteButton(Permissions.NoteVerbale.Delete, Apps.MRS)
+
+                        }
+                        else
+                        {
+                            @Html.RestoreButton(Permissions.NoteVerbale.Restore, Apps.MRS)
+                        }
+                    }
+                    @if (Model.Map) {@Html.BackToList(Url.Action(""+Model.LocationGUID, "NoteVerbales", new { Area = "MRS" }))}
+                    else{ @Html.BackToList(Url.Action("Index", "NoteVerbales", new { Area = "MRS" }))}
+
+                    @if (Model.NoteVerbaleGUID != Guid.Empty)
+                    {
+                        <a title="Print NV" class="btn btn-default pull-right" target="_blank" href="/MRS/Reports/NVReport/@Model.NoteVerbaleGUID" data-url=""><i class="fa fa-print" aria-hidden="true"></i></a>
+                        <a title="Upload New Files" class="btn btn-default pull-right Modal-Link" data-url="@Url.Action("Upload", "MRS/NoteVerbales", new { PK = Model.NoteVerbaleGUID })"><i class="fa fa-upload" aria-hidden="true"></i></a>
+                    }
+
+                </div>
+
+            }
+        </div>
+      
+    </div>
+</div>
+
+
+<script>
+
+    $('#LocationGUID').select2({
+        minimumInputLength:2,
+        ajax: {
+            url: function () {
+                return '/DropDownList/RemoteFindLocationBy' },
+            delay: 250,
+            data: function (params) {
+                var query = {
+                    SearchKey: params.term
+                }
+                // Query parameters will be ?search=[term]&type=public
+                return query;
+            },
+            processResults: function (data) {
+                var res = data.items.map(function (item) {
+                    return { id: item.id, text: item.Text };
+                });
+                return {
+                    results: res
+                };
+            }
+        }
+    });
+</script>
+
+
+
+
+

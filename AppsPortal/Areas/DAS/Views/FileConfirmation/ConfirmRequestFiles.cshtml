@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Confirmation page";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@model FileRequestConfirmationModel
+<div class="page--header">
+
+</div>
+
+<div class="page--content">
+    @if (Model.ConfirmationStatus == "Cofirmed")
+    {
+        <div class="page--body">
+
+            <h3>Saved Successfully </h3>
+
+        </div>
+    }
+    else if (Model.ConfirmationStatus == "Pending")
+    {
+        <div class="page--body">
+
+            <h3>Some cases already requested please check </h3>
+
+        </div>
+    }
+    else if (Model.ConfirmationStatus == "NoFilesToTransfer")
+    {
+        <div class="page--body">
+            <h3>Check cases been selected  </h3>
+            <h3>Some Files been chosen not owned in your custody to transfer to others </h3>
+
+        </div>
+    }
+</div>

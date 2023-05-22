@@ -1,0 +1,158 @@
+﻿
+<link href="~/Assets/Plugin/Croppie/croppie.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/Croppie/croppie.js"></script>
+<style>
+    input[type="file"] {
+        cursor: pointer;
+    }
+
+    button:focus {
+        outline: 0;
+    }
+
+    .file-btn {
+        position: relative;
+    }
+
+        .file-btn input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+    a.upload {
+        text-decoration: none;
+        text-shadow: none;
+        display: inline-block;
+    }
+
+    .upload-demo-wrap {
+        width: 100%;
+        margin-top: 16px;
+    }
+</style>
+@using (Html.BeginForm("PersonalDetailsNames", "Profile", FormMethod.Post, new { id = "PersonalDetailsNames" }))
+{
+    @Html.Partial("_ModalHeader", "Profile Photo")
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-xs-12">
+                <a class="upload btn btn-primary file-btn" style="cursor:pointer;">
+                    <span>Upload</span>
+                    <input type="file" id="upload" class="btn btn-primary" value="Choose a file" accept="image/*.jpg" />
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div id="uploadPreview" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                <div class="upload-demo-wrap">
+                    <div id="upload-demo"></div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h3>@resxPages.Instructions</h3>
+                <p>
+
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        <input type="button" id="btnUpload" class="upload-result btn btn-success" value="Save Photo" />
+        @Html.CloseModalButton()
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $('.modal-dialog').addClass('modal-lg');
+        demoUpload();
+    });
+    var _URL = window.URL || window.webkitURL;
+    $("#upload").change(function (e) {
+        var file, img;
+        var d = 300;
+        if ((file = this.files[0])) {
+            img = new Image();
+            img.onload = function () {
+                if (this.width < d || this.height < d) {
+                    $('#btnUpload, .cr-image').hide();
+                    Notify(NotificationType.Error, "Photo quality is low<br>Minimum resolution is 300 Pixels Highet or Width");
+                }
+                else {
+                    $('#btnUpload, .cr-image').show();
+                }
+            };
+            img.onerror = function () {
+                alert("not a valid file: " + file.type);
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    });
+    function demoUpload() {
+        var Image;
+        function readFile(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.upload-demo').addClass('ready');
+                    Image.croppie('bind', {
+                        url: e.target.result
+                    }).then(function () {
+                        console.log('jQuery bind complete');
+                        console.log(Image);
+                    });
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+            else {
+                alert("Sorry - your browser doesn't support the FileReader API");
+            }
+        }
+        console.log(Image);
+        Image = $('#upload-demo').croppie({
+            enableExif: true,
+            viewport: {
+                width: $('#uploadPreview').width() * 0.75,
+                height: $('#uploadPreview').width() * 0.75,
+                type: 'square'
+            },
+            boundary: {
+                width: $('#uploadPreview').width(),
+                height: $('#uploadPreview').width(),
+            },
+            format: 'jpeg',
+        });
+        Image.croppie('bind', {
+            url: $('#imgProfilePhoto').attr('src')
+        })
+        $('#upload').on('change', function () {
+            readFile(this);
+        });
+        $('#btnUpload').on('click', function (ev) {
+            Image.croppie('result', {
+                type: 'blob',
+                size: 'original', //{ width: 1024, height: 1024 }, //'original',
+                format: 'jpeg'
+            }).then(function (imgBlob) {
+                var formData = new FormData();
+                formData.append('fname', 'text.jpg');
+                formData.append('data', imgBlob);
+                $.ajax({
+                    type: 'POST',
+                    url: '/ORG/StaffProfile/UploadStaffPhoto/',
+                    data: formData,
+                    processData: false,
+                    contentType: false
+                }).done(function (data) {
+                    $('#imgProfileHeaderPhoto').attr('src', data.HeaderPath + "?" + Math.random().toString());
+                    $('#imgProfilePhoto').attr('src', data.ProfilePath + "?" + Math.random().toString());
+                    $('.modal').modal('hide');
+                });
+            });
+        });
+    }
+</script>

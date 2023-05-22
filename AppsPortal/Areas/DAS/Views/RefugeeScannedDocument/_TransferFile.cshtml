@@ -1,0 +1,67 @@
+﻿@model TransferFileModel
+@Html.Partial("_ModalHeader", "Transfer File")
+@using (Html.BeginForm("TransferFile", "ScanDocument", new { Area = "DAS" }, FormMethod.Post, new { id = "TransferFileForm" }))
+{
+    <div class="modal-body" id="TranferFile">
+        @Html.AntiForgeryToken()
+        <div class="col-md-12">
+            @Html.HiddenFor(m => m.FileGUID)
+            @if (Model.FileRequestGUID == null)
+            {
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.LastCustodianTypeGUID)
+                    @Html.DropDownListFor(model => model.LastCustodianTypeGUID, new DropDownList().DASDocumentCustodianType(), "", new
+               {
+                   @class = "form-control select2-basic-search",
+                   style = "width:100%",
+                   onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'LastCustodianTypeNameGUID', Action : 'RemoteDocumentCustodianType'}]);"
+               })
+                </div>*@
+            <div class="form-group">
+                @Html.Label("Transfer To")
+                @Html.DropDownListFor(model => model.LastCustodianTypeNameGUID, new DropDownList().DASUsersTransferAuthorized(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+
+                <div class="form-group">
+                    @Html.Label("Transfer Request Date")
+                    @Html.EditorFor(model => model.RequestDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RequestDurationDate)
+                    @Html.EditorFor(model => model.RequestDurationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.TransferLocationGUID)
+                    @Html.DropDownListFor(model => model.TransferLocationGUID, new DropDownList().DASFileTransferLocation(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Comments)
+                    @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            }
+            else
+            {
+                @Html.HiddenFor(m => m.FileRequestGUID)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RequestDurationDate)
+                    @Html.EditorFor(model => model.RequestDurationDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+            }
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @*<button type="button" class="btn btn-primary pull-right" ng-click="SaveScannerSettings()" id="SaveScannerSettingsId">
+                Save Changes
+
+
+            </button>*@
+
+        @Html.CreateButton(Permissions.RefugeeScannedDocument.Create, Apps.DAS)
+
+        @Html.CloseModalButton()
+
+    </div>
+}
+

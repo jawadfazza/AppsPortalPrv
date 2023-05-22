@@ -1,0 +1,343 @@
+﻿@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+<style>
+    .highlighted {
+        background-color: yellow;
+    }
+</style>
+@Html.PageHeader("e2d71841-840b-47f7-b002-28e8b83f8d47")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        <h3></h3>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-12">
+                <div class="form-group">
+                    @Html.Label(resxDbFields.AppointmentTypeGUID, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList(resxDbFields.AppointmentTypeGUID, new DropDownList().AppointmentTypes(), "", new
+               {
+                   multiple = "multiple",
+                   style = "width:100%",
+                   @class = "form-control select2-basic-multiple AppointmentTypeGUID",
+                   onchange = "AppointmentCount($('#Appointment_Date_Time').val(),$(this).val());"
+               })
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-12">
+                <div class="form-group">
+                    @Html.Label(resxDbFields.AppointmentDateTime)
+                    @Html.Editor(resxDbFields.AppointmentDateTime, new { htmlAttributes = new
+               {
+                   @class = "form-control date-picker",
+                   autocomplete = "off",
+                   onchange = "AppointmentCount($(this).val(),$('.AppointmentTypeGUID').val());"
+               } })
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-2 col-sm-8 col-xs-12">
+                <br />
+                <button class="btn btn-primary" type="button">
+                    Total <span class="badge" id="countTotalAppointment">0</span>
+                </button>
+            </div>
+            <div class="col-lg-1 col-md-2 col-sm-8 col-xs-12">
+                <br />
+                <button class="btn btn-success" type="button">
+                    Arrived <span class="badge" id="countTotalAppointmentArrived">0</span>
+                </button>
+            </div>
+            <div class="col-lg-1 col-md-2 col-sm-8 col-xs-12">
+                <br />
+                <button class="btn btn-danger" type="button">
+                    Cancelled <span class="badge" id="countTotalAppointmentCancelled">0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-3 col-sm-10 col-lg-5 dt-controls-index">
+            <input type="text" id="search-term" autocomplete="off" class="form-control" placeholder="Search Calender ..." style="width:100%" />
+        </div>
+        <div class="col-md-3 col-sm-2 col-lg-3 dt-controls-index">
+            <button type="button" title="Barcode Search" class="btn btn btn-primary" onclick="searchCandidates()" id="search-button"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+    <div id='calendar'></div>
+</div>
+
+
+<script type="text/javascript">
+    var Source;
+    $(document).ready(function () {
+        InitializeAppointmentCalendar();
+    });
+
+    function searchAppointment() {
+        if ($('#search-term').val() != '') {
+            /*var newSource = Enumerable.From(Source).Where(function (x) { return x.Title == $('#search-term').val() }).Select(function (x) { return x }).ToArray();*/
+            var newSource = Source.filter(elem =>
+                (elem.title.toLowerCase().indexOf($('#search-term').val().toLowerCase()) > -1));
+            refreshCalendar(newSource);
+
+        } else {
+            refreshCalendar(Source);
+        }
+    }
+    function refreshCalendar(newSource) {
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('addEventSource', newSource);
+        $('#calendar').fullCalendar('refetchEvents');
+    }
+
+
+    $(document).keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            event.preventDefault();
+            searchAppointment();
+        }
+
+    });
+
+    var WorkDays = [];
+    function InitializeAppointmentCalendar() {
+        $.ajax({
+            url: "/AMS/Appointments/GetWorkingDay",
+            dataType: 'json',
+            type: "post",
+            success: function (data) {
+                $.each(data.WorkDays, function (key, value) {
+                    WorkDays.push(value.Day);
+                });
+                $('#calendar').fullCalendar('destroy');
+                 $('#calendar').fullCalendar({
+                    height: 700,
+                    allDayText: 'Events',
+                    selectable: true,
+                    overflow: 'auto',
+                    editable: true,
+                     firstDay: 0,
+                     businessHours: true,
+                     displayEventTime: false,
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,list'
+                    },
+                    businessHours:
+                    {
+                        start: '8:30',
+                        end: '03:30',
+                        dow: WorkDays
+                    },
+                     defaultView: (localStorage.getItem("fcDefaultView") !== null ? localStorage.getItem("fcDefaultView") : "month"),
+                    eventLimit: true, // for all non-agenda views
+                    views: {
+                        agenda: {
+                            eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                        }
+                     },
+                     viewRender: function (view, element) {
+                         // when the view changes, we update our localStorage value with the new view name
+                         localStorage.setItem("fcDefaultView", view.name);
+                     },
+                    events: function (start, end, timezone, callback) {
+                        $.ajax({
+                            url: "/AMS/Appointments/GetAppointmentCalendarData",
+                            dataType: 'json',
+                            type: "post",
+                            data: {
+                                // our hypothetical feed requires UNIX timestamps
+                                start: start.format('YYYY-MM-DD HH:mm'),
+                                end: end.format('YYYY-MM-DD HH:mm')
+                            },
+                            success: function (data) {
+                                var events = [];
+                                var index = 1;
+                                var date = null;
+
+                                $.map(data.CalendarEvents, function (item, i) {
+                                    var startDate = new Date(parseInt(item.EventStartDate.substr(6)))
+                                    var currentDate = startDate.getDate();
+                                    if (currentDate != date) {
+                                        date = startDate.getDate();
+                                        index = 1;
+                                    } else {
+                                        index++;
+                                    }
+                                    var sequance = "";
+                                    if (index < 10) { sequance = "0" + index + ") "; } else { sequance = index + ") "; }
+                                    
+                                    if ($('#search-term').val() != '') {
+                                        
+                                        var searchTermRegEx = new RegExp($('#search-term').val(), "g");
+                                        var matches = item.Title.match(searchTermRegEx);
+                                       
+                                        if (matches) {
+                                            var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                                            var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                                            var event = new Object();
+                                            var arraytitle = item.Title.split(",");
+                                            event.id = item.EventId;
+                                            event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                            event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                            event.title = sequance + "&&" + item.Title
+                                            event.allDay = false;
+                                            if (item.Arrived) { event.color = 'green'; }
+                                            if (item.Cancelled) { event.color = 'red'; }
+                                            events.push(event);
+                                        }
+                                    } else {
+
+                                        var eventStartDate = new Date(parseInt(item.EventStartDate.substr(6)));
+                                        var eventEndDate = new Date(parseInt(item.EventEndDate.substr(6)));
+                                        var event = new Object();
+                                        var arraytitle = item.Title.split(",");
+                                        event.id = item.EventId;
+                                        event.start = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate(), eventStartDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                        event.end = new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate(), eventEndDate.getHours(), eventEndDate.getMinutes(), 0, 0);
+                                        event.title = sequance +"&&"+ item.Title
+                                            
+                                        event.allDay = false;
+                                        if (item.Arrived) { event.color = 'green'; }
+                                        if (item.Cancelled) { event.color = 'red'; }
+                                        events.push(event);
+                                    }
+                                });
+                                //Source = events;
+                                callback(events);
+                            }
+                        });
+                    },
+                    eventDrop: function (event, delta, revertFunc) {
+                        $.ajax({
+                            type: "post",
+                            url: '/AMS/Appointments/UpdateAppointmentDate',
+                            dataType: 'json',
+                            type: "post",
+                            data: {
+                                PK: event.id,
+                                NewDate: event.start.format()
+                            },
+                            success: function (JsonResult, status, xhr) {
+                                if (JsonResult.Notify != null) {
+                                    ProcessNotify(JsonResult);
+                                    if (JsonResult.Notify.Type == NotificationType.Error) {
+                                        revertFunc();
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+
+                     },
+                    
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $.ajax({
+                            type: "GET",
+                            url: '/AMS/Appointments/AppointmentUpdate?PK=' + calEvent.id,
+                            success: function (data) {
+                                $('#FormModal').modal('show');
+                                // inject your content into the "placeholder" div
+                                $('#Partial-Container').html(data);
+                                $('#Loading-Container').hide();
+                                InitPlugins($('#Partial-Container'));
+
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    },
+                    dayClick: function (date, allDay, jsEvent, view) {
+                        //$(".fc-state-highlight").removeClass("fc-state-highlight");
+                        //$(jsEvent.target).addClass("fc-state-highlight");
+                        $("#Appointment_Date_Time").val(date.format('MMMM DD, YYYY'));
+                        AppointmentCount(date.format('MMMM DD, YYYY'), $(".AppointmentTypeGUID").val());
+                     },
+                     eventRender: function (event, element) {
+                         if ($('#calendar').fullCalendar('getView').name == 'list' || $('#calendar').fullCalendar('getView').name == 'basicDay') {
+                             element.find(".fc-list-item-title").remove();
+                             element.find(".fc-title").remove();
+                             var arraytitle = event.title.split("&&");
+                             var new_description = "<table style='table-layout: fixed;'>" +
+                                 "<tr style='border: 1px;border-bottom-style:inset;cursor: pointer;'>" +
+                                 "<td style='width:2%'>" + arraytitle[0] + "</td>" +
+                                 "<td style='width:8%'>" + arraytitle[1] + "</td>" +
+                                 "<td style='width:7%'>" + arraytitle[2] + "</td>" +
+                                 "<td style='word-wrap:break-word;width:25%'>" + arraytitle[3] + "</td>" +
+                                 "<td style='word-wrap:break-word;width:5%'>" + arraytitle[4] + "</td>" +
+                                 "<td style='width:10%'>" + arraytitle[5] + "</td>" +
+                                 "<td style='word-wrap:break-word;width:15%'>" + arraytitle[6] + "</td>" +
+                                 "<td style='word-wrap:break-word;width:20%'>" + arraytitle[7] + "</td>" +
+                                 "</tr>"
+                             "</table>";
+
+
+                             element.append(new_description);
+                         }else {
+                             element.find(".fc-title").remove();
+                             var arraytitle = event.title.split("&&");
+                             var new_description = "<span class='fc-title'>" +
+                                 arraytitle[0] + arraytitle[1]+"," + arraytitle[2]
+                                 
+                             "</span>";
+
+
+                             element.append(new_description);
+                         }
+                     }
+                });
+                Source = $('#calendar').fullCalendar('clientEvents');
+            }
+        });
+        //-- ajax call to fetch calendar data from database
+
+
+    }
+    function AppointmentCount(date, guid) {
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/AMS/Appointments/AppointmentCount?PK=' + guid + "&Date=" + date,
+            success: function (data) {
+                $("#countTotalAppointment").text(data.Total);
+                $("#countTotalAppointmentArrived").text(data.Arrived);
+                $("#countTotalAppointmentCancelled").text(data.Cancelled);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+    function UpadetAppointmentEvents(AppointmentGUID) {
+        if ($('#calendar').length != 0) {
+            $.ajax({
+                dataType: 'json',
+                type: "post",
+                url: '/AMS/Appointments/UpadetAppointmentEvents?PK=' + AppointmentGUID,
+                success: function (data) {
+                    var app = data.Appointment[0];
+                    var event = $("#calendar").fullCalendar('clientEvents', AppointmentGUID)[0];
+                    event.start = app.AppointmentDateTime
+                    event.end = app.AppointmentDateTime
+                    event.allDay = false;
+                    if (app.Arrived) { event.color = 'green' }
+                    if (app.Cancelled) { event.color = 'red' }
+                    $('#calendar').fullCalendar('updateEvent', event);
+                    $('#calendar').fullCalendar('refetchEvents');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    }
+</script>
+

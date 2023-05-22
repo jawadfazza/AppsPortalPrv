@@ -1,0 +1,56 @@
+﻿@model MedicalItemInputSupplyUpdateModel
+@using (Html.BeginForm("MedicalItemInputSupply", "MedicalItemInputSupplys", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalItemInputSupplyForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+   
+    @Html.FormHiddenFields(model => model.MedicalItemInputSupplyGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.Label(resxDbFields.DeliveryDate)
+                @Html.EditorFor(model => model.DispatchDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.Label(resxDbFields.SupplierName)
+                @Html.EditorFor(model => model.SupplierName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.Label(resxDbFields.PurchaseOrder)
+                @Html.EditorFor(model => model.PurchaseOrder, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.Label(resxDbFields.Comment)
+                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.Label(resxDbFields.CreatedBy)
+                @Html.DisplayFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                - @Html.Label(resxDbFields.CreatedOn)
+                @Html.DisplayFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div id="MedicalItemInputSupplyFormControls" class="form-group form-footer">
+                @if (Model.MedicalItemInputSupplyGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.MedicalItemInputSupply.Create, Apps.EMT)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.MedicalItemInputSupply.Update, Apps.EMT)
+                        @Html.CreateNewButton(Permissions.MedicalItemInputSupply.Create, Apps.EMT, Url.Action("/Create", new { Area = "EMT" }))
+                        @Html.DeleteButton(Permissions.MedicalItemInputSupply.Delete, Apps.EMT)
+                        @*@Html.FieldDataTableCreate(Permissions.MedicalItemInput.Create, Apps.EMT, Url.Action("MedicalItemInputSupplyTransfer", "MedicalItemInputSupplys", new { FK = Model.MedicalItemInputSupplyGUID }))*@
+                        <button type="button" title="Transfer Supply Contract Items to Partner Warehouse" class="btnCreate Modal-Link btn pull-right btn-default" data-url="@Url.Action("MedicalItemInputSupplyTransfer", "MedicalItemInputSupplys", new { FK = Model.MedicalItemInputSupplyGUID })"><i class="fa fa-exchange "></i></button>
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.MedicalItemInputSupply.Restore, Apps.EMT)
+                    }
+                }
+                @Html.BackToList(Url.Action("Index", "MedicalItemInputSupplys", new { Area = "EMT" }))
+            </div>
+        </div>
+    </div>
+}

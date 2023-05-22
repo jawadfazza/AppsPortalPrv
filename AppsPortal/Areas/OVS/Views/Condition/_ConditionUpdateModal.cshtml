@@ -1,0 +1,45 @@
+﻿@model dataElectionCondition
+@using (Html.BeginForm("ElectionCondition", "Condition", new { Area = "OVS" }, FormMethod.Post, new { id = "ConditionForm" }))
+{
+    string ModalTitle = Model.ConditionTypeGUID.ToString() == Guid.Empty.ToString() ? resxDbFields.NewElection : resxDbFields.EditElection;
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ElectionConditionGUID)
+        @Html.HiddenFor(model => model.ElectionGUID)
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConditionTypeGUID, htmlAttributes: new {@class = "control-label"})
+            @Html.DropDownList("ConditionTypeGUID", new DropDownList().ConditionTypes(), new {@class = "form-control select2-basic-search", style = "width:100%"})
+
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConditionValue)
+            @Html.EditorFor(model => model.ConditionValue, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        
+        
+        
+
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ElectionConditionGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ElectionsManagement.Create, Apps.OVS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ElectionsManagement.Update, Apps.OVS)
+                @Html.DeleteSwitchButton(Permissions.ElectionsManagement.Delete, Apps.OVS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ElectionsManagement.Restore, Apps.OVS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}

@@ -1,0 +1,182 @@
+﻿@model PPADistributionListUpdateModel
+@using (Html.BeginForm("PPADistributionList", "Management", new { Area = "PPA" }, FormMethod.Post, new { id = "PPADistributionListForm" }))
+{
+    string ModalTitle = Model.PPADistributionListGUID.ToString() == Guid.Empty.ToString() ? "New Distribution List" : "Edit Distribution List";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.PPADistributionListGUID)
+    @Html.HiddenFor(model => model.PPAGUID)
+    <div class="form-group HANDLER">
+        @Html.LabelFor(model => model.DutyStationGUID)
+        @Html.DropDownListFor(model => model.DutyStationGUID, new DropDownList().DutyStations(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new
+   {
+       multiple = "multiple",
+       style = "width:100%",
+       @class = "form-control select2-basic-multiple",
+       onchange = "LoadDepartmentFocalPoints($(this).val(),$('#SiteCategoryGUID').val(),$('#DepartmentGUID').val());"
+   })
+    </div>
+    <div class="form-group HANDLER">
+        @Html.LabelFor(model => model.SiteCategoryGUID)
+        @Html.DropDownListFor(model => model.SiteCategoryGUID, new DropDownList().SiteCategories(), "", new
+   {
+       multiple = "multiple",
+       style = "width:100%",
+       @class = "form-control select2-basic-multiple",
+       onchange = "LoadDepartmentFocalPoints($('#DutyStationGUID').val(),$(this).val(),$('#DepartmentGUID').val());"
+   })
+    </div>
+    <div class="form-group HANDLER">
+        @Html.LabelFor(model => model.DepartmentGUID)
+        @Html.DropDownListFor(model => model.DepartmentGUID, new DropDownList().DepartmentsForPPA(Guid.Parse("E156C022-EC72-4A5A-BE09-163BD85C68EF")), "", new
+   {
+       style = "width:100%",
+       @class = "form-control select2-basic-single",
+       onchange = "LoadDepartmentFocalPoints($('#DutyStationGUID').val(),$('#SiteCategoryGUID').val(),$(this).val());"
+   })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Deadline)
+        @Html.EditorFor(model => model.Deadline, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+    </div>
+    <span>Added Staff</span>
+    <div id="DepartmentFocalPoints" class="form-group">
+
+
+    </div>
+    <div class="form-group">
+        @Html.DropDownListFor(model => model.SelectedUsers, new DropDownList().Empty(), "", new
+   {
+       multiple = "multiple",
+       style = "width:100%",
+       @class = "form-control select2-basic-multiple"
+   })
+    </div>
+    <hr />
+    <span>CC1 List(with access permission)</span>
+    <div class="form-group">
+
+        @Html.DropDownList("CCUsers", new DropDownList().Empty(), new
+   {
+       multiple = "multiple",
+       style = "width:100%",
+       @class = "form-control select2-basic-ajax ",
+       data_action = "RemoteFindUserCurrentGUID"
+   })
+
+    </div>
+
+    <hr />
+    <span>CC2 List(without access permission / only for review)</span>
+    <div class="form-group">
+
+        @Html.DropDownList("CCUsersWithoutAccess", new DropDownList().Empty(), new
+   {
+       multiple = "multiple",
+       style = "width:100%",
+       @class = "form-control select2-basic-ajax ",
+       data_action = "RemoteFindUserCurrentGUID"
+   })
+
+    </div>
+
+
+</div>
+    <div class="modal-footer form-footer">
+        @if (Model.PPADistributionListGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.PPAManagement.Create, Apps.PPA)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.PPAManagement.Update, Apps.PPA)
+                @Html.DeleteSwitchButton(Permissions.PPAManagement.Delete, Apps.PPA)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.PPAManagement.Delete, Apps.PPA)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+<script>
+    $('.select2-basic-ajax').select2({
+        minimumInputLength: 3,
+        multiple: true,
+        ajax: {
+            url: function () { return '/DropDownList/' + $(this).attr('data-action') },
+            delay: 250,
+            data: function (params) {
+                var query = {
+                    SearchKey: params.term
+                }
+                // Query parameters will be ?search=[term]&type=public
+                return query;
+            },
+            processResults: function (data) {
+                // Tranforms the top-level key of the response object from 'items' to 'results'
+                return {
+                    results: data.items
+
+                };
+            }
+        }
+    });
+
+    function LoadDepartmentFocalPoints(DutyStationGUID,SiteCategoryGUID,DepartmentGUID) {
+        console.log('DepartmentGUID', DepartmentGUID);
+        console.log('DutyStationGUID', DutyStationGUID);
+        console.log('SiteCategoryGUID', SiteCategoryGUID);
+
+        var DSlist = '';
+        $.each(DutyStationGUID, function (idx, val) {
+            DSlist += "DutyStationGUID=" + val + "&";
+        });
+
+
+        var SClist = '';
+        $.each(SiteCategoryGUID, function (idx, val) {
+            SClist += "SiteCategoryGUID=" + val + "&";
+        });
+
+        DSlist = DSlist.slice(0, -1);
+        SClist = SClist.slice(0, -1);
+
+        var URL = "/PPA/Management/GetDepartmentsFocalPoints?" + DSlist + "&" + SClist + "&DepartmentGUID=" + DepartmentGUID;
+
+
+        $('#DepartmentFocalPoints').load(URL, function () {
+            InitPlugins("#DepFocalPointsDiv");
+            $('#SelectedUsers').empty();
+            $('.chkNode-accordion', '#DepFocalPointsDiv').iCheck('check');
+
+            $('#DepFocalPointsDiv').find('.chkNode-accordion')
+
+            var selectedUsers = $("#SelectedUsers").val();
+
+            $.each(selectedUsers, function (index, value) {
+                $('#' + value).prop("checked", true).parent('div').addClass('checked');
+            });
+            $('#PPADistributionListForm').find(':submit').prop('disabled', false);
+
+        })
+    };
+    //function AppendFocalPoints() {
+    //    $('.chkNode-accordion', '#').click(function () {
+
+    //    });
+
+    //    $(document).on('ifChecked ifUnchecked', '.chkHead, #DepFocalPointsDiv', function (event) {
+
+    //        if (event.type == 'ifChecked') {
+    //            alert("check");
+    //        } else {
+    //            alert("uncheck");
+    //        }
+    //    });
+    //}
+</script>

@@ -1,0 +1,110 @@
+﻿@model dataPersonalHistoryPhoneNumberUpdateModel
+@using (Html.BeginForm("PhoneNumbersWizard", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "PhoneNumbersWizardForm", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.GTPPHPhoneNumberGUID)
+    @Html.AntiForgeryToken()
+    <div class="tab-pane" id="tab1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><b>4. PHONE NUMBERS </b> (Mandatory to complete)</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-2" style="padding-top:30px">
+                        <span style="font-weight:bold;color:black;padding-bottom:10px;">Home Phone</span>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HomePhoneCountryCode) <span class="span-required-field">*</span>
+                            @Html.EditorFor(model => model.HomePhoneCountryCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HomePhoneTelephoneExt)
+                            @Html.EditorFor(model => model.HomePhoneTelephoneExt, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HomePhoneTelephoneNumber)  <span class="span-required-field">*</span>
+                            @Html.EditorFor(model => model.HomePhoneTelephoneNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2" style="padding-top:30px">
+                        <span style="font-weight:bold;color:black;padding-bottom:10px;">Business Phone</span>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BusinessPhoneCountryCode)     <span class="span-required-field">*</span>
+                            @Html.EditorFor(model => model.BusinessPhoneCountryCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BusinessPhoneExt)
+                            @Html.EditorFor(model => model.BusinessPhoneExt, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BusinessPhoneTelephoneNumber)   <span class="span-required-field">*</span>
+                            @Html.EditorFor(model => model.BusinessPhoneTelephoneNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2" style="padding-top:30px">
+                        <span style="font-weight:bold;color:black;padding-bottom:10px;">Mobile Phone</span>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobilePhoneCountryCode)     <span class="span-required-field">*</span>
+                            @Html.EditorFor(model => model.MobilePhoneCountryCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobilePhoneExt)
+                            @Html.EditorFor(model => model.MobilePhoneExt, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobilePhoneTelephoneNumber)   <span class="span-required-field">*</span>
+                            @Html.EditorFor(model => model.MobilePhoneTelephoneNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.PreferedPhone)     <span class="span-required-field">*</span>
+                        @Html.DropDownListFor(model => model.PreferedPhone, new DropDownList().GTPPreferredPhoneNumber(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right">
+                            @if (Model.GTPPHPhoneNumberGUID == Guid.Empty)
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Save & Next' data-next-url="/GTP/Applications/EmailAddressesWizard/Create" />
+                            }
+                            else
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Update" name='next' value='Update & Next' data-next-url="/GTP/Applications/EmailAddressesWizard/Create" />
+                            }
+                        </div>
+                        <div style="float:left">
+                            <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/ContanctInformationWizard/Create" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

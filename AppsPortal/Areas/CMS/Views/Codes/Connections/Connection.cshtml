@@ -1,0 +1,13 @@
+﻿@model ConnectionUpdateModel
+@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.ConnectionGUID == Guid.Empty) ? "New Connection" : "Edit Connection"; }
+@Html.PageHeader("d97392d2-8fff-4dc7-8698-f72a2435bf60")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/CMS/Views/Codes/Connections/_ConnectionForm.cshtml")
+       
+    </div>
+</div>

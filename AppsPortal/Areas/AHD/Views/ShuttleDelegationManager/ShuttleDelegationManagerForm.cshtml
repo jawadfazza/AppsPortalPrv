@@ -1,0 +1,35 @@
+﻿@model BlomShuttleDelegationDateUpdateModel
+@{
+    ViewBag.Title = "DangerPay";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.BlomShuttleDelegationDateGUID == Guid.Empty) ? "New  Shuttle Delegation " : "Edit Shuttle Delegation"; }
+@Html.PageHeader("d412223f-ba47-4330-9111-8b91d351c508")
+
+
+<div class="page--content">
+
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/AHD/Views/ShuttleDelegationManager/_ShuttleDelegationDateForm.cshtml")
+        <div id="TravelersFormControls">
+            @if (Model.BlomShuttleDelegationDateGUID != Guid.Empty)
+            {
+
+                @Html.Partial("~/Areas/AHD/Views/ShuttleDelegationManager/_TravelerDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.BlomShuttleDelegationDateGUID, IsParentActive = Model.Active })
+
+            }
+        </div>
+        <div id="StaffRequestsFormControls">
+            @if (Model.BlomShuttleDelegationDateGUID != Guid.Empty)
+            {
+
+                @Html.Partial("~/Areas/AHD/Views/ShuttleDelegationManager/_StaffRequestDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.BlomShuttleDelegationDateGUID, IsParentActive = Model.Active })
+
+            }
+        </div>
+
+
+        </div>
+
+
+</div>

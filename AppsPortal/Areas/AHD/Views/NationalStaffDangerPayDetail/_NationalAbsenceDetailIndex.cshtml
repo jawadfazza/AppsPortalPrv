@@ -1,0 +1,28 @@
+﻿
+@model NationalStaffDangerPayDataTableModel
+@Html.Partial("_ModalHeader", "Absence table")
+<div class="modal-body">
+    @if ((int)ViewBag.TotalRows > 0)
+    {
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.NationalStaffDangerPayDetailDataTable, FormController = "NationalStaffDangerPayCalcualtion", Area = "AHD", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.NationalStaffDangerPayGUID, OrderBy = 1 })
+        </div>
+    </div>
+    }
+    else
+    {
+        if(Model.FlowStatusGUID== NationalStaffDangerPaConfirmationStatus.Confirmed)
+        {
+    <h3>No travel dates for this month</h3>
+        }
+    }
+
+</div>
+<div class="modal-footer form-footer">
+
+    @Html.CloseModalButton()
+</div>
+
+

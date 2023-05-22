@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "StaffAbsence";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("07475707-7897-4e8b-90eb-c725dba96b1c")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.StaffAbsencesDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FromDate, DbColumnName = "AbsenceFrom", FilterForDataType = "Date" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.AbsenceTypeGuid, DbColumnName = "AbsenceTypeGuid", FilterForDataType = "Options", DataList = new DropDownList().LookupValues(LookupTables.AbsenceType) })
+
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.StaffAbsencesDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.StaffAbsencesDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.StaffAbsencesDataTable)
+
+        @Html.FieldDataTableCreateNoPermission(Url.Action("StaffAbsenceCreate", "StaffAbsences"))
+        @Html.IndexDatatableDeleteNoPermission(DataTableNames.StaffAbsencesDataTable)
+        @Html.IndexDatatableRestorNoPermission(DataTableNames.StaffAbsencesDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.StaffAbsencesDataTable)
+        <button class="btn btn-primary " onclick="GenerateReport();"><i class="fa fa-file-archive-o" title="Export Presence Calendar"></i></button>
+
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.StaffAbsencesDataTable, FormController = "StaffAbsences", Area = "AHD", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 1 })
+    </div>
+</div>
+
+<script>
+    function GenerateReport() {
+        var currentTime = new Date()
+        $.ajax({
+            dataType: 'json',
+            type: "post",
+            url: '/AHD/StaffAbsences/RP_StaffAbsences?date=' + + currentTime.getFullYear() + "-" + currentTime.getMonth() + "-1",
+            success: function (data) {
+                window.open(data.URL, '_blank').focus();
+
+            },
+            error: function (err) {
+                Notify(NotificationType.Error, 'Check the Internet Connectivity!');
+            }
+        });
+    }
+</script>
+

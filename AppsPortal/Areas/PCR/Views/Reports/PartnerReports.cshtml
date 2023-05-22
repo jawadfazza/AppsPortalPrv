@@ -1,0 +1,57 @@
+﻿@model PCRReportParametersList
+@{
+    ViewBag.Title = "Partner Reports";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("a7cee1ba-916f-4d6d-a9c4-8104d136fab8")
+@using (Html.BeginForm("PartnerReport", "Reports", new { Area = "PCR" }, FormMethod.Post, new { id = "ReportForm" }))
+{
+    <style>
+        iframe {
+            border-width: 0px !important
+        }
+    </style>
+    <div class="page--content">
+        <h3>@resxPages.ReportParameters</h3>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReportGUID)
+                    @Html.DropDownListFor(model => model.ReportGUID, new DropDownList().PartnerReports(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-search"
+               })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EndDate)
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OrganizationInstanceDescription)
+                    @Html.DropDownListFor(model => model.OrganizationInstanceDescription, new DropDownList().OrganizationsInstancesByProfileValueString(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-search"
+               })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DutyStationDescription)
+                    @Html.DropDownListFor(model => model.DutyStationDescription, new DropDownList().DutyStationsByProfileValueString(), "",new
+               {
+                   style = "width:100%",
+                   @class = "form-control select2-basic-search"
+               })
+                </div>
+                <div>
+                    <input class="btn btn-primary " data-submittype="" onclick="SubmitForm(this);" type="submit" value="Generate Report">
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div class="form-group" id="ReportViewer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

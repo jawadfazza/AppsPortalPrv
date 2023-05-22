@@ -1,0 +1,38 @@
+﻿@model List<PendingBillsToProcessModel>
+
+@if (Model.Count == 0)
+{
+    <input type="hidden" id="hdn-to-process-count" value="@Model.Count" />
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">No records to process base on your selection.</h4>
+    </div>
+}
+else
+{
+    <input type="hidden" id="hdn-to-process-count" value="@Model.Count" />
+    <table style="width:100%">
+        <thead>
+            <tr>
+                <th>Billing Month</th>
+                <th>Billing Year</th>
+                <th>Process Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model)
+            {
+                <tr>
+                    <td>@record.BillForMonth</td>
+                    <td>@record.BillForYear</td>
+                    <td>
+                        <div>
+                            <span><i style="display:none;margin-top:5px;color:dodgerblue;" class="fas fa-spinner fa-1x fa-pulse span-process-icon"></i></span>
+                            <span class='label label-danger span-process-status' style='color:white;margin-left:-10px'> Pending</span>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

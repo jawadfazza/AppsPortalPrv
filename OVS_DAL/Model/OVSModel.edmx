@@ -1,0 +1,1690 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OVSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="codeConditionType">
+          <Key>
+            <PropertyRef Name="ConditionTypeGUID" />
+          </Key>
+          <Property Name="ConditionTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DataTypeGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeConditionTypesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeConditionTypeLanguage">
+          <Key>
+            <PropertyRef Name="ConditionTypeLanguageGUID" />
+          </Key>
+          <Property Name="ConditionTypeLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConditionTypeGUID" Type="uniqueidentifier" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeConditionTypeLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CountryGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="IsDutyStation" Type="bit" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="DutyStationDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeElectionCorrespondenceType">
+          <Key>
+            <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+          </Key>
+          <Property Name="ElectionCorrespondenceTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeElectionCorrespondenceTypeRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeElectionCorrespondenceTypeLanguage">
+          <Key>
+            <PropertyRef Name="ElectionCorrespondenceTypeLanguageGUID" />
+          </Key>
+          <Property Name="ElectionCorrespondenceTypeLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ElectionCorrespondenceTypeGUID" Type="uniqueidentifier" />
+          <Property Name="ElectionCorrespondenceTypeDescription" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeElectionCorrespondenceTypeLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstances">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OperationGUID" Type="uniqueidentifier" />
+          <Property Name="codeOrganizationsInstancesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstancesLanguages">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceLanguageGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="OrganizationInstanceDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="codeOrganizationsInstancesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TableGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorGUID" Type="uniqueidentifier" />
+          <Property Name="SortID" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ValueGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ValueDescription" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataElection">
+          <Key>
+            <PropertyRef Name="ElectionGUID" />
+          </Key>
+          <Property Name="ElectionGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ElectionCorrespondenceTypeGUID" Type="uniqueidentifier" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+          <Property Name="TimeZone" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="CloseDate" Type="datetime" Nullable="false" />
+          <Property Name="ResultAvaiableDate" Type="datetime" />
+          <Property Name="CustomMessage" Type="nvarchar(max)" />
+          <Property Name="IsShuffling" Type="bit" Nullable="false" />
+          <Property Name="IsNeedVoteConfirmationMail" Type="bit" Nullable="false" />
+          <Property Name="IsDisplayCandidateImage" Type="bit" Nullable="false" />
+          <Property Name="IsResultShared" Type="bit" Nullable="false" />
+          <Property Name="IsDisplayReviewPage" Type="bit" Nullable="false" />
+          <Property Name="IsArchived" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataElectionRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataElectionCandidate">
+          <Key>
+            <PropertyRef Name="ElectionCandidateGUID" />
+          </Key>
+          <Property Name="ElectionCandidateGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ElectionGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="200" />
+          <Property Name="CampaignPlan" Type="nvarchar(max)" />
+          <Property Name="GenderGUID" Type="uniqueidentifier" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataElectionCandidateRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataElectionCandidateLanguage">
+          <Key>
+            <PropertyRef Name="ElectionCandidateLangaugeGUID" />
+          </Key>
+          <Property Name="ElectionCandidateLangaugeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ElectionCandidateGUID" Type="uniqueidentifier" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="150" />
+          <Property Name="CampaignPlan" Type="nvarchar(max)" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="dataElectionCandidateLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataElectionCondition">
+          <Key>
+            <PropertyRef Name="ElectionConditionGUID" />
+          </Key>
+          <Property Name="ElectionConditionGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ElectionGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConditionTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConditionValue" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataElectionConditionRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataElectionCorrespondence">
+          <Key>
+            <PropertyRef Name="ElectionCorrespondenceGUID" />
+          </Key>
+          <Property Name="ElectionCorrespondenceGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ElectionGUID" Type="uniqueidentifier" />
+          <Property Name="ElectionCorrespondenceTypeGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SendDate" Type="datetime" Nullable="false" />
+          <Property Name="MessageTitle" Type="nvarchar" MaxLength="300" />
+          <Property Name="MessageBody" Type="nvarchar(max)" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataElectionCorrespondenceRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataElectionCorrespondenceStaff">
+          <Key>
+            <PropertyRef Name="ElectionCorrespondenceStaffGUID" />
+          </Key>
+          <Property Name="ElectionCorrespondenceStaffGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ElectionCorrespondenceGUID" Type="uniqueidentifier" />
+          <Property Name="ElectionStaffGUID" Type="uniqueidentifier" />
+          <Property Name="ReceivedDate" Type="datetime" />
+          <Property Name="IsReceived" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataElectionCorrespondenceStaffRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataElectionLanguage">
+          <Key>
+            <PropertyRef Name="ElectionLanguageGUID" />
+          </Key>
+          <Property Name="ElectionLanguageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ElectionGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="LanguageID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataElectionLanguageRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataElectionStaff">
+          <Key>
+            <PropertyRef Name="ElectionStaffGUID" />
+          </Key>
+          <Property Name="ElectionStaffGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ElectionGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AccessKey" Type="nvarchar" MaxLength="40" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="VoteDate" Type="datetime" />
+          <Property Name="IsViewed" Type="bit" />
+          <Property Name="ViewedDate" Type="datetime" />
+          <Property Name="StaffGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataElectionStaffRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dataStaff">
+          <Key>
+            <PropertyRef Name="StaffGUID" />
+          </Key>
+          <Property Name="StaffGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataStaffRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="OrganizationInstanceGUID" Type="uniqueidentifier" />
+          <Property Name="DutyStationGUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="dataStaffVote">
+          <Key>
+            <PropertyRef Name="StaffVoteGUID" />
+          </Key>
+          <Property Name="StaffVoteGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ElectionCandidateGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ElectionStaffGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="dataStaffVoteRowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_CodeConditionTypeLanguages_CodeConditionTypes">
+          <End Role="codeConditionType" Type="Self.codeConditionType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeConditionTypeLanguage" Type="Self.codeConditionTypeLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeConditionType">
+              <PropertyRef Name="ConditionTypeGUID" />
+            </Principal>
+            <Dependent Role="codeConditionTypeLanguage">
+              <PropertyRef Name="ConditionTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDutyStations_dataElection">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="0..1" />
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="dataElection">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDutyStations_dataElectionCondition">
+          <End Role="codeConditionType" Type="Self.codeConditionType" Multiplicity="1" />
+          <End Role="dataElectionCondition" Type="Self.dataElectionCondition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeConditionType">
+              <PropertyRef Name="ConditionTypeGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCondition">
+              <PropertyRef Name="ConditionTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeDutyStationsLanguages" Type="Self.codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeElectionCorrespondenceTypeLanguage_codeElectionCorrespondenceType">
+          <End Role="codeElectionCorrespondenceType" Type="Self.codeElectionCorrespondenceType" Multiplicity="0..1" />
+          <End Role="codeElectionCorrespondenceTypeLanguage" Type="Self.codeElectionCorrespondenceTypeLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeElectionCorrespondenceType">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Principal>
+            <Dependent Role="codeElectionCorrespondenceTypeLanguage">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsInstances_dataElection">
+          <End Role="codeOrganizationsInstances" Type="Self.codeOrganizationsInstances" Multiplicity="0..1" />
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="dataElection">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+          <End Role="codeOrganizationsInstances" Type="Self.codeOrganizationsInstances" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeOrganizationsInstancesLanguages" Type="Self.codeOrganizationsInstancesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="codeOrganizationsInstancesLanguages">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Role="codeTablesValues" Type="Self.codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="codeTablesValuesLanguages" Type="Self.codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataCandidate_DataElection">
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="1" />
+          <End Role="dataElectionCandidate" Type="Self.dataElectionCandidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElection">
+              <PropertyRef Name="ElectionGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCandidate">
+              <PropertyRef Name="ElectionGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataElection_codeElectionCorrespondenceType">
+          <End Role="codeElectionCorrespondenceType" Type="Self.codeElectionCorrespondenceType" Multiplicity="0..1" />
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeElectionCorrespondenceType">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Principal>
+            <Dependent Role="dataElection">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataElectionCandidateLanguages_DataElectionCandidate">
+          <End Role="dataElectionCandidate" Type="Self.dataElectionCandidate" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataElectionCandidateLanguage" Type="Self.dataElectionCandidateLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElectionCandidate">
+              <PropertyRef Name="ElectionCandidateGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCandidateLanguage">
+              <PropertyRef Name="ElectionCandidateGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataElectionCandidates_DataCandidate">
+          <End Role="dataElectionCandidate" Type="Self.dataElectionCandidate" Multiplicity="1" />
+          <End Role="dataStaffVote" Type="Self.dataStaffVote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElectionCandidate">
+              <PropertyRef Name="ElectionCandidateGUID" />
+            </Principal>
+            <Dependent Role="dataStaffVote">
+              <PropertyRef Name="ElectionCandidateGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataElectionConditions_DataElection">
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataElectionCondition" Type="Self.dataElectionCondition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElection">
+              <PropertyRef Name="ElectionGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCondition">
+              <PropertyRef Name="ElectionGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataElectionCorrespondenc_dataElection">
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="0..1" />
+          <End Role="dataElectionCorrespondence" Type="Self.dataElectionCorrespondence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElection">
+              <PropertyRef Name="ElectionGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCorrespondence">
+              <PropertyRef Name="ElectionGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataElectionCorrespondence_codeElectionCorrespondenceType">
+          <End Role="codeElectionCorrespondenceType" Type="Self.codeElectionCorrespondenceType" Multiplicity="1" />
+          <End Role="dataElectionCorrespondence" Type="Self.dataElectionCorrespondence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeElectionCorrespondenceType">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCorrespondence">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataElectionCorrespondenceStaff_dataElectionCorrespondence">
+          <End Role="dataElectionCorrespondence" Type="Self.dataElectionCorrespondence" Multiplicity="0..1" />
+          <End Role="dataElectionCorrespondenceStaff" Type="Self.dataElectionCorrespondenceStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElectionCorrespondence">
+              <PropertyRef Name="ElectionCorrespondenceGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCorrespondenceStaff">
+              <PropertyRef Name="ElectionCorrespondenceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataElectionCorrespondenceStaff_dataElectionStaff">
+          <End Role="dataElectionStaff" Type="Self.dataElectionStaff" Multiplicity="0..1" />
+          <End Role="dataElectionCorrespondenceStaff" Type="Self.dataElectionCorrespondenceStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElectionStaff">
+              <PropertyRef Name="ElectionStaffGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCorrespondenceStaff">
+              <PropertyRef Name="ElectionStaffGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataElectionEligibleStaff_DataElection">
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="1" />
+          <End Role="dataElectionStaff" Type="Self.dataElectionStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElection">
+              <PropertyRef Name="ElectionGUID" />
+            </Principal>
+            <Dependent Role="dataElectionStaff">
+              <PropertyRef Name="ElectionGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataElectionEligibleStaff_DataEligibleStaff">
+          <End Role="dataStaff" Type="Self.dataStaff" Multiplicity="1" />
+          <End Role="dataElectionStaff" Type="Self.dataElectionStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataStaff">
+              <PropertyRef Name="StaffGUID" />
+            </Principal>
+            <Dependent Role="dataElectionStaff">
+              <PropertyRef Name="StaffGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataElectionLanguages_DataElection">
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataElectionLanguage" Type="Self.dataElectionLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElection">
+              <PropertyRef Name="ElectionGUID" />
+            </Principal>
+            <Dependent Role="dataElectionLanguage">
+              <PropertyRef Name="ElectionGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataStaff_codeDutyStations">
+          <End Role="codeDutyStations" Type="Self.codeDutyStations" Multiplicity="0..1" />
+          <End Role="dataStaff" Type="Self.dataStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="dataStaff">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataStaff_codeOrganizationsInstances">
+          <End Role="codeOrganizationsInstances" Type="Self.codeOrganizationsInstances" Multiplicity="0..1" />
+          <End Role="dataStaff" Type="Self.dataStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="dataStaff">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataStaffVotes_DataElectionStaffs">
+          <End Role="dataElectionStaff" Type="Self.dataElectionStaff" Multiplicity="1" />
+          <End Role="dataStaffVote" Type="Self.dataStaffVote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElectionStaff">
+              <PropertyRef Name="ElectionStaffGUID" />
+            </Principal>
+            <Dependent Role="dataStaffVote">
+              <PropertyRef Name="ElectionStaffGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OVSModelStoreContainer">
+          <EntitySet Name="codeConditionType" EntityType="Self.codeConditionType" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeConditionTypeLanguage" EntityType="Self.codeConditionTypeLanguage" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDutyStations" EntityType="Self.codeDutyStations" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="Self.codeDutyStationsLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeElectionCorrespondenceType" EntityType="Self.codeElectionCorrespondenceType" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeElectionCorrespondenceTypeLanguage" EntityType="Self.codeElectionCorrespondenceTypeLanguage" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOrganizationsInstances" EntityType="Self.codeOrganizationsInstances" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeOrganizationsInstancesLanguages" EntityType="Self.codeOrganizationsInstancesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValues" EntityType="Self.codeTablesValues" Schema="code" store:Type="Tables" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="Self.codeTablesValuesLanguages" Schema="code" store:Type="Tables" />
+          <EntitySet Name="dataElection" EntityType="Self.dataElection" Schema="OVS" store:Type="Tables" />
+          <EntitySet Name="dataElectionCandidate" EntityType="Self.dataElectionCandidate" Schema="OVS" store:Type="Tables" />
+          <EntitySet Name="dataElectionCandidateLanguage" EntityType="Self.dataElectionCandidateLanguage" Schema="OVS" store:Type="Tables" />
+          <EntitySet Name="dataElectionCondition" EntityType="Self.dataElectionCondition" Schema="OVS" store:Type="Tables" />
+          <EntitySet Name="dataElectionCorrespondence" EntityType="Self.dataElectionCorrespondence" Schema="OVS" store:Type="Tables" />
+          <EntitySet Name="dataElectionCorrespondenceStaff" EntityType="Self.dataElectionCorrespondenceStaff" Schema="OVS" store:Type="Tables" />
+          <EntitySet Name="dataElectionLanguage" EntityType="Self.dataElectionLanguage" Schema="OVS" store:Type="Tables" />
+          <EntitySet Name="dataElectionStaff" EntityType="Self.dataElectionStaff" Schema="OVS" store:Type="Tables" />
+          <EntitySet Name="dataStaff" EntityType="Self.dataStaff" Schema="OVS" store:Type="Tables" />
+          <EntitySet Name="dataStaffVote" EntityType="Self.dataStaffVote" Schema="OVS" store:Type="Tables" />
+          <AssociationSet Name="FK_CodeConditionTypeLanguages_CodeConditionTypes" Association="Self.FK_CodeConditionTypeLanguages_CodeConditionTypes">
+            <End Role="codeConditionType" EntitySet="codeConditionType" />
+            <End Role="codeConditionTypeLanguage" EntitySet="codeConditionTypeLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDutyStations_dataElection" Association="Self.FK_codeDutyStations_dataElection">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="dataElection" EntitySet="dataElection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDutyStations_dataElectionCondition" Association="Self.FK_codeDutyStations_dataElectionCondition">
+            <End Role="codeConditionType" EntitySet="codeConditionType" />
+            <End Role="dataElectionCondition" EntitySet="dataElectionCondition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="Self.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeElectionCorrespondenceTypeLanguage_codeElectionCorrespondenceType" Association="Self.FK_codeElectionCorrespondenceTypeLanguage_codeElectionCorrespondenceType">
+            <End Role="codeElectionCorrespondenceType" EntitySet="codeElectionCorrespondenceType" />
+            <End Role="codeElectionCorrespondenceTypeLanguage" EntitySet="codeElectionCorrespondenceTypeLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsInstances_dataElection" Association="Self.FK_codeOrganizationsInstances_dataElection">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="dataElection" EntitySet="dataElection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" Association="Self.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="codeOrganizationsInstancesLanguages" EntitySet="codeOrganizationsInstancesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="Self.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataCandidate_DataElection" Association="Self.FK_DataCandidate_DataElection">
+            <End Role="dataElection" EntitySet="dataElection" />
+            <End Role="dataElectionCandidate" EntitySet="dataElectionCandidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataElection_codeElectionCorrespondenceType" Association="Self.FK_dataElection_codeElectionCorrespondenceType">
+            <End Role="codeElectionCorrespondenceType" EntitySet="codeElectionCorrespondenceType" />
+            <End Role="dataElection" EntitySet="dataElection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataElectionCandidateLanguages_DataElectionCandidate" Association="Self.FK_DataElectionCandidateLanguages_DataElectionCandidate">
+            <End Role="dataElectionCandidate" EntitySet="dataElectionCandidate" />
+            <End Role="dataElectionCandidateLanguage" EntitySet="dataElectionCandidateLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataElectionCandidates_DataCandidate" Association="Self.FK_DataElectionCandidates_DataCandidate">
+            <End Role="dataElectionCandidate" EntitySet="dataElectionCandidate" />
+            <End Role="dataStaffVote" EntitySet="dataStaffVote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataElectionConditions_DataElection" Association="Self.FK_DataElectionConditions_DataElection">
+            <End Role="dataElection" EntitySet="dataElection" />
+            <End Role="dataElectionCondition" EntitySet="dataElectionCondition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataElectionCorrespondenc_dataElection" Association="Self.FK_dataElectionCorrespondenc_dataElection">
+            <End Role="dataElection" EntitySet="dataElection" />
+            <End Role="dataElectionCorrespondence" EntitySet="dataElectionCorrespondence" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataElectionCorrespondence_codeElectionCorrespondenceType" Association="Self.FK_dataElectionCorrespondence_codeElectionCorrespondenceType">
+            <End Role="codeElectionCorrespondenceType" EntitySet="codeElectionCorrespondenceType" />
+            <End Role="dataElectionCorrespondence" EntitySet="dataElectionCorrespondence" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataElectionCorrespondenceStaff_dataElectionCorrespondence" Association="Self.FK_dataElectionCorrespondenceStaff_dataElectionCorrespondence">
+            <End Role="dataElectionCorrespondence" EntitySet="dataElectionCorrespondence" />
+            <End Role="dataElectionCorrespondenceStaff" EntitySet="dataElectionCorrespondenceStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataElectionCorrespondenceStaff_dataElectionStaff" Association="Self.FK_dataElectionCorrespondenceStaff_dataElectionStaff">
+            <End Role="dataElectionStaff" EntitySet="dataElectionStaff" />
+            <End Role="dataElectionCorrespondenceStaff" EntitySet="dataElectionCorrespondenceStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataElectionEligibleStaff_DataElection" Association="Self.FK_DataElectionEligibleStaff_DataElection">
+            <End Role="dataElection" EntitySet="dataElection" />
+            <End Role="dataElectionStaff" EntitySet="dataElectionStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataElectionEligibleStaff_DataEligibleStaff" Association="Self.FK_DataElectionEligibleStaff_DataEligibleStaff">
+            <End Role="dataStaff" EntitySet="dataStaff" />
+            <End Role="dataElectionStaff" EntitySet="dataElectionStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataElectionLanguages_DataElection" Association="Self.FK_DataElectionLanguages_DataElection">
+            <End Role="dataElection" EntitySet="dataElection" />
+            <End Role="dataElectionLanguage" EntitySet="dataElectionLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataStaff_codeDutyStations" Association="Self.FK_dataStaff_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="dataStaff" EntitySet="dataStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataStaff_codeOrganizationsInstances" Association="Self.FK_dataStaff_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="dataStaff" EntitySet="dataStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataStaffVotes_DataElectionStaffs" Association="Self.FK_DataStaffVotes_DataElectionStaffs">
+            <End Role="dataElectionStaff" EntitySet="dataElectionStaff" />
+            <End Role="dataStaffVote" EntitySet="dataStaffVote" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OVSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="dataElection">
+          <Key>
+            <PropertyRef Name="ElectionGUID" />
+          </Key>
+          <Property Name="ElectionGUID" Type="Guid" Nullable="false" />
+          <Property Name="ElectionCorrespondenceTypeGUID" Type="Guid" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <Property Name="TimeZone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CloseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ResultAvaiableDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsShuffling" Type="Boolean" Nullable="false" />
+          <Property Name="IsNeedVoteConfirmationMail" Type="Boolean" Nullable="false" />
+          <Property Name="IsDisplayCandidateImage" Type="Boolean" Nullable="false" />
+          <Property Name="IsResultShared" Type="Boolean" Nullable="false" />
+          <Property Name="IsDisplayReviewPage" Type="Boolean" Nullable="false" />
+          <Property Name="IsArchived" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataElectionRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataElectionCandidate" Relationship="Self.FK_DataCandidate_DataElection" FromRole="dataElection" ToRole="dataElectionCandidate" />
+          <NavigationProperty Name="dataElectionCondition" Relationship="Self.FK_DataElectionConditions_DataElection" FromRole="dataElection" ToRole="dataElectionCondition" />
+          <NavigationProperty Name="dataElectionCorrespondence" Relationship="Self.FK_dataElectionCorrespondenc_dataElection" FromRole="dataElection" ToRole="dataElectionCorrespondence" />
+          <NavigationProperty Name="dataElectionLanguage" Relationship="Self.FK_DataElectionLanguages_DataElection" FromRole="dataElection" ToRole="dataElectionLanguage" />
+          <NavigationProperty Name="codeElectionCorrespondenceType" Relationship="OVSModel.FK_dataElection_codeElectionCorrespondenceType" FromRole="dataElection" ToRole="codeElectionCorrespondenceType" />
+          <NavigationProperty Name="codeDutyStations" Relationship="OVSModel.FK_codeDutyStations_dataElection" FromRole="dataElection" ToRole="codeDutyStations" />
+          <NavigationProperty Name="codeOrganizationsInstances" Relationship="OVSModel.FK_codeOrganizationsInstances_dataElection" FromRole="dataElection" ToRole="codeOrganizationsInstances" />
+          <NavigationProperty Name="dataElectionStaff" Relationship="OVSModel.FK_DataElectionEligibleStaff_DataElection" FromRole="dataElection" ToRole="dataElectionStaff" />
+        </EntityType>
+        <EntityType Name="dataElectionCandidate">
+          <Key>
+            <PropertyRef Name="ElectionCandidateGUID" />
+          </Key>
+          <Property Name="ElectionCandidateGUID" Type="Guid" Nullable="false" />
+          <Property Name="ElectionGUID" Type="Guid" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CampaignPlan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GenderGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataElectionCandidateRowVersion" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataElection" Relationship="Self.FK_DataCandidate_DataElection" FromRole="dataElectionCandidate" ToRole="dataElection" />
+          <NavigationProperty Name="dataElectionCandidateLanguage" Relationship="Self.FK_DataElectionCandidateLanguages_DataElectionCandidate" FromRole="dataElectionCandidate" ToRole="dataElectionCandidateLanguage" />
+          <NavigationProperty Name="dataStaffVote" Relationship="Self.FK_DataElectionCandidates_DataCandidate" FromRole="dataElectionCandidate" ToRole="dataStaffVote" />
+        </EntityType>
+        <EntityType Name="dataElectionCandidateLanguage">
+          <Key>
+            <PropertyRef Name="ElectionCandidateLangaugeGUID" />
+          </Key>
+          <Property Name="ElectionCandidateLangaugeGUID" Type="Guid" Nullable="false" />
+          <Property Name="ElectionCandidateGUID" Type="Guid" />
+          <Property Name="FullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CampaignPlan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="dataElectionCandidateLanguageRowVersion" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataElectionCandidate" Relationship="Self.FK_DataElectionCandidateLanguages_DataElectionCandidate" FromRole="dataElectionCandidateLanguage" ToRole="dataElectionCandidate" />
+        </EntityType>
+        <EntityType Name="dataElectionCondition">
+          <Key>
+            <PropertyRef Name="ElectionConditionGUID" />
+          </Key>
+          <Property Name="ElectionConditionGUID" Type="Guid" Nullable="false" />
+          <Property Name="ElectionGUID" Type="Guid" Nullable="false" />
+          <Property Name="ConditionTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="ConditionValue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataElectionConditionRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataElection" Relationship="Self.FK_DataElectionConditions_DataElection" FromRole="dataElectionCondition" ToRole="dataElection" />
+          <NavigationProperty Name="codeConditionType" Relationship="OVSModel.FK_codeDutyStations_dataElectionCondition" FromRole="dataElectionCondition" ToRole="codeConditionType" />
+        </EntityType>
+        <EntityType Name="dataElectionCorrespondence">
+          <Key>
+            <PropertyRef Name="ElectionCorrespondenceGUID" />
+          </Key>
+          <Property Name="ElectionCorrespondenceGUID" Type="Guid" Nullable="false" />
+          <Property Name="ElectionGUID" Type="Guid" />
+          <Property Name="ElectionCorrespondenceTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="SendDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MessageTitle" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MessageBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataElectionCorrespondenceRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataElection" Relationship="Self.FK_dataElectionCorrespondenc_dataElection" FromRole="dataElectionCorrespondence" ToRole="dataElection" />
+          <NavigationProperty Name="dataElectionCorrespondenceStaff" Relationship="Self.FK_dataElectionCorrespondenceStaff_dataElectionCorrespondence" FromRole="dataElectionCorrespondence" ToRole="dataElectionCorrespondenceStaff" />
+          <NavigationProperty Name="codeElectionCorrespondenceType" Relationship="OVSModel.FK_dataElectionCorrespondence_codeElectionCorrespondenceType" FromRole="dataElectionCorrespondence" ToRole="codeElectionCorrespondenceType" />
+        </EntityType>
+        <EntityType Name="dataElectionCorrespondenceStaff">
+          <Key>
+            <PropertyRef Name="ElectionCorrespondenceStaffGUID" />
+          </Key>
+          <Property Name="ElectionCorrespondenceStaffGUID" Type="Guid" Nullable="false" />
+          <Property Name="ElectionCorrespondenceGUID" Type="Guid" />
+          <Property Name="ElectionStaffGUID" Type="Guid" />
+          <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsReceived" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataElectionCorrespondenceStaffRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataElectionCorrespondence" Relationship="Self.FK_dataElectionCorrespondenceStaff_dataElectionCorrespondence" FromRole="dataElectionCorrespondenceStaff" ToRole="dataElectionCorrespondence" />
+          <NavigationProperty Name="dataElectionStaff" Relationship="OVSModel.FK_dataElectionCorrespondenceStaff_dataElectionStaff" FromRole="dataElectionCorrespondenceStaff" ToRole="dataElectionStaff" />
+        </EntityType>
+        <EntityType Name="dataElectionLanguage">
+          <Key>
+            <PropertyRef Name="ElectionLanguageGUID" />
+          </Key>
+          <Property Name="ElectionLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ElectionGUID" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataElectionLanguageRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataElection" Relationship="Self.FK_DataElectionLanguages_DataElection" FromRole="dataElectionLanguage" ToRole="dataElection" />
+        </EntityType>
+        <EntityType Name="dataStaff">
+          <Key>
+            <PropertyRef Name="StaffGUID" />
+          </Key>
+          <Property Name="StaffGUID" Type="Guid" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataStaffRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" />
+          <Property Name="DutyStationGUID" Type="Guid" />
+          <NavigationProperty Name="codeDutyStations" Relationship="OVSModel.FK_dataStaff_codeDutyStations" FromRole="dataStaff" ToRole="codeDutyStations" />
+          <NavigationProperty Name="codeOrganizationsInstances" Relationship="OVSModel.FK_dataStaff_codeOrganizationsInstances" FromRole="dataStaff" ToRole="codeOrganizationsInstances" />
+          <NavigationProperty Name="dataElectionStaff" Relationship="OVSModel.FK_DataElectionEligibleStaff_DataEligibleStaff" FromRole="dataStaff" ToRole="dataElectionStaff" />
+        </EntityType>
+        <EntityType Name="dataStaffVote">
+          <Key>
+            <PropertyRef Name="StaffVoteGUID" />
+          </Key>
+          <Property Name="StaffVoteGUID" Type="Guid" Nullable="false" />
+          <Property Name="ElectionCandidateGUID" Type="Guid" Nullable="false" />
+          <Property Name="ElectionStaffGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataStaffVoteRowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataElectionCandidate" Relationship="Self.FK_DataElectionCandidates_DataCandidate" FromRole="dataStaffVote" ToRole="dataElectionCandidate" />
+          <NavigationProperty Name="dataElectionStaff" Relationship="OVSModel.FK_DataStaffVotes_DataElectionStaffs" FromRole="dataStaffVote" ToRole="dataElectionStaff" />
+        </EntityType>
+        <Association Name="FK_DataCandidate_DataElection">
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="1" />
+          <End Role="dataElectionCandidate" Type="Self.dataElectionCandidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElection">
+              <PropertyRef Name="ElectionGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCandidate">
+              <PropertyRef Name="ElectionGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataElectionConditions_DataElection">
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataElectionCondition" Type="Self.dataElectionCondition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElection">
+              <PropertyRef Name="ElectionGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCondition">
+              <PropertyRef Name="ElectionGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataElectionCorrespondenc_dataElection">
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="0..1" />
+          <End Role="dataElectionCorrespondence" Type="Self.dataElectionCorrespondence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElection">
+              <PropertyRef Name="ElectionGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCorrespondence">
+              <PropertyRef Name="ElectionGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataElectionLanguages_DataElection">
+          <End Role="dataElection" Type="Self.dataElection" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataElectionLanguage" Type="Self.dataElectionLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElection">
+              <PropertyRef Name="ElectionGUID" />
+            </Principal>
+            <Dependent Role="dataElectionLanguage">
+              <PropertyRef Name="ElectionGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataElectionCandidateLanguages_DataElectionCandidate">
+          <End Role="dataElectionCandidate" Type="Self.dataElectionCandidate" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="dataElectionCandidateLanguage" Type="Self.dataElectionCandidateLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElectionCandidate">
+              <PropertyRef Name="ElectionCandidateGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCandidateLanguage">
+              <PropertyRef Name="ElectionCandidateGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataElectionCandidates_DataCandidate">
+          <End Role="dataElectionCandidate" Type="Self.dataElectionCandidate" Multiplicity="1" />
+          <End Role="dataStaffVote" Type="Self.dataStaffVote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElectionCandidate">
+              <PropertyRef Name="ElectionCandidateGUID" />
+            </Principal>
+            <Dependent Role="dataStaffVote">
+              <PropertyRef Name="ElectionCandidateGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataElectionCorrespondenceStaff_dataElectionCorrespondence">
+          <End Role="dataElectionCorrespondence" Type="Self.dataElectionCorrespondence" Multiplicity="0..1" />
+          <End Role="dataElectionCorrespondenceStaff" Type="Self.dataElectionCorrespondenceStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElectionCorrespondence">
+              <PropertyRef Name="ElectionCorrespondenceGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCorrespondenceStaff">
+              <PropertyRef Name="ElectionCorrespondenceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OVSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="dataElection" EntityType="Self.dataElection" />
+          <EntitySet Name="dataElectionCandidate" EntityType="Self.dataElectionCandidate" />
+          <EntitySet Name="dataElectionCandidateLanguage" EntityType="Self.dataElectionCandidateLanguage" />
+          <EntitySet Name="dataElectionCondition" EntityType="Self.dataElectionCondition" />
+          <EntitySet Name="dataElectionCorrespondence" EntityType="Self.dataElectionCorrespondence" />
+          <EntitySet Name="dataElectionCorrespondenceStaff" EntityType="Self.dataElectionCorrespondenceStaff" />
+          <EntitySet Name="dataElectionLanguage" EntityType="Self.dataElectionLanguage" />
+          <EntitySet Name="dataStaff" EntityType="Self.dataStaff" />
+          <EntitySet Name="dataStaffVote" EntityType="Self.dataStaffVote" />
+          <AssociationSet Name="FK_DataCandidate_DataElection" Association="Self.FK_DataCandidate_DataElection">
+            <End Role="dataElection" EntitySet="dataElection" />
+            <End Role="dataElectionCandidate" EntitySet="dataElectionCandidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataElectionConditions_DataElection" Association="Self.FK_DataElectionConditions_DataElection">
+            <End Role="dataElection" EntitySet="dataElection" />
+            <End Role="dataElectionCondition" EntitySet="dataElectionCondition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataElectionCorrespondenc_dataElection" Association="Self.FK_dataElectionCorrespondenc_dataElection">
+            <End Role="dataElection" EntitySet="dataElection" />
+            <End Role="dataElectionCorrespondence" EntitySet="dataElectionCorrespondence" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataElectionLanguages_DataElection" Association="Self.FK_DataElectionLanguages_DataElection">
+            <End Role="dataElection" EntitySet="dataElection" />
+            <End Role="dataElectionLanguage" EntitySet="dataElectionLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataElectionCandidateLanguages_DataElectionCandidate" Association="Self.FK_DataElectionCandidateLanguages_DataElectionCandidate">
+            <End Role="dataElectionCandidate" EntitySet="dataElectionCandidate" />
+            <End Role="dataElectionCandidateLanguage" EntitySet="dataElectionCandidateLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataElectionCandidates_DataCandidate" Association="Self.FK_DataElectionCandidates_DataCandidate">
+            <End Role="dataElectionCandidate" EntitySet="dataElectionCandidate" />
+            <End Role="dataStaffVote" EntitySet="dataStaffVote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataElectionCorrespondenceStaff_dataElectionCorrespondence" Association="Self.FK_dataElectionCorrespondenceStaff_dataElectionCorrespondence">
+            <End Role="dataElectionCorrespondence" EntitySet="dataElectionCorrespondence" />
+            <End Role="dataElectionCorrespondenceStaff" EntitySet="dataElectionCorrespondenceStaff" />
+          </AssociationSet>
+          <EntitySet Name="codeElectionCorrespondenceType" EntityType="OVSModel.codeElectionCorrespondenceType" />
+          <EntitySet Name="codeElectionCorrespondenceTypeLanguage" EntityType="OVSModel.codeElectionCorrespondenceTypeLanguage" />
+          <AssociationSet Name="FK_codeElectionCorrespondenceTypeLanguage_codeElectionCorrespondenceType" Association="OVSModel.FK_codeElectionCorrespondenceTypeLanguage_codeElectionCorrespondenceType">
+            <End Role="codeElectionCorrespondenceType" EntitySet="codeElectionCorrespondenceType" />
+            <End Role="codeElectionCorrespondenceTypeLanguage" EntitySet="codeElectionCorrespondenceTypeLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataElection_codeElectionCorrespondenceType" Association="OVSModel.FK_dataElection_codeElectionCorrespondenceType">
+            <End Role="codeElectionCorrespondenceType" EntitySet="codeElectionCorrespondenceType" />
+            <End Role="dataElection" EntitySet="dataElection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataElectionCorrespondence_codeElectionCorrespondenceType" Association="OVSModel.FK_dataElectionCorrespondence_codeElectionCorrespondenceType">
+            <End Role="codeElectionCorrespondenceType" EntitySet="codeElectionCorrespondenceType" />
+            <End Role="dataElectionCorrespondence" EntitySet="dataElectionCorrespondence" />
+          </AssociationSet>
+          <EntitySet Name="codeConditionType" EntityType="OVSModel.codeConditionType" />
+          <EntitySet Name="codeConditionTypeLanguage" EntityType="OVSModel.codeConditionTypeLanguage" />
+          <AssociationSet Name="FK_CodeConditionTypeLanguages_CodeConditionTypes" Association="OVSModel.FK_CodeConditionTypeLanguages_CodeConditionTypes">
+            <End Role="codeConditionType" EntitySet="codeConditionType" />
+            <End Role="codeConditionTypeLanguage" EntitySet="codeConditionTypeLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDutyStations_dataElectionCondition" Association="OVSModel.FK_codeDutyStations_dataElectionCondition">
+            <End Role="codeConditionType" EntitySet="codeConditionType" />
+            <End Role="dataElectionCondition" EntitySet="dataElectionCondition" />
+          </AssociationSet>
+          <EntitySet Name="codeDutyStations" EntityType="OVSModel.codeDutyStations" />
+          <EntitySet Name="codeDutyStationsLanguages" EntityType="OVSModel.codeDutyStationsLanguages" />
+          <EntitySet Name="codeOrganizationsInstances" EntityType="OVSModel.codeOrganizationsInstances" />
+          <AssociationSet Name="FK_codeDutyStations_dataElection" Association="OVSModel.FK_codeDutyStations_dataElection">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="dataElection" EntitySet="dataElection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeDutyStationsLanguages_codeDutyStations" Association="OVSModel.FK_codeDutyStationsLanguages_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="codeDutyStationsLanguages" EntitySet="codeDutyStationsLanguages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataStaff_codeDutyStations" Association="OVSModel.FK_dataStaff_codeDutyStations">
+            <End Role="codeDutyStations" EntitySet="codeDutyStations" />
+            <End Role="dataStaff" EntitySet="dataStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeOrganizationsInstances_dataElection" Association="OVSModel.FK_codeOrganizationsInstances_dataElection">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="dataElection" EntitySet="dataElection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataStaff_codeOrganizationsInstances" Association="OVSModel.FK_dataStaff_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="dataStaff" EntitySet="dataStaff" />
+          </AssociationSet>
+          <EntitySet Name="codeOrganizationsInstancesLanguages" EntityType="OVSModel.codeOrganizationsInstancesLanguages" />
+          <AssociationSet Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" Association="OVSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+            <End Role="codeOrganizationsInstances" EntitySet="codeOrganizationsInstances" />
+            <End Role="codeOrganizationsInstancesLanguages" EntitySet="codeOrganizationsInstancesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="codeTablesValues" EntityType="OVSModel.codeTablesValues" />
+          <EntitySet Name="codeTablesValuesLanguages" EntityType="OVSModel.codeTablesValuesLanguages" />
+          <AssociationSet Name="FK_codeTablesValuesLanguages_codeTablesValues" Association="OVSModel.FK_codeTablesValuesLanguages_codeTablesValues">
+            <End Role="codeTablesValues" EntitySet="codeTablesValues" />
+            <End Role="codeTablesValuesLanguages" EntitySet="codeTablesValuesLanguages" />
+          </AssociationSet>
+          <EntitySet Name="dataElectionStaff" EntityType="OVSModel.dataElectionStaff" />
+          <AssociationSet Name="FK_DataElectionEligibleStaff_DataElection" Association="OVSModel.FK_DataElectionEligibleStaff_DataElection">
+            <End Role="dataElection" EntitySet="dataElection" />
+            <End Role="dataElectionStaff" EntitySet="dataElectionStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dataElectionCorrespondenceStaff_dataElectionStaff" Association="OVSModel.FK_dataElectionCorrespondenceStaff_dataElectionStaff">
+            <End Role="dataElectionStaff" EntitySet="dataElectionStaff" />
+            <End Role="dataElectionCorrespondenceStaff" EntitySet="dataElectionCorrespondenceStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataElectionEligibleStaff_DataEligibleStaff" Association="OVSModel.FK_DataElectionEligibleStaff_DataEligibleStaff">
+            <End Role="dataStaff" EntitySet="dataStaff" />
+            <End Role="dataElectionStaff" EntitySet="dataElectionStaff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataStaffVotes_DataElectionStaffs" Association="OVSModel.FK_DataStaffVotes_DataElectionStaffs">
+            <End Role="dataElectionStaff" EntitySet="dataElectionStaff" />
+            <End Role="dataStaffVote" EntitySet="dataStaffVote" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="codeElectionCorrespondenceType">
+          <Key>
+            <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+          </Key>
+          <Property Name="ElectionCorrespondenceTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeElectionCorrespondenceTypeRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeElectionCorrespondenceTypeLanguage" Relationship="OVSModel.FK_codeElectionCorrespondenceTypeLanguage_codeElectionCorrespondenceType" FromRole="codeElectionCorrespondenceType" ToRole="codeElectionCorrespondenceTypeLanguage" />
+          <NavigationProperty Name="dataElection" Relationship="OVSModel.FK_dataElection_codeElectionCorrespondenceType" FromRole="codeElectionCorrespondenceType" ToRole="dataElection" />
+          <NavigationProperty Name="dataElectionCorrespondence" Relationship="OVSModel.FK_dataElectionCorrespondence_codeElectionCorrespondenceType" FromRole="codeElectionCorrespondenceType" ToRole="dataElectionCorrespondence" />
+        </EntityType>
+        <EntityType Name="codeElectionCorrespondenceTypeLanguage">
+          <Key>
+            <PropertyRef Name="ElectionCorrespondenceTypeLanguageGUID" />
+          </Key>
+          <Property Name="ElectionCorrespondenceTypeLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ElectionCorrespondenceTypeGUID" Type="Guid" />
+          <Property Name="ElectionCorrespondenceTypeDescription" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeElectionCorrespondenceTypeLanguageRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeElectionCorrespondenceType" Relationship="OVSModel.FK_codeElectionCorrespondenceTypeLanguage_codeElectionCorrespondenceType" FromRole="codeElectionCorrespondenceTypeLanguage" ToRole="codeElectionCorrespondenceType" />
+        </EntityType>
+        <Association Name="FK_codeElectionCorrespondenceTypeLanguage_codeElectionCorrespondenceType">
+          <End Type="OVSModel.codeElectionCorrespondenceType" Role="codeElectionCorrespondenceType" Multiplicity="0..1" />
+          <End Type="OVSModel.codeElectionCorrespondenceTypeLanguage" Role="codeElectionCorrespondenceTypeLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeElectionCorrespondenceType">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Principal>
+            <Dependent Role="codeElectionCorrespondenceTypeLanguage">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataElection_codeElectionCorrespondenceType">
+          <End Type="OVSModel.codeElectionCorrespondenceType" Role="codeElectionCorrespondenceType" Multiplicity="0..1" />
+          <End Type="OVSModel.dataElection" Role="dataElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeElectionCorrespondenceType">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Principal>
+            <Dependent Role="dataElection">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataElectionCorrespondence_codeElectionCorrespondenceType">
+          <End Type="OVSModel.codeElectionCorrespondenceType" Role="codeElectionCorrespondenceType" Multiplicity="1" />
+          <End Type="OVSModel.dataElectionCorrespondence" Role="dataElectionCorrespondence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeElectionCorrespondenceType">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCorrespondence">
+              <PropertyRef Name="ElectionCorrespondenceTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeConditionType">
+          <Key>
+            <PropertyRef Name="ConditionTypeGUID" />
+          </Key>
+          <Property Name="ConditionTypeGUID" Type="Guid" Nullable="false" />
+          <Property Name="DataTypeGUID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeConditionTypesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeConditionTypeLanguage" Relationship="OVSModel.FK_CodeConditionTypeLanguages_CodeConditionTypes" FromRole="codeConditionType" ToRole="codeConditionTypeLanguage" />
+          <NavigationProperty Name="dataElectionCondition" Relationship="OVSModel.FK_codeDutyStations_dataElectionCondition" FromRole="codeConditionType" ToRole="dataElectionCondition" />
+        </EntityType>
+        <EntityType Name="codeConditionTypeLanguage">
+          <Key>
+            <PropertyRef Name="ConditionTypeLanguageGUID" />
+          </Key>
+          <Property Name="ConditionTypeLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ConditionTypeGUID" Type="Guid" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeConditionTypeLanguagesRowVersion" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeConditionType" Relationship="OVSModel.FK_CodeConditionTypeLanguages_CodeConditionTypes" FromRole="codeConditionTypeLanguage" ToRole="codeConditionType" />
+        </EntityType>
+        <Association Name="FK_CodeConditionTypeLanguages_CodeConditionTypes">
+          <End Type="OVSModel.codeConditionType" Role="codeConditionType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="OVSModel.codeConditionTypeLanguage" Role="codeConditionTypeLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeConditionType">
+              <PropertyRef Name="ConditionTypeGUID" />
+            </Principal>
+            <Dependent Role="codeConditionTypeLanguage">
+              <PropertyRef Name="ConditionTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDutyStations_dataElectionCondition">
+          <End Type="OVSModel.codeConditionType" Role="codeConditionType" Multiplicity="1" />
+          <End Type="OVSModel.dataElectionCondition" Role="dataElectionCondition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeConditionType">
+              <PropertyRef Name="ConditionTypeGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCondition">
+              <PropertyRef Name="ConditionTypeGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeDutyStations">
+          <Key>
+            <PropertyRef Name="DutyStationGUID" />
+          </Key>
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="CountryGUID" Type="Guid" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataElection" Relationship="OVSModel.FK_codeDutyStations_dataElection" FromRole="codeDutyStations" ToRole="dataElection" />
+          <NavigationProperty Name="codeDutyStationsLanguages" Relationship="OVSModel.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStations" ToRole="codeDutyStationsLanguages" />
+          <NavigationProperty Name="dataStaff" Relationship="OVSModel.FK_dataStaff_codeDutyStations" FromRole="codeDutyStations" ToRole="dataStaff" />
+          <Property Name="IsDutyStation" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="codeDutyStationsLanguages">
+          <Key>
+            <PropertyRef Name="DutyStationLanguageGUID" />
+          </Key>
+          <Property Name="DutyStationLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="DutyStationGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DutyStationDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeDutyStationsLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeDutyStations" Relationship="OVSModel.FK_codeDutyStationsLanguages_codeDutyStations" FromRole="codeDutyStationsLanguages" ToRole="codeDutyStations" />
+        </EntityType>
+        <EntityType Name="codeOrganizationsInstances">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationGUID" Type="Guid" Nullable="false" />
+          <Property Name="OperationGUID" Type="Guid" />
+          <Property Name="codeOrganizationsInstancesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataElection" Relationship="OVSModel.FK_codeOrganizationsInstances_dataElection" FromRole="codeOrganizationsInstances" ToRole="dataElection" />
+          <NavigationProperty Name="dataStaff" Relationship="OVSModel.FK_dataStaff_codeOrganizationsInstances" FromRole="codeOrganizationsInstances" ToRole="dataStaff" />
+          <NavigationProperty Name="codeOrganizationsInstancesLanguages" Relationship="OVSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" FromRole="codeOrganizationsInstances" ToRole="codeOrganizationsInstancesLanguages" />
+        </EntityType>
+        <Association Name="FK_codeDutyStations_dataElection">
+          <End Type="OVSModel.codeDutyStations" Role="codeDutyStations" Multiplicity="0..1" />
+          <End Type="OVSModel.dataElection" Role="dataElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="dataElection">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeDutyStationsLanguages_codeDutyStations">
+          <End Type="OVSModel.codeDutyStations" Role="codeDutyStations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="OVSModel.codeDutyStationsLanguages" Role="codeDutyStationsLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="codeDutyStationsLanguages">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataStaff_codeDutyStations">
+          <End Type="OVSModel.codeDutyStations" Role="codeDutyStations" Multiplicity="0..1" />
+          <End Type="OVSModel.dataStaff" Role="dataStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeDutyStations">
+              <PropertyRef Name="DutyStationGUID" />
+            </Principal>
+            <Dependent Role="dataStaff">
+              <PropertyRef Name="DutyStationGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeOrganizationsInstances_dataElection">
+          <End Type="OVSModel.codeOrganizationsInstances" Role="codeOrganizationsInstances" Multiplicity="0..1" />
+          <End Type="OVSModel.dataElection" Role="dataElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="dataElection">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataStaff_codeOrganizationsInstances">
+          <End Type="OVSModel.codeOrganizationsInstances" Role="codeOrganizationsInstances" Multiplicity="0..1" />
+          <End Type="OVSModel.dataStaff" Role="dataStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="dataStaff">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeOrganizationsInstancesLanguages">
+          <Key>
+            <PropertyRef Name="OrganizationInstanceLanguageGUID" />
+          </Key>
+          <Property Name="OrganizationInstanceLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="OrganizationInstanceGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationInstanceDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="codeOrganizationsInstancesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeOrganizationsInstances" Relationship="OVSModel.FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances" FromRole="codeOrganizationsInstancesLanguages" ToRole="codeOrganizationsInstances" />
+        </EntityType>
+        <Association Name="FK_codeOrganizationsInstancesLanguages_codeOrganizationsInstances">
+          <End Type="OVSModel.codeOrganizationsInstances" Role="codeOrganizationsInstances" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="OVSModel.codeOrganizationsInstancesLanguages" Role="codeOrganizationsInstancesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeOrganizationsInstances">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Principal>
+            <Dependent Role="codeOrganizationsInstancesLanguages">
+              <PropertyRef Name="OrganizationInstanceGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="codeTablesValues">
+          <Key>
+            <PropertyRef Name="ValueGUID" />
+          </Key>
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="TableGUID" Type="Guid" Nullable="false" />
+          <Property Name="FactorGUID" Type="Guid" />
+          <Property Name="SortID" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValuesLanguages" Relationship="OVSModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValues" ToRole="codeTablesValuesLanguages" />
+        </EntityType>
+        <EntityType Name="codeTablesValuesLanguages">
+          <Key>
+            <PropertyRef Name="TableValueLanguageGUID" />
+          </Key>
+          <Property Name="TableValueLanguageGUID" Type="Guid" Nullable="false" />
+          <Property Name="ValueGUID" Type="Guid" Nullable="false" />
+          <Property Name="LanguageID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ValueDescription" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="codeTablesValuesLanguagesRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="codeTablesValues" Relationship="OVSModel.FK_codeTablesValuesLanguages_codeTablesValues" FromRole="codeTablesValuesLanguages" ToRole="codeTablesValues" />
+        </EntityType>
+        <Association Name="FK_codeTablesValuesLanguages_codeTablesValues">
+          <End Type="OVSModel.codeTablesValues" Role="codeTablesValues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="OVSModel.codeTablesValuesLanguages" Role="codeTablesValuesLanguages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="codeTablesValues">
+              <PropertyRef Name="ValueGUID" />
+            </Principal>
+            <Dependent Role="codeTablesValuesLanguages">
+              <PropertyRef Name="ValueGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dataElectionStaff">
+          <Key>
+            <PropertyRef Name="ElectionStaffGUID" />
+          </Key>
+          <Property Name="ElectionStaffGUID" Type="Guid" Nullable="false" />
+          <Property Name="ElectionGUID" Type="Guid" Nullable="false" />
+          <Property Name="AccessKey" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VoteDate" Type="DateTime" Precision="3" />
+          <Property Name="IsViewed" Type="Boolean" />
+          <Property Name="ViewedDate" Type="DateTime" Precision="3" />
+          <Property Name="StaffGUID" Type="Guid" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="dataElectionStaffRowVersion" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="dataElection" Relationship="OVSModel.FK_DataElectionEligibleStaff_DataElection" FromRole="dataElectionStaff" ToRole="dataElection" />
+          <NavigationProperty Name="dataElectionCorrespondenceStaff" Relationship="OVSModel.FK_dataElectionCorrespondenceStaff_dataElectionStaff" FromRole="dataElectionStaff" ToRole="dataElectionCorrespondenceStaff" />
+          <NavigationProperty Name="dataStaff" Relationship="OVSModel.FK_DataElectionEligibleStaff_DataEligibleStaff" FromRole="dataElectionStaff" ToRole="dataStaff" />
+          <NavigationProperty Name="dataStaffVote" Relationship="OVSModel.FK_DataStaffVotes_DataElectionStaffs" FromRole="dataElectionStaff" ToRole="dataStaffVote" />
+        </EntityType>
+        <Association Name="FK_DataElectionEligibleStaff_DataElection">
+          <End Type="OVSModel.dataElection" Role="dataElection" Multiplicity="1" />
+          <End Type="OVSModel.dataElectionStaff" Role="dataElectionStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElection">
+              <PropertyRef Name="ElectionGUID" />
+            </Principal>
+            <Dependent Role="dataElectionStaff">
+              <PropertyRef Name="ElectionGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dataElectionCorrespondenceStaff_dataElectionStaff">
+          <End Type="OVSModel.dataElectionStaff" Role="dataElectionStaff" Multiplicity="0..1" />
+          <End Type="OVSModel.dataElectionCorrespondenceStaff" Role="dataElectionCorrespondenceStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElectionStaff">
+              <PropertyRef Name="ElectionStaffGUID" />
+            </Principal>
+            <Dependent Role="dataElectionCorrespondenceStaff">
+              <PropertyRef Name="ElectionStaffGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataElectionEligibleStaff_DataEligibleStaff">
+          <End Type="OVSModel.dataStaff" Role="dataStaff" Multiplicity="1" />
+          <End Type="OVSModel.dataElectionStaff" Role="dataElectionStaff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataStaff">
+              <PropertyRef Name="StaffGUID" />
+            </Principal>
+            <Dependent Role="dataElectionStaff">
+              <PropertyRef Name="StaffGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataStaffVotes_DataElectionStaffs">
+          <End Type="OVSModel.dataElectionStaff" Role="dataElectionStaff" Multiplicity="1" />
+          <End Type="OVSModel.dataStaffVote" Role="dataStaffVote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dataElectionStaff">
+              <PropertyRef Name="ElectionStaffGUID" />
+            </Principal>
+            <Dependent Role="dataStaffVote">
+              <PropertyRef Name="ElectionStaffGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OVSModelStoreContainer" CdmEntityContainer="OVSEntities">
+          <EntitySetMapping Name="dataElection">
+            <EntityTypeMapping TypeName="OVSModel.dataElection">
+              <MappingFragment StoreEntitySet="dataElection">
+                <ScalarProperty Name="ElectionGUID" ColumnName="ElectionGUID" />
+                <ScalarProperty Name="ElectionCorrespondenceTypeGUID" ColumnName="ElectionCorrespondenceTypeGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="CloseDate" ColumnName="CloseDate" />
+                <ScalarProperty Name="ResultAvaiableDate" ColumnName="ResultAvaiableDate" />
+                <ScalarProperty Name="CustomMessage" ColumnName="CustomMessage" />
+                <ScalarProperty Name="IsShuffling" ColumnName="IsShuffling" />
+                <ScalarProperty Name="IsNeedVoteConfirmationMail" ColumnName="IsNeedVoteConfirmationMail" />
+                <ScalarProperty Name="IsDisplayCandidateImage" ColumnName="IsDisplayCandidateImage" />
+                <ScalarProperty Name="IsResultShared" ColumnName="IsResultShared" />
+                <ScalarProperty Name="IsDisplayReviewPage" ColumnName="IsDisplayReviewPage" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataElectionRowVersion" ColumnName="dataElectionRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataElectionCandidate">
+            <EntityTypeMapping TypeName="OVSModel.dataElectionCandidate">
+              <MappingFragment StoreEntitySet="dataElectionCandidate">
+                <ScalarProperty Name="ElectionCandidateGUID" ColumnName="ElectionCandidateGUID" />
+                <ScalarProperty Name="ElectionGUID" ColumnName="ElectionGUID" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="CampaignPlan" ColumnName="CampaignPlan" />
+                <ScalarProperty Name="GenderGUID" ColumnName="GenderGUID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataElectionCandidateRowVersion" ColumnName="dataElectionCandidateRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataElectionCandidateLanguage">
+            <EntityTypeMapping TypeName="OVSModel.dataElectionCandidateLanguage">
+              <MappingFragment StoreEntitySet="dataElectionCandidateLanguage">
+                <ScalarProperty Name="ElectionCandidateLangaugeGUID" ColumnName="ElectionCandidateLangaugeGUID" />
+                <ScalarProperty Name="ElectionCandidateGUID" ColumnName="ElectionCandidateGUID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="CampaignPlan" ColumnName="CampaignPlan" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataElectionCandidateLanguageRowVersion" ColumnName="dataElectionCandidateLanguageRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataElectionCondition">
+            <EntityTypeMapping TypeName="OVSModel.dataElectionCondition">
+              <MappingFragment StoreEntitySet="dataElectionCondition">
+                <ScalarProperty Name="ElectionConditionGUID" ColumnName="ElectionConditionGUID" />
+                <ScalarProperty Name="ElectionGUID" ColumnName="ElectionGUID" />
+                <ScalarProperty Name="ConditionTypeGUID" ColumnName="ConditionTypeGUID" />
+                <ScalarProperty Name="ConditionValue" ColumnName="ConditionValue" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataElectionConditionRowVersion" ColumnName="dataElectionConditionRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataElectionCorrespondence">
+            <EntityTypeMapping TypeName="OVSModel.dataElectionCorrespondence">
+              <MappingFragment StoreEntitySet="dataElectionCorrespondence">
+                <ScalarProperty Name="ElectionCorrespondenceGUID" ColumnName="ElectionCorrespondenceGUID" />
+                <ScalarProperty Name="ElectionGUID" ColumnName="ElectionGUID" />
+                <ScalarProperty Name="ElectionCorrespondenceTypeGUID" ColumnName="ElectionCorrespondenceTypeGUID" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="MessageTitle" ColumnName="MessageTitle" />
+                <ScalarProperty Name="MessageBody" ColumnName="MessageBody" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataElectionCorrespondenceRowVersion" ColumnName="dataElectionCorrespondenceRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataElectionCorrespondenceStaff">
+            <EntityTypeMapping TypeName="OVSModel.dataElectionCorrespondenceStaff">
+              <MappingFragment StoreEntitySet="dataElectionCorrespondenceStaff">
+                <ScalarProperty Name="ElectionCorrespondenceStaffGUID" ColumnName="ElectionCorrespondenceStaffGUID" />
+                <ScalarProperty Name="ElectionCorrespondenceGUID" ColumnName="ElectionCorrespondenceGUID" />
+                <ScalarProperty Name="ElectionStaffGUID" ColumnName="ElectionStaffGUID" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataElectionCorrespondenceStaffRowVersion" ColumnName="dataElectionCorrespondenceStaffRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataElectionLanguage">
+            <EntityTypeMapping TypeName="OVSModel.dataElectionLanguage">
+              <MappingFragment StoreEntitySet="dataElectionLanguage">
+                <ScalarProperty Name="ElectionLanguageGUID" ColumnName="ElectionLanguageGUID" />
+                <ScalarProperty Name="ElectionGUID" ColumnName="ElectionGUID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataElectionLanguageRowVersion" ColumnName="dataElectionLanguageRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataStaff">
+            <EntityTypeMapping TypeName="OVSModel.dataStaff">
+              <MappingFragment StoreEntitySet="dataStaff">
+                <ScalarProperty Name="StaffGUID" ColumnName="StaffGUID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataStaffRowVersion" ColumnName="dataStaffRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataStaffVote">
+            <EntityTypeMapping TypeName="OVSModel.dataStaffVote">
+              <MappingFragment StoreEntitySet="dataStaffVote">
+                <ScalarProperty Name="StaffVoteGUID" ColumnName="StaffVoteGUID" />
+                <ScalarProperty Name="ElectionCandidateGUID" ColumnName="ElectionCandidateGUID" />
+                <ScalarProperty Name="ElectionStaffGUID" ColumnName="ElectionStaffGUID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="dataStaffVoteRowVersion" ColumnName="dataStaffVoteRowVersion" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeElectionCorrespondenceType">
+            <EntityTypeMapping TypeName="OVSModel.codeElectionCorrespondenceType">
+              <MappingFragment StoreEntitySet="codeElectionCorrespondenceType">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeElectionCorrespondenceTypeRowVersion" ColumnName="codeElectionCorrespondenceTypeRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ElectionCorrespondenceTypeGUID" ColumnName="ElectionCorrespondenceTypeGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeElectionCorrespondenceTypeLanguage">
+            <EntityTypeMapping TypeName="OVSModel.codeElectionCorrespondenceTypeLanguage">
+              <MappingFragment StoreEntitySet="codeElectionCorrespondenceTypeLanguage">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeElectionCorrespondenceTypeLanguageRowVersion" ColumnName="codeElectionCorrespondenceTypeLanguageRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ElectionCorrespondenceTypeDescription" ColumnName="ElectionCorrespondenceTypeDescription" />
+                <ScalarProperty Name="ElectionCorrespondenceTypeGUID" ColumnName="ElectionCorrespondenceTypeGUID" />
+                <ScalarProperty Name="ElectionCorrespondenceTypeLanguageGUID" ColumnName="ElectionCorrespondenceTypeLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeConditionType">
+            <EntityTypeMapping TypeName="OVSModel.codeConditionType">
+              <MappingFragment StoreEntitySet="codeConditionType">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeConditionTypesRowVersion" ColumnName="codeConditionTypesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DataTypeGUID" ColumnName="DataTypeGUID" />
+                <ScalarProperty Name="ConditionTypeGUID" ColumnName="ConditionTypeGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeConditionTypeLanguage">
+            <EntityTypeMapping TypeName="OVSModel.codeConditionTypeLanguage">
+              <MappingFragment StoreEntitySet="codeConditionTypeLanguage">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeConditionTypeLanguagesRowVersion" ColumnName="codeConditionTypeLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ConditionTypeGUID" ColumnName="ConditionTypeGUID" />
+                <ScalarProperty Name="ConditionTypeLanguageGUID" ColumnName="ConditionTypeLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStations">
+            <EntityTypeMapping TypeName="OVSModel.codeDutyStations">
+              <MappingFragment StoreEntitySet="codeDutyStations">
+                <ScalarProperty Name="IsDutyStation" ColumnName="IsDutyStation" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsRowVersion" ColumnName="codeDutyStationsRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="CountryGUID" ColumnName="CountryGUID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeDutyStationsLanguages">
+            <EntityTypeMapping TypeName="OVSModel.codeDutyStationsLanguages">
+              <MappingFragment StoreEntitySet="codeDutyStationsLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeDutyStationsLanguagesRowVersion" ColumnName="codeDutyStationsLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DutyStationDescription" ColumnName="DutyStationDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="DutyStationGUID" ColumnName="DutyStationGUID" />
+                <ScalarProperty Name="DutyStationLanguageGUID" ColumnName="DutyStationLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizationsInstances">
+            <EntityTypeMapping TypeName="OVSModel.codeOrganizationsInstances">
+              <MappingFragment StoreEntitySet="codeOrganizationsInstances">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeOrganizationsInstancesRowVersion" ColumnName="codeOrganizationsInstancesRowVersion" />
+                <ScalarProperty Name="OperationGUID" ColumnName="OperationGUID" />
+                <ScalarProperty Name="OrganizationGUID" ColumnName="OrganizationGUID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeOrganizationsInstancesLanguages">
+            <EntityTypeMapping TypeName="OVSModel.codeOrganizationsInstancesLanguages">
+              <MappingFragment StoreEntitySet="codeOrganizationsInstancesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="codeOrganizationsInstancesLanguagesRowVersion" ColumnName="codeOrganizationsInstancesLanguagesRowVersion" />
+                <ScalarProperty Name="OrganizationInstanceDescription" ColumnName="OrganizationInstanceDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="OrganizationInstanceGUID" ColumnName="OrganizationInstanceGUID" />
+                <ScalarProperty Name="OrganizationInstanceLanguageGUID" ColumnName="OrganizationInstanceLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValues">
+            <EntityTypeMapping TypeName="OVSModel.codeTablesValues">
+              <MappingFragment StoreEntitySet="codeTablesValues">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesRowVersion" ColumnName="codeTablesValuesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+                <ScalarProperty Name="FactorGUID" ColumnName="FactorGUID" />
+                <ScalarProperty Name="TableGUID" ColumnName="TableGUID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codeTablesValuesLanguages">
+            <EntityTypeMapping TypeName="OVSModel.codeTablesValuesLanguages">
+              <MappingFragment StoreEntitySet="codeTablesValuesLanguages">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="codeTablesValuesLanguagesRowVersion" ColumnName="codeTablesValuesLanguagesRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ValueDescription" ColumnName="ValueDescription" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="ValueGUID" ColumnName="ValueGUID" />
+                <ScalarProperty Name="TableValueLanguageGUID" ColumnName="TableValueLanguageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dataElectionStaff">
+            <EntityTypeMapping TypeName="OVSModel.dataElectionStaff">
+              <MappingFragment StoreEntitySet="dataElectionStaff">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="dataElectionStaffRowVersion" ColumnName="dataElectionStaffRowVersion" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="StaffGUID" ColumnName="StaffGUID" />
+                <ScalarProperty Name="ViewedDate" ColumnName="ViewedDate" />
+                <ScalarProperty Name="IsViewed" ColumnName="IsViewed" />
+                <ScalarProperty Name="VoteDate" ColumnName="VoteDate" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="AccessKey" ColumnName="AccessKey" />
+                <ScalarProperty Name="ElectionGUID" ColumnName="ElectionGUID" />
+                <ScalarProperty Name="ElectionStaffGUID" ColumnName="ElectionStaffGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

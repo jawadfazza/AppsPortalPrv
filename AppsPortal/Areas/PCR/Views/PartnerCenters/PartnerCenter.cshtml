@@ -1,0 +1,20 @@
+﻿@model PartnerCenterUpdateModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@{string PageTitle = (Model.PartnerCenterGUID == Guid.Empty) ? "New Appointment Type" : "Edit Appointment Type"; }
+
+@Html.PageHeader("32e529b3-1e62-435d-b74d-231098777c43")
+<div class="page--content">
+    <div class="forms-fadeIn">
+        @Html.Partial("~/Areas/PCR/Views/PartnerCenters/_PartnerCenterForm.cshtml")
+        <div id="PartnerReportFormControls">
+            @if (Model.PartnerCenterGUID != Guid.Empty && Model.Active)
+            {
+                @Html.Partial("~/Areas/PCR/Views/PartnerCenters/_LanguagesDataTable.cshtml", new MasterRecordStatus { ParentGUID = Model.PartnerCenterGUID, IsParentActive = Model.Active })
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,14 @@
+﻿@model MasterRecordStatus
+
+<div style="margin-bottom:15px;">
+    @resxPages.DutyStationConfigurations
+</div>
+
+<div class="mScroll blueDataTableHeader" data-mcs-theme="rounded-dark" style="max-height:400px;">
+    @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.DutyStationsConfigDataTable, FormController = "Configurations", Type = DataTableTypes.Field, EditMode = DataTableEditMode.None, PK = Model.ParentGUID, SelectAll = true })
+</div>
+<div class="form-footer no-bottom-padding">
+    <input type="button" class="btn btn-primary Modal-Link" data-url="@Url.Action("DutyStationsConfigCreate", "Configurations", new { FK = Model.ParentGUID })" value="Add" />
+    <input type="button" value="Close" class="btn btn-default collapsed accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#DutyStationsTab" aria-expanded="false" aria-controls="collapseOne" />
+    <button type="button" title="Delete Selected Records" class="btn btn-default pull-right Confirm ActionControl" data-mode="All" data-action="Delete" data-submittype="@SubmitTypes.Delete" data-datatable="@DataTableNames.DutyStationsConfigDataTable"><i class="fa fa-trash-o" style="color:black"></i></button>
+</div>

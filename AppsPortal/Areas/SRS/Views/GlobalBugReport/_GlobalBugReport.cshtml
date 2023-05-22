@@ -1,0 +1,87 @@
+﻿@model HelpDeskModel
+
+@using (Html.BeginForm("HelpDesk", "HelpDesk", new { Area = "SRS" }, FormMethod.Post, new { id = "HelpDeskForm" }))
+{
+
+    @Html.Partial("_ModalHeader", "Submit a bug report")
+
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.HelpDeskGUID)
+    @Html.HiddenFor(model => model.RequestedByProfileGUID)
+    @Html.HiddenFor(model => model.RequestCreateDate)
+    @Html.HiddenFor(model => model.RequestNumber)
+
+    @Html.HiddenFor(model => model.WorkGroupGUID)
+    @Html.HiddenFor(model => model.ConfigItemGUID)
+
+    <b>@resxDbFields.RequestNumber:&nbsp;@Model.RequestNumber</b>
+    <hr /><br />
+    @if (Model.ConfigItemGUID == Guid.Empty)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.WorkGroupGUID)
+            @Html.DropDownListFor(model => model.WorkGroupGUID, new DropDownList().HelpDeskWorkGroupsList(), new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConfigItemGUID)
+            @Html.DropDownListFor(model => model.ConfigItemGUID, new DropDownList().HelpDeskConfigItemsList(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.WorkGroupGUID)
+            @Html.DropDownListFor(model => model.WorkGroupGUID, new DropDownList().HelpDeskWorkGroupsList(), new { @disabled = "disabled", @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConfigItemGUID)
+            @Html.DropDownListFor(model => model.ConfigItemGUID, new DropDownList().HelpDeskConfigItemsList(), "", new { @disabled = "disabled", @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CriticalityGUID)
+        @Html.DropDownListFor(model => model.CriticalityGUID, new DropDownList().HelpDeskCriticalityList(), new { @class = "form-control select2-basic-single", style = "width:100%" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.RequestStatusGUID)
+        <br />
+        Pending
+        @*@Html.DropDownListFor(model => model.RequestStatusGUID, new DropDownList().HelpDeskRequestStatuses(), "", new { @class = "form-control select2-basic-single", style = "width:100%" })*@
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.HelpDeskBugReportModel.ApplicationGUID)
+        @Html.DropDownListFor(model => model.HelpDeskBugReportModel.ApplicationGUID, new DropDownList().Applications(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.HelpDeskBugReportModel.BugDetails)
+        @Html.TextAreaFor(model => model.HelpDeskBugReportModel.BugDetails, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+    </div>
+
+</div>
+    <div id="HelpDeskFormControls" class="form-group form-footer">
+        @if (Model.HelpDeskGUID == Guid.Empty)
+        {
+            @Html.CreateButtonNoPermission()
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButtonNoPermission()
+                @Html.CreateNewButtonNoPermission(Url.Action("HelpDesk/Create", "HelpDesk", new { Area = "SRS" }))
+                @*@Html.DeleteButtonNoPermission()*@
+            }
+            else
+            {
+                @*@Html.RestoreButtonNoPermission()*@
+            }
+        }
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () { })
+</script>

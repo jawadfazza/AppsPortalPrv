@@ -1,0 +1,70 @@
+﻿@model ActionUpdateModel
+@using (Html.BeginForm("Action", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "ActionForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.ActionGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-4">
+                        @Html.LabelFor(model => model.ActionVerbGUID)
+                        @Html.DropDownListFor(model => model.ActionVerbGUID, new DropDownList().ActionVerbs(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                    </div>
+                    <div class="col-lg-8">
+                        @Html.LabelFor(model => model.ActionEntityGUID)
+                        @Html.DropDownListFor(model => model.ActionEntityGUID, new DropDownList().ActionEntities(), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ApplicationGUID)
+                @Html.DropDownListFor(model => model.ApplicationGUID, new DropDownList().Applications(), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-single",
+               onchange = "UpdateDropDownList([$(this).val()], [{ DropDownListID : 'ActionCategoryGUID', Action : 'RemoteActionsCategories'}]);"
+           })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ActionCategoryGUID)
+                @Html.DropDownListFor(model => model.ActionCategoryGUID, new DropDownList().ActionsCategories(Model.ApplicationGUID), "", new { style = "width:100%", @class = "form-control select2-basic-search" })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ForAuditPurpose)
+                @Html.DropDownListFor(model => model.ForAuditPurpose, new DropDownList().ActionType("False"), new { style = "width:100%", @class = "form-control select2-basic-single" })
+            </div>
+
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.ActionID)
+                @Html.EditorFor(model => model.ActionID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ActionDetails)
+                @Html.EditorFor(model => model.ActionDetails, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+            </div>
+            <div id="ActionFormControls" class="form-group form-footer">
+                @if (Model.ActionGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Actions.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Actions.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.Actions.Create, Apps.CMS, Url.Action("Actions/Create", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.Actions.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Actions.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Actions", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+}

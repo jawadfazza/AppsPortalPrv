@@ -1,0 +1,25 @@
+﻿@model MasterRecordStatus
+
+<div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
+        @if (Model.IsParentActive)
+        {
+            <div id=@string.Format("{0}Filter", DataTableNames.WarehouseItemDetailFeatureDataTable) class="filter-section" style="display:none;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.Partial("_RecordStatus", DataTableNames.WarehouseItemDetailFeatureDataTable)
+                    </div>
+                </div>
+            </div>
+            <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.WarehouseItemDetailFeatureDataTable)">
+                @Html.FieldDataTableFilter(DataTableNames.WarehouseItemDetailFeatureDataTable)
+                @Html.FieldDataTableCreate(Permissions.WarehouseItemsEntry.Create, Apps.WMS, Url.Action("WarehouseItemDetailFeatureCreate", "ModelMovements", new { FK = Model.ParentGUID }))
+                @*@Html.FieldDataTableDelete(Permissions.WarehouseItemsEntry.Delete, Apps.WMS, DataTableNames.WarehouseItemDetailFeatureDataTable)
+                @Html.FieldDataTableRestore(Permissions.WarehouseItemsEntry.Restore, Apps.WMS, DataTableNames.WarehouseItemDetailFeatureDataTable)*@
+                @*@Html.FieldDataTableRefresh(DataTableNames.WarehouseItemDetailFeatureDataTable)*@
+            </div>
+        }
+     
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.WarehouseItemDetailFeatureDataTable, FormController = "ModelMovements", Area = "WMS", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+</div>  

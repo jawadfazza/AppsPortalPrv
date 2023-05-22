@@ -1,0 +1,81 @@
+﻿@model MedicalItemInputUpdateModel
+
+@{
+    ViewBag.Title = "JobTitles";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("eaa1cabd-07c4-485f-bbb4-3175d37e3715")
+
+<div class="page--content">
+    @using (Html.BeginForm("MedicalItemInputConfirm", "MedicalItemInputs", new { Area = "EMT" }, FormMethod.Post, new { id = "MedicalItemInputForm", @class = "main-form" }))
+    {
+        
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.MedicalItemInputGUID)
+        <hr />
+        <br />
+        <table class="table">
+            <thead>
+                <tr class="info">
+                    <th>@Html.Label(resxDbFields.Confirmed)</th>
+                    <th>@Html.Label(resxDbFields.BrandName)</th>
+                    <th>@Html.Label(resxDbFields.BatchNumber)</th>
+                    <th>@Html.Label(resxDbFields.ExpirationDate)</th>
+                    <th>@Html.Label(resxDbFields.QuantityByPackingUnit)</th>
+                    <th>@Html.Label(resxDbFields.Comments)</th>
+                    <th>@Html.Label(resxDbFields.ConfirmedBy)</th>
+                    <th>@Html.Label(resxDbFields.ConfirmedDate)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.MedicalItemInputDetailsDataTableModel.Count; i++)
+                {
+
+                    if (Model.MedicalItemInputDetailsDataTableModel[i].Confirmed)
+                    {
+                        @Html.HiddenFor(model => model.MedicalItemInputDetailsDataTableModel[i].MedicalItemInputDetailGUID)
+                <tr class="success">
+                    <td>@Html.CheckBoxFor(model => model.MedicalItemInputDetailsDataTableModel[i].Confirmed, new { @class = "chkNode-accordion" })</td>
+
+                    <td>@Html.DisplayFor(model => model.MedicalItemInputDetailsDataTableModel[i].BrandName)</td>
+                    <td>@Html.DisplayFor(model => model.MedicalItemInputDetailsDataTableModel[i].BatchNumber)</td>
+                    <td>@Html.Raw(Model.MedicalItemInputDetailsDataTableModel[i].ExpirationDate.HasValue ? Model.MedicalItemInputDetailsDataTableModel[i].ExpirationDate.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@Html.Raw((Model.MedicalItemInputDetailsDataTableModel[i].QuantityByPackingUnit == 0) ? Model.MedicalItemInputDetailsDataTableModel[i].QuantityByPackingTransfer : Model.MedicalItemInputDetailsDataTableModel[i].QuantityByPackingUnit)</td>
+                    <td>@Html.EditorFor(model => model.MedicalItemInputDetailsDataTableModel[i].Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })</td>
+                    <td>@Html.DisplayFor(model => model.MedicalItemInputDetailsDataTableModel[i].ConfirmedBy)</td>
+                    <td>@Html.Raw(Model.MedicalItemInputDetailsDataTableModel[i].ConfirmedDate.HasValue ? Model.MedicalItemInputDetailsDataTableModel[i].ConfirmedDate.Value.ToString("dd/MM/yyyy") : "")</td>
+
+
+                </tr>
+                    }
+                    else
+                    {
+                        @Html.HiddenFor(model => model.MedicalItemInputDetailsDataTableModel[i].MedicalItemInputDetailGUID)
+            <tr class="active">
+                <td>@Html.CheckBoxFor(model => model.MedicalItemInputDetailsDataTableModel[i].Confirmed, new { @class = "chkNode-accordion" })</td>
+                <td>@Html.DisplayFor(model => model.MedicalItemInputDetailsDataTableModel[i].BrandName)</td>
+                <td>@Html.DisplayFor(model => model.MedicalItemInputDetailsDataTableModel[i].BatchNumber)</td>
+                <td>@Html.Raw(Model.MedicalItemInputDetailsDataTableModel[i].ExpirationDate.HasValue ? Model.MedicalItemInputDetailsDataTableModel[i].ExpirationDate.Value.ToString("dd/MM/yyyy") : "")</td>
+                <td>@Html.Raw((Model.MedicalItemInputDetailsDataTableModel[i].QuantityByPackingUnit == 0) ? Model.MedicalItemInputDetailsDataTableModel[i].QuantityByPackingTransfer : Model.MedicalItemInputDetailsDataTableModel[i].QuantityByPackingUnit)</td>
+                <td>@Html.EditorFor(model => model.MedicalItemInputDetailsDataTableModel[i].Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })</td>
+                <td>@Html.DisplayFor(model => model.MedicalItemInputDetailsDataTableModel[i].ConfirmedBy)</td>
+                <td>@Html.Raw(Model.MedicalItemInputDetailsDataTableModel[i].ConfirmedDate.HasValue ? Model.MedicalItemInputDetailsDataTableModel[i].ConfirmedDate.Value.ToString("dd/MM/yyyy") : "")</td>
+            </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+
+                <div id="MedicalItemInputFormControls" class="form-group form-footer">
+                    @Html.CreateButton(Permissions.MedicalItemInput.Create, Apps.EMT)
+                    @Html.BackToList(Url.Action("Index", "MedicalItemInputs", new { Area = "EMT" }))
+                </div>
+            </div>
+        </div>
+    }
+</div>

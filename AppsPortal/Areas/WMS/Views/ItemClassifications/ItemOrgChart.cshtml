@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<link href="~/Assets/Plugin/orgChart/getorgchart.css" rel="stylesheet" />
+<script src="~/Assets/Plugin/orgChart/getorgchart.js"></script>
+
+
+
+<style type="text/css">
+
+
+    #people {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+
+
+
+
+
+        <div id="people"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    var readUrl = "/ItemModels/GetItemOrgChart";
+    var updateUrl = "http://www.getorgchart.com/Edit/Update";
+
+    var orgChart = new getOrgChart(document.getElementById("people"), {
+        primaryFields: ["Name", "Title"],
+        photoFields: ["Image"],
+        updatedEvent: updatedEvent
+    });
+
+
+
+    $.getJSON(readUrl, function (data) {
+        var peopleElement = document.getElementById("people");
+        var orgChart = new getOrgChart(peopleElement, {
+            insertNodeEvent: insertNodeEvent,
+            updatedEvent: updatedEvent,
+            scale: 0.4,
+            linkType: "B",
+            levelSeparation: 50,
+            expandToLevel: 1,
+            layout: getOrgChart.MIXED_HIERARCHY_RIGHT_LINKS,
+
+            enableEdit: false,
+            enableDetailsView: true,
+            enableGridView: true,
+            
+            primaryFields: ["name", "title", "phone", "mail"],
+            photoFields: ["image"],
+
+
+            dataSource: data
+        });
+        orgChart.expandOrCollapse(1);
+        function insertNodeEvent(sender, args) {
+            args.node.data["name"] = "Test22";
+            //return false;
+            //return fasle if you want to cancel the event
+        }
+        function updatedEvent(sender, args) {
+            //alert("test");
+        }
+    });
+
+
+    function updatedEvent(sender, args) {
+        var model = [];
+        for (var id in orgChart.nodes) {
+            var node = orgChart.nodes[id];
+            var data = $.extend(true, { Id: node.id, ParentId: node.pid }, node.data);
+            model.push(data);
+        }
+
+        var model = JSON.stringify({ 'model': model });
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: updateUrl,
+            data: model
+        });
+    }
+
+</script>

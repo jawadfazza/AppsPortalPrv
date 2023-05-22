@@ -1,0 +1,129 @@
+﻿@model HelpDeskModel
+
+@*User*@
+
+@Html.HiddenFor(model => model.HelpDeskNewApplicationModel.AppRequestGUID)
+@Html.HiddenFor(model => model.HelpDeskNewApplicationModel.HelpDeskGUID)
+@Html.HiddenFor(model => model.HelpDeskNewApplicationModel.Active)
+@Html.HiddenFor(model => model.HelpDeskNewApplicationModel.dataApplicationRequestRowVersion)
+
+
+
+<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Details</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(model => model.HelpDeskNewApplicationModel.RequestedAppName)
+                @Html.EditorFor(model => model.HelpDeskNewApplicationModel.RequestedAppName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.HelpDeskNewApplicationModel.IsNewDbForTracking, new { @class = "chkNode-accordion" })
+                @Html.LabelFor(model => model.HelpDeskNewApplicationModel.IsNewDbForTracking)
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.HelpDeskNewApplicationModel.IsToAutomateManual, new { @class = "chkNode-accordion" })
+                @Html.LabelFor(model => model.HelpDeskNewApplicationModel.IsToAutomateManual)
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.HelpDeskNewApplicationModel.IsToReplaceOldApp, new { @class = "chkNode-accordion" })
+                @Html.LabelFor(model => model.HelpDeskNewApplicationModel.IsToReplaceOldApp)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.HelpDeskNewApplicationModel.PurposDescriptionBenefits)
+                @Html.TextAreaFor(model => model.HelpDeskNewApplicationModel.PurposDescriptionBenefits, new { @class = "form-control", autocomplete = "off", @style = "width:100%;", @rows = 5 })
+            </div>
+          
+            <br />
+            <p>Additional Requirements (Optional)</p>
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.HelpDeskNewApplicationModel.OfflineVersion, new { @class = "chkNode-accordion" })
+                @Html.LabelFor(model => model.HelpDeskNewApplicationModel.OfflineVersion)
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.HelpDeskNewApplicationModel.AndroidVersion, new { @class = "chkNode-accordion" })
+                @Html.LabelFor(model => model.HelpDeskNewApplicationModel.AndroidVersion)
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.HelpDeskNewApplicationModel.IOSVersion, new { @class = "chkNode-accordion" })
+                @Html.LabelFor(model => model.HelpDeskNewApplicationModel.IOSVersion)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Acceptance Details</h3>
+        </div>
+        <div class="panel-body">
+
+            @if (Model == null || Model.HelpDeskNewApplicationAuthorizationModel == null)
+            {
+                <div class="alert alert-warning" role="alert">
+                    Awaiting acceptance.
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.ApprovalStatusGUID:&nbsp;<b>@Model.HelpDeskNewApplicationAuthorizationModel.ApprovalStatusDescription</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.ApprovalComments:&nbsp;<b>@Model.HelpDeskNewApplicationAuthorizationModel.ApprovalComments</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.EstimatedResourcesNum:&nbsp;<b>@Model.HelpDeskNewApplicationAuthorizationModel.EstimatedResourcesNum</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.EstimatedTime:&nbsp;<b>@Model.HelpDeskNewApplicationAuthorizationModel.EstimatedTimeDescription</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.AssignedToGUID:&nbsp;<b>@Model.AssignedToFullName</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.ApplicationStartDate:&nbsp;<b>@Model.HelpDeskNewApplicationAuthorizationModel.ApplicationStartDate</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.ApplicationEndDate:&nbsp;<b>@Model.HelpDeskNewApplicationAuthorizationModel.ApplicationEndDate</b></h5>
+                        </div>
+
+                        <br />
+                        <p>Server Requirements (Optional)</p>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">Physical Server:&nbsp;<b>@(Model.HelpDeskNewApplicationModel.ServerOrVM == true ? "Yes" : "No")</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">VM:&nbsp;<b>@(Model.HelpDeskNewApplicationModel.ServerOrVM == false ? "Yes" : "No")</b></h5>
+                        </div>
+
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.CPUDescription:&nbsp;<b>@Model.HelpDeskNewApplicationModel.CPUDescription</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.RAMDescription:&nbsp;<b>@Model.HelpDeskNewApplicationModel.RAMDescription</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.StorageDescription:&nbsp;<b>@Model.HelpDeskNewApplicationModel.StorageDescription</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.OnsiteBackup:&nbsp;<b>@(Model.HelpDeskNewApplicationModel.OnsiteBackup == true ? "Yes" : "No")</b></h5>
+                        </div>
+                        <div class="breath-bottom">
+                            <h5 class="SubTitle">@resxDbFields.OffsiteBackup:&nbsp;<b>@(Model.HelpDeskNewApplicationModel.OffsiteBackup == true ? "Yes" : "No")</b></h5>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>

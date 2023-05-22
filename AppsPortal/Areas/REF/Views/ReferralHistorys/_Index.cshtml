@@ -1,0 +1,22 @@
+﻿@model MasterRecordStatus
+
+@if (Model.IsParentActive)
+{ 
+    <div>
+        <div id=@string.Format("{0}Filter", DataTableNames.ReferralHistorysDataTable) class="filter-section" style="display:none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_RecordStatus", DataTableNames.ReferralHistorysDataTable)
+                </div>
+            </div>
+        </div>
+        <div class="dt-controls-field" id="@string.Format("{0}ActionsContainer", DataTableNames.ReferralHistorysDataTable)">
+            @Html.FieldDataTableFilter(DataTableNames.ReferralHistorysDataTable)
+            @Html.FieldDataTableCreate(Permissions.ReferralHistory.Create, Apps.REF, Url.Action("ReferralHistoryCreate", "ReferralHistorys", new { FK = Model.ParentGUID }))
+            @Html.FieldDataTableDelete(Permissions.ReferralHistory.Delete, Apps.REF, DataTableNames.ReferralHistorysDataTable)
+            @Html.FieldDataTableRestore(Permissions.ReferralHistory.Restore, Apps.REF, DataTableNames.ReferralHistorysDataTable)
+            @Html.FieldDataTableRefresh(DataTableNames.ReferralHistorysDataTable)
+        </div>
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.ReferralHistorysDataTable, FormController = "ReferralHistorys", Area = "REF", Type = DataTableTypes.Field, EditMode = DataTableEditMode.Modal, PK = Model.ParentGUID, OrderBy = 1 })
+    </div>
+}

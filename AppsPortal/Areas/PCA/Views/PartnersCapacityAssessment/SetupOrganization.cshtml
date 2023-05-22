@@ -1,0 +1,113 @@
+﻿@model PartnersCapacityAssessmentUpdateModel
+@{
+    ViewBag.Title = "SetupOrganization";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout_1.cshtml";
+}
+<div class="page--header">
+    <div class="page--banner">
+        <h3>@resxPages.PartnersCapacityAssessmentTitle</h3>
+        <article>
+            @resxPages.PartnersCapacityAssessmentDescription
+        </article>
+       
+    </div>
+</div>
+
+
+<div class="page--content">
+    <div class="wizard">
+        <span class="done">@resxPages.PartnersCapacityAssessmentStep1</span>
+        <span>@resxPages.PartnersCapacityAssessmentStep2</span>
+        <span>@resxPages.PartnersCapacityAssessmentStep3</span>
+
+    </div>
+    <div class="page--body">
+        @using (Html.BeginForm("SetupOrganizationCreate", "PartnersCapacityAssessment", FormMethod.Post, new { id = "SetupOrganizationForm", @class = "main-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @*@Html.Partial("_ErrorSummary")*@
+            @Html.FormHiddenFields(model => model.PartnersCapacityAssessmentGUID)
+            if (HttpContext.Current.Session[SessionKeys.UserProfileGUID] != null)
+            {
+                @Html.HiddenFor(model => model.PartnerName)
+                @Html.HiddenFor(model => model.Name_JobTitleOfPersone)
+                @Html.HiddenFor(model => model.EmailAddress)
+            }
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        @Html.Label(resxPages.PartnersCapacityAssessmentPartnerName)
+                        @if (HttpContext.Current.Session[SessionKeys.UserProfileGUID] != null)
+                        {
+                            @Html.DisplayFor(model => model.PartnerName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.PartnerName, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                        }
+                    </div>
+                    <div class="form-group">
+                        @Html.Label(resxPages.PartnersCapacityAssessmentName)
+                        @if (HttpContext.Current.Session[SessionKeys.UserProfileGUID] != null)
+                        {
+                            @Html.DisplayFor(model => model.Name_JobTitleOfPersone, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.Name_JobTitleOfPersone, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                        }
+                    </div>
+                    <div class="form-group">
+                        @Html.Label(resxPages.PartnersCapacityAssessmentEmailAddress)
+                        @if (HttpContext.Current.Session[SessionKeys.UserProfileGUID] != null)
+                        {
+                            @Html.DisplayFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control PageTitle", autocomplete = "off" } })
+                        }
+                    </div>
+                    <div class="form-group">
+                        @Html.Label(resxPages.PartnersCapacityAssessmentPartnership)
+                        <div class="row">
+
+                            <br />
+                            @for (var i = 0; i < Model.PartnersCapacityAssessmentPartnershipAgency.Count; i++)
+                            {
+                                <div class="col-lg-4">
+                                    @Html.HiddenFor(model => model.PartnersCapacityAssessmentPartnershipAgency[i].OrganizationGUID)
+
+                                    @if (HttpContext.Current.Session[SessionKeys.UserProfileGUID] != null)
+                                    {
+                                        @Html.DisplayFor(model => model.PartnersCapacityAssessmentPartnershipAgency[i].Checked)
+                                        @Html.HiddenFor(model => model.PartnersCapacityAssessmentPartnershipAgency[i].Checked)
+                                    }
+                                    else
+                                    {
+                                        @Html.CheckBoxFor(model => model.PartnersCapacityAssessmentPartnershipAgency[i].Checked)
+                                    }
+
+                                    @Html.DisplayFor(model => model.PartnersCapacityAssessmentPartnershipAgency[i].OrganizationShortName)
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="@resxUIControls.Continue" class="btn btn-success" />
+                        @if (Model.Active)
+                        {
+                            if (!Model.PartnerConfirm && !Model.AgancyConfirm)
+                            {
+                                @Html.DeleteButtonNoPermission()
+                            }
+                        }
+                        </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>

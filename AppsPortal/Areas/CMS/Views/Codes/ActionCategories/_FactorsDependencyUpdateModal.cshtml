@@ -1,0 +1,57 @@
+﻿@model codeActionsCategoriesFactors
+@using (Html.BeginForm("FactorsDependency", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "FactorsDependencyForm" }))
+{
+    string ModalTitle = Model.ActionCategoryFactorGUID.ToString() == Guid.Empty.ToString() ? "New Factor Dependencey" : "Edit Factor Dependencey";
+    @Html.Partial("_ModalHeader", ModalTitle)
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.FormHiddenFields(model => model.ActionCategoryFactorGUID)
+        @Html.HiddenFor(model => model.ActionCategoryGUID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.FactorGUID)
+            @Html.DropDownListFor(model => model.FactorGUID, new DropDownList().Factors(Model.ActionCategoryGUID, Model.FactorGUID), "", new
+       {
+           @class = "form-control select2-basic-single",
+           style = "width:100%",
+           onchange = "UpdateDropDownList([$('#ActionCategoryGUID').val(),$(this).val()],[{ DropDownListID : 'DependsOn', Action : 'RemoteFactorsForDependency'}] );",
+       })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FactorTreeLevel)
+            @Html.DropDownListFor(model => model.FactorTreeLevel, new DropDownList().Levels(5), new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsValuePurpose)
+            @Html.DropDownListFor(model => model.IsValuePurpose, new DropDownList().FactorPurpose(), new { @class = "form-control select2-basic-single", style = "width:100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependsOn)
+            @Html.DropDownListFor(model => model.DependsOn, new DropDownList().FactorsForDependency(Model.ActionCategoryGUID, Model.FactorGUID), new { @class = "form-control select2-basic-multiple", multiple = "multiple ", style = "width:100%" })
+        </div>
+    </div>
+    <div class="modal-footer form-footer">
+        @if (Model.ActionCategoryFactorGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.ActionCategories.Create, Apps.CMS)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.ActionCategories.Update, Apps.CMS)
+                @Html.DeleteSwitchButton(Permissions.ActionCategories.Delete, Apps.CMS)
+            }
+            else
+            {
+                @Html.RestoreSwitchButton(Permissions.ActionCategories.Restore, Apps.CMS)
+            }
+        }
+        @Html.CloseModalButton()
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        var DependsOnArray = [@Model.DependsOn];
+        $('#DependsOn').val(DependsOnArray).trigger("change");
+    });
+</script>

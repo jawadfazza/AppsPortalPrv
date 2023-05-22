@@ -1,0 +1,72 @@
+﻿@model LocationsUpdateModel
+@using (Html.BeginForm("Location", "Codes", new { Area = "CMS" }, FormMethod.Post, new { id = "LocationForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.LocationGUID)
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.LocationDescription)
+                @Html.EditorFor(model => model.LocationDescription, new { htmlAttributes = new { @class = "form-control FillLocationSearch", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.LocationlevelID)
+                @Html.DropDownListFor(model => model.LocationlevelID, new DropDownList().Levels(5), new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-single",
+               onchange = "UpdateDropDownList([$('#CountryGUID').val(),$(this).val()], [{ DropDownListID : 'LocationParentGUID', Action : 'RemoteLocations'}]);"
+           })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.LocationTypeGUID)
+                @Html.DropDownListFor(model => model.LocationTypeGUID, new DropDownList().LocationTypes(), new { @class = "form-control select2-basic-single", style = "width:100%" })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.CountryGUID)
+                @Html.DropDownListFor(model => model.CountryGUID, new DropDownList().Countries(), "", new
+           {
+               style = "width:100%",
+               @class = "form-control select2-basic-search",
+               onchange = "UpdateDropDownList([$(this).val(), $('#LocationlevelID').val()], [{ DropDownListID : 'LocationParentGUID', Action : 'RemoteLocations'}]);"
+           })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.LocationParentGUID)
+                @Html.DropDownListFor(model => model.LocationParentGUID, new DropDownList().Locations(Model.CountryGUID, Model.LocationlevelID), new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.LocationPCode)
+                @Html.EditorFor(model => model.LocationPCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-12">
+                        @Html.Partial("_SearchLocation", new MapModel { Height = "450px", Zoom=8, Latitude = Model.Latitude, Longitude = Model.Longitude })
+                    </div>
+                </div>
+            </div>
+            <div id="LocationFormControls" class="form-group form-footer">
+                @if (Model.CountryGUID == Guid.Empty)
+                {
+                    @Html.CreateButton(Permissions.Locations.Create, Apps.CMS)
+                }
+                else
+                {
+                    if (Model.Active)
+                    {
+                        @Html.UpdateButton(Permissions.Locations.Update, Apps.CMS)
+                        @Html.CreateNewButton(Permissions.Locations.Create, Apps.CMS, Url.Action("Locations/Create", "Codes", new { Area = "CMS" } ))
+                        @Html.DeleteButton(Permissions.Locations.Delete, Apps.CMS)
+                    }
+                    else
+                    {
+                        @Html.RestoreButton(Permissions.Locations.Restore, Apps.CMS)
+                    }
+                }
+                @Html.BackToList(Url.Action("Locations", "Codes", new { Area = "CMS" } ))
+            </div>
+        </div>
+    </div>
+}

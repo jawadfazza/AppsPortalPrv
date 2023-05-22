@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "JobTitles";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+@Html.PageHeader("f65dac31-6892-4e27-b16c-67c87dc32187")
+<div class="page--content">
+    <div id=@string.Format("{0}Filter", DataTableNames.CasesDataTable) class="filter-section" style="display:none;" DefaultButton="btnFind">
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.FileNumber, DbColumnName = "FileNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ICNameEN, DbColumnName = "ICNameEN", FilterForDataType = "Text" })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.ICNameOtherLanguages, DbColumnName = "ICNameOtherLanguages", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.CountryDescription, DbColumnName = "CountryGUID", FilterForDataType = FilterDataTypes.Options, DataList = new DropDownList().Countries(), IsSearchable = true })
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.PhoneNumber, DbColumnName = "PhoneNumber", FilterForDataType = "Text" })
+                @Html.Partial("_FilterField", new FilterField { LabelText = resxDbFields.Active, DbColumnName = "Active", FilterForDataType = "Boolean", MustHasInitValue = true, DataList = new DropDownList().RecordStatus() })
+            </div>
+        </div>
+        <div class="form-group filter-actions">
+            @Html.DatatableFilterControls(DataTableNames.CasesDataTable)
+        </div>
+    </div>
+    <div class="dt-controls-index" id="@string.Format("{0}ActionsContainer", DataTableNames.CasesDataTable)">
+        @Html.IndexDatatableFilter(DataTableNames.CasesDataTable)
+        @Html.IndexDatatableCreate(Permissions.Case.Create, Apps.AMS, "/AMS/Cases/Create")
+        @Html.IndexDatatableDelete(Permissions.Case.Delete, Apps.AMS, DataTableNames.CasesDataTable)
+        @Html.IndexDatatableRestor(Permissions.Case.Restore, Apps.AMS, DataTableNames.CasesDataTable)
+        @Html.IndexDatatableRefresh(DataTableNames.CasesDataTable)
+    </div>
+    <div class="page--body">
+        @Html.Partial("DataTableControl", new DataTableControl { Name = DataTableNames.CasesDataTable, Area = "AMS", Type = DataTableTypes.Index, EditMode = DataTableEditMode.Page, OrderBy = 0 })
+    </div>
+</div>

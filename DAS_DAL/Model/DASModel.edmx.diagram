@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cb61c4021cee412b9443a831c11c0f7f" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="DASModel.userAccounts" Width="1.5" PointX="0.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.userPersonalDetails" Width="1.5" PointX="3" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.userPersonalDetailsLanguage" Width="1.5" PointX="5.25" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.codeDASDestinationUnit" Width="1.5" PointX="1.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.codeDASDestinationUnitFocalPoint" Width="1.5" PointX="3" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.codeDASDocumentCabinetShelf" Width="1.5" PointX="5.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.codeDASDocumentMetaData" Width="1.5" PointX="8" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.codeDASDocumentSourceType" Width="1.5" PointX="1.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.codeDASTransferLocation" Width="1.5" PointX="3.75" PointY="32.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.codeDutyStations" Width="1.5" PointX="3.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.codeDutyStationsConfigurations" Width="1.5" PointX="6" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.codeDutyStationsLanguages" Width="1.5" PointX="15" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataDefaultScannerSetting" Width="1.5" PointX="3" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataFile" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataFileLocationMovement" Width="1.5" PointX="6" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataFileRequest" Width="1.5" PointX="6.75" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataReportTemplateConfiguration" Width="1.5" PointX="3.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataScannDocument" Width="1.5" PointX="8" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataScannDocumentImage" Width="1.5" PointX="10.25" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataScannDocumentImageMetaData" Width="1.5" PointX="15.5" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataScannDocumentImageVersionHistory" Width="1.5" PointX="18.5" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataScannDocumentMetaData" Width="1.5" PointX="10.25" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataScannDocumentStatusFlow" Width="1.5" PointX="10.25" PointY="33.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataScannDocumentTransfer" Width="1.5" PointX="9" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataScannDocumentTransferFlow" Width="1.5" PointX="11.25" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataScannDocumentVersionHistory" Width="1.5" PointX="13.25" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataSchedulerCasesHaveAppointment" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataTempScannDocumentImage" Width="1.5" PointX="3" PointY="36.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataUploadUserFile" Width="1.5" PointX="3" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataOldFTSFileMovement" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DASModel.dataReportTemplate" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DASModel.FK_codeDASDestinationUnitFocalPoint_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataDefaultScannerSetting_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataFileLocationMovement_userAccountReceive" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocument_userAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentImage_userAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentImageVersionHistory_userAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentTransfer_userAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentTransfer_userAccountReceive" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentTransferFlow_userAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentVersionHistory_userAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataUploadUserFile_userAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_userPersonalDetails_userAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_userPersonalDetailsLanguage_userPersonalDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_codeDASDestinationUnitFocalPoint_codeDASDestinationUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataFie_codeDASDestinationUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocument_DocumentCabinetShelfGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentImageMetaData_codeDASDocumentMetaData" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentMetaData_codeDASDocumentMetaData" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataFile_codeDASDocumentSourceType" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataFileLocationMovement_codeDASTransferLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentTransfer_codeDASTransferLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_codeDutyStationsLanguages_codeDutyStations" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_codeOrganizationsOperationsDutyStations_codeDutyStations" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataFileLocationMovement_dataScannDocumentTransfer" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataFileRequest_dataFile" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocument_dataFile" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataTempScannDocumentImage_dataFile" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataUploadUserFile_dataFile" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentTransfer_dataFileRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocument_dataScannDocument" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentImage_dataScannDocument" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentStatusFlow_dataScannDocument" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentVersionHistory_dataFile" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentImageMetaData_dataScannDocumentImage" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentImageVersionHistory_dataScannDocument" ManuallyRouted="false" />
+        <AssociationConnector Association="DASModel.FK_dataScannDocumentTransferFlow_dataScannDocumentTransfer" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DASModel.codeTables" Width="1.5" PointX="10.375" PointY="6" />
+        <EntityTypeShape EntityType="DASModel.codeTablesValues" Width="1.5" PointX="12.625" PointY="6" />
+        <EntityTypeShape EntityType="DASModel.codeTablesValuesLanguages" Width="1.5" PointX="14.875" PointY="6" />
+        <AssociationConnector Association="DASModel.FK_codeTablesValues_codeTables" />
+        <AssociationConnector Association="DASModel.FK_codeTablesValuesLanguages_codeTablesValues" />
+        <EntityTypeShape EntityType="DASModel.userServiceHistory" Width="1.5" PointX="3" PointY="40.5" />
+        <AssociationConnector Association="DASModel.FK_userServiceHistory_userAccount" />
+        <EntityTypeShape EntityType="DASModel.codeDASTemplateType" Width="1.5" PointX="10.75" PointY="37.875" />
+        <EntityTypeShape EntityType="DASModel.codeDASTemplateTypeDocument" Width="1.5" PointX="10.75" PointY="11.625" />
+        <EntityTypeShape EntityType="DASModel.codeDASTemplateTypeDocumentSoftField" Width="1.5" PointX="16" PointY="9.625" />
+        <EntityTypeShape EntityType="DASModel.codeDASTemplateTypeDocumentTag" Width="1.5" PointX="19" PointY="7.75" />
+        <AssociationConnector Association="DASModel.FK_codeDASTemplateTypeGUIDDocument_codeDASTemplateTypeGUID" />
+        <AssociationConnector Association="DASModel.FK_codeDASTemplateTypeGUIDDocumentSoftField_codeDASTemplateTypeGUIDDocument" />
+        <AssociationConnector Association="DASModel.FK_codeDASTemplateTypeGUIDDocumentTag_codeDASTemplateTypeGUIDDocument" />
+        <EntityTypeShape EntityType="DASModel.dataArchiveTemplate" Width="1.5" PointX="14" PointY="26.5" />
+        <EntityTypeShape EntityType="DASModel.dataArchiveTemplateDocumentImageVersionHistory" Width="1.5" PointX="23.5" PointY="23.875" />
+        <EntityTypeShape EntityType="DASModel.dataArchiveTemplateDocumentSoftField" Width="1.5" PointX="21.25" PointY="23.75" />
+        <EntityTypeShape EntityType="DASModel.dataArchiveTemplateDocumentTag" Width="1.5" PointX="21.25" PointY="19" />
+        <EntityTypeShape EntityType="DASModel.dataArchiveTemplateDocumentVersionHistory" Width="1.5" PointX="19.25" PointY="28.5" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplate_userAccount" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplate_userAccountUpdate" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentImageVersionHistory_userAccount" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentSoftField_userAccount" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentTagUser_userAccount" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentVersionHistory_userAccount" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplate_DocumentCabinetShelf" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplate_codeDASTemplateType" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentSoftField_codeDASTemplateTypeDocumentSoftField" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentTag_codeDASTemplateTypeDocumentTag" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentImageVersionHistory_dataArchiveTemplateDocumentVersionHistory" />
+        <EntityTypeShape EntityType="DASModel.dataArchiveTemplateFlowVerification" Width="1.5" PointX="19.25" PointY="33.25" />
+        <EntityTypeShape EntityType="DASModel.v_TrackTransferFilesMovement" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DASModel.dataArchiveTemplateDocumentImage" Width="1.5" PointX="22.25" PointY="28.25" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentImage_userAccount" />
+        <EntityTypeShape EntityType="DASModel.dataAuditActions" Width="1.5" PointX="13.375" PointY="14.75" />
+        <EntityTypeShape EntityType="DASModel.userProfiles" Width="1.5" PointX="16" PointY="15.875" />
+        <EntityTypeShape EntityType="DASModel.codeActions" Width="1.5" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DASModel.codeActionsVerbsLanguages" Width="1.5" PointX="18.375" PointY="12.75" />
+        <AssociationConnector Association="DASModel.FK_dataAuditActions_userServiceHistoryJobs" />
+        <AssociationConnector Association="DASModel.FK_userProfiles_codeDutyStations1" />
+        <AssociationConnector Association="DASModel.FK_userProfiles_userServiceHistory" />
+        <EntityTypeShape EntityType="DASModel.StaffCoreData" Width="1.5" PointX="26.375" PointY="2.5" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateFlowVerification_userAccounts" />
+        <EntityTypeShape EntityType="DASModel.dataArchiveTemplateDocumentLink" Width="1.5" PointX="19.25" PointY="38.75" />
+        <EntityTypeShape EntityType="DASModel.dataArchiveTemplateDocument" Width="1.5" PointX="17" PointY="26.75" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocument_userAccount" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocument_userAccountUpdate" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocument_DocumentCabinetShelf" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocument_codeDASTemplateType" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocument_codeDASTemplateTypeDocument" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentImage_dataArchiveTemplateDocument" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentLink_dataArchiveTemplateDocument" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentSoftField_dataScannDocument" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentTag_dataScannDocument" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateDocumentVersionHistory_dataScannDocument" />
+        <AssociationConnector Association="DASModel.FK_dataArchiveTemplateFlowVerification_dataScannDocument" />
+        <EntityTypeShape EntityType="DASModel.codeDASDocumentCabinet" Width="1.5" PointX="3.5" PointY="12.5" />
+        <AssociationConnector Association="DASModel.FK_codeDASDocumentCabinetShelf_codeDASDocumentCabinet" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

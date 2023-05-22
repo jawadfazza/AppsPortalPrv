@@ -1,0 +1,101 @@
+﻿@model StaffMedicalPaymentUpdateModel
+@using (Html.BeginForm("StaffMedicalPayment", "StaffSalary", new { Area = "AHD" }, FormMethod.Post, new { id = "StaffMedicalPaymentForm" }))
+{
+    string ModalTitle = Model.StaffMedicalPaymentGUID.ToString() == Guid.Empty.ToString() ? "New Record " : "Edit Record";
+    @Html.Partial("_ModalHeader", ModalTitle)
+<div class="modal-body">
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.StaffMedicalPaymentGUID)
+    @Html.HiddenFor(model => model.Year)
+    @Html.HiddenFor(model => model.Month)
+    @Html.HiddenFor(model => model.CreatedByGUID)
+    @Html.HiddenFor(model => model.CreateDate)
+    @Html.HiddenFor(model => model.UpdatedByGUID)
+    @Html.HiddenFor(model => model.UpdateDate)
+
+    @*@Html.HiddenFor(model => model.BlomShuttleDelegationDateGUID)*@
+
+
+    <div class="form-group">
+        @Html.Label("Staff")
+        @Html.DropDownListFor(model => model.UserGUID, new DropDownList().AdminHRStaff(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ActionDate)
+        @Html.EditorFor(model => model.ActionDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+
+
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AmountSYR)
+        @Html.EditorFor(model => model.AmountSYR, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ClaimNumber)
+        @Html.EditorFor(model => model.ClaimNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+    </div>
+   
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.MedicalReason)
+        @Html.EditorFor(model => model.MedicalReason, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+    </div>*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.LastFlowStatusGUID)
+        @Html.DropDownListFor(model => model.LastFlowStatusGUID, new DropDownList().AHDActionFlowStatus(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.SyrianIDNumber)
+            @Html.EditorFor(model => model.SyrianIDNumber, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DelgationStaffTypeGUID)
+            @Html.DropDownListFor(model => model.DelgationStaffTypeGUID, new DropDownList().SalaryCycleTypes(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+
+        </div>*@
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comments)
+        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+
+    </div>
+
+
+
+</div>
+<div class="modal-footer form-footer">
+    @if (Model.StaffMedicalPaymentGUID == Guid.Empty)
+    {
+
+        @Html.CreateButton(Permissions.SalaryCycle.Create, Apps.AHD)
+    }
+    else
+    {
+        if (Model.Active)
+        {
+        
+            @Html.UpdateButton(Permissions.SalaryCycle.Update, Apps.AHD)
+            @Html.DeleteSwitchButton(Permissions.SalaryCycle.Update, Apps.AHD)
+        }
+        else
+        {
+            @Html.RestoreSwitchButton(Permissions.SalaryCycle.Update, Apps.AHD)
+        }
+    }
+    @Html.CloseModalButton()
+</div>
+}

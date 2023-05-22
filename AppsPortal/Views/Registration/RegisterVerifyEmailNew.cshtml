@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = @resxPages.WelcomeTitle;
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+<div class="page--header">
+    <div class="page--banner">
+        <h2>@resxPages.WelcomeTitle</h2>
+        <div class="row">
+            <div class="col-md-5">
+                <article>
+                    The application portal designed for UNHCR Staff and UNHCR Partners
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page--content">
+    <div class="page--body">
+        <div class="forms-fadeIn">
+            <br />
+            <h3 style="margin-bottom:10px;">Your account is not activated</h3>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <article>
+                        An email has been sent to your email address containing an activation link. Please click on the link to activate your account. If you do not click the link your account will remain inactive and you will not receive further emails. If you do not receive the email within a few minutes, please check your spam folder.
+                    </article>
+
+                    @using (Html.BeginForm("SendVerifyEmailNew", "Registration", FormMethod.Post, new { id = "SendVerifyEmailNewForm" }))
+                    {
+                        <input type='button' class='btn btn-primary ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Send the verification email again'  />
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

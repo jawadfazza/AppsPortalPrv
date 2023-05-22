@@ -1,0 +1,53 @@
+﻿@model RegisterVerifyEmail
+@{
+    ViewBag.Title = "Verify Email";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+<div class="page--header">
+    <div class="page--banner">
+        <h2>@resxPages.SecurityVerification</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <article>
+                    @resxPages.EnterSecurityAnswer
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page--content">
+    @*<div class="wizard">
+        <span class="done">Step 1: Account Details</span>
+        <span class="done">Step 2: Email Verification</span>
+        <span>Step 3: Organization and Operation Setup</span>
+        <span>Step 4: Get Access Approval</span>
+        <span>Step 5: Secure Account and Get Ready!</span>
+    </div>*@
+    <div class="page--body">
+
+        @using (Html.BeginForm("RegisterVerifyEmail", "Registration", FormMethod.Post))
+        {
+            <h3 class="page--subtitle">@resxPages.Step 2/5</h3>
+            @Html.AntiForgeryToken()
+            <div class="row">
+                @*@Html.Partial("_ErrorSummary")*@
+                <div class="col-lg-12" style="color:red;margin:10px 0;">
+                    @ViewBag.ErrorSummary
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SecurityAnswer, (string)ViewBag.Question)
+                        @Html.EditorFor(model => model.SecurityAnswer, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        <a class="fa fa-question-circle helpbox" data-content="The answer is not case sensative"></a>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 nopadding">
+                        <input type="submit" value="@resxUIControls.Continue" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    
+</div>

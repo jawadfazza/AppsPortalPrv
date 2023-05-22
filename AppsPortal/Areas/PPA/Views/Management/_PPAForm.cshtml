@@ -1,0 +1,90 @@
+﻿@model PPAUpdateModel
+@using (Html.BeginForm("PPA", "Management", new { Area = "PPA" }, FormMethod.Post, new { id = "CountryForm", @class = "main-form" }))
+{
+    <h3>@resxPages.Details</h3>
+    @Html.AntiForgeryToken()
+    @Html.FormHiddenFields(model => model.PPAGUID)
+    @Html.HiddenFor(model=>model.CreatedByUserProfileGUID)
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.PPATypeGUID)
+                @Html.DropDownListFor(model => model.PPATypeGUID, new DropDownList().PPATypes(), new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.ImplementationAreaGUID)
+                @Html.DropDownListFor(model => model.ImplementationAreaGUID, new DropDownList().PPAAreasOfImplementations(), new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+            <div class="form-group HANDLER">
+                @Html.LabelFor(model => model.OrganizationInstanceGUID)
+                @Html.DropDownListFor(model => model.OrganizationInstanceGUID, new DropDownList().PartnersListForPPA(), new { @class = "form-control select2-basic-search", style = "width:100%" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PPADescription)
+                @Html.EditorFor(model => model.PPADescription, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PPADeadLine)
+                @Html.EditorFor(model => model.PPADeadLine, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ReminderInterval)
+                @Html.EditorFor(model => model.ReminderInterval, new { htmlAttributes = new { @class = "form-control PageTitle abc", autocomplete = "off" } })
+            </div>
+
+        </div>
+    </div>
+
+    <div id="PPAFormControls" class="form-group form-footer">
+        @if (Model.PPAGUID == Guid.Empty)
+        {
+            @Html.CreateButton(Permissions.PPAManagement.Create, Apps.PPA)
+        }
+        else
+        {
+            if (Model.Active)
+            {
+                @Html.UpdateButton(Permissions.PPAManagement.Update, Apps.PPA)
+                @Html.CreateNewButton(Permissions.PPAManagement.Create, Apps.PPA, Url.Action("Management/Create", "Management", new { Area = "PPA" }))
+                @Html.DeleteButton(Permissions.PPAManagement.Delete, Apps.PPA)
+            }
+            else
+            {
+                @Html.RestoreButton(Permissions.PPAManagement.Restore, Apps.PPA)
+            }
+        }
+        @Html.BackToList(Url.Action("", "", new { Area = "PPA" }))
+    </div>
+}
+<script>
+    $(document).unbind('ifChecked ifUnchecked', '.chkNode-accordion');
+    $(document).on('ifChecked ifUnchecked', '.chkNode-accordion', function (event) {
+        var childrenElem = $(this).closest('.configOption').children();
+
+        console.log($(childrenElem).eq(0).val());
+        console.log($(childrenElem).eq(1).val());
+        var ID = $(childrenElem).eq(0).val();
+        var Text = $(childrenElem).eq(1).val();
+
+        console.log(ID);
+        console.log(Text);
+
+        var data = {
+            id: ID,
+            text: Text
+        };
+        if (event.type == 'ifChecked') {
+            var newOption = new Option(data.text, data.id, true, true);
+            if ($('#SelectedUsers option[value=' + ID + ']').length > 0) {
+                return;
+            }
+            $('#SelectedUsers').append(newOption).trigger('change');
+        } else {
+
+            $('#SelectedUsers option[value=' + ID + ']').remove().trigger('change');
+        }
+
+    });
+</script>

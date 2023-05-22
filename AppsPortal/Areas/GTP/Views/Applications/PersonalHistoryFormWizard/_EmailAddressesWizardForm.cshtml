@@ -1,0 +1,55 @@
+﻿@model dataPersonalHistoryEmailAddressUpdateModel
+@using (Html.BeginForm("EmailAddressesWizard", "Applications", new { Area = "GTP" }, FormMethod.Post, new { id = "EmailAddressesWizardForm", @class = "main-form" }))
+{
+    @Html.FormHiddenFields(model => model.GTPPHEmailAddressGUID)
+    @Html.AntiForgeryToken()
+    <div class="tab-pane" id="tab1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span><b>5. EMAIL ADDRESSES </b> (Mandatory to complete)</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HomeEmailAddress)   <span class="span-required-field">*</span>
+                            @Html.EditorFor(model => model.HomeEmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BusinessEmailAddress)   <span class="span-required-field">*</span>
+                            @Html.EditorFor(model => model.BusinessEmailAddress, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PreferedEmailAddress)  <span class="span-required-field">*</span>
+                            @Html.DropDownListFor(model => model.PreferedEmailAddress, new DropDownList().GTPPreferredEmailAddress(), "", new { @class = "form-control select2-basic-search", style = "width:100%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right">
+                            @if (Model.GTPPHEmailAddressGUID == Guid.Empty)
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Create" name='next' value='Save & Next' data-next-url="/GTP/Applications/NationalityInformationsWizard/Create" />
+                            }
+                            else
+                            {
+                                <input type='button' class='btn btn-primary wizard-button-next ActionControl' onclick="SubmitForm(this);" data-submittype="Update" name='next' value='Update & Next' data-next-url="/GTP/Applications/NationalityInformationsWizard/Create" />
+                            }
+                        </div>
+                        <div style="float:left">
+                            <input type='button' class='btn btn-primary wizard-button-previous' name='previous' value='Previous' data-previous-url="/GTP/Applications/PhoneNumbersWizard/Create" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

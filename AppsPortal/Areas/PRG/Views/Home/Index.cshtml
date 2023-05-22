@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_SiteLayout.cshtml";
+}
+
+@Html.PageHeader("874d7921-a9c9-4717-b478-ab539148fb45")
+
+<div class="page--content">
+    <br />
+    <br />
+    <div class="row">
+        @if (new CMS().HasAction(Permissions.SearchTool.Access, Apps.PRG))
+        {
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a class="black" href=@Url.Action("Search", "Progres", new { Area = "PRG" })>
+                    <div class="SubjectBox matchHeight">
+                        <i class="fa fa-search fa-4x" aria-hidden="true"></i>
+                        <div>
+                            <h3>ProGres Search Tool</h3>
+                            <span>ProGres Advance Search Tool.</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>
